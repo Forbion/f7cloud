@@ -1,0 +1,727 @@
+/**
+ * SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2015 ownCloud, Inc.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+
+/* header color */
+/* this is the main brand color */
+
+/*-----------------------*/
+* {
+    animation: none !important;
+    transition: none;
+    translate: none;
+}
+
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('../fonts/ralewayt.ttf');
+}
+
+.app-navigation[data-v-e7d078cc] {
+    background: rgba(255, 255, 255, 0.6);
+    color: black !important;
+}
+
+.app-content[data-v-de6986e3] {
+    background-color: #ffffff;
+}
+
+.content[data-v-d8f0539f] * {
+    box-sizing: border-box;
+}
+
+.app-menu-entry--active[data-v-22dcd4f7]::before{
+    content: " ";
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: var(--color-main-background);
+    transform: translateX(-50%);
+    width: 100% !important;
+    height: 2px;
+    border-radius: 3px;
+    background-color: var(--color-background-plain-text);
+    left: 50%;
+    bottom: 8px;
+    display: block;
+    transition: all var(--animation-quick) ease-in-out;
+    opacity: 1;
+}
+
+.app-menu-entry__label[data-v-22dcd4f7] {
+    opacity: 0;
+    position: absolute;
+    font-size: var(--app-menu-entry-font-size);
+    color: var(--color-background-plain-text);
+    text-align: center;
+    bottom: 0;
+    left: 50%;
+    top: 50%;
+    display: block;
+    transform: translateX(-50%);
+    max-width: 100%;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    letter-spacing: -0.5px;
+}
+
+.app-menu-entry__link > span:last-child {
+    opacity: 1;
+    font-weight: 600 !important;
+    translate: none !important;
+}
+
+.app-menu-entry--active[data-v-22dcd4f7]:nth-child(7)::before{
+    margin-left: 10%;
+}
+
+.app-menu-entry--active[data-v-22dcd4f7]:nth-child(8)::before{
+    margin-left: 12%;
+}
+
+.app-menu-entry__icon[data-v-22dcd4f7], .app-menu-entry__label[data-v-22dcd4f7] {
+    transition: none !important;
+}
+
+#body-login{
+    background: #e7f0ef !important;
+}
+
+#body-user > div:nth-child(5){
+    margin-top: 65px;
+}
+
+.app-menu-entry--active[data-v-22dcd4f7]::before{
+    content: " ";
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #000000;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: var(--color-background-plain-text);
+    left: 50%;
+    bottom: 4px !important;
+    display: block;
+    transition: all var(--animation-quick) ease-in-out;
+    opacity: 1;
+}
+
+#header{
+    width: 100%;
+    height: 70px;
+    margin-top: 10px;
+}
+
+#header > div:first-child > a:first-child{
+    margin-bottom: 1%;
+}
+
+#header > div:first-child > a:first-child > div{
+    background-size: 125px 35px;
+}
+
+#header > div:last-child{
+    margin-bottom: 0.1%;
+}
+
+#header > div:last-child > div:nth-child(2){
+    position: absolute;
+}
+
+#header .logo{
+    background-size: 100%;
+}
+
+#body-user #header,
+#body-settings #header,
+#body-public #header {
+    font-family: 'MyCustomFont';
+    font-weight: 600;
+}
+
+#header > div:last-child > div:first-child{
+    position: absolute;
+    left: 170px;
+}
+
+#header > div:first-child > a{
+    width: 150px;
+}
+
+#nextcloud {
+    padding: 20px;
+    padding-left: 100px;
+    position: relative;
+    height: calc(100% - 4px);
+    box-sizing: border-box;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin: 2px;
+}
+
+#header .logo-icon {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.app-menu{
+    justify-content: center;
+}
+
+.app-menu-icon{
+    position: relative;
+    top: 0;
+}
+
+.app-menu-entry__link{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.app-menu-entry__link > span:last-child{
+    opacity: 1;
+}
+
+.app-menu-entry__link{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between !important;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    margin: 2px;
+}
+
+#header > div:first-child > nav{
+    margin-left: 13%;
+    margin-top: 0.3%;
+}
+
+#header > div:first-child > nav > ul{
+    width: 65%;
+}
+
+#header > div:first-child > nav > ul > li{
+    margin-left: 2%;
+    height: 55px;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(2) > a > span:last-child{
+    display: none;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(2) > a::after{
+    content: 'Р¤Р°Р№Р»С‹';
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(3) > a > span:last-child{
+    display: none;
+}
+#header > div:first-child > nav > ul > li:nth-child(3) > a::after{
+    content: "Р¤РѕС‚Рѕ";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(4) > a > span:last-child{
+    display: none;
+}
+#header > div:first-child > nav > ul > li:nth-child(4) > a::after{
+    content: "РђРєС‚РёРІРЅС‹Рµ";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(5) > a > span:last-child{
+    display: none;
+}
+#header > div:first-child > nav > ul > li:nth-child(5) > a::after{
+    content: "Р‘РµСЃРµРґС‹";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(6) > a > span:last-child{
+    display: none;
+}
+#header > div:first-child > nav > ul > li:nth-child(6) > a::after{
+    content: "РџРѕС‡С‚Р°";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(7) > a > span:last-child{
+    display: none;
+}
+#header > div:first-child > nav > ul > li:nth-child(7) > a::after{
+    content: "РљРѕРЅС‚Р°РєС‚С‹";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(8) > a > span:last-child{
+    display: none;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(8){
+    margin-left: 3%;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(8) > a::after{
+    content: "РљР°Р»РµРЅРґР°СЂСЊ";
+    font-size: 12px;
+    position: absolute;
+    bottom: 14%;
+}
+
+#header > div:first-child > nav > ul > li > a > span > img{
+    display: none;
+}
+
+#header > div:first-child > nav > ul > li > a{
+    text-decoration: none;
+}
+
+#header > div:first-child > nav > ul > li > a:hover{
+    font-family: 'MyCustomFont';
+}
+
+#header > div:first-child > nav > ul > li > a > span:first-child{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 25px;
+}
+
+#header > div:first-child > nav > ul > li:first-child > a{
+    width: 60px;
+    margin-left: -10%;
+}
+
+#header > div:first-child > nav > ul > li:first-child > a > span:first-child{
+    background-image: url("../img/Dashboard.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(2) > a > span:first-child{
+    background-image: url("../img/Files.svg");
+}
+#header > div:first-child > nav > ul > li:nth-child(3) > a > span:first-child{
+    background-image: url("../img/Photos.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(4) > a > span:first-child{
+    background-image: url("../img/Activity.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(5) > a > span:first-child{
+    background-image: url("../img/Talk.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(6) > a > span:first-child{
+    background-image: url("../img/Mail.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(7) > a{
+    width: 55px;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(7) > a > span:first-child{
+    background-image: url("../img/Contacts.svg");
+}
+
+#header > div:first-child > nav > ul > li:nth-child(8) > a{
+    width: 55px;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(8) > a > span:first-child{
+    background-image: url("../img/Calendar.svg");
+
+}
+
+#header > div:first-child > nav > ul > li:nth-child(9){
+    display: none;
+}
+
+#header > div:first-child > nav > ul > li:nth-child(10){
+    display: none;
+}
+
+#header > div:nth-child(2){
+
+}
+
+#header > div:nth-child(2) > div:nth-child(3) > button > span > span > span > svg{
+    display: none;
+}
+
+#header > div:nth-child(2) > div:nth-child(3) > button > span > span{
+    background-image: url("../img/Notifications.svg");
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: 33%;
+    margin-bottom: 20%;
+}
+
+#header > div:nth-child(2) > nav{
+    margin-bottom: 10%;
+}
+
+header > div:last-child{
+    padding-right: 5%;
+}
+
+header > div:last-child > div:first-child{
+    margin-bottom: 0.5%;
+}
+
+header > div:last-child > div:first-child > button > span > span > span > svg{
+    width: 40px;
+    height: 40px;
+}
+
+/*Popup*/
+
+.unified-search-modal__filters[data-v-0f83d32b]{
+    justify-content: center !important;
+}
+
+.modal-container{
+    height: 350px !important;
+}
+
+.empty-content__icon{
+    margin-bottom: 200px !important;
+}
+
+.close-icon > svg{
+    display: none;
+}
+.close-icon{
+    background-image: url("../img/Close.svg");
+    background-size: 96%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+.input-field__label{
+    margin-left: 8% !important;
+}
+
+.dialog__wrapper > div > div > div > div > div > input{
+    width: 400px !important;
+}
+
+.input-field__icon{
+    height: 25px !important;
+    width: 25px !important;
+    display: block !important;
+    background-size: contain !important;
+    background-color: #70b62c;
+    z-index: 9999 !important;
+    border-radius: 50%;
+    position: relative !important;
+    left: 0.1% !important;
+    bottom: 87% !important;
+}
+
+/*files page*/
+
+#app-navigation-vue > div > div > div > div{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(5) > div > button{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(5) > div > a > div{
+    background-image: url("../img/Share.svg");
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app-navigation-list > li:nth-child(5) > div > a > span{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(5) > div > a::after{
+    content: "РџРѕРґРµР»РёС‚СЊСЃСЏ";
+}
+
+.app-navigation-list > li:nth-child(5) > div > a > div > span > svg{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(6) > div > a > div{
+    background-image: url("../img/CommonFolders.svg");
+    background-size: 73%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app-navigation-list > li:nth-child(6) > div > a > span{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(6) > div > a::after{
+    content: "РћР±С‰РёРµ РїР°РїРєРё";
+}
+
+.app-navigation-list > li:nth-child(6) > div > a > div > span > svg{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(7) > div > a > div{
+    background-image: url("../img/Tags.svg");
+    background-size: 73%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app-navigation-list > li:nth-child(7) > div > a > span{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(7) > div > a::after{
+    content: "РўСЌРіРё";
+}
+
+.app-navigation-list > li:nth-child(7) > div > a > div > span > svg{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(8) > div > button{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(8) > div > a > div{
+    background-image: url("../img/ExternalStorage.svg");
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app-navigation-list > li:nth-child(8) > div > a > span{
+    display: none;
+}
+
+.app-navigation-list > li:nth-child(8) > div > a::after{
+    content: "Р’РЅРµС€РЅРµРµ С…СЂР°РЅРёР»РёС‰Рµ";
+}
+
+.app-navigation-list > li:nth-child(8) > div > a > div > span > svg{
+    display: none;
+}
+
+.app-navigation-entry__utils{
+    display: none !important;
+}
+
+.app-navigation-entry-wrapper:nth-child(5) > div > a > div > img{
+    display: none !important;
+}
+
+.app-navigation-entry-wrapper:nth-child(7) > div > a > div > img{
+    display: none !important;
+}
+
+.app-navigation-entry-wrapper:nth-child(8) > div > a > div > img{
+    display: none !important;
+}
+
+.app-navigation-entry-link{
+    height: 50px;
+}
+
+#mailbox-8 > div > a > div > div > span > svg{
+    display: none;
+}
+
+#mailbox-7 > div > a > div > div > span > svg{
+    display: none;
+}
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section, main {
+    color: black;
+}
+
+
+/*Contacts menu*/
+
+.header-menu__wrapper[data-v-e2527068]{
+    top: 7.7% !important;
+}
+
+/*Entrance component*/
+
+.login-box {
+    margin-top: 5%;
+}
+
+#body-login > div:nth-child(3) > div > main > div > div > div > form > fieldset > div > div > input{
+    width: 300px !important;
+}
+
+.input-field__main-wrapper > div{
+    display: none !important;
+}
+
+.button-vue--vue-primary[data-v-c3d9e0ce] {
+    background-color: #70b62c !important;
+}
+
+/*checkboxes*/
+
+.checkbox-content:not(.checkbox-content--button-variant) .checkbox-content__icon > *[data-v-02d27370] {
+    color: #70b62c !important;
+}
+
+.checkbox-blank-outline-icon > svg{
+    color: #70b62c;
+}
+
+.material-design-icon checkbox-marked-icon > svg{
+    color: #70b62c;
+}
+
+.fc-day-today .fc-daygrid-day-top .fc-daygrid-day-number{
+    background: #70b62c !important;
+    color: black !important;
+}
+
+/*buttons*/
+
+.list-item__wrapper--active .list-item[data-v-1f0837cf], .list-item__wrapper.active .list-item[data-v-1f0837cf] {
+    background-color: #70b62c !important;
+    color: #000000 !important;
+}
+
+.app-navigation-entry.active[data-v-97fce21a] {
+    background-color: #70b62c !important;
+    color: #000000 !important;
+}
+
+.app-navigation-entry__utils{
+    background: rgba(100, 100, 100, 0);
+}
+
+.button-vue--vue-primary[data-v-44398b0c] {
+    background-color: #70b62c !important;
+    color: #000000 !important;
+}
+
+.button-vue .button-vue--size-normal .button-vue--icon-and-text .button-vue--vue-secondary {
+    background-color: #70b62c !important;
+    color: #000000 !important;
+}
+.footer > button{
+    background-color: #70b62c !important;
+    color: #000000 !important;
+}
+
+.fc-day-today.fc-col-header-cell a, .fc-day-today.fc-col-header-cell span {
+    background-color: #70b62c !important;
+}
+
+.app-navigation-entry.active .app-navigation-entry-link[data-v-018c4203], .app-navigation-entry.active .app-navigation-entry-button[data-v-018c4203] {
+    background-color: #70b62c;
+    border-radius: 7px;
+    color: black !important;
+}
+
+.app-navigation-entry-link{
+    color: #000 !important;
+}
+
+.app-navigation-entry.active[data-v-c00d5366] {
+    background-color: #70b62c;
+}
+
+.app-navigation-entry.active .app-navigation-entry-link[data-v-c00d5366], .app-navigation-entry.active .app-navigation-entry-button[data-v-c00d5366] {
+    color: #000000 !important;
+    background-color: #70b62c !important;
+    border-radius: 7px;
+}
+
+
+/*----------------------*/
+
+/* log in screen background color */
+/* gradient of the header color and a brighter shade */
+/* can also be a flat color or an image */
+#body-login {
+    background: #745bca; /* Old browsers */
+    background: -moz-linear-gradient(top, #947bea 0%, #745bca 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#947bea), color-stop(100%,#745bca)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #947bea 0%,#745bca 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #947bea 0%,#745bca 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #947bea 0%,#745bca 100%); /* IE10+ */
+    background: linear-gradient(top, #947bea 0%,#745bca 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#947bea', endColorstr='#745bca',GradientType=0 ); /* IE6-9 */
+}
+
+/* primary action button, use sparingly */
+/* header color as border, brighter shade again, here as background */
+.primary,
+input[type="submit"].primary,
+input[type="button"].primary,
+button.primary,
+.button.primary,
+.primary:active,
+input[type="submit"].primary:active,
+input[type="button"].primary:active,
+button.primary:active,
+.button.primary:active {
+    border-color: #745bca;
+    background-color: #947bea;
+}
+.primary:hover,
+input[type="submit"].primary:hover,
+input[type="button"].primary:hover,
+button.primary:hover,
+.button.primary:hover,
+.primary:focus,
+input[type="submit"].primary:focus,
+input[type="button"].primary:focus,
+button.primary:focus,
+.button.primary:focus {
+    background-color: #8b75e4;
+}
+.primary:active, input[type="submit"].primary:active, input[type="button"].primary:active, button.primary:active, .button.primary:active,
+.primary:disabled, input[type="submit"].primary:disabled, input[type="button"].primary:disabled, button.primary:disabled, .button.primary:disabled,
+.primary:disabled:hover, input[type="submit"].primary:disabled:hover, input[type="button"].primary:disabled:hover, button.primary:disabled:hover, .button.primary:disabled:hover,
+.primary:disabled:focus, input[type="submit"].primary:disabled:focus, input[type="button"].primary:disabled:focus, button.primary:disabled:focus, .button.primary:disabled:focus {
+    background-color: #745bca;
+}
+
+/* use logos from theme */
+#header .logo,
+#firstrunwizard .logo {
+    background-image: url("../img/logo1.svg");
+    background-size: contain;
+    width: 260px;
+}
+#header .logo-icon {
+    width: 75px;
+    height: 34px;
+}

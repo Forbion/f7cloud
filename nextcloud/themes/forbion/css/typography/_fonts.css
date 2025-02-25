@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../fonts/raleway-medium.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../fonts/ralewayt.ttf');
+    font-weight: 600;
+}
+
+body {
+    font-family: 'Raleway';
+    font-weight: 500;
+}
+
+input,
+input::placeholder,
+textarea,
+textarea::placeholder,
+button {
+    font-family: 'Raleway';
+    font-weight: 500;
+}

@@ -1,0 +1,134 @@
+/* DEFAULT FORBION */
+
+html {
+    background: #F5F5F5;
+}
+
+body#body-user {
+    position: relative;
+    background: #F5F5F5;
+}
+
+#content-vue {
+    width: 100%;
+    max-width: 1400px;
+    max-height: calc(100vh - 100px);
+    min-height: 820px;
+    padding: 45px 25px 15px !important;
+    margin: 0 auto;
+    position: relative;
+}
+
+#content-vue #app-content-vue {
+    background: #F5F5F5;
+}
+
+#content-vue #app-content-vue button.button-vue--vue-secondary {
+    padding: 3px 17px 3px 6px;
+    background: #70B62B;
+    color: #ffffff;
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 14px;
+    transition: opacity .3s;
+}
+
+#content-vue #app-content-vue button.button-vue--vue-secondary:hover {
+    opacity: .75;
+}
+
+#content-vue #app-content-vue .material-design-icon.plus-icon {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 18px;
+    height: 20px;
+}
+
+#content-vue #app-content-vue .material-design-icon.plus-icon svg {
+    display: none;
+}
+
+#content-vue #app-content-vue .material-design-icon.plus-icon:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 20px;
+    background-image: url("/themes/forbion/images/new-plus.svg");
+    background-repeat: no-repeat;
+}
+
+#content-vue #app-content-vue button.button-vue--vue-secondary .button-vue__text {
+    margin-left: 2px;
+    margin-bottom: 0;
+}
+
+#content-vue .splitpanes.default-theme .splitpanes__pane-list {
+    margin: 0 8px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+#content-vue .app-navigation {
+    border-radius: 8px;
+}
+
+#content-vue .splitpanes.default-theme .splitpanes__pane-details {
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+#content-vue .splitpanes__splitter {
+    display: none;
+}
+
+#content-vue .app-content__empty {
+    padding: 0 25px;
+}
+
+#content-vue .empty-content__icon {
+    margin-bottom: 20px;
+    padding: 45px;
+    background: #E0E0E0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+#content-vue .empty-content__name {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 14px;
+}
+
+#content-vue .empty-content__action {
+    margin-top: 0;
+}
+
+#content-vue .app-navigation.app-navigation--close + .app-content .splitpanes.default-theme .splitpanes__pane-list {
+    margin-left: 0;
+}
+
+#content-vue .app-navigation.app-navigation--close {
+    background: transparent;
+}
+
+#content-vue .app-navigation.app-navigation--close #app-navigation-vue {
+    opacity: 0;
+}
+
+@media only screen and (max-width: 1023px) {
+    #content-vue {
+        padding: 20px !important;
+        width: auto;
+        max-width: unset;
+        height: calc(100% - 67px);
+        min-height: 500px;
+        max-height: 900px;
+    }
+}
