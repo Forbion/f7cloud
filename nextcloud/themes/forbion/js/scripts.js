@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         leftSidebarToggle: null,
         leftSidebarButtons: null,
         appNavigation: null,
-        sidebarToggle: null
+        sidebarToggle: null,
+        emptyTopBar: null
     };
     let isUpdating = false; // Флаг для предотвращения рекурсии
     let resizeObserver = new ResizeObserver((entries) => {
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.leftSidebarButtons = document.querySelector('.app-talk:not(.in-call) .vue-recycle-scroller__item-wrapper');
         elements.appNavigation = document.querySelector('.app-talk:not(.in-call) .app-navigation');
         elements.sidebarToggle = document.querySelector('.app-talk:not(.in-call) .app-sidebar__toggle');
+        elements.emptyTopBar = document.querySelector('.app-talk:not(.in-call) .emptyTopBar');
     };
 
     // Основная функция обновления ширины
@@ -92,13 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const testWidth = parseFloat(getComputedStyle(elements.topBarWrapper).width);
             const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
 
-            elements.topBarOuter.parentElement.style.right = isNavClosed ? '0' : '-60px';
+            elements.topBarOuter.parentElement.style.right = isNavClosed ? '-20px' : '-60px';
 
             if (testWidth <= 3) {
                 elements.topBarOuter.style.width = isNavClosed ? '100%' : 'calc(100% - 60px)';
                 if (elements.leftSidebarToggle) {
                     elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                        ? 'calc(48px - var(--app-navigation-padding)) !important'
+                        ? 'calc(28px - var(--app-navigation-padding)) !important'
                         : 'calc(var(--app-navigation-padding))';
                 }
                 if (elements.sidebarToggle) {
@@ -106,11 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 elements.topBarOuter.style.width = isNavClosed
-                    ? `calc(100% - ${testWidth}px - 8px)`
+                    ? `calc(100% - ${testWidth}px - 28px)`
                     : `calc(100% - ${testWidth}px - 68px)`;
                 if (elements.leftSidebarToggle) {
                     elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                        ? 'calc(48px - var(--app-navigation-padding)) !important'
+                        ? 'calc(28px - var(--app-navigation-padding)) !important'
                         : 'calc(var(--app-navigation-padding))';
                 }
                 if (elements.sidebarToggle) {
@@ -118,11 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } else {
-            // console.log("topBarWrapper отсутствует");
+            console.log("topBarWrapper отсутствует");
             const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
+
+            elements.emptyTopBar.style.left = isNavClosed ? '68px' : '108px';
+            elements.emptyTopBar.style.width = isNavClosed ? 'calc(100% - 68px)' : 'calc(100% - 108px)';
+
             if (elements.leftSidebarToggle) {
                 elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                    ? 'calc(43px - var(--app-navigation-padding)) !important'
+                    ? 'calc(28px - var(--app-navigation-padding)) !important'
                     : 'calc(-10px - var(--app-navigation-padding)) !important';
             }
         }

@@ -453,7 +453,7 @@ body .app-files {
                         transform: translateY(-50%);
                         width: 16px;
                         height: 16px;
-                        background-image: url("../../images/plus.svg");
+                        background-image: url("../../../images/plus.svg");
                         background-repeat: no-repeat;
                         pointer-events: none;
                     }
