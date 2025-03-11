@@ -1,0 +1,2426 @@
+.dialog__modal[data-v-e79a4708] .modal-wrapper .modal-container {
+    padding: 50px 20px 26px !important;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-wrapper .modal-container .dialog__name {
+    text-align: left;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content {
+    padding: 0;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field {
+    padding: 0;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field:last-child {
+    margin-top: 22px;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field>label {
+    width: auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #000000;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field .modal-inner--container {
+    width: calc(100% - 80px);
+    min-height: 44px;
+}
+
+.dialog__modal[data-v-e79a4708] .button-vue--vue-primary[data-v-c3d9e0ce] {
+    background-color: #70B62B !important;
+    transition: .3s;
+}
+
+.dialog__modal[data-v-e79a4708] .button-vue--vue-primary[data-v-c3d9e0ce]:not([disabled="disabled"]):hover {
+    opacity: .75;
+}
+
+.dialog__modal[data-v-e79a4708] .button-vue--vue-primary[data-v-c3d9e0ce] svg {
+    fill: #ffffff;
+}
+
+.dialog__modal[data-v-e79a4708] .button-vue--vue-secondary[data-v-c3d9e0ce] {
+    background-color: #F0F1F4 !important;
+    transition: .3s;
+}
+
+.dialog__modal[data-v-e79a4708] .button-vue--vue-secondary[data-v-c3d9e0ce]:hover {
+    opacity: .75;
+}
+
+.dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field .modal-inner--container.marked-as {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.dialog__modal.search-modal input.search-input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 38px !important;
+    color: #000000;
+}
+
+.dialog__modal.search-modal input.search-input::placeholder {
+    color: #808080;
+}
+
+.dialog__modal.search-modal .modal-inner--content {
+    /*overflow-y: auto;*/
+    /*overflow-x: auto;*/
+}
+
+.dialog__modal.search-modal .modal-container__content {
+    overflow: unset;
+}
+
+.dialog__modal.search-modal .dialog {
+    overflow: auto;
+    display: block;
+}
+
+.dialog__modal.search-modal .dialog__wrapper {
+    overflow: unset;
+}
+
+.dialog__modal.search-modal .dialog__content {
+    overflow: unset;
+}
+
+.dialog__modal.search-modal .modal-inner--content {
+    overflow: unset;
+}
+
+.dialog__modal.search-modal .checkbox-content__text.checkbox-radio-switch__text {
+    padding-left: 24px;
+    font-size: 14px;
+    line-height: 20px;
+    height: 18px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.dialog__modal.search-modal .modal-inner--content .marked-as {
+    margin-top: 10px;
+}
+
+.dialog__modal.search-modal .modal-inner--content .marked-as .modal-inner-inline {
+    width: auto;
+}
+
+.dialog__modal.search-modal .modal-inner--content .marked-as .checkbox-radio-switch__icon {
+    position: relative;
+}
+
+.dialog__modal.search-modal .modal-inner--content .marked-as .checkbox-radio-switch__icon span {
+    display: none;
+}
+
+.dialog__modal.search-modal .modal-inner--content .marked-as .checkbox-radio-switch__icon::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    border: 2px solid #808080;
+    height: 14px;
+    width: 14px;
+    border-radius: 3px;
+}
+
+.dialog__modal.search-modal .modal-inner--content .checkbox-content__icon.checkbox-content__icon--checked::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background-image: url("/themes/forbion/images/confirm.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.dialog__modal.search-modal .modal-inner--content .checkbox-content__icon.checkbox-content__icon--checked::before {
+    background: #70B62B;
+    border-color: #70B62B;
+}
+
+.dialog__modal.search-modal .checkbox-radio-switch__content {
+    background: unset !important;
+}
+
+.dialog__modal.search-modal .dialog__actions {
+    padding-right: 2px;
+}
+
+.dialog__modal.search-modal .dialog__actions button .button-vue__text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.dialog__modal.search-modal .dialog__actions button {
+    width: 100%;
+    max-width: 130px;
+    height: 40px;
+}
+
+.dialog__modal.search-modal .dialog__actions button:first-child .button-vue__text {
+    color: #000000;
+}
+
+.dialog__modal.search-modal .dialog__actions button:nth-child(2) .button-vue__text {
+    color: #ffffff;
+}
+
+.dialog__modal.search-modal .dialog__actions button .button-vue__icon {
+    min-height: unset;
+    min-width: unset;
+    width: 17px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.dialog__modal.search-modal .dialog__actions button:first-child .icon-vue {
+    position: relative;
+}
+
+.dialog__modal.search-modal .dialog__actions button:first-child .icon-vue svg {
+    display: none;
+}
+
+.dialog__modal.search-modal .dialog__actions button:first-child .icon-vue:before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    background-image: url("/themes/forbion/images/clear.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.dialog__modal.search-modal .dialog__actions button:first-child .button-vue__icon {
+    margin-right: 12px;
+    margin-left: 6px;
+}
+
+.dialog__modal.search-modal .native-datetime-picker label[data-v-40e61767] {
+    display: none;
+}
+
+.dialog__modal.search-modal .vs__open-indicator-button .chevron-down-icon {
+    position: relative;
+}
+
+.dialog__modal.search-modal .vs__open-indicator-button .chevron-down-icon svg {
+    display: none;
+}
+
+.dialog__modal.search-modal .vs__open-indicator-button .chevron-down-icon:after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-image: url("/themes/forbion/images/arrow-select.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+.dialog__modal.search-modal .vs__dropdown-toggle {
+    border: 1px solid #E6E6E6 !important;
+}
+
+body ul.vs__dropdown-menu {
+    color: #000000 !important;
+    padding: 10px 10px 15px !important;
+    border-bottom: 1px solid #E6E6E6 !important;
+    border-right: 1px solid #E6E6E6 !important;
+    border-left: 1px solid #E6E6E6 !important;
+}
+
+.dialog__modal.search-modal .v-select.select .vs__selected-options {
+    padding: 1px 5px;
+    height: 38px;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.dialog__modal.search-modal .v-select .vs__selected {
+    background: #70B62B;
+    padding: 12px 30px 12px 20px;
+}
+
+.dialog__modal.search-modal .v-select .vs__selected .name-parts {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.dialog__modal.search-modal .v-select .vs__selected .vs__deselect .close-icon {
+    position: relative;
+}
+
+.dialog__modal.search-modal .v-select .vs__selected .vs__deselect .close-icon svg {
+    display: none;
+}
+
+.dialog__modal.search-modal .v-select .vs__selected .vs__deselect .close-icon:after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/close.svg");
+    background-repeat: no-repeat;
+    transform: scale(0.7);
+}
+
+.dialog__modal.search-modal .vs__selected .tag-group__bg {
+    background: unset !important;
+}
+
+.dialog__modal.search-modal .vs__selected .tag-group__label {
+    color: #ffffff !important;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.dialog__modal.search-modal .modal-container__close .close-icon {
+    position: relative;
+}
+
+.dialog__modal.search-modal .modal-container__close .close-icon svg {
+    display: none;
+}
+
+.dialog__modal.search-modal .modal-container__close .close-icon:after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/close.svg");
+    background-repeat: no-repeat;
+    transform: scale(1);
+}
+
+.dialog__modal.search-modal input.native-datetime-picker--input {
+    position: relative;
+    padding: 1px 15px 1px 12px;
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    color: #000000;
+    height: 38px !important;
+}
+
+.dialog__modal.search-modal input.native-datetime-picker--input::placeholder {
+    color: #808080;
+}
+
+.dialog__modal.search-modal input.native-datetime-picker--input:after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: 0;
+    width: 50px;
+    height: 38px;
+    background-image: url("/themes/forbion/images/calendar.svg");
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    background-position: center;
+    pointer-events: none;
+}
+
+.dialog__modal.search-modal input.native-datetime-picker--input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.dialog__modal.search-modal .range .modal-inner-inline input.native-datetime-picker--input:before {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    top: 0;
+    left: 12px;
+    color: #808080;
+    background-color: #ffffff;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.dialog__modal.search-modal .range .modal-inner-inline:first-child input.native-datetime-picker--input:before {
+    content: 'Дата начала';
+}
+
+.dialog__modal.search-modal .range .modal-inner-inline:last-child input.native-datetime-picker--input:before {
+    content: 'Дата окончания';
+}
+
+.dialog__modal.search-modal input.native-datetime-picker--input.is-set-value:before {
+    display: none !important;
+}
+
+.dialog__modal.search-modal .modal-inner--content .modal-inner--field .modal-inner--container.marked-as {
+    margin-left: -4px;
+}
+
+.dialog__modal.search-modal .modal-header,
+.modal-mask .modal-header[data-v-cc9100bb]{
+    display: none !important;
+}
+
+.dialog__modal.search-modal .modal-wrapper .modal-container {
+    top: unset !important;
+    height: unset !important;
+    width: 90% !important;
+}
+
+.dialog__modal.search-modal .modal-wrapper .modal-container {
+    max-width: 600px;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar {
+    margin: 20px 0;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar button {
+    box-shadow: unset !important;
+    border: unset !important;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar .ck.ck-list__item {
+    padding: 0 5px;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar .ck .ck-reset.ck-dropdown__panel.ck-dropdown__panel-visible button.ck-button.ck-on {
+    background: #70B62B !important;
+    color: #ffffff !important;
+    height: 33px;
+    line-height: 1;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+.modal-mask[data-v-cc9100bb] .toolbar .ck .ck-reset.ck-dropdown__panel.ck-dropdown__panel-visible .ck-list-properties button.ck-button.ck-on,
+.modal-mask[data-v-cc9100bb] .toolbar .ck .ck-reset.ck-dropdown__panel.ck-dropdown__panel-visible .ck-color-grid button.ck-button.ck-on {
+    height: auto !important;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar .ck .ck-reset.ck-dropdown__panel.ck-dropdown__panel-visible button.ck-button.ck-off:not(.ck-color-grid__tile):hover {
+    background: rgb(238, 244, 233) !important;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar .ck-reset_all {
+    /*display: none;*/
+}
+
+.modal-mask[data-v-cc9100bb] .modal-container {
+    padding: 25px 20px 26px !important;
+    max-width: 600px;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] {
+    padding: 0;
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .vs__dropdown-toggle {
+    border: unset;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .composer-fields--custom {
+    width: 100%;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .from-label {
+    min-width: min-content;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .composer-fields__label,
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .from-label {
+    padding-bottom: 8px;
+    width: 40px;
+    margin-right: 15px;
+}
+
+.composer-fields .composer-fields--custom .select[data-v-12b95150] {
+    margin-bottom: 0;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150]:not(.message-editor) {
+    margin-bottom: 24px;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-actions-right .composer-actions--secondary-actions > .action-item--default-popover:nth-child(2) {
+    opacity: 0.55;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-actions-right .composer-actions--secondary-actions > .action-item--default-popover:nth-child(3) {
+    opacity: .45;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150].message-editor {
+    border: unset;
+    margin-top: 16px;
+}
+
+.modal-mask[data-v-cc9100bb] .new-message-attachments[data-v-12b95150] .new-message-attachments--list {
+    padding: 0;
+    justify-content: space-between;
+}
+
+.modal-mask[data-v-cc9100bb] .new-message-attachments[data-v-12b95150] .new-message-attachments--counter {
+    padding-left: 0;
+}
+
+.modal-mask[data-v-cc9100bb] .new-message-attachments[data-v-12b95150] .new-message-attachments--counter span[data-v-1d4d5c70]:first-child {
+    padding-right: 15px;
+}
+
+.modal-mask[data-v-cc9100bb] .new-message-attachments[data-v-12b95150] .new-message-attachments--list li {
+    margin-left: 0;
+}
+
+.modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] {
+    max-height: 880px !important;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .editor {
+    padding: 16px;
+    overflow: auto;
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 4px;
+    height: auto;
+    min-height: 200px;
+    max-height: 250px;
+    margin: 0;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .editor h1,
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .editor h2,
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .editor h3,
+.modal-mask[data-v-cc9100bb] .composer-fields[data-v-12b95150] .editor h4 {
+    margin: 0;
+}
+
+.modal-mask[data-v-cc9100bb] .button-vue[data-v-c3d9e0ce][type="submit"] {
+    background: #70B62B;
+    width: 130px;
+    height: 40px;
+    transition: opacity .3s;
+}
+
+.modal-mask[data-v-cc9100bb] .button-vue[data-v-c3d9e0ce][type="submit"]:not(:disabled):hover {
+    opacity: .75;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .dialog__name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list {
+    width: 270px;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list .navigation-list__link {
+    height: auto;
+    white-space: normal;
+    padding: 8px 10px;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list > li:not(:first-child) {
+    margin-top: 8px;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list .navigation-list__link span {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list .navigation-list__link--active {
+    background-color: #70B62B !important;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .navigation-list .navigation-list__link--active span {
+    color: #FFFFFF;
+}
+
+.dialog__modal.app-settings .modal-wrapper .modal-container .app-settings__navigation {
+    margin-right: 60px;
+}
+
+.dialog__modal .input-field.file-picker__filter-input input {
+    padding: 10px 12px;
+    height: auto !important;
+    border: 1px solid #D9D9D9 !important;
+}
+
+.dialog__modal .file-picker__navigation {
+    width: 230px;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper {
+    height: auto;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:not(:focus) + .input-field__label {
+    left: -17px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .3s;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:not(:placeholder-shown) + .input-field__label,
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:focus + .input-field__label {
+    top: -10px;
+    left: -17px;
+    transform: unset;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__icon .magnify-icon {
+    position: relative;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__icon .magnify-icon svg {
+    display: none;
+}
+
+.dialog__modal .dialog.file-picker {
+    margin-top: -40px;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions {
+    width: 150px;
+    height: 40px;
+    margin: 20px 0 0 auto;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions button {
+    height: 100%;
+    width: 100%;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions .button-vue__text {
+    color: #FFFFFF;
+    font-weight: 500;
+    padding-left: 30px;
+    position: relative;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions .button-vue__text:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("/themes/forbion/images/arrow-btn.svg");
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 18px;
+}
+
+.dialog__modal .dialog.file-picker .button-vue .button-vue__text {
+    margin-bottom: 0;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue .button-vue__text {
+    transition: .2s;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue--vue-primary .button-vue__text {
+    color: #FFFFFF;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue svg {
+    transition: .2s;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files {
+    margin-left: 0;
+    overflow-x: auto;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files .file-picker__header-preview {
+    display: none;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files .row-name .button-vue {
+    padding-left: 5px;
+}
+
+.dialog__modal .dialog.file-picker :not(.dialog__actions) .button-vue--vue-primary:hover {
+    opacity: 1;
+}
+
+.dialog__modal .dialog.file-picker .empty-content__description {
+    text-align: center;
+}
+
+.dialog__modal .app-settings__content {
+    padding-top: 16px;
+    padding-bottom: 12px;
+    padding-right: 40px !important;
+}
+
+.dialog__modal .app-settings__content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    padding: 0;
+    margin-bottom: 18px;
+}
+
+.dialog__modal .app-settings__content .alias-form {
+    padding: 12px;
+    border: 1px solid #E6E6E6;
+    border-radius: 8px;
+    width: auto;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__actions {
+    position: absolute;
+    right: 0;
+    top: -3px;
+    height: 48px;
+    width: 45px;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__actions .button-vue {
+    width: 45px !important;
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__form {
+    display: flex;
+    flex-direction: column;
+    padding-right: 50px;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__form + .alias-form__actions {
+    position: relative;
+    top: unset;
+    right: 0;
+    height: unset;
+    width: unset;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__form + .alias-form__actions .material-design-icon svg {
+    display: block;
+    fill: #FFFFFF;
+    transform: scale(1.5);
+}
+
+.dialog__modal .app-settings__content .alias-form__actions .button-vue + .button-vue svg {
+    /*display: block;*/
+}
+
+.dialog__modal .app-settings__content .alias-form__actions .button-vue + .button-vue:before {
+    display: none;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__form + .alias-form__actions .material-design-icon:before {
+    display: none;
+}
+
+.dialog__modal .app-settings__content .alias-form .alias-form__form input {
+    padding: 12px;
+    border: 1px solid #E6E6E6;
+    border-radius: 8px;
+    width: auto;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog__modal .app-settings__content .alias-form div[data-v-6170a598]:not(.alias-form__actions) {
+    color: #808080;
+    font-size: 14px;
+    line-height: 20px;
+    word-break: break-word;
+    padding-right: 40px;
+}
+
+.dialog__modal .app-settings__content section {
+    margin-bottom: 44px;
+}
+
+.dialog__modal .app-settings__content section:last-child {
+    margin-bottom: 0;
+}
+
+.dialog__modal .app-settings__content .material-design-icon {
+    position: relative;
+}
+
+.dialog__modal .app-settings__content .material-design-icon svg {
+    display: none;
+}
+
+.dialog__modal .app-settings__content .material-design-icon:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center;
+}
+
+.dialog__modal .app-settings__content .material-design-icon.pencil-icon:before {
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+}
+
+.dialog__modal .app-settings__content .aliases-list li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 18px;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue {
+    height: 41px;
+    width: auto;
+    padding: 0 12px;
+    margin-top: 0;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue .button-vue__text {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content .aliases-list #createAliasForm {
+    position: relative;
+    margin-top: 65px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog__modal .app-settings__content .aliases-list #createAliasForm:before {
+    content: 'Добавить псевдоним';
+    position: absolute;
+    top: -35px;
+    left: 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.dialog__modal .app-settings__content .aliases-list #createAliasForm input {
+    padding: 12px;
+    border: 1px solid #E6E6E6;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    color: #000000;
+}
+
+.dialog__modal .app-settings__content .aliases-list #createAliasForm input::placeholder {
+    color: #808080;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.dialog__modal .app-settings__content .aliases-list #createAliasForm input:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue.button-vue--vue-tertiary-no-background {
+    background: #F0F1F4;
+    transition: .3s;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue.button-vue--vue-tertiary-no-background:hover {
+    opacity: .75;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue.button-vue--vue-tertiary-no-background .button-vue__text {
+    color: #000000;
+}
+
+.dialog__modal .app-settings__content .material-design-icon.check-icon:before {
+    background-image: url("/themes/forbion/images/new-plus.svg");
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue:not(:last-child) {
+    margin-left: 18px;
+}
+
+.dialog__modal .app-settings__content .button-vue[form="createAliasForm"] {
+    padding: 0 20px 0 12px !important;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue.button-vue--vue-tertiary-no-background .button-vue__text {
+    padding-left: 25px;
+    padding-right: 3px;
+    position: relative;
+}
+
+.dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue.button-vue--vue-tertiary-no-background .button-vue__text:before {
+    content: '';
+    position: absolute;
+    background-image: url("/themes/forbion/images/close-gray.svg");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modal-mask .modal-content[data-v-514a49e3] {
+    padding: 5px;
+}
+
+.modal-mask .modal-content[data-v-514a49e3] .tag-title[data-v-514a49e3]:first-child {
+    margin-top: 0;
+}
+
+.modal-mask .modal-content[data-v-514a49e3] .tag-title[data-v-514a49e3] {
+    margin: 30px 0 20px;
+    line-height: 1;
+}
+
+.modal-mask .modal-content[data-v-514a49e3] .create-tag .tagButton {
+    margin-left: 0;
+}
+
+.modal-mask .modal-content[data-v-514a49e3] .create-tag .action-input__form .input-field__input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+}
+
+.modal-mask .modal-content[data-v-514a49e3] .tag-group .action-item.action-item--default-popover {
+    margin: 3px 3px 3px 0;
+}
+
+.v-popper__popper .action-input__form[data-v-93633be2] {
+    padding-left: 12px;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] {
+    padding: 0;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] h2 {
+    margin-top: 0;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons {
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue {
+    height: 40px;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue .button-vue__text {
+    color: #000000;
+    font-weight: 500;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue.button-vue--vue-primary .button-vue__text {
+    color: #FFFFFF;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue {
+    background-color: #F0F1F4 !important;
+    transition: opacity .3s;
+    padding: 0 12px;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue.button-vue--vue-primary {
+    background-color: #70B62B !important;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue:hover {
+    opacity: .75;
+}
+
+.modal-mask .confirm-modal[data-v-df252910] .confirm-modal__buttons .button-vue:not(:first-child) {
+    margin-left: 12px;
+}
+
+.v-popper__popper .color-picker__simple-color-circle[data-v-616dda05]:focus-within {
+    outline: unset !important;
+}
+
+.v-popper__popper .color-picker .color-picker__navigation .button-vue.button-vue--vue-primary {
+    background-color: #70B62B !important;
+    transition: .3s;
+}
+
+.v-popper__popper .color-picker .color-picker__navigation .button-vue.button-vue--vue-primary:hover {
+    opacity: .75;
+}
+
+.v-popper__popper .color-picker .color-picker__navigation .button-vue.button-vue--vue-primary .button-vue__text {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.v-popper__popper .v-popper + .action:nth-child(2) {
+    padding-bottom: 6px;
+}
+
+.v-popper__popper .v-popper + .action input.input-field__input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    box-shadow: unset !important;
+    width: 215px !important;
+}
+
+.modal-wrapper--large > .modal-container[data-v-cc9100bb] {
+    height: unset !important;
+    border-radius: 8px !important;
+}
+
+.modal-wrapper--normal > .modal-container[data-v-cc9100bb] {
+    height: unset !important;
+    border-radius: 8px !important;
+}
+
+.confirm-modal[data-v-df252910] .modal-container {
+    border-radius: 8px;
+}
+
+.vue-skip-actions#skip-actions {
+    display: none !important;
+}
+
+.modal-mask .oc-dialog-title {
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.modal-mask .crumbs[data-v-26f12962] {
+    display: none;
+}
+
+.modal-mask .mailbox-list h2[data-v-26f12962] {
+    margin: 0 0 20px 0;
+    padding: 30px 0 40px;
+    height: auto;
+    font-size: 20px;
+}
+
+.modal-mask .mailbox-list ul[data-v-26f12962] li[data-v-26f12962] {
+    padding-left: 20px;
+}
+
+.modal-mask .mailbox-list ul[data-v-26f12962] li[data-v-26f12962] .material-design-icon {
+    display: none;
+}
+
+.modal-mask .mailbox-list ul[data-v-26f12962] li[data-v-26f12962] .mailbox-title {
+    padding-left: 5px;
+}
+
+.modal-mask .mailbox-list > .folder-icon {
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+.modal-mask .mailbox-list .mailbox-title {
+    padding-left: 5px;
+}
+
+.modal-mask .mailbox-list + .buttons {
+    margin-top: 20px;
+}
+
+.modal-mask .mailbox-list + .buttons .button-vue {
+    background-color: #70B62B !important;
+    height: 40px;
+    transition: .3s;
+    padding: 0 12px;
+}
+
+.modal-mask .mailbox-list + .buttons .button-vue:not([disabled]):hover {
+    opacity: .75;
+}
+
+.modal-mask .mailbox-list + .buttons .button-vue__text {
+    color: #FFFFFF;
+}
+
+.modal-mask h2[data-v-6f79f0e3],
+.modal-mask h2[data-v-6fc1b7b0] {
+    margin: 0;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container {
+    width: unset !important;
+    height: unset !important;
+    max-width: unset !important;
+    max-height: unset !important;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content {
+    padding: 15px !important;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content button.primary,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content button.primary {
+    margin: 0;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .eventTitle,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .taskTitle {
+    margin-top: 18px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content input,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content textarea,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content input,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content textarea {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    padding: 12px !important;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #000000;
+    margin-right: 0;
+    margin-left: 0;
+    box-shadow: unset !important;
+    width: 100% !important;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content input::placeholder,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content input::placeholder {
+    color: #808080;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .dateTimePicker,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .taskTitle + .all-day {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker {
+    width: 50%;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker:not(:last-child),
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker:not(:last-child) {
+    margin-right: 12px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker .mx-icon-calendar,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker .mx-icon-calendar {
+    pointer-events: none;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon {
+    position: relative;
+    margin: 3px -7px 0 0;
+    width: 50px;
+    background: #ffffff;
+    opacity: 1;
+    border-radius: 8px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon svg,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon svg {
+    display: none;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon:before,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker .datetime-picker-inline-icon:before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/calendar.svg");
+    background-repeat: no-repeat;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .all-day,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .modal-content__calendar-picker,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content #note + .all-day,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .vs--single {
+    display: none;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content label[data-v-6f79f0e3],
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content label[data-v-6fc1b7b0] {
+    pointer-events: none;
+    color: #808080;
+    font-size: 14px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content #description,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content #note {
+    margin-top: 5px;
+    min-height: 150px;
+    max-height: 250px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content button.primary,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content button.primary {
+    background-color: #70B62B !important;
+    transition: .3s;
+    color: #FFFFFF;
+    height: 40px;
+    padding: 0 20px;
+    box-shadow: unset;
+    margin-top: 20px;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content button.primary:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content button.primary:hover {
+    opacity: .75;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell {
+    font-weight: 500;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:hover,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:focus,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option:hover,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:focus,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item:hover {
+    transition: .1s !important;
+}
+
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:hover,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:focus,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.actived,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.active,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.in-range,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option.active,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option:hover,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item.active,
+.modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell:focus,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.actived,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.active,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-table .cell.in-range,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option.active,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-option:hover,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item.active,
+.modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content .mx-datepicker-main .mx-time .mx-time-item:hover {
+    color: #FFFFFF;
+    background-color: #70B62B !important;
+}
+
+.modal-mask.dialog__modal[data-v-e79a4708] .modal-wrapper.modal-wrapper--small .modal-container {
+    border-radius: 8px;
+}
+
+.modal-mask[data-v-de9f48dc] .button-vue--vue-primary[data-v-c3d9e0ce] {
+    color: #ffffff;
+    background-color: #70B62B !important;
+    transition: opacity .3s;
+}
+
+.modal-mask[data-v-de9f48dc] .button-vue--vue-primary[data-v-c3d9e0ce]:hover {
+    opacity: .75;
+}
+
+.modal-mask[data-v-de9f48dc] .modal-wrapper .modal-container{
+    padding: 15px 15px 5px 15px !important
+}
+
+.modal-mask[data-v-de9f48dc] .modal-wrapper h2.dialog__name {
+    text-align: left;
+    line-height: 28px;
+    min-height: auto !important;
+}
+
+.modal-mask[data-v-de9f48dc] .modal-wrapper .dialog__actions {
+    padding: 0;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--primary-actions {
+    padding-left: 0;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--primary-actions .composer-actions-draft-status {
+    padding-left: 0;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions {
+    padding-right: 0;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue:nth-child(1).button-vue--icon-only.button-vue--vue-primary .material-design-icon.format-size-icon:before {
+    background-image: url("/themes/forbion/images/format-size-icon-white.svg");
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue:nth-child(1) .material-design-icon.format-size-icon svg {
+    transition: .2s;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:nth-child(1) .material-design-icon.format-size-icon svg {
+    fill: #ffffff;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue {
+    height: 40px;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:last-child {
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:last-child .button-vue__icon .send-icon {
+    position: relative;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:last-child .button-vue__icon .send-icon svg {
+    display: none;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:last-child .button-vue__icon .send-icon:after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -14px;
+    width: 25px;
+    height: 20px;
+    background-image: url("/themes/forbion/images/sendMail.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--vue-primary:last-child {
+    width: 100%;
+    padding: 0 15px 0 10px;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-903e8d3b].action .material-design-icon {
+    width: 34px !important;
+}
+
+.modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--secondary-actions .button-vue.button-vue--icon-only.button-vue--vue-primary {
+    background: rgba(112, 182, 43, 1) !important;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-12b95150].action .action-input__datetimepicker {
+    position: relative;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-12b95150].action .action-input__datetimepicker input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 38px !important;
+    color: #000000;
+    box-shadow: unset;
+    padding-right: 12px;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-12b95150].action .action-input__datetimepicker:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 50px;
+    height: 36px;
+    background-image: url("/themes/forbion/images/calendar.svg");
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    background-position: center;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.v-popper__popper div[data-v-fcbbc5a9] ul[data-v-fcbbc5a9]#menu-ahygj li[data-v-12b95150].action:first-child {
+    display: none;
+}
+
+.modal-mask[data-v-cc9100bb] .toolbar button.ck-color-table__remove-color {
+    margin: 7px 8px 0;
+    width: calc(100% - 16px);
+}
+
+.modal-mask[data-v-76780ba6] .ck-toolbar_vertical .ck-toolbar__items {
+    padding: 2px 0;
+}
+
+.modal-mask[data-v-76780ba6] .ck-toolbar_vertical .ck-toolbar__items .ck-button {
+    margin: 0 5px !important;
+    width: calc(100% - 10px) !important;
+    height: auto !important;
+}
+
+.modal-mask[data-v-76780ba6] .ck-toolbar_vertical .ck-toolbar__items .ck-button:not(:last-child) {
+    margin-bottom: 2px !important;
+}
+
+.modal-mask[data-v-cc9100bb] .vs__dropdown-menu {
+    padding: 10px 5px !important;
+}
+
+.modal-mask[data-v-cc9100bb]:not(.search-modal) input.vs__search {
+    margin-top: 7px !important;
+    padding-bottom: 6px;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields.mail-account .composer-fields--custom .vs__dropdown-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.modal-mask[data-v-cc9100bb] .composer-fields.mail-account .composer-fields--custom input.vs__search {
+    display: none;
+}
+
+.dialog__modal.search-modal .vs__dropdown-toggle {
+    overflow: hidden !important;
+}
+
+ul.vs__dropdown-menu--floating[role="listbox"] {
+    border: 1px solid #E6E6E6 !important;
+    padding: 15px 10px !important;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__alias .vs__dropdown-toggle {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 42px !important;
+    color: #000000;
+    overflow: auto;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__alias .vs__dropdown-toggle .vs__selected-options {
+    position: relative;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__alias .vs__dropdown-toggle .vs__selected-options:after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    right: 3px;
+    width: 14px;
+    height: 9px;
+    background-image: url("/themes/forbion/images/arrow-select.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+    transform: scale(1.3);
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__alias.vs--open .vs__dropdown-toggle .vs__selected-options:after {
+    transform: scale(1.3) rotate(180deg);
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__alias .vs__dropdown-toggle .vs__selected-options .vs__selected {
+    height: 37px;
+    padding-right: 40px;
+}
+
+.dialog__modal .app-settings__content .certificate-settings > .button-vue {
+    margin-left: auto;
+    height: 40px;
+    padding: 0 12px;
+}
+
+.dialog__modal .app-settings__content .certificate-settings > .button-vue .button-vue__text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__certificate .vs__actions svg {
+    display: block;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__certificate .vs__dropdown-toggle {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 42px !important;
+    color: #000000;
+    overflow: auto;
+}
+
+.dialog__modal .app-settings__content .certificate-settings .certificate-settings__certificate .vs__dropdown-toggle .vs__selected {
+    height: 37px;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .section .toolbar {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .section > .button-vue {
+    margin-left: auto;
+    height: 40px;
+    padding: 0 12px;
+    display: block !important;
+    margin-top: 15px !important;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .section > .button-vue .button-vue__text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .section > .button-vue .button-vue__icon {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .section input#signature-above-quote-toggle,
+.dialog__modal .app-settings__content #settings-section_signature .section label[for="signature-above-quote-toggle"] {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .v-select {
+    width: 100%;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .vs__dropdown-toggle {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 42px !important;
+    color: #000000;
+    overflow: auto;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .vs__dropdown-toggle .vs__selected-options {
+    position: relative;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .vs__dropdown-toggle .vs__selected-options:after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    right: 3px;
+    width: 14px;
+    height: 9px;
+    background-image: url("/themes/forbion/images/arrow-select.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+    transform: scale(1.1);
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .vs--open .vs__dropdown-toggle .vs__selected-options:after {
+    transform: scale(1.1) rotate(180deg);
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .vs__dropdown-toggle .vs__selected {
+    height: 37px;
+    padding-right: 40px;
+}
+
+.dialog__modal .app-settings__content #settings-section_signature .editor {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    color: #000000;
+    overflow: auto;
+    padding: 10px 20px;
+    min-height: 100px;
+    max-height: 150px;
+}
+
+.dialog__modal .app-settings__content .settings-hint {
+    color: #808080;
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: 5px;
+}
+
+.dialog__modal .app-settings__content #settings-section_writing-mode label {
+    font-size: 16px;
+    padding-right: 30px;
+}
+
+.dialog__modal .app-settings__content #settings-section_writing-mode input[type=radio].radio+label:before {
+    width: 15px;
+    height: 15px;
+}
+
+.dialog__modal .app-settings__content #settings-section_writing-mode .settings-hint {
+    margin-top: 15px;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] {
+    margin-top: 16px;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] p[data-v-767d95e2] {
+    color: #000000;
+    margin-bottom: 6px;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__control {
+    width: 100%;
+    box-shadow: unset;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__control .vue-treeselect__input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    color: #000000;
+    box-shadow: unset;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__control .vue-treeselect__single-value,
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__control .vue-treeselect__placeholder {
+    height: 39px;
+    line-height: 40px;
+    padding: 0 20px 0 22px;
+    z-index: 1;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders .vue-treeselect__control {
+    margin-bottom: 18px;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__input {
+    cursor: pointer !important;
+    padding: 2px 60px 2px 20px;
+    box-sizing: border-box;
+    height: 41px;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__input-container {
+    position: relative;
+    padding: 0;
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect__input-container:after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    right: 19px;
+    width: 14px;
+    height: 9px;
+    background-image: url("/themes/forbion/images/arrow-select.svg");
+    background-repeat: no-repeat;
+    z-index: 1;
+    transform: scale(1.3);
+}
+
+.dialog__modal .app-settings__content #settings-section_default-folders div[data-v-443d3f70] .vue-treeselect--open .vue-treeselect__input-container:after {
+    transform: scale(1.3) rotate(180deg);
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention p:last-child {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention div[data-v-e970c9f7] input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    color: #000000;
+    box-shadow: unset;
+    width: 100%;
+    padding: 10px 15px;
+    height: unset;
+    max-height: unset;
+    min-height: unset;
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention div[data-v-e970c9f7] {
+    margin-top: 12px;
+}
+
+.modal-mask[data-v-cc9100bb].app-settings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-mask[data-v-cc9100bb].app-settings .modal-wrapper .modal-container[data-v-cc9100bb] {
+    max-height: 700px !important;
+}
+
+.modal-mask[data-v-cc9100bb].app-settings .app-settings__content {
+    margin-top: 7px;
+    overflow-x: hidden;
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention .actions {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 1px;
+    z-index: 1;
+    width: 38px;
+    justify-content: space-between;
+    height: 29px;
+    padding-right: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding-top: 6px;
+    padding-left: 50px;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper > .input-field__trailing-button {
+    height: 36px;
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention .input-wrapper {
+    position: relative;
+}
+
+.dialog__modal .app-settings__content #settings-section_trash-retention .actions > span {
+    cursor: pointer;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search input {
+    height: auto;
+    min-height: auto;
+    margin: 0;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search label {
+    padding-left: 20px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form {
+    margin-top: 16px;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form > .form__fieldset,
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form > .form__multi-row:not(:first-child) {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form > .form__multi-row:first-child .form__fieldset:nth-child(3) {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form label {
+    font-size: 16px;
+    padding-right: 20px;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .form input[type=radio].radio+label:before {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .button-vue .button-vue__icon {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_out-of-office-replies .button-vue {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-tab {
+    border: unset !important;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-tab .tabs-component-tab-a {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 27px;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-tab .tabs-component-tab-a::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #5e922b;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-tab .tabs-component-tab-a::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #5e922b;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-tab:not(.is-active) .tabs-component-tab-a::before {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form {
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .tabs-component-tabs {
+    width: 300px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server input.input-field__input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 41px !important;
+    color: #000000;
+    padding: 0 50px 0 12px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server input.input-field__input+label {
+    left: 5px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server input.input-field__input:placeholder-shown + label {
+    top: 10px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server input.input-field__input:not(:placeholder-shown) + label,
+.dialog__modal .app-settings__content #settings-section_mail-server input.input-field__input:focus + label {
+    top: -10px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field:last-child {
+    margin-bottom: 0;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .account-form__submit-buttons {
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-left: auto;
+    height: 40px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .account-form__submit-buttons .button-vue__text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .account-form__submit-buttons .material-design-icon.check-icon:before {
+    background-image: url("/themes/forbion/images/arrow-btn.svg");
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .button-vue:not([aria-label="Сохранить"]) {
+    width: unset;
+    padding: 0 12px !important;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .button-vue:not([aria-label="Сохранить"]) .button-vue__icon {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panels .tabs-component-panel {
+    margin-bottom: 0;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel h3 {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row {
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch {
+    border: unset;
+    background: unset;
+    overflow: visible;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch .checkbox-radio-switch__content[data-v-194d90ea] {
+    border: unset;
+    background: unset;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch .checkbox-radio-switch__content[data-v-194d90ea] .checkbox-content__text {
+    font-weight: 500;
+    color: #000000;
+    max-height: 20px;
+    padding-left: 40px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch .checkbox-radio-switch__content[data-v-194d90ea] {
+    position: relative;
+    max-height: 17px;
+    min-height: 17px;
+    height: 17px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch .checkbox-radio-switch__content[data-v-194d90ea] .checkbox-content__text:before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 2px solid #808080;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch.checkbox-radio-switch--checked .checkbox-radio-switch__content[data-v-194d90ea] .checkbox-content__text:before {
+    background: #70B62B;
+    border-color: #70B62B;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row .checkbox-radio-switch.checkbox-radio-switch--checked .checkbox-radio-switch__content[data-v-194d90ea] .checkbox-content__text:after {
+    background-image: url("/themes/forbion/images/arrow-btn-small.svg");
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    z-index: 1;
+    background-repeat: no-repeat;
+    transform: scale(1.2);
+    transform-origin: center;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server #account-form .account-form--feedback {
+    margin-top: 15px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper {
+    position: relative;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper .input-field__icon {
+    display: flex !important;
+    position: absolute;
+    right: 1px;
+    left: unset;
+    top: 1px;
+    height: 39px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    opacity: 1;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="man-imap-password"] + .input-field__icon + button,
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="man-smtp-password"] + .input-field__icon + button,
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="auto-password"] + .input-field__icon + button {
+    height: 37px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="man-imap-password"] + .input-field__icon:after,
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="man-smtp-password"] + .input-field__icon:after,
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label[for="auto-password"] + .input-field__icon:after {
+    content: '';
+    background-image: url("/themes/forbion/images/pass-visible.svg");
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .input-field__main-wrapper label + .input-field__icon:after {
+    content: '';
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.dialog__modal .app-settings__content #settings-section_mail-server .material-design-icon.check-icon:before {
+    top: -3px;
+}
+
+.dialog__modal .app-settings__content #sieve-form {
+    width: 100%;
+}
+
+.dialog__modal .app-settings__content #sieve-form .checkbox-radio-switch {
+    margin: 14px 0 20px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__input {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    cursor: text;
+    font-size: 14px;
+    height: 41px !important;
+    color: #000000;
+    padding: 0 50px 0 12px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__input + label {
+    left: 5px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__input:placeholder-shown + label {
+    top: 10px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__input:not(:placeholder-shown) + label,
+.dialog__modal .app-settings__content #sieve-form .input-field__input:focus + label {
+    top: -10px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__icon {
+    position: absolute;
+    display: block !important;
+    right: 7px;
+    left: unset;
+    opacity: 1;
+    height: 41px;
+    top: 0;
+}
+
+.dialog__modal .app-settings__content #sieve-form .input-field__icon::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+}
+
+.dialog__modal .app-settings__content #sieve-form h4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .flex-row button .button-vue__text {
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #sieve-form .flex-row button[aria-pressed="true"] {
+    opacity: 1 !important;
+}
+
+.dialog__modal .app-settings__content #sieve-form .flex-row button[aria-pressed="true"] .button-vue__text {
+    color: #FFFFFF;
+}
+
+.dialog__modal .app-settings__content #sieve-form > .button-vue {
+    margin-top: 20px;
+    margin-left: auto;
+    height: 40px;
+}
+
+.dialog__modal .app-settings__content #sieve-form > .button-vue .button-vue__text {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.dialog__modal .app-settings__content #sieve-form .custom .input-field:nth-child(2) {
+    margin-top: 20px;
+}
+
+.dialog__modal .app-settings__content #sieve-form .material-design-icon.checkbox-marked-icon svg,
+.dialog__modal .app-settings__content #sieve-form .material-design-icon.checkbox-blank-outline-icon svg {
+    /*display: none;*/
+}
+
+.dialog__modal .app-settings__content #sieve-form .material-design-icon.checkbox-marked-icon svg path,
+.dialog__modal .app-settings__content #sieve-form .material-design-icon.checkbox-blank-outline-icon svg path {
+    fill: #70B62B;
+}
+
+.dialog__modal .app-settings__content #sieve-form p[data-v-150bb4a3] .checkbox-radio-switch__content {
+    padding: 0;
+    background: unset;
+    margin-left: -3px;
+}
+
+.dialog__modal .app-settings__content #sieve-form p[data-v-150bb4a3] .checkbox-content__text {
+    padding-top: 2px;
+    padding-left: 3px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search div[data-v-6f29fe9b] {
+    margin-left: 5px;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search input {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search .checkbox-content__icon svg,
+.dialog__modal .app-settings__content #settings-section_mailbox_search .checkbox-blank-outline-icon svg {
+    /*display: none;*/
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search .material-design-icon.checkbox-marked-icon svg path,
+.dialog__modal .app-settings__content #settings-section_mailbox_search .material-design-icon.checkbox-blank-outline-icon svg path {
+    fill: #70B62B;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search #searchBody:not(:checked) + .icon .checkbox-blank-outline-icon {
+    display: none;
+}
+
+.dialog__modal .app-settings__content #settings-section_mailbox_search #searchBody:checked + .icon .checkbox-content__icon--checked {
+    display: none;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue {
+    position: relative;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue svg {
+    display: none;
+}
+
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: unset;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:first-child span.icon-vue:before {
+    background-image: url("/themes/forbion/images/folder-black.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(2) span.icon-vue:before {
+    background-image: url("/themes/forbion/images/send-clock-icon.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(3) span.icon-vue:before {
+    background-image: url("/themes/forbion/images/star-outline-icon-black.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:first-child .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/folder-white.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(2) .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/send-clock-icon-white.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(3) .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/star-outline-icon-white.svg");
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs {
+    margin-right: 20px;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li {
+    width: auto;
+    min-width: unset;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li:first-child .button-vue {
+    background: rgb(245, 245, 245);
+    transition: opacity .3s;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li:first-child .button-vue:hover {
+    opacity: .75;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li .material-design-icon.home-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/home-icon.svg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: unset;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li .material-design-icon.home-icon svg {
+    display: none;
+}
+
+.dialog__modal .app-settings__content .material-design-icon.chevron-down-icon:before {
+    display: none;
+}
+
+.modal-mask .modal-container .modal-content.with-recipient .right-pane {
+    display: none;
+}
+
+.modal-mask .file-picker thead .row-checkbox {
+    transform: scale(1.1);
+    transform-origin: 4px;
+}
+
+.modal-mask .file-picker .file-picker__row .row-checkbox {
+    transform: scale(1.1);
+    transform-origin: 4px;
+}
+
+.dialog__modal .app-settings__content .material-design-icon.checkbox-marked-icon,
+.dialog__modal .app-settings__content .material-design-icon.checkbox-blank-outline-icon {
+    transform: scale(1.25);
+}
+
+@media only screen and (min-width: 1024px) {
+    .modal-mask .modal-wrapper .modal-container__content[data-v-cc9100bb] {
+        min-width: 500px;
+        padding: 5px 0;
+        overflow: visible;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] {
+        overflow: visible !important;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] .left-pane {
+        overflow: visible;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] .left-pane .ck.ck-dropdown .ck-dropdown__panel.ck-dropdown__panel-visible {
+        overflow: visible;
+    }
+    .modal-mask.dialog__modal[data-v-e79a4708] .modal-wrapper.modal-wrapper--small .modal-container {
+        min-width: 490px !important;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    #content-vue.app-mail .app-navigation .outbox__border #navigation-outbox {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row {
+        flex-direction: column;
+    }
+    .dialog__modal .app-settings__content #settings-section_mail-server .tabs-component-panel .flex-row > span:not(:last-child) {
+        margin-bottom: 12px;
+    }
+    .modal-mask[data-v-cc9100bb].app-settings .modal-wrapper .modal-container[data-v-cc9100bb] {
+        max-height: 500px !important;
+    }
+    .dialog__modal.app-settings .modal-wrapper .modal-container .app-settings__navigation {
+        display: none;
+    }
+    .modal-mask[data-v-cc9100bb].app-settings .app-settings__content {
+        padding: 0;
+    }
+    .modal-mask[data-v-cc9100bb].app-settings .app-settings__content div[data-v-0674bd2e] > section:not(:first-child) {
+        width: calc(100% + 30px);
+    }
+    .dialog__modal .app-settings__content .aliases-list + div[data-v-18b9e913] .button-vue {
+        margin-right: -30px;
+    }
+    .modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--primary-actions {
+        padding-right: 0;
+    }
+    .modal-mask[data-v-76780ba6] .modal-wrapper .composer-actions--primary-actions .button-vue {
+        margin-right: 0;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] .left-pane {
+        overflow-x: visible;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] .left-pane .ck.ck-dropdown .ck-dropdown__panel.ck-dropdown__panel-visible {
+        overflow: visible;
+    }
+    .modal-mask .modal-wrapper .modal-container__content[data-v-cc9100bb] {
+        overflow-x: visible;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] {
+        overflow-x: visible !important;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .left-pane[data-v-76780ba6] {
+        padding-top: 20px;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .composer-fields .composer-fields--custom .select[data-v-12b95150] {
+        min-width: unset;
+    }
+    .modal-mask[data-v-6f79f0e3] .modal-wrapper .modal-container .modal-content,
+    .modal-mask[data-v-6fc1b7b0] .modal-wrapper .modal-container .modal-content {
+        padding: 0 !important;
+    }
+    .modal-mask .modal-wrapper .modal-container[data-v-cc9100bb] {
+        top: 50px;
+        position: relative;
+    }
+    .modal-mask .modal-wrapper[data-v-cc9100bb] {
+        overflow: auto;
+    }
+    .modal-mask .modal-wrapper .modal-container__content[data-v-cc9100bb] {
+        min-width: 400px;
+    }
+    .modal-mask .modal-content[data-v-26f12962] {
+        padding: 0;
+    }
+    .modal-mask .oc-dialog-title {
+        margin-bottom: 20px;
+        line-height: 32px;
+    }
+    .modal-mask .mailbox-list h2[data-v-26f12962] {
+        font-size: 16px;
+        line-height: 22px;
+        padding: 22px 0 10px;
+    }
+    .confirm-modal[data-v-df252910] {
+        padding: 0 !important;
+    }
+    .dialog__modal .dialog.file-picker .file-picker__side[data-v-b42054b8] {
+        flex-direction: column;
+        min-width: 200px;
+        margin-top: 0;
+    }
+    .dialog__modal .dialog.file-picker {
+        height: 100% !important;
+    }
+    .dialog__modal .dialog.file-picker .dialog__actions {
+        padding-right: 0;
+    }
+    .dialog__modal .dialog.file-picker .dialog__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    .dialog__modal .dialog.file-picker .dialog__wrapper .file-picker__navigation {
+        height: unset;
+        min-width: unset;
+        overflow: auto;
+        margin: 0 0 20px 0;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column !important;
+    }
+    .dialog__modal .dialog.file-picker .dialog__wrapper .file-picker__navigation .file-picker__filter-input {
+        max-width: 100%;
+    }
+    .dialog__modal .dialog.file-picker .dialog__wrapper .file-picker__content {
+        flex: unset;
+        min-height: unset;
+        padding: 0;
+    }
+    .dialog__modal .dialog.file-picker .dialog__wrapper .empty-content {
+        padding-bottom: 50px;
+    }
+    .dialog__modal[data-v-e79a4708] .modal-wrapper .modal-container {
+        max-width: 90%;
+        width: 900px;
+        max-height: min(90%, 100% - 2* var(--header-height));
+        position: relative;
+        height: unset;
+        top: unset;
+        border-right: 8px;
+    }
+    .dialog__modal.search-modal {
+
+    }
+    .dialog__modal.search-modal .modal-wrapper .modal-container {
+        max-height: 90vh !important;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .dialog__modal.search-modal {
+        /*min-height: 700px;*/
+    }
+    .dialog__modal.search-modal .modal-wrapper .modal-container {
+        padding: 30px 20px 16px !important;
+    }
+    .dialog__modal.search-modal .modal-inner--content .modal-inner--field .modal-inner--container.marked-as {
+        flex-direction: column;
+        margin-top: 4px;
+    }
+    .dialog__modal.search-modal .dialog__content {
+        padding: 0 !important;
+    }
+    .dialog__modal.search-modal .modal-inner--field {
+        margin-bottom: 8px;
+    }
+    .dialog__modal.search-modal .modal-inner--content .modal-inner--field .modal-inner--container {
+        width: calc(100% - 70px);
+    }
+    .dialog__modal.search-modal .v-select.select {
+        min-width: 150px;
+    }
+    .dialog__modal.search-modal .dialog__actions {
+        margin-top: 16px;
+    }
+    .dialog__modal[data-v-e79a4708] .modal-inner--content .modal-inner--field:last-child {
+        margin-top: 14px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .modal-mask .modal-wrapper .modal-container__content[data-v-cc9100bb] {
+        min-width: 100%;
+    }
+}

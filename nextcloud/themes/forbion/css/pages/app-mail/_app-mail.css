@@ -1,0 +1,1167 @@
+@import url("icons/_icons.css");
+@import url("forms/_modals.css");
+
+/* APP MAIL */
+#content-vue.app-mail #mailbox-priority {
+    display: none;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary {
+    padding: 3px 17px 3px 6px;
+    background: #70B62B;
+    color: #ffffff;
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 14px;
+    position: relative;
+    transition: opacity .3s;
+}
+
+#content-vue.app-mail .app-navigation__search .header .button-vue--vue-secondary {
+    padding: 3px 35px 3px 6px;
+}
+
+#content-vue.app-mail .app-navigation__search .header .button-vue--vue-secondary:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/close-fat.svg");
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+#content-vue.app-mail .app-navigation__search .header .button-vue--vue-secondary:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 37px;
+    width: 2px;
+    height: 100%;
+    background: #ffffff;
+    pointer-events: none;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary:hover {
+    opacity: .75;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary .button-vue__icon {
+    padding-bottom: 3px;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary .material-design-icon.plus-icon {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 23px;
+    height: 18px;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary .material-design-icon.plus-icon svg {
+    display: none;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary .material-design-icon.plus-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: url('/themes/forbion/images/mail-icon.svg');
+    background-repeat: no-repeat;
+}
+
+#content-vue.app-mail .button-vue--vue-secondary .button-vue__text {
+    margin-left: 5px;
+}
+
+#content-vue.app-mail .app-navigation {
+    background: unset;
+}
+
+#content-vue.app-mail .app-navigation .app-navigation-list {
+    background: #ffffff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings {
+    background: #ffffff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 12px;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-navigation-entry-wrapper {
+    margin: 0;
+}
+
+#content-vue.app-mail .app-navigation__search .header {
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+#content-vue.app-mail .refresh__button {
+    background: #ffffff;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    margin-left: 6px;
+    transition: opacity .3s;
+}
+
+#content-vue.app-mail .refresh__button:hover {
+    opacity: .75;
+}
+
+#content-vue.app-mail .refresh-icon {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+#content-vue.app-mail .refresh-icon svg {
+    display: none;
+}
+
+#content-vue.app-mail .refresh-icon:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: -1px;
+    width: 16px;
+    height: 16px;
+    padding-top: 3px;
+    background-image: url('/themes/forbion/images/refresh-icon.svg');
+    background-repeat: no-repeat;
+}
+
+#content-vue.app-mail .app-navigation-caption {
+    margin-top: 0;
+}
+
+#content-vue.app-mail .app-navigation-caption .app-navigation-caption__name {
+    padding-left: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+#content-vue.app-mail .app-navigation .app-navigation-list {
+    padding: 16px;
+}
+
+#content-vue.app-mail .app-navigation-caption .app-navigation-caption__name:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background: #70B62B;
+}
+
+#content-vue.app-mail .app-navigation-entry.active,
+#content-vue.app-mail .list-item__wrapper--active .list-item,
+#content-vue.app-mail .list-item__wrapper.active .list-item{
+    background-color: #70B62B !important;
+}
+
+#content-vue.app-mail .app-navigation-entry .app-navigation-entry__name {
+    transition: .3s;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry__name {
+    color: #ffffff;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.dots-horizontal-icon:before {
+    background-image: url("/themes/forbion/images/dots-horizontal-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.chevron-down-icon:before {
+    background-image: url("/themes/forbion/images/chevron-down-icon-active.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.chevron-up-icon:before {
+    background-image: url("/themes/forbion/images/chevron-up-icon-active.svg");
+}
+
+#content-vue.app-mail .button-vue--vue-primary {
+    background-color: #70B62B;
+}
+
+#content-vue .app-content__empty.empty-content .material-design-icon.email-icon:before {
+    display: none;
+}
+
+#content-vue .app-content__empty.empty-content .material-design-icon.email-icon svg {
+    display: block;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper,
+#content-vue.app-mail .app-navigation-caption {
+    margin: 0 -9px;
+    width: calc(100% + 18px);
+}
+
+#content-vue.app-mail .app-navigation-caption {
+    padding-left: 9px;
+}
+
+#content-vue.app-mail .app-navigation-toggle-wrapper {
+    margin-right: -42px;
+}
+
+#content-vue.app-mail .app-navigation-toggle-wrapper button {
+    display: block !important;
+}
+
+#content-vue.app-mail .app-navigation-toggle .material-design-icon {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+#content-vue.app-mail .app-navigation-toggle .material-design-icon svg {
+    display: none;
+}
+
+#content-vue.app-mail .app-navigation-toggle .material-design-icon:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    padding-top: 3px;
+    background-image: url('/themes/forbion/images/menu-icon.svg');
+    background-repeat: no-repeat;
+    transform: scale(1.1);
+}
+
+#content-vue.app-mail .app-navigation-toggle .material-design-icon:not(.menu-open-icon) {
+    transform: rotateY(-180deg);
+}
+
+#content-vue.app-mail .app-navigation.app-navigation--close .app-navigation-toggle-wrapper {
+    margin-right: -35px;
+}
+
+#content-vue.app-mail .search-messages {
+    border-bottom: 0;
+}
+
+#content-vue.app-mail .search-messages .search-messages--input {
+    border: 1px solid #D9D9D9;
+    border-radius: 27px;
+    cursor: text;
+    padding-right: 45px;
+}
+
+#content-vue.app-mail .search-messages .filter-buttons {
+    display: none;
+}
+
+#content-vue.app-mail .search-messages .button-vue.search-messages--filter.button-vue--icon-only {
+    position: relative;
+    margin-left: 10px;
+}
+
+#content-vue.app-mail .search-messages .button-vue.search-messages--filter.button-vue--icon-only:hover {
+    background: #f5f5f5 !important;
+}
+
+#content-vue.app-mail .search-messages .search-messages--close {
+    position: absolute;
+    right: 55px;
+    margin-top: 2px;
+    transform: scale(1.1);
+}
+
+#content-vue.app-mail .search-messages .filter-changed {
+    background: #70B62B;
+}
+
+#content-vue.app-mail .empty-text-add-letter {
+    margin-top: 16px;
+    color: #00000080;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon {
+    position: relative;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon:not(.home-icon):not(.star-icon):not(.pencil-icon):not(.send-icon):not(.fire-icon):not(.delete-icon):not(.outbox-opacity-icon):not(.folder-icon) {
+    display: none;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.folder-icon:before {
+    background-image: url("/themes/forbion/images/inbox-mail.svg");
+    transform: unset !important;
+    transition: .2s;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.folder-icon:before {
+    background-image: url("/themes/forbion/images/inbox-mail-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon:not(.cog-icon) svg {
+    display: none;
+}
+
+#content-vue.app-mail .empty-content__icon .material-design-icon.email-icon svg {
+    display: block;
+}
+
+#content-vue.app-mail .empty-content__icon .material-design-icon.email-icon:before {
+    display: none;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon:not(.cog-icon):before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    transform: unset;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.home-icon:before {
+    background-image: url("/themes/forbion/images/inbox-mail.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.home-icon:before {
+    background-image: url("/themes/forbion/images/inbox-mail-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.star-icon:before {
+    background-image: url("/themes/forbion/images/star-icon.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.star-icon:before {
+    background-image: url("/themes/forbion/images/star-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.pencil-icon:before {
+    background-image: url("/themes/forbion/images/pencil-icon.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.pencil-icon:before {
+    background-image: url("/themes/forbion/images/pencil-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.send-icon:before {
+    background-image: url("/themes/forbion/images/send-icon.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.send-icon:before {
+    background-image: url("/themes/forbion/images/send-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.delete-icon:before {
+    background-image: url("/themes/forbion/images/delete-icon.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.delete-icon:before {
+    background-image: url("/themes/forbion/images/delete-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.fire-icon:before {
+    background-image: url("/themes/forbion/images/fire-icon.svg");
+    transform: unset;
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.fire-icon:before {
+    background-image: url("/themes/forbion/images/fire-icon-white.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry__name[data-v-54906a49] {
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+#content-vue.app-mail .app-navigation-entry:not(.active) .material-design-icon.dots-horizontal-icon:before {
+    opacity: .45;
+}
+
+#content-vue.app-mail .app-navigation-entry .material-design-icon.dots-horizontal-icon svg {
+    transition: .1s;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.dots-horizontal-icon svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-navigation-entry .counter-bubble__counter {
+    color: #70B62B;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .counter-bubble__counter {
+    background-color: rgb(238, 244, 233) !important;
+}
+
+#content-vue.app-mail .app-navigation-entry:hover .counter-bubble__counter {
+    background-color: #ffffff;
+}
+
+#content-vue.app-mail .app-navigation-entry .material-design-icon.chevron-down-icon svg,
+#content-vue.app-mail .app-navigation-entry .material-design-icon.chevron-up-icon svg {
+    transition: .2s;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.chevron-down-icon svg,
+#content-vue.app-mail .app-navigation-entry.active .material-design-icon.chevron-up-icon svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .button-vue--vue-tertiary:hover .material-design-icon.chevron-down-icon svg,
+#content-vue.app-mail .app-navigation-entry.active .button-vue--vue-tertiary:hover .material-design-icon.chevron-up-icon svg {
+    fill: #70B62B;
+}
+
+#content-vue.app-mail .app-navigation-entry.active .button-vue--vue-tertiary:hover .material-design-icon.chevron-down-icon:before {
+    background-image: url("/themes/forbion/images/chevron-down-icon-black.svg");
+}
+
+#content-vue.app-mail .app-navigation-entry.active .button-vue--vue-tertiary:hover .material-design-icon.chevron-up-icon:before {
+    background-image: url("/themes/forbion/images/chevron-up-icon-black.svg");
+}
+
+#content-vue.app-mail .app-content-list {
+    padding: 10px;
+}
+
+#content-vue.app-mail .app-content-list .list-item .list-item-content[data-v-7d3f3ded] {
+    padding: 0 12px;
+}
+
+#content-vue.app-mail .app-content-list .list-item .list-item-content__name[data-v-7d3f3ded] {
+    max-width: 120px;
+    color: #000000;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper--active .list-item .list-item-content[data-v-7d3f3ded] * {
+    color: #ffffff !important;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper--active .list-item .material-design-icon.dots-horizontal-icon:before {
+    background-image: url("/themes/forbion/images/dots-horizontal-icon-white.svg");
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper--active .list-item .list-item-content[data-v-7d3f3ded] .tag-group .tag-group__bg {
+    background: #FFFFFF !important;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper--active .list-item .material-design-icon.dots-horizontal-icon svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper .list-item .hovering-status svg {
+    fill: #70B62B;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper--active .list-item .hovering-status .app-content-list-item-avatar-selected svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper:not(.list-item__wrapper--active) .list-item .hovering-status .app-content-list-item-avatar-selected svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper .list-item .avatardiv--unknown .avatardiv__initials {
+    display: none;
+    position: relative;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper .list-item .avatardiv--unknown .avatardiv__initials-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 1px;
+    width: 36px;
+    height: 36px;
+    background-image: url("/themes/forbion/images/avatar-mail-unknown.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#content-vue.app-mail .app-content-details .envelope__header__avatar .avatardiv--unknown .avatardiv__initials {
+    display: none;
+    position: relative;
+}
+#content-vue.app-mail .app-content-details .envelope__header__avatar .avatardiv--unknown .avatardiv__initials-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    width: 36px;
+    height: 36px;
+    background-image: url("/themes/forbion/images/avatar-mail-unknown.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#content-vue.app-mail .app-content-details .avatar-header .avatardiv--unknown .avatardiv__initials {
+    display: none;
+    position: relative;
+}
+#content-vue.app-mail .app-content-details .avatar-header .avatardiv--unknown .avatardiv__initials-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: -7px;
+    width: 36px;
+    height: 36px;
+    background-image: url("/themes/forbion/images/avatar-mail-unknown.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+    transform: scale(0.7);
+}
+#content-vue.app-mail #mail-message {
+    margin-bottom: 0;
+    margin-left: unset;
+    margin-right: unset;
+    max-width: unset;
+    height: 100%;
+}
+#content-vue.app-mail #mail-message .envelope__header__avatar[data-v-d2fe4dac] {
+    margin-right: 2px;
+}
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested {
+    color: #ffffff;
+    transition: .3s;
+}
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested:hover {
+    opacity: .75;
+}
+#content-vue.app-mail #mail-message .envelope {
+    margin-top: 10px;
+}
+#content-vue.app-mail #mail-message .user-bubble__name {
+    margin-left: 2px;
+}
+#content-vue.app-mail #mail-message .action-item--tertiary .material-design-icon:before {
+    width: 16px;
+    height: 16px;
+}
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded]:not(:first-child) {
+    margin-top: 0;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded] {
+    padding: 0;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded] .list-item {
+    padding: 10px 8px;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded] .list-item .material-design-icon.checkbox-blank-circle-icon svg {
+    fill: #808080;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded].list-item__wrapper--active .list-item .material-design-icon.checkbox-blank-circle-icon svg {
+    fill: #ffffff;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded] {
+    margin-bottom: -1px;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded]:not(.seen) {
+    border: 1px solid #70B62B;
+    border-radius: 8px;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded].seen {
+    margin-top: 1px;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper[data-v-7d3f3ded] .list-item-content__inner__details__extra[data-v-7d3f3ded] {
+    margin-top: auto;
+}
+
+#content-vue.app-mail .v-popper__popper .v-popper__inner li:first-child {
+    display: none;
+}
+
+#content-vue.app-mail #app-content-vue > div[data-v-e905d7c8]:not(.app-content-wrapper) {
+    padding: 50px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content;
+    background: #FFFFFF;
+    border-radius: 8px;
+    width: calc(100% - 8px);
+    margin-left: 8px;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8].empty-content {
+    flex-grow: 0;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] {
+    padding-bottom: 0;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .material-design-icon.eye-icon svg,
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .material-design-icon.eye-off-icon svg {
+    display: none;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .material-design-icon.eye-icon::before,
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .material-design-icon.eye-off-icon::before {
+    content: '';
+    background-image: url("/themes/forbion/images/pass-visible.svg");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .input-field__icon {
+    display: block !important;
+    position: absolute;
+    right: 8px;
+    left: unset;
+    top: 6px;
+    opacity: 1;
+    background: #FFFFFF;
+}
+
+#content-vue.app-mail #app-content-vue div[data-v-e905d7c8] #account-form[data-v-3d06ba11] .input-field__icon::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+}
+
+#content-vue.app-mail .app-navigation .app-navigation-entry__children .app-navigation-entry-wrapper{
+    margin: 0;
+    width: 100%;
+}
+
+#content-vue #app-content-vue.no-snapper {
+    border-radius: 8px;
+}
+
+#content-vue.app-mail #account-form input {
+    border: 1px solid #E6E6E6;
+    padding: 12px 50px 12px 12px;
+    height: auto !important;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#content-vue.app-mail #account-form .input-field__main-wrapper {
+    height: auto !important;
+    position: relative;
+}
+
+#content-vue.app-mail #account-form .input-field__input:not(:focus) + .input-field__label[data-v-e4fac465] {
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .3s;
+}
+
+#content-vue.app-mail #account-form .input-field__input:not(:placeholder-shown) + .input-field__label[data-v-e4fac465],
+#content-vue.app-mail #account-form .input-field__input:focus + .input-field__label[data-v-e4fac465] {
+    top: -10px;
+    transform: unset;
+}
+
+#content-vue.app-mail #account-form .tabs-component .tabs-component-tabs {
+    margin-bottom: 20px;
+}
+
+#content-vue.app-mail #account-form .input-field--trailing-icon .input-field__trailing-button {
+    top: 1px;
+    right: 10px;
+    height: 44px;
+    background: #FFFFFF;
+    z-index: 1;
+}
+
+#content-vue.app-mail #account-form .account-form--feedback {
+    margin-top: 15px;
+}
+
+#content-vue.app-mail #account-form .account-form__submit-button {
+    margin-top: 14px;
+    color: #FFFFFF;
+}
+
+#content-vue.app-mail #account-form .account-form__submit-button {
+    transition: opacity .3s;
+    height: 40px;
+    padding: 0 25px 0 12px;
+}
+
+#content-vue.app-mail #account-form .account-form__submit-button:not(:disabled):hover {
+    opacity: .75;
+}
+
+#content-vue.app-mail #account-form .account-form__submit-button .material-design-icon {
+    transform: scale(1.5);
+}
+
+#content-vue.app-mail #account-form .account-form__submit-button .button-vue__text {
+    padding-left: 3px;
+}
+
+#content-vue.app-mail #account-form h3 {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 32px;
+    margin-bottom: 4px;
+}
+
+#content-vue.app-mail #account-form h4 {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 32px;
+    margin-bottom: 8px;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio {
+    border: unset;
+    border-radius: 8px;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio:not(:last-child) {
+    margin-right: 4px;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio .checkbox-radio-switch__content {
+    padding: 6px 12px;
+    transition: opacity .3s;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio .checkbox-radio-switch__text {
+    font-size: 14px;
+    line-height: 1;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch--checked.checkbox-radio-switch-radio .checkbox-radio-switch__text {
+    color: #FFFFFF;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio:not(.checkbox-radio-switch--checked) .checkbox-radio-switch__content {
+    background-color: rgb(238, 244, 233);
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio:not(.checkbox-radio-switch--checked) .checkbox-radio-switch__content:hover {
+    opacity: .75;
+}
+
+#content-vue.app-mail #account-form .checkbox-radio-switch-radio.checkbox-radio-switch--checked .checkbox-radio-switch__content {
+    background-color: #70B62B;
+}
+
+#content-vue.app-mail #account-form div[data-v-3d06ba11].flex-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+#content-vue.app-mail #account-form .input-field {
+    margin: 14px 0;
+}
+
+#content-vue.app-mail .list-item-content__inner__main .list-item-content__inner__subname .draft[data-v-68a47000] {
+    margin-right: 6px;
+}
+
+.v-popper__popper .native-datetime-picker label[data-v-40e61767][for="date-time-picker_id"] {
+    display: none;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button {
+    background-color: unset;
+    padding: 0;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button .button-vue__text {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0 9px;
+    font-size: 15px;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button .button-vue__text svg {
+    margin-right: 15px;
+    transform: scale(1.2);
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button .button-vue__wrapper {
+    display: inline-block;
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button {
+    transition: background-color .3s;
+    margin: 0 -9px;
+    width: calc(100% + 18px);
+}
+
+#content-vue.app-mail .app-navigation .mail-settings .app-settings-button:hover {
+    background-color: var(--color-background-hover);
+}
+
+#content-vue.app-mail #mail-thread-header-fields {
+    padding-left: 15px;
+}
+
+#content-vue.app-mail #mail-message .mail-message-body {
+    display: flex;
+    flex-direction: column;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons[data-v-61d2d687] {
+    margin-right: 10px;
+    margin-top: auto;
+}
+
+#content-vue.app-mail #mail-message .mail-attachment-img--wrapper[data-v-dec658ec] img {
+    object-fit: cover;
+    object-position: center;
+}
+
+#content-vue.app-mail .list-item .list-item-content__inner__tags[data-v-7d3f3ded] {
+    margin-top: 5px;
+}
+
+#content-vue.app-mail .app-navigation .outbox__border {
+    background: #ffffff;
+    border: unset;
+    padding: 10px 0;
+}
+
+#content-vue.app-mail .app-navigation .outbox__border #navigation-outbox {
+    width: calc(100% - 18px);
+    margin: 0 9px;
+    padding: 0;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon {
+    opacity: 1;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry-icon .material-design-icon.outbox-opacity-icon:before {
+    background-image: url("/themes/forbion/images/sendLetter.svg");
+    transform: unset;
+}
+
+#content-vue.app-mail .app-navigation-entry-wrapper .app-navigation-entry.active .app-navigation-entry-icon .material-design-icon.outbox-opacity-icon:before {
+    background-image: url("/themes/forbion/images/sendLetter-active.svg");
+    transition: background-image 0.2s ease-in-out;
+}
+
+#content-vue.app-mail .empty-content__name {
+    padding: 0 20px;
+}
+
+#content-vue.app-mail .app-content-list .outbox-message {
+    padding-top: 50px;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested .material-design-icon.reply-icon {
+    position: relative;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested .material-design-icon.reply-icon svg {
+    display: none;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested .material-design-icon.reply-icon:after {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: -15px;
+    width: 20px;
+    height: 17px;
+    background-image: url("/themes/forbion/images/sendMessage.svg");
+    background-repeat: no-repeat;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested .material-design-icon.reply-icon:before {
+    display: none;
+}
+
+#content-vue.app-mail #mail-message .material-design-icon.email-icon:before {
+    background-image: url("/themes/forbion/images/email-icon-active-small.svg");
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested {
+    padding: 0 25px 0 15px;
+    margin-right: auto;
+    margin-left: 0;
+    height: 40px;
+}
+
+#content-vue.app-mail #mail-message .reply-buttons__notsuggested .button-vue__text {
+    font-weight: 500;
+}
+
+#content-vue.app-mail > .composer-session .material-design-icon.pencil-icon:before {
+    width: 16px;
+    height: 16px;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] li[data-v-68a47000]:first-child .material-design-icon.star-icon:before,
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] li[data-v-68a47000]:first-child .material-design-icon.star-outline-icon:before {
+    background-image: url("/themes/forbion/images/star-icon-big-black.svg");
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] li[data-v-68a47000]:nth-child(2) .material-design-icon.email-icon:before,
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] li[data-v-68a47000]:nth-child(2) .material-design-icon.email-open-icon:before {
+    background-image: url("/themes/forbion/images/email-icon.svg");
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] li[data-v-68a47000]:nth-child(3) .material-design-icon.important-icon:before {
+    background-image: url("/themes/forbion/images/important-big-icon.svg");
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] .list-item-content__actions--primary[data-v-68a47000] {
+    margin-bottom: 16px;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li span {
+    color: #000000;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-3e2324b7].action-separator {
+    margin: 0 10px 16px 7px;
+}
+
+.v-popper__popper ul[data-v-fcbbc5a9] li[data-v-824615f4]:nth-child(2) span.action-text__longtext {
+    color: #808080;
+}
+
+.action .action-checkbox label.action-checkbox__label {
+    position: relative;
+    padding-left: 34px !important;
+}
+
+.action input[type=checkbox].checkbox+label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -1px;
+    transform: translateY(-50%) scale(1.1);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/checkbox-blank-outline-black-icon.svg");
+    border: unset !important;
+    background-color: unset !important;
+}
+
+.action input[type=checkbox].checkbox:checked+label::before {
+    background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+}
+
+#content-vue.app-mail .multiselect-header .action-buttons > .button-vue .material-design-icon {
+    width: 20px;
+    height: 20px;
+}
+
+#content-vue.app-mail .multiselect-header .action-buttons > .button-vue .material-design-icon.email-icon::before {
+    background-image: url("/themes/forbion/images/email-open-icon.svg");
+}
+
+@media only screen and (max-width: 1023px) {
+    #content-vue.app-mail {
+        border-radius: unset;
+    }
+    #content-vue.app-mail .app-navigation.app-navigation--close .app-navigation-toggle-wrapper {
+        margin-top: 21px;
+        margin-right: -57px;
+    }
+    #content-vue.app-mail .search-messages {
+        background: #ffffff;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    #content-vue.app-mail .app-content-list {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    #content-vue .app-navigation:not(.app-navigation--close) {
+        background: #ffffff;
+        border-top-right-radius: 8px;
+        border-top-left-radius: unset;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: unset;
+    }
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) .app-navigation-list,
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) .mail-settings {
+        border: unset;
+    }
+    #content-vue.app-mail .button-vue--vue-secondary .button-vue__text {
+        padding-right: 20px;
+    }
+    #content-vue.app-mail .app-navigation-toggle-wrapper {
+        margin-right: -38px;
+    }
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) {
+        padding: 77px 20px 20px;
+        top: 1px;
+    }
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) .app-navigation-toggle-wrapper {
+        margin-right: unset;
+        left: 20px;
+        top: 25px;
+    }
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) .app-navigation-toggle,
+    #content-vue.app-mail .app-navigation:not(.app-navigation--close) .refresh__button {
+        background: #f5f5f5 !important;
+    }
+    #content-vue.app-mail .app-navigation .app-navigation-list {
+        margin-top: 8px;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+    #content-vue.app-mail .app-navigation-entry-wrapper, #content-vue.app-mail .app-navigation-caption {
+        width: 100%;
+        margin: 0;
+    }
+    #content-vue.app-mail .app-navigation .mail-settings {
+        padding: 0;
+    }
+    #content-vue.app-mail #mail-thread-header-fields {
+        padding-left: 0;
+        margin: 0;
+    }
+    #content-vue.app-mail #mail-thread-header-fields h2 {
+        margin-top: 0;
+        line-height: 34px;
+    }
+    #content-vue.app-mail #mail-message .envelope {
+        margin: 0;
+        padding-top: 5px;
+        border: unset;
+        background: #ffffff;
+        border-top-right-radius: unset;
+        border-top-left-radius: unset;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    #content-vue.app-mail #mail-message {
+        margin-top: -34px;
+        margin-bottom: 0;
+    }
+    #content-vue.app-mail #mail-message #mail-thread-header {
+        padding: 7px 0 0 0;
+        background: #ffffff;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+    #content-vue.app-mail #mail-message #mail-thread-header #mail-thread-header-fields {
+        padding-left: calc(var(--app-navigation-padding)* 2 + var(--default-clickable-area) + 10px);
+        padding-bottom: 8px;
+    }
+    #content-vue.app-mail .app-content-details .envelope__header__avatar .avatardiv--unknown .avatardiv__initials-wrapper::before {
+        left: 1px;
+    }
+    #content-vue.app-mail #app-content-vue > div[data-v-e905d7c8]:not(.app-content-wrapper) {
+        margin-left: 0;
+        width: 100%;
+        border-radius: 8px;
+    }
+    #content-vue.app-mail #app-content-vue .app-content-wrapper {
+        border-radius: 8px;
+    }
+    #content-vue.app-mail div[data-v-68d775ee].composer-session {
+        left: -1px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+    }
+    #content-vue.app-mail #account-form {
+        width: 100%;
+    }
+    #content-vue.app-mail #account-form div[data-v-3d06ba11].flex-row {
+        max-width: 300px;
+    }
+    #content-vue.app-mail .app-navigation .mail-settings .app-settings-button .button-vue__text {
+        padding: 0 16px;
+    }
+    #content-vue.app-mail .app-navigation .mail-settings .app-settings-button .button-vue__text svg {
+        margin-right: 16px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #content-vue.app-mail #account-form div[data-v-3d06ba11].flex-row {
+        flex-direction: column;
+        max-width: 100%;
+    }
+    #content-vue.app-mail #account-form .checkbox-radio-switch-radio {
+        width: 100%;
+    }
+    #content-vue.app-mail #account-form .checkbox-radio-switch-radio .checkbox-radio-switch__content {
+        width: 100%;
+        max-width: 100%;
+    }
+    #content-vue.app-mail #account-form .checkbox-radio-switch-radio:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 4px;
+    }
+}

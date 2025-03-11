@@ -17,8 +17,8 @@
 
 .l-wrapper {
     width: 100%;
-    max-width: 1350px;
-    padding: 0 25px !important;
+    max-width: 100%;
+    padding: 0 50px !important;
     margin: 0 auto;
     position: relative;
 }

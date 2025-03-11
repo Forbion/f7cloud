@@ -1,12 +1,126 @@
 /* Общие стили для .app-files */
+/*@import "/themes/forbion/css/pages/app-mail/forms/_modals.css";*/
+
 body .app-files {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
     --color-primary-element-light-hover: #ffffff !important;
     /* --default-clickable-area: 20px; */
-    --color-background-hover: #ffffff !important;
+    --color-background-hover: transparent !important;
     --sidebar-pad: 0px;
     --vs-border-width: 1px solid #E6E6E6;
+
+    --icon-external-white: url('/themes/forbion/images/chain.svg');
+    --icon-more-white: url('/themes/forbion/images/users-gray.svg');
+    --icon-public-white: url('/themes/forbion/images/chain.svg');
+
+    & .material-design-icon.checkbox-marked-icon {
+        /*--icon-size: 16px !important;*/
+    }
+
+    & .files-list__refresh-icon {
+        display: none !important;
+        opacity: 0 !important;
+        position: absolute !important;
+    }
+    & .material-design-icon.checkbox-marked-icon:after {
+        background-image: url('/themes/forbion/images/box-checked.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.checkbox-marked-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.minus-box-icon > svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    & .files-list__row-actions-batch-delete {
+        & .icon-vue > svg {
+            display: none;
+        }
+        & .icon-vue:after{
+            content: '';
+            background-image: url('/themes/forbion/images/delete-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    & .files-navigation.app-navigation--close {
+        & .app-navigation-toggle-wrapper {
+            inset-inline-end: calc(0px - var(--app-navigation-padding)) !important;
+
+            & .material-design-icon.menu-icon:after {
+                top: 12px !important;
+                left: 16px;
+            }
+
+        }
+        & .files-list__breadcrumbs {
+            padding-left: 28px;
+        }
+    }
+
+    .app-navigation--close ~ .app-content,
+    .app-navigation--close + .app-content {
+        & .files-list__breadcrumbs {
+            padding-left: 40px !important;
+        }
+
+    }
+
+    & .files-list:not(.files-list--grid) .files-list__row-icon-preview {
+        --icon-preview-size: 29px !important;
+    }
+    & .files-list--grid tbody.files-list__tbody {
+        --icon-preview-size: 100px !important;
+    }
+
+    & .files-list__before {
+        display: none !important;
+    }
+    & .files-list__thead-overlay {
+
+        & .files-list__row-actions-batch-favorite {
+            & .icon-vue > svg {
+                display: none;
+            }
+            & .icon-vue:after {
+                content: '';
+                width: 16px;
+                height: 16px;
+                background-image: url('/themes/forbion/images/favorites-white.svg');
+            }
+        }
+        & .files-list__row-actions-batch-move-copy {
+            & .icon-vue > svg {
+                display: none;
+            }
+            & .icon-vue:after {
+                content: '';
+                width: 16px;
+                height: 16px;
+                background-image: url('/themes/forbion/images/move-copy-white.svg');
+            }
+        }
+        & .files-list__row-actions-batch-download {
+            & .icon-vue > svg {
+                display: none;
+            }
+            & .icon-vue:after {
+                content: '';
+                width: 16px;
+                height: 16px;
+                background-image: url('/themes/forbion/images/upload-white.svg');
+            }
+        }
+    }
     & .empty-content__description {
         padding-bottom: 20px;
     }
@@ -24,6 +138,21 @@ body .app-files {
     }
 
 
+    /*& .app-navigation-list.files-navigation__list {*/
+    /*    gap: unset !important;*/
+    /*}*/
+
+    & section[aria-labelledby="tab-button-chat"] {
+            & .icon.icon-talk {
+                /*content: '';*/
+                background-image: url('/themes/forbion/images/chats-big.svg');
+                width: 100px;
+                height: 100px;
+                background-size: cover;
+                opacity: 1;
+            }
+
+    }
     & button[data-cy-files-list-selection-action="move-copy"] {
             & .icon-vue:after {
                 content: '';
@@ -181,7 +310,134 @@ body .app-files {
                 display: none;
             }
     }
+    & li[data-cy-files-list-row-action="view"] {
+            & .icon-vue:after {
+                background-image: url('/themes/forbion/images/eye.svg') !important;
+                content: '';
+                width: 16px;
+                height: 16px;
+            }
+            & .icon-vue > svg {
+                display: none;
+            }
+    }
 
+    & span[data-cy-files-sharing-share-permissions-bundle="read-only"] {
+            & .material-design-icon:after {
+                background-image: url('/themes/forbion/images/eye.svg') !important;
+                content: '';
+                width: 16px;
+                height: 16px;
+            }
+            & .material-design-icon > svg {
+                display: none;
+            }
+    }
+
+    & span[data-cy-files-sharing-share-permissions-bundle="upload-edit"] {
+            & .material-design-icon:after {
+                background-image: url('/themes/forbion/images/pencil-icon-black.svg') !important;
+                content: '';
+                width: 16px;
+                height: 16px;
+            }
+            & .material-design-icon > svg {
+                display: none;
+            }
+    }
+
+    & span[data-cy-files-sharing-share-permissions-bundle="custom"] {
+            & .material-design-icon:after {
+                background-image: url('/themes/forbion/images/dots-horizontal-icon.svg') !important;
+                content: '';
+                width: 16px;
+                height: 16px;
+            }
+            & .material-design-icon > svg {
+                display: none;
+            }
+    }
+
+
+    & button[aria-controls="tab-activity"] {
+            & .svg-icon:after {
+                background-image: url('/themes/forbion/images/info-black.svg');
+                content: '';
+                width: 20px;
+                height: 20px;
+                display: inline-flex;
+                background-position: center;
+                background-size: contain;
+            }
+            & .svg-icon > svg {
+                display: none;
+            }
+    }
+
+    & button[aria-controls="tab-version_vue"] {
+            & .svg-icon:after {
+                background-image: url('/themes/forbion/images/versions.svg') !important;
+                content: '';
+                width: 20px;
+                height: 20px;
+                display: inline-flex;
+                background-position: center;
+                background-size: contain;
+            }
+            & .svg-icon > svg {
+                display: none;
+            }
+    }
+
+    & button[aria-controls="tab-chat"] {
+            & .checkbox-content__icon:after {
+                background-image: url('/themes/forbion/images/chat.svg') !important;
+                content: '';
+                width: 20px;
+                height: 20px;
+                display: inline-flex;
+                background-position: center;
+                background-size: contain;
+            }
+            & .icon-talk {
+                display: none;
+            }
+    }
+
+    & button[aria-controls="tab-sharing"] {
+            & .svg-icon:after {
+                background-image: url('/themes/forbion/images/users.svg') !important;
+                content: '';
+                width: 20px;
+                height: 19px;
+                display: inline-flex;
+                background-position: center;
+                background-size: contain;
+            }
+            & .svg-icon > svg {
+                display: none;
+            }
+    }
+
+    & .material-design-icon.chevron-right-icon:after {
+        /*background-image: url('/themes/forbion/images/file.svg') !important;*/
+        content: " /";
+    }
+    & .material-design-icon.chevron-right-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.tag-icon.files-list__row-icon-overlay:after {
+        background-image: url('/themes/forbion/images/tags-black.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.tag-icon.files-list__row-icon-overlay > svg {
+        display: none;
+    }
     & .material-design-icon.chart-pie-icon:after {
         background-image: url('/themes/forbion/images/file.svg') !important;
         content: '';
@@ -195,6 +451,18 @@ body .app-files {
         background-position: center;
     }
     & .material-design-icon.chart-pie-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.send-icon:after {
+        background-image: url('/themes/forbion/images/plane.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.send-icon > svg {
         display: none;
     }
     & .material-design-icon.cog-icon:after {
@@ -216,8 +484,8 @@ body .app-files {
         background-image: url('/themes/forbion/images/exit.svg') !important;
         content: '';
         position: absolute;
-        top: 9px;
-        left: 10px;
+        top: 12px;
+        left: 16px;
         width: 16px;
         height: 16px;
         background-size: contain;
@@ -322,14 +590,31 @@ body .app-files {
     }
 
 
+    & .upload-picker.files-list__header-upload-button {
+        & .button-vue__wrapper .button-vue__text {
+            display: none;
+        }
+
+        .button-vue__wrapper:before {
+            font-family: Raleway;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0;
+
+            content: 'Создать или загрузить';
+            margin-left: -2px;
+        }
+    }
+
     & .upload-picker.files-list__header-upload-button .button-vue__wrapper:after {
         background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
         content: '';
         position: absolute;
-        top: 12px;
-        left: 14px;
-        width: 16px;
-        height: 16px;
+        top: 10px;
+        left: 15px;
+        width: 20px;
+        height: 20px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -337,14 +622,36 @@ body .app-files {
     & .upload-picker.files-list__header-upload-button .button-vue__icon {
         display: none;
     }
-    & .files-list__row-action-sharing-status .icon-vue:after {
-        background-image: url('/themes/forbion/images/users-gray.svg') !important;
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+
+                                /*button-vue__wrapper*/
+    & .files-list__row-action-sharing-status {
+
+        & .button-vue__wrapper:not(:has(.button-vue__text)) .icon-vue::after {
+            background-image: url('/themes/forbion/images/users-gray.svg');
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        & .button-vue__wrapper:has(.button-vue__text) .icon-vue::after {
+            /* users-green.svg */
+            background-image: url('/themes/forbion/images/users-green.svg') !important;
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        & .button-vue__wrapper .button-vue__text {
+            display: none;
+        }
+
+
     }
     & .files-list__row-action-sharing-status .icon-vue > svg {
         display: none;
@@ -405,12 +712,95 @@ body .app-files {
         margin-right: 8px !important;
         background-color: unset !important;
         color: #808080 !important;
+        width: 269px;
+
+        /*& .app-navigation__search:after {*/
+        /*    background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;*/
+        /*    content: '';*/
+        /*    position: absolute;*/
+        /*    top: 10px;*/
+        /*    left: 15px;*/
+        /*    width: 20px;*/
+        /*    height: 20px;*/
+        /*    background-size: contain;*/
+        /*    background-repeat: no-repeat;*/
+        /*    background-position: center;*/
+        /*}*/
+
+
 
         & .app-navigation__search {
-            width: 300px !important;
-            min-height: 48px !important;
+            width: 247px !important;
+            min-height: 40px !important;
+
+            background-color: #b8d0a0 !important;
+            border-radius: 8px;
+            /*margin-bottom: 5px;*/
 
             & .breadcrumb__actions {
+
+                /*display: none;*/
+
+                & .files-list__header-upload-button--disabled {
+                    color: white;
+                    width: 246px;
+                    background-color: #b8d0a0 !important;
+                    /*background-color: #70b62b5e !important;*/
+                    opacity: 1;
+                    height: 40px;
+                    /*gap: 8px;*/
+                    padding: 10px 14px;
+                    border-radius: 8px;
+                    /*margin-bottom: 8px;*/
+
+                    display: flex !important;
+
+                    & .button-vue__wrapper:after{
+                        background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
+                        content: '';
+                        position: absolute;
+                        top: 10px;
+                        left: 15px;
+                        width: 20px;
+                        height: 20px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                    & .button-vue__icon {
+                        display: none;
+                    }
+
+                    & .button-vue__text {
+                        font-family: Raleway;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 20px;
+                        letter-spacing: 0;
+                    }
+                }
+                & .files-list__header-upload-button--disabled:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 31px;
+                    width: 2px;
+                    height: 100%;
+                    background: #ffffff;
+                    pointer-events: none;
+                }
+                & .files-list__header-upload-button--disabled:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 7px;
+                    transform: translateY(-50%);
+                    width: 16px;
+                    height: 16px;
+                    background-image: url("../../../images/plus.svg");
+                    background-repeat: no-repeat;
+                    pointer-events: none;
+                }
 
                 & .files-list__header-share-button {
                     display: none;
@@ -423,11 +813,11 @@ body .app-files {
                 & .upload-picker {
                     height: 40px !important;
                     width: 100% !important;
-                    margin-bottom: 8px;
+                    /*margin-bottom: 8px;*/
 
                     & .action-item > div > button {
                         color: white;
-                        width: 300px;
+                        width: 247px;
                         background-color: #70B62B !important;
                         height: 40px;
                         /*gap: 8px;*/
@@ -439,7 +829,7 @@ body .app-files {
                             content: '';
                             position: absolute;
                             top: 0;
-                            right: 37px;
+                            right: 32px;
                             width: 2px;
                             height: 100%;
                             background: #ffffff;
@@ -449,7 +839,7 @@ body .app-files {
                         content: '';
                         position: absolute;
                         top: 50%;
-                        right: 12px;
+                        right: 8px;
                         transform: translateY(-50%);
                         width: 16px;
                         height: 16px;
@@ -465,6 +855,14 @@ body .app-files {
             background-color: #FFFFFF;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
+            --sidebar-min-width: 269px !important;
+            --default-clickable-area: 36px !important;
+            width: 269px;
+            margin-top: 8px;
+            & .app-navigation-list.files-navigation__list {
+                padding-top: 9px;
+                gap: unset !important;
+            }
 
             /* Скрытие встроенных SVG в иконках */
             & .app-navigation-entry-icon > span > svg {
@@ -474,9 +872,9 @@ body .app-files {
             /* Базовые стили для псевдоэлемента :after в .icon-vue */
             & .icon-vue:after {
                 content: '';
-                position: absolute;
-                top: 9px;
-                left: 10px;
+                /*position: absolute;*/
+                /*top: 9px;*/
+                /*left: 10px;*/
                 width: 16px;
                 height: 16px;
                 background-size: contain;
@@ -554,6 +952,22 @@ body .app-files {
 
             & li[data-cy-files-navigation-item="folders"] {
                 & .app-navigation-entry {
+
+                    & button.icon-collapse:hover {
+                        background-color: transparent !important;
+                        color: black;
+                    }
+                    & .icon-vue:after {
+                        background-image: url('/themes/forbion/images/inbox-mail.svg');
+                    }
+                    &.active .icon-vue:after {
+                        background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
+                    }
+                }
+            }
+
+            & li[data-cy-files-navigation-item="groupfolders"] {
+                & .app-navigation-entry {
                     & .icon-vue:after {
                         background-image: url('/themes/forbion/images/inbox-mail.svg');
                     }
@@ -584,8 +998,11 @@ body .app-files {
     }
 
     & .app-navigation-toggle-wrapper {
-        top: 2px !important;
-        inset-inline-end: calc(-4px - var(--app-navigation-padding)) !important;
+        top: 0px !important;
+        inset-inline-end: calc(22px - var(--app-navigation-padding)) !important;
+    }
+    & .app-navigation-toggle-wrapper > button {
+        min-height: 40px !important;
     }
 
     & .searchBoxReplace {
@@ -593,17 +1010,15 @@ body .app-files {
         background-color: #FFF;
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
-        padding: 3px 10px;
+        padding: 5px 10px;
         display: none;
+        --default-clickable-area: 30px !important;
 
         & .input-field__input {
-            border: 1px solid #F5F5F5;
+            border: 1px solid #D9D9D9 !important;
             border-radius: 27px;
-
-            padding: 4px 20px 4px 10px;
-            margin: 7px 0;
-            --default-clickable-area: 20px !important;
-            height: 20px !important;
+            padding: 5px 20px 5px 10px;
+            height: 30px !important;
         }
         & .input-field__input:hover {
             border: 1px solid #F5F5F5;
@@ -655,8 +1070,15 @@ body .app-files {
                 --button-size: 40px;
                 background-color: #FFFFFF;
                 border-radius: 8px;
-                margin-left: 5px;
+                margin-left: 9px;
                 margin-right: 4px;
+                padding-right: unset;
+            }
+
+            & .router-link-exact-active {
+                margin-left: 2px !important;
+                padding-left: unset;
+
             }
 
             & .files-list__header-grid-button {
@@ -670,7 +1092,7 @@ body .app-files {
                 margin-inline: unset;
                 border-bottom-left-radius: 8px;
                 border-top-left-radius: 8px;
-                padding-left: 30px;
+                padding-left: 18px;
 
                 & .vue-crumb {
                     height: unset;
@@ -694,6 +1116,12 @@ body .app-files {
                 margin: 0 var(--cell-margin);
                 flex: unset;
             }
+            & .files-list__row {
+                margin-top: 16px;
+            }
+            & .files-list__row-name:not(.files-list__column--sortable) {
+                padding-top: 12px;
+            }
         }
 
         & .files-list:not(.files-list--grid) {
@@ -712,16 +1140,29 @@ body .app-files {
             border-radius: 8px !important;
 
 
+            & .files-list__header .button-vue__text {
+                color: black;
+            }
+
             & .files-list__row-head {
                 border-block-end: unset !important;
 
+                & .files-list__row-checkbox {
+                    margin-left: -5px;
+                }
+
                 & .files-list__row-name span.files-list__row-icon {
                     display: none;
+                }
+
+                & .files-list__column-sort-button-text {
+                    color: black;
                 }
             }
 
             & .files-list__row-mtime {
                 min-width: 135px;
+                color: black !important;
             }
 
             & .files-list__filters {
@@ -734,6 +1175,9 @@ body .app-files {
             }
             & .files-list__table {
 
+                & .checkbox-radio-switch__content {
+                    min-width: 34px !important;
+                }
                 & .checkbox-radio-switch__content:hover {
                     background-color: transparent !important;
                 }
@@ -785,22 +1229,25 @@ body .app-files {
                 }
 
                 & .files-list__tbody {
-                    --row-height: calc(var(--icon-preview-size) + var(--name-height) + var(--mtime-height) + var(--item-padding) * 2);
+                    /*--row-height: calc(var(--icon-preview-size) + var(--name-height) + var(--mtime-height) + var(--item-padding) * 2);*/
                     --mtime-height: 20px;
                     /*--item-padding: 12px 8px;*/
                     --name-height: 20px;
-
+                    min-height: unset !important;
 
                     & .files-list__row{
-                        padding: 36px 8px 17px !important;
+                        padding: 18px 8px !important;
                         border-block-end: unset !important;
 
                         & .files-list__row-icon {
                             margin-inline-end: 0;
+                            /*padding-top: 12px;*/
                         }
 
-                        & .files-list__row-name {
-                            padding-left: 5px;
+
+
+                        & .files-list__row-name-link {
+                            padding-left: 12px;
                         }
 
                         & .files-list__row-actions {
@@ -809,13 +1256,17 @@ body .app-files {
                         }
 
                         & .files-list__row-checkbox {
-                            --checkbox-container-size: 33px !important;
+                            --checkbox-container-size: 29px !important;
                             top: 0;
+                            max-width: 23px;
+                            margin-right: 12px;
+                            margin-left: 3px;
                         }
 
 
                         & .files-list__row-size {
                             min-width: 45px !important  ;
+                            color: black !important;
                         }
                     }
 
@@ -832,18 +1283,65 @@ body .app-files {
     }
 
     & .app-sidebar {
-        & .app-sidebar-header {
+        border-radius: 8px;
+        & .app-sidebar__close {
+            top: 17px !important;
+        }
+
+        & .app-sidebar-header--compact .app-sidebar-header__figure {
+            width: 60px !important;
+            height: 60px !important;
+            left: 12px !important;
+            border-radius: 4px;
+            position: relative;
+            margin-left: 20px !important;
+            margin-right: 22px !important;
+            margin-top: 32px !important;
+            padding: unset !important;
+            background-image: url('/themes/forbion/images/files-black.svg') !important;
+        }
+        & .app-sidebar-header--compact .app-sidebar-header__desc {
+            margin-top: 10px !important;
+
+            & .app-sidebar-header__mainname-container {
+                margin-top: 10px !important;
+            }
+
+            & .app-sidebar-header__subname {
+                padding-top: 8px;
+            }
+        }
+        & .app-sidebar-header:not(.app-sidebar-header--compact) {
+
+            & .app-sidebar-header__figure {
+                width: 114px !important;
+                height: 114px !important;
+                margin-left: calc(50% - 57px);
+                border-radius: 8px;
+            }
 
             & .app-sidebar-header__info {
                 padding-top: 56px;
+
+                & .app-sidebar-header__subname {
+
+                    & .icon-vue:after {
+                        background-image: url('/themes/forbion/images/favorites.svg');
+                        content: '';
+                        width: 20px;
+                        height: 20px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+
+                    & .icon-vue > svg {
+                        display: none;
+                    }
+                }
             }
-            & .app-sidebar-header__info .app-sidebar-header__figure {
-                width: 200px;
-                height: 200px;
-                left: calc(50% - 100px);
-                border-radius: 4px;
-                position: relative;
-            }
+
+
 
             & .app-sidebar-header__desc {
                 padding-inline: calc(var(--app-sidebar-padding) + 12px);
@@ -851,12 +1349,55 @@ body .app-files {
         }
 
         & .app-sidebar-tabs {
+
+            & .sharingTab {
+                & .icon-public-white, .icon-more-white, .icon-external-white {
+                    background-color: #D9D9D9;
+                }
+
+                & .sharing-link-list > li, #sharing-inherited-shares > li {
+                    min-height: 50px !important;
+                }
+            }
+            & .talkChatTab {
+                --button-size: 40px !important;
+
+                & .talk-tab__call-button {
+                    margin: 10px auto calc(var(--default-grid-baseline) * 2);
+                }
+
+                & .button-vue .button-vue__text {
+                    color: #FFFFFF;
+                }
+                & .button-vue .material-design-icon.dots-horizontal-icon {
+                    /*display: none;*/
+                }
+
+                & .rich-contenteditable__input {
+                    border-radius: 23px;
+                    border-color: #E0E0E0 !important;
+                }
+
+                & .new-message-form__emoji-picker {
+                    position: relative;
+                }
+
+                & .emptycontent.file-not-shared {
+                    & h2, p {
+                        display: none;
+                    }
+                }
+            }
+
+
+
             & .app-sidebar-tabs__nav {
                 border-bottom: unset !important;
 
                 & .button-vue {
                     & .checkbox-content--has-text {
                         border-bottom: 2px solid #E6E6E6 !important;
+                        min-height: 57px;
                     }
                 }
                 & .button-vue.active {
@@ -883,4 +1424,414 @@ body .app-files {
         border-radius: unset !important;
         padding: 8px !important;
     }
+
+    & .app-navigation-caption, .action-separator{
+        display: none;
+    }
+    & .action {
+        & .action-button__text, .action-button__longtext, .action-link__text {
+            margin-left: 12px;
+        }
+    }
+
+    & .material-design-icon.delete-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/delete-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+    & .material-design-icon.delete-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.share-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/plane-black.svg');
+        width: 16px;
+        height: 16px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    & .material-design-icon.share-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.pencil-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+    & .material-design-icon.pencil-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.alarm-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/clock-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+    & .material-design-icon.alarm-icon > svg {
+        display: none;
+    }
+
+    & .material-design-icon.note-edit-outline-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/note-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+    & .material-design-icon.note-edit-outline-icon > svg {
+        display: none;
+    }
+
+    & .material-design-icon.open-in-new-icon:after {
+        content: '';
+        background-image: url('/themes/forbion/images/chain-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+    & .material-design-icon.open-in-new-icon > svg {
+        display: none;
+    }
+
+    & ul[role="menu"] {
+            padding: 8px;
+    }
+
+
+    & .action-button__icon.icon-tag {
+         background-image: url('/themes/forbion/images/tags-black.svg') !important;
+    }
+
+    & li[data-cy-files-versions-version-action="download"] {
+        & .material-design-icon.download-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/upload-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .material-design-icon.download-icon > svg {
+            display: none;
+        }
+        & .action-link__text {
+            margin-left: 13px;
+        }
+    }
+    & li[data-cy-files-versions-version-action="label"] {
+        & .material-design-icon.pencil-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/rename.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .material-design-icon.pencil-icon > svg {
+            display: none;
+        }
+    }
+
+    & .material-design-icon.upload-icon:after {
+        background-image: url('/themes/forbion/images/uploadFile.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.upload-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.folder-icon:after {
+        background-image: url('/themes/forbion/images/check-black.svg');
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.folder-icon > svg {
+        display: none;
+    }
+    & .icon-vue:after {
+        background-image: url('/themes/forbion/images/new-text-file.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .icon-vue > svg {
+        display: none;
+    }
+    & .material-design-icon.poll-icon:after {
+        background-image: url('/themes/forbion/images/poll.svg') !important;
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.poll-icon > svg {
+        display: none;
+    }
+
+    & li[data-cy-upload-picker-menu-entry="upload-file"] {
+        & .material-design-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/uploadFile.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .material-design-icon > svg {
+                display: none;
+        }
+    }
+    & li[data-cy-upload-picker-menu-entry="newFolder"] {
+        & .icon-vue:after {
+            content: '';
+            background-image: url('/themes/forbion/images/create-folder.svg');
+            width: 19px;
+            height: 19px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        & .icon-vue > svg {
+                display: none;
+        }
+    }
+    & li[data-cy-upload-picker-menu-entry="upload-folder"] {
+        & .material-design-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/folder-black.svg');
+            width: 17px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        & .material-design-icon > svg {
+                display: none;
+        }
+    }
+    & li[data-cy-upload-picker-menu-entry="template-new-text-0"] {
+        & .icon-vue:after {
+            content: '';
+            background-image: url('/themes/forbion/images/new-file.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .icon-vue > svg {
+            display: none;
+        }
+    }
+    & li[data-cy-upload-picker-menu-entry="file-request"] {
+        & .icon-vue:after {
+            content: '';
+            background-image: url('/themes/forbion/images/create-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .icon-vue > svg {
+            display: none;
+        }
+    }
+}/* Стили для .modal-mask */
+.app-files ~ .modal-mask.app-settings,
+.app-files + .modal-mask.app-settings {
+    & .dialog__name {
+        padding-top: 48px;
+
+        margin-bottom: 21px;
+        font-family: Raleway;
+        font-weight: 600 !important;
+        font-size: 18px !important;
+        line-height: 20px !important;
+        letter-spacing: 0;
+        left: 256px !important;
+        position: relative;
+        text-align: justify;
+        max-width: calc(100% - 456px);
+    }
+
+}
+.app-files ~ .modal-mask.dialog__modal:not(.app-settings),
+.app-files + .modal-mask.dialog__modal:not(.app-settings) {
+    & .dialog__name {
+        font-family: Raleway;
+        font-weight: 600 !important;
+        font-size: 18px !important;
+        line-height: 20px !important;
+        letter-spacing: 0;
+
+    }
+    & .modal-container {
+        padding: 20px !important;
+        padding-inline: 20px 20px !important;
+    }
+
+}
+.app-files ~ .modal-mask,
+.app-files + .modal-mask {
+    --color-primary-element: #70B62B !important;
+    --color-primary-element-text: #ffffff !important;
+    & .modal-container {
+        padding: 12px;
+        /*padding-top: 36px !important;*/
+        max-width: 900px !important;
+        & .dialog__navigation.app-settings__navigation {
+            & .navigation-list__link.navigation-list__link--active {
+                background-color: transparent !important;
+                padding-left: unset;
+            }
+            & .navigation-list__link {
+                background-color: transparent !important;
+                padding-left: unset;
+            }
+        }
+
+        & .checkbox-content {
+            padding-left: 0 !important;
+            gap: 0;
+            padding-bottom: 6.78px;
+        }
+        & .checkbox-content:hover {
+            background-color: transparent !important;
+        }
+
+        & #modal-inner {
+            margin: 0 auto;
+            min-height: 260px;
+            max-width: 600px;
+        }
+        & #modal-inner > button {
+            margin-top: 20px !important;
+            float: left;
+        }
+
+    }
+
+
+    & .modal-container__content {
+
+        span {
+            font-family: Raleway !important;
+            font-weight: 500 !important;
+            font-size: 14px !important;
+            line-height: 20px !important;
+            letter-spacing: 0 !important;
+
+        }
+
+        & .navigation-list {
+            --default-clickable-area: 32px !important;
+            padding-top: 22px;
+            /*line-height: 15px !important;*/
+        }
+
+        & .dialog__wrapper:not(.dialog__wrapper--collapsed) .dialog__navigation {
+            width: 222px;
+        }
+        & .dialog__wrapper:not(.dialog__wrapper--collapsed) .dialog__content.app-settings__content{
+            max-width: 438px;
+        }
+
+        --default-clickable-area: 40px !important;
+        --icon-size: 16px !important;
+
+        & .checkbox-radio-switch.checkbox-radio-switch-checkbox {
+            --default-clickable-area: 39px !important;
+            height: 39px !important;
+        }
+
+        & .material-design-icon.checkbox-blank-outline-icon {
+            --icon-size: 16px !important;
+        }
+        & .material-design-icon.checkbox-blank-outline-icon:after {
+            background-image: url('/themes/forbion/images/box-empty.svg') !important;
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        & .material-design-icon.checkbox-blank-outline-icon > svg {
+            display: none;
+        }
+        & .material-design-icon.checkbox-marked-icon {
+            --icon-size: 16px !important;
+        }
+        & .material-design-icon.checkbox-marked-icon:after {
+            background-image: url('/themes/forbion/images/box-checked.svg') !important;
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        & .material-design-icon.checkbox-marked-icon > svg {
+            display: none;
+        }
+
+        & .input-field__input {
+            border: 1px solid #E6E6E6;
+            border-radius: 8px !important;
+        }
+
+        & section.app-settings-section > em {
+            display: none;
+        }
+
+        & .dialog__name {
+            margin-bottom: 21px;
+            font-family: Raleway;
+            font-weight: 600 !important;
+            font-size: 18px !important;
+            line-height: 20px !important;
+            letter-spacing: 0;
+            /*left: 286px !important;*/
+            position: relative;
+            text-align: justify;
+            /*max-width: calc(100% - 286px);*/
+        }
+
+        & .app-settings-section {
+            margin-bottom: 10px !important;
+        }
+
+        & .app-settings-section__name {
+            font-family: Raleway;
+            font-weight: 600 !important;
+            font-size: 16px !important;
+            line-height: 20px !important;
+            letter-spacing: 0;
+            padding-bottom: 11px;
+        }
+
+        & .checkbox-radio-switch, .checkbox-radio-switch--checked {
+            padding-block: 0 2px;
+
+            & .checkbox-radio-switch__text {
+                padding-left: 12px;
+            }
+        }
+    }
+
+}
+
+.material-design-icon.download-icon:after {
+    background-image: url('/themes/forbion/images/download.svg') !important;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.material-design-icon.download-icon > svg {
+    display: none;
 }

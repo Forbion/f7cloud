@@ -13,13 +13,18 @@
 body {
     font-family: 'Raleway';
     font-weight: 500;
+    font-variant-numeric: lining-nums;
 }
 
 input,
 input::placeholder,
 textarea,
 textarea::placeholder,
-button {
+button,
+p,
+*::after,
+*::before {
     font-family: 'Raleway';
     font-weight: 500;
+    font-variant-numeric: lining-nums;
 }

@@ -23,6 +23,9 @@
 				{{ t('mail', 'Rich text') }}
 			</label>
 		</p>
+    <p class="settings-hint">
+      {{ t('mail', 'Preferred writing mode for new messages and replies.') }}
+    </p>
 	</div>
 </template>
 

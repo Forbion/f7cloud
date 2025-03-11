@@ -6,6 +6,17 @@
 <template>
 	<form class="form" @submit.prevent="submit">
 		<div class="form__multi-row">
+
+      <fieldset class="form__fieldset">
+        <input id="ooo-enabled"
+               class="radio"
+               type="radio"
+               name="enabled"
+               :checked="enabled === OOO_ENABLED"
+               @change="enabled = OOO_ENABLED">
+        <label for="ooo-enabled">{{ t('mail', 'Autoresponder on') }}</label>
+      </fieldset>
+
 			<fieldset class="form__fieldset">
 				<input id="ooo-disabled"
 					class="radio"
@@ -14,16 +25,6 @@
 					:checked="enabled === OOO_DISABLED"
 					@change="enabled = OOO_DISABLED">
 				<label for="ooo-disabled">{{ t('mail', 'Autoresponder off') }}</label>
-			</fieldset>
-
-			<fieldset class="form__fieldset">
-				<input id="ooo-enabled"
-					class="radio"
-					type="radio"
-					name="enabled"
-					:checked="enabled === OOO_ENABLED"
-					@change="enabled = OOO_ENABLED">
-				<label for="ooo-enabled">{{ t('mail', 'Autoresponder on') }}</label>
 			</fieldset>
 
 			<fieldset v-if="hasPersonalAbsenceSettings" class="form__fieldset">

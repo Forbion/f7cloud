@@ -5,16 +5,16 @@
 <template>
 	<form id="sieve-form">
 		<p>
-			{{ t('mail', 'Sieve is a powerful language for writing filters for your mailbox. You can manage the sieve scripts in Mail if your email service supports it. Sieve is also required to use Autoresponder and Filters.') }}
+			{{ t('mail', 'Sieve - это мощный язык для написания фильтров для вашего почтового ящика. Вы можете управлять скриптами sieve в Mail, если ваш почтовый сервис поддерживает это. Sieve также необходим для использования автоответчика и фильтров.') }}
 		</p>
 		<p>
 			<NcCheckboxRadioSwitch :checked.sync="sieveConfig.sieveEnabled">
-				{{ t('mail', 'Enable sieve filter') }}
+				{{ t('mail', 'Включить Sieve сервер') }}
 			</NcCheckboxRadioSwitch>
 		</p>
 		<div v-if="sieveConfig.sieveEnabled">
-			<NcTextField :label="t('mail', 'Sieve host')" :value.sync="sieveConfig.sieveHost" />
-			<h4>{{ t('mail', 'Sieve security') }}</h4>
+			<NcTextField :label="t('mail', 'Sieve хост')" :value.sync="sieveConfig.sieveHost" />
+			<h4>{{ t('mail', 'Sieve защита') }}</h4>
 			<div class="flex-row">
 				<ButtonVue :pressed="sieveConfig.sieveSslMode === 'none'"
 					@click="updateSslMode('none')">
@@ -29,12 +29,12 @@
 					{{ t('mail', 'STARTTLS') }}
 				</ButtonVue>
 			</div>
-			<NcTextField :label="t('mail', 'Sieve Port')" :value.sync="sieveConfig.sievePort" />
-			<h4>{{ t('mail', 'Sieve credentials') }}</h4>
+			<NcTextField :label="t('mail', 'Sieve Порт')" :value.sync="sieveConfig.sievePort" />
+			<h4>{{ t('mail', 'Sieve Доступы') }}</h4>
 			<div class="flex-row">
 				<ButtonVue :pressed="useImapCredentials"
 					@click="updateCredentials(true)">
-					{{ t('mail', 'IMAP credentials') }}
+					{{ t('mail', 'IMAP Доступы') }}
 				</ButtonVue>
 				<ButtonVue :pressed="!useImapCredentials"
 					@click="updateCredentials(false)">
@@ -53,9 +53,9 @@
 		</p>
 		<ButtonVue type="primary"
 			:disabled="loading"
-			:aria-label="t('mail', 'Save sieve settings')"
+			:aria-label="t('mail', 'Save Sieve settings')"
 			@click.prevent="onSubmit">
-			{{ t('mail', 'Save sieve settings') }}
+			{{ t('mail', 'Сохранить Sieve настройки') }}
 		</ButtonVue>
 	</form>
 </template>

@@ -191,7 +191,7 @@
 					</template>
 					{{ t('mail', 'Move thread') }}
 				</ActionButton>
-				<ActionButton v-if="showArchiveButton && hasArchiveAcl"
+				<ActionButton v-if="showArchiveButton && hasArchiveAcl && isHidden"
 					:close-after-click="true"
 					:disabled="disableArchiveButton"
 					@click.prevent="onArchive">
@@ -474,6 +474,7 @@ export default {
 			customSnoozeDateTime: new Date(moment().add(2, 'hours').minute(0).second(0).valueOf()),
 			overwriteOneLineMobile: false,
 			hoveringAvatar: false,
+      isHidden: false
 		}
 	},
 	mounted() {

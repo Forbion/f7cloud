@@ -51,14 +51,17 @@
 				<NavigationOutbox class="outbox" />
 			</div>
 			<div class="mail-settings">
-				<AppNavigationItem class="mail-settings__button"
-					:close-after-click="true"
-					:name="t('mail', 'Mail settings')"
-					@click="showMailSettings">
-					<template #icon>
-						<IconSetting :size="16" />
-					</template>
-				</AppNavigationItem>
+        <NcButton v-if="allowNewMailAccounts"
+                  type="primary"
+                  to="/setup"
+                  :aria-label="t('mail', 'Add mail account')"
+                  class="app-settings-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8L13 8" stroke="#808080" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M8 3L8 13" stroke="#808080" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          {{ t('mail', 'Add mail account') }}
+        </NcButton>
 			</div>
 		</template>
 		<AppSettingsMenu :open.sync="showSettings" />
@@ -66,7 +69,7 @@
 </template>
 
 <script>
-import { NcAppNavigation as AppNavigation, NcAppNavigationItem as AppNavigationItem } from '@nextcloud/vue'
+import { NcAppNavigation as AppNavigation, NcAppNavigationItem as AppNavigationItem, NcButton } from '@nextcloud/vue'
 import NewMessageButtonHeader from './NewMessageButtonHeader.vue'
 
 import NavigationAccount from './NavigationAccount.vue'
@@ -92,6 +95,7 @@ export default {
 		NewMessageButtonHeader,
 		IconSetting,
 		AppNavigationItem,
+    NcButton
 	},
 	data() {
 		return {
@@ -101,6 +105,9 @@ export default {
 	},
 	computed: {
 		...mapStores(useOutboxStore, useMainStore),
+    allowNewMailAccounts() {
+      return this.mainStore.getPreference('allow-new-accounts', true)
+    },
 		menu() {
 			return this.mainStore.getAccounts
 				.filter(account => account.id !== UNIFIED_ACCOUNT_ID)

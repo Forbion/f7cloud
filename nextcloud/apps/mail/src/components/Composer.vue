@@ -41,9 +41,9 @@
 				<label class="to-label" for="to">
 					{{ t('mail', 'To') }}
 				</label>
-				<ButtonVue size="small" type="tertiary-no-background" @click.prevent="toggleViewMode">
-					{{ t('mail','Cc/Bcc') }}
-				</ButtonVue>
+<!--				<ButtonVue size="small" type="tertiary-no-background" @click.prevent="toggleViewMode">-->
+<!--					{{ t('mail','Cc/Bcc') }}-->
+<!--				</ButtonVue>-->
 			</div>
 			<div class="composer-fields--custom">
 				<NcSelect id="to"
@@ -237,7 +237,7 @@
 				:html="!editorPlainText"
 				name="body"
 				class="message-body"
-				:placeholder="t('mail', 'Write message …')"
+				:placeholder="t('mail', 'Write message new …')"
 				:focus="isReply || !isFirstOpen"
 				:bus="bus"
 				@input="onEditorInput"
@@ -334,7 +334,7 @@
 				<Actions :open.sync="isActionsOpen"
 					@close="isMoreActionsOpen = false">
 					<template v-if="!isMoreActionsOpen">
-						<ActionButton v-if="isPickerAvailable" :close-after-click="true" @click="openPicker">
+						<ActionButton v-if="isPickerAvailable && test" :close-after-click="true" @click="openPicker">
 							<template #icon>
 								<IconLinkPicker :size="16" />
 							</template>

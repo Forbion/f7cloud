@@ -19,15 +19,9 @@
 			<CertificateSettings :account="account" />
 		</AppSettingsSection>
 		<AppSettingsSection id="signature" :name="t('mail', 'Signature')">
-			<p class="settings-hint">
-				{{ t('mail', 'A signature is added to the text of new messages and replies.') }}
-			</p>
 			<SignatureSettings :account="account" @show-toolbar="handleShowToolbar" />
 		</AppSettingsSection>
 		<AppSettingsSection id="writing-mode" :name="t('mail', 'Writing mode')">
-			<p class="settings-hint">
-				{{ t('mail', 'Preferred writing mode for new messages and replies.') }}
-			</p>
 			<EditorSettings :account="account" />
 		</AppSettingsSection>
 		<AppSettingsSection id="default-folders" :name=" t('mail', 'Default folders')">
@@ -55,22 +49,6 @@
 				{{ t('mail', 'Please connect to a sieve server first.') }}
 			</p>
 		</AppSettingsSection>
-		<AppSettingsSection v-if="account && account.sieveEnabled"
-			id="mail-filters"
-			:name="t('mail', 'Filters')">
-			<div id="mail-filters">
-				<MailFilters :key="account.accountId" ref="mailFilters" :account="account" />
-			</div>
-		</AppSettingsSection>
-		<AppSettingsSection v-if="account && account.sieveEnabled"
-			id="sieve-filter"
-			:name="t('mail', 'Sieve script editor')">
-			<div id="sieve-filter">
-				<SieveFilterForm :key="account.accountId"
-					ref="sieveFilterForm"
-					:account="account" />
-			</div>
-		</AppSettingsSection>
 		<AppSettingsSection v-if="account && !account.provisioningId"
 			id="mail-server"
 			:name="t('mail', 'Mail server')">
@@ -84,7 +62,7 @@
 		</AppSettingsSection>
 		<AppSettingsSection v-if="account && !account.provisioningId"
 			id="sieve-settings"
-			:name="t('mail', 'Sieve server')">
+			:name="t('mail', 'Sieve сервер')">
 			<div id="sieve-settings">
 				<SieveAccountForm :key="account.accountId"
 					ref="sieveAccountForm"

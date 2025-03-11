@@ -3,7 +3,7 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<ConfirmationModal title="Delete tag"
+	<ConfirmationModal title="Удалить тег"
 		:disabled="deleting"
 		@confirm="deleteTag"
 		@cancel="onClose">

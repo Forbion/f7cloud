@@ -157,7 +157,7 @@
 									:size="16" />
 							</template>
 						</NcActionButton>
-						<NcActionButton v-if="showArchiveButton && hasArchiveAcl && (inlineMenuSize >= 4 || !moreActionsOpen)"
+						<NcActionButton v-if="showArchiveButton && hasArchiveAcl && (inlineMenuSize >= 4 || !moreActionsOpen) && isHidden"
 							:close-after-click="true"
 							:name="t('mail', 'Archive message')"
 							:disabled="disableArchiveButton"
@@ -412,6 +412,7 @@ export default {
 			rawMessage: '', // Will hold the raw source of the message when requested
 			isInternal: true,
 			enabledSmartReply: loadState('mail', 'llm_freeprompt_available', false),
+      isHidden: false
 		}
 	},
 	computed: {

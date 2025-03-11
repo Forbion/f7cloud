@@ -1,0 +1,1062 @@
+@import url("icons/_icons.css");
+@import url("forms/_modals.css");
+
+* {
+    font-family: 'Raleway' !important;
+    font-variant-numeric: lining-nums;
+    font-weight: 500;
+}
+
+body .app-calendar {
+    --color-primary-element: #70B62B !important;
+    --color-primary-element-hover: #6faf2e !important;
+    --color-primary-element-light-hover: #ffffff !important;
+
+
+    & .app-navigation {
+        margin-right: 8px;
+        background: unset;
+
+        & #app-navigation-vue {
+
+            & > *:not(.app-navigation__search):not(.app-navigation__body) {
+                background: #FFFFFF;
+            }
+
+            & .app-navigation-header {
+
+                padding: 0;
+
+                & > *:not(.flex-row) {
+
+                    padding: 0 8px;
+                    background: #FFFFFF;
+                }
+
+                & .flex-row {
+
+                    margin-bottom: 8px;
+
+                    & .button-vue {
+                        width: 100%;
+                        margin: 0;
+                        width: calc(100% - 48px);
+                        padding: 3px 35px 3px 6px;
+                        background: #70B62B;
+                        color: #ffffff;
+                        position: relative;
+                        transition: opacity .3s;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 12px;
+                            transform: translateY(-50%);
+                            width: 16px;
+                            height: 16px;
+                            background-image: url("/themes/forbion/images/close-fat.svg");
+                            background-repeat: no-repeat;
+                            pointer-events: none;
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 37px;
+                            width: 2px;
+                            height: 100%;
+                            background: #ffffff;
+                            pointer-events: none;
+                        }
+
+                        & .plus-icon {
+
+                            &::before {
+                                background-image: url("/themes/forbion/images/new-event.svg");
+                                width: 23px;
+                                height: 18px;
+                                top: -1px;
+                                left: -5px;
+                            }
+                        }
+                    }
+                }
+
+                & .datepicker-button-section {
+
+                    padding-top: 8px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+
+                    & .button-vue {
+                        background: rgb(238, 244, 233);
+                    }
+                }
+
+                & .new-event-today-view-section {
+
+                    & .button-vue {
+                        background: rgb(238, 244, 233);
+                    }
+                }
+            }
+
+            & .app-navigation-list {
+
+                & .app-navigation-entry-wrapper {
+
+                    & .app-navigation-entry {
+
+                        & .app-navigation-entry__actions[data-v-54906a49] {
+                            display: block;
+
+                            & .material-design-icon.pencil-icon::before {
+                                width: 16px;
+                                height: 16px;
+                                opacity: .55;
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .app-navigation-entry-link {
+
+                & .app-navigation-entry-icon {
+
+                    & .material-design-icon.delete-icon {
+
+                        &::before {
+                            background-image: url("/themes/forbion/images/delete-gray.svg");
+                        }
+                    }
+                }
+            }
+
+            & .calendar-list-wrapper {
+
+                & > .app-navigation-entry-wrapper {
+
+                    margin-top: 20px;
+
+                    & .app-navigation-entry {
+                        margin-bottom: 5px;
+
+                        & .chevron-up-icon::before {
+                            background-image: url("/themes/forbion/images/chevron-up-icon-black.svg");
+                        }
+
+                        & .chevron-down-icon::before {
+                            background-image: url("/themes/forbion/images/chevron-down-icon-black.svg");
+                        }
+                    }
+                }
+
+                & .draggable-calendar-list-item {
+                    margin-bottom: 2px;
+                    height: 32px;
+                }
+
+                & .app-navigation-entry-new-calendar {
+
+                    & .app-navigation-caption__actions {
+                        /*opacity: .6;*/
+                    }
+                }
+            }
+        }
+
+        & .app-navigation-toggle-wrapper {
+            position: absolute;
+            top: 0;
+            right: 33px;
+
+            & .button-vue {
+                min-width: 40px;
+                min-height: 40px;
+
+                & .material-design-icon {
+
+                    & .material-design-icon__svg {
+                        display: none;
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        width: 16px;
+                        height: 16px;
+                        background-image: url("/themes/forbion/images/menu-icon.svg");
+                        background-repeat: no-repeat;
+                        transform: translate(-50%, -50%) scale(1.1);
+                    }
+                }
+
+                & .menu-icon {
+
+                    &::before {
+
+                        transform: translate(-50%, -50%) scale(1.1) rotateY(-180deg);
+                    }
+                }
+            }
+        }
+
+        &.app-navigation--close {
+
+            & .app-navigation-toggle-wrapper {
+                right: -6px;
+            }
+
+            & + #app-content-vue {
+
+                & .fc {
+                    margin-left: 40px;
+                }
+            }
+        }
+    }
+
+    & #app-content-vue {
+
+        /*margin-top: 48px !important;*/
+        /*height: calc(100% - 48px);*/
+        background: #FFFFFF !important;
+        border-radius: 8px;
+
+        & .app-navigation__body {
+            padding-right: 30px;
+        }
+
+        & .fc {
+
+            background: #FFFFFF;
+            border-radius: 8px;
+
+            & .fc-list-empty {
+                background: #FFFFFF;
+            }
+        }
+    }
+
+    & #app-settings {
+        padding: var(--app-navigation-padding);
+        padding-top: 0;
+        padding-bottom: 12px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        & #app-settings__header {
+
+            margin: 0;
+
+            & .settings-button {
+                border-radius: 8px;
+            }
+        }
+
+        & #app-settings__content {
+
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+            border-radius: 8px;
+
+            & .settings-fieldset-interior {
+                overflow-x: hidden;
+
+                & .settings-fieldset-interior-item {
+
+                    padding-left: 5px;
+                    padding-right: 5px;
+
+                    &[data-v-fda924a6] {
+
+                        & .button-vue {
+                            background: rgb(238, 244, 233) !important;
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    & .action-checkbox__label {
+
+                        line-height: 21px;
+                    }
+
+                    & .vs__dropdown-toggle {
+
+                        min-width: unset;
+                        max-width: calc(100% - 16px);
+                        border: 1px solid #E6E6E6 !important;
+                        border-radius: 8px;
+
+                        & .vs__actions {
+                            right: 15px;
+                        }
+                    }
+                }
+
+                & .action:not(.settings-fieldset-interior-item) {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    padding: 0 5px;
+
+                    & .material-design-icon {
+                        width: 20px;
+                        height: 20px;
+                        min-width: 20px;
+                        margin-right: 14px;
+                    }
+                }
+            }
+        }
+
+        &.open {
+            & .app-settings__header {
+                margin-bottom: 2px;
+            }
+        }
+    }
+
+    & #app-sidebar-vue {
+
+        /*margin-top: 48px;*/
+        /*height: calc(100% - 48px);*/
+        margin-left: 8px;
+        border-radius: 8px;
+
+        & .app-sidebar-header {
+
+            & .app-sidebar-header__description {
+
+                & .app-sidebar__header {
+
+                    padding: 3px 14px 0;
+                    height: 34px;
+
+                    & .calendar-picker-header {
+
+                        & .v-popper--theme-dropdown {
+
+                            & .button-vue__text {
+                                display: flex;
+                                align-items: center;
+
+                                &::after {
+                                    margin-top: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & > *:not(:last-child) {
+                    margin-bottom: 14px;
+                }
+
+                & .property-title {
+
+                    & .property-title__input {
+                        position: relative;
+
+                        & input {
+                            padding-right: 50px;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            width: 16px;
+                            height: 16px;
+                            top: 50%;
+                            right: 15px;
+                            background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            transform: translateY(-50%);
+                            transform-origin: center;
+                        }
+                    }
+                }
+
+                & .property-title-time-picker {
+
+                    & .native-datetime-picker:first-child {
+
+                        position: relative;
+
+                        & input {
+                            padding-right: 10px !important;
+                        }
+
+                        &:before {
+
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 13px;
+                            transform: translateY(-50%);
+                            background-image: url("/themes/forbion/images/calendar-blank-icon.svg");
+                            background-size: auto;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            width: 16px;
+                            height: 16px;
+                            pointer-events: none;
+                            background-color: #fff;
+                        }
+                    }
+
+                    & .native-datetime-picker:nth-child(2) {
+
+                        position: relative;
+
+                        & input {
+                            padding-right: 10px !important;
+                        }
+
+                        &:before {
+
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 13px;
+                            transform: translateY(-50%);
+                            background-image: url("/themes/forbion/images/alarm-icon.svg");
+                            background-size: auto;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            width: 16px;
+                            height: 16px;
+                            pointer-events: none;
+                            background-color: #fff;
+                        }
+                    }
+                }
+
+                & .property-add-talk {
+
+                    & .material-design-icon {
+                        height: 35px;
+                    }
+                }
+
+                & .property-add-talk__button {
+                    border: 1px solid #D9D9D9 !important;
+                    padding: 5px 12px;
+                }
+
+                & .linkify-links {
+                    border: 1px solid #D9D9D9 !important;
+                    padding: 5px 12px 8px;
+                }
+
+                & .property-title-time-picker {
+
+                    & .property-title-time-picker__time-pickers {
+
+                        & .property-title-time-picker__time-pickers__inner {
+                            display: flex;
+                            flex-direction: column;
+
+                            & input {
+                                padding: 0 5px 0 9px;
+                            }
+
+                            & .property-title-time-picker__time-pickers-from {
+
+                                & span[data-v-310f4ca4] {
+                                    width: auto;
+                                }
+                            }
+
+                            & .property-title-time-picker__time-pickers-to {
+
+                                & span[data-v-310f4ca4] {
+                                    width: auto;
+                                }
+                            }
+                        }
+
+                        & > .button-vue[data-v-b2be1481] {
+                            display: none;
+                        }
+                    }
+
+                    & .property-title-time-picker__all-day {
+                        padding-left: 0;
+
+                        & .checkbox-content {
+                            padding-left: 0;
+                            margin-left: -3px;
+                            min-width: 250px;
+                            background: unset;
+
+                            & .checkbox-radio-switch__text {
+                                padding-left: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .app-sidebar-tabs__nav {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        & .app-sidebar-tabs__content {
+
+            & .app-sidebar__tab {
+                box-shadow: unset;
+            }
+
+            & .app-sidebar-tab__content {
+
+                & .property-color {
+
+                    display: flex;
+                    align-items: center;
+
+                    & .property-color__input {
+
+                        padding-top: 2px;
+
+                        & .property-color__color-preview {
+                            max-width: 25px;
+                            max-height: 25px;
+                            width: 25px !important;
+                            height: 25px !important;
+                            min-width: 25px;
+                            min-height: 25px;
+                        }
+
+                        & > .action-item--single {
+                            display: none;
+                        }
+                    }
+                }
+
+                & .property-repeat {
+                    display: none;
+                }
+            }
+        }
+
+        & .save-buttons {
+            bottom: 35px;
+            padding-right: 24px;
+
+            & .button-vue {
+
+                & .material-design-icon.check-icon::before {
+                    background-image: url("/themes/forbion/images/arrow-btn.svg");
+                    width: 16px;
+                    height: 16px;
+                    transform: scale(1.25) translate(-50%, -50%);
+                }
+            }
+        }
+    }
+
+    & .app-navigation--close + #app-content-vue {
+        background: unset !important;
+    }
+}
+
+.button-vue:not([disabled="disabled"]) {
+    transition: opacity .3s !important;
+
+    &:hover {
+        opacity: .75 !important;
+    }
+}
+
+input,
+textarea {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+}
+
+input.vs__search {
+    border: unset !important;
+    padding-right: 50px;
+}
+
+.property-select {
+    & .property-select__input {
+        & .v-select {
+            & .vs__dropdown-toggle {
+                border: 1px solid #E6E6E6 !important;
+
+                & .vs__selected {
+                    padding-right: 50px;
+                }
+
+                & .vs__actions {
+                    right: 15px;
+                }
+            }
+        }
+    }
+}
+
+.property-select-multiple {
+    & .property-select-multiple__input {
+        & .v-select {
+
+            & .property-select-multiple-colored-tag {
+                padding: 5px 10px;
+            }
+
+            & .vs__search {
+                padding: 0 50px 0 10px;
+            }
+
+            & .vs__dropdown-toggle {
+                border: 1px solid #E6E6E6 !important;
+
+                & .vs__selected {
+                    padding-right: 50px;
+                }
+
+                & .vs__actions {
+                    right: 15px;
+                }
+            }
+        }
+    }
+}
+
+.invitees-list {
+
+    .v-select {
+
+        & .vs__dropdown-toggle {
+
+            border: 1px solid #E6E6E6 !important;
+            border-radius: 8px;
+
+            & .vs__actions {
+                padding-right: 20px;
+            }
+        }
+    }
+}
+
+.resource-search {
+
+    & > div {
+        margin-bottom: 10px !important;
+    }
+
+    & .button.availability {
+        background: rgb(238, 244, 233) !important;
+        margin-bottom: 15px !important;
+    }
+
+    .v-select {
+
+        & .vs__dropdown-toggle {
+
+            border: 1px solid #E6E6E6 !important;
+            border-radius: 8px;
+
+            & .vs__actions {
+                padding-right: 20px;
+            }
+        }
+    }
+}
+
+.edit-calendar-modal__sharing {
+
+    .v-select {
+
+        & .vs__dropdown-toggle {
+
+            border: 1px solid #E6E6E6 !important;
+            border-radius: 8px;
+
+            & .vs__actions {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    & .sharing-search {
+        margin-bottom: 16px;
+    }
+
+    & .publish-calendar {
+
+        & .publish-calendar__icon {
+
+            background: #D9D9D9;
+
+            & .link-icon::before {
+
+                background-image: url("/themes/forbion/images/copy-link.svg");
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        & .publish-calendar__label {
+            padding-left: 5px;
+        }
+    }
+
+    & .internal-link {
+
+        margin-top: 15px;
+
+        & .internal-link__icon {
+
+            background: #D9D9D9;
+            min-width: 32px;
+            min-height: 32px;
+            max-width: 32px;
+            max-height: 32px;
+
+            & .open-in-new-icon::before {
+
+                background-image: url("/themes/forbion/images/copy-link.svg");
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        & .internal-link__label {
+            padding-left: 5px;
+
+            & .internal-link__label__hint {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.edit-calendar-modal__actions {
+
+    & button[data-v-b2be1481].button-vue--vue-secondary {
+
+        height: 40px;
+        width: 140px;
+        background-color: #70B62B !important;
+        transition: .3s;
+
+        & .material-design-icon.check-icon {
+
+            & svg {
+                display: none;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 0;
+                background-image: url("/themes/forbion/images/arrow-btn.svg");
+                background-repeat: no-repeat;
+                width: 23px;
+                height: 18px;
+            }
+        }
+
+        & .button-vue__text {
+            color: #FFFFFF;
+        }
+
+        &:hover {
+            opacity: .75;
+        }
+    }
+}
+
+body ul.vs__dropdown-menu {
+    color: #000000 !important;
+    padding: 10px 10px 15px !important;
+    border-top: 1px solid #E6E6E6 !important;
+    border-bottom: 1px solid #E6E6E6 !important;
+    border-right: 1px solid #E6E6E6 !important;
+    border-left: 1px solid #E6E6E6 !important;
+}
+
+.button-vue--vue-primary {
+
+    background-color: #70B62B !important;
+
+    & .material-design-icon__svg {
+        fill: #FFFFFF;
+    }
+
+    & .button-vue__text {
+        color: #FFFFFF;
+    }
+}
+
+.action .action-checkbox label.action-checkbox__label {
+    position: relative;
+    padding-left: 34px !important;
+}
+
+.action input[type=checkbox].checkbox+label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -1px;
+    transform: translateY(-50%) scale(1.1);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/checkbox-blank-outline-black-icon.svg");
+    border: unset !important;
+    background-color: unset !important;
+}
+
+.action input[type=checkbox].checkbox:checked+label::before {
+    background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+}
+
+.v-popper__popper {
+
+    & .v-popper__inner {
+
+        & .color-picker__navigation {
+
+            & .button-vue--vue-primary {
+
+                & .button-vue__wrapper {
+
+                    position: relative;
+                    padding: 0 5px;
+
+                    & .button-vue__text {
+                        opacity: 0;
+                    }
+
+                    &::before {
+                        content: 'Выбрать';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+
+        & ul[data-v-60a4c99d] {
+
+            & li[data-v-903e8d3b].action {
+
+                & .action-button {
+
+                    align-items: center;
+                }
+            }
+        }
+
+        & ul[data-v-60a4c99d] {
+            & li[data-v-903e8d3b] {
+                & .action-button {
+                    & .material-design-icon {
+                        width: 34px;
+                        height: 34px;
+                    }
+                    & .action-button__longtext {
+                        margin-left: 5px;
+                    }
+                    & .action-button__text {
+                        margin-left: 5px;
+                    }
+                    & .calendar-picker-header__icon + .action-button__text {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.action-link__longtext {
+    line-height: 21px !important;
+}
+
+.action-button__longtext {
+    line-height: 21px !important;
+}
+
+.mx-datepicker-main .mx-table .cell:hover,
+.mx-datepicker-main .mx-table .cell:focus,
+.mx-datepicker-main .mx-table .cell.actived,
+.mx-datepicker-main .mx-table .cell.active,
+.mx-datepicker-main .mx-table .cell.in-range {
+    color: #FFFFFF !important;
+}
+
+.mx-datepicker .mx-datepicker-content .mx-btn.mx-datepicker-btn-confirm {
+    min-height: 16px;
+    height: 30px;
+    min-width: 16px;
+    width: 36px;
+    font-size: 15px;
+    color: #FFFFFF !important;
+    background-color: rgb(112, 182, 43) !important;
+    transition: opacity .3s;
+}
+
+.mx-datepicker .mx-datepicker-content .mx-btn.mx-datepicker-btn-confirm:hover {
+    opacity: .75 !important;
+}
+
+.empty-content__icon .material-design-icon svg {
+    display: none;
+}
+
+.empty-content__icon .material-design-icon:before {
+    display: block;
+    transform: translate(-50%, -50%) scale(3.7);
+    width: 20px;
+    height: 20px;
+}
+
+.fc-theme-standard .fc-list-day-cushion {
+    padding-left: 12px !important;
+}
+
+.fc .fc-day-today.fc-col-header-cell a,
+.fc .fc-day-today.fc-col-header-cell span,
+.fc .fc-col-header-cell-cushion {
+    color: #000000 !important;
+    padding: 8px 10px 8px !important;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: unset;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.fc-event[data-is-new="yes"] {
+    opacity: 1 !important;
+    background: rgb(112, 182, 43) !important;
+    border: unset !important;
+    box-shadow: unset !important;
+}
+
+.fc-event[data-is-new="yes"]::after {
+    display: none;
+}
+
+.fc-event[data-is-new="yes"] .fc-event-time {
+    color: #FFFFFF;
+}
+
+.fc-event .fc-event-time {
+    font-size: 12px;
+    line-height: 18px;
+    white-space: normal;
+}
+
+.fc-event .fc-event-title-container {
+    /*line-height: 18px;*/
+    /*margin-top: 8px;*/
+}
+
+.fc .fc-day-today .fc-daygrid-day-top .fc-daygrid-day-number {
+    color: #FFFFFF !important;
+    height: unset !important;
+    padding: 5px 0 !important;
+}
+
+th[role="columnheader"] {
+    padding: 10px 0;
+}
+
+thead[role="rowgroup"] .fc-timegrid-axis {
+    position: relative;
+}
+
+thead[role="rowgroup"] .fc-timegrid-axis::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 100%;
+    height: 100%;
+    background-image: url("/themes/forbion/images/fc-timegrid-axis-frame.svg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fc .fc-timegrid-axis-cushion {
+    white-space: normal;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.fc-multiMonthYear-view {
+    /*background: #FFFFFF;*/
+    /*padding: 22px 35px;*/
+}
+
+.fc-multiMonthYear-view .fc-multimonth-month {
+    /*background: #E6E6E6;*/
+    /*border-radius: 8px;*/
+    /*padding: 20px 12px;*/
+}
+
+.fc-multiMonthYear-view .fc-multimonth-month .fc-multimonth-header {
+    /*border-top-left-radius: 8px;*/
+    /*border-top-right-radius: 8px;*/
+}
+
+.fc-multiMonthYear-view .fc-multimonth-month .fc-multimonth-daygrid {
+    /*border-bottom-left-radius: 8px;*/
+    /*border-bottom-right-radius: 8px;*/
+
+    & .fc-event .fc-event-title-container {
+        line-height: 18px;
+        margin-top: 0;
+    }
+}
+
+.fc-dayGridMonth-view .fc-col-header-cell-cushion {
+    text-transform: uppercase;
+}
+
+.fc-timegrid-slot-label-frame {
+
+    position: relative;
+
+    & .fc-timegrid-slot-label-cushion {
+        text-align: center;
+        position: absolute;
+        left: 0;
+        width: 100%;
+    }
+}
+
+.fc-scroller {
+    overflow-y: auto !important;
+}
+
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5px;
+}
+
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner .fc-daygrid-day-bottom:empty,
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner .fc-daygrid-day-events:empty,
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner .fc-daygrid-day-bg:empty {
+    display: none;
+}

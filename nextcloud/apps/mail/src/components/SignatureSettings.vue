@@ -28,6 +28,9 @@
 			:placeholder="t('mail', 'Signature …')"
 			:bus="bus"
 			@show-toolbar="handleShowToolbar" />
+    <p class="settings-hint">
+      {{ t('mail', 'A signature is added to the text of new messages and replies.') }}
+    </p>
 		<p v-if="isLargeSignature" class="warning-large-signature">
 			{{ t('mail', 'Your signature is larger than 2 MB. This may affect the performance of your editor.') }}
 		</p>

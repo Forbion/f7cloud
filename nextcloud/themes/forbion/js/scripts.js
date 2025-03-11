@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const testWidth = parseFloat(getComputedStyle(elements.topBarWrapper).width);
             const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
 
-            elements.topBarOuter.parentElement.style.right = isNavClosed ? '-20px' : '-60px';
+            elements.topBarOuter.parentElement.style.right = isNavClosed ? '0px' : '-60px';
 
             if (testWidth <= 3) {
                 elements.topBarOuter.style.width = isNavClosed ? '100%' : 'calc(100% - 60px)';
@@ -116,20 +116,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'calc(var(--app-navigation-padding))';
                 }
                 if (elements.sidebarToggle) {
-                    elements.sidebarToggle.style.setProperty('--sidebar-pad', `calc(${testWidth}px + 8px)`);
+                    elements.sidebarToggle.style.setProperty('--sidebar-pad', `calc(${testWidth}px + 28px)`);
                 }
             }
         } else {
-            console.log("topBarWrapper отсутствует");
+            // console.log("topBarWrapper отсутствует");
             const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
 
-            elements.emptyTopBar.style.left = isNavClosed ? '68px' : '108px';
-            elements.emptyTopBar.style.width = isNavClosed ? 'calc(100% - 68px)' : 'calc(100% - 108px)';
+            if (elements.emptyTopBar){
+                elements.emptyTopBar.style.left = isNavClosed ? '54px' : '94px';
+                elements.emptyTopBar.style.width = isNavClosed ? 'calc(100% - 54px)' : 'calc(100% - 94px)';
+            }
 
             if (elements.leftSidebarToggle) {
                 elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
                     ? 'calc(28px - var(--app-navigation-padding)) !important'
-                    : 'calc(-10px - var(--app-navigation-padding)) !important';
+                    : 'calc(-26px - var(--app-navigation-padding)) !important';
             }
         }
 
@@ -189,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const moveElements = () => {
     const searchBox = document.querySelector('.app-files .searchBoxReplace');
     const buttonAddReplace = document.querySelector('.app-files .breadcrumb__actions');
+    const buttonDisabled = document.querySelector('.app-files .files-list__header-upload-button--disabled');
     const targetContainer = document.querySelector('.app-files .files-list__header');
     const gridButton = document.querySelector('.app-files .files-list__header-grid-button');
     const targetContainerFirstElement = document.querySelector('.app-files .files-list__breadcrumbs');
@@ -230,6 +233,7 @@ const moveElements = () => {
     // Перемещение buttonAddReplace
     if (buttonAddReplace && searchBoxActual) {
         searchBoxActual.append(buttonAddReplace);
+        buttonDisabled.style.display = 'flex';
     }
 
     // Перемещение searchBox
