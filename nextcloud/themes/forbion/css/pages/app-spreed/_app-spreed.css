@@ -470,6 +470,7 @@ body .app-talk{
 .app-talk:not(.in-call) .app-navigation-toggle {
     /*padding: 10px !important;*/
     min-width: 40px !important;
+    min-height: 40px !important;
 }
 .app-talk:not(.in-call) .top-bar--authorised .conversation-icon {
     margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 10px) !important;
