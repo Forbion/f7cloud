@@ -82,7 +82,7 @@ export const registerFavoritesView = async () => {
 	})
 
 	/**
-	 * Remove favorites navigation when a folder is removed
+	 * Remove favourites navigation when a folder is removed
 	 */
 	subscribe('files:favorites:removed', (node: Node) => {
 		if (node.type !== FileType.Folder) {

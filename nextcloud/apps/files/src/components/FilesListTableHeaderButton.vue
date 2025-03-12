@@ -25,7 +25,7 @@ import { defineComponent } from 'vue'
 
 import MenuDown from 'vue-material-design-icons/MenuDown.vue'
 import MenuUp from 'vue-material-design-icons/MenuUp.vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 
 import filesSortingMixin from '../mixins/filesSorting.ts'
 

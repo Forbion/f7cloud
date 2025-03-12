@@ -2,9 +2,6 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { FilesTrashbinConfigState } from '../../../files_trashbin/src/fileListActions/emptyTrashAction.ts'
-
-import { loadState } from '@nextcloud/initial-state'
 import { Permission, Node, View, FileAction } from '@nextcloud/files'
 import { showInfo } from '@nextcloud/dialogs'
 import { translate as t } from '@nextcloud/l10n'
@@ -19,10 +16,8 @@ import { askConfirmation, canDisconnectOnly, canUnshareOnly, deleteNode, display
 
 const queue = new PQueue({ concurrency: 5 })
 
-export const ACTION_DELETE = 'delete'
-
 export const action = new FileAction({
-	id: ACTION_DELETE,
+	id: 'delete',
 	displayName,
 	iconSvgInline: (nodes: Node[]) => {
 		if (canUnshareOnly(nodes)) {
@@ -37,11 +32,6 @@ export const action = new FileAction({
 	},
 
 	enabled(nodes: Node[]) {
-		const config = loadState<FilesTrashbinConfigState>('files_trashbin', 'config')
-		if (!config.allow_delete) {
-			return false
-		}
-
 		return nodes.length > 0 && nodes
 			.map(node => node.permissions)
 			.every(permission => (permission & Permission.DELETE) !== 0)
@@ -51,14 +41,8 @@ export const action = new FileAction({
 		try {
 			let confirm = true
 
-			// Trick to detect if the action was called from a keyboard event
-			// we need to make sure the method calling have its named containing 'keydown'
-			// here we use `onKeydown` method from the FileEntryActions component
-			const callStack = new Error().stack || ''
-			const isCalledFromEventListener = callStack.toLocaleLowerCase().includes('keydown')
-
 			// If trashbin is disabled, we need to ask for confirmation
-			if (!isTrashbinEnabled() || isCalledFromEventListener) {
+			if (!isTrashbinEnabled()) {
 				confirm = await askConfirmation([node], view)
 			}
 
@@ -95,8 +79,8 @@ export const action = new FileAction({
 
 		// Map each node to a promise that resolves with the result of exec(node)
 		const promises = nodes.map(node => {
-			// Create a promise that resolves with the result of exec(node)
-			const promise = new Promise<boolean>(resolve => {
+		    // Create a promise that resolves with the result of exec(node)
+		    const promise = new Promise<boolean>(resolve => {
 				queue.add(async () => {
 					try {
 						await deleteNode(node)

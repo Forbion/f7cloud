@@ -12,7 +12,7 @@ export default () => {
 	const Navigation = getNavigation()
 	Navigation.register(new View({
 		id: 'personal',
-		name: t('files', 'Personal files'),
+		name: t('files', 'Personal Files'),
 		caption: t('files', 'List of your files and folders that are not shared.'),
 
 		emptyTitle: t('files', 'No personal files found'),

@@ -2,9 +2,11 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { FileAction, Node, FileType, DefaultType } from '@nextcloud/files'
+import type { ShareAttribute } from '../../../files_sharing/src/sharing'
+
+import { FileAction, Permission, Node, FileType, View, DefaultType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
-import { isDownloadable } from '../utils/permissions'
+import { generateUrl } from '@nextcloud/router'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
 
@@ -23,7 +25,7 @@ const triggerDownload = function(url: string) {
 function longestCommonPath(first: string, second: string): string {
 	const firstSegments = first.split('/').filter(Boolean)
 	const secondSegments = second.split('/').filter(Boolean)
-	let base = ''
+	let base = '/'
 	for (const [index, segment] of firstSegments.entries()) {
 		if (index >= second.length) {
 			break
@@ -31,41 +33,60 @@ function longestCommonPath(first: string, second: string): string {
 		if (segment !== secondSegments[index]) {
 			break
 		}
-		const sep = base === '' ? '' : '/'
+		const sep = base === '/' ? '' : '/'
 		base = `${base}${sep}${segment}`
 	}
 	return base
 }
 
-const downloadNodes = function(nodes: Node[]) {
-	let url: URL
+/**
+ * Handle downloading multiple nodes
+ * @param nodes The nodes to download
+ */
+function downloadNodes(nodes: Node[]): void {
+	// Remove nodes that are already included in parent folders
+	// Example: Download A/foo.txt and A will only return A as A/foo.txt is already included
+	const filteredNodes = nodes.filter((node) => {
+		const parent = nodes.find((other) => (
+			other.type === FileType.Folder
+				&& node.path.startsWith(`${other.path}/`)
+		))
+		return parent === undefined
+	})
 
-	if (nodes.length === 1) {
-		if (nodes[0].type === FileType.File) {
-			return triggerDownload(nodes[0].encodedSource)
-		} else {
-			url = new URL(nodes[0].encodedSource)
-			url.searchParams.append('accept', 'zip')
-		}
-	} else {
-		url = new URL(nodes[0].source)
-		let base = url.pathname
-		for (const node of nodes.slice(1)) {
-			base = longestCommonPath(base, (new URL(node.source).pathname))
-		}
-		url.pathname = base
+	let base = filteredNodes[0].dirname
+	for (const node of filteredNodes.slice(1)) {
+		base = longestCommonPath(base, node.dirname)
+	}
+	base = base || '/'
 
-		// The URL contains the path encoded so we need to decode as the query.append will re-encode it
-		const filenames = nodes.map((node) => decodeURI(node.encodedSource.slice(url.href.length + 1)))
-		url.searchParams.append('accept', 'zip')
-		url.searchParams.append('files', JSON.stringify(filenames))
+	// Remove the common prefix
+	const filenames = filteredNodes.map((node) => node.path.slice(base === '/' ? 1 : (base.length + 1)))
+
+	const secret = Math.random().toString(36).substring(2)
+	const url = generateUrl('/apps/files/ajax/download.php?dir={base}&files={files}&downloadStartSecret={secret}', {
+		base,
+		secret,
+		files: JSON.stringify(filenames),
+	})
+	triggerDownload(url)
+}
+
+const isDownloadable = function(node: Node) {
+	if ((node.permissions & Permission.READ) === 0) {
+		return false
 	}
 
-	if (url.pathname.at(-1) !== '/') {
-		url.pathname = `${url.pathname}/`
+	// If the mount type is a share, ensure it got download permissions.
+	if (node.attributes['mount-type'] === 'shared') {
+		const shareAttributes = JSON.parse(node.attributes['share-attributes'] ?? '[]') as Array<ShareAttribute>
+		const downloadAttribute = shareAttributes?.find?.((attribute: { scope: string; key: string }) => attribute.scope === 'permissions' && attribute.key === 'download')
+		if (downloadAttribute !== undefined && downloadAttribute.value === false) {
+			return false
+		}
 	}
 
-	return triggerDownload(url.href)
+	return true
 }
 
 export const action = new FileAction({
@@ -80,8 +101,11 @@ export const action = new FileAction({
 			return false
 		}
 
-		// We can only download dav files and folders.
-		if (nodes.some(node => !node.isDavRessource)) {
+		// We can download direct dav files. But if we have
+		// some folders, we need to use the /apps/files/ajax/download.php
+		// endpoint, which only supports user root folder.
+		if (nodes.some(node => node.type === FileType.Folder)
+			&& nodes.some(node => !node.root?.startsWith('/files'))) {
 			return false
 		}
 
@@ -89,11 +113,21 @@ export const action = new FileAction({
 	},
 
 	async exec(node: Node) {
-		downloadNodes([node])
+		if (node.type === FileType.Folder) {
+			downloadNodes([node])
+			return null
+		}
+
+		triggerDownload(node.encodedSource)
 		return null
 	},
 
-	async execBatch(nodes: Node[]) {
+	async execBatch(nodes: Node[], view: View, dir: string) {
+		if (nodes.length === 1) {
+			this.exec(nodes[0], view, dir)
+			return [null]
+		}
+
 		downloadNodes(nodes)
 		return new Array(nodes.length).fill(null)
 	},

@@ -5,11 +5,4 @@
 
 import { createPinia } from 'pinia'
 
-export const getPinia = () => {
-	if (window._nc_files_pinia) {
-		return window._nc_files_pinia
-	}
-
-	window._nc_files_pinia = createPinia()
-	return window._nc_files_pinia
-}
+export const pinia = createPinia()

@@ -19,7 +19,6 @@
 				<TemplatePreview v-bind="emptyTemplate"
 					ref="emptyTemplatePreview"
 					:checked="checked === emptyTemplate.fileid"
-					@confirm-click="onConfirmClick"
 					@check="onCheck" />
 
 				<TemplatePreview v-for="template in provider.templates"
@@ -27,7 +26,6 @@
 					v-bind="template"
 					:checked="checked === template.fileid"
 					:ratio="provider.ratio"
-					@confirm-click="onConfirmClick"
 					@check="onCheck" />
 			</ul>
 
@@ -59,8 +57,8 @@ import { normalize, extname, join } from 'path'
 import { defineComponent } from 'vue'
 import { createFromTemplate, getTemplates } from '../services/Templates.js'
 
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcModal from '@nextcloud/vue/components/NcModal'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import TemplatePreview from '../components/TemplatePreview.vue'
 import TemplateFiller from '../components/TemplateFiller.vue'
 import logger from '../logger.ts'
@@ -209,12 +207,6 @@ export default defineComponent({
 			this.checked = fileid
 		},
 
-		onConfirmClick(fileid: number) {
-			if (fileid === this.checked) {
-				this.onSubmit()
-			}
-		},
-
 		async createFile(templateFields) {
 			const currentDirectory = new URL(window.location.href).searchParams.get('dir') || '/'
 
@@ -321,7 +313,7 @@ export default defineComponent({
 		padding: calc(var(--margin) * 2) var(--margin);
 		position: sticky;
 		bottom: 0;
-		background-image: linear-gradient(0deg, var(--gradient-main-background));
+		background-image: linear-gradient(0, var(--gradient-main-background));
 
 		button, input[type='submit'] {
 			height: 44px;
@@ -329,14 +321,14 @@ export default defineComponent({
 	}
 
 	// Make sure we're relative for the loading emptycontent on top
-	:deep(.modal-container) {
+	::v-deep .modal-container {
 		position: relative;
 	}
 
 	&__loading {
 		position: absolute;
 		top: 0;
-		inset-inline-start: 0;
+		left: 0;
 		justify-content: center;
 		width: 100%;
 		height: 100%;

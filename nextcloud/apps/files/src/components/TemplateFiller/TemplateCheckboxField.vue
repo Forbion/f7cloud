@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import { NcCheckboxRadioSwitch } from '@nextcloud/vue'
 
 export default defineComponent({
 	name: 'TemplateCheckboxField',

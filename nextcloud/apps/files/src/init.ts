@@ -31,11 +31,8 @@ import { registerFolderTreeView } from './views/folderTree.ts'
 import registerPreviewServiceWorker from './services/ServiceWorker.js'
 
 import { initLivePhotos } from './services/LivePhotos'
-import { isPublicShare } from '@nextcloud/sharing/public'
-import { registerConvertActions } from './actions/convertAction.ts'
 
 // Register file actions
-registerConvertActions()
 registerFileAction(deleteAction)
 registerFileAction(downloadAction)
 registerFileAction(editLocallyAction)
@@ -52,14 +49,12 @@ addNewFileMenuEntry(newFolderEntry)
 addNewFileMenuEntry(newTemplatesFolder)
 registerTemplateEntries()
 
-// Register files views when not on public share
-if (isPublicShare() === false) {
-	registerFavoritesView()
-	registerFilesView()
-	registerRecentView()
-	registerPersonalFilesView()
-	registerFolderTreeView()
-}
+// Register files views
+registerFavoritesView()
+registerFilesView()
+registerRecentView()
+registerPersonalFilesView()
+registerFolderTreeView()
 
 // Register file list filters
 registerHiddenFilesFilter()
@@ -71,6 +66,6 @@ registerPreviewServiceWorker()
 
 registerDavProperty('nc:hidden', { nc: 'http://nextcloud.org/ns' })
 registerDavProperty('nc:is-mount-root', { nc: 'http://nextcloud.org/ns' })
-registerDavProperty('nc:metadata-blurhash', { nc: 'http://nextcloud.org/ns' })
+registerDavProperty('nc:is-federated', { nc: 'http://nextcloud.org/ns' })
 
 initLivePhotos()

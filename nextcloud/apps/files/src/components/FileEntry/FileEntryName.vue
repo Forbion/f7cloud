@@ -28,7 +28,7 @@
 		data-cy-files-list-row-name-link
 		v-bind="linkTo.params">
 		<!-- Filename -->
-		<span class="files-list__row-name-text" dir="auto">
+		<span class="files-list__row-name-text">
 			<!-- Keep the filename stuck to the extension to avoid whitespace rendering issues-->
 			<span class="files-list__row-name-" v-text="basename" />
 			<span class="files-list__row-name-ext" v-text="extension" />
@@ -45,10 +45,9 @@ import { FileType, NodeStatus } from '@nextcloud/files'
 import { translate as t } from '@nextcloud/l10n'
 import { defineComponent, inject } from 'vue'
 
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 import { useNavigation } from '../../composables/useNavigation'
-import { useFileListWidth } from '../../composables/useFileListWidth.ts'
 import { useRouteParameters } from '../../composables/useRouteParameters.ts'
 import { useRenamingStore } from '../../store/renaming.ts'
 import { getFilenameValidity } from '../../utils/filenameValidity.ts'
@@ -76,6 +75,10 @@ export default defineComponent({
 			type: String,
 			required: true,
 		},
+		filesListWidth: {
+			type: Number,
+			required: true,
+		},
 		nodes: {
 			type: Array as PropType<Node[]>,
 			required: true,
@@ -91,10 +94,8 @@ export default defineComponent({
 	},
 
 	setup() {
-		// The file list is guaranteed to be only shown with active view - thus we can set the `loaded` flag
-		const { currentView } = useNavigation(true)
+		const { currentView } = useNavigation()
 		const { directory } = useRouteParameters()
-		const filesListWidth = useFileListWidth()
 		const renamingStore = useRenamingStore()
 
 		const defaultFileAction = inject<FileAction | undefined>('defaultFileAction')
@@ -103,7 +104,6 @@ export default defineComponent({
 			currentView,
 			defaultFileAction,
 			directory,
-			filesListWidth,
 
 			renamingStore,
 		}
@@ -143,7 +143,7 @@ export default defineComponent({
 				}
 			}
 
-			if (this.defaultFileAction) {
+			if (this.defaultFileAction && this.currentView) {
 				const displayName = this.defaultFileAction.displayName([this.source], this.currentView)
 				return {
 					is: 'button',
@@ -251,8 +251,8 @@ export default defineComponent({
 				if (status) {
 					showSuccess(t('files', 'Renamed "{oldName}" to "{newName}"', { oldName, newName }))
 					this.$nextTick(() => {
-						const nameContainer = this.$refs.basename as HTMLElement | undefined
-						nameContainer?.focus()
+						const nameContainter = this.$refs.basename as HTMLElement | undefined
+						nameContainter?.focus()
 					})
 				} else {
 					// Was cancelled - meaning the renaming state is just reset
