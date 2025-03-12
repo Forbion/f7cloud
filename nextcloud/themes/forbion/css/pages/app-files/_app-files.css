@@ -299,6 +299,17 @@ body .app-files {
                 display: none;
             }
     }
+    & li[data-cy-files-list-row-action="onlyoffice-download-as"] {
+            & .icon-vue:after {
+                background-image: url('/themes/forbion/images/download.svg') !important;
+                content: '';
+                width: 16px;
+                height: 16px;
+            }
+            & .icon-vue > svg {
+                display: none;
+            }
+    }
     & li[data-cy-files-list-row-action="delete"] {
             & .icon-vue:after {
                 background-image: url('/themes/forbion/images/delete-black.svg') !important;
@@ -1431,6 +1442,7 @@ body .app-files {
     & .action {
         & .action-button__text, .action-button__longtext, .action-link__text {
             margin-left: 12px;
+            max-height: 20px;
         }
     }
 
@@ -1501,6 +1513,9 @@ body .app-files {
 
     & .action-button__icon.icon-tag {
          background-image: url('/themes/forbion/images/tags-black.svg') !important;
+    }
+    & .action-button__icon.icon-menu-sidebar {
+         background-image: url('/themes/forbion/images/rightToggle-black.svg') !important;
     }
 
     & li[data-cy-files-versions-version-action="download"] {
@@ -1638,22 +1653,34 @@ body .app-files {
             display: none;
         }
     }
-}/* Стили для .modal-mask */
+}
+
+/* Стили для .modal-mask */
 .app-files ~ .modal-mask.app-settings,
 .app-files + .modal-mask.app-settings {
-    & .dialog__name {
-        padding-top: 48px;
+    & .modal-wrapper--large .modal-container {
+        width: 340px !important;
+        padding-block: 0;
+        padding-inline: 4px 8px;
+    }
 
+    & .app-settings-section__name {
+        display: none;
+    }
+
+    & .dialog__name {
+        padding-top: 32px;
+        padding-left: 15px;
         margin-bottom: 21px;
         font-family: Raleway;
         font-weight: 600 !important;
         font-size: 18px !important;
         line-height: 20px !important;
         letter-spacing: 0;
-        left: 256px !important;
+        left: unset !important;
         position: relative;
         text-align: justify;
-        max-width: calc(100% - 456px);
+        max-width: calc(100%);
     }
 
 }
@@ -1735,7 +1762,7 @@ body .app-files {
             width: 222px;
         }
         & .dialog__wrapper:not(.dialog__wrapper--collapsed) .dialog__content.app-settings__content{
-            max-width: 438px;
+            /*max-width: 438px;*/
         }
 
         --default-clickable-area: 40px !important;
