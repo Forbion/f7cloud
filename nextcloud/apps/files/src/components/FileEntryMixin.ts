@@ -2,14 +2,16 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { PropType } from 'vue'
 import type { FileSource } from '../types.ts'
 
 import { extname } from 'path'
 import { FileType, Permission, Folder, File as NcFile, NodeStatus, Node, getFileActions } from '@nextcloud/files'
 import { generateUrl } from '@nextcloud/router'
+import { isPublicShare } from '@nextcloud/sharing/public'
 import { showError } from '@nextcloud/dialogs'
-import { translate as t } from '@nextcloud/l10n'
+import { t } from '@nextcloud/l10n'
 import { vOnClickOutside } from '@vueuse/components'
 import Vue, { computed, defineComponent } from 'vue'
 
@@ -17,7 +19,8 @@ import { action as sidebarAction } from '../actions/sidebarAction.ts'
 import { dataTransferToFileTree, onDropExternalFiles, onDropInternalFiles } from '../services/DropService.ts'
 import { getDragAndDropPreview } from '../utils/dragUtils.ts'
 import { hashCode } from '../utils/hashUtils.ts'
-import logger from '../logger.js'
+import { isDownloadable } from '../utils/permissions.ts'
+import logger from '../logger.ts'
 
 Vue.directive('onClickOutside', vOnClickOutside)
 
@@ -56,7 +59,6 @@ export default defineComponent({
 
 	data() {
 		return {
-			loading: '',
 			dragover: false,
 			gridMode: false,
 		}
@@ -72,7 +74,7 @@ export default defineComponent({
 		},
 
 		isLoading() {
-			return this.source.status === NodeStatus.LOADING || this.loading !== ''
+			return this.source.status === NodeStatus.LOADING
 		},
 
 		/**
@@ -223,11 +225,11 @@ export default defineComponent({
 		/**
 		 * When the source changes, reset the preview
 		 * and fetch the new one.
-		 * @param a
-		 * @param b
+		 * @param newSource The new value of the source prop
+		 * @param oldSource The previous value
 		 */
-		source(a: Node, b: Node) {
-			if (a.source !== b.source) {
+		source(newSource: Node, oldSource: Node) {
+			if (newSource.source !== oldSource.source) {
 				this.resetState()
 			}
 		},
@@ -258,9 +260,6 @@ export default defineComponent({
 
 	methods: {
 		resetState() {
-			// Reset loading state
-			this.loading = ''
-
 			// Reset the preview state
 			this.$refs?.preview?.reset?.()
 
@@ -301,33 +300,40 @@ export default defineComponent({
 			event.stopPropagation()
 		},
 
-		execDefaultAction(event) {
+		execDefaultAction(event: MouseEvent) {
 			// Ignore click if we are renaming
 			if (this.isRenaming) {
 				return
 			}
 
-			// Ignore right click.
-			if (event.button > 1) {
+			// Ignore right click (button & 2) and any auxiliary button expect mouse-wheel (button & 4)
+			if (Boolean(event.button & 2) || event.button > 4) {
 				return
 			}
 
-			// if ctrl+click or middle mouse button, open in new tab
-			if (event.ctrlKey || event.metaKey || event.button === 1) {
-				event.preventDefault()
-				window.open(generateUrl('/f/{fileId}', { fileId: this.fileid }))
-				return false
-			}
+			// if ctrl+click / cmd+click (MacOS uses the meta key) or middle mouse button (button & 4), open in new tab
+			// also if there is no default action use this as a fallback
+			const metaKeyPressed = event.ctrlKey || event.metaKey || Boolean(event.button & 4)
+			if (metaKeyPressed || !this.defaultFileAction) {
+				// If no download permission, then we can not allow to download (direct link) the files
+				if (isPublicShare() && !isDownloadable(this.source)) {
+					return
+				}
 
-			if (this.defaultFileAction) {
+				const url = isPublicShare()
+					? this.source.encodedSource
+					: generateUrl('/f/{fileId}', { fileId: this.fileid })
 				event.preventDefault()
 				event.stopPropagation()
-				// Execute the first default action if any
-				this.defaultFileAction.exec(this.source, this.currentView, this.currentDir)
-			} else {
-				// fallback to open in current tab
-				window.open(generateUrl('/f/{fileId}', { fileId: this.fileid }), '_self')
+				window.open(url, metaKeyPressed ? '_self' : undefined)
+				return
 			}
+
+			// every special case handled so just execute the default action
+			event.preventDefault()
+			event.stopPropagation()
+			// Execute the first default action if any
+			this.defaultFileAction.exec(this.source, this.currentView, this.currentDir)
 		},
 
 		openDetailsIfAvailable(event) {

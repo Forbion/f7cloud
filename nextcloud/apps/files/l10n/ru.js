@@ -162,9 +162,9 @@ OC.L10N.register(
     "Error during upload, status code {status}" : "Ошибка при передаче на сервер. Сообщение об ошибке: {status}",
     "Unknown error during upload" : "Неизвестная ошибка при загрузке",
     "\"{displayName}\" action executed successfully" : "Действие «{displayName}» выполнено успешно",
-    "Filter file names…" : "Фильтровать имена файлов…",
+    "Filter file names…" : "Поиск…",
     "Views" : "Представления",
-    "Files settings" : "Настройки файлов",
+    "Files settings" : "Параметры файлов",
     "File cannot be accessed" : "Не удалось получить доступ к файлу",
     "The file could not be found or you do not have permissions to view it. Ask the sender to share it." : "Не удалось найти файл или у вас отсутствуют права на его просмотр.  Попросите отправителя предоставить вам доступ к этому файлу.",
     "Your files" : "Ваши файлы",
@@ -406,7 +406,7 @@ OC.L10N.register(
     "{dirs} and {files}" : "{dirs} и {files}",
     "_including %n hidden_::_including %n hidden_" : ["включая %n скрытый","включая %n скрытых","включая %n скрытых","включая %n скрытых"],
     "_Uploading %n file_::_Uploading %n files_" : ["Передача %n файла","Передача %n файлов","Передача %n файлов","Передача %n файлов"],
-    "New" : "Новый",
+    "New" : "Создать или загрузить",
     "New file/folder menu" : "Меню создания файла или папки",
     "Select file range" : "Выбор диапазона файлов",
     "{used}%" : "{used}%",
@@ -445,6 +445,6 @@ OC.L10N.register(
     "Favored" : "Избранные",
     "Favor" : "Услуга",
     "Not favored" : "Не одобрен",
-    "Filter filenames…" : "Фильтровать имена файлов…"
+    "Filter filenames…" : "Поиск…"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

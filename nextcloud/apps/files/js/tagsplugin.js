@@ -96,7 +96,7 @@
 					var isFavorite = $file.data('favorite') === true;
 
 					if (isFavorite) {
-						return 'icon-favorite';
+						return 'icon-favorite1';
 					}
 
 					return 'icon-starred';
