@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import DOMPurify from 'dompurify'
+import { sanitizeSVG } from '@skjnldsv/sanitize-svg'
 
 export default class Tab {
 
@@ -80,7 +80,10 @@ export default class Tab {
 		this._scrollBottomReached = scrollBottomReached
 
 		if (typeof iconSvg === 'string') {
-			this._iconSvgSanitized = DOMPurify.sanitize(iconSvg)
+			sanitizeSVG(iconSvg)
+				.then(sanitizedSvg => {
+					this._iconSvgSanitized = sanitizedSvg
+				})
 		}
 
 	}

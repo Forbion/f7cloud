@@ -243,7 +243,7 @@ export default defineComponent({
 	border-color: black;
 
 	h3 {
-		margin-inline-start: 16px;
+		margin-left: 16px;
 		color: inherit;
 	}
 

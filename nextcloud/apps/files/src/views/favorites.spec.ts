@@ -6,11 +6,11 @@
 
 import type { Folder as CFolder, Navigation } from '@nextcloud/files'
 
+import { expect } from '@jest/globals'
 import * as filesUtils from '@nextcloud/files'
 import { CancelablePromise } from 'cancelable-promise'
-import { basename } from 'path'
-import { beforeEach, describe, expect, test, vi } from 'vitest'
 import * as eventBus from '@nextcloud/event-bus'
+import { basename } from 'path'
 
 import { action } from '../actions/favoriteAction'
 import * as favoritesService from '../services/Favorites'
@@ -18,7 +18,23 @@ import { registerFavoritesView } from './favorites'
 
 const { Folder, getNavigation } = filesUtils
 
-vi.mock('@nextcloud/axios')
+jest.mock('@nextcloud/axios', () => ({
+	post: jest.fn(),
+}))
+
+jest.mock('webdav/dist/node/request.js', () => ({
+	request: jest.fn(),
+}))
+
+jest.mock('@nextcloud/files', () => ({
+	__esModule: true,
+	...jest.requireActual('@nextcloud/files'),
+}))
+
+jest.mock('@nextcloud/event-bus', () => ({
+	__esModule: true,
+	...jest.requireActual('@nextcloud/event-bus'),
+}))
 
 window.OC = {
 	...window.OC,
@@ -34,17 +50,18 @@ declare global {
 describe('Favorites view definition', () => {
 	let Navigation
 	beforeEach(() => {
-		vi.resetAllMocks()
-
-		delete window._nc_navigation
 		Navigation = getNavigation()
 		expect(window._nc_navigation).toBeDefined()
 	})
 
+	afterEach(() => {
+		delete window._nc_navigation
+	})
+
 	test('Default empty favorite view', async () => {
-		vi.spyOn(eventBus, 'subscribe')
-		vi.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
-		vi.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
+		jest.spyOn(eventBus, 'subscribe')
+		jest.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
+		jest.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
 
 		await registerFavoritesView()
 		const favoritesView = Navigation.views.find(view => view.id === 'favorites')
@@ -63,7 +80,7 @@ describe('Favorites view definition', () => {
 		expect(favoritesView?.id).toBe('favorites')
 		expect(favoritesView?.name).toBe('Favorites')
 		expect(favoritesView?.caption).toBeDefined()
-		expect(favoritesView?.icon).toMatch(/<svg.+<\/svg>/)
+		expect(favoritesView?.icon).toBe('<svg>SvgMock</svg>')
 		expect(favoritesView?.order).toBe(15)
 		expect(favoritesView?.columns).toStrictEqual([])
 		expect(favoritesView?.getContents).toBeDefined()
@@ -90,8 +107,8 @@ describe('Favorites view definition', () => {
 				owner: 'admin',
 			}),
 		]
-		vi.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve(favoriteFolders))
-		vi.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
+		jest.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve(favoriteFolders))
+		jest.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
 
 		await registerFavoritesView()
 		const favoritesView = Navigation.views.find(view => view.id === 'favorites')
@@ -107,7 +124,7 @@ describe('Favorites view definition', () => {
 			expect(favoriteView).toBeDefined()
 			expect(favoriteView?.id).toBeDefined()
 			expect(favoriteView?.name).toBe(basename(folder.path))
-			expect(favoriteView?.icon).toMatch(/<svg.+<\/svg>/)
+			expect(favoriteView?.icon).toBe('<svg>SvgMock</svg>')
 			expect(favoriteView?.order).toBe(index)
 			expect(favoriteView?.params).toStrictEqual({
 				dir: folder.path,
@@ -121,19 +138,20 @@ describe('Favorites view definition', () => {
 	})
 })
 
-describe('Dynamic update of favorite folders', () => {
+describe('Dynamic update of favourite folders', () => {
 	let Navigation
 	beforeEach(() => {
-		vi.restoreAllMocks()
-
-		delete window._nc_navigation
 		Navigation = getNavigation()
 	})
 
+	afterEach(() => {
+		delete window._nc_navigation
+	})
+
 	test('Add a favorite folder creates a new entry in the navigation', async () => {
-		vi.spyOn(eventBus, 'emit')
-		vi.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
-		vi.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
+		jest.spyOn(eventBus, 'emit')
+		jest.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
+		jest.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
 
 		await registerFavoritesView()
 		const favoritesView = Navigation.views.find(view => view.id === 'favorites')
@@ -147,7 +165,7 @@ describe('Dynamic update of favorite folders', () => {
 		// Create new folder to favorite
 		const folder = new Folder({
 			id: 1,
-			source: 'http://nextcloud.local/remote.php/dav/files/admin/Foo/Bar',
+			source: 'http://localhost/remote.php/dav/files/admin/Foo/Bar',
 			owner: 'admin',
 		})
 
@@ -159,8 +177,9 @@ describe('Dynamic update of favorite folders', () => {
 	})
 
 	test('Remove a favorite folder remove the entry from the navigation column', async () => {
-		vi.spyOn(eventBus, 'emit')
-		vi.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([
+		jest.spyOn(eventBus, 'emit')
+		jest.spyOn(eventBus, 'subscribe')
+		jest.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([
 			new Folder({
 				id: 42,
 				root: '/files/admin',
@@ -168,7 +187,7 @@ describe('Dynamic update of favorite folders', () => {
 				owner: 'admin',
 			}),
 		]))
-		vi.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
+		jest.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
 
 		await registerFavoritesView()
 		let favoritesView = Navigation.views.find(view => view.id === 'favorites')
@@ -182,7 +201,7 @@ describe('Dynamic update of favorite folders', () => {
 		// Create new folder to favorite
 		const folder = new Folder({
 			id: 1,
-			source: 'http://nextcloud.local/remote.php/dav/files/admin/Foo/Bar',
+			source: 'http://localhost/remote.php/dav/files/admin/Foo/Bar',
 			owner: 'admin',
 			root: '/files/admin',
 			attributes: {
@@ -190,15 +209,11 @@ describe('Dynamic update of favorite folders', () => {
 			},
 		})
 
-		const fo = vi.fn()
-		eventBus.subscribe('files:favorites:removed', fo)
-
 		// Exec the action
 		await action.exec(folder, favoritesView, '/')
 
 		expect(eventBus.emit).toHaveBeenCalledTimes(1)
 		expect(eventBus.emit).toHaveBeenCalledWith('files:favorites:removed', folder)
-		expect(fo).toHaveBeenCalled()
 
 		favoritesView = Navigation.views.find(view => view.id === 'favorites')
 		favoriteFoldersViews = Navigation.views.filter(view => view.parent === 'favorites')
@@ -210,9 +225,9 @@ describe('Dynamic update of favorite folders', () => {
 	})
 
 	test('Renaming a favorite folder updates the navigation', async () => {
-		vi.spyOn(eventBus, 'emit')
-		vi.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
-		vi.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
+		jest.spyOn(eventBus, 'emit')
+		jest.spyOn(filesUtils, 'getFavoriteNodes').mockReturnValue(CancelablePromise.resolve([]))
+		jest.spyOn(favoritesService, 'getContents').mockReturnValue(CancelablePromise.resolve({ folder: {} as CFolder, contents: [] }))
 
 		await registerFavoritesView()
 		const favoritesView = Navigation.views.find(view => view.id === 'favorites')
@@ -228,7 +243,7 @@ describe('Dynamic update of favorite folders', () => {
 		// Create new folder to favorite
 		const folder = new Folder({
 			id: 1,
-			source: 'http://nextcloud.local/remote.php/dav/files/admin/Foo/Bar',
+			source: 'http://localhost/remote.php/dav/files/admin/Foo/Bar',
 			owner: 'admin',
 		})
 
@@ -239,7 +254,7 @@ describe('Dynamic update of favorite folders', () => {
 		// Create a folder with the same id but renamed
 		const renamedFolder = new Folder({
 			id: 1,
-			source: 'http://nextcloud.local/remote.php/dav/files/admin/Foo/Bar.renamed',
+			source: 'http://localhost/remote.php/dav/files/admin/Foo/Bar.renamed',
 			owner: 'admin',
 		})
 

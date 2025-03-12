@@ -59,14 +59,14 @@ import type { PropType } from 'vue'
 import type { FileSource } from '../types.ts'
 
 import { translate as t } from '@nextcloud/l10n'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 
-import { useFilesStore } from '../store/files.ts'
-import { useNavigation } from '../composables/useNavigation'
-import { useSelectionStore } from '../store/selection.ts'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import FilesListTableHeaderButton from './FilesListTableHeaderButton.vue'
+
+import { useNavigation } from '../composables/useNavigation'
+import { useFilesStore } from '../store/files.ts'
+import { useSelectionStore } from '../store/selection.ts'
 import filesSortingMixin from '../mixins/filesSorting.ts'
 import logger from '../logger.ts'
 
@@ -155,23 +155,8 @@ export default defineComponent({
 		},
 	},
 
-	created() {
-		// ctrl+a selects all
-		useHotKey('a', this.onToggleAll, {
-			ctrl: true,
-			stop: true,
-			prevent: true,
-		})
-
-		// Escape key cancels selection
-		useHotKey('Escape', this.resetSelection, {
-			stop: true,
-			prevent: true,
-		})
-	},
-
 	methods: {
-		ariaSortForMode(mode: string): 'ascending'|'descending'|null {
+		ariaSortForMode(mode: string): ARIAMixin['ariaSort'] {
 			if (this.sortingMode === mode) {
 				return this.isAscSorting ? 'ascending' : 'descending'
 			}
@@ -187,7 +172,7 @@ export default defineComponent({
 			}
 		},
 
-		onToggleAll(selected = true) {
+		onToggleAll(selected) {
 			if (selected) {
 				const selection = this.nodes.map(node => node.source).filter(Boolean) as FileSource[]
 				logger.debug('Added all nodes to selection', { selection })
@@ -200,9 +185,6 @@ export default defineComponent({
 		},
 
 		resetSelection() {
-			if (this.isNoneSelected) {
-				return
-			}
 			this.selectionStore.reset()
 		},
 

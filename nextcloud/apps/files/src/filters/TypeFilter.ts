@@ -143,10 +143,6 @@ class TypeFilter extends FileListFilter {
 		})
 	}
 
-	public reset(): void {
-		this.setPresets()
-	}
-
 	public setPresets(presets?: ITypePreset[]) {
 		this.currentPresets = presets ?? []
 		this.currentInstance!.$props.presets = presets

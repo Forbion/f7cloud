@@ -2,37 +2,28 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Route, Location } from 'vue-router'
+import type { Route } from 'vue-router'
 import type VueRouter from 'vue-router'
+import type { Dictionary, Location } from 'vue-router/types/router'
 
 export default class RouterService {
 
-	// typescript compiles this to `#router` to make it private even in JS,
-	// but in TS it needs to be called without the visibility specifier
-	private router: VueRouter
+	private _router: VueRouter
 
 	constructor(router: VueRouter) {
-		this.router = router
+		this._router = router
 	}
 
 	get name(): string | null | undefined {
-		return this.router.currentRoute.name
+		return this._router.currentRoute.name
 	}
 
-	get query(): Record<string, string | (string | null)[] | null | undefined> {
-		return this.router.currentRoute.query || {}
+	get query(): Dictionary<string | (string | null)[] | null | undefined> {
+		return this._router.currentRoute.query || {}
 	}
 
-	get params(): Record<string, string> {
-		return this.router.currentRoute.params || {}
-	}
-
-	/**
-	 * This is a protected getter only for internal use
-	 * @private
-	 */
-	get _router() {
-		return this.router
+	get params(): Dictionary<string> {
+		return this._router.currentRoute.params || {}
 	}
 
 	/**
@@ -43,7 +34,7 @@ export default class RouterService {
 	 * @see https://router.vuejs.org/guide/essentials/navigation.html#navigate-to-a-different-location
 	 */
 	goTo(path: string, replace = false): Promise<Route> {
-		return this.router.push({
+		return this._router.push({
 			path,
 			replace,
 		})
@@ -60,11 +51,11 @@ export default class RouterService {
 	 */
 	goToRoute(
 		name?: string,
-		params?: Record<string, string>,
-		query?: Record<string, string | (string | null)[] | null | undefined>,
+		params?: Dictionary<string>,
+		query?: Dictionary<string | (string | null)[] | null | undefined>,
 		replace?: boolean,
 	): Promise<Route> {
-		return this.router.push({
+		return this._router.push({
 			name,
 			query,
 			params,

@@ -6,7 +6,7 @@
 import type { TreeNode } from '../services/FolderTree.ts'
 
 import PQueue from 'p-queue'
-import { FileType, Folder, Node, View, getNavigation } from '@nextcloud/files'
+import { Folder, Node, View, getNavigation } from '@nextcloud/files'
 import { translate as t } from '@nextcloud/l10n'
 import { emit, subscribe } from '@nextcloud/event-bus'
 import { isSamePath } from '@nextcloud/paths'
@@ -99,21 +99,21 @@ const removeFolderViewSource = (source: string) => {
 }
 
 const onCreateNode = (node: Node) => {
-	if (node.type !== FileType.Folder) {
+	if (!(node instanceof Folder)) {
 		return
 	}
 	registerNodeView(node)
 }
 
 const onDeleteNode = (node: Node) => {
-	if (node.type !== FileType.Folder) {
+	if (!(node instanceof Folder)) {
 		return
 	}
 	removeFolderView(node)
 }
 
 const onMoveNode = ({ node, oldSource }) => {
-	if (node.type !== FileType.Folder) {
+	if (!(node instanceof Folder)) {
 		return
 	}
 	removeFolderViewSource(oldSource)

@@ -4,6 +4,7 @@
  */
 
 import type { IFileListFilterChip, INode } from '@nextcloud/files'
+import { subscribe } from '@nextcloud/event-bus'
 import { FileListFilter } from '@nextcloud/files'
 
 /**
@@ -15,6 +16,7 @@ export class FilenameFilter extends FileListFilter {
 
 	constructor() {
 		super('files:filename', 5)
+		subscribe('files:navigation:changed', () => this.updateQuery(''))
 	}
 
 	public filter(nodes: INode[]): INode[] {
@@ -23,10 +25,6 @@ export class FilenameFilter extends FileListFilter {
 			const displayname = node.displayname.toLocaleLowerCase()
 			return queryParts.every((part) => displayname.includes(part))
 		})
-	}
-
-	public reset(): void {
-		this.updateQuery('')
 	}
 
 	public updateQuery(query: string) {
