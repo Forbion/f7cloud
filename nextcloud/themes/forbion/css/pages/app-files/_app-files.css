@@ -10,9 +10,20 @@ body .app-files {
     --sidebar-pad: 0px;
     --vs-border-width: 1px solid #E6E6E6;
 
-    --icon-external-white: url('/themes/forbion/images/chain.svg');
-    --icon-more-white: url('/themes/forbion/images/users-gray.svg');
-    --icon-public-white: url('/themes/forbion/images/chain.svg');
+    /*--icon-external-white: url('/themes/forbion/images/chain.svg') !important;*/
+    /*--icon-more-white: url('/themes/forbion/images/users-gray.svg') !important;*/
+    /*--icon-public-white: url('/themes/forbion/images/chain.svg') !important;*/
+
+    & .icon-public-white {
+        background-image: url('/themes/forbion/images/chain.svg') !important;
+    }
+    & .icon-more-white {
+        background-image: url('/themes/forbion/images/users-gray.svg') !important;
+    }
+    & .icon-external-white {
+        background-image: url('/themes/forbion/images/chain.svg') !important;
+    }
+
 
     & .material-design-icon.checkbox-marked-icon {
         /*--icon-size: 16px !important;*/
@@ -1362,6 +1373,14 @@ body .app-files {
         & .app-sidebar-tabs {
 
             & .sharingTab {
+
+                & .button-vue__icon {
+                    & .icon.icon-add {
+                        background-image: url("/themes/forbion/images/plus-black.svg");
+                    }
+                }
+
+
                 & .icon-public-white, .icon-more-white, .icon-external-white {
                     background-color: #D9D9D9;
                 }
@@ -1405,6 +1424,19 @@ body .app-files {
             & .app-sidebar-tabs__nav {
                 border-bottom: unset !important;
 
+                & #tab-button-comments {
+                    & .svg-icon:before {
+                        content: '';
+                        width: 20px;
+                        height: 20px;
+                        background-image: url("/themes/forbion/images/comment.svg");
+                        display: inline-flex;
+                    }
+                    & .svg-icon > svg {
+                        display: none;
+                    }
+                }
+
                 & .button-vue {
                     & .checkbox-content--has-text {
                         border-bottom: 2px solid #E6E6E6 !important;
@@ -1446,78 +1478,117 @@ body .app-files {
         }
     }
 
-    & .material-design-icon.delete-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/delete-black.svg');
-        width: 16px;
-        height: 16px;
-    }
-    & .material-design-icon.delete-icon > svg {
-        display: none;
-    }
-    & .material-design-icon.share-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/plane-black.svg');
-        width: 16px;
-        height: 16px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-    & .material-design-icon.share-icon > svg {
-        display: none;
-    }
-    & .material-design-icon.pencil-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/pencil-icon-black.svg');
-        width: 16px;
-        height: 16px;
-    }
-    & .material-design-icon.pencil-icon > svg {
-        display: none;
-    }
-    & .material-design-icon.alarm-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/clock-black.svg');
-        width: 16px;
-        height: 16px;
-    }
-    & .material-design-icon.alarm-icon > svg {
-        display: none;
-    }
-
-    & .material-design-icon.note-edit-outline-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/note-black.svg');
-        width: 16px;
-        height: 16px;
-    }
-    & .material-design-icon.note-edit-outline-icon > svg {
-        display: none;
-    }
-
-    & .material-design-icon.open-in-new-icon:after {
-        content: '';
-        background-image: url('/themes/forbion/images/chain-black.svg');
-        width: 16px;
-        height: 16px;
-    }
-    & .material-design-icon.open-in-new-icon > svg {
-        display: none;
+    /* Иконки */
+    & .material-design-icon {
+        &.delete-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/delete-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        &.delete-icon > svg {
+            display: none;
+        }
+        &.share-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/plane-black.svg');
+            width: 16px;
+            height: 16px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        &.share-icon > svg {
+            display: none;
+        }
+        &.pencil-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        &.pencil-icon > svg {
+            display: none;
+        }
+        &.alarm-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/clock-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        &.alarm-icon > svg {
+            display: none;
+        }
+        &.note-edit-outline-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/note-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        &.note-edit-outline-icon > svg {
+            display: none;
+        }
+        &.open-in-new-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/chain-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        &.open-in-new-icon > svg {
+            display: none;
+        }
+        &.upload-icon:after {
+            background-image: url('/themes/forbion/images/uploadFile.svg') !important;
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &.upload-icon > svg {
+            display: none;
+        }
+        &.folder-icon:after {
+            background-image: url('/themes/forbion/images/check-black.svg');
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &.folder-icon > svg {
+            display: none;
+        }
+        &.poll-icon:after {
+            background-image: url('/themes/forbion/images/poll.svg') !important;
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &.poll-icon > svg {
+            display: none;
+        }
     }
 
     & ul[role="menu"] {
-            padding: 8px;
+        padding: 8px;
     }
 
-
-    & .action-button__icon.icon-tag {
-         background-image: url('/themes/forbion/images/tags-black.svg') !important;
+    & .action-button__icon {
+        &.icon-tag {
+            background-image: url('/themes/forbion/images/tags-black.svg') !important;
+        }
+        &.icon-menu-sidebar {
+            background-image: url('/themes/forbion/images/rightToggle-black.svg') !important;
+        }
     }
-    & .action-button__icon.icon-menu-sidebar {
-         background-image: url('/themes/forbion/images/rightToggle-black.svg') !important;
-    }
 
+    /* Стили для конкретных элементов меню */
     & li[data-cy-files-versions-version-action="download"] {
         & .material-design-icon.download-icon:after {
             content: '';
@@ -1542,55 +1613,6 @@ body .app-files {
         & .material-design-icon.pencil-icon > svg {
             display: none;
         }
-    }
-
-    & .material-design-icon.upload-icon:after {
-        background-image: url('/themes/forbion/images/uploadFile.svg') !important;
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .material-design-icon.upload-icon > svg {
-        display: none;
-    }
-    & .material-design-icon.folder-icon:after {
-        background-image: url('/themes/forbion/images/check-black.svg');
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .material-design-icon.folder-icon > svg {
-        display: none;
-    }
-    & .icon-vue:after {
-        background-image: url('/themes/forbion/images/new-text-file.svg') !important;
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .icon-vue > svg {
-        display: none;
-    }
-    & .material-design-icon.poll-icon:after {
-        background-image: url('/themes/forbion/images/poll.svg') !important;
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .material-design-icon.poll-icon > svg {
-        display: none;
     }
 
     & li[data-cy-upload-picker-menu-entry="upload-file"] {

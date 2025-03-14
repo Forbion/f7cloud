@@ -9550,6 +9550,9 @@ var render = function render() {
           staticClass: "files-list__header-upload-button--disabled",
           attrs: {
             "aria-label": _vm.cantUploadLabel,
+            staticStyle: {
+                display: "none"
+            },
             title: _vm.cantUploadLabel,
             disabled: true,
             type: "secondary"

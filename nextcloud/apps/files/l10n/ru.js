@@ -406,7 +406,7 @@ OC.L10N.register(
     "{dirs} and {files}" : "{dirs} и {files}",
     "_including %n hidden_::_including %n hidden_" : ["включая %n скрытый","включая %n скрытых","включая %n скрытых","включая %n скрытых"],
     "_Uploading %n file_::_Uploading %n files_" : ["Передача %n файла","Передача %n файлов","Передача %n файлов","Передача %n файлов"],
-    "New" : "Новый",
+    "New" : "Создать или загрузить",
     "New file/folder menu" : "Меню создания файла или папки",
     "Select file range" : "Выбор диапазона файлов",
     "{used}%" : "{used}%",

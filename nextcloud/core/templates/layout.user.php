@@ -194,31 +194,47 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
                         <span class="app-menu-entry__label">Календарь</span>
                     </a>
                 </li>
-<!--                <li class="app-menu-entry">-->
-<!--                    <a href="/apps/spreed/" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">-->
-<!--                                <path-->
-<!--                                        d="M28 14.5063V3.86241C28 3.14045 27.1472 2.75719 26.6073 3.23654L19.5114 9.53691C19.0911 9.91008 19.1508 10.5832 19.6301 10.8766L26.7261 15.2202C27.2838 15.5616 28 15.1602 28 14.5063Z"-->
-<!--                                        fill="#F5F5F5"-->
-<!--                                        stroke="black"-->
-<!--                                        stroke-width="0.836976"-->
-<!--                                />-->
-<!--                                <path d="M0 2.51093C0 1.12418 1.12418 0 2.51093 0H18.4891C19.8758 0 21 1.12418 21 2.51093V11V15.4891C21 16.8758 19.8758 18 18.4891 18H2.51093C1.12418 18 0 16.8758 0 15.4891V2.51093Z" fill="#F5F5F5" />-->
-<!--                                <path-->
-<!--                                        d="M0.418488 2.51093C0.418488 1.35531 1.3553 0.418488 2.51093 0.418488H18.4891C19.6447 0.418488 20.5815 1.3553 20.5815 2.51093V11V15.4891C20.5815 16.6447 19.6447 17.5815 18.4891 17.5815H2.51093C1.35531 17.5815 0.418488 16.6447 0.418488 15.4891V2.51093Z"-->
-<!--                                        stroke="black"-->
-<!--                                        stroke-width="0.836976"-->
-<!--                                />-->
-<!--                                <line x1="2.33337" y1="12.536" x2="17.8889" y2="12.536" stroke="#70B62B" stroke-width="1.67395" />-->
-<!--                                <rect x="17.1111" y="3.08606" width="1.55556" height="2.05738" fill="#70B62B" />-->
-<!--                                <path d="M0.941024 25.501L7.49997 17.6557L10.3173 17.7274L2.57507 27.2897C2.23834 27.7056 1.68223 27.7818 1.23338 27.4736C0.606407 27.043 0.462663 26.0731 0.941024 25.501Z" fill="#F5F5F5" stroke="black" stroke-width="0.8" />-->
-<!--                                <path d="M18.5966 27.3311L10.6298 17.6627L13.6298 17.6627L20.4548 26.2201C20.7632 26.6068 20.7068 27.1272 20.3206 27.4581C19.8242 27.8833 19.0017 27.8227 18.5966 27.3311Z" fill="#F5F5F5" stroke="black" stroke-width="0.8" />-->
-<!--                            </svg>-->
-<!--                        </span>-->
-<!--                        <span class="app-menu-entry__label">Конференции</span>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <li class="app-menu-entry">
+                    <a href="/apps/contacts/" class="app-menu-entry__link">
+                        <span class="app-menu-enty__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                <path d="M28 12.6762V19.3238C28 20.8018 26.8018 22 25.3237 22H3.67625C2.1982 22 1 20.8018 1 19.3238V9.67625C1 8.1982 2.1982 7 3.67625 7H14.8915C15.6012 7 16.282 7.28196 16.7839 7.78386L18.2161 9.21614C18.718 9.71804 19.3988 10 20.1085 10H25.3238C26.8018 10 28 11.1982 28 12.6762Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083"></path>
+                                <path d="M5 1V22H25V1H5Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083"></path>
+                                <path d="M4 3V25H23V3H4Z" fill="#FCFEFC" stroke="black" stroke-width="0.892083"></path>
+                                <path d="M1 17.6762V26.3238C1 27.8018 2.1982 29 3.67625 29H26.3237C27.8018 29 29 27.8018 29 26.3238V14.6762C29 13.1982 27.8018 12 26.3238 12H12.7791C12.0774 12 11.4038 12.2756 10.9033 12.7675L9.41252 14.2325C8.91203 14.7244 8.23837 15 7.53665 15H3.67625C2.1982 15 1 16.1982 1 17.6762Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083"></path>
+                                <path d="M6 6H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square"></path>
+                                <path d="M6 8H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square"></path>
+                                <path d="M6 10H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square"></path>
+                            </svg>
+                        </span>
+                        <span class="app-menu-entry__label">Контакты</span>
+                    </a>
+                </li>
+                <li class="app-menu-entry">
+                    <a href="/apps/spreed/" class="app-menu-entry__link">
+                        <span class="app-menu-enty__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+                                <path
+                                        d="M28 14.5063V3.86241C28 3.14045 27.1472 2.75719 26.6073 3.23654L19.5114 9.53691C19.0911 9.91008 19.1508 10.5832 19.6301 10.8766L26.7261 15.2202C27.2838 15.5616 28 15.1602 28 14.5063Z"
+                                        fill="#F5F5F5"
+                                        stroke="black"
+                                        stroke-width="0.836976"
+                                />
+                                <path d="M0 2.51093C0 1.12418 1.12418 0 2.51093 0H18.4891C19.8758 0 21 1.12418 21 2.51093V11V15.4891C21 16.8758 19.8758 18 18.4891 18H2.51093C1.12418 18 0 16.8758 0 15.4891V2.51093Z" fill="#F5F5F5" />
+                                <path
+                                        d="M0.418488 2.51093C0.418488 1.35531 1.3553 0.418488 2.51093 0.418488H18.4891C19.6447 0.418488 20.5815 1.3553 20.5815 2.51093V11V15.4891C20.5815 16.6447 19.6447 17.5815 18.4891 17.5815H2.51093C1.35531 17.5815 0.418488 16.6447 0.418488 15.4891V2.51093Z"
+                                        stroke="black"
+                                        stroke-width="0.836976"
+                                />
+                                <line x1="2.33337" y1="12.536" x2="17.8889" y2="12.536" stroke="#70B62B" stroke-width="1.67395" />
+                                <rect x="17.1111" y="3.08606" width="1.55556" height="2.05738" fill="#70B62B" />
+                                <path d="M0.941024 25.501L7.49997 17.6557L10.3173 17.7274L2.57507 27.2897C2.23834 27.7056 1.68223 27.7818 1.23338 27.4736C0.606407 27.043 0.462663 26.0731 0.941024 25.501Z" fill="#F5F5F5" stroke="black" stroke-width="0.8" />
+                                <path d="M18.5966 27.3311L10.6298 17.6627L13.6298 17.6627L20.4548 26.2201C20.7632 26.6068 20.7068 27.1272 20.3206 27.4581C19.8242 27.8833 19.0017 27.8227 18.5966 27.3311Z" fill="#F5F5F5" stroke="black" stroke-width="0.8" />
+                            </svg>
+                        </span>
+                        <span class="app-menu-entry__label">Конференции</span>
+                    </a>
+                </li>
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/settings/user/security" class="app-menu-entry__link">-->
 <!--                        <span class="app-menu-enty__icon">-->
