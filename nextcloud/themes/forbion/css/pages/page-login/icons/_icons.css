@@ -1,0 +1,29 @@
+.material-design-icon {
+    position: relative;
+}
+
+.material-design-icon.eye-icon svg,
+.material-design-icon.arrow-right-icon svg {
+    display: none;
+}
+
+.material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.material-design-icon.eye-icon:before {
+    background-image: url("/themes/forbion/images/eye.svg");
+}
+
+.material-design-icon.arrow-right-icon:before {
+    background-image: url("/themes/forbion/images/arrow-small-right.svg");
+}

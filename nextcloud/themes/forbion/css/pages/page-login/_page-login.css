@@ -1,0 +1,269 @@
+@import url("icons/_icons.css");
+@import url("forms/_modals.css");
+
+* {
+    font-family: 'Raleway' !important;
+    font-variant-numeric: lining-nums;
+    font-weight: 500;
+}
+
+body {
+
+    & .wrapper {
+
+        margin: 20px 0 110px;
+        --color-primary-element: #70B62B !important;
+        --color-primary-element-hover: #6faf2e !important;
+        --color-primary-element-light-hover: #ffffff !important;
+
+        & #header {
+
+            margin: 0 auto 48px;
+            width: 300px;
+            height: 70px;
+
+            & .logo {
+
+                position: relative;
+                background-image: url("/themes/forbion/images/big-forbion.svg");
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        & main {
+
+            & .login-box {
+
+                width: 440px;
+                padding: 24px;
+                border-radius: 8px;
+
+                & .login-form:not(:last-child) {
+                    margin-bottom: 18px;
+                }
+
+                & h2 {
+
+                    text-align: left;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 20px;
+                }
+
+                & .input-field {
+                    margin: 0 0 14px;
+
+                    & .input-field__main-wrapper {
+                        display: flex;
+                        flex-direction: column-reverse;
+                        height: 100%;
+
+                        & input {
+
+                            border: 1px solid #E6E6E6 !important;
+                            border-color: #E6E6E6 !important;
+                            padding: 12px 50px 12px 12px;
+                            height: unset !important;
+
+                            &.input-field__input--error {
+                                border-color: var(--color-error) !important;
+                            }
+
+                            & + .input-field__label {
+
+                                position: relative;
+                                margin: 0 0 12px 2px;
+                                top: unset;
+                                left: unset;
+                                padding: 0;
+                                color: #000000;
+                                font-size: 14px;
+                                line-height: 20px;
+                            }
+                        }
+
+                        & input[id="user"] + .input-field__label + .input-field__icon {
+                            display: block !important;
+                        }
+
+                        & .input-field__icon {
+
+                            width: 50px;
+                            height: 44px;
+                            left: unset;
+                            right: 0;
+                            opacity: 1;
+
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                width: 16px;
+                                height: 16px;
+                                background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+                                background-size: auto;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        & .input-field__trailing-button {
+                            width: 49px !important;
+                            top: unset;
+                            bottom: 2px;
+                        }
+                    }
+                }
+
+                & .button-vue {
+
+                    margin-top: 0;
+                    height: 40px;
+
+                    & .button-vue__wrapper {
+                        flex-direction: row-reverse;
+
+                        & .button-vue__text {
+                            color: #FFFFFF;
+                            font-size: 14px;
+                            line-height: 20px;
+                            margin: 0;
+                            padding-left: 20px;
+                        }
+                    }
+
+                    &.button-vue--vue-tertiary {
+                        background: #F0F1F4;
+                        transition: opacity .3s;
+
+                        & .button-vue__text {
+                            padding: 0;
+                            color: #000000;
+                        }
+
+                        &:hover {
+                            opacity: .75;
+                        }
+                    }
+                }
+
+                & #lost-password {
+
+                    width: max-content;
+                    padding: 0;
+
+                    & + a {
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                & #alternative-logins {
+                    display: none;
+                }
+
+                & a {
+                    display: block;
+                    margin: 16px auto !important;
+                }
+
+                & .login-form__link {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: unset !important;
+                    margin: 0 !important;
+                    padding: 0;
+                    width: 100%;
+                    height: 40px;
+                    background: #F0F1F4;
+                    border-radius: 8px;
+                    transition: opacity .3s;
+
+                    & .button-vue__text {
+                        padding: 0;
+                        color: #000000;
+                    }
+
+                    &:hover {
+                        opacity: .75;
+                    }
+                }
+
+                & a:last-child {
+                    margin-bottom: 0 !important;
+
+                    &:not(.login-form__link) {
+                        max-width: max-content;
+                    }
+                }
+
+                & .login-passwordless {
+
+                    & input + .input-field__label + .input-field__icon {
+                        display: block !important;
+                    }
+
+                    & > .button-vue {
+
+                        margin-top: 0.5rem;
+
+                        & .button-vue__text {
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.hidden-visually {
+    display: none;
+}
+
+footer {
+    &.guest-box {
+        /*display: none;*/
+        position: fixed;
+        bottom: 0;
+        background: #ffffff;
+    }
+}
+
+.button-vue {
+    font-weight: 500;
+}
+
+.input-field__helper-text-message--error {
+    margin-top: 8px;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+input::placeholder {
+    color: transparent !important;
+}
+
+input::-webkit-input-placeholder {
+    color: transparent !important;
+}
+
+input:-moz-placeholder {
+    color: transparent !important;
+}
+
+input::-moz-placeholder {
+    color: transparent !important;
+}
+
+input:-ms-input-placeholder {
+    color: transparent !important;
+}
+
