@@ -75,8 +75,8 @@ EOF;
 						<table class="row collapse" style="border-collapse:collapse;border-spacing:0;display:table;padding:0;position:relative;text-align:left;vertical-align:top;width:100%%">
 							<tbody>
 							<tr style="padding:0;text-align:left;vertical-align:top">
-								<center data-parsed="" style="background-color:%s;background-color:transparent!important;min-width:175px;max-height:175px; padding:35px 0px;border-radius:198px">
-									<img class="logo float-center" src="%s" alt="%s" align="center" style="-ms-interpolation-mode:bicubic;clear:both;display:block;float:none;margin:0 auto;outline:0;text-align:center;text-decoration:none;max-height:105px;max-width:105px;width:auto;height:auto"%s>
+								<center data-parsed="" style="background-color:%s;background-color:transparent!important;min-width:200px;max-height:250px; padding:35px 0px;border-radius:198px">
+									<img class="logo float-center" src="%s" alt="%s" align="center" style="-ms-interpolation-mode:bicubic;clear:both;display:block;float:none;margin:0 auto;outline:0;text-align:center;text-decoration:none;max-height:250px;max-width:305px;width:auto;height:auto"%s>
 								</center>
 							</tr>
 							</tbody>
