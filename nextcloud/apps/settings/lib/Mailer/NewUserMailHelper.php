@@ -120,10 +120,10 @@ class NewUserMailHelper {
 
 //		$clientDownload = $this->config->getSystemValue('customclient_desktop', 'https://nextcloud.com/install/#install-clients');
 //		if ($clientDownload === '') {
-//			$emailTemplate->addBodyButton(
-//				$leftButtonText,
-//				$link
-//			);
+			$emailTemplate->addBodyButton(
+				$leftButtonText,
+				$link
+			);
 //		} else {
 //			$emailTemplate->addBodyButtonGroup(
 //				$leftButtonText,
