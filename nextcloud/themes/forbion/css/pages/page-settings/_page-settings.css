@@ -7,6 +7,12 @@
     font-weight: 500;
 }
 
+[data-section-id="personal-info"][data-section-type="personal"],
+[data-section-id="sharing"][data-section-type="personal"],
+[data-section-id="availability"][data-section-type="personal"] {
+    display: block !important;
+}
+
 body#body-settings {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;

@@ -756,13 +756,26 @@ body .app-files {
 
 
 
+        & .app-navigation__search:after {
+            background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
         & .app-navigation__search {
             width: 247px !important;
             min-height: 40px !important;
-
+            color: white;
             background-color: #b8d0a0 !important;
             border-radius: 8px;
-            /*margin-bottom: 5px;*/
+            /*padding: 10px 14px;*/
 
             & .breadcrumb__actions {
 
@@ -770,16 +783,13 @@ body .app-files {
 
                 & .files-list__header-upload-button--disabled {
                     color: white;
-                    width: 246px;
+                    width: 247px;
                     background-color: #b8d0a0 !important;
                     /*background-color: #70b62b5e !important;*/
                     opacity: 1;
                     height: 40px;
-                    /*gap: 8px;*/
                     padding: 10px 14px;
                     border-radius: 8px;
-                    /*margin-bottom: 8px;*/
-
                     display: flex !important;
 
                     & .button-vue__wrapper:after{
