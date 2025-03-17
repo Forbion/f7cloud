@@ -9754,7 +9754,7 @@ async function getLocaleFor(locale) {
   //            locale data because the contentRegExp fails to detect any files.
   try {
     // default load e.g. en-de
-    await __webpack_require__("./node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$")(`./${locale}.js`);
+    await __webpack_require__("./node_modules/moment/locale ../../node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$")(`./${locale}.js`);
     return locale;
   } catch (error) {
     const splitLocale = locale.split('-');
@@ -9762,7 +9762,7 @@ async function getLocaleFor(locale) {
       // failure: fallback to first part of locale, which
       // should be language
       locale = splitLocale[0];
-      await __webpack_require__("./node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$")(`./${locale}.js`);
+      await __webpack_require__("./node_modules/moment/locale ../../node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$")(`./${locale}.js`);
       return locale;
     } catch (e) {
       // failure, fallback to english
@@ -10221,10 +10221,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `
 
 /***/ }),
 
-/***/ "./node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$":
-/*!************************************************************************!*\
-  !*** ./node_modules/moment/locale/ lazy ^\.\/.*\.js$ namespace object ***!
-  \************************************************************************/
+/***/ "./node_modules/moment/locale ../../node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/moment/locale/ ../../node_modules/moment/locale/ lazy ^\.\/.*\.js$ namespace object ***!
+  \**********************************************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
@@ -10929,7 +10929,7 @@ function webpackAsyncContext(req) {
 	});
 }
 webpackAsyncContext.keys = () => (Object.keys(map));
-webpackAsyncContext.id = "./node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$";
+webpackAsyncContext.id = "./node_modules/moment/locale ../../node_modules/moment/locale lazy recursive ^\\.\\/.*\\.js$";
 module.exports = webpackAsyncContext;
 
 /***/ }),
@@ -11227,4 +11227,4 @@ if(false) {}
 /***/ })
 
 }]);
-//# sourceMappingURL=calendar-src_utils_moment_js-src_components_Editor_FreeBusy_FreeBusy_vue.js.map?v=5f0131fdd03a0e86fc90
+//# sourceMappingURL=calendar-src_utils_moment_js-src_components_Editor_FreeBusy_FreeBusy_vue.js.map?v=98997bc942d3bf9807fd

@@ -7338,6 +7338,7 @@ __webpack_require__.r(__webpack_exports__);
       placement: 'auto',
       hasLocation: false,
       hasDescription: false,
+      hasAttendees: false,
       boundaryElement: null,
       isVisible: true,
       isViewing: true,
@@ -7381,11 +7382,15 @@ __webpack_require__.r(__webpack_exports__);
     calendarObjectInstance() {
       this.hasLocation = false;
       this.hasDescription = false;
+      this.hasAttendees = false;
       if (typeof this.calendarObjectInstance.location === 'string' && this.calendarObjectInstance.location.trim() !== '') {
         this.hasLocation = true;
       }
       if (typeof this.calendarObjectInstance.description === 'string' && this.calendarObjectInstance.description.trim() !== '') {
         this.hasDescription = true;
+      }
+      if (Array.isArray(this.calendarObjectInstance.attendees) && this.calendarObjectInstance.attendees.length > 0) {
+        this.hasAttendees = true;
       }
     },
     isNew: {
@@ -11554,7 +11559,7 @@ var render = function render() {
       },
       proxy: true
     }], null, false, 2349731421)
-  }) : _vm._e(), _vm._v(" "), _vm.isViewedByOrganizer ? _c("Actions", [!_vm.members.length ? _c("ActionCheckbox", {
+  }) : _vm._e(), _vm._v(" "), !_vm.isReadOnly && _vm.isViewedByOrganizer ? _c("Actions", [!_vm.members.length ? _c("ActionCheckbox", {
     attrs: {
       checked: _vm.attendee.rsvp
     },
@@ -12914,7 +12919,7 @@ var render = function render() {
     on: {
       "update:value": _vm.updateDescription
     }
-  }), _vm._v(" "), _c("InviteesList", {
+  }), _vm._v(" "), !_vm.isViewing || _vm.isViewing && _vm.hasAttendees ? _c("InviteesList", {
     staticClass: "event-popover__invitees",
     attrs: {
       "hide-buttons": true,
@@ -12926,7 +12931,7 @@ var render = function render() {
       "calendar-object-instance": _vm.calendarObjectInstance,
       limit: 3
     }
-  }), _vm._v(" "), _vm.isViewedByAttendee && _vm.isViewing ? _c("InvitationResponseButtons", {
+  }) : _vm._e(), _vm._v(" "), _vm.isViewedByAttendee && _vm.isViewing ? _c("InvitationResponseButtons", {
     staticClass: "event-popover__response-buttons",
     attrs: {
       attendee: _vm.userAsAttendee,
@@ -23983,4 +23988,4 @@ module.exports = "data:image/svg+xml,%3csvg%20viewBox=%270%200%2016%2016%27%20he
 /***/ })
 
 }]);
-//# sourceMappingURL=calendar-src_views_Calendar_vue-data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Googl-1e2145.js.map?v=11bec36d43cdb2e7e592
+//# sourceMappingURL=calendar-src_views_Calendar_vue-data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Googl-1e2145.js.map?v=8bd81268f90714e49f35
