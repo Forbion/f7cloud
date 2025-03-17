@@ -123,6 +123,7 @@
 
 .dialog__modal .file-picker__side li[data-v-b42054b8]:first-child span.icon-vue:before {
     background-image: url("/themes/forbion/images/folder-black.svg");
+    transform: translate(-50%, -50%) scale(0.9);
 }
 
 .dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(2) span.icon-vue:before {
