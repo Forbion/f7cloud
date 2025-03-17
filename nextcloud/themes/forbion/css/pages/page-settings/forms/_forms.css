@@ -1,0 +1,300 @@
+.modal-mask {
+
+    & .modal-container {
+
+        & .modal-container__content {
+
+            > h2 {
+                display: none;
+            }
+
+            & .empty-content {
+
+                & .empty-content__icon {
+                    transform: scale(1.4);
+                }
+            }
+
+            & .edit-calendar-modal__name-and-color {
+                position: relative;
+
+                & .edit-calendar-modal__name-and-color__color {
+
+                    & .edit-calendar-modal__name-and-color__color__dot {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                & input {
+                    padding-right: 50px;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+                    top: 50%;
+                    right: 15px;
+                    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    transform: translateY(-50%);
+                    transform-origin: center;
+                }
+
+                & + .checkbox-radio-switch {
+
+                    & .checkbox-content {
+
+                        margin-left: 28px;
+
+                        & .checkbox-content__text {
+                            padding-left: 8px;
+                            line-height: 21px;
+                        }
+                    }
+                }
+            }
+
+            & h3.edit-calendar-modal__sharing-header {
+                margin-top: 15px;
+            }
+
+            & table[data-v-7cd8fdf0] {
+                margin-top: 30px;
+            }
+
+            & .footer {
+                margin-top: 40px;
+            }
+
+            & .sticky-footer {
+
+                margin-top: 20px;
+
+                & .button-vue.button-vue--vue-secondary {
+
+                    & .button-vue__text {
+                        margin-bottom: 0;
+                    }
+                }
+
+                & .button-vue.button-vue--vue-primary {
+
+                    height: 40px;
+                    width: 110px;
+                }
+            }
+        }
+    }
+}
+
+.dialog__modal[data-v-1d602fb0] .modal-wrapper .modal-container {
+    padding: 50px 20px 26px !important;
+}
+
+.modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] {
+    max-height: 880px !important;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue {
+    position: relative;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue svg {
+    display: none;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8] span.icon-vue:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: unset;
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:first-child span.icon-vue:before {
+    background-image: url("/themes/forbion/images/folder-black.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(2) span.icon-vue:before {
+    background-image: url("/themes/forbion/images/send-clock-icon.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(3) span.icon-vue:before {
+    background-image: url("/themes/forbion/images/star-outline-icon-black.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:first-child .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/folder-white.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(2) .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/send-clock-icon-white.svg");
+}
+
+.dialog__modal .file-picker__side li[data-v-b42054b8]:nth-child(3) .button-vue--vue-primary span.icon-vue:before {
+    background-image: url("/themes/forbion/images/star-outline-icon-white.svg");
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs {
+    margin-right: 20px;
+}
+
+.dialog__modal .dialog.file-picker .breadcrumb__actions .v-popper > .button-vue {
+    background: rgb(238, 244, 233) !important;
+}
+
+.dialog__modal .dialog.file-picker .breadcrumb__actions .v-popper .plus-icon:before {
+    background-image: url("/themes/forbion/images/plus-black.svg");
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__icon .magnify-icon svg {
+    display: none;
+}
+
+.dialog__modal .input-field.file-picker__filter-input input {
+    padding: 10px 12px;
+    height: auto !important;
+    border: 1px solid #D9D9D9 !important;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li {
+    width: auto;
+    min-width: unset;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li > span.material-design-icon::before {
+    display: none;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li > span.material-design-icon svg {
+    display: block;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li:first-child .button-vue {
+    background: rgb(245, 245, 245);
+    transition: opacity .3s;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li:first-child .button-vue:hover {
+    opacity: .75;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li .material-design-icon.home-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/home-icon.svg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: unset;
+}
+
+.dialog__modal .dialog.file-picker ul[data-v-629bf30f].breadcrumb__crumbs li .material-design-icon.home-icon svg {
+    display: none;
+}
+
+
+.dialog__modal .dialog.file-picker .dialog__actions {
+    width: 150px;
+    height: 40px;
+    margin: 20px 0 0 auto;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions button {
+    height: 100%;
+    width: 100%;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions .button-vue__text {
+    color: #FFFFFF;
+    font-weight: 500;
+    padding-left: 30px;
+    position: relative;
+}
+
+.dialog__modal .dialog.file-picker .dialog__actions .button-vue__text:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("/themes/forbion/images/arrow-btn.svg");
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 18px;
+}
+
+.dialog__modal .dialog.file-picker .button-vue .button-vue__text {
+    margin-bottom: 0;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue .button-vue__text {
+    transition: .2s;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue--vue-primary .button-vue__text {
+    color: #FFFFFF;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__side button.button-vue svg {
+    transition: .2s;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files {
+    margin-left: 0;
+    overflow-x: auto;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files .file-picker__header-preview {
+    display: none;
+}
+
+.dialog__modal .dialog.file-picker .file-picker__files .row-name .button-vue {
+    padding-left: 5px;
+}
+
+.dialog__modal .dialog.file-picker :not(.dialog__actions) .button-vue--vue-primary:hover {
+    opacity: 1;
+}
+
+.dialog__modal .dialog.file-picker .empty-content__description {
+    text-align: center;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:not(:focus) + .input-field__label {
+    left: -17px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 2px;
+    transition: .3s;
+}
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:not(:placeholder-shown) + .input-field__label,
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:focus + .input-field__label {
+    top: -11px;
+    left: -17px;
+    transform: unset;
+}
+
+
+.dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper > .input-field__trailing-button {
+    height: 36px;
+}
+
+.dialog__modal .vue-password-confirmation__submit {
+    margin-top: 20px;
+}

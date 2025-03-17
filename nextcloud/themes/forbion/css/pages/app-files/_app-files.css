@@ -14,6 +14,11 @@ body .app-files {
     /*--icon-more-white: url('/themes/forbion/images/users-gray.svg') !important;*/
     /*--icon-public-white: url('/themes/forbion/images/chain.svg') !important;*/
 
+
+    & .upload-picker.files-list__header-upload-button.upload-picker--uploading {
+        display: none !important;
+    }
+
     & .icon-public-white {
         background-image: url('/themes/forbion/images/chain.svg') !important;
     }

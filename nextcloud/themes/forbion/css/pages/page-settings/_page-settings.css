@@ -1,0 +1,1054 @@
+@import url("forms/_forms.css");
+@import url("icons/_icons.css");
+
+* {
+    font-family: 'Raleway' !important;
+    font-variant-numeric: lining-nums;
+    font-weight: 500;
+}
+
+body#body-settings {
+    --color-primary-element: #70B62B !important;
+    --color-primary-element-hover: #6faf2e !important;
+    --color-primary-element-light-hover: #ffffff !important;
+
+    & .app-settings {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: calc(100vh - 100px);
+        padding: 45px 50px 15px !important;
+        margin: 0 auto;
+        position: relative;
+
+        & #app-navigation {
+            background: #ffffff;
+            border-radius: 8px;
+
+            & .app-navigation-personal {
+
+                & ul {
+
+                    padding: 10px;
+
+                    & > li {
+
+                        img {
+                            display: none;
+                        }
+
+                        &.active {
+
+                            & a {
+                                background: #70B62B !important;
+
+                                & span {
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #ffffff;
+                                }
+                            }
+
+                            &[data-section-id="personal-info"]::before {
+                                background-image: url("/themes/forbion/images/lk-main-white.svg");
+                            }
+
+                            &[data-section-id="sharing"]::before {
+                                background-image: url("/themes/forbion/images/lk-sharing-white.svg");
+                            }
+
+                            &[data-section-id="availability"]::before {
+                                background-image: url("/themes/forbion/images/lk-availability-white.svg");
+                            }
+                        }
+
+                        & a:active {
+                            background: rgb(245, 245, 245);
+                        }
+
+                        &:not(:last-child) {
+                            margin-bottom: 4px;
+                        }
+
+                        & a {
+                            z-index: 0;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 10px;
+                            width: 16px;
+                            height: 100%;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            z-index: 1;
+                        }
+
+                        &[data-section-id="personal-info"]::before {
+                            background-image: url("/themes/forbion/images/lk-main.svg");
+                        }
+
+                        &[data-section-id="sharing"]::before {
+                            background-image: url("/themes/forbion/images/lk-sharing.svg");
+                        }
+
+                        &[data-section-id="availability"]::before {
+                            background-image: url("/themes/forbion/images/lk-availability.svg");
+                        }
+
+                        & span {
+                            padding-left: 28px;
+                        }
+                    }
+                }
+            }
+        }
+
+        & #app-content {
+            background: #ffffff;
+            margin-left: 8px;
+            border-radius: 8px;
+
+            & h2 {
+                margin-top: 0;
+                font-size: 20px;
+                line-height: 20px;
+            }
+
+            & h3 {
+                margin: 0;
+                font-size: 16px;
+                line-height: 20px;
+                font-weight: 500;
+            }
+
+            & .settings-section {
+                padding: 48px 32px;
+                border: unset;
+
+                &#availability {
+
+                    & .time-zone {
+                        display: flex;
+                        flex-direction: column;
+                        padding-top: 0;
+
+                        & label {
+                            margin-bottom: 8px;
+                            font-size: 16px;
+                            cursor: default;
+                        }
+
+                        & .time-zone__heading {
+                            font-size: 18px;
+                            line-height: 40px;
+                        }
+                    }
+
+                    & .week-day-container {
+
+                        margin-top: 10px;
+                        margin-bottom: 15px;
+
+                        & .day-container {
+
+                            padding: 20px 0 12px;
+
+                            & .label-weekday {
+
+                                margin-top: 6px;
+                                margin-bottom: auto;
+                                padding-top: 0;
+
+                                & span {
+                                    height: auto;
+                                }
+                            }
+
+                            & .availability-slots {
+                                margin-left: 30px;
+
+                                & + .button-vue {
+                                    opacity: 1 !important;
+                                    background: rgba(245, 245, 245, 0);
+                                    transition: .3s !important;
+
+                                    &:hover {
+                                        opacity: 0.75 !important;
+                                        background: rgba(245, 245, 245, 1);
+                                    }
+                                }
+                            }
+
+                            & .native-datetime-picker {
+
+                                position: relative;
+
+                                &.end-date + .button-vue {
+                                    margin-left: 4px;
+                                }
+
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 20px;
+                                    background-image: url("/themes/forbion/images/clock.svg");
+                                    width: 16px;
+                                    height: 16px;
+                                    transform: translateY(-50%);
+                                    background-color: #ffffff;
+                                    pointer-events: none;
+                                }
+
+                                &.end-date {
+
+                                    &::before {
+                                        right: 8px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & > div[data-v-0974f50a] {
+
+                        & > .checkbox-radio-switch {
+
+                            max-width: 500px;
+
+                            & .checkbox-radio-switch__content {
+                                margin-left: -2px;
+                                padding: 0;
+                                background: unset;
+
+                                & .checkbox-content__text {
+                                    padding-left: 8px;
+                                    line-height: 20px;
+                                }
+                            }
+                        }
+
+                        & > .button-vue {
+                            height: 40px;
+                            margin-top: 40px;
+                            padding: 0 14px 0 42px;
+
+                            & .button-vue__wrapper {
+
+                                & .button-vue__text::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 15px;
+                                    background-image: url("/themes/forbion/images/arrow-btn.svg");
+                                    width: 22px;
+                                    height: 22px;
+                                    transform: translateY(-50%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &#absence {
+                    display: none;
+                }
+
+                & > div[data-v-55a42208] {
+                    max-width: 100%;
+                    margin-top: 48px;
+                    padding: 32px;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 8px;
+                }
+            }
+
+            & #vue-personal-federated + #files-personal-settings {
+                display: none;
+            }
+
+            & #vue-personal-federated + #files-personal-settings + #files-sharing-personal-settings{
+                display: none;
+            }
+
+            & #files-personal-settings {
+
+                margin: 32px 32px 48px;
+                padding: 32px;
+                border: 1px solid #E6E6E6;
+                border-radius: 8px;
+
+                & > div[data-v-76fb0136] {
+                    margin-top: 32px;
+                    max-width: 400px;
+                }
+
+                & p[data-v-76fb0136]:first-child {
+                    margin-top: 0;
+                }
+
+                & p[data-v-76fb0136]:last-child {
+
+                    & > .button-vue{
+                        height: 40px;
+                        margin-top: 25px;
+                        padding: 0 14px 0 42px;
+
+                        & .button-vue__wrapper {
+
+                            & .button-vue__text::before {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 15px;
+                                background-image: url("/themes/forbion/images/arrow-btn.svg");
+                                width: 22px;
+                                height: 22px;
+                                transform: translateY(-50%);
+                            }
+                        }
+                    }
+                }
+
+                & p.new-owner-row {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 20px;
+                }
+
+                & p.transfer-select-row {
+
+                    & > span[data-v-76fb0136]:empty {
+                        display: none;
+                    }
+
+                    & > span[data-v-76fb0136] {
+                        display: block;
+                        margin: 16px 0px -8px;
+                    }
+
+                    & > .button-vue {
+                        margin-top: 12px;
+                        padding: 6px 8px;
+                        background: rgb(238, 244, 233) !important;
+                    }
+                }
+            }
+
+            & #files-sharing-personal-settings {
+                margin-top: -366px;
+                margin-left: 540px;
+                padding: 0;
+
+                & p[data-v-48a4e087] {
+                    position: relative;
+                }
+
+                & > p[data-v-48a4e087]:nth-child(2) {
+                    margin-top: 54px;
+
+                    & .share-folder__picker {
+
+                        margin-top: 10px;
+
+                        & .input-field__main-wrapper {
+
+                            display: flex;
+                            flex-direction: column-reverse;
+
+                            & input {
+                                padding-right: 50px;
+                            }
+
+                            & label {
+                                position: relative;
+                                min-height: max-content;
+                                min-width: max-content;
+                                padding: 0;
+                                margin: 0;
+                                top: -12px;
+                                font-size: 16px;
+                                line-height: 20px;
+                                font-weight: 500;
+                                color: #000000;
+                            }
+
+                            & .input-field__icon {
+
+                                display: block !important;
+                                right: 5px;
+                                left: unset;
+                                pointer-events: none;
+
+                                &::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    background-image: url("/themes/forbion/images/plus-black.svg");
+                                    width: 16px;
+                                    height: 16px;
+                                    background-size: auto;
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                    opacity: .75
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & > p[data-v-48a4e087]:nth-child(3) {
+                    margin-top: 20px;
+                    max-width: 400px;
+                }
+            }
+
+            & #personal-settings {
+                display: flex;
+                flex-direction: column;
+                margin: 0 0 48px;
+                padding: 48px 32px 0;
+
+                & .wrapper-profile {
+                    margin-top: 48px;
+                    padding: 32px;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 8px;
+
+                    & .title__section {
+                        font-weight: 600;
+                        font-size: 20px;
+                        line-height: 20px;
+                        color: #000000
+                    }
+
+                    & .fields-wrapper {
+
+                        margin-top: 40px;
+                        display: flex;
+
+                        & #vue-avatar-section {
+
+                            min-width: 300px;
+                            margin-right: 40px;
+                            padding: 0;
+
+                            & > * {
+                                margin: 0;
+                            }
+
+                            & .headerbar-label {
+                                display: none;
+                            }
+
+                            & .federation-actions {
+                                display: none;
+                            }
+
+                            & .headerbar__heading{
+                                display: none;
+                            }
+
+                            & span[data-v-5ab4ff28] {
+                                text-align: center;
+                                max-width: 250px;
+                            }
+
+                            & .button-vue {
+                                background-color: #70B62B !important;
+
+                                & .material-design-icon.upload-icon {
+
+                                    & svg {
+                                        display: none;
+                                    }
+
+                                    &::before {
+                                        background-image: url("/themes/forbion/images/upload-white.svg");
+                                        width: 16px;
+                                        height: 16px;
+                                    }
+                                }
+
+                                & .material-design-icon.folder-icon {
+
+                                    & svg {
+                                        display: none;
+                                    }
+
+                                    &::before {
+                                        background-image: url("/themes/forbion/images/folder-white.svg");
+                                        width: 16px;
+                                        height: 16px;
+                                    }
+                                }
+
+                                & .material-design-icon.delete-icon {
+
+                                    & svg {
+                                        display: none;
+                                    }
+
+                                    &::before {
+                                        background-image: url("/themes/forbion/images/delete-icon-white.svg");
+                                        width: 16px;
+                                        height: 16px;
+                                    }
+                                }
+                            }
+
+                            & .avatar__cropper {
+                                border-radius: 8px;
+                            }
+
+                            & .avatar__cropper-buttons {
+                                display: flex;
+                                flex-direction: column-reverse;
+
+                                & .button-vue {
+                                    width: 100%;
+
+                                    &:nth-child(2) {
+                                        margin-bottom: 8px;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .fields-inner {
+
+                            display: flex;
+                            flex-wrap: wrap;
+                            height: max-content;
+                            margin-right: -30px;
+                            margin-bottom: -20px;
+
+                            & .personal-settings-setting-box {
+                                width: 100%;
+                                height: 80px;
+                                max-width: calc(50% - 30px);
+                                margin-right: 30px;
+                                margin-bottom: 20px;
+
+                                & section {
+                                    padding: 0;
+                                }
+
+                                & .native-datetime-picker {
+                                    position: relative;
+
+                                    &:before {
+
+                                        content: '';
+                                        position: absolute;
+                                        top: 50%;
+                                        right: 13px;
+                                        transform: translateY(-50%);
+                                        background-image: url("/themes/forbion/images/calendar-blank-icon.svg");
+                                        background-size: auto;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        width: 16px;
+                                        height: 16px;
+                                        pointer-events: none;
+                                        background-color: #fff;
+                                    }
+                                }
+
+                                & input {
+                                    padding: 8px 50px 8px 12px;
+                                    height: 40px !important;
+
+                                    &.native-datetime-picker--input {
+                                        padding-right: 12px;
+                                    }
+                                }
+
+                                & .headerbar-label {
+                                    margin-top: 0;
+                                }
+
+                                & label {
+                                    margin-bottom: 8px;
+                                    font-size: 15px;
+                                    line-height: 20px;
+                                    font-weight: 500;
+                                    color: #000000;
+                                    cursor: default;
+                                }
+
+                                & label:empty {
+                                    display: none;
+                                }
+
+                                & .v-select {
+                                    margin: 0;
+                                    min-width: unset;
+                                    width: 100%;
+
+                                    & .vs__selected {
+                                        height: 35px;
+                                    }
+                                }
+
+                                & .input-field__icon {
+
+                                    display: block !important;
+                                    top: 3px;
+                                    right: 2px;
+                                    left: unset;
+                                    opacity: 1;
+                                    pointer-events: none;
+
+                                    &::after {
+                                        content: '';
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                        background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+                                        width: 16px;
+                                        height: 16px;
+                                        background-size: auto;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                    }
+                                }
+
+                                & .input-field__helper-text-message--error {
+                                    margin-top: 6px;
+                                    font-size: 12px;
+                                }
+
+                                & .language {
+                                    margin-top: -2px;
+
+                                    & .vs__dropdown-toggle {
+                                        height: 40px;
+                                        overflow: hidden;
+                                    }
+                                }
+
+                                & .button-vue.action-item.action-item--single {
+                                    display: none;
+                                }
+
+                                & .headerbar-label {
+
+                                    & > *:not(label) {
+                                        display: none;
+                                    }
+                                }
+
+                                & .material-design-icon.chevron-up-icon:before {
+                                    background-image: url("/themes/forbion/images/chevron-up-icon-black.svg");
+                                }
+
+                                & .material-design-icon.chevron-down-icon:before {
+                                    background-image: url("/themes/forbion/images/chevron-down-icon-black.svg");
+                                }
+
+                                em,
+                                .property__helper-text-message {
+                                    display: none;
+                                }
+
+                                &.personal-settings-language-box {
+                                    margin-top: -3px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .settings-visible-profile {
+                    margin: 32px 0 0;
+                    padding: 32px;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 8px;
+
+                    & #profile-visibility {
+                        margin: 0 !important;
+                        padding: 0;
+                        max-width: unset;
+
+                        & .headerbar-label {
+                            margin-top: 0;
+                        }
+
+                        & h3 {
+                            font-weight: 600;
+                            font-size: 20px;
+                            line-height: 20px;
+                            color: #000000;
+                        }
+
+                        & .visibility-dropdowns {
+                            display: flex;
+                            flex-wrap: wrap;
+                            margin-top: 20px;
+                            margin-right: -30px;
+
+                            & .visibility-container {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                                max-width: calc(50% - 30px);
+                                margin-right: 30px;
+
+                                & label {
+                                    width: auto;
+                                    height: 45px;
+                                }
+
+                                & .v-select {
+                                    display: flex;
+                                    align-items: center;
+                                    width: 100%;
+                                    max-width: unset;
+
+                                    & .vs__dropdown-toggle {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .wrapper-visible-profile {
+                    margin: 32px 0 0;
+                    padding: 32px;
+                    border: 1px solid #E6E6E6;
+                    position: relative;
+                    border-radius: 8px;
+
+                    & .personal-settings-setting-box {
+
+                        & section[data-v-22b97e2f] {
+                            padding: 0 0 100px;
+                            margin-top: 55px;
+                            position: relative;
+
+                            & .checkbox-container{
+                                position: absolute;
+                                bottom: 40px;
+                                left: 0;
+                            }
+
+                            & .preview-card__header {
+                                background: #808080;
+
+                                span[data-v-3c8483c2] {
+                                    margin-left: 3px;
+                                    color: #ffffff;
+                                }
+                            }
+
+                            & .checkbox-radio-switch {
+
+                                transition: .3s;
+
+                                & .checkbox-content {
+
+                                    margin-left: -2px;
+                                    padding-left: 0;
+                                    background: unset !important;
+
+                                    & .checkbox-radio-switch__icon {
+
+                                        & .toggle-switch-off-icon {
+
+                                            & svg {
+                                                fill: #808080;
+                                            }
+                                        }
+                                    }
+
+                                    & .checkbox-radio-switch__text {
+                                        white-space: nowrap;
+                                        padding-left: 5px;
+                                        color: #000000;
+                                    }
+                                }
+
+                                &:hover {
+                                    opacity: .75;
+                                }
+                            }
+                        }
+
+                        & .headerbar-label {
+
+                            &.profile-property {
+                                display: none;
+                            }
+
+                            &.setting-property {
+                                position: absolute;
+                                top: 32px;
+                                left: 32px;
+                                margin: 0;
+
+                                & h3 {
+                                    font-weight: 600;
+                                    font-size: 20px;
+                                    line-height: 20px;
+                                    color: #000000;
+                                }
+                            }
+                        }
+
+                        & div[data-v-692f485a].details {
+                            position: absolute;
+                            top: 80px;
+                            left: 365px;
+                        }
+
+                        & .preview-card {
+                            margin: unset;
+                            border: 1px solid #808080;
+                            border-top-left-radius: 12px;
+                            border-top-right-radius: 12px;
+                            box-shadow: unset;
+                            opacity: 1;
+                        }
+
+                        & a[data-v-29aba6ea] {
+                            margin: unset;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            color: #000000;
+                            opacity: 1;
+                            font-weight: 500;
+                            background: unset;
+                            pointer-events: auto;
+                            transition: .3s;
+
+                            & .material-design-icon {
+                                padding-left: 36px;
+                                margin-left: -20px;
+                                margin-top: -1px;
+
+                                &.chevron-up-icon:before {
+                                    background-image: url("/themes/forbion/images/chevron-up-icon-black.svg");
+                                }
+
+                                &.chevron-down-icon:before {
+                                    background-image: url("/themes/forbion/images/chevron-down-icon-black.svg");
+                                }
+                            }
+
+                            &:hover {
+                                opacity: .75;
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .settings-section__name {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto 20px;
+                display: block;
+                font-weight: 600;
+                font-size: 26px;
+                line-height: 28px;
+                text-align: center;
+                color: #000000;
+            }
+
+            & .settings-section__desc {
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 24px;
+                text-align: center;
+                max-width: 600px;
+                margin: 0 auto;
+                color: #000000;
+            }
+
+            & > div[data-v-5b567706] {
+
+                padding: 48px 32px 0;
+            }
+        }
+    }
+}
+
+.button-vue:not([disabled="disabled"]) {
+    transition: opacity .3s !important;
+
+    &:hover {
+        opacity: .75 !important;
+    }
+}
+
+input,
+textarea {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+}
+
+input.vs__search {
+    border: unset !important;
+    padding-right: 50px;
+}
+
+body ul.vs__dropdown-menu {
+    color: #000000 !important;
+    padding: 10px 10px 15px !important;
+    border-top: 1px solid #E6E6E6 !important;
+    border-bottom: 1px solid #E6E6E6 !important;
+    border-right: 1px solid #E6E6E6 !important;
+    border-left: 1px solid #E6E6E6 !important;
+}
+
+.v-select {
+
+    cursor: pointer;
+
+    & .vs__dropdown-toggle {
+
+        border: 1px solid #E6E6E6 !important;
+        border-radius: 8px;
+
+        & .vs__actions {
+            padding-right: 20px;
+        }
+    }
+}
+
+.button-vue--vue-primary {
+
+    background-color: #70B62B !important;
+
+    & .material-design-icon__svg {
+        fill: #FFFFFF;
+    }
+
+    & .button-vue__text {
+        color: #FFFFFF;
+    }
+}
+
+button.vs__clear {
+    margin-right: 20px !important;
+    opacity: .55;
+}
+
+.vs__selected {
+    overflow: hidden;
+}
+
+.share-folder__reset {
+    margin-top: auto !important;
+    margin-left: 8px !important;
+    margin-bottom: 0 !important;
+    height: 34px !important;
+    text-decoration: unset !important;
+    color: #000000 !important;
+    transition: .3s;
+}
+
+.share-folder__reset:hover {
+    opacity: .75;
+}
+
+input[type=checkbox].checkbox+label {
+    padding-left: 30px;
+    display: block;
+    line-height: 19px;
+}
+
+input[type=checkbox].checkbox+label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -1px;
+    transform: translateY(-50%) scale(1.1);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/checkbox-blank-outline-black-icon.svg");
+    border: unset !important;
+    background-color: unset !important;
+}
+
+input[type=checkbox].checkbox:checked+label::before {
+    background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+}
+
+@media only screen and (max-width: 1480px) {
+    #files-personal-settings {
+        border-bottom: unset !important;
+        margin-bottom: 0 !important;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    #files-sharing-personal-settings {
+        margin: -8px 32px 48px !important;
+        padding: 24px 32px 32px !important;
+        border: 1px solid #E6E6E6;
+        border-radius: 8px;
+        border-top: unset;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 1480px) {
+    #personal-settings {
+        & .wrapper-profile {
+            & .fields-wrapper {
+                flex-direction: column;
+
+                & #vue-avatar-section {
+
+                    margin-right: 0 !important;
+                    margin-bottom: 40px;
+
+                    & .avatar__container {
+                        /*width: 100%;*/
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    #profile-visibility {
+        & .visibility-dropdowns {
+            margin-right: 0 !important;
+            & .visibility-container {
+                max-width: 100% !important;
+                margin-right: 0 !important;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+    & #personal-settings {
+        & .wrapper-visible-profile {
+            & .personal-settings-setting-box {
+                & div[data-v-692f485a].details {
+                    position: relative !important;
+                    top: unset !important;
+                    left: unset !important;
+                    max-width: 360px;
+                }
+            }
+        }
+    }
+}
