@@ -453,6 +453,20 @@ body .app-talk{
     display: flex;
     align-items: center !important;
     border-radius: 8px !important;
+
+}
+.top-bar-outer .conversation-icon__avatar {
+    top: -6px;
+    left: -10px;
+}
+.top-bar-outer .conversation-icon__avatar.avatardiv--with-menu > button {
+    display: none;
+}
+.top-bar-outer .conversation-icon__avatar.avatardiv--with-menu > img:hover {
+    opacity: 1 !important;
+}
+.app-navigation__list .conversation-icon__avatar {
+    --size: 28px !important;
 }
 .top-bar-outer-white-block{
     position: absolute;

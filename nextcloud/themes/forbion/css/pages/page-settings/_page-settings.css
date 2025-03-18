@@ -897,8 +897,12 @@ body#body-settings {
     }
 }
 
-input,
-textarea {
+#app-content[data-active-section-id="personal-info"] input,
+#app-content[data-active-section-id="sharing"] input,
+#app-content[data-active-section-id="availability"] input,
+#app-content[data-active-section-id="personal-info"] textarea,
+#app-content[data-active-section-id="sharing"] textarea,
+#app-content[data-active-section-id="availability"] textarea {
     border: 1px solid #E6E6E6 !important;
     border-radius: 8px;
 }
@@ -968,13 +972,17 @@ button.vs__clear {
     opacity: .75;
 }
 
-input[type=checkbox].checkbox+label {
+#app-content[data-active-section-id="personal-info"] input[type=checkbox].checkbox+label,
+#app-content[data-active-section-id="sharing"] input[type=checkbox].checkbox+label,
+#app-content[data-active-section-id="availability"] input[type=checkbox].checkbox+label {
     padding-left: 30px;
     display: block;
     line-height: 19px;
 }
 
-input[type=checkbox].checkbox+label::before {
+#app-content[data-active-section-id="personal-info"] input[type=checkbox].checkbox+label::before,
+#app-content[data-active-section-id="sharing"] input[type=checkbox].checkbox+label::before,
+#app-content[data-active-section-id="availability"] input[type=checkbox].checkbox+label::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -990,7 +998,9 @@ input[type=checkbox].checkbox+label::before {
     background-color: unset !important;
 }
 
-input[type=checkbox].checkbox:checked+label::before {
+#app-content[data-active-section-id="personal-info"] input[type=checkbox].checkbox:checked+label::before,
+#app-content[data-active-section-id="sharing"] input[type=checkbox].checkbox:checked+label::before,
+#app-content[data-active-section-id="availability"] input[type=checkbox].checkbox:checked+label::before {
     background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
 }
 

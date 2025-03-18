@@ -16,7 +16,20 @@ body .app-files {
 
 
     & .upload-picker.files-list__header-upload-button.upload-picker--uploading {
-        display: none !important;
+        /*display: none !important;*/
+        min-height: 40px;
+        padding-left: 5px;
+        padding-right: 4px;
+        width: 100%;
+
+        & .upload-picker__progress {
+            max-width: 142px;
+        }
+
+        & button {
+            background-color: transparent !important;
+            padding: 0 !important;
+        }
     }
 
     & .icon-public-white {
@@ -140,9 +153,11 @@ body .app-files {
     & .empty-content__description {
         padding-bottom: 20px;
     }
-    & button.button-vue--vue-secondary {
+    & button.button-vue--vue-secondary.action-item__menutoggle {
         /*padding: 3px 17px 3px 6px;*/
-        padding: 0px 17px 0px 6px !important;
+
+            padding: 0px 17px 0px 6px !important;
+
     }
 
     & .material-design-icon.checkbox-blank-outline-icon > svg {
@@ -617,26 +632,35 @@ body .app-files {
     }
 
 
-    & .upload-picker.files-list__header-upload-button {
+    & .upload-picker.files-list__header-upload-button:not(.upload-picker--uploading) {
         & .button-vue__wrapper .button-vue__text {
             display: none;
         }
 
-        .button-vue__wrapper:before {
-            font-family: Raleway;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: 0;
 
-            content: 'Создать или загрузить';
-            margin-left: -2px;
+        & .button-vue:not(.upload-picker__cancel) {
+            & .button-vue__wrapper:before {
+                font-family: Raleway;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0;
+                left: 48px;
+                position: absolute;;
+                content: 'Создать или загрузить';
+                /*margin-left: -2px;*/
+            }
+            & .button-vue__wrapper:after {
+                background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
+                content: '';
+            }
         }
+
     }
 
     & .upload-picker.files-list__header-upload-button .button-vue__wrapper:after {
-        background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
-        content: '';
+        /*background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;*/
+        /*content: '';*/
         position: absolute;
         top: 10px;
         left: 15px;
@@ -646,8 +670,12 @@ body .app-files {
         background-repeat: no-repeat;
         background-position: center;
     }
-    & .upload-picker.files-list__header-upload-button .button-vue__icon {
-        display: none;
+    & .upload-picker.files-list__header-upload-button:not(.upload-picker--uploading) {
+        & .button-vue:not(.upload-picker__cancel) {
+            & .button-vue__icon {
+                display: none;
+            }
+        }
     }
 
                                 /*button-vue__wrapper*/
@@ -757,8 +785,8 @@ body .app-files {
 
 
         & .app-navigation__search:after {
-            background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;
-            content: '';
+            /*background-image: url('/themes/forbion/images/inbox-mail-white.svg') !important;*/
+            /*content: '';*/
             position: absolute;
             top: 10px;
             left: 15px;
@@ -847,9 +875,13 @@ body .app-files {
                     color: white !important;
                 }
 
-                & .upload-picker {
+                & .upload-picker:not(.upload-picker--uploading) {
                     height: 40px !important;
                     width: 100% !important;
+                    position: absolute;
+                    padding-left: 8px;
+                    padding-right: 25px;
+                    left: -8px;
                     /*margin-bottom: 8px;*/
 
                     & .action-item > div > button {
@@ -866,7 +898,7 @@ body .app-files {
                             content: '';
                             position: absolute;
                             top: 0;
-                            right: 32px;
+                            right: 31px;
                             width: 2px;
                             height: 100%;
                             background: #ffffff;
@@ -876,7 +908,7 @@ body .app-files {
                         content: '';
                         position: absolute;
                         top: 50%;
-                        right: 8px;
+                        right: 7px;
                         transform: translateY(-50%);
                         width: 16px;
                         height: 16px;
