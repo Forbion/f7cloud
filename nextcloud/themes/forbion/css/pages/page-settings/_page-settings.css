@@ -897,12 +897,8 @@ body#body-settings {
     }
 }
 
-#app-content[data-active-section-id="personal-info"] input,
-#app-content[data-active-section-id="sharing"] input,
-#app-content[data-active-section-id="availability"] input,
-#app-content[data-active-section-id="personal-info"] textarea,
-#app-content[data-active-section-id="sharing"] textarea,
-#app-content[data-active-section-id="availability"] textarea {
+input,
+textarea {
     border: 1px solid #E6E6E6 !important;
     border-radius: 8px;
 }
