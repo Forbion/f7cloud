@@ -33,12 +33,12 @@
 						multiple
 						@failed="onUploadFail"
 						@uploaded="onUpload"
-            :style="{ display: isDisabled ? 'none' : 'flex' }" />
+            :style="{ display: isDisabled ? 'none' : 'flex1' }" />
 				</template>
 			</BreadCrumbs>
 
 			<!-- Secondary loading indicator -->
-			<NcLoadingIcon v-if="isRefreshing" class="files-list__refresh-icon" />
+			<NcLoadingIcon v-if="isRefreshing" class="files-list__refresh-icon" style="display:none;"/>
 
 			<NcActions class="files-list__header-actions"
 				:inline="1"

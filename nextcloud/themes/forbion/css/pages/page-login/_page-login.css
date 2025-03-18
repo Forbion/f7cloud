@@ -38,7 +38,22 @@ body {
                 width: 440px;
                 padding: 24px;
                 border-radius: 8px;
+                --color-main-background-blur: white;
+                --color-main-text: black;
+                --color-box-shadow: #00000045;
+                --color-main-background: #ffffff;
 
+
+                & input:-webkit-autofill,
+                input:-webkit-autofill:hover,
+                input:-webkit-autofill:focus,
+                input:-webkit-autofill:active {
+                    -webkit-box-shadow: 0 0 0 30px white inset !important;
+                }
+                & input:-webkit-autofill {
+                    -webkit-text-fill-color: black !important;
+                }
+S
                 & .login-form:not(:last-child) {
                     margin-bottom: 18px;
                 }
@@ -66,7 +81,8 @@ body {
                             border-color: #E6E6E6 !important;
                             padding: 12px 50px 12px 12px;
                             height: unset !important;
-
+                            color: black !important;
+                            
                             &.input-field__input--error {
                                 border-color: var(--color-error) !important;
                             }
