@@ -1,6 +1,29 @@
 /* Общие стили для .app-files */
 /*@import "/themes/forbion/css/pages/app-mail/forms/_modals.css";*/
 
+body.onlyoffice-inline {
+    & .app-files {
+        padding: unset !important;
+        /*max-height: calc(100vh) !important;*/
+
+        & .app-content {
+            height: calc(100vh - 20px) !important;
+        }
+        & #onlyofficeFrame {
+            height: calc(100vh - 35px) !important;
+        }
+
+        /*& .layout-region #editor_sdk {*/
+        /*    height: calc(100vh - 175px) !important;*/
+        /*}*/
+
+        /*& div#statusbar {*/
+        /*    top: 1223px !important;*/
+        /*}*/
+    }
+}
+
+
 body .app-files {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
@@ -1115,6 +1138,11 @@ body .app-files {
         & .empty-content {
             border-radius: 8px;
             background: #ffffff;
+
+
+            & .button-vue--icon-and-text {
+                width: 225px;
+            }
         }
 
         & .files-list__header {
@@ -1240,6 +1268,7 @@ body .app-files {
 
             & .files-list__thead-overlay {
                 top: 0;
+                margin-left: 140px !important;
                 /*border-block-end: unset;*/
             }
             & .files-list__table {
@@ -1504,6 +1533,12 @@ body .app-files {
 .app-files + .v-popper__popper .v-popper__wrapper .v-popper__inner {
     padding: unset !important;
     --default-clickable-area: 20px !important;
+
+    & .action-button > .icon-onlyoffice-new-docx:after, .action-button > .icon-onlyoffice-new-xlsx:after, .action-button > .icon-onlyoffice-new-pptx:after {
+        display: block;
+        margin-top: 0px !important;
+    }
+
     & li.action {
         /*background-color: var(--color-background-hover);*/
         /*border-radius: unset !important;*/
@@ -1660,6 +1695,20 @@ body .app-files {
         & .material-design-icon.pencil-icon > svg {
             display: none;
         }
+    }
+
+    & li[data-cy-upload-picker-menu-entry="new-onlyoffice-pdf"] {
+
+        display: none;
+        /*& .icon-vue:after {*/
+        /*    content: '';*/
+        /*    background-image: url('/apps/onlyoffice/img/new-pdf.svg');*/
+        /*    width: 16px;*/
+        /*    height: 16px;*/
+        /*}*/
+        /*& .icon-vue > svg {*/
+        /*        display: none;*/
+        /*}*/
     }
 
     & li[data-cy-upload-picker-menu-entry="upload-file"] {

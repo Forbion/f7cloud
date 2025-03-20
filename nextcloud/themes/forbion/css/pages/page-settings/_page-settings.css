@@ -30,6 +30,11 @@ body#body-settings {
         & #app-navigation {
             background: #ffffff;
             border-radius: 8px;
+            max-width: 238px;
+
+            & .app-navigation-caption {
+                display: none;
+            }
 
             & .app-navigation-personal {
 
@@ -73,7 +78,7 @@ body#body-settings {
                         }
 
                         &:not(:last-child) {
-                            margin-bottom: 4px;
+                            margin-bottom: 2px;
                         }
 
                         & a {
@@ -105,7 +110,11 @@ body#body-settings {
                         }
 
                         & span {
-                            padding-left: 28px;
+                            padding-left: 29px;
+                            font-size: 14px;
+                            line-height: 20px;
+                            font-weight: 500;
+                            letter-spacing: 0;
                         }
                     }
                 }
@@ -116,6 +125,32 @@ body#body-settings {
             background: #ffffff;
             margin-left: 8px;
             border-radius: 8px;
+
+            & .files-personal-settings-page-wrapper {
+                display: flex;
+                border: 1px solid #E6E6E6;
+                border-radius: 8px;
+                margin-inline: 32px;
+                margin-top: 44px;
+
+                & .button-vue--vue-secondary {
+                    background: #fff !important;
+                    border: 1px solid #E6E6E6 !important;
+                }
+
+                & .button-vue__text {
+                    font-size: 14px;
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    font-family: 'Raleway' !important;
+                }
+            }
+
+            & .personal-settings-setting-box-detail {
+                & .material-design-icon {
+                    display: none !important;
+                }
+            }
 
             & h2 {
                 margin-top: 0;
@@ -131,7 +166,7 @@ body#body-settings {
             }
 
             & .settings-section {
-                padding: 48px 32px;
+                padding: 45px 32px;
                 border: unset;
 
                 &#availability {
@@ -142,25 +177,37 @@ body#body-settings {
                         padding-top: 0;
 
                         & label {
-                            margin-bottom: 8px;
+                            margin-bottom: 10px;
                             font-size: 16px;
                             cursor: default;
                         }
 
                         & .time-zone__heading {
-                            font-size: 18px;
-                            line-height: 40px;
+                            font-size: 16px;
+                            /*line-height: 40px;*/
+                            font-family: Raleway;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 20px;
+                            letter-spacing: 0%;
+
                         }
                     }
 
                     & .week-day-container {
 
-                        margin-top: 10px;
+                        &:before {
+                            content: 'Дни недели';
+                        }
+
+                        margin-top: 20px;
                         margin-bottom: 15px;
 
                         & .day-container {
 
-                            padding: 20px 0 12px;
+                            /*padding: 20px 0 12px;*/
+                            padding: 0 0 2px;
+                            border-top: unset !important;
 
                             & .label-weekday {
 
@@ -174,7 +221,8 @@ body#body-settings {
                             }
 
                             & .availability-slots {
-                                margin-left: 30px;
+                                margin-left: 8px;
+                                max-width: 225px;
 
                                 & + .button-vue {
                                     opacity: 1 !important;
@@ -239,7 +287,7 @@ body#body-settings {
 
                         & > .button-vue {
                             height: 40px;
-                            margin-top: 40px;
+                            margin-top: 20px;
                             padding: 0 14px 0 42px;
 
                             & .button-vue__wrapper {
@@ -265,8 +313,9 @@ body#body-settings {
 
                 & > div[data-v-55a42208] {
                     max-width: 100%;
-                    margin-top: 48px;
-                    padding: 32px;
+                    margin-top: 40px;
+                    padding: 30px;
+                    padding-top: 31px;
                     border: 1px solid #E6E6E6;
                     border-radius: 8px;
                 }
@@ -282,9 +331,9 @@ body#body-settings {
 
             & #files-personal-settings {
 
-                margin: 32px 32px 48px;
+                /*margin: 42px 32px 48px;*/
                 padding: 32px;
-                border: 1px solid #E6E6E6;
+                /*border: 1px solid #E6E6E6;*/
                 border-radius: 8px;
 
                 & > div[data-v-76fb0136] {
@@ -339,7 +388,7 @@ body#body-settings {
                     & > .button-vue {
                         margin-top: 12px;
                         padding: 6px 8px;
-                        background: rgb(238, 244, 233) !important;
+                        background: rgb(238, 244, 233);
                     }
                 }
             }
@@ -409,7 +458,7 @@ body#body-settings {
                 }
 
                 & > p[data-v-48a4e087]:nth-child(3) {
-                    margin-top: 20px;
+                    margin-top: 10px;
                     max-width: 400px;
                 }
             }
@@ -418,13 +467,15 @@ body#body-settings {
                 display: flex;
                 flex-direction: column;
                 margin: 0 0 48px;
-                padding: 48px 32px 0;
+                padding: 42px 32px 0;
+                max-width: unset;
 
                 & .wrapper-profile {
-                    margin-top: 48px;
+                    margin-top: 45px;
                     padding: 32px;
                     border: 1px solid #E6E6E6;
                     border-radius: 8px;
+                    padding-left: 30px;
 
                     & .title__section {
                         font-weight: 600;
@@ -435,12 +486,13 @@ body#body-settings {
 
                     & .fields-wrapper {
 
-                        margin-top: 40px;
+                        margin-top: 32px;
                         display: flex;
+                        flex-direction: row;
 
                         & #vue-avatar-section {
 
-                            min-width: 300px;
+                            min-width: 280px;
                             margin-right: 40px;
                             padding: 0;
 
@@ -463,6 +515,7 @@ body#body-settings {
                             & span[data-v-5ab4ff28] {
                                 text-align: center;
                                 max-width: 250px;
+                                --size: 190px !important;
                             }
 
                             & .button-vue {
@@ -537,9 +590,9 @@ body#body-settings {
                             & .personal-settings-setting-box {
                                 width: 100%;
                                 height: 80px;
-                                max-width: calc(50% - 30px);
-                                margin-right: 30px;
-                                margin-bottom: 20px;
+                                max-width: calc(50% - 27px);
+                                margin-right: 23px;
+                                margin-bottom: 9px;
 
                                 & section {
                                     padding: 0;
@@ -550,12 +603,12 @@ body#body-settings {
 
                                     &:before {
 
-                                        content: '';
+                                        /*content: '';*/
                                         position: absolute;
                                         top: 50%;
                                         right: 13px;
                                         transform: translateY(-50%);
-                                        background-image: url("/themes/forbion/images/calendar-blank-icon.svg");
+                                        /*background-image: url("/themes/forbion/images/calendar-blank-icon.svg");*/
                                         background-size: auto;
                                         background-position: center;
                                         background-repeat: no-repeat;
@@ -568,7 +621,8 @@ body#body-settings {
 
                                 & input {
                                     padding: 8px 50px 8px 12px;
-                                    height: 40px !important;
+                                    height: 36px !important;
+                                    color: #808080;
 
                                     &.native-datetime-picker--input {
                                         padding-right: 12px;
@@ -612,7 +666,7 @@ body#body-settings {
                                     pointer-events: none;
 
                                     &::after {
-                                        content: '';
+                                        /*content: '';*/
                                         position: absolute;
                                         top: 50%;
                                         left: 50%;
@@ -728,8 +782,9 @@ body#body-settings {
                 }
 
                 & .wrapper-visible-profile {
-                    margin: 32px 0 0;
-                    padding: 32px;
+                    margin: 23px 0 0;
+                    padding: 30px;
+                    padding-top: 20px;
                     border: 1px solid #E6E6E6;
                     position: relative;
                     border-radius: 8px;
@@ -797,8 +852,8 @@ body#body-settings {
 
                             &.setting-property {
                                 position: absolute;
-                                top: 32px;
-                                left: 32px;
+                                top: 23px;
+                                left: 30px;
                                 margin: 0;
 
                                 & h3 {
@@ -812,8 +867,8 @@ body#body-settings {
 
                         & div[data-v-692f485a].details {
                             position: absolute;
-                            top: 80px;
-                            left: 365px;
+                            top: 60px;
+                            left: 310px;
                         }
 
                         & .preview-card {
@@ -823,6 +878,7 @@ body#body-settings {
                             border-top-right-radius: 12px;
                             box-shadow: unset;
                             opacity: 1;
+                            width: 263px;
                         }
 
                         & a[data-v-29aba6ea] {
@@ -862,10 +918,10 @@ body#body-settings {
             & .settings-section__name {
                 width: 100%;
                 max-width: 600px;
-                margin: 0 auto 20px;
+                margin: 0 auto 7px;
                 display: block;
                 font-weight: 600;
-                font-size: 26px;
+                font-size: 24px;
                 line-height: 28px;
                 text-align: center;
                 color: #000000;
@@ -876,14 +932,14 @@ body#body-settings {
                 font-size: 18px;
                 line-height: 24px;
                 text-align: center;
-                max-width: 600px;
+                /*max-width: 600px;*/
                 margin: 0 auto;
                 color: #000000;
             }
 
             & > div[data-v-5b567706] {
 
-                padding: 48px 32px 0;
+                padding: 45px 32px 0;
             }
         }
     }
@@ -1002,17 +1058,19 @@ button.vs__clear {
 
 @media only screen and (max-width: 1480px) {
     #files-personal-settings {
-        border-bottom: unset !important;
+        /*border-bottom: unset !important;*/
         margin-bottom: 0 !important;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        /*border-bottom-left-radius: 0;*/
+        /*border-bottom-right-radius: 0;*/
     }
     #files-sharing-personal-settings {
-        margin: -8px 32px 48px !important;
-        padding: 24px 32px 32px !important;
-        border: 1px solid #E6E6E6;
+        /*margin: 40px 32px 48px !important;*/
+        margin: 0px !important;
+        /*padding: 24px 32px 32px !important;*/
+        padding: 32px !important;
+        /*border: 1px solid #E6E6E6;*/
         border-radius: 8px;
-        border-top: unset;
+        /*border-top: unset;*/
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
@@ -1027,10 +1085,13 @@ button.vs__clear {
                 & #vue-avatar-section {
 
                     margin-right: 0 !important;
-                    margin-bottom: 40px;
+                    /*margin-bottom: 40px;*/
 
                     & .avatar__container {
-                        /*width: 100%;*/
+                        width: 213px;
+                        & span[data-v-5ab4ff28] {
+                            /*display: none;*/
+                        }
                     }
                 }
             }
@@ -1059,6 +1120,9 @@ button.vs__clear {
                     top: unset !important;
                     left: unset !important;
                     max-width: 360px;
+
+
+
                 }
             }
         }

@@ -249,7 +249,7 @@ S
 
 footer {
     &.guest-box {
-        /*display: none;*/
+        display: none;
         position: fixed;
         bottom: 0;
         background: #ffffff;

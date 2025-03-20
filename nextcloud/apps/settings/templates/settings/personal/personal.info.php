@@ -64,14 +64,14 @@ script('settings', [
             <div class="personal-settings-setting-box personal-settings-setting-box-profile">
                 <div id="vue-profile-section"></div>
             </div>
-            <div class="personal-settings-setting-box personal-settings-setting-box-detail">
+            <div class="personal-settings-setting-box personal-settings-setting-box-detail hide-icon">
                 <div id="vue-details-section"></div>
             </div>
         </div>
     <?php endif; ?>
 
     <?php if ($_['profileEnabledGlobally']) : ?>
-        <div class="settings-visible-profile">
+        <div class="settings-visible-profile" style="display: none;">
             <div class="personal-settings-section">
                 <div id="vue-profile-visibility-section"></div>
             </div>

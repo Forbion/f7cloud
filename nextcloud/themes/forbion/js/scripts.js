@@ -280,3 +280,16 @@ const observer = new MutationObserver(() => {
 //     childList: true,
 //     subtree: true
 // });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.querySelector('[href="#profile-visibility"]');
+    const profileWrapper = document.querySelector('.settings-visible-profile');
+    toggleButton.addEventListener('click', function() {
+        if (profileWrapper.style.display === 'none' || profileWrapper.style.display === '') {
+            profileWrapper.style.display = 'block';
+        } else {
+            profileWrapper.style.display = 'none';
+        }
+    });
+});
