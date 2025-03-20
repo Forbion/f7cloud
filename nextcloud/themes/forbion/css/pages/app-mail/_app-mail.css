@@ -1026,6 +1026,16 @@
     background-image: url("/themes/forbion/images/email-open-icon.svg");
 }
 
+#content-vue.app-mail .app-content-list .list-item__wrapper .material-design-icon.paperclip-icon.attachment-icon-style svg {
+    fill: black;
+    transform: scale(1.1);
+    transition: fill 0s;
+}
+
+#content-vue.app-mail .app-content-list .list-item__wrapper.list-item__wrapper--active .material-design-icon.paperclip-icon.attachment-icon-style svg {
+    fill: white;
+}
+
 @media only screen and (max-width: 1023px) {
     #content-vue.app-mail {
         border-radius: unset;
