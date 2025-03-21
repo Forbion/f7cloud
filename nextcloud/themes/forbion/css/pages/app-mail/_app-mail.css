@@ -565,7 +565,15 @@
     margin-left: unset;
     margin-right: unset;
     max-width: unset;
-    height: 100%;
+    height: auto;
+    /*height: 100%;*/
+}
+#content-vue.app-mail #mail-message .envelope.envelope--expanded {
+    min-height: unset;
+    margin-bottom: 20px;
+}
+#content-vue.app-mail #mail-message .envelope #message-container {
+    padding-bottom: 40px;
 }
 #content-vue.app-mail #mail-message .envelope__header__avatar[data-v-d2fe4dac] {
     margin-right: 2px;
