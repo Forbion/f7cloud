@@ -456,7 +456,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-share-varia
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_files_sharing_src_models_Share_ts-apps_files_sharing_src_utils_GeneratePassword_ts-node_-14f1ab":"94f170d6c29fb04ac89e","apps_files_sharing_src_services_SharingService_ts-apps_files_sharing_src_views_SharingTab_vue-0e12bb":"500b7d02178005cedb76","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_mime_dist_src_index_js":"3b355ad4e0a532c88f28","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_files_sharing_src_models_Share_ts-apps_files_sharing_src_utils_GeneratePassword_ts-node_-14f1ab":"94f170d6c29fb04ac89e","apps_files_sharing_src_services_SharingService_ts-apps_files_sharing_src_views_SharingTab_vue-0e12bb":"260c5db569862d417db0","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_mime_dist_src_index_js":"3b355ad4e0a532c88f28","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -673,4 +673,4 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-share-varia
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=files_sharing-files_sharing_tab.js.map?v=2fe4a0c03641a0aa8448
+//# sourceMappingURL=files_sharing-files_sharing_tab.js.map?v=514d70b05748c18ec985

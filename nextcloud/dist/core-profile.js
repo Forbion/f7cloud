@@ -490,6 +490,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `[data-v-8ecdffca] #app-content-vue {
   margin: 0 auto;
   display: flex;
   width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 .profile__blocks[data-v-8ecdffca] {
   margin: 18px 0 80px 0;
@@ -1392,4 +1394,4 @@ render._withStripped = true
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=core-profile.js.map?v=cb6b326cb0c9d363d9cf
+//# sourceMappingURL=core-profile.js.map?v=0bfe331b774e3d8ba8a6

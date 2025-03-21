@@ -172,7 +172,7 @@ var render = function render() {
     attrs: {
       id: "files-sharing-personal-settings"
     }
-  }, [_c("h2", [_vm._v(_vm._s(_vm.t("files_sharing", "Sharing")))]), _vm._v(" "), _vm.allowCustomDirectory ? _c("p", [_c("SelectShareFolderDialogue")], 1) : _vm._e(), _vm._v(" "), !_vm.enforceAcceptShares ? _c("p", [_c("input", {
+  }, [_c("h2", [_vm._v(_vm._s(_vm.t("files_sharing", "Sharing")))]), _vm._v(" "), !_vm.enforceAcceptShares ? _c("p", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -209,7 +209,7 @@ var render = function render() {
     attrs: {
       for: "files-sharing-personal-settings-accept"
     }
-  }, [_vm._v(_vm._s(_vm.t("files_sharing", "Accept shares from other accounts and groups by default")))])]) : _vm._e()]) : _vm._e();
+  }, [_vm._v(_vm._s(_vm.t("files_sharing", "Accept shares from other accounts and groups by default")))])]) : _vm._e(), _vm._v(" "), _vm.allowCustomDirectory ? _c("p", [_c("SelectShareFolderDialogue")], 1) : _vm._e()]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -940,4 +940,4 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=files_sharing-personal-settings.js.map?v=0a45359bdddd6a3a3c7b
+//# sourceMappingURL=files_sharing-personal-settings.js.map?v=612c6872048b90342570

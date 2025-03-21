@@ -179,3 +179,63 @@ body#body-user {
         max-height: 900px;
     }
 }
+
+/*userprofile*/
+
+.app-profile {
+    .profile__header[data-v-8ecdffca] {
+        position: absolute;
+        top: 140px;
+        width: 100%;
+        height: unset;
+
+        & .profile__header__container[data-v-8ecdffca] {
+            display: flex;
+            justify-content: center;
+
+            & .profile__header__container__displayname {
+                margin-block: 200px 0;
+            }
+        }
+    }
+    .profile__wrapper[data-v-8ecdffca] {
+
+        & .profile__content {
+            & .profile__sidebar {
+                position: relative;
+                padding-top: 260px;
+                width: 100%;
+
+                & .user-actions[data-v-8ecdffca] {
+                    margin-top: 70px;
+                }
+            }
+            & .profile__blocks[data-v-8ecdffca] {
+                margin: 20px 0 80px 0;
+
+                & .empty-content[data-v-fede0c71] {
+                    margin-top: 50px;
+
+                    & .empty-content__icon {
+                        & .material-design-icon.account-icon {
+                            & > svg {
+                                display: none;
+                            }
+                            &:after {
+                                background-image: url('/themes/forbion/images/user-big.png') !important;
+                                content: '';
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                background-size: cover;
+                                width: 90px;
+                                height: 90px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
