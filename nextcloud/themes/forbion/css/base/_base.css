@@ -30,9 +30,9 @@ body#body-user {
 #content-vue {
     width: 100%;
     max-width: 100%;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 92px);
     min-height: 820px;
-    padding: 45px 50px 15px;
+    padding: 25px 25px 15px;
     margin: 0 auto;
     position: relative;
 }

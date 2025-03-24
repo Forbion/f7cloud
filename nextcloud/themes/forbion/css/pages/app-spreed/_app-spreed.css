@@ -284,8 +284,8 @@ body .app-talk{
     width: calc(100% - 30px);
 }
 .app-talk:not(.in-call) .app-sidebar__toggle {
-    inset-block-start: calc(var(--app-sidebar-padding) + 40px) !important;
-    inset-inline-end: calc(var(--app-sidebar-padding) + 44px + var(--sidebar-pad)) !important;
+    inset-block-start: calc(var(--app-sidebar-padding) + 20px) !important;
+    inset-inline-end: calc(var(--app-sidebar-padding) + 20px + var(--sidebar-pad)) !important;
 }
 .app-talk:not(.in-call) .app-sidebar__toggle .material-design-icon__svg > path {
     fill: #808080;
@@ -456,8 +456,9 @@ body .app-talk{
 
 }
 .top-bar-outer .conversation-icon__avatar {
-    top: -6px;
+    /*top: -6px;*/
     left: -10px;
+    --size: 28px !important;
 }
 .top-bar-outer .conversation-icon__avatar.avatardiv--with-menu > button {
     display: none;
@@ -487,7 +488,7 @@ body .app-talk{
     min-height: 40px !important;
 }
 .app-talk:not(.in-call) .top-bar--authorised .conversation-icon {
-    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 10px) !important;
+    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 17px) !important;
 }
 
 .app-talk:not(.in-call) .app-sidebar-header__desc.app-sidebar-header__desc--without-actions {
