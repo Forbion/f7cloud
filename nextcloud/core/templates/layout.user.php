@@ -61,7 +61,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/spreed') !== false || strpos($_SERVER['REQUEST_URI'], '/call') !== false) { ?>
         <link rel="stylesheet" href="/themes/forbion/css/pages/app-spreed/_app-spreed.css">
     <?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/contacts') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/page-contacts/_page-contacts.css"><?php } ?>
+    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/contacts') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-contacts/_app-contacts.css"><?php } ?>
     <?php if (strpos($_SERVER['REQUEST_URI'], '/settings') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/page-settings/_page-settings.css"><?php } ?>
 
     <script nonce="<?=$nonceManager->getNonce()?>" src="/themes/forbion/js/scripts.js"></script>
