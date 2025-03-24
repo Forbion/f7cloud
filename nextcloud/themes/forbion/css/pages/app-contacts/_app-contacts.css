@@ -589,6 +589,8 @@ body .app-contacts {
 
             & .contact-header__quick-actions {
 
+                margin-top: 5px;
+
                 //& .icon-talk {
                 //    display: none;
                 //}
