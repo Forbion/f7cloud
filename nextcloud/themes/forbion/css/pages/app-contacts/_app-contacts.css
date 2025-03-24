@@ -530,6 +530,20 @@ body .app-contacts {
                 top: 5px;
                 max-width: 170px;
 
+                & .material-design-icon.eye-circle-icon {
+                    margin-right: 15px;
+
+                    & svg {
+                        display: none;
+                    }
+
+                    &:before {
+                        background-image: url("/themes/forbion/images/eye.svg");
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
                 & .material-design-icon.check-icon:before {
                     background-image: url("/themes/forbion/images/arrow-btn.svg");
                     width: 21px;
