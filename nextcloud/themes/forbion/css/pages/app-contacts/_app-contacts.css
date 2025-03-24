@@ -432,23 +432,23 @@ body .app-contacts {
                             & .avatardiv {
                                 position: relative;
 
-                                & img {
-                                    display: none;
-                                }
+                                /*& img {*/
+                                /*    display: none;*/
+                                /*}*/
 
-                                &:before {
-                                    content: '';
-                                    position: absolute;
-                                    top: 0px;
-                                    left: 2px;
-                                    width: 36px;
-                                    height: 36px;
-                                    background-image: url("/themes/forbion/images/avatar-mail-unknown.png");
-                                    background-repeat: no-repeat;
-                                    background-position: center;
-                                    z-index: 1;
-                                    pointer-events: none;
-                                }
+                                /*&:before {*/
+                                /*    content: '';*/
+                                /*    position: absolute;*/
+                                /*    top: 0px;*/
+                                /*    left: 2px;*/
+                                /*    width: 36px;*/
+                                /*    height: 36px;*/
+                                /*    background-image: url("/themes/forbion/images/avatar-mail-unknown.png");*/
+                                /*    background-repeat: no-repeat;*/
+                                /*    background-position: center;*/
+                                /*    z-index: 1;*/
+                                /*    pointer-events: none;*/
+                                /*}*/
                             }
                         }
                     }
@@ -477,18 +477,18 @@ body .app-contacts {
 
                 width: max-content;
 
-                & .contact-header-avatar__photo+.contact-header-avatar__menu[data-v-cdede402] {
+                & .contact-header-avatar__photo+.contact-header-avatar__menu {
                     height: 34px !important;
                     width: 34px !important;
                     margin-left: -30px !important;
                     margin-top: -30px !important;
 
                     & .button-vue {
-                        opacity: .7 !important;
+                        opacity: 1 !important;
                         background-color: #0003 !important;
 
                         &:hover {
-                            opacity: .5 !important;
+                            opacity: .75 !important;
                         }
                     }
                 }
@@ -540,6 +540,11 @@ body .app-contacts {
             & .contact-header__infos {
 
                 & .contact-header__infos-title {
+
+                    & .contact-title {
+                        min-width: 280px;
+                        line-height: 38px;
+                    }
 
                     //&:before {
                     //    content: '';
@@ -617,6 +622,11 @@ body .app-contacts {
                     width: 20px;
                     height: 20px;
                     opacity: .55;
+                }
+
+                & .material-design-icon.phone-icon svg {
+                    fill: gray;
+                    opacity: .85;
                 }
 
                 & .material-design-icon.account-icon svg {
@@ -703,6 +713,7 @@ body .app-contacts {
                     align-items: center;
                     justify-content: center;
                     padding-right: 80px;
+                    padding-top: 12px;
                     margin-bottom: 0;
 
                     & .property__value {
@@ -728,6 +739,10 @@ body .app-contacts {
                     & .property__value {
 
                         width: 350px;
+
+                        & .v-select {
+                            width: 100%;
+                        }
 
                         & > * {
                             margin-top: 16px;
@@ -757,6 +772,7 @@ body .app-contacts {
 
             & .property__row.last-edit {
 
+                margin: 20px 0 10px;
                 width: 100%;
                 display: flex;
                 justify-content: center;

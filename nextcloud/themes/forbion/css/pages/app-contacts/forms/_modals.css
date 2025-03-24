@@ -502,13 +502,14 @@
     }
 }
 
-.modal-mask[data-v-9ff1467a] {
+.modal-mask#pick-addressbook-modal {
 
     & .modal-container {
 
         & .modal-container__content {
             display: flex;
             flex-wrap: wrap;
+            padding: 10px 15px 15px;
 
             & .address-book {
                 width: 100%;
@@ -566,5 +567,26 @@
 
     & input {
         height: 40px !important;
+    }
+}
+
+.modal-mask {
+
+    & .modal-wrapper--small {
+
+        & .avatar__container{
+            padding: 20px;
+
+            & .avatar__cropper-buttons{
+
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+
+                & .button-vue--vue-tertiary {
+                    background: rgb(238, 244, 233) !important;
+                }
+            }
+        }
     }
 }
