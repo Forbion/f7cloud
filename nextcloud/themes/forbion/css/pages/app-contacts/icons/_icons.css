@@ -1,0 +1,387 @@
+.material-design-icon {
+    position: relative;
+}
+
+.material-design-icon.cog-icon svg,
+.material-design-icon.folder-icon svg,
+.material-design-icon.delete-icon svg,
+.material-design-icon.email-check-icon svg,
+.material-design-icon.folder-multiple-icon svg,
+.material-design-icon.wrench-icon svg,
+.material-design-icon.eraser-variant-icon svg,
+.material-design-icon.star-icon svg,
+.material-design-icon.download-icon svg,
+.material-design-icon.checkbox-marked-circle-plus-outline-icon svg,
+.material-design-icon.calendar-blank-icon svg,
+.material-design-icon.email-icon svg,
+.material-design-icon.important-icon svg,
+.material-design-icon.plus-icon svg,
+.material-design-icon.clock-outline-icon svg,
+.material-design-icon.alert-octagon-icon svg,
+.material-design-icon.tag-icon svg,
+.material-design-icon.alarm-icon svg,
+.material-design-icon.open-in-new-icon svg,
+.material-design-icon.share-icon svg,
+.material-design-icon.information-icon svg,
+.material-design-icon.chevron-left-icon svg,
+.material-design-icon.chevron-right-icon svg,
+.material-design-icon.dots-horizontal-icon svg,
+.material-design-icon.folder-edit-icon svg,
+.material-design-icon.pencil-icon svg,
+.material-design-icon.calendar-clock-icon svg,
+.material-design-icon.format-size-icon svg,
+.material-design-icon.upload-icon svg,
+.material-design-icon.link-icon svg,
+.material-design-icon.send-clock-icon svg,
+.material-design-icon.reply-icon svg,
+.material-design-icon.email-open-icon svg,
+.material-design-icon.star-outline-icon svg,
+.material-design-icon.chevron-down-icon svg,
+.material-design-icon.chevron-up-icon svg,
+.material-design-icon.view-day-icon svg,
+.material-design-icon.view-week-icon svg,
+.material-design-icon.view-module-icon svg,
+.material-design-icon.view-comfy-icon svg,
+.material-design-icon.view-list-icon svg,
+.material-design-icon.web-icon svg,
+.material-design-icon.link-variant-icon svg,
+.material-design-icon.calendar-check-icon svg,
+.material-design-icon.checkbox-blank-outline-icon svg,
+.material-design-icon.account-multiple-icon svg,
+.material-design-icon.information-outline-icon svg,
+.material-design-icon.check-icon svg,
+.material-design-icon.eye-icon svg,
+.material-design-icon.video-icon svg,
+.material-design-icon.checkbox-marked-icon svg,
+.material-design-icon.bell-icon svg,
+.material-design-icon.calendar-minus-icon svg,
+.material-design-icon.format-list-bulleted-square-icon svg,
+.material-design-icon.badge-account-horizontal-icon svg,
+.material-design-icon.icon-address-book svg {
+    display: none;
+}
+
+.material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.material-design-icon.cog-icon:before {
+    background-image: url("/themes/forbion/images/cog-icon-gray.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.folder-icon:before {
+    background-image: url("/themes/forbion/images/folder-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.delete-icon:before {
+    background-image: url("/themes/forbion/images/delete-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.email-check-icon:before {
+    background-image: url("/themes/forbion/images/information-icon.svg");
+}
+
+.material-design-icon.folder-multiple-icon:before {
+    background-image: url("/themes/forbion/images/folder-multiple-icon.svg");
+}
+
+.material-design-icon.wrench-icon:before {
+    background-image: url("/themes/forbion/images/wrench-icon.svg");
+}
+
+.material-design-icon.eraser-variant-icon:before {
+    background-image: url("/themes/forbion/images/eraser-variant-icon.svg");
+}
+
+.material-design-icon.star-icon:before {
+    background-image: url("/themes/forbion/images/star-icon-black.svg");
+}
+
+.material-design-icon.star-outline-icon:before {
+    background-image: url("/themes/forbion/images/star-outline-icon-black.svg");
+}
+
+.material-design-icon.download-icon:before {
+    background-image: url("/themes/forbion/images/download-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.checkbox-marked-circle-plus-outline-icon:before {
+    background-image: url("/themes/forbion/images/checkbox-marked-circle-plus-outline-icon.svg");
+}
+
+.material-design-icon.calendar-blank-icon:before {
+    background-image: url("/themes/forbion/images/calendar-blank-icon.svg");
+}
+
+.material-design-icon.email-icon:before {
+    background-image: url("/themes/forbion/images/email-icon.svg");
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.material-design-icon.important-icon:before {
+    background-image: url("/themes/forbion/images/important-icon.svg");
+}
+
+.material-design-icon.plus-icon:before {
+    background-image: url("/themes/forbion/images/plus-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.clock-outline-icon:before {
+    background-image: url("/themes/forbion/images/clock-outline-icon.svg");
+}
+
+.material-design-icon.alert-octagon-icon:before {
+    background-image: url("/themes/forbion/images/alert-octagon-icon.svg");
+}
+
+.material-design-icon.tag-icon:before {
+    background-image: url("/themes/forbion/images/tag-icon.svg");
+}
+
+.material-design-icon.alarm-icon:before {
+    background-image: url("/themes/forbion/images/alarm-icon.svg");
+}
+
+.material-design-icon.open-in-new-icon:before {
+    background-image: url("/themes/forbion/images/open-in-new-icon.svg");
+}
+
+.material-design-icon.share-icon:before {
+    background-image: url("/themes/forbion/images/share-icon.svg");
+}
+
+.material-design-icon.information-icon:before {
+    background-image: url("/themes/forbion/images/information-icon.svg");
+}
+
+.material-design-icon.chevron-left-icon:before {
+    background-image: url("/themes/forbion/images/left-arrow-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.chevron-right-icon:before {
+    background-image: url("/themes/forbion/images/right-arrow-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.dots-horizontal-icon:before {
+    background-image: url("/themes/forbion/images/dots-horizontal-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.pencil-icon:before {
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+}
+
+.material-design-icon.calendar-clock-icon:before {
+    background-image: url("/themes/forbion/images/calendar-clock-icon.svg");
+}
+
+.material-design-icon.format-size-icon:before {
+    background-image: url("/themes/forbion/images/format-size-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.upload-icon:before {
+    background-image: url("/themes/forbion/images/upload-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.link-icon:before {
+    background-image: url("/themes/forbion/images/link-icon.svg");
+}
+
+.material-design-icon.send-clock-icon:before {
+    background-image: url("/themes/forbion/images/send-clock-icon.svg");
+}
+
+.material-design-icon.reply-icon:before {
+    background-image: url("/themes/forbion/images/sendMessage-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.email-open-icon:before {
+    background-image: url("/themes/forbion/images/email-open-icon.svg");
+}
+
+.material-design-icon.chevron-down-icon:before {
+    background-image: url("/themes/forbion/images/chevron-down-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.chevron-up-icon:before {
+    background-image: url("/themes/forbion/images/chevron-up-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.view-day-icon:before {
+    background-image: url("/themes/forbion/images/view-day-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.view-week-icon:before {
+    background-image: url("/themes/forbion/images/view-week-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.view-module-icon:before {
+    background-image: url("/themes/forbion/images/view-module-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.view-comfy-icon:before {
+    background-image: url("/themes/forbion/images/view-comfy-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.view-list-icon:before {
+    background-image: url("/themes/forbion/images/view-list-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.web-icon:before {
+    background-image: url("/themes/forbion/images/plus-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.link-variant-icon:before {
+    background-image: url("/themes/forbion/images/link-icon.svg");
+}
+
+.material-design-icon.calendar-check-icon:before {
+    background-image: url("/themes/forbion/images/view-list-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.checkbox-blank-outline-icon:before {
+    background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
+    width: 16px;
+    height: 16px;
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+.material-design-icon.account-multiple-icon:before {
+    background-image: url("/themes/forbion/images/account-multiple-icon.svg");
+    width: 20px;
+    height: 20px;
+}
+
+.material-design-icon.information-outline-icon:before {
+    background-image: url("/themes/forbion/images/important-big-icon.svg");
+    transform: scale(0.95) translate(-50%, -50%);
+}
+
+.material-design-icon.check-icon:before {
+    background-image: url("/themes/forbion/images/arrow-black.svg");
+}
+
+.material-design-icon.eye-icon:before {
+    background-image: url("/themes/forbion/images/eye.svg");
+}
+
+.material-design-icon.video-icon:before {
+    background-image: url("/themes/forbion/images/video-icon-black.svg");
+    transform: scale(1.1) translate(-50%, -50%);
+}
+
+.material-design-icon.checkbox-marked-icon:before {
+    background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+    width: 16px;
+    height: 16px;
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+.material-design-icon.bell-icon:before {
+    background-image: url("/themes/forbion/images/bell-icon-black.svg");
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+.calendar-picker-header__picker--has-menu[data-v-e5da09ca] .button-vue__text::after {
+    background-image: url("/themes/forbion/images/chevron-down-icon.svg") !important;
+    background-repeat: no-repeat;
+    margin-top: 7px !important;
+    margin-left: 11px !important;
+}
+
+.material-design-icon.calendar-minus-icon:before {
+    background-image: url("/themes/forbion/images/calendar-blank-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.fc-popover-close.fc-icon.fc-icon-x:before {
+    background-image: url("/themes/forbion/images/close-icon.svg");
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 8px;
+}
+
+.material-design-icon.folder-edit-icon:before {
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+}
+
+.material-design-icon.format-list-bulleted-square-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.format-list-bulleted-square-icon:before {
+    background-image: url("/themes/forbion/images/account.svg");
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.action-link__icon.icon-public,
+.action-link__icon.icon-checkmark {
+    position: relative;
+}
+
+.action-link__icon.icon-public:before,
+.action-link__icon.icon-checkmark:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: url("/themes/forbion/images/copy-link-black.svg");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
