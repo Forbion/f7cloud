@@ -61,6 +61,8 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/spreed') !== false || strpos($_SERVER['REQUEST_URI'], '/call') !== false) { ?>
         <link rel="stylesheet" href="/themes/forbion/css/pages/app-spreed/_app-spreed.css">
     <?php } ?>
+    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/contacts') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-contacts/_app-contacts.css"><?php } ?>
+    <?php if (strpos($_SERVER['REQUEST_URI'], '/settings') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/page-settings/_page-settings.css"><?php } ?>
 
     <script nonce="<?=$nonceManager->getNonce()?>" src="/themes/forbion/js/scripts.js"></script>
 </head>
@@ -76,7 +78,6 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
 </div>
 
 <header id="header" class="header-new">
-
     <div class="l-wrapper">
         <a href="/" class="logo__header">
             <svg xmlns="http://www.w3.org/2000/svg" width="205" height="47" viewBox="0 0 205 47" fill="none">
@@ -407,7 +408,6 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
         </div>
     </div>
 </header>
-
 
 <main id="content" class="app-<?php p($_['appid']) ?>">
     <h1 class="hidden-visually" id="page-heading-level-1">
