@@ -58,11 +58,11 @@
 }
 #header.header-new .app-menu .app-menu__list li {
     height: unset !important;
-    margin-left: 20px !important;
-    margin-right: 20px !important;
+    margin-left: 7px !important;
+    margin-right: 7px !important;
     width: 100%;
-    /*max-width: 80px;*/
-    /*min-width: 80px;*/
+    max-width: 80px;
+    min-width: 80px;
     cursor: pointer;
     transition: hover .3s;
 }
@@ -211,6 +211,10 @@
 #header.header-new .user-control__header button .button-vue__wrapper {
     display: none;
 }
+#header.header-new .user-control__header #assistant button .button-vue__wrapper {
+    display: flex !important;
+    width: 25px;
+}
 
 #header.header-new .user-control__header .header-menu__carret {
     display: none;
@@ -271,8 +275,7 @@
 
 @media only screen and (max-width: 1199px) {
     #header.header-new .app-menu .app-menu__list li {
-        /*margin-right: 24px !important;*/
-        margin: 0 15px !important
+        margin-right: 24px !important;
     }
 }
 
