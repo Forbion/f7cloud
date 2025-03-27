@@ -552,9 +552,17 @@ export default {
 		},
 		clearMailbox() {
 			const id = this.mailbox.databaseId
+			const folderNames = {
+				'INBOX': t('mail', 'Inbox').toLowerCase(),
+				'Sent': t('mail', 'Sent').toLowerCase(),
+				'Drafts': t('mail', 'Drafts').toLowerCase(),
+				'Trash': t('mail', 'Trash').toLowerCase(),
+				'Junk': t('mail', 'Junk').toLowerCase(),
+			};
+			const displayName = folderNames[this.mailbox.displayName] || this.mailbox.displayName;
 			OC.dialogs.confirmDestructive(
 				t('mail', 'All messages in mailbox will be deleted.'),
-				t('mail', 'Clear mailbox {name}', { name: this.mailbox.displayName }),
+				t('mail', 'Clear mailbox {name}', { name: displayName }),
 				{
 					type: OC.dialogs.YES_NO_BUTTONS,
 					confirm: t('mail', 'Clear mailbox'),

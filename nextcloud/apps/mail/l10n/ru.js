@@ -390,7 +390,7 @@ OC.L10N.register(
     "Clear locally cached data, in case there are issues with synchronization." : "Очистить локальный кэш данных в случае проблем с синхронизацией.",
     "Subscribed" : "Подписано",
     "Sync in background" : "Фоновая синхронизация",
-    "Clear mailbox" : "Очистить почтовый ящик",
+    "Clear mailbox" : "Очистить данный каталог",
     "Delete mailbox" : "Удалить папку",
     "All messages in mailbox will be deleted." : "Все сообщения в почтовом ящике будут удалены.",
     "Clear mailbox {name}" : "Очистить почтовый ящик {name}",
