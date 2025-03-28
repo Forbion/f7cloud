@@ -3,6 +3,7 @@
  * SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+$nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceManager::class);
 ?>
 <!DOCTYPE html>
 <html class="ng-csp" data-placeholder-focus="false" lang="<?php p($_['language']); ?>" data-locale="<?php p($_['locale']); ?>" translate="no" >
@@ -35,7 +36,29 @@
     <?php emit_script_loading_tags($_); ?>
     <?php print_unescaped($_['headers']); ?>
 
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/calendar') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-calendar/_app-calendar.css"><?php } ?>
+
+    <?php
+    $cssMapping = [
+        '/apps/mail' => '/themes/forbion/css/pages/app-mail/_app-mail.css',
+        '/apps/files' => '/themes/forbion/css/pages/app-files/_app-files.css',
+        '/apps/calendar' => '/themes/forbion/css/pages/app-calendar/_app-calendar.css',
+        '/apps/contacts' => '/themes/forbion/css/pages/app-contacts/_app-contacts.css',
+        '/settings' => '/themes/forbion/css/pages/page-settings/_page-settings.css',
+        '/apps/spreed' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
+        '/call' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css'
+    ];
+
+    $currentUri = $_SERVER['REQUEST_URI'] ?? '';
+    foreach ($cssMapping as $path => $cssFile) {
+        if (strpos($currentUri, $path) !== false) {
+            echo '<link rel="stylesheet" href="' . htmlspecialchars($cssFile) . '">';
+            if ($path === '/apps/spreed' || $path === '/call') break;
+        }
+    }
+    ?>
+
+    <script nonce="<?=$nonceManager->getNonce()?>" src="/themes/forbion/js/scripts.js"></script>
+
 </head>
 <body id="<?php p($_['bodyid']);?>" <?php foreach ($_['enabledThemes'] as $themeId) {
     p("data-theme-$themeId ");

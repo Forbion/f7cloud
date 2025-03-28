@@ -33,6 +33,57 @@ body ul.vs__dropdown-menu {
     display: none;
 }
 
+
+.material-design-icon {
+    /*&.account-multiple-icon,*/
+    /*&.emoticon-outline-icon {*/
+    /*    > svg {*/
+    /*        display: none;*/
+    /*    }*/
+
+    /*    &:after {*/
+    /*        content: '';*/
+    /*        display: block;*/
+    /*        width: 20px;*/
+    /*        height: 20px;*/
+    /*        background-size: contain;*/
+    /*        background-repeat: no-repeat;*/
+    /*        background-position: center;*/
+    /*    }*/
+    /*}*/
+}
+
+/* Состояние без активного звонка */
+.app-talk:not(.in-call) {
+    .account-multiple-icon:after {
+        background-image: url('/themes/forbion/images/users.svg');
+    }
+
+    .emoticon-outline-icon:after {
+        background-image: url('/themes/forbion/images/smile-black.svg');
+    }
+}
+
+/* Состояние во время звонка */
+.app-talk.in-call {
+    #call-container {
+        border-radius: 16px;
+    }
+
+    .account-multiple-icon:after {
+        background-image: url('/themes/forbion/images/users-gray-eb.svg');
+    }
+    .app-sidebar-tabs__nav {
+        .account-multiple-icon:after {
+            background-image: url('/themes/forbion/images/users.svg');
+        }
+    }
+
+    .emoticon-outline-icon:after {
+        background-image: url('/themes/forbion/images/smile-gray.svg') !important;
+    }
+}
+
 body .app-talk{
 
     --color-primary-element: #70B62B !important;
@@ -73,11 +124,35 @@ body .app-talk{
     & .material-design-icon.menu-open-icon > svg {
         display: none;
     }
-    & .material-design-icon.folder-multiple-image-icon:after {
-        background-image: url('/themes/forbion/images/files-black.svg') !important;
+    & .material-design-icon.message-icon:after {
+        background-image: url('/themes/forbion/images/chat.svg') !important;
         content: '';
         width: 20px;
         height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.message-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.information-outline-icon:after {
+        background-image: url('/themes/forbion/images/info-black.svg') !important;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.information-outline-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.folder-multiple-image-icon:after {
+        background-image: url('/themes/forbion/images/files-black-bold.svg') !important;
+        content: '';
+        width: 19px;
+        height: 19px;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -85,18 +160,7 @@ body .app-talk{
     & .material-design-icon.folder-multiple-image-icon > svg {
         display: none;
     }
-    & .material-design-icon.account-multiple-icon:after {
-        background-image: url('/themes/forbion/images/users.svg') !important;
-        content: '';
-        width: 20px;
-        height: 20px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .material-design-icon.account-multiple-icon > svg {
-        display: none;
-    }
+
     & .material-design-icon.microphone-icon:after {
         background-image: url('/themes/forbion/images/mic.svg') !important;
         content: '';
@@ -109,18 +173,7 @@ body .app-talk{
     & .material-design-icon.microphone-icon > svg {
         display: none;
     }
-    & .material-design-icon.emoticon-outline-icon:after {
-        background-image: url('/themes/forbion/images/smile-black.svg') !important;
-        content: '';
-        width: 20px;
-        height: 20px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    & .material-design-icon.emoticon-outline-icon > svg {
-        display: none;
-    }
+
     & .material-design-icon.send-icon:after {
         background-image: url('/themes/forbion/images/plane.svg') !important;
         content: '';
@@ -252,7 +305,7 @@ body .app-talk{
 .app-talk .left-sidebar__settings-button-container .material-design-icon__svg > path{
     fill: #808080;
 }
-.app-talk:not(.in-call) .button-vue--text-only .button-vue__text{
+.button-vue--text-only .button-vue__text{
     margin: unset !important;
     color: #FCFEFC;
 }
@@ -283,7 +336,18 @@ body .app-talk{
     right: -30px;
     width: calc(100% - 30px);
 }
-.app-talk:not(.in-call) .app-sidebar__toggle {
+#body-public .app-talk .app-sidebar__toggle {
+    inset-block-start: calc(var(--app-sidebar-padding) ) !important;
+    inset-inline-end: calc(var(--app-sidebar-padding) + var(--sidebar-pad)) !important;
+}
+#body-public .app-talk.in-call .top-bar.top-bar--in-call {
+    padding-top: 0 !important;
+    right: 0 !important;
+}
+#body-public .app-talk:not(.in-call) .top-bar {
+    top: 4px !important;
+}
+#body-user .app-talk:not(.in-call) .app-sidebar__toggle {
     inset-block-start: calc(var(--app-sidebar-padding) + 20px) !important;
     inset-inline-end: calc(var(--app-sidebar-padding) + 20px + var(--sidebar-pad)) !important;
 }
@@ -455,6 +519,15 @@ body .app-talk{
     border-radius: 8px !important;
 
 }
+.top-bar-outer {
+    background-color: var(--color-main-background-blur) !important;
+    width: calc(100% - 60px);
+    height: 40px !important;
+    display: flex;
+    align-items: center !important;
+    border-radius: 8px !important;
+
+}
 .top-bar-outer .conversation-icon__avatar {
     /*top: -6px;*/
     left: -10px;
@@ -488,7 +561,10 @@ body .app-talk{
     min-height: 40px !important;
 }
 .app-talk:not(.in-call) .top-bar--authorised .conversation-icon {
-    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 17px) !important;
+    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 8px) !important;
+}
+.app-talk.in-call .top-bar--authorised .conversation-icon {
+    margin-left: 4px;
 }
 
 .app-talk:not(.in-call) .app-sidebar-header__desc.app-sidebar-header__desc--without-actions {
@@ -802,6 +878,12 @@ body .app-talk{
         /*height: calc(100% - 80px) !important;*/
     }
 
+    & .new-group-conversation__content {
+        & .input-field__main-wrapper {
+            --default-clickable-area: 40px !important;
+        }
+    }
+
     & #call_button.button-vue--vue-primary:after {
         content: '';
         position: absolute;
@@ -987,16 +1069,17 @@ body .app-talk{
 
 }
 .app-talk.in-call .top-bar.top-bar--in-call {
-    padding-top: 8px !important;
+    /*padding-top: 8px !important;*/
 }
 .app-talk.in-call .top-bar.top-bar--in-call .conversation-header__text {
     color: #E0E0E0;
 }
 .app-talk.in-call .app-sidebar__toggle {
+    --sidebar-pad: 0px !important;
     /*inset-block-start: calc(var(--app-sidebar-padding) + 47px) !important;*/
     /*inset-inline-end: 26px !important;*/
-    inset-block-start: calc(var(--app-sidebar-padding) + 40px) !important;
-    inset-inline-end: calc(var(--app-sidebar-padding) + 44px + var(--sidebar-pad)) !important;
+    inset-block-start: calc(var(--app-sidebar-padding) + 26px) !important;
+    inset-inline-end: calc(var(--app-sidebar-padding) + 25px + var(--sidebar-pad)) !important;
 }
 .app-talk.in-call .app-sidebar__toggle .material-design-icon__svg > path {
     fill: #808080;
@@ -1012,8 +1095,8 @@ body .app-talk{
     left: 5px !important;
 }
 .app-talk.in-call .overlap-icon {
-    top: 10px !important;
-    left: 10px !important;
+    top: 5px !important;
+    left: 5px !important;
 }
 /* Стили для .modal-mask */
 .app-talk ~ .modal-mask,
@@ -1118,9 +1201,11 @@ body .app-talk{
     & .button-vue--vue-secondary {
         padding: 8px !important;
         min-width: 40px;
+        color: #F5F5F5;
     }
     & .button-vue--vue-secondary:hover {
-        background-color: #F5F5F5 !important;
+        /*background-color: #F5F5F5 !important;*/
+        background-color: var(--color-primary) !important;
     }
 
     & .v-select.select.vs--open .vs__dropdown-toggle {
@@ -1179,6 +1264,7 @@ body .app-talk{
     }
     & #call_button.button-vue--vue-primary  {
         padding: 7px 45px 8px 6px !important;
+        color: #FFFFFF !important;
     }
     & .button-vue--vue-primary  {
         padding: 7px !important;

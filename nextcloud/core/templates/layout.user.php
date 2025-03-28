@@ -55,14 +55,25 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
 
     <link rel="stylesheet" href="/themes/forbion/css/app.css">
 
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/mail') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-mail/_app-mail.css"><?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/files') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-files/_app-files.css"><?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/calendar') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-calendar/_app-calendar.css"><?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/spreed') !== false || strpos($_SERVER['REQUEST_URI'], '/call') !== false) { ?>
-        <link rel="stylesheet" href="/themes/forbion/css/pages/app-spreed/_app-spreed.css">
-    <?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/apps/contacts') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/app-contacts/_app-contacts.css"><?php } ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/settings') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/page-settings/_page-settings.css"><?php } ?>
+    <?php
+    $cssMapping = [
+        '/apps/mail' => '/themes/forbion/css/pages/app-mail/_app-mail.css',
+        '/apps/files' => '/themes/forbion/css/pages/app-files/_app-files.css',
+        '/apps/calendar' => '/themes/forbion/css/pages/app-calendar/_app-calendar.css',
+        '/apps/contacts' => '/themes/forbion/css/pages/app-contacts/_app-contacts.css',
+        '/settings' => '/themes/forbion/css/pages/page-settings/_page-settings.css',
+        '/apps/spreed' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
+        '/call' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css'
+    ];
+
+    $currentUri = $_SERVER['REQUEST_URI'] ?? '';
+    foreach ($cssMapping as $path => $cssFile) {
+        if (strpos($currentUri, $path) !== false) {
+            echo '<link rel="stylesheet" href="' . htmlspecialchars($cssFile) . '">';
+            if ($path === '/apps/spreed' || $path === '/call') break;
+        }
+    }
+    ?>
 
     <script nonce="<?=$nonceManager->getNonce()?>" src="/themes/forbion/js/scripts.js"></script>
 </head>

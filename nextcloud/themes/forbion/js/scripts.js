@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //axe
 document.addEventListener('DOMContentLoaded', () => {
-    // console.log("DOMContentLoaded");
-
-    let elements = {
+    // Конфигурация элементов
+    const elements = {
+        appTalk: null,
         topBarOuter: null,
         topBar: null,
         topBarWrapper: null,
@@ -65,131 +65,203 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarToggle: null,
         emptyTopBar: null
     };
-    let isUpdating = false; // Флаг для предотвращения рекурсии
-    let resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-            updateTopBarWidth();
-        }
-    });
 
-    // Функция для обновления ссылок на элементы
+    // Состояние приложения
+    const state = {
+        isUpdating: false,
+        inCall: false,
+        isNavClosed: false,
+        observers: {
+            resize: null,
+            topBar: null,
+            dom: null
+        },
+        flags: {
+            resizeObserving: false,
+            listenersAttached: false
+        }
+    };
+
+    // Инициализация наблюдателей
+    const initObservers = () => {
+        // ResizeObserver для отслеживания изменений размеров
+        state.observers.resize = new ResizeObserver(() => {
+            if (!state.isUpdating) updateLayout();
+        });
+
+        // MutationObserver для отслеживания изменений класса top-bar
+        state.observers.topBar = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                if (mutation.attributeName === 'class') {
+                    const newCallStatus = mutation.target.classList.contains('top-bar--in-call');
+                    if (newCallStatus !== state.inCall) {
+                        state.inCall = newCallStatus;
+                        console.log('Call status changed:', state.inCall);
+                        updateLayout();
+                    }
+                }
+            });
+        });
+
+        // MutationObserver для общих изменений DOM
+        state.observers.dom = new MutationObserver(() => {
+            setupEventListeners();
+            updateLayout();
+        });
+    };
+
+    // Обновление ссылок на DOM-элементы
     const updateElements = () => {
-        elements.topBarOuter = document.querySelector('.app-talk:not(.in-call) .top-bar-outer');
-        elements.topBar = document.querySelector('.app-talk:not(.in-call) .top-bar');
+        elements.appTalk = document.querySelector('.app-talk');
+        elements.topBarOuter = document.querySelector('.app-talk .top-bar-outer');
+        elements.topBar = document.querySelector('.app-talk .top-bar');
         elements.topBarWrapper = document.querySelector('.app-talk:not(.in-call) .top-bar__wrapper');
-        elements.rightSidebarClose = document.querySelector('.app-talk:not(.in-call) .app-sidebar__close');
+        elements.rightSidebarClose = document.querySelector('.app-talk .app-sidebar__close');
         elements.leftSidebarToggle = document.querySelector('.app-talk:not(.in-call) .app-navigation-toggle-wrapper');
         elements.leftSidebarButtons = document.querySelector('.app-talk:not(.in-call) .vue-recycle-scroller__item-wrapper');
         elements.appNavigation = document.querySelector('.app-talk:not(.in-call) .app-navigation');
-        elements.sidebarToggle = document.querySelector('.app-talk .app-sidebar__toggle');
+        elements.sidebarToggle = document.querySelector('.app-talk:not(.in-call) .app-sidebar__toggle');
         elements.emptyTopBar = document.querySelector('.app-talk:not(.in-call) .emptyTopBar');
+
+        // Обновляем состояние навигации
+        if (elements.appNavigation) {
+            state.isNavClosed = elements.appNavigation.classList.contains('app-navigation--close');
+        }
+
+        // Настраиваем наблюдение за top-bar
+        if (elements.topBar && !elements.topBar.isObserved) {
+            state.observers.topBar.observe(elements.topBar, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+            elements.topBar.isObserved = true;
+            state.inCall = elements.topBar.classList.contains('top-bar--in-call');
+        }
     };
 
     // Основная функция обновления ширины
-    const updateTopBarWidth = () => {
-        if (isUpdating) return;
-        isUpdating = true;
+    const updateLayout = () => {
+        if (state.isUpdating) return;
+        state.isUpdating = true;
 
-        updateElements(); // Обновляем ссылки на элементы перед использованием
+        updateElements();
 
         if (elements.topBarWrapper) {
             const testWidth = parseFloat(getComputedStyle(elements.topBarWrapper).width);
-            const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
 
-            elements.topBar.style.right = isNavClosed ? '0px' : '-60px';
+            // Применяем стили в зависимости от состояния звонка
+            if (elements.topBar) {
+                elements.topBar.style.right = state.isNavClosed ? '0px' : '-60px';
+            }
 
             if (testWidth <= 3) {
-                elements.topBarOuter.style.width = isNavClosed ? '100%' : 'calc(100% - 60px)';
-                if (elements.leftSidebarToggle) {
-                    elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                        ? 'calc(32px - var(--app-navigation-padding)) !important'
-                        : 'calc(var(--app-navigation-padding))';
-                }
-                if (elements.sidebarToggle) {
-                    elements.sidebarToggle.style.setProperty('--sidebar-pad', `${testWidth}px`);
-                }
+                applyCompactLayout(testWidth);
             } else {
-                elements.topBarOuter.style.width = isNavClosed
-                    ? `calc(100% - ${testWidth}px - 8px)`
-                    : `calc(100% - ${testWidth}px - 68px)`;
-                if (elements.leftSidebarToggle) {
-                    elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                        ? 'calc(32px - var(--app-navigation-padding)) !important'
-                        : 'calc(var(--app-navigation-padding))';
-                }
-                if (elements.sidebarToggle) {
-
-                    if (isNavClosed) {
-                        elements.sidebarToggle.style.setProperty('--sidebar-pad', `calc(${testWidth}px + 8px)`);
-                    } else {
-                        elements.sidebarToggle.style.setProperty('--sidebar-pad', `calc(${testWidth}px + 8px)`);
-                    }
-
-                }
+                applyNormalLayout(testWidth);
             }
         } else {
-            // console.log("topBarWrapper отсутствует");
-            const isNavClosed = elements.appNavigation?.classList.contains('app-navigation--close');
-
-            if (elements.emptyTopBar){
-                elements.emptyTopBar.style.left = isNavClosed ? '54px' : '94px';
-                elements.emptyTopBar.style.width = isNavClosed ? 'calc(100% - 54px)' : 'calc(100% - 94px)';
-            }
-
-            if (elements.leftSidebarToggle) {
-                elements.leftSidebarToggle.style.insetInlineEnd = isNavClosed
-                    ? 'calc(28px - var(--app-navigation-padding)) !important'
-                    : 'calc(-26px - var(--app-navigation-padding)) !important';
-            }
+            applyFallbackLayout();
         }
 
-        isUpdating = false;
+        state.isUpdating = false;
     };
 
-    // Функция для настройки наблюдателей и событий
-    const setupObserversAndEvents = () => {
-        updateElements();
-
-        // Настройка ResizeObserver
-        if (elements.topBarWrapper && !resizeObserver.observing) {
-            resizeObserver.observe(elements.topBarWrapper);
-            resizeObserver.observing = true; // Флаг, чтобы не дублировать наблюдение
+    // Функции для разных режимов layout
+    const applyCompactLayout = (testWidth) => {
+        if (elements.topBarOuter) {
+            elements.topBarOuter.style.width = state.isNavClosed ? '100%' : 'calc(100% - 60px)';
         }
 
-        // Привязка обработчиков событий
+        if (elements.leftSidebarToggle) {
+            elements.leftSidebarToggle.style.insetInlineEnd = state.isNavClosed
+                ? 'calc(32px - var(--app-navigation-padding)) !important'
+                : 'calc(var(--app-navigation-padding))';
+        }
+
+        if (elements.sidebarToggle) {
+            elements.sidebarToggle.style.setProperty('--sidebar-pad', `${testWidth}px`);
+        }
+    };
+
+    const applyNormalLayout = (testWidth) => {
+        if (elements.topBarOuter) {
+            elements.topBarOuter.style.width = state.isNavClosed
+                ? `calc(100% - ${testWidth}px - 8px)`
+                : `calc(100% - ${testWidth}px - 68px)`;
+        }
+
+        if (elements.leftSidebarToggle) {
+            elements.leftSidebarToggle.style.insetInlineEnd = state.isNavClosed
+                ? 'calc(32px - var(--app-navigation-padding)) !important'
+                : 'calc(var(--app-navigation-padding))';
+        }
+
+        if (elements.sidebarToggle) {
+            const sidebarPad = state.inCall
+                ? `calc(${testWidth}px + 8px)`
+                : `calc(${testWidth}px)`;
+            elements.sidebarToggle.style.setProperty('--sidebar-pad', sidebarPad);
+        }
+    };
+
+    const applyFallbackLayout = () => {
+        if (elements.emptyTopBar) {
+            elements.emptyTopBar.style.left = state.isNavClosed ? '54px' : '94px';
+            elements.emptyTopBar.style.width = state.isNavClosed ? 'calc(100% - 54px)' : 'calc(100% - 94px)';
+        }
+
+        if (elements.leftSidebarToggle) {
+            elements.leftSidebarToggle.style.insetInlineEnd = state.isNavClosed
+                ? 'calc(28px - var(--app-navigation-padding)) !important'
+                : 'calc(-26px - var(--app-navigation-padding)) !important';
+        }
+    };
+
+    // Настройка обработчиков событий
+    const setupEventListeners = () => {
         if (elements.rightSidebarClose && !elements.rightSidebarClose.hasListener) {
-            elements.rightSidebarClose.addEventListener('click', () => {
-                // console.log('rightSidebarClose clicked');
-                updateTopBarWidth();
-            });
+            elements.rightSidebarClose.addEventListener('click', updateLayout);
             elements.rightSidebarClose.hasListener = true;
         }
 
         if (elements.leftSidebarButtons && !elements.leftSidebarButtons.hasListener) {
-            elements.leftSidebarButtons.addEventListener('click', () => {
-                updateTopBarWidth();
-            });
+            elements.leftSidebarButtons.addEventListener('click', updateLayout);
             elements.leftSidebarButtons.hasListener = true;
         }
 
         if (elements.leftSidebarToggle && !elements.leftSidebarToggle.hasListener) {
-            elements.leftSidebarToggle.addEventListener('click', () => {
-                updateTopBarWidth();
-            });
+            elements.leftSidebarToggle.addEventListener('click', updateLayout);
             elements.leftSidebarToggle.hasListener = true;
         }
-
-        updateTopBarWidth(); // Первоначальное обновление
     };
 
-    // Отслеживание изменений в DOM
-    const mutationObserver = new MutationObserver(() => {
-        setupObserversAndEvents();
-    });
-    // mutationObserver.observe(document.body, { childList: true, subtree: true });
+    // Инициализация ResizeObserver
+    const setupResizeObserver = () => {
+        if (elements.topBarWrapper && !state.flags.resizeObserving) {
+            state.observers.resize.observe(elements.topBarWrapper);
+            state.flags.resizeObserving = true;
+        }
+    };
 
-    // Первоначальная настройка
-    setupObserversAndEvents();
+    // Основная функция инициализации
+    const initialize = () => {
+        initObservers();
+        updateElements();
+        setupEventListeners();
+        setupResizeObserver();
+        updateLayout();
+
+        // Начинаем наблюдение за изменениями DOM
+        state.observers.dom.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: false,
+            characterData: false
+        });
+    };
+
+    // Запускаем приложение
+    initialize();
 });
 
 
