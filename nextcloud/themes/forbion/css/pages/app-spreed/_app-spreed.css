@@ -161,18 +161,21 @@ body .app-talk{
         display: none;
     }
 
-    & .material-design-icon.microphone-icon:after {
-        background-image: url('/themes/forbion/images/mic.svg') !important;
-        content: '';
-        width: 20px;
-        height: 20px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+    & .top-bar:not(.top-bar--in-call) {
+        & .material-design-icon.microphone-icon:after {
+            background-image: url('/themes/forbion/images/mic.svg') !important;
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        & .material-design-icon.microphone-icon > svg {
+            display: none;
+        }
     }
-    & .material-design-icon.microphone-icon > svg {
-        display: none;
-    }
+
 
     & .material-design-icon.send-icon:after {
         background-image: url('/themes/forbion/images/plane.svg') !important;
