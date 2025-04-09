@@ -2242,6 +2242,7 @@ ul.vs__dropdown-menu--floating[role="listbox"] {
         padding: 5px 0;
         overflow: visible;
     }
+
     .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb] {
         overflow: visible !important;
     }
@@ -2253,6 +2254,13 @@ ul.vs__dropdown-menu--floating[role="listbox"] {
     }
     .modal-mask.dialog__modal[data-v-e79a4708] .modal-wrapper.modal-wrapper--small .modal-container {
         min-width: 490px !important;
+    }
+    .modal-mask[data-v-cc9100bb] .modal-wrapper .modal-container[data-v-cc9100bb]:has(.onlyoffice-modal__frame) {
+        overflow: hidden !important;
+        /*padding: 0 !important;*/
+        max-height: 955px !important;
+        max-width: 100vw !important;
+        width: 1200px !important;
     }
 }
 

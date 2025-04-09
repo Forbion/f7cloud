@@ -457,9 +457,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `[data-v-8ecdffca] #app-content-vue {
   position: sticky;
   top: 0;
   align-self: flex-start;
-  padding-top: 20px;
+  padding-top: 0;
   min-width: 220px;
-  margin: -150px 20px 0 0;
+  margin: 0 20px 0 0;
 }
 .profile__sidebar[data-v-8ecdffca] .avatar.avatardiv {
   text-align: center;
@@ -1394,4 +1394,4 @@ render._withStripped = true
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=core-profile.js.map?v=0bfe331b774e3d8ba8a6
+//# sourceMappingURL=core-profile.js.map?v=8a8bf05a552454073d26

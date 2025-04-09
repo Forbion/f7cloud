@@ -192,6 +192,10 @@
 #header.header-new .user-control__header #user-menu .header-menu__wrapper {
     top: 65px !important;
     right: 5%;
+
+    & .list-item__wrapper[data-v-a3ec46a7]:first-of-type {
+        display: none;
+    }
 }
 
 #header.header-new .user-control__header button {

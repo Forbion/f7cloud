@@ -76,6 +76,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     ?>
 
     <script nonce="<?=$nonceManager->getNonce()?>" src="/themes/forbion/js/scripts.js"></script>
+    <script type="text/javascript" src="https://only.forbion.ru/web-apps/apps/api/documents/api.js"></script>
 </head>
 <body id="<?php p($_['bodyid']);?>" <?php foreach ($_['enabledThemes'] as $themeId) {
     p("data-theme-$themeId ");
@@ -87,8 +88,10 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php if ($_['id-app-content'] !== null) { ?><a href="<?php p($_['id-app-content']); ?>" class="button primary skip-navigation skip-content"><?php p($l->t('Skip to main content')); ?></a><?php } ?>
     <?php if ($_['id-app-navigation'] !== null) { ?><a href="<?php p($_['id-app-navigation']); ?>" class="button primary skip-navigation"><?php p($l->t('Skip to navigation of app')); ?></a><?php } ?>
 </div>
-
-<header id="header" class="header-new">
+<?php
+$headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="display: none;"' : '';
+?>
+<header id="header" class="header-new" <?= $headerStyle ?>>
     <div class="l-wrapper">
         <a href="/" class="logo__header">
             <svg xmlns="http://www.w3.org/2000/svg" width="205" height="47" viewBox="0 0 205 47" fill="none">
@@ -403,12 +406,13 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
 <!--            </ul>-->
         </nav>
         <div class="user-control__header">
-            <div class="header-right">
-            </div>
+<!--            <div class="header-right">-->
+<!--            </div>-->
             <div class="unified-search__wrapper">
                 <div id="unified-search"></div>
             </div>
-            <a href="/u/<?php p($_['user_uid']);?>" class="name__user">
+<!--            <a href="/u/--><?php //p($_['user_uid']);?><!--" class="name__user">-->
+            <a class="name__user" style="cursor: default;">
                 <?php p($_['user_uid']); ?>
             </a>
             <div id="user-menu"></div>

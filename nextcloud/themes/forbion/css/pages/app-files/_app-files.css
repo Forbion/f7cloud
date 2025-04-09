@@ -704,6 +704,14 @@ body .app-files {
                                 /*button-vue__wrapper*/
     & .files-list__row-action-sharing-status {
 
+        width: 150px !important;
+        margin-right: -25px !important;
+        padding: 0 !important;
+
+        & .button-vue__wrapper {
+            width: 150px;
+        }
+
         & .button-vue__wrapper:not(:has(.button-vue__text)) .icon-vue::after {
             background-image: url('/themes/forbion/images/users-gray.svg');
             content: '';
@@ -712,6 +720,9 @@ body .app-files {
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+        }
+        & .button-vue__wrapper:not(:has(.button-vue__text))::after {
+            content: 'Поделиться';
         }
 
         & .button-vue__wrapper:has(.button-vue__text) .icon-vue::after {
@@ -723,6 +734,10 @@ body .app-files {
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+        }
+        & .button-vue__wrapper:has(.button-vue__text)::after {
+            content: 'Поделиться';
+            color: #6fb52b;
         }
 
         & .button-vue__wrapper .button-vue__text {

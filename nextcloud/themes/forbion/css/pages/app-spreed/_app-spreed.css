@@ -485,7 +485,7 @@ body .app-talk{
 
 }
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper #call_button.button-vue--vue-primary:after {
-    content: '';
+    /*content: '';*/
     position: absolute;
     top: 0;
     right: 37px;
@@ -495,7 +495,7 @@ body .app-talk{
     pointer-events: none;
 }
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper #call_button.button-vue--vue-primary:before {
-    content: '';
+    /*content: '';*/
     position: absolute;
     top: 50%;
     right: 12px;
@@ -507,7 +507,8 @@ body .app-talk{
     pointer-events: none;
 }
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary  {
-    padding: 7px 45px 8px 6px !important;
+    /*padding: 7px 45px 8px 6px !important;*/
+    padding: 6px 8px 6px 8px !important;
 }
 .app-navigation--close .top-bar-outer {
     width: calc(100%) !important;
@@ -1098,8 +1099,8 @@ body .app-talk{
     left: 5px !important;
 }
 .app-talk.in-call .overlap-icon {
-    top: 5px !important;
-    left: 5px !important;
+    top: -2px !important;
+    left: 15px !important;
 }
 /* Стили для .modal-mask */
 .app-talk ~ .modal-mask,

@@ -195,6 +195,12 @@ body#body-user {
 
             & .profile__header__container__displayname {
                 margin-block: 200px 0;
+                display: flex;
+                justify-content: center;
+                margin-right: 20px;
+                & > a {
+                    display: none;
+                }
             }
         }
     }
@@ -202,12 +208,15 @@ body#body-user {
 
         & .profile__content {
             & .profile__sidebar {
-                position: relative;
-                padding-top: 260px;
+                /*position: relative;*/
+                /*padding-top: 260px;*/
                 width: 100%;
+                margin-bottom: 180px;
+                margin-top: 120px;
 
                 & .user-actions[data-v-8ecdffca] {
                     margin-top: 70px;
+                    display: none;
                 }
             }
             & .profile__blocks[data-v-8ecdffca] {
