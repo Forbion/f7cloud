@@ -5143,16 +5143,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     startRenaming() {
       this.$nextTick(() => {
-        // Using split to get the true string length
         const input = this.$refs.renameInput?.$el.querySelector('input');
         if (!input) {
           _logger_ts__WEBPACK_IMPORTED_MODULE_8__["default"].error('Could not find the rename input');
           return;
         }
         input.focus();
-        const length = this.source.basename.length - (this.source.extension ?? '').length;
-        input.setSelectionRange(0, length);
-        // Trigger a keyup event to update the input validity
+        const cursorPosition = input.value.length;
+        input.setSelectionRange(cursorPosition, cursorPosition);
         input.dispatchEvent(new Event('keyup'));
       });
     },
@@ -8560,7 +8558,7 @@ var render = function render() {
     ref: "renameInput",
     attrs: {
       label: _vm.renameLabel,
-      autofocus: true,
+      autofocus: false,
       minlength: 1,
       required: true,
       value: _vm.newName,
@@ -9550,7 +9548,6 @@ var render = function render() {
           staticClass: "files-list__header-upload-button--disabled",
           attrs: {
             "aria-label": _vm.cantUploadLabel,
-            style: "display: none;",
             title: _vm.cantUploadLabel,
             disabled: true,
             type: "secondary"
@@ -9908,9 +9905,6 @@ var render = function render() {
       }
     })];
   })], 2) : _vm._e(), _vm._v(" "), _c("NcAppSettingsSection", {
-    staticStyle: {
-      display: "none"
-    },
     attrs: {
       id: "webdav",
       name: _vm.t("files", "WebDAV")
@@ -21137,4 +21131,4 @@ function debounce (delay, callback, options) {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=files-main.js.map?v=f64ff398cca04390bc94
+//# sourceMappingURL=files-main.js.map?v=f9f76186192b85417fb0

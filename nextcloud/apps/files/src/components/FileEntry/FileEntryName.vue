@@ -12,7 +12,7 @@
 		@submit.prevent.stop="onRename">
 		<NcTextField ref="renameInput"
 			:label="renameLabel"
-			:autofocus="true"
+			:autofocus="false"
 			:minlength="1"
 			:required="true"
 			:value.sync="newName"
@@ -205,22 +205,19 @@ export default defineComponent({
 			return this.nodes.find(node => node.basename === name && node !== this.source)
 		},
 
-		startRenaming() {
-			this.$nextTick(() => {
-				// Using split to get the true string length
-				const input = (this.$refs.renameInput as Vue|undefined)?.$el.querySelector('input')
-				if (!input) {
-					logger.error('Could not find the rename input')
-					return
-				}
-				input.focus()
-				const length = this.source.basename.length - (this.source.extension ?? '').length
-				input.setSelectionRange(0, length)
-
-				// Trigger a keyup event to update the input validity
-				input.dispatchEvent(new Event('keyup'))
-			})
-		},
+    startRenaming() {
+      this.$nextTick(() => {
+        const input = (this.$refs.renameInput as Vue|undefined)?.$el.querySelector('input')
+        if (!input) {
+          logger.error('Could not find the rename input')
+          return
+        }
+        input.focus()
+        const cursorPosition = input.value.length
+        input.setSelectionRange(cursorPosition, cursorPosition)
+        input.dispatchEvent(new Event('keyup'))
+      })
+    },
 
 		stopRenaming() {
 			if (!this.isRenaming) {
