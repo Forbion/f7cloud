@@ -1,18 +1,2 @@
-/******/ (() => { // webpackBootstrap
-/*!*****************************!*\
-  !*** ./src/autoredirect.js ***!
-  \*****************************/
-/**
- * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-  const linkEl = document.getElementById('redirectLink');
-  if (linkEl) {
-    linkEl.click();
-  }
-});
-/******/ })()
-;
+document.addEventListener("DOMContentLoaded",(()=>{const e=document.getElementById("redirectLink");e&&e.click()}));
 //# sourceMappingURL=autoredirect.js.map

@@ -49,6 +49,15 @@
 				{{ t('mail', 'Please connect to a sieve server first.') }}
 			</p>
 		</AppSettingsSection>
+    <AppSettingsSection v-if="account && account.sieveEnabled"
+                        id="sieve-filter"
+                        :name="t('mail', 'Sieve script editor')">
+      <div id="sieve-filter">
+        <SieveFilterForm :key="account.accountId"
+                         ref="sieveFilterForm"
+                         :account="account" />
+      </div>
+    </AppSettingsSection>
 		<AppSettingsSection v-if="account && !account.provisioningId"
 			id="mail-server"
 			:name="t('mail', 'Mail server')">
@@ -160,6 +169,10 @@ export default {
 			this.trapElements.push(element)
 		},
 	},
+  mounted() {
+    console.log('account');
+    console.log(this.account);
+  },
 }
 </script>
 

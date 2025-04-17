@@ -696,7 +696,7 @@ OC.L10N.register(
     "Error while sharing file" : "Ошибка сохранения файла",
     "{from}\n{subject}" : "{from}\n{subject}",
     "_%n new message \nfrom {from}_::_%n new messages \nfrom {from}_" : ["%n новое сообщение \nот {from}","%n новых сообщения \nот {from}","%n новых сообщений \nот {from}","%n новых сообщений \nот {from}"],
-    "Nextcloud Mail" : "Почта Nextcloud",
+    "Nextcloud Mail" : "Почта",
     "There is already a message in progress. All unsaved changes will be lost if you continue!" : "Сообщение уже находится в обработке. Если вы продолжите, все несохраненные изменения будут потеряны!",
     "Discard changes" : "Отменить изменения",
     "Discard unsaved changes" : "Отменить несохраненные изменения",

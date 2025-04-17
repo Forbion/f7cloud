@@ -4,32 +4,32 @@
 -->
 
 <template>
-	<div class="attachment" :class="{'message-attachment--can-preview': canPreview }">
-		<div class="mail-attachment-img--wrapper" @click="$emit('open', $event)">
+	<div class="attachment" :class="{'message-attachment--can-preview': canPreview || isOfficeDocument }">
+		<div class="mail-attachment-img--wrapper" @click="openAttachment">
 			<img v-if="isImage"
-				class="mail-attached-image"
-				:src="url">
+				 class="mail-attached-image"
+				 :src="url">
 			<img v-else class="attachment-icon" :src="mimeUrl">
 		</div>
-		<div class="mail-attached--content" @click="$emit('open', $event)">
+		<div class="mail-attached--content" @click="openAttachment">
 			<span class="attachment-name"
-				:title="label">{{ name }}
+				  :title="label">{{ name }}
 			</span>
 			<span class="attachment-size">{{ humanReadable(size) }}</span>
 		</div>
 		<FilePicker v-if="isFilePickerOpen"
-			:title="t('mail', 'Choose a folder to store the attachment in')"
-			:buttons="saveAttachementButtons"
-			:allow-pick-directory="true"
-			:multiselect="false"
-			:mimetype-filter="['httpd/unix-directory']"
-			@close="()=>isFilePickerOpen = false" />
+					:title="t('mail', 'Choose a folder to store the attachment in')"
+					:buttons="saveAttachementButtons"
+					:allow-pick-directory="true"
+					:multiselect="false"
+					:mimetype-filter="['httpd/unix-directory']"
+					@close="()=>isFilePickerOpen = false" />
 		<Actions :boundaries-element="boundariesElement">
 			<template v-if="!showCalendarPopover">
 				<ActionButton v-if="isCalendarEvent"
-					class="attachment-import calendar"
-					:disabled="loadingCalendars"
-					@click.stop="loadCalendars">
+							  class="attachment-import calendar"
+							  :disabled="loadingCalendars"
+							  @click.stop="loadCalendars">
 					<template #icon>
 						<IconAdd v-if="!loadingCalendars" :size="16" />
 						<IconLoading v-else-if="loadingCalendars" :size="16" />
@@ -37,15 +37,15 @@
 					{{ t('mail', 'Import into calendar') }}
 				</ActionButton>
 				<ActionButton class="attachment-download"
-					@click="download">
+							  @click="download">
 					<template #icon>
 						<IconDownload :size="16" />
 					</template>
 					{{ t('mail', 'Download attachment') }}
 				</ActionButton>
 				<ActionButton class="attachment-save-to-cloud"
-					:disabled="savingToCloud"
-					@click.stop="()=>isFilePickerOpen = true">
+							  :disabled="savingToCloud"
+							  @click.stop="()=>isFilePickerOpen = true">
 					<template #icon>
 						<IconSave v-if="!savingToCloud" :size="16" />
 						<IconLoading v-else-if="savingToCloud" :size="16" />
@@ -61,12 +61,31 @@
 					{{ t('mail', 'Go back') }}
 				</ActionButton>
 				<ActionButton v-for="entry in calendarMenuEntries"
-					:key="entry.text"
-					@click="entry.action">
+							  :key="entry.text"
+							  @click="entry.action">
 					{{ entry.text }}
 				</ActionButton>
 			</template>
 		</Actions>
+		<NcModal v-if="showOnlyOfficeModal"
+				 @close="closeOnlyOfficeModal"
+				 :title="name"
+				 size="large">
+			<div class="onlyoffice-modal__container">
+				<div v-if="isOnlyOfficeLoading" class="onlyoffice-modal__loading">
+					<IconLoading :size="32" />
+					<span>{{ t('mail', 'Loading document...') }}</span>
+				</div>
+
+				<iframe v-if="tempFileInfo && !isOnlyOfficeLoading"
+						:src="getFileUrl(tempFileInfo.id)"
+						class="onlyoffice-modal__frame"
+						@load="handleOnlyOfficeLoaded"
+						allow="clipboard-write; clipboard-read"
+						allowfullscreen
+				></iframe>
+			</div>
+		</NcModal>
 	</div>
 </template>
 
@@ -89,10 +108,17 @@ import Logger from '../logger.js'
 import { downloadAttachment, saveAttachmentToFiles } from '../service/AttachmentService.js'
 import { getUserCalendars, importCalendarEvent } from '../service/DAVService.js'
 
+import { NcModal } from '@nextcloud/vue'
+import { generateUrl } from '@nextcloud/router'
+
+import { getRequestToken } from '@nextcloud/auth'
+import axios from '@nextcloud/axios'
+
 export default {
 	name: 'MessageAttachment',
 	components: {
 		FilePicker,
+		NcModal,
 		Actions,
 		ActionButton,
 		IconAdd,
@@ -155,9 +181,28 @@ export default {
 				},
 			],
 			isFilePickerOpen: false,
+			showOnlyOfficeModal: false,
+			isOnlyOfficeLoading: false,
+			tempFileId: null,
+			tempFileUrl: null,
+			tempFileInfo: null,
 		}
 	},
 	computed: {
+		isOfficeDocument() { //this
+			const officeMimeTypes = [
+				'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+				'application/msword',
+				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				'application/vnd.ms-excel',
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				'application/vnd.ms-powerpoint',
+				'text/rtf',
+				'text/plain',
+				'application/rtf',
+			]
+			return officeMimeTypes.includes(this.mime)
+		},
 		name() {
 			if (this.mime === 'message/rfc822') {
 				return t('mail', 'Embedded message')
@@ -183,6 +228,160 @@ export default {
 		},
 	},
 	methods: {
+		getFileUrl(fileId) {
+			return generateUrl(`/apps/files/files/${fileId}?dir=/Temp&openfile=true&iframe=true`)
+		},
+		async ensureTempDirectoryExists() {
+			try {
+				// Просто проверяем существование папки
+				await axios.request({
+					method: 'PROPFIND',
+					url: generateUrl(`/remote.php/dav/files/${OC.currentUser}/Temp`),
+					headers: {
+						'Depth': '0',
+						'Authorization': `Bearer ${getRequestToken()}`
+					}
+				});
+			} catch (e) {
+				// Если папки нет, создаем ее
+				if (e.response?.status === 404) {
+					await axios.request({
+						method: 'MKCOL',
+						url: generateUrl(`/remote.php/dav/files/${OC.currentUser}/Temp`),
+						headers: {
+							'Authorization': `Bearer ${getRequestToken()}`
+						}
+					});
+				}
+			}
+		},
+		async getOnlyOfficeFrameUrl() {
+			if (!this.isOfficeDocument) return null;
+
+			try {
+				// 1. Загружаем файл как blob
+				const response = await axios.get(this.url, {
+					responseType: 'blob',
+					headers: {
+						'Authorization': `Bearer ${getRequestToken()}`
+					}
+				});
+
+				// 2. Создаем временный файл через DAV API
+				const tempFileName = `temp_${Date.now()}_${this.fileName}`;
+				const tempPath = `/Temp/${tempFileName}`;
+
+				// 3. Загружаем файл через WebDAV PUT
+				await axios.put(
+					generateUrl(`/remote.php/dav/files/${OC.currentUser}${tempPath}`),
+					response.data,
+					{
+						headers: {
+							'Content-Type': this.mime,
+							'Authorization': `Bearer ${getRequestToken()}`,
+							'X-Requested-With': 'XMLHttpRequest'
+						}
+					}
+				);
+
+				// 4. Получаем fileid через PROPFIND
+				const propfindResponse = await axios.request({
+					method: 'PROPFIND',
+					url: generateUrl(`/remote.php/dav/files/${OC.currentUser}${tempPath}`),
+					headers: {
+						'Depth': '0',
+						'Authorization': `Bearer ${getRequestToken()}`,
+						'Content-Type': 'application/xml; charset=utf-8'
+					},
+					data: `<?xml version="1.0"?>
+                <d:propfind xmlns:d="DAV:">
+                    <d:prop>
+                        <oc:fileid xmlns:oc="http://owncloud.org/ns"/>
+                    </d:prop>
+                </d:propfind>`
+				});
+
+				// 5. Парсим fileid из XML
+				const parser = new DOMParser();
+				const xmlDoc = parser.parseFromString(propfindResponse.data, "text/xml");
+				const fileId = xmlDoc.getElementsByTagName('oc:fileid')[0].textContent;
+
+				// После парсинга XML
+				if (!fileId) {
+					throw new Error('Could not get file ID from server response');
+				}
+
+				console.log('File uploaded successfully:', {
+					id: fileId,
+					path: tempPath,
+					url: generateUrl(`/apps/files/?fileid=${fileId}&openfile=true`)
+				});
+
+				// Сохраняем информацию о файле
+				this.tempFileInfo = {
+					id: fileId,
+					path: tempPath
+				};
+
+				return generateUrl(`/apps/files/?fileid=${fileId}&openfile=true`);
+
+			} catch (error) {
+				console.error('File upload error:', error);
+				showError(t('mail', 'Failed to prepare document for editing'));
+				return null;
+			}
+		},
+
+		openAttachment() {
+			if (this.isImage || this.mime === 'application/pdf') {
+				this.$emit('open')
+			} else if (this.isOfficeDocument) {
+				this.openInOnlyOfficeModal()
+			} else {
+				this.download()
+			}
+		},
+		async openInOnlyOfficeModal() {
+			if (!this.isOfficeDocument) {
+				showError(t('mail', 'This document type cannot be opened in OnlyOffice'));
+				return;
+			}
+
+			this.isOnlyOfficeLoading = true;
+			this.showOnlyOfficeModal = true;
+
+			try {
+				// Сначала создаем временную папку
+				await this.ensureTempDirectoryExists();
+
+				// Затем получаем URL
+				const frameUrl = await this.getOnlyOfficeFrameUrl();
+				if (!frameUrl) {
+					this.closeOnlyOfficeModal();
+					return;
+				}
+
+				// Обновляем состояние, чтобы показать iframe
+				this.$nextTick(() => {
+					this.isOnlyOfficeLoading = false;
+				});
+
+			} catch (error) {
+				console.error('Error:', error);
+				this.closeOnlyOfficeModal();
+				showError(t('mail', 'Failed to open document'));
+			}
+		},
+
+		handleOnlyOfficeLoaded() {
+			this.isOnlyOfficeLoading = false
+		},
+
+		closeOnlyOfficeModal() {
+			this.showOnlyOfficeModal = false
+			this.isOnlyOfficeLoading = false
+			// Можно добавить здесь удаление временного файла, если нужно
+		},
 		humanReadable(size) {
 			return formatFileSize(size)
 		},
@@ -236,6 +435,44 @@ export default {
 
 <style lang="scss" scoped>
 
+
+.onlyoffice-modal {
+	&__container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 880px;
+		margin-bottom: -110px;
+	}
+
+	&__loading {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		background-color: var(--color-main-background);
+	}
+
+	&__frame {
+		width: 100%;
+		height: 100%;
+		border: none;
+		background: transparent;
+	}
+}
+
+// Увеличим размер модального окна для OnlyOffice
+:deep(.modal-container--large) {
+	max-width: 90%;
+	width: 1200px;
+	height: 90%;
+}
 @media screen and (max-width: 1024px) {
 	.attachment{
 		width: 100% !important;
@@ -250,14 +487,14 @@ export default {
 
 .attachment {
 	height: auto;
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	width: calc(33.3334% - 4px);
-    margin: 2px;
+	margin: 2px;
 	padding: 5px;
-    position: relative;
-    align-items: center;
+	position: relative;
+	align-items: center;
 	flex-grow: 1;
 
 	&:hover {
@@ -298,7 +535,7 @@ export default {
 .mail-attached--content {
 	width: calc(100% - 100px);
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 }
 
 .mail-attached-image {

@@ -1,0 +1,26 @@
+OC.L10N.register(
+    "dashboard",
+    {
+    "Dashboard" : "Tauler",
+    "Dashboard app" : "Aplicació Tauler",
+    "\"{title} icon\"" : "«icona de {title}»",
+    "Customize" : "Personalitza",
+    "Edit widgets" : "Edita els ginys",
+    "Get more widgets from the App Store" : "Obtén més ginys a la botiga d'aplicacions",
+    "Weather service" : "Servei meteorològic",
+    "For your privacy, the weather data is requested by your Nextcloud server on your behalf so the weather service receives no personal information." : "Per a la vostra privadesa, les dades meteorològiques les sol·licita el servidor del Nextcloud en nom vostre perquè el servei meteorològic no rebi cap informació personal.",
+    "Weather data from Met.no" : "Dades meteorològiques de Met.no",
+    "geocoding with Nominatim" : "codis geogràfics amb Nominatim",
+    "elevation data from OpenTopoData" : "dades d'altitud d'OpenTopoData",
+    "Weather" : "Temps",
+    "Status" : "Estat",
+    "Good morning" : "Bon dia",
+    "Good morning, {name}" : "Bon dia, {name}",
+    "Good afternoon" : "Bona tarda",
+    "Good afternoon, {name}" : "Bona tarda, {name}",
+    "Good evening" : "Bona nit",
+    "Good evening, {name}" : "Bona nit, {name}",
+    "Hello" : "Hola",
+    "Hello, {name}" : "Hola, {name}"
+},
+"nplurals=2; plural=(n != 1);");
