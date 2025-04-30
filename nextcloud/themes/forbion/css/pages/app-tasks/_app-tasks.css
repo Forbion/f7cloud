@@ -1,0 +1,1475 @@
+@import url("icons/_icons.css");
+@import url("forms/_modals.css");
+
+* {
+    font-family: 'Raleway' !important;
+    font-variant-numeric: lining-nums;
+    font-weight: 500;
+}
+
+#content-vue {
+
+    height: 100% !important;
+
+    & #app-content-vue {
+
+        background: unset !important;
+
+        &:empty {
+            background: #FFFFFF !important;
+        }
+    }
+}
+
+body .app-tasks {
+    --color-primary-element: #70B62B !important;
+    --color-primary-element-hover: #6faf2e !important;
+    --color-primary-element-light-hover: #ffffff !important;
+    margin: 0 !important;
+    height: calc(var(--body-height) - 47px) !important;
+
+    & .app-navigation {
+        margin-right: 8px;
+        background: unset;
+
+        & #app-navigation-vue {
+
+            & > *:not(.app-navigation__search):not(.app-navigation__body) {
+                background: #FFFFFF;
+            }
+
+            & .app-navigation__search {
+
+                & .header {
+
+                    padding: 0;
+                    margin-bottom: 8px;
+
+                    & .import-contact {
+
+                        & .import-contact__button-main {
+
+                            & .material-design-icon.upload-icon {
+
+                                &:before {
+
+                                    background-image: url("/themes/forbion/images/import-white.svg");
+                                    margin-left: -5px;
+                                }
+                            }
+                        }
+                    }
+
+                    & .button-vue {
+
+                        width: 100%;
+                        margin: 0;
+                        padding: 3px 35px 3px 6px;
+                        background: #70B62B;
+                        color: #ffffff;
+                        position: relative;
+                        transition: opacity .3s;
+
+                        & .button-vue__wrapper {
+                            justify-content: flex-start;
+                            padding-left: 10px;
+                        }
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 12px;
+                            transform: translateY(-50%);
+                            width: 16px;
+                            height: 16px;
+                            background-image: url("/themes/forbion/images/close-fat.svg");
+                            background-repeat: no-repeat;
+                            pointer-events: none;
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 37px;
+                            width: 2px;
+                            height: 100%;
+                            background: #ffffff;
+                            pointer-events: none;
+                        }
+
+                        & .plus-icon {
+
+                            &::before {
+                                background-image: url("/themes/forbion/images/new-contact.svg");
+                                width: 23px;
+                                height: 18px;
+                                top: -1px;
+                                left: -5px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .app-navigation-header {
+
+                padding: 0;
+
+                & > *:not(.flex-row) {
+
+                    padding: 0 8px;
+                    background: #FFFFFF;
+                }
+
+                & .flex-row {
+
+                    margin-bottom: 8px;
+
+                    & .button-vue {
+                        width: 100%;
+                        margin: 0;
+                        width: calc(100% - 48px);
+                        padding: 3px 35px 3px 6px;
+                        background: #70B62B;
+                        color: #ffffff;
+                        position: relative;
+                        transition: opacity .3s;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 12px;
+                            transform: translateY(-50%);
+                            width: 16px;
+                            height: 16px;
+                            background-image: url("/themes/forbion/images/close-fat.svg");
+                            background-repeat: no-repeat;
+                            pointer-events: none;
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 37px;
+                            width: 2px;
+                            height: 100%;
+                            background: #ffffff;
+                            pointer-events: none;
+                        }
+
+                        & .plus-icon {
+
+                            &::before {
+                                background-image: url("/themes/forbion/images/new-event.svg");
+                                width: 23px;
+                                height: 18px;
+                                top: -1px;
+                                left: -5px;
+                            }
+                        }
+                    }
+                }
+
+                & .datepicker-button-section {
+
+                    padding-top: 8px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+
+                    & .button-vue {
+                        background: rgb(238, 244, 233);
+                    }
+                }
+
+                & .new-event-today-view-section {
+
+                    & .button-vue {
+                        background: rgb(238, 244, 233);
+                    }
+                }
+            }
+
+            & .app-navigation-list {
+
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+
+                & .app-navigation-entry-wrapper {
+
+                    & .app-navigation-entry {
+
+                        padding-left: 5px;
+
+                        & .app-navigation-entry-icon:empty {
+
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            &:before {
+                                content: '';
+                                background-image: url("/themes/forbion/images/lk-main-white.svg");
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+
+                        & .app-navigation-entry-icon {
+
+                            .material-design-icon {
+
+                                &.account-multiple-icon {
+
+                                    &:before {
+                                        background-image: url("/themes/forbion/images/lk-sharing.svg");
+                                        transform: translate(-50%, -50%) scale(1.1);
+                                    }
+                                }
+
+                                &.account-icon {
+
+                                    &:before {
+                                        background-image: url("/themes/forbion/images/lk-main.svg");
+                                        width: 16px;
+                                        height: 16px;
+                                    }
+
+                                    & svg {
+                                        display: none;
+                                    }
+                                }
+                            }
+
+                            &.icon-category-monitoring {
+
+                                &:before {
+                                    background-image: url("/themes/forbion/images/lk-sharing.svg");
+                                    width: 16px;
+                                    height: 16px;
+                                    transform: scale(1.1);
+                                }
+                            }
+                        }
+
+                        & .app-navigation-entry__actions[data-v-54906a49] {
+                            display: block;
+
+                            & .material-design-icon.pencil-icon::before {
+                                width: 16px;
+                                height: 16px;
+                                opacity: .55;
+                            }
+                        }
+
+                        & .app-navigation-entry__name {
+                            margin-left: 3px;
+                        }
+
+                        & .app-navigation-entry__utils {
+
+                            & .counter-bubble__counter {
+
+                                //background: #ffffff;
+                                color: #70B62B;
+                                transition: .2s;
+                            }
+                        }
+
+                        & .app-navigation-entry__counter-wrapper {
+                            & > .button-vue {
+                                display: none;
+                            }
+                        }
+
+                        & .action-item {
+
+                            & .button-vue {
+                                margin-right: 10px;
+                            }
+                        }
+
+                        &.active {
+
+                            & .app-navigation-entry__name {
+                                color: #FFFFFF;
+                            }
+
+                            & .app-navigation-entry-icon {
+
+                                .material-design-icon {
+
+                                    &.account-multiple-icon {
+
+                                        &:before {
+                                            background-image: url("/themes/forbion/images/lk-sharing-white.svg");
+                                        }
+                                    }
+
+                                    &.account-icon {
+
+                                        &:before {
+                                            background-image: url("/themes/forbion/images/lk-main-white.svg");
+                                        }
+                                    }
+                                }
+
+                                &.icon-category-monitoring {
+
+                                    &:before {
+                                        background-image: url("/themes/forbion/images/lk-sharing-white.svg");
+                                    }
+                                }
+                            }
+
+                            & .material-design-icon.dots-horizontal-icon {
+                                &:before {
+                                    background-image: url("/themes/forbion/images/dots-horizontal-icon-white.svg");
+                                }
+                            }
+
+                            & .material-design-icon.circle-outline-icon:before {
+                                background-image: url("/themes/forbion/images/circle-outline-icon-white.svg");
+                                width: 16px;
+                                height: 16px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+
+                            & .material-design-icon.check-icon:before {
+                                background-image: url("/themes/forbion/images/deck-icon-white.svg");
+                                width: 16px;
+                                height: 16px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+
+                            & .material-design-icon.trending-up-icon:before {
+                                background-image: url("/themes/forbion/images/trending-up-icon-white.svg");
+                                width: 16px;
+                                height: 16px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+
+                            .material-design-icon.star-icon:before {
+                                background-image: url("/themes/forbion/images/star-outline-icon-white.svg");
+                                width: 16px;
+                                height: 16px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+
+                            & .material-design-icon.calendar-today-icon:before,
+                            & .material-design-icon.calendar-week-icon:before {
+                                background-image: url("/themes/forbion/images/calendar-blank-icon-white.svg");
+                                width: 16px;
+                                height: 16px;
+                                transform: translate(-50%, -50%) scale(1.1);
+                            }
+                        }
+
+                        &:hover {
+                            & .app-navigation-entry__utils {
+
+                                & .counter-bubble__counter {
+
+                                    background: #FFFFFF;
+                                }
+                            }
+                        }
+
+                        & .material-design-icon.circle-outline-icon svg,
+                        & .material-design-icon.check-icon svg,
+                        & .material-design-icon.trending-up-icon svg,
+                        & .material-design-icon.star-icon svg,
+                        & .material-design-icon.calendar-today-icon svg,
+                        & .material-design-icon.calendar-week-icon svg {
+                            display: none;
+                        }
+
+                        & .material-design-icon.circle-outline-icon:before {
+                            background-image: url("/themes/forbion/images/circle-outline-icon.svg");
+                            width: 16px;
+                            height: 16px;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+
+                        & .material-design-icon.check-icon:before {
+                            background-image: url("/themes/forbion/images/deck-icon.svg");
+                            width: 16px;
+                            height: 16px;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+
+                        & .material-design-icon.trending-up-icon:before {
+                            background-image: url("/themes/forbion/images/trending-up-icon.svg");
+                            width: 16px;
+                            height: 16px;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+
+                        .material-design-icon.star-icon:before {
+                            background-image: url("/themes/forbion/images/star-icon.svg");
+                            width: 16px;
+                            height: 16px;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+
+                        & .material-design-icon.calendar-today-icon:before,
+                        & .material-design-icon.calendar-week-icon:before {
+                            background-image: url("/themes/forbion/images/calendar.svg");
+                            width: 16px;
+                            height: 16px;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+                    }
+                }
+
+                & .draggable-container {
+
+                    & > li {
+
+                        &:not(:last-child) {
+                            margin-bottom: 6px;
+                        }
+                    }
+                }
+
+                & .colorpicker {
+
+                    margin-top: 8px;
+
+                    & .color-selector {
+
+                        transition: .3s;
+
+                        & .color-selector__icon {
+                            transform: scale(0.8);
+                            pointer-events: none;
+
+                            & svg {
+                                fill: #FFFFFF;
+                                opacity: .8;
+                            }
+                        }
+
+                        &:hover {
+                            opacity: .75;
+                        }
+                    }
+                }
+            }
+
+            & .app-navigation-entry-link {
+
+                & .app-navigation-entry-icon {
+
+                    & .material-design-icon.delete-icon {
+
+                        &::before {
+                            background-image: url("/themes/forbion/images/delete-gray.svg");
+                        }
+                    }
+
+
+                }
+            }
+
+            & .app-navigation-list {
+                padding-bottom: 5px;
+            }
+
+            & #app-settings {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                padding-bottom: 15px;
+                padding-top: 0;
+
+                & .settings-button {
+                    width: calc(100% - 3px);
+                    padding-left: 6px;
+                    margin: 0 2px;
+                    border-radius: 8px;
+                }
+
+                & .settings-button__label {
+                    padding-left: 1px;
+                }
+
+                & #app-settings__content {
+
+                    padding: 15px;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+                    border-radius: 8px;
+
+                    & ul[data-v-56e63337] {
+
+                        & > li {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            height: 100%;
+                            position: relative;
+
+                            &.headline {
+                                margin-bottom: 12px !important;
+                            }
+
+                            & .label-container {
+                                overflow: visible;
+                            }
+
+                            & select {
+                                margin-left: 0;
+                                width: 100%;
+                                cursor: pointer;
+                                border: 1px solid #D9D9D9 !important;
+                            }
+
+                            & .material-design-icon {
+                                position: absolute;
+                                right: 5px;
+                                bottom: 20px;
+                                pointer-events: none;
+
+                                & svg {
+                                    display: none;
+                                }
+                            }
+
+                            &:not(.headline):before {
+                                content: '';
+                                position: absolute;
+                                right: 13px;
+                                bottom: 13px;
+                                background-size: auto;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-image: url("/themes/forbion/images/chevron-down-icon.svg");
+                                width: 16px;
+                                height: 16px;
+                                pointer-events: none;
+                            }
+
+                            &:not(:last-child) {
+                                margin-bottom: 16px;
+                            }
+                        }
+                    }
+
+                    & > .button-vue {
+                        margin-bottom: 12px;
+                        width: 100%;
+                        background: rgb(238, 244, 233);
+                        transition: opacity .3s !important;
+
+                        &:hover {
+                            opacity: .75;
+                        }
+                    }
+
+                    & > [data-v-cc75802a] {
+
+                        & .v-select {
+                            margin-top: 4px;
+                            margin-bottom: 14px !important;
+
+                            & label {
+                                padding-left: 0 !important;
+                            }
+
+                            & .vs__dropdown-toggle {
+                                margin-top: 6px;
+                            }
+
+                            &:hover {
+                                background: unset !important;
+                            }
+                        }
+
+                        & > [data-v-cc75802a] {
+
+                            padding: 5px;
+                            border-radius: 8px;
+
+                            &:not(:last-child) {
+                                margin-bottom: 8px;
+                            }
+
+                            label {
+                                position: relative;
+                                padding-left: 30px;
+                            }
+
+                            &:not(p):hover {
+                                background-color: var(--color-background-hover);
+                            }
+                        }
+                    }
+                }
+
+                &.open {
+
+                    padding: 10px;
+                    background: #FFFFFF;
+
+                    & #app-settings__header {
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+
+        & .app-navigation-toggle-wrapper {
+            position: absolute;
+            top: 17px !important;
+            right: -10px !important;
+
+            & .button-vue {
+
+                height: 35px !important;
+                min-height: 35px !important;
+                max-height: 35px !important;
+                width: 35px !important;
+                max-width: 35px !important;
+                min-width: 35px !important;
+
+                & .material-design-icon {
+
+                    & .material-design-icon__svg {
+                        display: none;
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        width: 16px;
+                        height: 16px;
+                        background-image: url("/themes/forbion/images/menu-icon.svg");
+                        background-repeat: no-repeat;
+                        transform: translate(-50%, -50%) scale(1.1);
+                    }
+                }
+
+                & .menu-icon {
+
+                    &::before {
+
+                        transform: translate(-50%, -50%) scale(1.1) rotateY(-180deg);
+                    }
+                }
+            }
+        }
+
+        &.app-navigation--close {
+
+            margin-right: 0;
+
+            & .app-navigation-toggle-wrapper {
+                top: 17px !important;
+                right: -2px !important;
+            }
+
+            & + #app-content-vue {
+
+            }
+        }
+    }
+
+    & #app-content-vue {
+
+        /*margin-top: 48px !important;*/
+        /*height: calc(100% - 48px);*/
+        background: #FFFFFF !important;
+        border-radius: 8px;
+
+        & .app-navigation__body {
+            padding-right: 30px;
+        }
+
+        & > div[data-v-b978984d] {
+            height: 100%;
+            padding-bottom: 0;
+        }
+
+        & .header {
+            padding: 12px 25px 12px 55px;
+            margin-bottom: 8px;
+            background: #FFFFFF;
+            border-radius: 8px;
+
+            & .header__input {
+
+                & .input-field__input {
+                    border: 1px solid #D9D9D9 !important;
+                    padding-left: 15px;
+
+                    &:not(:focus) + .input-field__label {
+                        top: 6px;
+                        left: -18px;
+                    }
+
+                    &:not(:placeholder-shown) + .input-field__label,
+                    &:focus + .input-field__label {
+                        top: -10px;
+                        left: -30px;
+                    }
+                }
+
+                & .input-field__icon {
+                    display: none;
+                }
+
+                margin-right: 15px;
+            }
+
+            & > .action-item {
+                margin-left: 0;
+
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        & .task-list {
+            background: #FFFFFF;
+            height: calc(100% - 72px);
+            border-radius: 8px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            & .grouped-tasks {
+
+                &:first-child {
+
+                    & h2 {
+                        margin-top: 0 !important;
+                    }
+                }
+
+                & .task-item {
+
+                    & .input-field__main-wrapper {
+
+                        & .input-field__icon {
+                            height: 44px;
+                        }
+
+                        & .button-vue {
+                            height: 44px;
+                        }
+                    }
+
+                }
+
+                & .task-body__icons {
+
+                    padding-right: 20px;
+
+                    & > * {
+                        margin-right: 8px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+
+                    & .action-item {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    & .calendar {
+
+                        margin-right: 40px;
+
+                        & .calendar__indicator {
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                        & .calendar__name {
+                            font-size: 14px;
+                            padding-left: 8px;
+                            font-weight: 500;
+                            color: #000000;
+                        }
+                    }
+
+                    & .date {
+
+                        & span {
+                            line-height: 1;
+                            width: 100%;
+                        }
+                    }
+
+                    & .button-vue:not(.priority--high) {
+
+                        & .material-design-icon.star-icon {
+                            opacity: .45;
+                        }
+                    }
+
+                    & .button-vue.priority--high {
+
+                        & .material-design-icon.star-icon {
+                            opacity: 1;
+                        }
+                    }
+
+                    & .button-vue {
+
+                        & .material-design-icon.dots-horizontal-icon {
+
+                            & svg {
+                                display: none;
+                            }
+
+                            &:before {
+                                background-image: url("/themes/forbion/images/dotsVertical.svg");
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+                    }
+                }
+
+                & .input-field__input {
+                    border: 1px solid #D9D9D9 !important;
+                }
+            }
+        }
+    }
+
+    & #app-sidebar-vue {
+        margin-left: 8px;
+        border-radius: 8px;
+    }
+
+    & .app-sidebar-header {
+
+        margin-bottom: 15px;
+
+        & > .button-vue {
+            height: 34px !important;
+        }
+
+        & .app-sidebar-header__info {
+
+            & .app-sidebar-header__desc {
+
+                padding-left: 1px;
+
+                & label {
+                    padding-top: 0;
+                    height: 34px;
+
+                    & .material-design-icon.checkbox-blank-icon {
+                        margin-top: 20px;
+                    }
+                }
+
+                & .app-sidebar-header__menu {
+                    margin-right: -6px;
+                }
+            }
+        }
+
+        & .app-sidebar-header__description {
+
+            & .item__content {
+
+                & .content__input {
+
+                    & .mx-datepicker.time {
+                        margin-left: 8px;
+                    }
+                }
+            }
+
+            & .item__actions {
+
+                margin-left: 8px;
+                margin-right: 11px;
+                display: flex;
+                align-items: center;
+
+                & .button-vue {
+                    height: 34px;
+
+                    &:not(:first-child) {
+                        margin-right: 6px;
+                    }
+                }
+            }
+
+            & .property__item {
+
+                & .vs__dropdown-toggle {
+
+                    background: unset !important;
+                    border: unset !important;
+
+                    & input {
+                        background: unset !important;
+                    }
+
+                    & .vs__selected-options {
+
+                        & .calendar-picker-option {
+
+                            & .calendar-picker-option__label {
+                                padding-top: 3px;
+                            }
+                        }
+                    }
+
+                    & .vs__actions {
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+    & .app-sidebar-tabs {
+
+        & #tab-app-sidebar-tab-details {
+
+            & > div[data-v-60bea838] {
+                margin-top: 20px;
+            }
+
+            & .property__item {
+
+                &:first-child {
+
+                    & .vs__dropdown-toggle {
+                        border-bottom: unset !important;
+                    }
+                }
+
+                &:last-child {
+
+                    & .vs__dropdown-toggle {
+                        border: unset !important;
+                    }
+                }
+
+                & .v-select {
+                    margin: 0;
+                }
+
+                & .multiselect-picker-option {
+
+                    & .multiselect-picker-option__icon {
+
+                        & .material-design-icon {
+
+                            & svg {
+                                fill: #000000;
+                            }
+                        }
+                    }
+
+                    & .multiselect-picker-option__label {
+                        color: #000000;
+                        font-weight: normal;
+                    }
+                }
+
+                & .item__content {
+
+                    margin-right: 8px;
+
+                    & .content__icon {
+
+                        & .material-design-icon {
+
+                            & svg {
+
+                                fill: #000000;
+                            }
+                        }
+                    }
+
+                    & .content__name {
+                        font-weight: normal;
+                        color: #000000;
+                    }
+
+                    & .content__input {
+
+                        & input[type="number"]::-webkit-inner-spin-button,
+                        & input[type="number"]::-webkit-outer-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+
+                        & input[type="number"] {
+                            -moz-appearance: textfield;
+                        }
+
+                        & input[type="range"] {
+
+                        }
+                    }
+                }
+
+                & .item__actions {
+                    margin-right: 11px;
+                    display: flex;
+                    align-items: center;
+
+                    & .button-vue {
+                        height: 34px;
+                    }
+
+                    & .button-vue:not(:first-child) {
+                        margin-left: 6px;
+                    }
+                }
+            }
+
+            & .vs__dropdown-toggle {
+                margin-left: 0 !important;
+                border-top: 1px solid var(--color-border) !important;
+                border-bottom: 1px solid var(--color-border) !important;
+                border-left: unset !important;
+                border-right: unset !important;
+                border-radius: unset !important;
+
+                & .vs__selected-options {
+                    display: flex;
+                    align-items: center;
+
+                    & input {
+                        border: unset;
+
+                        &::placeholder {
+
+                            font-weight: normal;
+                        }
+                    }
+                }
+
+                & .vs__actions {
+                    margin-right: 8px;
+                }
+            }
+
+            & .vs__dropdown-menu {
+
+                & .multiselect-picker-option__icon {
+
+                    & .material-design-icon {
+
+                        & svg {
+                            fill: #000000;
+                        }
+                    }
+                }
+
+                & .multiselect-picker-option__label {
+                    color: #000000;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        & #tab-app-sidebar-tab-notes {
+
+            margin-top: 10px;
+
+            & .note__editor {
+
+                & pre {
+                    padding: 5px 12px;
+                }
+
+                & textarea {
+                    padding: 5px 12px;
+                    border: 1px solid #E6E6E6 !important;
+                    border-radius: 8px;
+                    overflow: auto;
+                }
+            }
+        }
+    }
+
+    & .app-navigation--close + #app-content-vue {
+        background: unset !important;
+    }
+}
+
+.entity-picker__options[data-v-485cea51] {
+    margin: 8px 0 4px;
+}
+
+.entity-picker__search-input {
+    padding-right: 50px;
+}
+
+.button-vue:not([disabled="disabled"]) {
+    transition: opacity .3s !important;
+
+    &:hover {
+        opacity: .75 !important;
+    }
+}
+
+input,
+textarea {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 8px;
+    box-shadow: unset !important;
+}
+
+html .input-field__input[data-v-ceb23641]:active:not([disabled]),
+html .input-field__input[data-v-ceb23641]:hover:not([disabled]),
+html .input-field__input[data-v-ceb23641]:focus:not([disabled]) {
+    box-shadow: unset !important;
+}
+
+input.vs__search {
+    border: unset !important;
+    padding-right: 50px;
+}
+
+body ul.vs__dropdown-menu {
+    color: #000000 !important;
+    padding: 10px 10px 15px !important;
+    border-top: 1px solid #E6E6E6 !important;
+    border-bottom: 1px solid #E6E6E6 !important;
+    border-right: 1px solid #E6E6E6 !important;
+    border-left: 1px solid #E6E6E6 !important;
+}
+
+.button-vue--vue-primary {
+
+    background-color: #70B62B !important;
+
+    & .material-design-icon__svg {
+        fill: #FFFFFF;
+    }
+
+    & .button-vue__text {
+        color: #FFFFFF;
+        margin-bottom: 0 !important;
+    }
+}
+
+.navigation__button-right.primary {
+    background: rgb(112, 182, 43) !important;
+    height: 40px;
+    color: #FFFFFF !important;
+    font-weight: 500 !important;
+    position: relative;
+    padding-left: 40px;
+    transition: .3s;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        transform: translateY(-50%) scale(1.2);
+        background-image: url("/themes/forbion/images/plus.svg");
+        background-repeat: no-repeat;
+    }
+
+    &:hover {
+        opacity: .75;
+    }
+}
+
+.navigation__button-left {
+
+    background-color: #F0F1F4 !important;
+    height: 40px;
+    color: #000000 !important;
+    font-weight: 500 !important;
+    position: relative;
+    padding-left: 42px !important;
+    padding-right: 15px !important;
+    transition: .3s;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        transform: translateY(-50%) scale(1.1);
+        background-image: url("/themes/forbion/images/close-gray.svg");
+        background-repeat: no-repeat;
+    }
+
+&:hover {
+opacity: .75;
+}
+}
+
+.action .action-checkbox label.action-checkbox__label {
+    position: relative;
+    padding-left: 34px !important;
+}
+
+.action input[type=checkbox].checkbox+label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -1px;
+    transform: translateY(-50%) scale(1.1);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/checkbox-blank-outline-black-icon.svg");
+    border: unset !important;
+    background-color: unset !important;
+}
+
+.action input[type=checkbox].checkbox:checked+label::before {
+    background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+}
+
+.v-popper__popper {
+
+    & .v-popper__inner {
+
+        & .color-picker__navigation {
+
+            & .button-vue--vue-primary {
+
+                & .button-vue__wrapper {
+
+                    position: relative;
+                    padding: 0 5px;
+
+                    & .button-vue__text {
+                        opacity: 0;
+                        margin-bottom: 0 !important;
+                    }
+
+                    &::before {
+                        content: 'Выбрать';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+
+        & ul[data-v-60a4c99d] {
+
+            & li[data-v-903e8d3b].action {
+
+                & .action-button {
+
+                    align-items: center;
+                }
+            }
+        }
+
+        & ul[data-v-60a4c99d] {
+            & li[data-v-903e8d3b] {
+                & .action-button {
+                    & .material-design-icon {
+                        width: 34px;
+                        height: 34px;
+                    }
+                    & .action-button__longtext {
+                        margin-left: 5px;
+                    }
+                    & .action-button__text {
+                        margin-left: 5px;
+                    }
+                    & .calendar-picker-header__icon + .action-button__text {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.action-text {
+
+    & .material-design-icon {
+        margin-right: 3px;
+    }
+}
+
+.action-link__longtext {
+    line-height: 21px !important;
+}
+
+.action-text__longtext {
+    line-height: 21px !important;
+}
+
+.action-button__longtext {
+    line-height: 21px !important;
+}
+
+.empty-content__icon .material-design-icon:not(.loading-icon) svg {
+    display: none;
+}
+
+.empty-content__icon .material-design-icon:before {
+    display: block;
+    transform: translate(-50%, -50%) scale(3.7);
+    width: 20px;
+    height: 20px;
+}
+
+.entity-picker__search-icon.icon-search {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    height: 100%;
+
+    &:before {
+        content: '';
+        position: absolute;
+        background-image: url("/themes/forbion/images/search-gray.svg");
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.modal-container__close {
+    margin-top: 0 !important;
+}
+
+.empty-content.processing-screen__wrapper {
+    & .empty-content__name {
+        margin-top: 20px;
+    }
+}
+
+progress {
+    background: #70B62B !important;
+    background-color: #70B62B !important;
+}
+
+.close__button {
+
+    & .button-vue {
+
+        margin-top: 30px;
+        height: 40px;
+        background: #70B62B !important;
+
+        & .button-vue__wrapper {
+
+            .button-vue__text {
+                padding-left: 33px;
+                padding-right: 6px;
+                color: #FFFFFF;
+                position: relative;
+
+                &::before {
+
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    background-image: url("/themes/forbion/images/arrow-btn.svg");
+                    width: 20px;
+                    height: 20px;
+                    transform: scale(1.1) translateY(-50%);
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+    }
+}
+
+.user-bubble__wrapper {
+    margin-right: 5px;
+}
+
+#content-vue .splitpanes.default-theme .splitpanes__pane-list {
+    margin: 0;
+    border: unset;
+}
+
+#content-vue .splitpanes.default-theme .splitpanes__pane-details {
+    margin-left: 8px;
+}
+
+#content-vue .empty-content.empty-content {
+    background: #FFFFFF;
+}
+
+.search-contacts-field {
+
+    padding-left: 47px;
+
+    & input {
+        height: 33px !important;
+        min-height: 33px;
+        max-height: 33px;
+        margin-top: 4px;
+        border-radius: 27px;
+        font-size: 15px;
+        cursor: text;
+    }
+}
+
+.v-select {
+
+    cursor: pointer;
+
+    & .vs__dropdown-toggle {
+
+        height: 100%;
+        border: 1px solid #E6E6E6 !important;
+        border-radius: 8px;
+
+        & .vs__actions {
+            padding-right: 20px;
+        }
+    }
+}
+
+.action-link[data-v-30c015f0] .material-design-icon {
+    width: 44px !important;
+    height: 44px !important;
+}
+
+.action-link[data-v-30c015f0] {
+    align-items: center !important;
+}
+
+.mx-datepicker-main .mx-table .cell:hover,
+.mx-datepicker-main .mx-table .cell:focus,
+.mx-datepicker-main .mx-table .cell.actived,
+.mx-datepicker-main .mx-table .cell.active,
+.mx-datepicker-main .mx-table .cell.in-range {
+    color: #FFFFFF !important;
+}
+
+.mx-datepicker-content .mx-time .mx-time-option:hover,
+.mx-datepicker-content .mx-time .mx-time-option:focus,
+.mx-datepicker-content .mx-time .mx-time-option.actived,
+.mx-datepicker-content .mx-time .mx-time-option.active,
+.mx-datepicker-content .mx-time .mx-time-option.in-range {
+    color: #FFFFFF !important;
+}
