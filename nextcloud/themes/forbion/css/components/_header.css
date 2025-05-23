@@ -32,7 +32,7 @@
     display: inline-flex;
     top: 0;
     width: 100%;
-    z-index: 2000;
+    z-index: 3005;
     box-sizing: border-box;
     justify-content: space-between;
 }
