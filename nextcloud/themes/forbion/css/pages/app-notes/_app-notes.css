@@ -1,0 +1,581 @@
+@media screen and (min-width: 1000px) {
+    .app-notes {
+
+        font-family: Raleway;
+        font-weight: 500;
+        font-size: 14px;
+        /*line-height: 20px;*/
+        letter-spacing: 0;
+
+        --color-primary-element: #70B62B !important;
+        --color-primary-element-hover: #70B62B !important;
+        --color-primary-element-text: #f3f3f3 !important;
+        --color-primary-element-light: #F5F5F5 !important;
+        --input-border-radius: 34px !important;
+        --default-clickable-area: 28px !important;
+
+        & .button-vue--vue-tertiary:hover:not(:disabled) {
+            background-color: unset !important;
+        }
+
+        & .input-field__input {
+            border-width: 1px !important;
+            border-radius: 27px !important;
+            border-color: #D9D9D9 !important;
+        }
+
+        & .input-field__input:active:not([disabled]), .input-field__input:hover:not([disabled]), .input-field__input:focus:not([disabled]) {
+            border-color: #D9D9D9 !important;
+        }
+
+
+        & .app-navigation {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            background-color: #f3f3f3 !important;
+            /*min-height: calc(100vh - 140px);*/
+            height: calc(100vh - 80px) !important;
+            max-width: 247px !important;
+            width: 247px !important;
+
+            & .app-navigation__content {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                padding-bottom: 60px; /* Оставляем место для нижнего блока */
+
+
+                height: 100% !important;
+                min-height: 100% !important;
+
+                & .app-navigation__body {
+                    overflow-y: unset;
+                    flex-grow: 1; /* Занимает все доступное пространство */
+
+                    & .app-navigation-new {
+                        padding: 0 !important;
+
+                        & > button {
+                            height: 40px;
+                            background-color: #70B62B;
+                        }
+                        & > button:before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: 8px;
+                            transform: translateY(-50%);
+                            width: 16px;
+                            height: 16px;
+                            background-image: url("../../../images/plus.svg");
+                            background-repeat: no-repeat;
+                            pointer-events: none;
+                        }
+                    }
+                }
+
+                & .app-navigation-list.app-navigation__list {
+                    background: #ffffff;
+                    margin-top: 8px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+
+                    & .app-navigation-entry {
+                        padding-block: 5px;
+                        padding-left: 4px;
+
+                        & .app-navigation-entry__name {
+                            font-family: Raleway;
+                            font-weight: 500;
+                            font-size: 14px;
+                            /*line-height: 20px;*/
+                            letter-spacing: 0;
+                            margin-left: 6px;
+                        }
+                    }
+                }
+
+                & .app-navigation-entry__settings {
+                    /*padding-top: 200px !important;*/
+                    margin: 0;
+                    /*height: 100% !important;*/
+                    background: #ffffff;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                }
+            }
+
+            & .app-navigation-toggle-wrapper {
+                inset-inline-end: calc(-10px - var(--app-navigation-padding));
+            }
+
+            /* стиль для закрытого состояния */
+            &.app-navigation--close {
+                & ~ .app-content .app-content-wrapper .splitpanes .splitpanes__pane.splitpanes__pane-list {
+                    margin-left: 50px !important;
+                }
+                & .app-navigation-toggle-wrapper {
+                    inset-inline-end: calc(-50px - var(--app-navigation-padding));
+                }
+            }
+        }
+
+        & .app-content {
+            & .app-content-wrapper {
+                & .splitpanes {
+                    & .splitpanes__pane.splitpanes__pane-list {
+                        min-height: calc(100vh - 140px) !important;
+                        width: 257px !important;
+                        max-width: 257px !important;
+                        min-width: 257px !important;
+
+                        & .list-item-content__actions {
+                            max-height: 28px;
+                        }
+
+                        & .content-list__search {
+                            padding-inline-start: 37px;
+
+
+                            & .input-field {
+                                margin-block-start: 5px;
+
+                                & .input-field__input {
+                                    width: 200px;
+                                }
+                                & .input-field__trailing-button {
+                                    inset-inline-end: 13px;
+                                }
+                            }
+                        }
+
+                        & .app-content-list.content-list > ul {
+                            padding-top: 8px;
+                            padding-left: 3px;
+
+                            & .list-item__wrapper {
+                                padding: 10px 4px;
+                            }
+                        }
+                    }
+                    & .splitpanes__pane.splitpanes__pane-details {
+                        min-height: calc(100vh - 140px) !important;
+                        width: 100% !important;
+                    }
+
+                    & .action-buttons {
+                        top: 110px !important;
+                        inset-inline-end: 33px;
+                    }
+                }
+            }
+        }
+
+        & .app-sidebar {
+            height: calc(100vh - 140px) !important;
+
+            & .app-sidebar-tabs__tab-icon.icon-talk {
+                background-image: url(/themes/forbion/images/chat.svg) !important;
+                content: '';
+                width: 20px;
+                height: 19px;
+                background-size: cover;
+            }
+            & .avatar-class-icon.avatar-link-share.icon-public-white, .avatar-external.icon-external-white {
+                background-image: url(/themes/forbion/images/chain.svg) !important;
+                content: '';
+                background-color: #D9D9D9;
+            }
+            & .avatar-shared.icon-more-white {
+                background-image: url(/themes/forbion/images/users-gray.svg) !important;
+                content: '';
+                background-color: #D9D9D9;
+            }
+
+            & .app-sidebar-tabs .app-sidebar-tabs__nav {
+                justify-content: space-between !important;
+                padding: 0 20px !important;
+                margin: unset;
+                border-bottom: 2px solid #E6E6E6 !important;
+
+                & button.active {
+                    border-bottom: 2px solid var(--color-primary-element) !important;
+                    top: 2px;
+                }
+                & button {
+                    border-bottom: 2px solid #E6E6E6 !important;
+                    top: 2px;
+                }
+
+                & span {
+                    font-family: Raleway;
+                    font-weight: 500 !important;
+                    font-size: 16px !important;
+                    line-height: 20px !important;
+                    letter-spacing: 0 !important;
+                    border-bottom: unset !important;
+                }
+            }
+
+            /*asd*/
+
+            & .app-sidebar-tabs .app-sidebar-tabs__nav #tab-button-participants {
+                max-width: 110px;
+                min-height: 76px;
+                top: 2px;
+                border-bottom: 2px solid #E6E6E6 !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__nav #tab-button-participants.active{
+                border-bottom: 2px solid var(--color-primary-element) !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__nav #tab-button-shared-items {
+                max-width: 156px;
+                min-height: 76px;
+                top: 2px;
+                border-bottom: 2px solid #E6E6E6 !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__nav #tab-button-shared-items.active {
+                border-bottom: 2px solid var(--color-primary-element) !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__nav .checkbox-radio-switch--button-variant.checkbox-radio-switch--checked .checkbox-radio-switch__content {
+                --default-grid-baseline: 2px !important;
+                padding: unset;
+                border-bottom: unset!important;
+            }
+
+            & .app-sidebar__tab {
+                padding: 20px 18px 10px 18px !important;
+            }
+            & .app-sidebar__tab {
+                overflow: hidden !important;
+            }
+
+            & .app-sidebar-tabs__content {
+                overflow: hidden !important;
+            }
+
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper{
+                min-height: 44px;
+                height: unset;
+                display: flex;
+                align-items: center;
+            }
+
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__input {
+                min-height: 44px;
+                height: 44px;
+                border-radius: 4px;
+                padding: 11px 12px;
+                border: 1px solid #E6E6E6;
+                min-width: 100%;
+                padding-block: unset !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__input:hover {
+                min-height: 44px;
+                height: 44px;
+                border-radius: 4px;
+                padding: 11px 12px;
+                border: 1px solid #E6E6E6 !important;
+                min-width: 100%;
+                padding-block: unset !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__input:active {
+                min-height: 44px;
+                height: 44px;
+                border-radius: 4px;
+                padding: 11px 12px;
+                border: 1px solid #E6E6E6 !important;
+                min-width: 100%;
+                padding-block: unset !important;
+            }
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__icon {
+                left: unset !important;
+                right: 28px !important;
+                position: relative !important;
+            }
+
+            & .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__trailling-button {
+                width: 10px;
+                height: 10px;
+            }
+            /*asd*/
+        }
+
+        /* Стили иконок */
+        & .material-design-icon.menu-open-icon > svg {
+            display: none;
+        }
+        & .material-design-icon.menu-open-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/exit.svg');
+            width: 16px;
+            height: 16px;
+            background-size: cover;
+        }
+
+        & .material-design-icon.file-document-outline-icon > svg {
+            display: none;
+        }
+        & .material-design-icon.file-document-outline-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/user.svg');
+            width: 26px;
+            height: 27px;
+            background-size: cover;
+        }
+
+        & .material-design-icon.cog-icon > svg {
+            display: none;
+        }
+        & .material-design-icon.cog-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/gear.svg');
+            width: 16px;
+            height: 16px;
+            background-size: cover;
+        }
+
+        & .app-navigation-entry-icon.icon-emptyfolder > span > svg {
+            display: none;
+        }
+        & .app-navigation-entry-icon.icon-emptyfolder > span:after {
+            content: '';
+            background-image: url('/themes/forbion/images/folder.svg');
+            width: 18px;
+            height: 16px;
+            background-size: cover;
+        }
+
+        & .app-navigation-entry-icon .material-design-icon.history-icon > svg {
+            display: none;
+        }
+        & .app-navigation-entry-icon .material-design-icon.history-icon:after {
+            content: '';
+            /*background-image: url('/themes/forbion/images/recent.svg');*/
+            background-image: url('/themes/forbion/images/circle-green.svg');
+            width: 18px;
+            height: 18px;
+            background-size: cover;
+        }
+
+        & .app-navigation-entry-icon.icon-files .material-design-icon.folder-icon > svg {
+            display: none;
+        }
+        & .app-navigation-entry-icon.icon-files .material-design-icon.folder-icon {
+            content: '';
+            background-image: url('/themes/forbion/images/folder.svg');
+            width: 18px;
+            height: 16px;
+            background-size: cover;
+        }
+
+        & .app-navigation-new .button-vue--vue-primary .button-vue__wrapper {
+            color: white;
+            & .button-vue__icon {
+                display: none !important;
+            }
+            & .button-vue__text {
+                position: absolute;
+                left: 45px;
+                font-family: Raleway;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0;
+            }
+        }
+        & .app-navigation-new .button-vue--vue-primary .button-vue__wrapper:after {
+            background-image: url(/themes/forbion/images/note-white.svg) !important;
+            content: '';
+            width: 20px;
+            height: 19px;
+            background-size: cover;
+            left: 15px;
+            position: absolute;
+        }
+        & .app-navigation-new .button-vue--vue-primary:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 32px;
+            width: 2px;
+            height: 100%;
+            background: #ffffff;
+            pointer-events: none;
+        }
+
+        & .material-design-icon.archive-icon:after {
+            content: '';
+            background-image: url('/themes/forbion/images/archive-black.svg');
+            width: 16px;
+            height: 16px;
+        }
+        & .material-design-icon.archive-icon > svg {
+            display: none;
+        }
+
+        & .material-design-icon.eye-icon {
+            background-image: url('/themes/forbion/images/eye.svg');
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        & .material-design-icon.eye-icon > svg {
+            display: none;
+        }
+
+        & .new-message-form__emoji-picker {
+            position: unset !important;
+        }
+
+        & .material-design-icon.emoticon-outline-icon {
+            background-image: url('/themes/forbion/images/smile-black.svg');
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 18px;
+            height: 18px;
+        }
+        & .material-design-icon.emoticon-outline-icon > svg {
+            display: none;
+        }
+        & .material-design-icon.share-variant-icon > svg {
+            display: none;
+        }
+    }
+
+    /* Стили для .modal-mask.app-settings */
+    .app-notes ~ .modal-mask.app-settings,
+    .app-notes + .modal-mask.app-settings {
+        & .modal-container {
+            padding-inline: 32px !important;
+            padding-top: 32px !important;
+
+            & .dialog__navigation.app-settings__navigation {
+                display: none;
+            }
+            & .dialog__content.app-settings__content {
+                padding: unset !important;
+
+                & #noteMode {
+                    background-color: white;
+                    border: 1px solid #E6E6E6;
+                }
+
+                & .app-settings-section__name {
+                    font-family: Raleway;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 20px;
+                    letter-spacing: 0;
+                }
+
+                & #settings-section_help-basics, #settings-section_notes-path-section, #settings-section_file-suffix-section, #settings-section_help-apps {
+                    display: none;
+                }
+                & #settings-section_help-shortcuts {
+                    margin-bottom: 32px !important;
+
+                    & .notes-help {
+                        border: 1px solid #E6E6E6;
+                        border-radius: 8px;
+                        padding: 10px;
+                        width: 100%;
+                        font-family: Raleway;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        letter-spacing: 0;
+
+                        &>tr {
+                            display: block;
+                            padding-bottom: 20px;
+                            &>th {
+                                padding-left: 10px;
+                                min-width: 155px;
+                            }
+                            &>td {
+                                min-width: 135px;
+                                padding-left: 30px;
+                            }
+                        }
+                    }
+
+                    & .feature.icon-toggle-filelist {
+                        font-family: Raleway;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 20px;
+                        letter-spacing: 0;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+    /* Стили для .v-popper__popper */
+    .app-notes ~ .v-popper__popper,
+    .app-notes + .v-popper__popper {
+        & .v-popper__wrapper {
+
+            & .v-popper__inner {
+
+                & .action.action-separator.action--disabled {
+                    display: none;
+                }
+
+                /*Общие стили для иконок выпадающих списков*/
+                & .material-design-icon {
+                    content: '';
+                    width: 34px;
+                    height: 34px;
+                    background-size: auto;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+                & .material-design-icon > svg {
+                    display: none;
+                }
+
+                & .action-button__icon.icon-star-dark.loading:after, .action-button__icon.icon-starred.loading:after {
+                    content: none;
+                }
+
+
+                    /*Стили для каждой иконки*/
+                & .action-button__icon.icon-starred {
+                    background-image: url('/themes/forbion/images/star-green.svg');
+                }
+                & .action-button__icon.icon-star-dark {
+                    background-image: url('/themes/forbion/images/star-icon-black.svg');
+                }
+                & .material-design-icon.folder-icon {
+                    background-image: url('/themes/forbion/images/change.svg');
+                }
+                & .material-design-icon.share-variant-icon {
+                    background-image: url('/themes/forbion/images/chain-black.svg');
+                }
+                & .material-design-icon.pencil-icon {
+                    background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+                }
+                & .action-button__icon.icon-delete, .material-design-icon.delete-icon {
+                    background-image: url('/themes/forbion/images/trashbin-black.svg');
+                }
+                & .material-design-icon.download-icon {
+                    background-image: url('/themes/forbion/images/download-icon.svg');
+                }
+                & .material-design-icon.backup-restore-icon {
+                    background-image: url('/themes/forbion/images/recent-black.svg');
+                }
+                & .material-design-icon.eye-outline-icon {
+                    background-image: url('/themes/forbion/images/eye.svg');
+                }
+                & .material-design-icon.tune-icon {
+                    background-image: url('/themes/forbion/images/gear-black.svg');
+                }
+            }
+        }
+    }
+}

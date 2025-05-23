@@ -1,0 +1,481 @@
+.material-design-icon {
+    position: relative;
+}
+
+.material-design-icon.cog-icon svg,
+.material-design-icon.chevron-down-icon svg,
+.material-design-icon.dots-horizontal-icon svg,
+.material-design-icon.chevron-up-icon svg,
+.material-design-icon.archive-icon svg,
+.material-design-icon.deck-icon svg,
+.material-design-icon.image-multiple-icon svg,
+.material-design-icon.card-bulleted-icon svg,
+.material-design-icon.card-plus-outline-icon svg,
+.material-design-icon.share-variant-icon svg,
+.material-design-icon.tag-multiple-icon svg,
+.material-design-icon.delete-icon svg,
+.material-design-icon.paperclip-icon svg,
+.material-design-icon.comment-icon svg,
+.material-design-icon.home-icon svg,
+.material-design-icon.folder-icon svg {
+    display: none;
+}
+
+.material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.material-design-icon.paperclip-icon:before {
+    background-image: url("/themes/forbion/images/paperclip-icon.svg");
+}
+
+.material-design-icon.comment-icon:before {
+    background-image: url("/themes/forbion/images/comment-icon.svg");
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.material-design-icon.home-icon:before {
+    background-image: url("/themes/forbion/images/alert-octagon-icon.svg");
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.material-design-icon.delete-icon:before {
+    background-image: url("/themes/forbion/images/delete-black.svg");
+}
+
+.material-design-icon.share-variant-icon:before {
+    background-image: url("/themes/forbion/images/account-multiple-icon.svg");
+}
+
+.material-design-icon.tag-multiple-icon:before {
+    background-image: url("/themes/forbion/images/tag-multiple-icon.svg");
+}
+
+.material-design-icon.cog-icon:before {
+    background-image: url("/themes/forbion/images/cog-icon-gray.svg");
+}
+
+.material-design-icon.chevron-down-icon:before {
+    background-image: url("/themes/forbion/images/chevron-down-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.dots-horizontal-icon:before {
+    background-image: url("/themes/forbion/images/dots-horizontal-icon.svg");
+    width: 16px;
+    height: 16px;
+    opacity: .45;
+}
+
+.material-design-icon.filter-off-icon,
+.material-design-icon.table-column-plus-after-icon {
+    opacity: .7;
+}
+
+.material-design-icon.chevron-up-icon:before {
+    background-image: url("/themes/forbion/images/chevron-up-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.archive-icon:before {
+    background-image: url("/themes/forbion/images/archive-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.deck-icon:before {
+    background-image: url("/themes/forbion/images/deck-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.image-multiple-icon:before {
+    background-image: url("/themes/forbion/images/image-multiple-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.card-bulleted-icon:before {
+    background-image: url("/themes/forbion/images/card-bulleted-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.material-design-icon.card-plus-outline-icon {
+    background-image: url("/themes/forbion/images/black-plus.svg");
+    opacity: .45;
+    width: 16px;
+    height: 16px;
+}
+
+.icon-add {
+    position: relative;
+}
+
+.icon-add:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/black-plus.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon-comment:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/comment-empty-icon.svg");
+    width: 70px;
+    height: 70px;
+}
+
+.action-link__icon.icon-download:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/download-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-link__icon.icon-folder:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/folder-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon-delete,
+.icon-comment,
+.action-link__icon.icon-folder,
+.action-link__icon.icon-download,
+.action-button__icon.icon-info,
+.action-button__icon.icon-user,
+.action-button__icon.icon-checkmark,
+.action-button__icon.icon-external,
+.icon.icon-menu-sidebar,
+.icon-rename,
+.action-button__icon.icon-download,
+.action-button__icon.icon-sound-off,
+.action-button__icon.icon-sound,
+.icon-close {
+    position: relative;
+}
+
+.icon-close:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/close-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+
+.action-button__icon.icon-sound:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/notification-black-on.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-sound-off:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/notification-black-off.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon-rename:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-download:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/download-icon.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon-delete:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/delete-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-info:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/deck-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-user:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/user-black.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-checkmark:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/icon-checkmark.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.action-button__icon.icon-external:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/icon-external.svg");
+    width: 16px;
+    height: 16px;
+}
+
+.icon.icon-menu-sidebar:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/deck-sidebar.svg");
+    width: 16px;
+    height: 16px;
+}
+
+#stack-add {
+    position: relative;
+}
+
+#stack-add .icon-confirm {
+    border: 1px solid rgb(230, 230, 230) !important;
+    border-left: unset !important;
+    border-radius: 8px;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+#stack-add form:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/black-plus.svg");
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.stack__card-add {
+    position: relative;
+}
+
+.board .stack .stack__card-add form input[data-v-5851d20e][type="submit"].icon-confirm {
+    border: 1px solid rgb(230, 230, 230) !important;
+    border-color: rgb(230, 230, 230) !important;
+    border-left: unset !important;
+    border-radius: 8px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.stack .stack__card-add form {
+    border: unset !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.stack__card-add form input#new-stack-input-main {
+    padding: 4px 16px 4px 12px;
+}
+
+.stack__card-add form:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/black-plus.svg");
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.board .stack form[data-cy="editStackTitleForm"] {
+    position: relative;
+}
+
+.board .stack form[data-cy="editStackTitleForm"] input[data-v-5851d20e][type="submit"].icon-confirm {
+    border: 1px solid rgb(230, 230, 230) !important;
+    border-left: unset !important;
+    border-radius: 8px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.board .stack form[data-cy="editStackTitleForm"]:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/black-confirm.svg");
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#tab-tags .labels li.editing form {
+    position: relative;
+}
+
+#tab-tags .labels li.editing form input.icon-confirm {
+    border: 1px solid rgb(230, 230, 230) !important;
+    border-left: unset !important;
+    border-radius: 8px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    margin-top: 3px !important;
+    margin-right: 5px !important;
+}
+
+#tab-tags .labels li.editing form:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/themes/forbion/images/black-confirm.svg");
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.material-design-icon.folder-icon:before {
+    background-image: url("/themes/forbion/images/folder-icon.svg");
+    width: 16px;
+    height: 16px;
+}
