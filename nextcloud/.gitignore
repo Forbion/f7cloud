@@ -49,6 +49,7 @@
 !/apps/weather_status
 !/apps/webhook_listeners
 !/apps/workflowengine
+!/apps/snappymail
 /apps/files_external/3rdparty/irodsphp/PHPUnitTest
 /apps/files_external/3rdparty/irodsphp/web
 /apps/files_external/3rdparty/irodsphp/prods/test

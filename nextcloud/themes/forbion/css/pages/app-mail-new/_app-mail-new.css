@@ -281,13 +281,13 @@ header .unified-search__wrapper {
 
                             & .account-wrapper {
                                 padding: 0 8px 0 14px;
-                                margin: 18px 0;
+                                margin: 14px 0 18px;
                                 color: #000000;
 
                                 & .account-inner {
-                                    margin-top: 20px;
+                                    margin-top: 14px;
                                     padding-left: 25px;
-                                    padding-bottom: 12px;
+                                    padding-bottom: 10px;
                                     position: relative;
                                     display: flex;
 
@@ -759,15 +759,90 @@ header .unified-search__wrapper {
                         margin-left: 8px;
 
                         & .btn-toolbar {
-                            display: none;
+                            padding: 18px 8px 16px;
+                            background: #FFFFFF;
+                            border-top-left-radius: 8px;
+                            border-top-right-radius: 8px;
+                            border-bottom: 1px solid #E6E6E6;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            & .btn {
+                                cursor: pointer;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                border: unset;
+                                box-shadow: unset;
+                            }
+
+                            & .icon {
+                                cursor: pointer;
+                            }
+
+                            & .name {
+                                cursor: pointer;
+                                margin-top: 6px;
+                                margin-left: 0;
+                                font-family: 'Raleway' !important;
+                                font-size: 13px;
+                                font-weight: normal;
+                                line-height: normal;
+                            }
+
+                            & .btn-reload {
+
+                                & i {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0;
+                                    border: unset;
+                                }
+                            }
+
+                            & .btn-move {
+
+                                & i {
+                                    &:before {
+                                        display: none;
+                                    }
+                                }
+                            }
+
+                            & .checkboxCheckAll {
+
+                                &.active {
+
+                                    & .icon {
+
+                                        & svg {
+
+                                            & path {
+                                                fill: #70B62B;
+                                                stroke: #70B62B;
+                                            }
+                                        }
+                                    }
+                                }
+                                /*display: none;*/
+                            }
+
+                            & .d-none {
+                                display: none !important;
+                            }
                         }
 
                         & .messageList {
 
-                            height: 100%;
-                            max-width: 450px;
+                            height: calc(100% - 75px);
+                            max-width: 350px;
                             border: unset;
-                            border-radius: 8px;
+                            border-top-right-radius: unset;
+                            border-top-left-radius: unset;
+                            border-bottom-right-radius: 8px;
+                            border-bottom-left-radius: 8px;
                             background: #FFFFFF;
                             resize: unset;
                             box-shadow: unset;
@@ -777,6 +852,7 @@ header .unified-search__wrapper {
                                 background-color: #FFFFFF;
                                 background-image: unset !important;
                                 position: relative;
+                                border: unset;
 
                                 & .search-input-wrp {
                                     position: relative;
@@ -834,17 +910,54 @@ header .unified-search__wrapper {
                                         opacity: .75;
                                     }
                                 }
-
-                                & .checkboxCheckAll {
-                                    display: none;
-                                }
                             }
 
                             & .messageListPlace {
 
                                 & .messageListItem {
 
+                                    padding-top: 5px;
+                                    padding-bottom: 5px;
+                                    padding-right: 6px;
                                     border-left-color: transparent;
+                                    position: relative;
+
+                                    & .senderParent {
+                                        font-weight: 300;
+                                        font-size: 12px;
+                                        color: #000000;
+                                        opacity: .75;
+                                    }
+
+                                    & time {
+                                        font-weight: 400;
+                                        font-size: 10px;
+                                        color: #000000;
+                                    }
+
+                                    & .subjectParent {
+                                        margin-top: 4px;
+                                        font-weight: 500;
+                                        font-size: 14px;
+                                        color: #000000;
+                                    }
+
+                                    & .flagParent {
+
+                                        display: none;
+                                        cursor: pointer;
+                                        margin-left: 0;
+
+                                        &::after {
+                                            content: '';
+                                            position: absolute;
+                                            right: 12px;
+                                            top: 11px;
+                                            width: 12px;
+                                            height: 12px;
+                                            background-image: url("/themes/forbion/images/snappymail/menu/star.svg");
+                                        }
+                                    }
 
                                     & > div:nth-child(2) {
                                         padding-left: 20px;
@@ -898,6 +1011,30 @@ header .unified-search__wrapper {
                                     &.selected {
                                         /*background-color: #70B62B;*/
                                         /*color: white;*/
+                                    }
+
+                                    &:hover {
+                                        & .flagParent {
+                                            display: block;
+                                        }
+                                    }
+
+                                    & .attachmentParent {
+                                        & .icon-file-text:before {
+                                            content: '';
+                                            position: absolute;
+                                            right: 12px;
+                                            bottom: 8px;
+                                            width: 16px;
+                                            height: 16px;
+                                            background-image: url("/themes/forbion/images/snappymail/menu/folders.svg");
+                                        }
+                                    }
+
+                                    &.msgflag-\\flagged .flagParent {
+                                        &:after {
+                                            background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
+                                        }
                                     }
                                 }
                             }
@@ -997,7 +1134,8 @@ header .unified-search__wrapper {
                         & #V-Settings-Security,
                         & #V-Settings-Accounts,
                         & #V-Settings-General,
-                        & #V-Settings-Folders {
+                        & #V-Settings-Folders,
+                        & #V-Settings-Filters {
                             height: 100%;
                         }
 
@@ -1005,6 +1143,62 @@ header .unified-search__wrapper {
 
                             & .tab-menu {
                                 overflow-x: hidden;
+                            }
+                        }
+
+                        & #V-Settings-Filters {
+
+                            & .list-table {
+
+                                & tbody {
+
+                                    & .script-item {
+
+                                        & td:first-child {
+                                            padding-left: 12px;
+                                            padding-top: 6px;
+                                            border-top-left-radius: 8px;
+                                            border-bottom-left-radius: 8px;
+                                        }
+
+                                        & td:last-child {
+                                            border-top-right-radius: 8px;
+                                            border-bottom-right-radius: 8px;
+                                        }
+
+                                        &:not(:last-child) {
+                                            padding-bottom: 8px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            & .button-confirm-delete {
+                                transform: translateX(20px);
+                            }
+
+                            & .bnt-add {
+                                position: relative;
+                                padding: 12px 14px 12px 40px;
+                                color: #FFFFFF;
+                                height: 40px;
+                                line-height: normal;
+                                background: #70B62B;
+                                border-radius: 8px;
+                                box-shadow: unset;
+                                border: unset;
+
+                                &:before {
+                                    content: '';
+                                    position: absolute;
+                                    left: 13px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    width: 20px;
+                                    height: 20px;
+                                    background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
+                                    background-repeat: no-repeat;
+                                }
                             }
                         }
 
@@ -2018,6 +2212,140 @@ header .unified-search__wrapper {
                 }
             }
         }
+
+        & #V-PopupsSieveScript {
+
+            max-width: 550px;
+
+            & header {
+                padding: 40px 20px 15px;
+                border: unset;
+            }
+
+            & form.modal-body {
+                padding: 8px 20px 20px;
+            }
+
+            & .alert {
+                margin-top: -10px;
+            }
+
+            & textarea {
+                max-height: 250px;
+                margin-top: 20px;
+                padding: 8px 20px 8px 20px;
+                box-shadow: unset;
+                border-radius: 8px;
+                color: #808080;
+                border: 1px solid #E6E6E6;
+                resize: unset;
+            }
+
+            & .control-group {
+
+                & input {
+                    padding: 8px 20px 8px 16px;
+                    box-shadow: unset;
+                    border-radius: 8px;
+                    color: #808080;
+                    border: 1px solid #E6E6E6;
+                    width: 100%;
+                }
+
+                & details {
+
+                    & pre {
+                        margin-top: 10px;
+                        border-radius: 8px;
+                        border: 1px solid #E6E6E6;
+                        padding: 5px 10px;
+                        min-height: 20px;
+                    }
+
+                    &:not(:first-child) {
+                        margin-top: 16px;
+                    }
+                }
+
+                &:first-child {
+                    margin-bottom: 20px;
+                }
+            }
+
+            & footer {
+
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 20px 25px;
+                border: unset;
+
+                & button {
+                    margin: 0;
+                    font-weight: 500;
+                    height: 40px;
+                    box-shadow: unset !important;
+
+                    &:not(:last-child) {
+                        margin-right: 12px;
+                    }
+                }
+
+                & .closeBtn {
+
+                    position: relative;
+                    padding: 10px 14px 10px 40px;
+                    color: #000000;
+                    background: #F0F1F4;
+                    border-radius: 8px;
+
+                    &:hover {
+                        opacity: .75;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 15px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 16px;
+                        height: 16px;
+                        background-image: url("/themes/forbion/images/close-gray.svg");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                & .buttonSave {
+
+                    margin-right: 0;
+                    position: relative;
+                    padding: 12px 14px 12px 40px;
+                    color: #FFFFFF;
+                    height: 40px;
+                    background: #70B62B;
+                    border-radius: 8px;
+                    line-height: normal;
+                    box-shadow: unset;
+                    border: unset;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 20px;
+                        height: 20px;
+                        background-image: url("/themes/forbion/images/arrow-btn.svg");
+                        background-repeat: no-repeat;
+                    }
+
+                    & .icon-user-add {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -2404,6 +2732,57 @@ header .unified-search__wrapper {
                             height: 20px;
                             background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
                             background-repeat: no-repeat;
+                        }
+                    }
+                }
+            }
+
+            & .tumblers-letter {
+
+                margin-top: 25px;
+                margin-bottom: 5px;
+
+                & .tumblers {
+                    list-style-type: none;
+
+                    & li {
+
+                        & a {
+
+                            & span {
+                                padding-left: 30px;
+                            }
+
+                            & i {
+                                position: relative;
+
+                                &:before {
+                                    content: '';
+                                    position: absolute;
+                                    border: unset !important;
+                                    background-image: url("/themes/forbion/images/snappymail/default-checkbox-tumbler.svg");
+                                    width: 24px !important;
+                                    height: 24px !important;
+                                    margin-top: -2px;
+                                    transform: unset !important;
+                                    left: unset !important;
+                                    top: unset !important;
+                                    right: unset !important;
+                                    bottom: unset !important;
+                                    padding: 0;
+                                    cursor: pointer;
+                                }
+
+                                &:not(.active) {
+                                    &:before {
+                                        background-image: url("/themes/forbion/images/snappymail/active-checkbox-tumbler.svg") !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        &:not(:last-child) {
+                            margin-bottom: 15px;
                         }
                     }
                 }
