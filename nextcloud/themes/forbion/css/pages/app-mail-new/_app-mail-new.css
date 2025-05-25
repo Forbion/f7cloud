@@ -846,7 +846,7 @@ header .unified-search__wrapper {
                             background: #FFFFFF;
                             resize: unset;
                             box-shadow: unset;
-                            
+
                             & .second-toolbar {
                                 padding: 10px 8px;
                                 background-color: #FFFFFF;
@@ -1020,11 +1020,14 @@ header .unified-search__wrapper {
                                     }
 
                                     & .attachmentParent {
-                                        & .icon-file-text:before {
+
+                                        & .icon-file-text:before,
+                                        & .icon-attachment:before,
+                                        & .icon-file-calendar:before {
                                             content: '';
                                             position: absolute;
                                             right: 12px;
-                                            bottom: 8px;
+                                            bottom: 10px;
                                             width: 16px;
                                             height: 16px;
                                             background-image: url("/themes/forbion/images/snappymail/menu/folders.svg");
@@ -1050,6 +1053,15 @@ header .unified-search__wrapper {
 
                             @media only screen and (max-width: 1200px) {
                                 max-width: 300px;
+                            }
+                        }
+
+                        & .e-paginator {
+
+                            & a {
+                                font-family: 'Raleway' !important;
+                                font-weight: 500;
+                                font-size: 157%;
                             }
                         }
                     }
@@ -1433,7 +1445,7 @@ header .unified-search__wrapper {
                                                             opacity: 1;
                                                         }
                                                     }
-                                                    
+
                                                     &.no-action {
                                                         cursor: default;
 
