@@ -265,6 +265,7 @@ header .unified-search__wrapper {
 
                 & #rl-left {
 
+                    padding-top: 0;
                     width: 280px !important;
                     resize: unset;
 
@@ -742,6 +743,36 @@ header .unified-search__wrapper {
 
                                     color: #FFFFFF !important;
                                     background-color: #70B62B !important;
+                                }
+                            }
+                        }
+                    }
+
+                    & #V-AdminMenu {
+                        height: 100%;
+                        border-radius: 8px;
+                        background: #FFFFFF;
+
+                        & nav {
+
+                            & a {
+                                color: #000000;
+
+                                &:first-child {
+
+                                    &.selected,
+                                    &:hover {
+                                        border-top-left-radius: 8px;
+                                        border-top-right-radius: 8px;
+                                    }
+                                }
+
+                                &.selected {
+                                    color: #FFFFFF;
+                                }
+
+                                &:hover {
+                                    color: #FFFFFF;
                                 }
                             }
                         }
@@ -1684,6 +1715,22 @@ header .unified-search__wrapper {
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    & #V-AdminPane {
+
+                        margin-top: 0;
+                        margin-left: 8px;
+                        border: unset;
+                        box-shadow: unset;
+
+                        & h4 {
+                            display: none;
+                        }
+
+                        & .btn-logout {
+                            display: none;
                         }
                     }
                 }
