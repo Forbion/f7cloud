@@ -56,7 +56,7 @@ header .unified-search__wrapper {
         min-height: 780px;
 
         & .rl-wrapper {
-            display: flex;
+            display: none;
             width: 100%;
             max-width: 100%;
             padding: 0 25px 0;
@@ -72,6 +72,7 @@ header .unified-search__wrapper {
                 text-align: center;
                 border-radius: 8px;
                 background: #FFFFFF;
+                margin-right: 8px;
 
                 &.active {
                     display: flex;
@@ -258,7 +259,7 @@ header .unified-search__wrapper {
 
             & .rl-inner {
 
-                margin-left: 8px;
+                /*margin-left: 8px;*/
                 display: flex;
                 width: 100%;
                 overflow: hidden;
@@ -1739,6 +1740,10 @@ header .unified-search__wrapper {
                     }
                 }
             }
+
+            &.active {
+                display: flex;
+            }
         }
     }
 
@@ -2419,7 +2424,6 @@ header .unified-search__wrapper {
             display: flex;
 
             & .rl-wrapper {
-                max-width: max-content;
                 padding: 0;
                 margin-right: 0;
                 margin-left: 0;
@@ -2548,6 +2552,178 @@ header .unified-search__wrapper {
                                 color: #808080;
                                 border: 1px solid #E6E6E6;
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &[data-admin="0"] {
+
+        & .rl-wrapper {
+
+        }
+
+        & #V-Login {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+            transform: unset;
+            top: 0;
+            left: 0;
+            border-radius: 8px;
+            background: #FFFFFF;
+            margin: 0 25px;
+
+            & .descWrapper {
+                color: #000000;
+                margin-bottom: 24px;
+            }
+
+            & .form-wrapper {
+
+                width: 100%;
+                padding-bottom: 5%;
+
+                & .alert {
+
+                    &:not([hidden]) {
+                        position: relative;
+                        margin: -4px auto 24px;
+                        max-width: 450px;
+
+                        & .close {
+                            top: -8px;
+                        }
+                    }
+                }
+
+                & form {
+                    max-width: 500px;
+                    margin: 0 auto;
+                    padding: 40px;
+                    border-radius: 8px;
+                    background: #FFFFFF;
+                    box-shadow: 0 0 2px #000000;
+
+                    & .controls {
+
+                        margin-bottom: 14px;
+                        position: relative;
+
+                        &.textarea {
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                right: 20px;
+                                transform: translateY(-50%);
+                                width: 16px;
+                                height: 16px;
+                                background-image: url("/themes/forbion/images/pencil-icon-black.svg");
+                                background-size: auto;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        &.password {
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                right: 20px;
+                                transform: translateY(-50%);
+                                width: 16px;
+                                height: 16px;
+                                background-image: url("/themes/forbion/images/eye.svg");
+                                background-size: auto;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        &:last-child {
+
+                            margin-top: 20px;
+                            margin-bottom: 0;
+
+                            & .btn {
+                                height: 40px;
+                                padding-right: 15px;
+                                background: rgb(112, 182, 43);
+                                border-radius: 8px;
+                                box-shadow: unset;
+                                border: unset;
+                                position: relative;
+                                color: #FFFFFF;
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    margin-top: -1px;
+                                    margin-left: 32px;
+                                    width: 16px;
+                                    height: 16px;
+                                    background-size: auto;
+                                    background-position: center;
+                                    background-image: url("/themes/forbion/images/arrow-small-right.svg");
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                        }
+
+                        & .fontastic[role="checkbox"] {
+
+                            cursor: pointer;
+
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                border: unset !important;
+                                background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
+                                background-repeat: no-repeat;
+                                width: 24px !important;
+                                height: 24px !important;
+                                transform: unset !important;
+                                margin-top: 1px;
+                                left: unset !important;
+                                top: unset !important;
+                                right: unset !important;
+                                bottom: unset !important;
+                                cursor: pointer;
+                            }
+
+                            &.active:before {
+                                background-image: url("/themes/forbion/images/checkbox-marked-icon.svg") !important;
+                            }
+                        }
+
+                        & .e-checkbox {
+
+                            & span {
+                                color: #000000;
+                                font-weight: 500;
+                                margin-left: 25px;
+                                cursor: pointer;
+                            }
+                        }
+
+                        & .fontastic:not([role="checkbox"]) {
+                            display: none;
+                        }
+
+                        & input {
+                            padding: 8px 50px 8px 16px;
+                            box-shadow: unset;
+                            border-radius: 8px;
+                            color: #808080;
+                            border: 1px solid #E6E6E6;
                         }
                     }
                 }

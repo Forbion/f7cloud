@@ -60,6 +60,10 @@ export class MailFolderList extends AbstractViewLeft {
 	}
 
 	onBuild(dom) {
+
+		const wrapperBlock = document.querySelector('.rl-wrapper');
+		wrapperBlock.classList.add('active');
+
 		const qs = s => dom.querySelector(s),
 			eqs = (ev, s) => ev.target.closestWithin(s, dom);
 

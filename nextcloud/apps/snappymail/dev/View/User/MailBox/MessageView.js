@@ -359,6 +359,10 @@ export class MailMessageView extends AbstractViewRight {
 	}
 
 	onBuild(dom) {
+
+		const wrapperBlock = document.querySelector('.rl-wrapper');
+		wrapperBlock.classList.add('active');
+
 		const eqs = (ev, s) => ev.target.closestWithin(s, dom);
 		dom.addEventListener('click', event => {
 			let el = eqs(event, 'a');
@@ -656,5 +660,4 @@ export class MailMessageView extends AbstractViewRight {
 	smimeVerify(/*self, event*/) {
 		currentMessage().smimeVerify();
 	}
-
 }

@@ -595,6 +595,10 @@ export class MailMessageList extends AbstractViewRight {
 	}
 
 	onBuild(dom) {
+
+		const wrapperBlock = document.querySelector('.rl-wrapper');
+		wrapperBlock.classList.add('active');
+
 		const b_content = dom.querySelector('.b-content'),
 			eqs = (ev, s) => ev.target.closestWithin(s, dom);
 

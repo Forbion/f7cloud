@@ -20,4 +20,10 @@ export class SettingsMenuUserView extends AbstractViewLeft {
 	backToInbox() {
 		hasher.setHash(mailbox(getFolderInboxName()));
 	}
+
+	onBuild() {
+
+		const wrapperBlock = document.querySelector('.rl-wrapper');
+		wrapperBlock.classList.add('active');
+	}
 }

@@ -17,7 +17,7 @@ class MenuSettingsAdminView extends AbstractViewLeft {
 	onBuild() {
 
 		const wrapperBlock = document.querySelector('.rl-wrapper');
-		wrapperBlock.style.maxWidth = '100%';
+		wrapperBlock.classList.add('active');
 	}
 }
 
