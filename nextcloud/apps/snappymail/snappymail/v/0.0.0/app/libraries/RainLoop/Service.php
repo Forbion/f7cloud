@@ -173,8 +173,10 @@ abstract class Service
 
 			$sThemeName = $oActions->GetTheme($bAdmin);
 
-            $userAuth = $oActions->getAccountFromToken() ? 1 : 0;
-            $userEmail = $oActions->getAccountFromToken() ? $oActions->getAccountFromToken()->Email() : 'anonymous';
+            $token = $oActions->getAccountFromToken();
+
+            $userAuth = $token ? 1 : 0;
+            $userEmail = $token ? $token->Email() : 'anonymous';
 
 			$aTemplateParameters = array(
                 '{{UserEmail}}' => $userEmail,
@@ -185,7 +187,7 @@ abstract class Service
 				'{{BaseAppManifestLink}}' => Utils::WebStaticPath('manifest.json'),
 				'{{BaseFavIconSvg}}' => $sFaviconUrl ? '' : Utils::WebStaticPath('favicon.svg'),
 				'{{LoadingDescriptionEsc}}' => \htmlspecialchars($oConfig->Get('webmail', 'loading_description', 'SnappyMail'), ENT_QUOTES|ENT_IGNORE, 'UTF-8'),
-				'{{BaseAppAdmin}}' => $bAdmin ? 1 : 0
+				'{{BaseAppAdmin}}' => $bAdmin ? 1 : 0,
 			);
 
 			$sCacheFileName = 'TMPL:' . \sha1(

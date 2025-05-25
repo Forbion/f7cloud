@@ -42,9 +42,9 @@ export class SettingsUserScreen extends AbstractSettingsScreen {
 
 		// TODO: issue on account switch
 		// When current domain has sieve but the new has not, or current has not and the new has
-		// if (SettingsCapa('Sieve')) {
+		if (SettingsCapa('Sieve')) {
 			views.push(UserSettingsFilters);
-		// }
+		}
 
 		// if (SettingsCapa('Themes')) {
 		// 	views.push(UserSettingsThemes);

@@ -13,6 +13,12 @@ class MenuSettingsAdminView extends AbstractViewLeft {
 	link(route) {
 		return '#/' + route;
 	}
+
+	onBuild() {
+
+		const wrapperBlock = document.querySelector('.rl-wrapper');
+		wrapperBlock.style.maxWidth = '100%';
+	}
 }
 
 export { MenuSettingsAdminView };

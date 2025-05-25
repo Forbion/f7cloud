@@ -47,7 +47,8 @@
 	"LOGIN": {
 		"LABEL_LOGIN": "Логин",
 		"LABEL_SIGN_ME": "Запомнить меня",
-		"BUTTON_SIGN_IN": "Войти"
+		"BUTTON_SIGN_IN": "Войти",
+		"BUTTON_LOGIN": "Войти"
 	},
 	"TOP_TOOLBAR": {
 		"BUTTON_ADD_ACCOUNT": "Добавить учетную запись"

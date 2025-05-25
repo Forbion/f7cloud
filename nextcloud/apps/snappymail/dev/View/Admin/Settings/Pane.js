@@ -11,6 +11,7 @@ export class PaneSettingsAdminView extends AbstractViewRight {
 	}
 
 	logoutClick() {
-		Remote.request('AdminLogout', () => rl.logoutReload());
+		//Remote.request('AdminLogout', () => rl.logoutReload());
+		Remote.request('AdminLogout', () => window.location.href = '/apps/snappymail/');
 	}
 }
