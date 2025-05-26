@@ -90,7 +90,7 @@
 							<!-- ko if: 1 < identitiesOptions().length -->
 							<div class="dropdown" style="display:inline-block" data-bind="registerBootstrapDropdown: true, initDom: identitiesMenu">
 								<a class="dropdown-toggle" href="#" tabindex="-1" id="identity-toggle" role="button"></a>
-								<menu class="dropdown-menu right-edge" role="menu" aria-labelledby="identity-toggle" data-bind="foreach: identitiesOptions">
+								<menu class="dropdown-menu menu-accounts right-edge" role="menu" aria-labelledby="identity-toggle" data-bind="foreach: identitiesOptions">
 									<li role="presentation">
 										<a tabindex="-1" href="#" data-bind="click: function (oIdentity) { $root.selectIdentity(oIdentity); return true; }, text: optText"></a>
 									</li>

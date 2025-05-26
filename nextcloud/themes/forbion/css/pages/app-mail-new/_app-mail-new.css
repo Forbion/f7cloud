@@ -2877,6 +2877,90 @@ header .unified-search__wrapper {
 
                                 & td {
 
+                                    & .dropdown {
+                                        border: unset;
+                                        box-shadow: unset;
+
+                                        & #identity-toggle {
+
+                                            padding: 3px 10px;
+                                            margin-left: -10px;
+                                            position: relative;
+                                            box-shadow: unset;
+                                            border: unset;
+
+                                            &::after {
+                                                content: '';
+                                                position: absolute;
+                                                right: 1px;
+                                                bottom: 2px;
+                                                width: 16px;
+                                                height: 10px;
+                                                background-image: url("/themes/forbion/images/arrow-select.svg");
+                                                background-repeat: no-repeat;
+                                                pointer-events: none;
+                                                z-index: 1;
+                                                pointer-events: none;
+                                            }
+                                        }
+
+                                        & .menu-accounts {
+
+                                            box-shadow: -6px 6px 30px 0px #00000014;
+                                            background: #FFFFFF;
+                                            width: auto;
+                                            height: auto;
+                                            min-width: 250px;
+                                            padding: 10px 10px;
+                                            border-radius: 8px;
+
+                                            & li {
+
+                                                & a {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    padding: 12px 10px 12px 45px;
+                                                    position: relative;
+                                                    border-radius: 8px;
+                                                    color: #000000;
+
+                                                    &:hover {
+                                                        background: #E6E6E6;
+                                                    }
+
+                                                    &:after {
+                                                        content: '';
+                                                        position: absolute;
+                                                        left: 4px;
+                                                        top: 3px;
+                                                        width: 34px;
+                                                        height: 35px;
+                                                        background: #E6E6E6;
+                                                        border-radius: 50%;
+                                                    }
+
+                                                    &:before {
+                                                        content: '';
+                                                        position: absolute;
+                                                        left: 6px;
+                                                        top: 50%;
+                                                        transform: translateY(-50%);
+                                                        width: 30px;
+                                                        height: 30px;
+                                                        background-image: url("/themes/forbion/images/snappymail/account-icon.svg");
+                                                        background-repeat: no-repeat;
+                                                        border: unset !important;
+                                                        z-index: 1;
+                                                    }
+                                                }
+
+                                                &:not(:last-child) {
+                                                    margin-bottom: 6px;
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     &:first-child {
 
                                         text-align: left;
