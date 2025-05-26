@@ -59,6 +59,10 @@ export class MailFolderList extends AbstractViewLeft {
 		return AccountUserStore.find(account => account.email == email)?.label() || IDN.toUnicode(email);
 	}
 
+	logoutClick() {
+		rl.app.logout();
+	}
+
 	onBuild(dom) {
 
 		const wrapperBlock = document.querySelector('.rl-wrapper');
