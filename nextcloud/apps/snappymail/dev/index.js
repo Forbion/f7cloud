@@ -31,20 +31,12 @@ setActiveMenuItemByClick();
 
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('buttonEdit')) {
-        const menuItems = document.querySelectorAll('.menu li');
-        if (menuItems && menuItems.length > 0) {
-            const firstMenuItem = menuItems[0];
-            const clickEvent = new MouseEvent('click', {
-                bubbles: true,
-                cancelable: true,
-                view: window
-            });
-            firstMenuItem.dispatchEvent(clickEvent);
-        } else {
-            //console.warn("Элементы меню не найдены.");
-        }
-    }
-    if (event.target.classList.contains('buttonReply')) {
+
+        history.pushState({}, '', '/apps/snappymail/#/new-letter/');
+
+        document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
+
         const popupNewLetter = document.querySelector('#V-PopupsCompose');
 
         if(popupNewLetter) {
@@ -52,6 +44,38 @@ document.addEventListener('click', function(event) {
         }
     }
     if (event.target.classList.contains('buttonReply')) {
+
+        history.pushState({}, '', '/apps/snappymail/#/new-letter/');
+
+        document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
+
+        const popupNewLetter = document.querySelector('#V-PopupsCompose');
+
+        if(popupNewLetter) {
+            document.querySelector('#V-PopupsCompose').classList.add('active');
+        }
+    }
+    if (event.target.classList.contains('buttonReplyAll')) {
+
+        history.pushState({}, '', '/apps/snappymail/#/new-letter/');
+
+        document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
+
+        const popupNewLetter = document.querySelector('#V-PopupsCompose');
+
+        if(popupNewLetter) {
+            document.querySelector('#V-PopupsCompose').classList.add('active');
+        }
+    }
+    if (event.target.classList.contains('letterMailCustom')) {
+
+        history.pushState({}, '', '/apps/snappymail/#/new-letter/');
+
+        document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
+
         const popupNewLetter = document.querySelector('#V-PopupsCompose');
 
         if(popupNewLetter) {
