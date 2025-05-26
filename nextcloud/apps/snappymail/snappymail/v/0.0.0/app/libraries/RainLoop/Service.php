@@ -175,12 +175,12 @@ abstract class Service
 
             $token = $oActions->getAccountFromToken();
 
-            $userAuth = $token ? 1 : 0;
+            //$userAuth = $token ? 1 : 0;
             $userEmail = $token ? $token->Email() : 'anonymous';
 
 			$aTemplateParameters = array(
                 '{{UserEmail}}' => $userEmail,
-                '{{ClassMenuCustom}}' => $userAuth ? 'active' : '',
+                //'{{ClassMenuCustom}}' => $userAuth ? 'active' : '',
 				'{{BaseAppThemeName}}' => $sThemeName,
 				'{{BaseAppFaviconPngLinkTag}}' => $sFaviconPngLink ? '<link type="image/png" rel="shortcut icon" href="'.$sFaviconPngLink.'">' : '',
 				'{{BaseAppFaviconTouchLinkTag}}' => $sAppleTouchLink ? '<link type="image/png" rel="apple-touch-icon" href="'.$sAppleTouchLink.'">' : '',
