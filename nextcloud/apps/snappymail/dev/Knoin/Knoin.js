@@ -105,12 +105,26 @@ const
 							requestAnimationFrame(() => { // wait just before the next paint
 								vmDom.offsetHeight; // force a reflow
 								vmDom.classList.add('animate'); // trigger the transitions
+								if(id == 'PopupsCompose') {
+									vmDom.classList.add('active'); // trigger the transitions
+									history.pushState({}, '', '/apps/snappymail/#/new-letter/');
+
+									document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+									document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
+								}
 							});
 						} else {
 							visiblePopups.delete(vm);
 							vm.onHide?.();
 							vm.keyScope.unset();
 							vmDom.classList.remove('animate'); // trigger the transitions
+							if(id == 'PopupsCompose') {
+								vmDom.classList.remove('active'); // trigger the transitions
+								history.pushState({}, '', '/apps/snappymail/#/mailbox/');
+
+								document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+								document.querySelectorAll('#rl-menu ul.menu li')[1]?.classList.add('active');
+							}
 						}
 						arePopupsVisible(0 < visiblePopups.size);
 					});
