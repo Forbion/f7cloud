@@ -332,6 +332,13 @@ header .unified-search__wrapper {
                                             }
                                         }
 
+                                        & .name {
+                                            width: 145px;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                        }
+
                                         & .menu-inner {
                                             /*right: -25px;*/
                                             left: 160px;

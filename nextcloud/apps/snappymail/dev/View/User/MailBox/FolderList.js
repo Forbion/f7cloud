@@ -3,11 +3,15 @@ import ko from 'ko';
 import { ScopeFolderList, ScopeMessageList } from 'Common/Enums';
 import { addShortcut, leftPanelDisabled, stopEvent } from 'Common/Globals';
 import { mailBox, settings } from 'Common/Links';
+import { AppUserStore } from 'Stores/User/App';
 import { AccountUserStore } from 'Stores/User/Account';
+
+import { AccountPopupView } from 'View/Popup/Account';
+import Remote from 'Remote/User/Fetch';
+import { getNotification } from 'Common/Translator';
 //import { setFolderETag } from 'Common/Cache';
 import { addComputablesTo } from 'External/ko';
 
-import { AppUserStore } from 'Stores/User/App';
 import { SettingsUserStore } from 'Stores/User/Settings';
 import { FolderUserStore } from 'Stores/User/Folder';
 import { MessageUserStore } from 'Stores/User/Message';
@@ -44,6 +48,8 @@ export class MailFolderList extends AbstractViewLeft {
 
 		this.accountEmail = AccountUserStore.email;
 
+		this.accounts = AccountUserStore;
+
 		addComputablesTo(this, {
 			foldersFilterVisible: () => 20 < FolderUserStore.folderList().CountRec,
 
@@ -61,6 +67,42 @@ export class MailFolderList extends AbstractViewLeft {
 
 	logoutClick() {
 		rl.app.logout();
+	}
+
+	accountClick(account, event) {
+		let email = account?.email;
+		if (email && 0 === event.button && AccountUserStore.email() != email) {
+			AccountUserStore.loading(true);
+			stopEvent(event);
+			Remote.request('AccountSwitch',
+				(iError/*, oData*/) => {
+					if (iError) {
+						AccountUserStore.loading(false);
+						alert('Account error: ' + getNotification(iError).replace('%EMAIL%', email));
+						if (account.isAdditional()) {
+							showScreenPopup(AccountPopupView, [account]);
+						}
+					} else {
+						/*						// Not working yet
+                                                forEachObjectEntry(oData.Result, (key, value) => rl.settings.set(key, value));
+                        //						MessageUserStore.message();
+                        //						MessageUserStore.purgeCache();
+                                                MessagelistUserStore([]);
+                        //						FolderUserStore.folderList([]);
+                                                loadFolders(value => {
+                                                    if (value) {
+                        //								4. Change to INBOX = reload MessageList
+                        //								MessagelistUserStore.setMessageList();
+                                                    }
+                                                });
+                                                AccountUserStore.loading(false);
+                        */
+						rl.route.reload();
+					}
+				}, {Email:email}
+			);
+		}
+		return true;
 	}
 
 	onBuild(dom) {

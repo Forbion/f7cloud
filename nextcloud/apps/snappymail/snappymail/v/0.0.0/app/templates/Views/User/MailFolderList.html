@@ -87,14 +87,17 @@
 					<img src="/themes/forbion/images/snappymail/accounts-menu.svg" alt="accounts">
 					<div class="menu-inner">
 						<ul class="menu">
-							<li>
-								<a href="#/settings/accounts/" class="link">
+							<!-- ko foreach: accounts -->
+							<li role="presentation">
+								<a href="#" class="link" data-bind="click: $root.accountClick,
+					attr: {title: email, 'data-unread': unreadEmails}">
 									<div class="icon icon-account">
 										<img src="/themes/forbion/images/snappymail/account-icon.svg" alt="account">
 									</div>
-									<span class="name" data-bind="text: accountName()"></span>
+									<span class="name" data-bind="text: label()"></span>
 								</a>
 							</li>
+							<!-- /ko -->
 						</ul>
 					</div>
 				</div>
