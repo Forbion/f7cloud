@@ -254,6 +254,12 @@ export class MailFolderList extends AbstractViewLeft {
 				}
 			});
 		}
+
+		const nameUserElement = document.querySelector('.user-control__header .name__user');
+
+		if (nameUserElement) {
+			nameUserElement.textContent = this.accountEmail();
+		}
 	}
 
 	scrollToFocused() {
