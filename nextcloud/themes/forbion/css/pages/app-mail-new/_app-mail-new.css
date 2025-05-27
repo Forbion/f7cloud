@@ -332,6 +332,13 @@ header .unified-search__wrapper {
                                             }
                                         }
 
+                                        & .name {
+                                            width: 145px;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                        }
+
                                         & .menu-inner {
                                             /*right: -25px;*/
                                             left: 160px;
@@ -486,6 +493,7 @@ header .unified-search__wrapper {
 
                                     & a {
 
+                                        width: 100%;
                                         padding: 7px 10px 7px 38px;
                                         display: flex;
                                         align-items: center;
@@ -1142,20 +1150,150 @@ header .unified-search__wrapper {
                             }
 
                             & .b-message {
+                                overflow: hidden;
+
+                                & .btn-group {
+                                    display: none !important;
+                                }
+
+                                & .message-fixed-button-toolbar-custom {
+                                    padding: 23px 8px 17px;
+                                    background: #FFFFFF;
+                                    border-top-left-radius: 8px;
+                                    border-top-right-radius: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    margin: 0 auto;
+                                    position: relative;
+
+                                    &:before {
+                                        content: '';
+                                        position: absolute;
+                                        bottom: 0;
+                                        left: -1000px;
+                                        width: calc(100% + 5000px);
+                                        height: 1px;
+                                        background: #E6E6E6;
+                                    }
+
+                                    & a {
+                                        opacity: 1;
+                                        line-height: normal;
+                                        transition: opacity .3s;
+                                        text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+                                        padding: 0 12px;
+
+                                        &:hover {
+                                            opacity: .9;
+                                        }
+
+                                        & .icon {
+                                            pointer-events: none;
+                                        }
+
+                                        & .name {
+                                            display: block;
+                                            margin-top: 2px;
+                                            font-size: 13px;
+                                            font-family: 'Raleway';
+                                            font-weight: 600;
+                                            color: #333333;
+                                            white-space: nowrap;
+                                            pointer-events: none;
+                                        }
+                                    }
+
+                                    & .btn-group {
+
+                                        display: inline-block !important;
+
+                                        & .dropdown-menu {
+
+                                            & li {
+
+                                                & a {
+                                                    padding: 5px 12px;
+
+                                                    &:before {
+                                                        margin-right: .75em;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
                                 & .messageItemHeader{
+
                                     background: #FFFFFF;
+                                    padding: 5px 20px 10px;
+
+                                    & .messageName {
+                                        padding: 10px 0;
+
+                                        & .subject {
+                                            font-size: 18px;
+                                            margin-left: 0;
+                                            font-weight: 600;
+                                        }
+
+                                        & .close {
+                                            margin-top: -15px !important;
+                                        }
+                                    }
+
+                                    & .messageAnswer {
+                                        display: flex;
+                                        align-items: center;
+                                        padding-bottom: 5px;
+                                        font-size: 14px;
+
+                                        & .informationShort {
+
+                                            &:nth-child(2) {
+                                                margin-top: 6px;
+                                            }
+                                        }
+
+                                        & .icon {
+                                            margin-right: 12px;
+                                        }
+
+                                        & .from {
+                                            margin-right: 3px;
+                                        }
+                                    }
                                 }
 
                                 & #messageItem {
 
+                                    & .bodySubHeader {
+
+                                        & > * {
+
+                                            padding: 10px 20px;
+                                        }
+                                    }
+
+                                    & .bodyText {
+
+                                        table {
+                                            white-space: unset;
+                                        }
+
+                                        & > div:not(:empty) {
+
+                                            border: 1px solid #D7D7D7;
+                                            padding: 10px 20px;
+                                            margin: 20px;
+                                            border-radius: 8px;
+                                        }
+                                    }
+
                                     & *:not(.fontastic) {
                                         font-family: 'Raleway' !important;
                                         line-height: 22px !important;
-                                    }
-
-                                    & .messageItemHeader {
-                                        background: #FFFFFF;
                                     }
                                 }
                             }
@@ -2414,6 +2552,82 @@ header .unified-search__wrapper {
                 }
             }
         }
+
+        & #V-PopupsAsk {
+
+            & footer {
+
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 20px 25px;
+                border: unset;
+
+                & .btn {
+                    margin: 0;
+                    font-weight: 500;
+                    height: 40px;
+                    box-shadow: unset !important;
+                    line-height: normal;
+
+                    &:not(:last-child) {
+                        margin-right: 12px;
+                    }
+                }
+
+                & .buttonNo {
+
+                    position: relative;
+                    padding: 10px 14px 10px 40px;
+                    color: #000000;
+                    background: #F0F1F4;
+                    border-radius: 8px;
+                    min-width: 90px;
+
+                    &:hover {
+                        opacity: .75;
+                    }
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 15px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 16px;
+                        height: 16px;
+                        background-image: url("/themes/forbion/images/close-gray.svg");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                & .buttonYes {
+
+                    margin-right: 0;
+                    position: relative;
+                    padding: 12px 14px 12px 40px;
+                    color: #FFFFFF;
+                    height: 40px;
+                    background: #70B62B;
+                    border-radius: 8px;
+                    line-height: normal;
+                    box-shadow: unset;
+                    border: unset;
+                    min-width: 85px;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 20px;
+                        height: 20px;
+                        background-image: url("/themes/forbion/images/arrow-btn.svg");
+                        background-repeat: no-repeat;
+                    }
+                }
+            }
+        }
     }
 
     &[data-admin="1"] {
@@ -2869,6 +3083,90 @@ header .unified-search__wrapper {
 
                                 & td {
 
+                                    & .dropdown {
+                                        border: unset;
+                                        box-shadow: unset;
+
+                                        & #identity-toggle {
+
+                                            padding: 3px 10px;
+                                            margin-left: -10px;
+                                            position: relative;
+                                            box-shadow: unset;
+                                            border: unset;
+
+                                            &::after {
+                                                content: '';
+                                                position: absolute;
+                                                right: 1px;
+                                                bottom: 2px;
+                                                width: 16px;
+                                                height: 10px;
+                                                background-image: url("/themes/forbion/images/arrow-select.svg");
+                                                background-repeat: no-repeat;
+                                                pointer-events: none;
+                                                z-index: 1;
+                                                pointer-events: none;
+                                            }
+                                        }
+
+                                        & .menu-accounts {
+
+                                            box-shadow: -6px 6px 30px 0px #00000014;
+                                            background: #FFFFFF;
+                                            width: auto;
+                                            height: auto;
+                                            min-width: 250px;
+                                            padding: 10px 10px;
+                                            border-radius: 8px;
+
+                                            & li {
+
+                                                & a {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    padding: 12px 10px 12px 45px;
+                                                    position: relative;
+                                                    border-radius: 8px;
+                                                    color: #000000;
+
+                                                    &:hover {
+                                                        background: #E6E6E6;
+                                                    }
+
+                                                    &:after {
+                                                        content: '';
+                                                        position: absolute;
+                                                        left: 4px;
+                                                        top: 3px;
+                                                        width: 34px;
+                                                        height: 35px;
+                                                        background: #E6E6E6;
+                                                        border-radius: 50%;
+                                                    }
+
+                                                    &:before {
+                                                        content: '';
+                                                        position: absolute;
+                                                        left: 6px;
+                                                        top: 50%;
+                                                        transform: translateY(-50%);
+                                                        width: 30px;
+                                                        height: 30px;
+                                                        background-image: url("/themes/forbion/images/snappymail/account-icon.svg");
+                                                        background-repeat: no-repeat;
+                                                        border: unset !important;
+                                                        z-index: 1;
+                                                    }
+                                                }
+
+                                                &:not(:last-child) {
+                                                    margin-bottom: 6px;
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     &:first-child {
 
                                         text-align: left;
@@ -3202,4 +3500,20 @@ input {
 #rl-loading-desc {
     color: #000000;
     font-weight: 500;
+}
+
+#messageItem .bodySubHeader {
+    background-color: unset;
+}
+
+#messageItem .attachmentsPlace  {
+    border-bottom: unset;
+}
+
+.messageView .messageItemHeader {
+    border-bottom: unset;
+}
+
+#messageItem .sm-bq-switcher>summary {
+    border: unset;
 }

@@ -1,0 +1,582 @@
+<div class="top-toolbar g-ui-user-select-none btn-toolbar">
+	<div class="btn-group" data-i18n="[title]GLOBAL/CLOSE">
+		<a class="btn buttonClose fontastic" data-bind="click: closeMessage">✖</a>
+	</div>
+	<div class="btn-group" data-bind="visible: isDraftFolder()" data-i18n="[title]MESSAGE/BUTTON_EDIT">
+		<a class="btn btn-success buttonEdit fontastic" data-bind="command: editCommand">🖉</a>
+	</div>
+	<div class="btn-group">
+		<a class="btn fontastic" data-bind="visible: archiveAllowed, command: archiveCommand" data-i18n="[title]GLOBAL/TO_ARCHIVE">🗄</a>
+		<a class="btn fontastic" data-bind="visible: canMarkAsSpam , command: spamCommand" data-i18n="[title]GLOBAL/TO_SPAM">⚠</a>
+		<a class="btn" data-bind="visible: isSpamFolder, command: notSpamCommand" data-i18n="[title]GLOBAL/NOT_SPAM">
+			<i class="icon-check-mark-circle-two"></i>
+		</a>
+		<a class="btn fontastic" data-bind="visible: !canBeUndeleted(), command: deleteCommand" data-i18n="[title]GLOBAL/DELETE">🗑</a>
+		<a class="btn fontastic" data-bind="visible: canBeUndeleted, command: undeleteCommand" data-i18n="[title]GLOBAL/UNDELETE"><div class=btn-rotate>🗑</div></a>
+	</div>
+	<div class="btn-group">
+		<a class="btn btn-thin buttonUp fontastic" data-bind="command: goUpCommand">❮</a>
+		<a class="btn btn-thin buttonDown fontastic" data-bind="command: goDownCommand">❯</a>
+	</div>
+</div>
+<div class="messageView">
+	<div class="b-message-view-backdrop" data-bind="visible: moveAction">
+		<div class="backdrop-message" data-icon="📁" data-i18n="MESSAGE/MESSAGE_VIEW_MOVE_DESC"></div>
+	</div>
+	<div class="b-message-view-checked-helper" data-bind="visible: !message() && '' === messageError() && hasCheckedMessages(), text: printableCheckedMessageCount()"></div>
+
+	<div class="b-message-view-desc error" data-bind="visible: !message() && '' !== messageError() && !hasCheckedMessages(), text: messageError()">
+	</div>
+
+	<div class="b-message-view-desc" data-bind="visible: !message() && '' === messageError() && !hasCheckedMessages()">
+		<div class="icon">
+			<svg xmlns="http://www.w3.org/2000/svg" width="89" height="93" viewBox="0 0 89 93" fill="none">
+				<g clip-path="url(#clip0_6662_34445)">
+					<circle cx="44.5" cy="46.2" r="44" fill="#E6E6E6"></circle>
+					<path d="M13.6992 27.1302V68.7988C13.6992 70.1386 14.5023 71.3479 15.7371 71.8676C16.146 72.0398 16.5852 72.1284 17.0289 72.1284H42.9311H58.4328H73.3195C73.7271 72.1284 74.1323 72.066 74.521 71.9433L74.6882 71.8905C76.3488 71.3663 77.4778 69.8259 77.4778 68.0846V27.1302C77.4778 24.926 75.6909 23.1392 73.4867 23.1392H45.5885H17.6903C15.4861 23.1392 13.6992 24.926 13.6992 27.1302Z" fill="#F5F5F5" stroke="black" stroke-width="1.99554"></path>
+					<path d="M76.5727 65.0177L49.8936 37.7769C47.5396 35.3734 43.668 35.3809 41.3233 37.7934L15.3706 64.4973C14.2994 65.5996 13.7001 67.0761 13.7001 68.6132V69.636C13.7001 70.4914 14.1387 71.287 14.862 71.7437C15.2603 71.9952 15.7217 72.1287 16.1928 72.1287L19.015 72.1287H29.4583L59.3578 72.1287H73.9354C77.5595 72.1287 78.3847 67.4147 76.5727 65.0177Z" stroke="black" stroke-width="1.99554"></path>
+					<path d="M15.1038 29.4768L44.2767 55.0206C45.0327 55.6825 46.1628 55.6792 46.9148 55.0128L76.4872 28.8077C77.1308 28.2374 77.4992 27.4186 77.4992 26.5587C77.4992 25.9074 77.2876 25.2738 76.8963 24.7532L76.5797 24.332C76.0252 23.5943 75.2609 23.0412 74.3868 22.7451L73.1215 22.3165C72.5028 22.1069 71.854 22 71.2008 22H61.7495H46.7765H38.8058H30.8351H17.1711C13.7862 22 12.9537 26.1331 14.337 28.597C14.5288 28.9387 14.809 29.2187 15.1038 29.4768Z" fill="#F5F5F5" stroke="black" stroke-width="1.99554"></path>
+					<path d="M44.5942 34.1727C44.0513 34.1727 43.5511 34.3816 43.0918 34.8027C42.6326 35.2238 42.2849 35.8225 42.052 36.5989C41.8207 37.3753 41.7026 38.0645 41.7026 38.6649C41.7026 39.4659 41.865 40.0581 42.1881 40.4364C42.5129 40.8147 42.9147 41.0056 43.3936 41.0056L43.7709 42.634C43.4888 42.7047 43.1968 42.7393 42.8934 42.7393C41.847 42.7393 40.9793 42.3774 40.2888 41.6536C40.074 41.4283 39.8919 41.1783 39.7443 40.9052C39.4179 40.3048 39.2539 39.5926 39.2539 38.7669C39.2539 37.2815 39.6705 35.9262 40.5021 34.7024C41.5107 33.2105 42.8015 32.4653 44.3777 32.4653C44.4991 32.4653 44.6172 32.4703 44.7304 32.4818L44.5942 34.1711V34.1727Z" fill="#70B62B"></path>
+					<path d="M50.0439 31.9128C48.9221 30.8666 47.3557 30.3435 45.3466 30.3435C43.6392 30.3435 42.1926 30.6939 41.0051 31.3913C39.8176 32.0888 38.9221 33.0708 38.3202 34.339C37.7182 35.6055 37.4181 36.9247 37.4181 38.2949C37.4181 39.3772 37.6395 40.3823 38.0823 41.3083C38.184 41.5222 38.2988 41.7311 38.4235 41.9367C39.0943 43.0305 40.0374 43.8266 41.2495 44.3283C42.4615 44.83 43.8491 45.0817 45.4122 45.0817C46.9752 45.0817 48.2135 44.8711 49.296 44.4517C50.3802 44.0322 51.2527 43.4006 51.9153 42.5617H53.9278C53.298 43.8447 52.3319 44.8481 51.0264 45.5768C49.5322 46.4107 47.7116 46.8285 45.5631 46.8285C43.4145 46.8285 41.6874 46.4765 40.1768 45.7725C38.6646 45.0669 37.5411 44.029 36.803 42.6538C36.0666 41.2771 35.6992 39.7802 35.6992 38.1633C35.6992 36.3868 36.1175 34.7337 36.9556 33.2007C37.7937 31.6693 38.9418 30.5179 40.3966 29.7497C41.8514 28.9849 43.5145 28.6 45.3859 28.6C46.9736 28.6 48.3841 28.9109 49.6208 29.5293C50.8558 30.1478 51.7989 31.0295 52.45 32.1694C53.1028 33.3093 53.4292 34.5561 53.4292 35.9082C53.4292 37.5185 52.9339 38.9759 51.9449 40.277C50.7033 41.9202 49.1123 42.741 47.172 42.741C46.6505 42.741 46.2552 42.6505 45.9895 42.4663C45.7254 42.2837 45.5483 42.0156 45.4614 41.662C44.9496 42.1571 44.3838 42.4811 43.7671 42.6357L43.3899 41.0073C43.749 41.0073 44.0853 40.9185 44.4002 40.7408C44.6396 40.6158 44.8758 40.4168 45.1087 40.1438C45.4433 39.7588 45.7303 39.1963 45.9747 38.4561C46.2175 37.7176 46.3388 37.03 46.3388 36.3901C46.3388 35.6779 46.1732 35.1285 45.8435 34.7469C45.5122 34.3636 45.0956 34.1728 44.5921 34.1728L44.7282 32.4835C45.6713 32.5658 46.3831 32.9902 46.8604 33.7567L47.0966 32.704H49.5912L48.1643 39.499C48.0774 39.9299 48.0315 40.2079 48.0315 40.3329C48.0315 40.4908 48.0676 40.6093 48.1414 40.6882C48.2152 40.7672 48.3005 40.8066 48.4005 40.8066C48.7023 40.8066 49.0943 40.6241 49.5716 40.2572C50.2145 39.7769 50.7344 39.1338 51.1313 38.3245C51.5283 37.5152 51.7267 36.678 51.7267 35.8128C51.7267 34.3554 51.233 33.1234 50.2489 32.1118C50.1833 32.0444 50.1145 31.9786 50.0439 31.9128Z" fill="#70B62B"></path>
+				</g>
+				<defs>
+					<clipPath id="clip0_6662_34445">
+						<rect x="0.5" width="88" height="92.4" rx="17.6" fill="white"></rect>
+					</clipPath>
+				</defs>
+			</svg>
+		</div>
+		<div class="text" data-i18n="MESSAGE/MESSAGE_VIEW_DESC"></div>
+	</div>
+
+<!--	<div class="b-message-view-desc" data-i18n="MESSAGE/MESSAGE_VIEW_DESC" data-bind="visible: !message() && '' === messageError() && !hasCheckedMessages()">-->
+<!--	</div>-->
+
+	<div class="b-message" data-bind="visible: message, i18nUpdate: message, css: message()?.lineAsCss(0)">
+		<div class="message-fixed-button-toolbar-custom">
+			<a class="btn btn-thin btn-transparent letterMailCustom buttonReply fontastic"
+			   data-bind="visible: 1 == msgDefaultAction(), command: replyCommand">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+						<g clip-path="url(#clip0_7868_22355)">
+							<path d="M3.7322 1L1.3457 3.3865L3.7322 5.77296" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M1.3457 3.38647H9.84778C12.4296 3.38647 14.5503 5.42602 14.6509 8.00588C14.7572 10.732 12.576 13 9.84778 13H3.5957" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_7868_22355">
+								<rect width="16" height="16" fill="white"></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</div>
+				<span class="name">
+					Ответить
+				</span>
+			</a>
+			<a class="btn btn-thin btn-transparent letterMailCustom buttonReplyAll fontastic"
+			   data-bind="command: replyAllCommand">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+						<g clip-path="url(#clip0_7868_20928)">
+							<path d="M8.23204 1L5.84555 3.3865L8.23204 5.77296M4.8865 1L2.5 3.3865L4.8865 5.77296" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M6.50024 3.38647H10.3478C12.9296 3.38647 15.0503 5.42602 15.1509 8.00588C15.2572 10.732 13.076 13 10.3478 13H4.0957" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_7868_20928">
+								<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</div>
+				<span class="name">
+					Ответить всем
+				</span>
+			</a>
+			<a class="btn btn-thin btn-transparent letterMailCustom fontastic"
+			   data-bind="command: forwardCommand">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+						<path d="M12.7678 1L15.1543 3.3865L12.7678 5.77296" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						<path d="M15.1543 3.38647H6.65222C4.07042 3.38647 1.94972 5.42602 1.84911 8.00588C1.74276 10.732 3.92402 13 6.65222 13H12.9043" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</div>
+				<span class="name">
+					Переслать
+				</span>
+			</a>
+			<a class="btn btn-thin btn-transparent letterMailCustom fontastic"
+			   data-bind="command: deleteCommand">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+						<path d="M7 8.5V13" stroke="#808080" stroke-linecap="round"></path>
+						<path d="M9 8.5V13" stroke="#808080" stroke-linecap="round"></path>
+						<path d="M3.83922 14.1962L1.73922 3.69612C1.61546 3.07732 2.08876 2.5 2.7198 2.5H8.22402H13.2156C13.8444 2.5 14.3172 3.07346 14.1972 3.69072L12.1572 14.1908C12.0659 14.6607 11.6543 15 11.1756 15H4.81981C4.34312 15 3.93271 14.6636 3.83922 14.1962Z" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+						<path d="M2.5 2.5H13.5" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+						<path d="M2.5 6H13.5" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+						<path d="M8 2.5V1" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+					</svg>
+				</div>
+				<span class="name">
+					Удалить
+				</span>
+			</a>
+			<a class="btn btn-thin btn-transparent letterMailCustom fontastic hidden"
+			   data-bind="visible: 1 == msgDefaultAction(), command: replyCommand">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+						<g clip-path="url(#clip0_7868_3043)">
+							<path d="M0.929688 4.57123V7.84882C0.929776 8.26551 1.09537 8.66509 1.39006 8.95969L5.87593 13.4456C6.23099 13.8006 6.71252 14 7.21462 14C7.71671 14 8.19825 13.8006 8.55331 13.4456L11.3752 10.6236C11.7303 10.2686 11.9297 9.78703 11.9297 9.28493C11.9297 8.78284 11.7303 8.3013 11.3752 7.94624L6.88937 3.46037C6.59478 3.16569 6.19519 3.00009 5.77851 3H2.50092C2.0842 3 1.68455 3.16554 1.38989 3.4602C1.09523 3.75487 0.929688 4.15452 0.929688 4.57123Z" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M12.7141 13.213L13.9648 11.9623C14.6748 11.2522 15.0737 10.2891 15.0737 9.28493C15.0737 8.28074 14.6748 7.31767 13.9648 6.60755L10.3572 3M4.07231 6.14247H4.06445" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_7868_3043">
+								<rect width="16" height="16" fill="white"></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</div>
+				<span class="name">
+					Пометить
+				</span>
+			</a>
+			<div class="btn-group" data-bind="registerBootstrapDropdown: true, initDom: actionsMenu" style="display: inline-block">
+				<a class="btn btn-thin btn-transparent dropdown-toggle fontastic" id="more-view-dropdown-id">
+					<div class="icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+							<g clip-path="url(#clip0_7868_20979)">
+								<circle cx="3" cy="8.5" r="1.5" fill="#808080"></circle>
+								<circle cx="8" cy="8.5" r="1.5" fill="#808080"></circle>
+								<circle cx="13" cy="8.5" r="1.5" fill="#808080"></circle>
+							</g>
+							<defs>
+								<clipPath id="clip0_7868_20979">
+									<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+								</clipPath>
+							</defs>
+						</svg>
+					</div>
+						<span class="name">
+						Еще
+					</span>
+				</a>
+				<menu class="dropdown-menu right-edge" role="menu" aria-labelledby="more-view-dropdown-id">
+					<div data-bind="visible: !isDraftFolder()">
+						<li role="presentation">
+							<a href="#" tabindex="-1" class="letterMailCustom" data-bind="command: replyCommand" data-icon="←" data-i18n="MESSAGE/BUTTON_REPLY"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" class="letterMailCustom" data-bind="command: replyAllCommand" data-icon="↞" data-i18n="MESSAGE/BUTTON_REPLY_ALL"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" class="letterMailCustom" data-bind="command: forwardCommand" data-icon="→" data-i18n="MESSAGE/BUTTON_FORWARD"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" class="letterMailCustom" data-bind="command: forwardAsAttachmentCommand" data-icon="⥅" data-i18n="MESSAGE/BUTTON_FORWARD_AS_ATTACHMENT"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" class="letterMailCustom" data-bind="command: editAsNewCommand" data-icon="🖉" data-i18n="MESSAGE/BUTTON_EDIT_AS_NEW"></a>
+						</li>
+					</div>
+					<div class="dividerbar">
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="click: setUnseen" data-icon=" " data-i18n="MESSAGE_LIST/MENU_UNSET_SEEN"></a>
+						</li>
+						<li role="presentation" data-bind="visible: archiveAllowed">
+							<a href="#" tabindex="-1" data-bind="command: archiveCommand" data-icon="🗄" data-i18n="GLOBAL/TO_ARCHIVE"></a>
+						</li>
+						<li role="presentation" data-bind="visible: canMarkAsSpam">
+							<a href="#" tabindex="-1" data-bind="command: spamCommand" data-icon="⚠" data-i18n="GLOBAL/TO_SPAM"></a>
+						</li>
+						<li role="presentation" data-bind="visible: isSpamFolder">
+							<a href="#" tabindex="-1" data-bind="command: notSpamCommand">
+								<i class="icon-check-mark-circle-two"></i>
+								<span data-i18n="GLOBAL/NOT_SPAM"></span>
+							</a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="command: moveCommand" data-icon="📁" data-i18n="GLOBAL/MOVE_TO"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="command: copyCommand" data-icon="&#xE068;" data-i18n="GLOBAL/COPY_TO"></a>
+						</li>
+						<li role="presentation" data-bind="visible: !canBeUndeleted()">
+							<a href="#" tabindex="-1" data-bind="command: deleteCommand" data-icon="🗑" data-i18n="GLOBAL/DELETE"></a>
+						</li>
+						<li role="presentation" data-bind="visible: canBeUndeleted">
+							<a href="#" tabindex="-1" data-bind="command: undeleteCommand" data-icon="🗑" data-i18n="GLOBAL/UNDELETE" class="rotate"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="command: deleteWithoutMoveCommand" data-icon="🗑" data-i18n="MESSAGE_LIST/BUTTON_DELETE_WITHOUT_MOVE"></a>
+						</li>
+						<li class="dividerbar" role="presentation" data-bind="visible: firstUnsubsribeLink">
+							<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: firstUnsubsribeLink }" data-icon="✖" data-i18n="MESSAGE/BUTTON_UNSUBSCRIBE"></a>
+						</li>
+					</div>
+					<div data-bind="with: message" class="dividerbar">
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="click: printMessage" data-icon="🖨" data-i18n="MESSAGE/MENU_PRINT"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="click: $root.toggleFullScreen">
+								<i data-bind="css: { 'icon-arrows-out': !$root.fullScreenMode(), 'icon-arrows-in': $root.fullScreenMode }"></i>
+								<span data-i18n="SHORTCUTS_HELP/LABEL_FULLSCREEN_TOGGLE"></span>
+							</a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="click: popupMessage" data-icon="⧉" data-i18n="MESSAGE/BUTTON_IN_NEW_WINDOW"></a>
+						</li>
+						<li role="presentation" data-bind="visible: html() && !isHtml()">
+							<a href="#" tabindex="-1" data-bind="click: viewHtml" data-icon="👁" data-i18n="MESSAGE/HTML_VIEW"></a>
+						</li>
+						<li role="presentation" data-bind="visible: isHtml()">
+							<a href="#" tabindex="-1" data-bind="click: viewPlain" data-icon="👁" data-i18n="MESSAGE/PLAIN_VIEW"></a>
+						</li>
+						<li role="presentation">
+							<a href="#" tabindex="-1" data-bind="click: swapColors" data-icon="🎨" data-i18n="MESSAGE/SWAP_COLORS"></a>
+						</li>
+						<li class="dividerbar" role="presentation">
+							<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: viewRaw() }">
+								<i class="icon-file-code"></i>
+								<span data-i18n="MESSAGE/MENU_VIEW_ORIGINAL"></span>
+							</a>
+						</li>
+						<li role="presentation">
+							<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: downloadLink() }" data-icon="📥" data-i18n="MESSAGE/MENU_DOWNLOAD_ORIGINAL"></a>
+						</li>
+					</div>
+				</menu>
+			</div>
+		</div>
+		<div class="message-fixed-button-toolbar">
+			<a class="btn btn-success buttonEdit fontastic hide-mobile" data-bind="visible: isDraftFolder(), command: editCommand">🖉</a>
+			<div class="btn-group" style="margin-right: -8px; display: inline;">
+				<span data-bind="visible: canBeRepliedOrForwarded">
+					<a class="btn btn-thin btn-transparent buttonReply fontastic"
+						data-bind="visible: 1 == msgDefaultAction(), command: replyCommand" data-i18n="[title]MESSAGE/BUTTON_REPLY">←</a>
+					<a class="btn btn-thin btn-transparent buttonReplyAll fontastic"
+						data-bind="visible: 2 == msgDefaultAction(), command: replyAllCommand" data-i18n="[title]MESSAGE/BUTTON_REPLY_ALL">↞</a>
+				</span>
+				<div class="btn-group" data-bind="registerBootstrapDropdown: true, initDom: actionsMenu" style="display: inline-block">
+					<a class="btn btn-thin btn-transparent dropdown-toggle fontastic" id="more-view-dropdown-id" href="#" tabindex="-1">☰</a>
+					<menu class="dropdown-menu right-edge" role="menu" aria-labelledby="more-view-dropdown-id">
+						<div data-bind="visible: !isDraftFolder()">
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: replyCommand" data-icon="←" data-i18n="MESSAGE/BUTTON_REPLY"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: replyAllCommand" data-icon="↞" data-i18n="MESSAGE/BUTTON_REPLY_ALL"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: forwardCommand" data-icon="→" data-i18n="MESSAGE/BUTTON_FORWARD"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: forwardAsAttachmentCommand" data-icon="⥅" data-i18n="MESSAGE/BUTTON_FORWARD_AS_ATTACHMENT"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: editAsNewCommand" data-icon="🖉" data-i18n="MESSAGE/BUTTON_EDIT_AS_NEW"></a>
+							</li>
+						</div>
+						<div class="dividerbar">
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="click: setUnseen" data-icon=" " data-i18n="MESSAGE_LIST/MENU_UNSET_SEEN"></a>
+							</li>
+							<li role="presentation" data-bind="visible: archiveAllowed">
+								<a href="#" tabindex="-1" data-bind="command: archiveCommand" data-icon="🗄" data-i18n="GLOBAL/TO_ARCHIVE"></a>
+							</li>
+							<li role="presentation" data-bind="visible: canMarkAsSpam">
+								<a href="#" tabindex="-1" data-bind="command: spamCommand" data-icon="⚠" data-i18n="GLOBAL/TO_SPAM"></a>
+							</li>
+							<li role="presentation" data-bind="visible: isSpamFolder">
+								<a href="#" tabindex="-1" data-bind="command: notSpamCommand">
+									<i class="icon-check-mark-circle-two"></i>
+									<span data-i18n="GLOBAL/NOT_SPAM"></span>
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: moveCommand" data-icon="📁" data-i18n="GLOBAL/MOVE_TO"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: copyCommand" data-icon="&#xE068;" data-i18n="GLOBAL/COPY_TO"></a>
+							</li>
+							<li role="presentation" data-bind="visible: !canBeUndeleted()">
+								<a href="#" tabindex="-1" data-bind="command: deleteCommand" data-icon="🗑" data-i18n="GLOBAL/DELETE"></a>
+							</li>
+							<li role="presentation" data-bind="visible: canBeUndeleted">
+								<a href="#" tabindex="-1" data-bind="command: undeleteCommand" data-icon="🗑" data-i18n="GLOBAL/UNDELETE" class="rotate"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="command: deleteWithoutMoveCommand" data-icon="🗑" data-i18n="MESSAGE_LIST/BUTTON_DELETE_WITHOUT_MOVE"></a>
+							</li>
+							<li class="dividerbar" role="presentation" data-bind="visible: firstUnsubsribeLink">
+								<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: firstUnsubsribeLink }" data-icon="✖" data-i18n="MESSAGE/BUTTON_UNSUBSCRIBE"></a>
+							</li>
+						</div>
+						<div data-bind="with: message" class="dividerbar">
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="click: printMessage" data-icon="🖨" data-i18n="MESSAGE/MENU_PRINT"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="click: $root.toggleFullScreen">
+									<i data-bind="css: { 'icon-arrows-out': !$root.fullScreenMode(), 'icon-arrows-in': $root.fullScreenMode }"></i>
+									<span data-i18n="SHORTCUTS_HELP/LABEL_FULLSCREEN_TOGGLE"></span>
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="click: popupMessage" data-icon="⧉" data-i18n="MESSAGE/BUTTON_IN_NEW_WINDOW"></a>
+							</li>
+							<li role="presentation" data-bind="visible: html() && !isHtml()">
+								<a href="#" tabindex="-1" data-bind="click: viewHtml" data-icon="👁" data-i18n="MESSAGE/HTML_VIEW"></a>
+							</li>
+							<li role="presentation" data-bind="visible: isHtml()">
+								<a href="#" tabindex="-1" data-bind="click: viewPlain" data-icon="👁" data-i18n="MESSAGE/PLAIN_VIEW"></a>
+							</li>
+							<li role="presentation">
+								<a href="#" tabindex="-1" data-bind="click: swapColors" data-icon="🎨" data-i18n="MESSAGE/SWAP_COLORS"></a>
+							</li>
+							<li class="dividerbar" role="presentation">
+								<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: viewRaw() }">
+									<i class="icon-file-code"></i>
+									<span data-i18n="MESSAGE/MENU_VIEW_ORIGINAL"></span>
+								</a>
+							</li>
+							<li role="presentation">
+								<a target="_blank" href="#" tabindex="-1" data-bind="attr: { href: downloadLink() }" data-icon="📥" data-i18n="MESSAGE/MENU_DOWNLOAD_ORIGINAL"></a>
+							</li>
+						</div>
+					</menu>
+				</div>
+			</div>
+		</div>
+
+		<div class="messageItemHeader" data-bind="if: message, i18nUpdate: message">
+			<div class="messageName">
+				<div class="subjectParent">
+					<!--				<span class="infoParent g-ui-user-select-none fontastic" data-bind="click: toggleFullInfo">ℹ</span>-->
+					<!--				<span class="flagParent g-ui-user-select-none flagOff fontastic" data-bind="text: message().isFlagged() ? '★' : '☆', css: {flagOn: message().isFlagged(), flagOff: !message().isFlagged()}"></span>-->
+					<span class="subject" data-bind="text: message().subject"></span>
+					<a href="#" class="close" data-bind="click: closeMessage" style="margin-top: -8px;">×</a>
+				</div>
+			</div>
+			<div class="messageAnswer">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 30 30" fill="none">
+						<g clip-path="url(#clip0_6674_34954)">
+							<circle cx="15" cy="15" r="15" fill="#E6E6E6"></circle>
+							<path d="M30 15C30 19.197 28.2762 22.9911 25.4983 25.7134C25.481 25.7304 25.4633 25.7474 25.4457 25.7645C25.2178 25.9855 24.983 26.1996 24.741 26.4063C24.2643 26.8147 23.7614 27.193 23.2357 27.5389C20.8717 29.095 18.0415 30 15 30C11.9585 30 9.1283 29.095 6.76432 27.5389C6.23856 27.193 5.73568 26.8147 5.25896 26.4063C5.017 26.1996 4.78224 25.9855 4.55434 25.7645C4.53669 25.7474 4.51903 25.7304 4.5017 25.7134C1.7241 22.9911 0 19.197 0 15C0 6.7156 6.7156 0 15 0C23.2844 0 30 6.7156 30 15Z" fill="#E0E0E0"></path>
+							<path d="M13.1406 19.67L12.957 19.5607C12.6846 19.3988 12.4321 19.2288 12.1934 19.0626L11.5117 18.587C10.8775 18.1591 10.4372 17.5025 10.2734 16.757L10.2441 16.6075L10.0068 15.1906L9.95508 14.8771H9.6377C9.10324 14.8771 8.67188 14.4457 8.67188 13.9113C8.672 13.5142 8.90929 13.1736 9.25098 13.0255L9.59375 12.8781L9.44727 12.5343C9.09462 11.7074 8.82387 10.8369 8.64258 9.94348L8.57031 9.55872L8.49902 9.07043C8.45357 8.66907 8.44757 8.28295 8.52051 7.92395L8.57422 7.71204V7.71106C8.74463 7.15071 9.15918 6.77142 9.53711 6.755L9.59961 6.75891L9.82129 6.77454L9.94141 6.58704C10.2313 6.13449 10.6716 5.80593 11.166 5.58997L11.3809 5.505C11.8209 5.34527 12.283 5.26295 12.7695 5.19934L13.2646 5.13977C13.5253 5.10989 13.7829 5.07965 14.041 5.05383L14.04 5.05286C15.1571 4.94537 16.333 4.91921 17.4365 5.18372L17.6562 5.24133C18.7454 5.54472 19.772 6.19335 20.3643 7.1886L20.4766 7.3927C20.8739 8.16864 21.0023 9.10339 20.9473 10.0402L20.9121 10.4415C20.8524 10.972 20.7416 11.4956 20.6035 12.0197L20.458 12.5441L20.3584 12.8829L20.6914 13.0021C21.0638 13.1356 21.329 13.4919 21.3291 13.9113C21.3291 14.4458 20.8983 14.8771 20.3633 14.8771H20.0459L19.9932 15.1906L19.7568 16.6075C19.6302 17.3643 19.2212 18.0406 18.6133 18.4982L18.4893 18.587C18.0534 18.881 17.5895 19.2366 17.0439 19.5607L16.8604 19.67V20.8898L17.1221 20.9728L21.5615 22.3751C23.1893 22.889 24.439 24.1225 25.0098 25.6583C24.9551 25.7097 24.9022 25.763 24.8467 25.8136L24.498 26.1212H24.4971C24.1486 26.4197 23.7861 26.7023 23.4102 26.9669L23.0303 27.2257C20.7257 28.7427 17.966 29.6251 15 29.6251C12.2196 29.6251 9.62099 28.8498 7.4082 27.5031L6.9707 27.2257C6.58617 26.9727 6.21444 26.7017 5.85645 26.4142L5.50293 26.1212C5.32757 25.9714 5.1572 25.8161 4.98926 25.6583C5.52237 24.2226 6.65001 23.0509 8.12402 22.4845L8.43848 22.3751L12.8789 20.9728L13.1406 20.8898V19.67Z" fill="#F5F5F5" stroke="black" stroke-width="0.75"></path>
+							<path d="M15.5461 21H14.3559C14.2526 21 14.1802 21.102 14.2143 21.1995L14.5126 22.0527C14.5337 22.1129 14.5905 22.1532 14.6542 22.1532H15.2478C15.3115 22.1532 15.3683 22.1129 15.3893 22.0527L15.6877 21.1995C15.7218 21.102 15.6494 21 15.5461 21Z" fill="#70B62B"></path>
+							<path d="M13.5138 27.5799L14.5254 22.1869C14.5387 22.116 14.6007 22.0646 14.6729 22.0646H15.2286C15.3016 22.0646 15.3639 22.1171 15.3764 22.189L16.3105 27.5836C16.3182 27.6277 16.3057 27.6729 16.2765 27.7069L15.0622 29.1212C15.0035 29.1897 14.8981 29.1911 14.8374 29.1244L13.5502 27.7085C13.5186 27.6737 13.5051 27.6261 13.5138 27.5799Z" fill="#70B62B"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_6674_34954">
+								<rect width="30" height="30" fill="white"></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</div>
+				<div class="info">
+					<div class="informationShort">
+						<span class="default-text">От:</span>
+						<span class="from" data-bind="html: viewFromShort, attr:{ title: message().from }"></span>
+						<i class="fontastic" data-bind="text: dkimIcon, css: dkimIconClass, attr:{ title: dkimTitle }"></i>
+						<i class="fontastic" data-bind="text: dmarcIcon, css: dmarcIconClass, attr:{ title: dmarcTitle }"></i>
+						<i class="fontastic" data-bind="text: spfIcon, css: spfIconClass, attr:{ title: spfTitle }"></i>
+					</div>
+					<div class="informationShort">
+						<span class="default-text">Кому:</span>
+						<span data-bind="text: message().to"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="messageItem">
+<!--			<div class="messageItemHeader" data-bind="if: message, i18nUpdate: message">-->
+<!--				<div data-bind="hidden: showFullInfo">-->
+<!--					<time class="date" data-time-format="FULL" data-bind="visible: 0 < message().dateTimestamp(), time: message().dateTimestamp()"></time>-->
+<!--					<div class="informationShortWrp">-->
+<!--						<div class="informationShort" data-bind="visible: message().to.length">-->
+<!--							<span data-i18n="GLOBAL/TO"></span>:-->
+<!--							<span data-bind="text: message().to"></span>-->
+<!--						</div>-->
+<!--						<div class="informationShort" data-bind="visible: message().cc.length">-->
+<!--							<span data-i18n="GLOBAL/CC"></span>:-->
+<!--							<span data-bind="text: message().cc"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="informationShort" data-bind="visible: message().spamResult">-->
+<!--						<span data-i18n="MESSAGE/SPAM_SCORE"></span>:-->
+<!--						<meter min="0" max="100" optimum="0" low="33" high="66" data-bind="value: message().spamScore, attr:{ title: message().spamStatus() }"></meter>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="informationFull" data-bind="visible: showFullInfo, with: message">-->
+<!--					<table>-->
+<!--						<tr data-bind="visible: from.length">-->
+<!--							<td data-i18n="GLOBAL/FROM"></td>-->
+<!--							<td data-bind="text: from"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: to.length">-->
+<!--							<td data-i18n="GLOBAL/TO"></td>-->
+<!--							<td data-bind="text: to"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: cc.length">-->
+<!--							<td data-i18n="GLOBAL/CC"></td>-->
+<!--							<td data-bind="text: cc"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: bcc.length">-->
+<!--							<td data-i18n="GLOBAL/BCC"></td>-->
+<!--							<td data-bind="text: bcc"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: replyTo.length">-->
+<!--							<td data-i18n="GLOBAL/REPLY_TO"></td>-->
+<!--							<td data-bind="text: replyTo"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: dateTimestamp">-->
+<!--							<td data-i18n="MESSAGE/LABEL_DATE"></td>-->
+<!--							<td>-->
+<!--								<time data-time-format="FULL" data-bind="time: dateTimestamp"></time>-->
+<!--								&nbsp;-->
+<!--								(<time data-time-format="FROMNOW" data-bind="time: dateTimestamp"></time>)-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: spamResult">-->
+<!--							<td data-i18n="GLOBAL/SPAM"></td>-->
+<!--							<td data-bind="text: spamStatus()"></td>-->
+<!--						</tr>-->
+<!--						<tr data-bind="visible: friendlySize()">-->
+<!--							<td data-i18n="POPUPS_FILTER/SELECT_FIELD_SIZE"></td>-->
+<!--							<td class="size" data-bind="text: friendlySize()"></td>-->
+<!--						</tr>-->
+<!--					</table>-->
+<!--				</div>-->
+<!--				<div class="hasVirus" data-bind="visible: message().hasVirus" data-i18n="MESSAGE/HAS_VIRUS_WARNING"></div>-->
+<!--				&lt;!&ndash; ko if: tagsAllowed &ndash;&gt;-->
+<!--				<div class="messageTags">-->
+<!--					<span data-i18n="MESSAGE/TAGS"></span>:-->
+<!--					<span class="messageAssignedTags" data-bind="html: tagsToHTML"></span>-->
+<!--					<div class="btn-group" data-bind="registerBootstrapDropdown: true" style="display: inline-block">-->
+<!--						<a class="btn btn-thin btn-transparent dropdown-toggle fontastic" id="tags-dropdown-id" href="#" tabindex="-1">🏷</a>-->
+<!--						<menu class="dropdown-menu right-edge" role="menu" aria-labelledby="tags-dropdown-id">-->
+<!--							<div data-bind="foreach: message().tagOptions()">-->
+<!--								<li role="presentation">-->
+<!--									<a href="#" tabindex="-1" data-icon="☐" data-bind="click: toggle, text: label, attr:{ title: value, class: css, 'data-icon': checked ? '☑' : '☐' }"></a>-->
+<!--								</li>-->
+<!--							</div>-->
+<!--							<li role="presentation" class="dividerbar">-->
+<!--								<a href="#" tabindex="-1" data-icon="✚" data-bind="click: newTag" data-i18n="MESSAGE/NEW_TAG"></a>-->
+<!--							</li>-->
+<!--						</menu>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				&lt;!&ndash; /ko &ndash;&gt;-->
+<!--			</div>-->
+			<div tabindex="0" data-bind="hasfocus: messageDomFocused">
+
+				<div class="loading" data-bind="visible: messageLoadingThrottle">
+					<i class="icon-spinner"></i>
+					<span data-i18n="GLOBAL/LOADING"></span>
+				</div>
+
+				<div data-bind="hidden: messageLoadingThrottle">
+					<div class="bodySubHeader" data-bind="if: message, i18nUpdate: message">
+						<div class="readReceipt" data-bind="visible: askReadReceipt, click: readReceipt"
+							data-icon="✉" data-i18n="MESSAGE/BUTTON_NOTIFY_READ_RECEIPT"></div>
+						<details class="attachmentsPlace" data-bind="visible: hasAttachments, css: {'selection-mode' : showAttachmentControls}, attr: { open: hasAttachments }">
+							<summary data-i18n="MESSAGE/PRINT_LABEL_ATTACHMENTS"></summary>
+							<!-- ko ifnot: simpleAttachmentsList -->
+							<ul class="attachmentList" data-bind="foreach: listAttachments">
+								<li class="attachmentItem" draggable="true"
+										data-bind="event: { dragstart: eventDragStart }, attr: { title: fileName }, css: {checked: checked}">
+									<div class="attachmentIcon" data-bind="css: { hasPreview: hasPreview(), hasPreplay: hasPreplay(), isImage: isImage() }, attr: { style: thumbnailStyle() }">
+										<i class="hidePreview iconMain" data-bind="css: iconClass()"></i>
+										<div class="showPreview">
+											<a data-bind="css: {attachmentImagePreview: isImage()}, attr: { title: fileName, href: linkPreviewMain() }" target="_blank">
+												<i class="iconMain" data-bind="visible: !hasThumbnail(), css: iconClass()"></i>
+												<div class="iconPreview fontastic">👁</div>
+											</a>
+										</div>
+									</div>
+									<div class="attachmentNameParent">
+										<div class="attachmentName" data-bind="text: fileName"></div>
+										<div class="attachmentSize" data-bind="text: friendlySize()"></div>
+									</div>
+									<div class="checkboxAttachment fontastic"
+										data-bind="visible: download, text: checked() ? '☑' : '☐', click: toggleChecked"></div>
+								</li>
+							</ul>
+							<!-- /ko -->
+							<!-- ko if: simpleAttachmentsList -->
+							<ul class="attachmentListSimple" data-bind="foreach: listAttachments">
+								<li class="attachmentItem" data-bind="attr: { title: fileName }, css: {checked: checked}">
+									<span class="attachmentName" data-bind="text: fileName"></span>
+									<i class="checkboxAttachment fontastic"
+										data-bind="visible: download, text: checked() ? '☑' : '☐', click: toggleChecked"></i>
+								</li>
+							</ul>
+							<!-- /ko -->
+							<i class="fontastic controls-handle" data-bind="visible: allowAttachmentControls, click: toggleAttachmentControls">⚙</i>
+							<div class="attachmentsControls" data-bind="visible: showAttachmentControls">
+								<span data-bind="visible: downloadAsZipAllowed">
+									<i class="fontastic iconcolor-red" data-bind="visible: downloadAsZipError">✖</i>
+									<i class="icon-file-archive" data-bind="visible: !downloadAsZipError(),
+										css: {'icon-file-archive': !downloadAsZipLoading(), 'icon-spinner': downloadAsZipLoading()}"></i>
+									<span class="g-ui-link" data-bind="click: downloadAsZip"
+										data-i18n="MESSAGE/LINK_DOWNLOAD_AS_ZIP"></span>
+								</span>
+							</div>
+						</details>
+
+						<div class="btn-toolbar showImages" data-bind="visible: message().hasImages()">
+							<div class="btn" data-bind="click: showImages" data-icon="🖼" data-i18n="MESSAGE/BUTTON_SHOW_IMAGES"></div>
+							<div class="btn-group dropdown" data-bind="registerBootstrapDropdown: true, visible: showWhitelistOptions" style="display: inline-block">
+								<a class="btn dropdown-toggle" id="whitelist-dropdown-id" data-icon="🖼" href="#" tabindex="-1"><span data-i18n="SETTINGS_GENERAL/IMAGES_WHITELIST"></span> ▼</a>
+								<menu class="dropdown-menu" role="menu" aria-labelledby="whitelist-dropdown-id">
+									<!-- ko foreach: message().whitelistOptions() -->
+									<li role="presentation">
+										<a href="#" tabindex="-1" data-bind="click: $root.whitelistText, text: $data"></a>
+									</li>
+									<!-- /ko -->
+								</menu>
+							</div>
+						</div>
+
+						<div class="btn-toolbar" data-bind="visible: message().hasTracking()">
+							<div class="btn" data-bind="visible: !nowTracking(), click: showTracking" data-icon="🔗" data-i18n="MESSAGE/ENABLE_TRACKING_LINKS"></div>
+							<div class="alert" data-bind="visible: nowTracking" data-i18n="MESSAGE/TRACKING_ENABLED" style="margin:0"></div>
+						</div>
+
+						<div data-bind="visible: message().pgpEncrypted()">
+							<div class="crypto-control encrypted" data-bind="css: {success: message().pgpDecrypted()}">
+								<span data-icon="🔒" data-i18n="OPENPGP/ENCRYPTED_MESSAGE"></span>
+								<button class="btn" data-bind="visible: pgpSupported, click: pgpDecrypt" data-i18n="CRYPTO/DECRYPT"></button>
+								<div class="alert-error" data-icon="⚠" data-bind="visible: message().pgpEncrypted()?.error, text: message().pgpEncrypted()?.error"></div>
+							</div>
+						</div>
+						<div data-bind="visible: message().pgpSigned()">
+							<div class="crypto-control signed" data-bind="css: {success: true === message().pgpSigned()?.success, error: false === message().pgpSigned()?.success}">
+								<span data-icon="✍" data-i18n="OPENPGP/SIGNED_MESSAGE"></span>
+								<button class="btn" data-bind="visible: pgpSupported, click: pgpVerify" data-i18n="CRYPTO/VERIFY"></button>
+								<div data-icon="⚠" data-bind="visible: message().pgpSigned()?.error, text: message().pgpSigned()?.error"></div>
+							</div>
+						</div>
+
+						<div data-bind="visible: message().smimeEncrypted()">
+							<div class="crypto-control encrypted" data-bind="css: {success: message().smimeDecrypted()}">
+								<span data-icon="🔒" data-i18n="SMIME/ENCRYPTED_MESSAGE"></span>
+								<button class="btn" data-bind="click: smimeDecrypt" data-i18n="CRYPTO/DECRYPT"></button>
+								<div class="alert-error" data-icon="⚠" data-bind="visible: message().smimeEncrypted()?.error, text: message().smimeEncrypted()?.error"></div>
+							</div>
+						</div>
+						<div data-bind="visible: message().smimeSigned()">
+							<div class="crypto-control signed" data-bind="css: {success: true === message().smimeSigned()?.success, error: false === message().smimeSigned()?.success}">
+								<span data-icon="✍" data-i18n="SMIME/SIGNED_MESSAGE"></span>
+								<button class="btn" data-bind="click: smimeVerify" data-i18n="CRYPTO/VERIFY"></button>
+							</div>
+						</div>
+					</div>
+
+					<div class="bodyText" dir="auto"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
