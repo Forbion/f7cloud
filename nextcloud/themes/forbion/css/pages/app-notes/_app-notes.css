@@ -13,6 +13,7 @@
         --color-primary-element-light: #F5F5F5 !important;
         --input-border-radius: 34px !important;
         --default-clickable-area: 28px !important;
+        --button-size: 30px !important;
 
         & .button-vue--vue-tertiary:hover:not(:disabled) {
             background-color: unset !important;
@@ -124,6 +125,368 @@
 
         & .app-content {
             & .app-content-wrapper {
+
+                & .editor {
+
+                    & .code-block-header {
+                        margin-top: 13px !important;
+                    }
+
+                    /*Иконки*/
+
+                    & .text-menubar__entries {
+                        & .alert-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/warning-black.svg) !important;
+                                content: '';
+                                width: 18px;
+                                height: 18px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .checkbox-marked-circle-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/success-black.svg) !important;
+                                content: '';
+                                width: 16px;
+                                height: 16px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .information-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/info-black.svg) !important;
+                                content: '';
+                                width: 17px;
+                                height: 17px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .alert-decagram-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/error-black.svg) !important;
+                                content: '';
+                                width: 16px;
+                                height: 17px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                    }
+
+
+                    & .v-popper__inner {
+                        font-family: Raleway !important;
+                        padding-block: 4px !important;
+                        padding-inline: 10px !important;
+
+                        & .action-separator , .action-menu-outline {
+                            display: none;
+                        }
+
+                        & .format-header1-icon, .format-header2-icon , .format-header3-icon , .format-header4-icon , .format-header5-icon , .format-header6-icon {
+                            display: none;
+                        }
+
+
+                        .format-header1-icon ~ .action-button__text,
+                        .format-header1-icon + .action-button__text {
+                            font-size: 30px !important;
+                        }
+                        .format-header2-icon ~ .action-button__text,
+                        .format-header2-icon + .action-button__text {
+                            font-size: 26px !important;
+                        }
+                        .format-header3-icon ~ .action-button__text,
+                        .format-header3-icon + .action-button__text {
+                            font-size: 23px !important;
+                        }
+                        .format-header4-icon ~ .action-button__text,
+                        .format-header4-icon + .action-button__text {
+                            font-size: 20px !important;
+                        }
+                        .format-header5-icon ~ .action-button__text,
+                        .format-header5-icon + .action-button__text {
+                            font-size: 17px !important;
+                        }
+                        .format-header6-icon ~ .action-button__text,
+                        .format-header6-icon + .action-button__text {
+                            font-size: 15px !important;
+                        }
+
+                        & .material-design-icon.folder-icon {
+                            background-image: url('/themes/forbion/images/folder-black.svg');
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: cover;
+                            width: 16px;
+                            height: 16px;
+                            margin-right: 7px;
+                        }
+                        & .material-design-icon.folder-icon > svg {
+                            display: none;
+                        }
+                        & .material-design-icon.upload-icon {
+                            background-image: url('/themes/forbion/images/upload-black.svg');
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: cover;
+                            width: 16px;
+                            height: 16px;
+                            margin-right: 12px;
+                        }
+                        & .material-design-icon.upload-icon > svg {
+                            display: none;
+                        }
+
+                        & .alphabetical-variant-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/abc-black.svg) !important;
+                                content: '';
+                                width: 18px;
+                                height: 18px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .help-circle-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/quest-black.svg) !important;
+                                content: '';
+                                width: 18px;
+                                height: 18px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .file-document-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/link-icon.svg) !important;
+                                content: '';
+                                width: 18px;
+                                height: 18px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .alert-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/warning-yellow.svg) !important;
+                                content: '';
+                                width: 18px;
+                                height: 18px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .checkbox-marked-circle-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/success-green.svg) !important;
+                                content: '';
+                                width: 16px;
+                                height: 17px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .information-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/info-purple.svg) !important;
+                                content: '';
+                                width: 17px;
+                                height: 17px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+                        & .alert-decagram-icon {
+                            &:after {
+                                background-image: url(/themes/forbion/images/error-red.svg) !important;
+                                content: '';
+                                width: 16px;
+                                height: 17px;
+                                background-size: cover;
+                            }
+                            & svg {
+                                display: none;
+                            }
+                        }
+
+                        & li {
+                            margin-top: 8px;
+                            margin-bottom: 8px;
+
+                            & .action-button__text {
+                                margin-left: 6px;
+
+                                font-family: Raleway !important;
+                                font-weight: 500 !important;
+                                font-size: 14px !important;
+                                /*line-height: 20px !important;*/
+                                letter-spacing: 0 !important;
+
+                            }
+                        }
+                    }
+
+
+                    & .text-menubar {
+                        margin: 16px;
+                        border: 1px solid #E6E6E6 !important;
+                        border-radius: 8px;
+                        padding: 25px;
+                    }
+                    & .text-menubar__entries {
+                        margin-left: unset !important;
+                        justify-content: center;
+                        gap: 8px !important;
+                        & .button-vue {
+                            /*margin-right: 10px;*/
+                            background: #ffffff !important;
+                            --button-size: 30px !important;
+                            color: #000000 !important;
+                        }
+                        & .button-vue.button-vue--vue-primary {
+
+                        }
+
+
+
+                        & .material-design-icon.paperclip-icon {
+                            background-image: url('/themes/forbion/images/image-black.svg');
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: cover;
+                            width: 16px;
+                            height: 16px;
+                        }
+                        & .material-design-icon.paperclip-icon > svg {
+                            display: none;
+                        }
+                    }
+                    & .content-wrapper.text-editor__content-wrapper {
+                        margin: 16px;
+                        min-height: calc(100vh - 246px);
+                        border: 1px solid #E6E6E6 !important;
+                        border-radius: 8px;
+                        display: block !important;
+
+                        & table {
+
+                            & tr {
+                                height: 43px !important;
+                                min-height: 43px !important;
+
+                                & th {
+                                    vertical-align: middle !important;
+                                }
+                                & td {
+                                    vertical-align: middle !important;
+                                }
+                            }
+                        }
+
+                        & .editor--outline {
+                            position: unset !important;
+                        }
+
+                        & .callout {
+                            border-radius: 0 !important;
+                            --color-warning: #F6E120 !important;
+                            --color-success: #70B62B !important;
+                            --color-error: #D74642 !important;
+                            --color-info: #9747FF !important;
+
+
+                            & .alert-icon.callout__icon {
+                                &:after {
+                                    background-image: url(/themes/forbion/images/warning-yellow.svg) !important;
+                                    content: '';
+                                    width: 16px;
+                                    height: 16px;
+                                    background-size: cover;
+                                }
+                                & svg {
+                                    display: none;
+                                }
+                            }
+                            & .checkbox-marked-circle-icon.callout__icon {
+                                &:after {
+                                    background-image: url(/themes/forbion/images/success-green.svg) !important;
+                                    content: '';
+                                    width: 16px;
+                                    height: 16px;
+                                    background-size: cover;
+                                }
+                                & svg {
+                                    display: none;
+                                }
+                            }
+                            & .information-icon.callout__icon {
+                                &:after {
+                                    background-image: url(/themes/forbion/images/info-purple.svg) !important;
+                                    content: '';
+                                    width: 16px;
+                                    height: 17px;
+                                    background-size: cover;
+                                }
+                                & svg {
+                                    display: none;
+                                }
+                            }
+                            & .alert-decagram-icon.callout__icon {
+                                &:after {
+                                    background-image: url(/themes/forbion/images/error-red.svg) !important;
+                                    content: '';
+                                    width: 16px;
+                                    height: 17px;
+                                    background-size: cover;
+                                }
+                                & svg {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .editor.editor-media-handler.text-editor__main:before {
+                    /*content: 'Поле для заметок';*/
+                    /*display: block;*/
+                    /*width: 100%;*/
+                    /*height: 40px;*/
+                    /*margin-bottom: 8px;*/
+                    /*background-color: white;*/
+                    /*border-radius: 8px;*/
+                    /*padding-inline: 12px;*/
+                    /*padding-block: 10px;*/
+                    /*box-sizing: border-box;*/
+                }
+
+
                 & .splitpanes {
                     & .splitpanes__pane.splitpanes__pane-list {
                         min-height: calc(100vh - 140px) !important;
@@ -161,6 +524,7 @@
                         }
                     }
                     & .splitpanes__pane.splitpanes__pane-details {
+                        background-color: transparent;
                         min-height: calc(100vh - 140px) !important;
                         width: 100% !important;
                     }
@@ -522,6 +886,49 @@
 
             & .v-popper__inner {
 
+                --color-primary-element: #70B62B !important;
+                --color-primary-element-hover: #70B62B !important;
+                --color-primary-element-text: #f3f3f3 !important;
+                --color-primary-element-light: #F5F5F5 !important;
+
+                & .action-input--visible-label {
+                    padding-inline: 20px;
+                    padding-top: 10px;
+                    padding-bottom: 22px;
+                    min-width: 321px;
+                    width: 321px;
+
+                    & .action-input__text-label {
+                        padding: 0 0 17px;
+                        font-family: Raleway;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 20px;
+                        letter-spacing: 0;
+
+                    }
+
+                    & .input-field__input {
+                        height: 44px !important;
+                        --default-clickable-area: 44px !important;
+                        border: 1px solid #E6E6E6 !important;
+
+                        padding-right: 30px;
+                        background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+                        background-repeat: no-repeat;
+                        background-position: right 10px center;
+                        background-size: 16px 16px;
+                    }
+
+                    & .input-field__input:hover {
+                        border: 1px solid #E6E6E6 !important;
+                    }
+
+                    & .action-input__icon-wrapper {
+                        display: none;
+                    }
+                }
+
                 & .action.action-separator.action--disabled {
                     display: none;
                 }
@@ -535,9 +942,6 @@
                     background-position: center;
                     background-repeat: no-repeat;
                 }
-                & .material-design-icon > svg {
-                    display: none;
-                }
 
                 & .action-button__icon.icon-star-dark.loading:after, .action-button__icon.icon-starred.loading:after {
                     content: none;
@@ -548,32 +952,95 @@
                 & .action-button__icon.icon-starred {
                     background-image: url('/themes/forbion/images/star-green.svg');
                 }
+                & .action-button__icon.icon-starred > svg {
+                    display: none;
+                }
                 & .action-button__icon.icon-star-dark {
                     background-image: url('/themes/forbion/images/star-icon-black.svg');
+                }
+                & .action-button__icon.icon-star-dark > svg {
+                    display: none;
+                }
+                & .action-button__icon.icon-tag {
+                    background-image: url('/themes/forbion/images/tags-black.svg');
+                }
+                & .action-button__icon.icon-tag > svg {
+                    display: none;
+                }
+
+
+
+                & .material-design-icon.table-row-plus-before-icon {
+                    background-image: url('/themes/forbion/images/arrow-up-black.svg');
+                }
+                & .material-design-icon.table-row-plus-before-icon > svg {
+                    display: none;
+                }
+                & .material-design-icon.table-row-plus-after-icon {
+                    background-image: url('/themes/forbion/images/arrow-down-black.svg');
+                }
+                & .material-design-icon.table-row-plus-after-icon > svg {
+                    display: none;
                 }
                 & .material-design-icon.folder-icon {
                     background-image: url('/themes/forbion/images/change.svg');
                 }
+                & .material-design-icon.folder-icon > svg {
+                    display: none;
+                }
                 & .material-design-icon.share-variant-icon {
                     background-image: url('/themes/forbion/images/chain-black.svg');
+                }
+                & .material-design-icon.share-variant-icon > svg {
+                    display: none;
                 }
                 & .material-design-icon.pencil-icon {
                     background-image: url('/themes/forbion/images/pencil-icon-black.svg');
                 }
+                & .material-design-icon.pencil-icon > svg {
+                    display: none;
+                }
                 & .action-button__icon.icon-delete, .material-design-icon.delete-icon {
                     background-image: url('/themes/forbion/images/trashbin-black.svg');
                 }
+
+                & .material-design-icon.delete-icon > svg {
+                    display: none;
+                }
+
+
                 & .material-design-icon.download-icon {
                     background-image: url('/themes/forbion/images/download-icon.svg');
+                }
+                & .material-design-icon.download-icon > svg {
+                    display: none;
                 }
                 & .material-design-icon.backup-restore-icon {
                     background-image: url('/themes/forbion/images/recent-black.svg');
                 }
+                & .material-design-icon.backup-restore-icon > svg {
+                    display: none;
+                }
                 & .material-design-icon.eye-outline-icon {
                     background-image: url('/themes/forbion/images/eye.svg');
                 }
+                & .material-design-icon.eye-outline-icon > svg {
+                    display: none;
+                }
                 & .material-design-icon.tune-icon {
                     background-image: url('/themes/forbion/images/gear-black.svg');
+                }
+                & .material-design-icon.tune-icon > svg {
+                    display: none;
+                }
+                & .material-design-icon.table-column-plus-before-icon, .material-design-icon.table-column-plus-after-icon {
+                    background-image: url('/themes/forbion/images/plus-black.svg');
+                }
+                & .material-design-icon.table-column-plus-after-icon > svg {
+                    display: none;
+                }
+                & .material-design-icon.table-column-plus-before-icon > svg {
+                    display: none;
                 }
             }
         }
