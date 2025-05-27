@@ -1,0 +1,81 @@
+#rl-app {
+
+    & #rl-content {
+
+        & .rl-wrapper {
+
+            & .rl-inner {
+
+                & #rl-left {
+
+                    & #V-SettingsMenu {
+
+                        & nav {
+
+                            & a {
+
+                                &:before {
+                                    content: '';
+                                    position: absolute;
+                                    width: 16px;
+                                    height: 16px;
+                                    left: 10px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    margin-top: -1px;
+                                    background-repeat: no-repeat;
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/GENERAL"]:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/settings.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/GENERAL"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/GENERAL"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/settings-white.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/ACCOUNTS"]:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/accounts.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/ACCOUNTS"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/ACCOUNTS"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/accounts-white.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/SECURITY"]:before {
+                                    transform: translateY(-50%) scale(1.05);
+                                    background-image: url("/themes/forbion/images/snappymail/menu/security.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/SECURITY"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/SECURITY"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/security-white.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/FOLDERS"]:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/folders.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/FOLDERS"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/FOLDERS"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/folders-white.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/FILTERS"]:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/filters.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/FILTERS"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/FILTERS"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/filters-white.svg");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

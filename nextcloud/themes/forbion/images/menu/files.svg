@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+    <path
+            d="M28 12.6762V19.3238C28 20.8018 26.8018 22 25.3237 22H3.67625C2.1982 22 1 20.8018 1 19.3238V9.67625C1 8.1982 2.1982 7 3.67625 7H14.8915C15.6012 7 16.282 7.28196 16.7839 7.78386L18.2161 9.21614C18.718 9.71804 19.3988 10 20.1085 10H25.3238C26.8018 10 28 11.1982 28 12.6762Z"
+            fill="#F5F5F5"
+            stroke="black"
+            stroke-width="0.892083"
+    />
+    <path d="M5 1V22H25V1H5Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083" />
+    <path d="M4 3V25H23V3H4Z" fill="#FCFEFC" stroke="black" stroke-width="0.892083" />
+    <path
+            d="M1 17.6762V26.3238C1 27.8018 2.1982 29 3.67625 29H26.3237C27.8018 29 29 27.8018 29 26.3238V14.6762C29 13.1982 27.8018 12 26.3238 12H12.7791C12.0774 12 11.4038 12.2756 10.9033 12.7675L9.41252 14.2325C8.91203 14.7244 8.23837 15 7.53665 15H3.67625C2.1982 15 1 16.1982 1 17.6762Z"
+            fill="#F5F5F5"
+            stroke="black"
+            stroke-width="0.892083"
+    />
+    <path d="M6 6H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square" />
+    <path d="M6 8H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square" />
+    <path d="M6 10H21" stroke="#70B62B" stroke-width="0.892083" stroke-linecap="square" />
+</svg>
