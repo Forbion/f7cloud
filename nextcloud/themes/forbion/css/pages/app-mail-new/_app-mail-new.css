@@ -3501,3 +3501,19 @@ input {
     color: #000000;
     font-weight: 500;
 }
+
+#messageItem .bodySubHeader {
+    background-color: unset;
+}
+
+#messageItem .attachmentsPlace  {
+    border-bottom: unset;
+}
+
+.messageView .messageItemHeader {
+    border-bottom: unset;
+}
+
+#messageItem .sm-bq-switcher>summary {
+    border: unset;
+}
