@@ -559,8 +559,8 @@ class Actions
 
 		$aResult = array(
 			'Auth' => false,
-			'title' => $oConfig->Get('webmail', 'title', 'SnappyMail Webmail'),
-			'loadingDescription' => $oConfig->Get('webmail', 'loading_description', 'SnappyMail'),
+			'title' => $oConfig->Get('webmail', 'title', 'F7 Forbion'),
+			'loadingDescription' => $oConfig->Get('webmail', 'loading_description', 'F7 Forbion'),
 			'Plugins' => array(),
 			'System' => array(
 				'version' => APP_VERSION,
