@@ -879,7 +879,7 @@ header .unified-search__wrapper {
                                 right: 42px;
                                 box-shadow: unset;
                                 border: unset;
-                                z-index: 2;
+                                z-index: 999;
 
                                 & .btn {
                                     font-size: 17px;
