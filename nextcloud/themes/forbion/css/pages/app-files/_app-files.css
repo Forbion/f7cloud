@@ -906,7 +906,7 @@ body .app-files {
                 }
 
                 & .files-list__header-share-button {
-                    display: none;
+                    display: none !important;
                 }
 
                 & .material-design-icon .material-design-icon__svg > path {
