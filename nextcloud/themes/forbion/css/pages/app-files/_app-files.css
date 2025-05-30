@@ -920,6 +920,7 @@ body .app-files {
                     padding-left: 8px;
                     padding-right: 25px;
                     left: -8px;
+                    display: block !important;
                     /*margin-bottom: 8px;*/
 
                     & .action-item > div > button {
@@ -1162,6 +1163,11 @@ body .app-files {
 
         & .files-list__header {
             margin: 0px 0 8px 0;
+
+            & .breadcrumb__actions {
+                display: none !important;
+            }
+
 
             & .file-list__refresh-icon {
                 background-color: #FFFFFF !important;
