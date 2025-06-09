@@ -48021,11 +48021,11 @@ function init() {
     return;
   }
   window.OCA.Deck.registerCardAction({
-    label: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Post to a conversation"),
-    icon: "icon-talk",
+    label: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Отправить в обсуждения"),
+    icon: "icon-external",
     callback: async (card) => {
       const conversation = await (0,_utils_requestRoomSelection_js__WEBPACK_IMPORTED_MODULE_6__.requestRoomSelection)("spreed-post-card-to-room-select", {
-        dialogTitle: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Post to conversation"),
+        dialogTitle: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Отправить в обсуждения"),
         showPostableOnly: true
       });
       if (conversation) {
