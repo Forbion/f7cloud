@@ -308,10 +308,12 @@ body .app-talk{
 .app-talk .left-sidebar__settings-button-container .material-design-icon__svg > path{
     fill: #808080;
 }
-.button-vue--text-only .button-vue__text{
+
+.button-vue__text{
     margin: unset !important;
     color: #FCFEFC;
 }
+
 #content-vue .empty-view {
     /*margin-left: 8px;*/
     border-radius: 8px;

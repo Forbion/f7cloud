@@ -23,6 +23,13 @@ body.onlyoffice-inline {
     }
 }
 
+body:has(.app-files) ul[role="listbox"][aria-label="Options"] {
+    border: 1px solid #E6E6E6 !important;
+}
+body:has(.app-files) .vs__dropdown-toggle {
+    border: none !important;
+}
+
 
 body .app-files {
     --color-primary-element: #70B62B !important;
@@ -69,6 +76,23 @@ body .app-files {
     & .material-design-icon.checkbox-marked-icon {
         /*--icon-size: 16px !important;*/
     }
+
+    & .material-design-icon.message-reply-text-icon {
+        &>svg {
+            display: none;
+        }
+
+        &:after {
+            content: '';
+            width: 64px;
+            height: 66px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-image: url("/themes/forbion/images/chats-big-no-background.svg");
+        }
+    }
+
 
     & .files-list__refresh-icon {
         display: none !important;
@@ -576,7 +600,7 @@ body .app-files {
         display: none;
     }
     & .material-design-icon.format-list-bulleted-square-icon:after {
-        background-image: url('/themes/forbion/images/pallet.svg') !important;
+        background-image: url('/themes/forbion/images/list-gray.svg') !important;
         content: '';
         position: absolute;
         top: 12px;
@@ -990,6 +1014,11 @@ body .app-files {
                 background-position: center;
             }
 
+            & .app-navigation-entry.active {
+                & .app-navigation-entry__name {
+                    color: white !important;
+                }
+            }
 
             /* Иконки для элементов навигации с атрибутами data-cy-files-navigation-item */
             & li[data-cy-files-navigation-item="files"] {
@@ -1037,14 +1066,69 @@ body .app-files {
             }
 
             & li[data-cy-files-navigation-item="shareoverview"] {
-                & .app-navigation-entry {
-                    & .icon-vue:after {
-                        background-image: url('/themes/forbion/images/shareoverview.svg');
+                    & .app-navigation-entry {
+                        & .icon-vue:after {
+                            background-image: url('/themes/forbion/images/shareoverview.svg');
+                        }
+                        &.active .icon-vue:after {
+                            background-image: url('/themes/forbion/images/shareoverview-white.svg') !important;
+                        }
                     }
-                    &.active .icon-vue:after {
-                        background-image: url('/themes/forbion/images/shareoverview-white.svg') !important;
+                & .app-navigation-entry__children {
+
+                    & li[data-cy-files-navigation-item="sharingin"] {
+                        & .app-navigation-entry {
+                            & .icon-vue:after {
+                                background-image: url('/themes/forbion/images/personal.svg');
+                            }
+                            &.active .icon-vue:after {
+                                background-image: url('/themes/forbion/images/personal-white.svg') !important;
+                            }
+                        }
                     }
+                    & li[data-cy-files-navigation-item="sharingout"] {
+                        & .app-navigation-entry {
+                            & .icon-vue:after {
+                                background-image: url('/themes/forbion/images/eye-gray.svg');
+                            }
+                            &.active .icon-vue:after {
+                                background-image: url('/themes/forbion/images/eye-white.svg') !important;
+                            }
+                        }
+                    }
+                    & li[data-cy-files-navigation-item="sharinglinks"] {
+                        & .app-navigation-entry {
+                            & .icon-vue:after {
+                                background-image: url('/themes/forbion/images/chain.svg');
+                            }
+                            &.active .icon-vue:after {
+                                background-image: url('/themes/forbion/images/chain-white.svg') !important;
+                            }
+                        }
+                    }
+                    & li[data-cy-files-navigation-item="deletedshares"] {
+                        & .app-navigation-entry {
+                            & .icon-vue:after {
+                                background-image: url('/themes/forbion/images/trashbin.svg');
+                            }
+                            &.active .icon-vue:after {
+                                background-image: url('/themes/forbion/images/trashbin-white.svg') !important;
+                            }
+                        }
+                    }
+                    & li[data-cy-files-navigation-item="pendingshares"] {
+                        & .app-navigation-entry {
+                            & .icon-vue:after {
+                                background-image: url('/themes/forbion/images/alert-octagon-icon-gray.svg');
+                            }
+                            &.active .icon-vue:after {
+                                background-image: url('/themes/forbion/images/alert-octagon-icon-white.svg') !important;
+                            }
+                        }
+                    }
+
                 }
+
             }
 
             & li[data-cy-files-navigation-item="tags"] {
@@ -1485,6 +1569,26 @@ body .app-files {
                 & .sharing-link-list > li, #sharing-inherited-shares > li {
                     min-height: 50px !important;
                 }
+
+                .v-select.sharing-search__input {
+                    border-radius: 4.03px;
+                    margin-top: 10px;
+                    padding: 12px;
+                    border: 1.01px solid #E6E6E6;
+                }
+
+                .v-select.sharing-search__input {
+                    border-radius: 4.03px;
+                    margin-top: 10px;
+                    padding: 12px;
+                    border: 1.01px solid #E6E6E6;
+                    --vs-border-width: unset !important;
+                }
+
+                .sharing-search label[for=sharing-search-input] {
+                    display: none;
+                }
+
             }
             & .talkChatTab {
                 --button-size: 40px !important;

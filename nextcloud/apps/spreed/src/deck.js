@@ -56,11 +56,11 @@ function init() {
 	}
 
 	window.OCA.Deck.registerCardAction({
-		label: t('spreed', 'Post to a conversation'),
-		icon: 'icon-talk',
+		label: t('spreed', 'Отправить в обсуждения'),
+		icon: 'icon-external',
 		callback: async (card) => {
 			const conversation = await requestRoomSelection('spreed-post-card-to-room-select', {
-				dialogTitle: t('spreed', 'Post to conversation'),
+				dialogTitle: t('spreed', 'Отправить в обсуждения'),
 				showPostableOnly: true,
 			})
 			if (conversation) {
