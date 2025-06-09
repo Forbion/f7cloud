@@ -79,7 +79,7 @@
 		<a class="btn fontastic" data-bind="command: undeleteCommand, hidden: hideDeleted" data-i18n="[title]GLOBAL/UNDELETE" style="transform:rotate(-180deg)">🗑</a>
 -->
 	</div>
-	<div class="btn-group dropdown d-none" data-bind="registerBootstrapDropdown: true">
+	<div class="btn-group dropdown btn-group-mail-dropdown" data-bind="registerBootstrapDropdown: true">
 		<a id="more-list-dropdown-id" class="btn dropdown-toggle fontastic" href="#" tabindex="-1" data-i18n="[title]GLOBAL/MORE">☰</a>
 		<menu class="dropdown-menu" role="menu" aria-labelledby="more-list-dropdown-id">
 			<li role="presentation" data-bind="click: listUnsetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">

@@ -806,6 +806,7 @@ header .unified-search__wrapper {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
+                            position: relative;
 
                             & .btn {
                                 cursor: pointer;
@@ -871,6 +872,23 @@ header .unified-search__wrapper {
                             & .d-none {
                                 display: none !important;
                             }
+
+                            & .btn-group-mail-dropdown {
+                                position: absolute;
+                                bottom: -50px;
+                                right: 42px;
+                                box-shadow: unset;
+                                border: unset;
+                                z-index: 999;
+
+                                & .btn {
+                                    font-size: 17px;
+                                    color: #70B62B;
+                                    box-shadow: unset;
+                                    border: unset;
+                                    background: transparent;
+                                }
+                            }
                         }
 
                         & .messageList {
@@ -897,7 +915,7 @@ header .unified-search__wrapper {
                                     position: relative;
 
                                     & input {
-                                        padding: 8px 45px 8px 43px;
+                                        padding: 8px 75px 8px 43px;
                                         box-shadow: unset;
                                         background-color: #F5F5F5;
                                         border-radius: 8px;

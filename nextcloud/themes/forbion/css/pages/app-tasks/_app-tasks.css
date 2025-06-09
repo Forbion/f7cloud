@@ -529,6 +529,7 @@ body .app-tasks {
                             }
 
                             & .material-design-icon {
+                                display: none;
                                 position: absolute;
                                 right: 5px;
                                 bottom: 20px;
