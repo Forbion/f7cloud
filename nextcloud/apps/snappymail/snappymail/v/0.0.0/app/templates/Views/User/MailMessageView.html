@@ -20,6 +20,28 @@
 	</div>
 </div>
 <div class="messageView">
+    <div id="attachmentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attachmentModalTitle">Просмотр вложения</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="attachmentModalBody">
+                    <iframe id="attachmentIframe" style="width:100%; height:500px; border:none;"></iframe>
+                    <div id="attachmentImageViewer">
+                        <img id="attachmentImage" src="" style="max-width:100%; max-height:80vh;" class="img-fluid">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <a id="attachmentDownloadBtn" href="#" class="btn btn-primary" download>Скачать</a>
+                </div>
+            </div>
+        </div>
+    </div>
 	<div class="b-message-view-backdrop" data-bind="visible: moveAction">
 		<div class="backdrop-message" data-icon="📁" data-i18n="MESSAGE/MESSAGE_VIEW_MOVE_DESC"></div>
 	</div>
@@ -489,7 +511,8 @@
 									<div class="attachmentIcon" data-bind="css: { hasPreview: hasPreview(), hasPreplay: hasPreplay(), isImage: isImage() }, attr: { style: thumbnailStyle() }">
 										<i class="hidePreview iconMain" data-bind="css: iconClass()"></i>
 										<div class="showPreview">
-											<a data-bind="css: {attachmentImagePreview: isImage()}, attr: { title: fileName, href: linkPreviewMain() }" target="_blank">
+											<a data-bind="css: {attachmentImagePreview: isImage()}, attr: { 'data-preview-url': linkPreviewMain(), 'data-filename': fileName }"
+											   class="attachment-preview-link">
 												<i class="iconMain" data-bind="visible: !hasThumbnail(), css: iconClass()"></i>
 												<div class="iconPreview fontastic">👁</div>
 											</a>
@@ -579,4 +602,60 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+            console.log('init');
+
+			document.addEventListener('click', function(e) {
+                console.log('click');
+
+				if (e.target.closest('.attachment-preview-link')) {
+					e.preventDefault();
+					const link = e.target.closest('.attachment-preview-link');
+					const url = link.getAttribute('data-preview-url');
+					const filename = link.getAttribute('data-filename');
+
+					const modal = document.getElementById('attachmentModal');
+					const modalTitle = document.getElementById('attachmentModalTitle');
+					const iframe = document.getElementById('attachmentIframe');
+					const imageViewer = document.getElementById('attachmentImageViewer');
+					const image = document.getElementById('attachmentImage');
+					const downloadBtn = document.getElementById('attachmentDownloadBtn');
+
+					modalTitle.textContent = filename;
+					downloadBtn.setAttribute('href', url);
+					downloadBtn.setAttribute('download', filename);
+
+					if (url.match(/\.(jpeg|jpg|gif|png|webp|bmp)$/i)) {
+						iframe.style.display = 'none';
+						imageViewer.style.display = 'block';
+						image.src = url;
+					} else {
+						imageViewer.style.display = 'none';
+						iframe.style.display = 'block';
+						iframe.src = url;
+					}
+
+					$(modal).modal('show');
+                        console.log('show');
+                }
+			});
+		});
+	</script>
 </div>
+<style>
+	.modal {
+		z-index: 1050;
+	}
+	.modal-dialog {
+		max-width: 90%;
+		margin: 1.75rem auto;
+	}
+	.attachment-preview-link {
+		cursor: pointer;
+	}
+	#attachmentImageViewer {
+		text-align: center;
+		padding: 10px;
+	}
+</style>
