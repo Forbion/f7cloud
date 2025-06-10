@@ -978,6 +978,11 @@ header .unified-search__wrapper {
                                     padding-right: 6px;
                                     border-left-color: transparent;
                                     position: relative;
+                                    cursor: pointer;
+
+                                    & * {
+                                        cursor: pointer;
+                                    }
 
                                     & .senderParent {
                                         font-weight: 300;
@@ -1066,6 +1071,10 @@ header .unified-search__wrapper {
                                     }
 
                                     &.selected {
+                                        background-color: rgba(112, 182, 43, .2) !important;
+                                        border-bottom-color: rgba(112, 182, 43, .2) !important;
+                                        border-left-color: #70B62B !important;
+                                        border-right-color: #70B62B !important;
                                         /*background-color: #70B62B;*/
                                         /*color: white;*/
                                     }
@@ -1080,7 +1089,8 @@ header .unified-search__wrapper {
 
                                         & .icon-file-text:before,
                                         & .icon-attachment:before,
-                                        & .icon-file-calendar:before {
+                                        & .icon-file-calendar:before,
+                                        & .icon-file-image:before {
                                             content: '';
                                             position: absolute;
                                             right: 12px;
@@ -1094,6 +1104,26 @@ header .unified-search__wrapper {
                                     &.msgflag-\\flagged .flagParent {
                                         &:after {
                                             background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
+                                        }
+                                    }
+
+                                    &.unseen {
+                                        background: unset;
+
+                                        & .subjectParent {
+                                            position: relative;
+                                            padding-left: 13px;
+
+                                            &:before {
+                                                content: '';
+                                                position: absolute;
+                                                width: 6px;
+                                                height: 6px;
+                                                left: 0;
+                                                top: 6px;
+                                                border-radius: 50%;
+                                                background: #70B62B;
+                                            }
                                         }
                                     }
                                 }
