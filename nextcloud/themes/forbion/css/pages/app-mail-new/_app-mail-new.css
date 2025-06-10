@@ -2861,18 +2861,68 @@ header .unified-search__wrapper {
                         }
 
                         &.password {
-                            &:after {
-                                content: '';
+                            position: relative;
+
+                            /*&:after {*/
+                            /*    content: '';*/
+                            /*    position: absolute;*/
+                            /*    top: 50%;*/
+                            /*    right: 20px;*/
+                            /*    transform: translateY(-50%);*/
+                            /*    width: 16px;*/
+                            /*    height: 16px;*/
+                            /*    background-image: url(/themes/forbion/images/eye.svg);*/
+                            /*    background-size: auto;*/
+                            /*    background-position: center;*/
+                            /*    background-repeat: no-repeat;*/
+                            /*    cursor: pointer;*/
+                            /*    pointer-events: auto;*/
+                            /*}*/
+
+                            /*&.show-password:after {*/
+                            /*    background-image: url(/themes/forbion/images/eye-off.svg);*/
+                            /*}*/
+
+                            & .password-toggle-icon {
                                 position: absolute;
                                 top: 50%;
                                 right: 20px;
                                 transform: translateY(-50%);
                                 width: 16px;
                                 height: 16px;
-                                background-image: url("/themes/forbion/images/eye.svg");
-                                background-size: auto;
-                                background-position: center;
-                                background-repeat: no-repeat;
+                                cursor: pointer;
+                                display: flex; /* Используем flexbox для центрирования изображений */
+                                align-items: center;
+                                justify-content: center;
+
+                                /* Скрываем изображения по умолчанию */
+                                & .eye-icon {
+                                    display: none;
+                                    width: 100%;
+                                    height: 100%;
+                                    cursor: pointer;
+                                }
+
+                                /* Показываем активную иконку */
+                                & .eye-icon.active {
+                                    display: block;
+                                }
+                            }
+                        }
+
+                        /* Когда класс show-password активен на родительском div */
+                        &.password.show-password {
+                            & .password-toggle-icon {
+                                & .eye-open { /* Скрываем иконку открытого глаза */
+                                    display: none;
+                                }
+                                & .eye-closed { /* Показываем иконку закрытого глаза */
+                                    display: block;
+                                }
+                            }
+
+                            & input[type="password"] {
+                                type: text; /* Изменяем тип поля ввода на text */
                             }
                         }
 
@@ -3534,4 +3584,49 @@ input {
 
 #messageItem .sm-bq-switcher>summary {
     border: unset;
+}
+
+/* Стили для модального окна вложений */
+#attachmentModal {
+    z-index: 1050;
+}
+#attachmentModal .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+}
+.attachment-preview-link {
+    cursor: pointer;
+}
+#attachmentImageViewer {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Fallback стили если Bootstrap не загружен */
+#attachmentModal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1050;
+}
+#attachmentModal[style*="display: block"] {
+    display: block !important;
+}
+#attachmentModal .modal-dialog {
+    background: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 5px;
+}
+#attachmentModal .close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }

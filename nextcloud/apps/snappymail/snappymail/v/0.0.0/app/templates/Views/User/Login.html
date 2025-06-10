@@ -18,13 +18,14 @@
 				   data-bind="textInput: email, disable: submitRequest"
 				   data-i18n="[placeholder]GLOBAL/EMAIL">
 		</div>
-		<div class="controls password" data-bind="css: {'error': passwordError}">
-			<span class="fontastic">🔑</span>
-			<input name="Password" required="" type="password" class="input-block-level"
-				   autocomplete="current-password" autocorrect="off" autocapitalize="off"
-				   data-bind="textInput: password, disable: submitRequest"
-				   data-i18n="[placeholder]GLOBAL/PASSWORD">
-		</div>
+        <div id="password-control" class="controls password" data-bind="css: {'error': passwordError}">
+            <span class="fontastic">🔑</span>
+            <input name="Password" required="" type="password" class="input-block-level" autocomplete="current-password" autocorrect="off" autocapitalize="off" data-bind="textInput: password, disable: submitRequest" data-i18n="[placeholder]GLOBAL/PASSWORD" placeholder="Пароль">
+            <span class="password-toggle-icon">
+                <img src="/themes/forbion/images/eye.svg" alt="Показать пароль" class="eye-icon eye-open active">
+                <img src="/themes/forbion/images/eye-off.svg" alt="Скрыть пароль" class="eye-icon eye-closed">
+            </span>
+        </div>
 		<div id="plugin-Login-BottomControlGroup"></div>
 		<div class="controls" style="display: flex; margin-top: 5px;">
 			<div class="e-checkbox" tabindex="0" data-bind="toggle: signMe">
