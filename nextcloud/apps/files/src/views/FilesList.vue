@@ -33,7 +33,7 @@
 						multiple
 						@failed="onUploadFail"
 						@uploaded="onUpload"
-            :style="{ display: isDisabled ? 'none' : 'flex1' }" />
+            style="display: none;" />
 				</template>
 			</BreadCrumbs>
 
@@ -159,13 +159,22 @@ import IconAlertCircleOutline from 'vue-material-design-icons/AlertCircleOutline
 import IconReload from 'vue-material-design-icons/Reload.vue'
 import LinkIcon from 'vue-material-design-icons/Link.vue'
 import ListViewIcon from 'vue-material-design-icons/FormatListBulletedSquare.vue'
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+// import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+// import NcActions from '@nextcloud/vue/components/NcActions'
+// import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+// import NcButton from '@nextcloud/vue/components/NcButton'
+// import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+// import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
+// import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import {
+  NcAppContent,
+  NcActions,
+  NcActionButton,
+  NcButton,
+  NcEmptyContent,
+  NcIconSvgWrapper,
+  NcLoadingIcon
+} from '@nextcloud/vue'
 import AccountPlusIcon from 'vue-material-design-icons/AccountPlus.vue'
 import ViewGridIcon from 'vue-material-design-icons/ViewGrid.vue'
 
