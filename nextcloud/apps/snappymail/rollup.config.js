@@ -1,13 +1,10 @@
-/*
-npm install rollup rollup-plugin-includepaths rollup-plugin-babel rollup-plugin-external-globals rollup-plugin-html rollup-plugin-terser
-rollup -c
-*/
-
 import babel from 'rollup-plugin-babel';
 import includePaths from 'rollup-plugin-includepaths';
 import externalGlobals from "rollup-plugin-external-globals";
 import html from 'rollup-plugin-html';
 import { terser } from "rollup-plugin-terser";
+import resolve from '@rollup/plugin-node-resolve'; // Добавляем плагин
+import commonjs from '@rollup/plugin-commonjs'; // Добавляем плагин
 
 let includePathOptions = {
 	include: {},
@@ -44,49 +41,57 @@ let terserConfig = {
 	output: {
 		comments: false
 	},
-	keep_classnames: true, // Required for AbstractModel and AbstractCollectionModel
-	compress:{
+	keep_classnames: true,
+	compress: {
 		ecma: 2020,
 		drop_console: true
-/*
-		,hoist_props: false
-		,keep_fargs: false
-		,toplevel: true
-		,unsafe_arrows: true // Issue with knockoutjs
-		,unsafe_methods: true
-		,unsafe_proto: true
-*/
 	}
-//	,mangle: {reserved:['SendMessage']}
 };
 
 export default [{
-	external: ['ko'],
+	external: ['ko', '@nextcloud/axios'], // Добавляем в external
 	input: 'dev/admin.js',
-//	dest: 'snappymail/v/0.0.0/static/js/admin.rollup.js',
 	output: [
-		{file: 'snappymail/v/0.0.0/static/js/admin.js', format: 'iife'}, // format: 'es'
-		{file: 'snappymail/v/0.0.0/static/js/min/admin.min.js', format: 'iife', plugins: [terser(terserConfig)], }
+		{file: 'snappymail/v/0.0.0/static/js/admin.js', format: 'iife', globals: {
+				'ko': 'ko',
+				'@nextcloud/axios': 'axios' // Добавляем глобальную переменную
+			}},
+		{file: 'snappymail/v/0.0.0/static/js/min/admin.min.js', format: 'iife', plugins: [terser(terserConfig)], globals: {
+				'ko': 'ko',
+				'@nextcloud/axios': 'axios'
+			}}
 	],
 	plugins: [
+		resolve(), // Добавляем плагин resolve
+		commonjs(), // Добавляем плагин commonjs
 		babel(babelConfig),
 		includePaths(includePathOptions),
 		externalGlobals({
-			ko: 'ko'
+			ko: 'ko',
+			'@nextcloud/axios': 'axios' // Добавляем глобальную переменную
 		})
 	],
 }, {
-	external: ['ko'],
+	external: ['ko', '@nextcloud/axios'], // Добавляем в external
 	input: 'dev/app.js',
 	output: [
-		{file: 'snappymail/v/0.0.0/static/js/app.js', format: 'iife'},
-		{file: 'snappymail/v/0.0.0/static/js/min/app.min.js', format: 'iife', plugins: [terser(terserConfig)], }
+		{file: 'snappymail/v/0.0.0/static/js/app.js', format: 'iife', globals: {
+				'ko': 'ko',
+				'@nextcloud/axios': 'axios'
+			}},
+		{file: 'snappymail/v/0.0.0/static/js/min/app.min.js', format: 'iife', plugins: [terser(terserConfig)], globals: {
+				'ko': 'ko',
+				'@nextcloud/axios': 'axios'
+			}}
 	],
 	plugins: [
+		resolve(), // Добавляем плагин resolve
+		commonjs(), // Добавляем плагин commonjs
 		babel(babelConfig),
 		includePaths(includePathOptions),
 		externalGlobals({
-			ko: 'ko'
+			ko: 'ko',
+			'@nextcloud/axios': 'axios' // Добавляем глобальную переменную
 		}),
 		html({
 			include: '**/*.html'

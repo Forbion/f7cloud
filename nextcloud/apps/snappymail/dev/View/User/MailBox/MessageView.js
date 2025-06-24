@@ -1,3 +1,4 @@
+/* axios */
 import ko from 'ko';
 import { addObservablesTo, addComputablesTo, addSubscribablesTo } from 'External/ko';
 
@@ -25,7 +26,7 @@ import {
 } from 'Common/Globals';
 
 import { arrayLength } from 'Common/Utils';
-import { download, downloadZip, mailToHelper, showMessageComposer, moveAction } from 'Common/UtilsUser';
+import { downloadZip, mailToHelper, showMessageComposer, moveAction } from 'Common/UtilsUser';
 import { isFullscreen, exitFullscreen, toggleFullscreen } from 'Common/Fullscreen';
 
 import { SMAudio } from 'Common/Audio';
@@ -69,10 +70,39 @@ const
 
 	fetchRaw = url => rl.fetch(url).then(response => response.ok && response.text());
 
+
+//test
+const OC = () => typeof parent.OC !== 'undefined' ? parent.OC : null;
+const generateUrl = (path) => {
+	const oc = OC();
+	if (oc && oc.webroot) {
+		let base = oc.webroot;
+		if (!base.endsWith('/')) {
+			base += '/';
+		}
+		if (path.startsWith('/')) {
+			path = path.substring(1);
+		}
+		return `${base}${path}`;
+	}
+	console.error('generateUrl: OC.webroot is not available. Using path as is.');
+	return path; // Fallback
+};
+
+const getRequestToken = () => {
+	const oc = OC();
+	if (oc && oc.requestToken) {
+		return oc.requestToken;
+	}
+	console.error('getRequestToken: OC.requestToken is not available.');
+	return null;
+};
+//test
 export class MailMessageView extends AbstractViewRight {
 	constructor() {
 		super();
-
+		console.log('MailMessageView: OC object available?', !!OC(), 'Current user:',
+			OC() ? OC().currentUser : 'N/A', 'Webroot:', OC() ? OC().webroot : 'N/A');
 		const
 			/**
 			 * @param {Function} fExecute
@@ -302,6 +332,417 @@ export class MailMessageView extends AbstractViewRight {
 			goUpCommand: self => !self.messageListOrViewLoading(),
 			goDownCommand: self => !self.messageListOrViewLoading()
 		});
+
+		// === НОВЫЕ СВОЙСТВА ДЛЯ УПРАВЛЕНИЯ МОДАЛЬНЫМ ОКНОМ ===
+		// Используйте ko.observable() для всех свойств, которые будут использоваться с () в HTML
+		this.showOnlyOfficeModal = ko.observable(false);
+		this.isOnlyOfficeLoading = ko.observable(false);
+		this.onlyOfficeIframeSrc = ko.observable('');
+		this.currentAttachmentFileName = ko.observable('');
+		this.currentAttachmentSrc = ko.observable('');
+		this.currentAttachmentMimeType = ko.observable('');
+
+		this.currentTempFileInfo = ko.observable(null);
+
+		this.isImageViewerVisible = ko.observable(false);
+		this.isPdfTxtViewerVisible = ko.observable(false);
+		this.isUnsupportedViewerVisible = ko.observable(false);
+		// === КОНЕЦ НОВЫХ СВОЙСТВ ===
+
+		// Константы OnlyOffice
+		this.officeMimeTypes = [
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // docx
+			'application/msword', // doc
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // xlsx
+			'application/vnd.ms-excel', // xls
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation', // pptx
+			'application/vnd.ms-powerpoint', // ppt
+			'text/rtf', // rtf
+			'text/plain', // txt
+			'application/rtf',
+			'application/vnd.oasis.opendocument.text', // odt
+			'application/vnd.oasis.opendocument.spreadsheet', // ods
+			'application/vnd.oasis.opendocument.presentation', // odp
+			'application/pdf'
+		];
+
+	} // End of constructor()
+
+	// --- НАЧАЛО МЕТОДОВ КЛАССА MAILMESSAGEVIEW ---
+
+	/**
+	 * Метод для получения текущего пользователя Nextcloud.
+	 * @returns {string|null} Имя текущего пользователя Nextcloud.
+	 */
+	getCurrentNextcloudUser() {
+		if (typeof OC !== 'undefined' && OC.currentUser) {
+			console.log('Nextcloud current user:', OC.currentUser);
+			return OC.currentUser;
+		}
+		console.error('Nextcloud current user (OC.currentUser) is not available. Ensure OC is loaded.');
+		return null;
+	}
+
+	/**
+	 * Убеждается, что временный каталог для OnlyOffice существует.
+	 * Создает его, если не существует.
+	 * @param {string} folderPath Путь к временному каталогу (например, '/temp/snappymail/').
+	 * @returns {Promise<void>}
+	 */
+	async ensureTempDirectoryExists(folderPath) {
+		const currentUser = this.getCurrentNextcloudUser();
+		if (!currentUser) {
+			console.error('ensureTempDirectoryExists: Не удалось получить текущего пользователя Nextcloud. ' +
+				'Отмена создания каталога.');
+			throw new Error('Nextcloud user not found.');
+		}
+		// Использование глобальной функции getRequestToken()
+		const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
+		if (!requestToken) {
+			console.error('ensureTempDirectoryExists: Nextcloud request token (getRequestToken()) is not available. ' +
+				'Отмена создания каталога.');
+			throw new Error('Nextcloud request token not found.');
+		}
+
+		const nextcloudDavBaseUrl = generateUrl(`/remote.php/dav/files/admclient/`);
+		const fullDirPath = `${nextcloudDavBaseUrl}${folderPath}`;
+
+		console.log('ensureTempDirectoryExists: Проверка существования каталога:', fullDirPath);
+
+		try {
+			// Попытка проверить существование каталога с помощью PROPFIND
+			const response = await axios.request({
+				method: 'PROPFIND',
+				url: fullDirPath,
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			});
+			console.log('ensureTempDirectoryExists: PROPFIND response status:', response.status);
+
+			if (response.status === 207) { // 207 Multi-Status - каталог существует
+				console.log('ensureTempDirectoryExists: Каталог уже существует.');
+				return;
+			}
+		} catch (error) {
+			console.log('ensureTempDirectoryExists: PROPFIND ошибка или каталог не существует, статус:',
+				error.response ? error.response.status : 'N/A');
+			if (error.response && error.response.status === 404) {
+				console.log('ensureTempDirectoryExists: Каталог не найден, попытка создать.');
+			} else {
+				console.error('ensureTempDirectoryExists: Неожиданная ошибка PROPFIND при проверке каталога:', error);
+				throw error;
+			}
+		}
+
+		try {
+			// Если каталог не существует, создаем его с помощью MKCOL
+			console.log('ensureTempDirectoryExists: Попытка создать каталог:', fullDirPath);
+			const createResponse = await axios.request({
+				method: 'MKCOL',
+				url: fullDirPath,
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			});
+			console.log('ensureTempDirectoryExists: MKCOL response status:', createResponse.status);
+
+			if (createResponse.status === 201) { // 201 Created - каталог успешно создан
+				console.log('ensureTempDirectoryExists: Каталог успешно создан.');
+			} else if (createResponse.status === 405) { // 405 Method Not Allowed - каталог уже существует
+				console.log('ensureTempDirectoryExists: Каталог уже существует (получен 405 при MKCOL).');
+			} else {
+				console.error('ensureTempDirectoryExists: Неизвестный статус при создании каталога:', createResponse.status);
+				throw new Error('Не удалось создать временный каталог.');
+			}
+		} catch (error) {
+			console.error('ensureTempDirectoryExists: Ошибка при создании временного каталога:', error);
+			if (error.response && error.response.status === 405) {
+				console.log('ensureTempDirectoryExists: Каталог уже существует (ошибка 405 при MKCOL).');
+			} else {
+				throw error;
+			}
+		}
+	}
+
+
+	/**
+	 * Генерирует URL для просмотра файла через Nextcloud Files (который может использовать OnlyOffice).
+	 * Этот метод включает загрузку файла в Nextcloud и получение его fileId.
+	 * @param {AttachmentModel} attachmentItem
+	 * @returns {Promise<string|null>} URL для iframe OnlyOffice, или null в случае ошибки.
+	 */
+	async getOnlyOfficeFrameUrl(attachmentItem) {
+		console.log('getOnlyOfficeFrameUrl: Начало процесса загрузки и получения fileId для:', attachmentItem.fileName);
+
+		const fileDownloadUrl = attachmentItem.linkDownload();
+		const originalFileName = attachmentItem.fileName;
+		const fileMimeType = attachmentItem.mimeType;
+
+		// const currentUser = this.getCurrentNextcloudUser();
+		// if (!currentUser) {
+		// 	console.error('getOnlyOfficeFrameUrl: Не удалось получить текущего пользователя Nextcloud. Отмена операции.');
+		// 	return null;
+		// }
+
+		// const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
+		// if (!requestToken) {
+		// 	console.error('getOnlyOfficeFrameUrl: Nextcloud request token (getRequestToken()) is not available. ' +
+		// 		'Отмена операции.');
+		// 	return null;
+		// }
+
+		const tempPathPrefix = '/Temp/'; // Имя временной папки в Nextcloud Files (для текущего пользователя)
+
+		try {
+			// 1. Загружаем файл как blob из SnappyMail
+			console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Загрузка файла вложения как Blob из:', fileDownloadUrl);
+			const response = await axios.get(fileDownloadUrl, {
+				responseType: 'blob',
+				headers: {
+					'Content-Type': fileMimeType,
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			});
+			console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Файл вложения успешно загружен в Blob. Размер:',
+				response.data.size, 'байт.');
+
+			// 2. Создаем временное имя файла для Nextcloud и полный путь
+			const tempFileName = `snappymail_${Date.now()}_${originalFileName.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
+			const fullTempFilePath = `${tempPathPrefix}${tempFileName}`;
+			console.log('getOnlyOfficeFrameUrl: Шаг 2/5 - Сформировано временное имя файла и путь:', fullTempFilePath);
+
+			// Проверка и создание временной папки /Temp, если она не существует
+			await this.ensureTempDirectoryExists(tempPathPrefix);
+
+			// 3. Загружаем файл через WebDAV PUT в Nextcloud
+			const uploadUrl = generateUrl(`/remote.php/dav/files/admclient/${fullTempFilePath}`);
+			console.log('getOnlyOfficeFrameUrl: Шаг 3/5 - Загрузка файла в Nextcloud по PUT запросу на URL:', uploadUrl);
+
+			await axios.put(
+				uploadUrl,
+				response.data,
+				{
+					headers: {
+						'Content-Type': fileMimeType,
+						'X-Requested-With': 'XMLHttpRequest'
+					}
+				}
+			);
+			console.log('getOnlyOfficeFrameUrl: Шаг 3/5 - Файл успешно загружен во временную папку Nextcloud.');
+
+			// 4. Получаем fileid через PROPFIND для только что загруженного файла
+			const propfindUrl = generateUrl(`/remote.php/dav/files/admclient/${fullTempFilePath}`);
+			console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - Получение fileId через PROPFIND запрос к:', propfindUrl);
+
+			const propfindResponse = await axios.request({
+				method: 'PROPFIND',
+				url: propfindUrl,
+				headers: {
+					'Content-Type': fileMimeType,
+					'X-Requested-With': 'XMLHttpRequest'
+				},
+				data: `<?xml version="1.0"?>
+                        <d:propfind xmlns:d="DAV:">
+                            <d:prop>
+                                <oc:fileid xmlns:oc="http://owncloud.org/ns"/>
+                            </d:prop>
+                        </d:propfind>`
+			});
+			console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - PROPFIND запрос выполнен. Статус:', propfindResponse.status);
+
+			// 5. Парсим fileid из XML-ответа
+			const parser = new DOMParser();
+			const xmlDoc = parser.parseFromString(propfindResponse.data, "text/xml");
+			const fileIdNode = xmlDoc.getElementsByTagName('oc:fileid')[0]; // Находим первый элемент с тегом oc:fileid
+			const fileId = fileIdNode ? fileIdNode.textContent : null;
+
+			if (!fileId) {
+				console.error('getOnlyOfficeFrameUrl: Шаг 5/5 - ОШИБКА: Не удалось получить file ID из ответа PROPFIND. ' +
+					'Ответ:', propfindResponse.data);
+				throw new Error('Could not get file ID from server response');
+			}
+			console.log('getOnlyOfficeFrameUrl: Шаг 5/5 - fileId успешно получен:', fileId);
+
+			// Сохраняем информацию о временном файле в модели
+			this.currentTempFileInfo( {
+				id: fileId,
+				path: fullTempFilePath // Сохраняем полный WebDAV путь для удобства
+			});
+			console.log('getOnlyOfficeFrameUrl: Сохранена информация о временном файле:', this.currentTempFileInfo());
+
+			// Конечный URL для отображения в iframe
+			const finalViewerUrl =
+				generateUrl(`/apps/files/files/${fileId}?dir=${encodeURIComponent(tempPathPrefix)}&openfile=true&iframe=true`);
+			console.log('getOnlyOfficeFrameUrl: Успех! Сформирован конечный URL Nextcloud Files Viewer:', finalViewerUrl);
+
+			return finalViewerUrl;
+
+		} catch (error) {
+			console.error('getOnlyOfficeFrameUrl: Общая ошибка в процессе интеграции OnlyOffice:', error);
+			if (error.response) {
+				console.error('getOnlyOfficeFrameUrl: Ошибка ответа сервера:', error.response.status,
+					error.response.data);
+			} else if (error.request) {
+				console.error('getOnlyOfficeFrameUrl: Нет ответа от сервера:', error.request);
+			} else {
+				console.error('getOnlyOfficeFrameUrl: Ошибка при настройке запроса:', error.message);
+			}
+			// Скрываем индикатор загрузки и показываем сообщение о неподдерживаемом файле в случае ошибки
+			this.isUnsupportedViewerVisible(true);
+			this.isOnlyOfficeLoading(false);
+			return null;
+		}
+	}
+
+
+	/**
+	 * Основной метод для открытия просмотрщика вложения.
+	 * @param {AttachmentModel} attachmentItem Экземпляр AttachmentModel для просмотра.
+	 * @returns {Promise<void>}
+	 */
+	async openAttachmentInViewer(attachmentItem) {
+		console.log('Клик по вложению для предпросмотра ~');
+		console.log('Вызов openAttachmentInViewer. Имя файла:',
+			attachmentItem.fileName, 'MIME-тип:', attachmentItem.mimeType);
+
+		this.currentAttachmentFileName(attachmentItem.fileName);
+		this.currentAttachmentSrc(attachmentItem.linkDownload());
+		this.currentAttachmentMimeType(attachmentItem.mimeType);
+
+		this.isOnlyOfficeLoading(true);
+		this.showOnlyOfficeModal(true); // Показываем модальное окно загрузки OnlyOffice
+
+		this.isImageViewerVisible(false);
+		this.isPdfTxtViewerVisible(false);
+		this.isUnsupportedViewerVisible(false);
+		this.onlyOfficeIframeSrc('');
+
+		const fileName = attachmentItem.fileName.toLowerCase();
+		const fileExtension = fileName.split('.').pop();
+		const mimeType = attachmentItem.mimeType.toLowerCase();
+
+		const supportedImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+		const supportedPdfTxtExtensions = ['pdf', 'txt']; // txt можно открывать как текст, но и в OO
+
+		console.log('openAttachmentInViewer: Проверка условий OnlyOffice/Nextcloud Files.');
+		console.log('openAttachmentInViewer: officeMimeTypes:', this.officeMimeTypes);
+		console.log('openAttachmentInViewer: current MIME-type:', mimeType);
+
+		// Встроенный просмотрщик для изображений
+		if (supportedImageExtensions.includes(fileExtension) || mimeType.startsWith('image/')) {
+			console.log('openAttachmentInViewer: Открытие встроенного предпросмотра изображения для:',
+				attachmentItem.fileName);
+			this.isImageViewerVisible(true);
+			this.isOnlyOfficeLoading(false);
+			// Здесь, вероятно, должен быть код для установки src для img или другого просмотра изображений
+			// (например, this.currentPreviewUrl(attachmentItem.linkPreviewMain()); this.showPreviewPopup(true);)
+			// Если у вас уже есть эта логика, оставьте ее.
+		}
+		// Встроенный просмотрщик для PDF/текста
+		else if (supportedPdfTxtExtensions.includes(fileExtension) || mimeType.includes('pdf') ||
+			mimeType.includes('text/plain')) {
+			console.log('openAttachmentInViewer: Открытие встроенного предпросмотра PDF/текста для:',
+				attachmentItem.fileName);
+			this.isPdfTxtViewerVisible(true);
+			this.onlyOfficeIframeSrc(attachmentItem.linkDownload()); // или attachmentItem.linkPreviewMain()
+			this.isOnlyOfficeLoading(false);
+		}
+		// Логика для OnlyOffice через Nextcloud Files
+		else if (this.officeMimeTypes.includes(mimeType)) {
+			console.log('Офисный документ обнаружен для просмотра через Nextcloud Files. MIME-тип:', mimeType); // Обновленный лог
+
+			try {
+				const viewerUrl = await this.getOnlyOfficeFrameUrl(attachmentItem); // Теперь он вернет конечный URL Nextcloud Files
+
+				if (viewerUrl) {
+					console.log('Получен URL для просмотра Nextcloud Files:', viewerUrl); // Обновленный лог
+					this.onlyOfficeIframeSrc(viewerUrl);
+					this.isOnlyOfficeLoading(false);
+				} else {
+					console.warn('Не удалось получить URL для просмотра через Nextcloud Files. ' +
+						'Будет показано сообщение о неподдерживаемом файле.'); // Обновленный лог
+					this.isUnsupportedViewerVisible(true);
+					this.isOnlyOfficeLoading(false);
+				}
+			} catch (error) {
+				console.error('Ошибка при генерации или использовании URL Nextcloud Files/OnlyOffice:', error); // Обновленный лог
+				this.isUnsupportedViewerVisible(true);
+				this.isOnlyOfficeLoading(false);
+			}
+		}
+		// Если ни один из вышеперечисленных случаев не сработал
+		else {
+			console.log('openAttachmentInViewer: Предпросмотр не поддерживается для MIME-типа:', mimeType);
+			this.isUnsupportedViewerVisible(true);
+			this.isOnlyOfficeLoading(false);
+		}
+	}
+
+	/**
+	 * Метод, который будет вызван, когда iframe Nextcloud Files Viewer загрузится.
+	 */
+	handleOnlyOfficeLoaded() {
+		console.log('Nextcloud Files iframe (возможно, с OnlyOffice) загружен.');
+		this.isOnlyOfficeLoading(false);
+	}
+
+	/**
+	 * Метод для закрытия модального окна ONLYOFFICE и очистки временного файла.
+	 * @returns {Promise<void>}
+	 */
+	async closeOnlyOfficeModal() {
+		this.showOnlyOfficeModal(false);
+		this.isOnlyOfficeLoading(false);
+		this.onlyOfficeIframeSrc(''); // Очищаем URL iframe
+		this.isImageViewerVisible(false);
+		this.isPdfTxtViewerVisible(false);
+		this.isUnsupportedViewerVisible(false);
+		this.currentAttachmentFileName('');
+		this.currentAttachmentSrc('');
+		this.currentAttachmentMimeType('');
+
+		// Логика удаления временного файла
+		const tempFileInfo = this.currentTempFileInfo();
+		if (tempFileInfo && tempFileInfo.path) { // Проверяем наличие tempFileInfo и его path
+			try {
+				// const currentUser = this.getCurrentNextcloudUser();
+				// if (!currentUser) {
+				// 	console.error('closeOnlyOfficeModal: Не удалось получить текущего пользователя ' +
+				// 		'Nextcloud для удаления файла.');
+				// 	return;
+				// }
+				// const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
+				// if (!requestToken) {
+				// 	console.error('closeOnlyOfficeModal: Nextcloud request token (getRequestToken()) ' +
+				// 		'is not available для удаления файла.');
+				// 	return;
+				// }
+
+				console.log(`closeOnlyOfficeModal: Попытка удалить временный файл: ${tempFileInfo.path} 
+				для пользователя \${currentUser}`);
+				await axios.delete(
+					generateUrl(`/remote.php/dav/files/admclient/${tempFileInfo.path}`), // Используем tempFileInfo.path
+					{
+						headers: {
+							'X-Requested-With': 'XMLHttpRequest'
+						}
+					}
+				);
+				console.log(`closeOnlyOfficeModal: Временный файл ${tempFileInfo.path} успешно удален из Nextcloud.`);
+			} catch (deleteError) {
+				console.error('closeOnlyOfficeModal: Ошибка при удалении временного файла:', deleteError);
+				if (deleteError.response) {
+					console.error('closeOnlyOfficeModal: Ответ сервера при удалении:', deleteError.response.status,
+						deleteError.response.data);
+				}
+			} finally {
+				this.currentTempFileInfo(null); // Сбрасываем информацию о файле
+				// sessionStorage.removeItem('currentSnappyMailTempFile'); // Эту строку можно удалить, если не используете sessionStorage
+			}
+		} else {
+			console.log('closeOnlyOfficeModal: Временный файл для удаления не найден или информация неполна.');
+		}
 	}
 
 	toggleFullInfo() {
@@ -418,7 +859,8 @@ export class MailMessageView extends AbstractViewRight {
 							showScreenPopup(OpenPgpImportPopupView, [text])
 						);
 					} else {
-						download(url, attachment.fileName);
+						// download(url, attachment.fileName);
+						this.openAttachmentInViewer(attachment);
 					}
 				}
 			}
@@ -546,7 +988,7 @@ export class MailMessageView extends AbstractViewRight {
 		});
 
 		MessageUserStore.bodiesDom(dom.querySelector('.bodyText'));
-	}
+	} // End of onBuild(dom)
 
 	scrollMessageToTop() {
 		oMessageScrollerDom().scrollTop = 0;
