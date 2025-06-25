@@ -1613,6 +1613,11 @@ header .unified-search__wrapper {
                                                         padding-left: 20px;
                                                     }
                                                 }
+
+                                                & .folder-system-name {
+                                                    font-weight: 600;
+                                                    opacity: 1;
+                                                }
                                             }
                                         }
                                     }

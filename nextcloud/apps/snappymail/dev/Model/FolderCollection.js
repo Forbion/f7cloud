@@ -461,7 +461,7 @@ export class FolderModel extends AbstractModel {
 					translateTrigger();
 					let suffix = getSystemFolderName(this.type(), getKolabFolderName(this.kolabType()));
 					if (this.name() !== suffix && 'inbox' !== suffix.toLowerCase()) {
-						return ' (' + suffix + ')';
+						return suffix;
 					}
 				}
 				return '';
