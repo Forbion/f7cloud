@@ -30,7 +30,6 @@ body:has(.app-files) .vs__dropdown-toggle {
     border: none !important;
 }
 
-
 body .app-files {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
@@ -43,6 +42,7 @@ body .app-files {
     /*--icon-external-white: url('/themes/forbion/images/chain.svg') !important;*/
     /*--icon-more-white: url('/themes/forbion/images/users-gray.svg') !important;*/
     /*--icon-public-white: url('/themes/forbion/images/chain.svg') !important;*/
+
 
 
     & .upload-picker.files-list__header-upload-button.upload-picker--uploading {
@@ -1985,6 +1985,12 @@ body .app-files {
 
 
     & .modal-container__content {
+
+
+        & .file-picker__files {
+            overflow: auto !important;
+        }
+
 
         span {
             font-family: Raleway !important;
