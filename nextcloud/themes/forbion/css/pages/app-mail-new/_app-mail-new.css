@@ -271,7 +271,7 @@ header .unified-search__wrapper {
                     resize: unset;
 
                     & .b-toolbar.btn-toolbar {
-                        display: none;
+                        /*display: none;*/
                     }
 
                     & #V-MailFolderList {
@@ -1096,8 +1096,8 @@ header .unified-search__wrapper {
                                             right: 12px;
                                             bottom: 10px;
                                             width: 16px;
-                                            height: 16px;
-                                            background-image: url("/themes/forbion/images/snappymail/menu/folders.svg");
+                                            height: 17px;
+                                            background-image: url("/themes/forbion/images/attachment.svg");
                                         }
                                     }
 
@@ -3637,6 +3637,7 @@ input {
     padding: 10px;
 }
 
+
 /* Fallback стили если Bootstrap не загружен */
 #attachmentModal {
     display: none;
@@ -3647,21 +3648,145 @@ input {
     height: 100%;
     background-color: rgba(0,0,0,0.5);
     z-index: 1050;
+
 }
 #attachmentModal[style*="display: block"] {
     display: block !important;
+    z-index: 9999;
 }
 #attachmentModal .modal-dialog {
     background: white;
-    margin: 10% auto;
+    margin: 40px auto;
     padding: 20px;
-    width: 80%;
-    max-width: 800px;
-    border-radius: 5px;
+    width: 100%;
+    max-width: calc(100% - 40px);
+    height: calc(100% - 80px);
+
+
+    & .modal-header {
+        display: flex;
+        justify-content: space-between;
+    }
+    & .modal-content {
+        height: calc(100% - 72px) !important;
+    }
+    & .modal-body {
+        height: calc(100% - 72px) !important;
+    }
+
 }
 #attachmentModal .close {
     float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+}
+
+
+/* modal */
+.onlyoffice-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.onlyoffice-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    max-height: 90%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    & .modal-header {
+
+        & .modal-title {
+            margin-left: 25px;
+        }
+        & button.close {
+            position: relative;
+            right: 10px;
+            top: -50px;
+        }
+
+        & button.close > span {
+            font-size: 50px;
+        }
+        & button.close > span:not(:hover) {
+            opacity: 0.5;
+        }
+    }
+
+    & .modal-body {
+        height: calc(100% - 175px) !important;
+
+        & .isImageViewerVisible {
+
+        }
+    }
+    & .modal-footer {
+        padding: 20px;
+    }
+}
+
+.onlyoffice-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.onlyoffice-modal-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.onlyoffice-modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+    padding: 0;
+    line-height: 1;
+}
+
+.onlyoffice-modal-body {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: relative;
+}
+
+.onlyoffice-loading {
+    font-size: 1.2em;
+    color: #555;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.onlyoffice-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
 }
