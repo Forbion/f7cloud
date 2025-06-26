@@ -1,6 +1,182 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/dav/src/components/AbsenceForm.vue":
+/*!*************************************************!*\
+  !*** ./apps/dav/src/components/AbsenceForm.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true");
+/* harmony import */ var _AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=script&lang=js */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js");
+/* harmony import */ var _AbsenceForm_vue_vue_type_style_index_0_id_e2547430_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "e2547430",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/dav/src/components/AbsenceForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js":
+/*!*************************************************************************!*\
+  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true":
+/*!**********************************************************************************************************!*\
+  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_style_index_0_id_e2547430_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true":
+/*!*******************************************************************************************!*\
+  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AvailabilityForm.vue":
+/*!******************************************************!*\
+  !*** ./apps/dav/src/components/AvailabilityForm.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true");
+/* harmony import */ var _AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=script&lang=js */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js");
+/* harmony import */ var _AvailabilityForm_vue_vue_type_style_index_0_id_55a42208_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "55a42208",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/dav/src/components/AvailabilityForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js":
+/*!******************************************************************************!*\
+  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true":
+/*!***************************************************************************************************************!*\
+  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_style_index_0_id_55a42208_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true":
+/*!************************************************************************************************!*\
+  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true");
+
+
+/***/ }),
+
 /***/ "./apps/dav/src/dav/client.js":
 /*!************************************!*\
   !*** ./apps/dav/src/dav/client.js ***!
@@ -264,6 +440,672 @@ function formatDateAsYMD(date) {
   const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
+
+/***/ }),
+
+/***/ "./apps/dav/src/views/Availability.vue":
+/*!*********************************************!*\
+  !*** ./apps/dav/src/views/Availability.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Availability.vue?vue&type=template&id=aad5ff48 */ "./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48");
+/* harmony import */ var _Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Availability.vue?vue&type=script&lang=js */ "./apps/dav/src/views/Availability.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/dav/src/views/Availability.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/dav/src/views/Availability.vue?vue&type=script&lang=js":
+/*!*********************************************************************!*\
+  !*** ./apps/dav/src/views/Availability.vue?vue&type=script&lang=js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Availability.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/views/Availability.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48":
+/*!***************************************************************************!*\
+  !*** ./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48 ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Availability.vue?vue&type=template&id=aad5ff48 */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48");
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../../css-loader/dist/cjs.js!./index-UKC4AV1t.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/dist/index.mjs":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/dist/index.mjs ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CalendarAvailability: () => (/* binding */ CalendarAvailability),
+/* harmony export */   getEmptySlots: () => (/* binding */ getEmptySlots),
+/* harmony export */   slotsToVavailability: () => (/* binding */ slotsToVavailability),
+/* harmony export */   vavailabilityToSlots: () => (/* binding */ vavailabilityToSlots)
+/* harmony export */ });
+/* harmony import */ var _assets_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/index-UKC4AV1t.css */ "./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcDateTimePickerNative_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcDateTimePickerNative.js */ "./node_modules/@nextcloud/vue/dist/Components/NcDateTimePickerNative.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcButton.mjs");
+/* harmony import */ var vue_material_design_icons_Delete_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-material-design-icons/Delete.vue */ "./node_modules/vue-material-design-icons/Delete.vue");
+/* harmony import */ var vue_material_design_icons_Plus_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-material-design-icons/Plus.vue */ "./node_modules/vue-material-design-icons/Plus.vue");
+/* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
+/* harmony import */ var icalzone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! icalzone */ "./node_modules/icalzone/dist/index.js");
+/* harmony import */ var ical_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ical.js */ "./node_modules/ical.js/dist/ical.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! uuid */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var _nextcloud_logger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @nextcloud/logger */ "./node_modules/@nextcloud/logger/dist/index.mjs");
+
+
+
+
+
+
+
+
+
+
+function normalizeComponent(scriptExports, render2, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+  if (render2) {
+    options.render = render2;
+    options.staticRenderFns = staticRenderFns;
+    options._compiled = true;
+  }
+  {
+    options._scopeId = "data-v-" + scopeId;
+  }
+  return {
+    exports: scriptExports,
+    options
+  };
+}
+const _sfc_main = {
+  name: "CalendarAvailability",
+  components: {
+    NcDateTimePickerNative: _nextcloud_vue_dist_Components_NcDateTimePickerNative_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+    NcButton: _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+    IconAdd: vue_material_design_icons_Plus_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    IconDelete: vue_material_design_icons_Delete_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  props: {
+    slots: {
+      type: Object,
+      required: true
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    l10nTo: {
+      type: String,
+      required: true
+    },
+    l10nDeleteSlot: {
+      type: String,
+      required: true
+    },
+    l10nEmptyDay: {
+      type: String,
+      required: true
+    },
+    l10nAddSlot: {
+      type: String,
+      required: true
+    },
+    l10nWeekDayListLabel: {
+      type: String,
+      default: "Weekdays"
+    },
+    l10nMonday: {
+      type: String,
+      required: true
+    },
+    l10nTuesday: {
+      type: String,
+      required: true
+    },
+    l10nWednesday: {
+      type: String,
+      required: true
+    },
+    l10nThursday: {
+      type: String,
+      required: true
+    },
+    l10nFriday: {
+      type: String,
+      required: true
+    },
+    l10nSaturday: {
+      type: String,
+      required: true
+    },
+    l10nSunday: {
+      type: String,
+      required: true
+    },
+    l10nStartPickerLabel: {
+      type: Function,
+      default: (dayName) => "Pick a start time for ".concat(dayName)
+    },
+    l10nEndPickerLabel: {
+      type: Function,
+      default: (dayName) => "Pick a end time for ".concat(dayName)
+    }
+  },
+  data() {
+    return {
+      internalSlots: this.slotsToInternalData(this.slots)
+    };
+  },
+  watch: {
+    slots() {
+      this.internalSlots = this.slotsToInternalData(this.slots);
+    }
+  },
+  methods: {
+    timeStampSlotsToDateObjectSlots(slots) {
+      return slots.map((slot) => ({
+        start: new Date(slot.start * 1e3),
+        end: new Date(slot.end * 1e3)
+      }));
+    },
+    slotsToInternalData() {
+      const moToSa = [
+        {
+          id: "MO",
+          displayName: this.l10nMonday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.MO)
+        },
+        {
+          id: "TU",
+          displayName: this.l10nTuesday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.TU)
+        },
+        {
+          id: "WE",
+          displayName: this.l10nWednesday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.WE)
+        },
+        {
+          id: "TH",
+          displayName: this.l10nThursday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.TH)
+        },
+        {
+          id: "FR",
+          displayName: this.l10nFriday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.FR)
+        },
+        {
+          id: "SA",
+          displayName: this.l10nSaturday,
+          slots: this.timeStampSlotsToDateObjectSlots(this.slots.SA)
+        }
+      ];
+      const sunday = {
+        id: "SU",
+        displayName: this.l10nSunday,
+        slots: this.timeStampSlotsToDateObjectSlots(this.slots.SU)
+      };
+      return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.getFirstDay)() === 1 ? [...moToSa, sunday] : [sunday, ...moToSa];
+    },
+    internalDataToSlots() {
+      const converted = {};
+      this.internalSlots.forEach(({ id, slots }) => {
+        converted[id] = slots.map((slot) => ({
+          start: Math.round(slot.start.getTime() / 1e3),
+          end: Math.round(slot.end.getTime() / 1e3)
+        }));
+      });
+      return converted;
+    },
+    addSlot(day) {
+      const start = /* @__PURE__ */ new Date();
+      start.setHours(9, 0, 0, 0);
+      const end = /* @__PURE__ */ new Date();
+      end.setHours(17, 0, 0, 0);
+      day.slots.push({
+        start,
+        end
+      });
+      this.onChangeSlots();
+    },
+    removeSlot(day, idx) {
+      day.slots.splice(idx, 1);
+      this.onChangeSlots();
+    },
+    onChangeSlots() {
+      this.$emit("update:slots", this.internalDataToSlots());
+    }
+  }
+};
+var _sfc_render = function render() {
+  var _vm = this, _c = _vm._self._c;
+  return _c("ul", { staticClass: "week-day-container", attrs: { "aria-label": _vm.l10nWeekDayListLabel } }, [_vm._l(_vm.internalSlots, function(day) {
+    return [_c("li", { key: "day-label-".concat(day.id), staticClass: "day-container" }, [_c("div", { staticClass: "label-weekday" }, [_c("span", { attrs: { "id": day.displayName + "-label" } }, [_vm._v(_vm._s(day.displayName))])]), _c("div", { key: "day-slots-".concat(day.id), staticClass: "availability-slots" }, [_c("div", { staticClass: "availability-slot-group" }, [_vm._l(day.slots, function(slot, idx) {
+      var _a, _b;
+      return [_c("div", { key: "slot-".concat(day.id, "-").concat(idx), staticClass: "availability-slot" }, [_c("NcDateTimePickerNative", { staticClass: "start-date", attrs: { "id": "start-".concat(day.id, "-").concat(idx), "type": "time", "label": (_a = _vm.l10nStartPickerLabel) == null ? void 0 : _a.call(_vm, day.displayName), "hide-label": true }, on: { "change": _vm.onChangeSlots }, model: { value: slot.start, callback: function($$v) {
+        _vm.$set(slot, "start", $$v);
+      }, expression: "slot.start" } }), _c("span", { staticClass: "to-text" }, [_vm._v(" " + _vm._s(_vm.l10nTo) + " ")]), _c("NcDateTimePickerNative", { staticClass: "end-date", attrs: { "id": "end-".concat(day.id, "-").concat(idx), "type": "time", "label": (_b = _vm.l10nEndPickerLabel) == null ? void 0 : _b.call(_vm, day.displayName), "hide-label": true }, on: { "change": _vm.onChangeSlots }, model: { value: slot.end, callback: function($$v) {
+        _vm.$set(slot, "end", $$v);
+      }, expression: "slot.end" } }), _c("NcButton", { key: "slot-".concat(day.id, "-").concat(idx, "-btn"), staticClass: "button", attrs: { "type": "tertiary", "aria-label": _vm.l10nDeleteSlot, "title": _vm.l10nDeleteSlot }, on: { "click": function($event) {
+        return _vm.removeSlot(day, idx);
+      } }, scopedSlots: _vm._u([{ key: "icon", fn: function() {
+        return [_c("IconDelete", { attrs: { "size": 20 } })];
+      }, proxy: true }], null, true) })], 1)];
+    })], 2), day.slots.length === 0 ? _c("span", { staticClass: "empty-content" }, [_vm._v(" " + _vm._s(_vm.l10nEmptyDay) + " ")]) : _vm._e()]), _c("NcButton", { key: "add-slot-".concat(day.id), staticClass: "add-another button", attrs: { "disabled": _vm.loading, "title": _vm.l10nAddSlot, "aria-label": _vm.l10nAddSlot }, on: { "click": function($event) {
+      return _vm.addSlot(day);
+    } }, scopedSlots: _vm._u([{ key: "icon", fn: function() {
+      return [_c("IconAdd", { attrs: { "size": 20 } })];
+    }, proxy: true }], null, true) })], 1)];
+  })], 2);
+};
+var _sfc_staticRenderFns = [];
+var __component__ = /* @__PURE__ */ normalizeComponent(
+  _sfc_main,
+  _sfc_render,
+  _sfc_staticRenderFns,
+  false,
+  null,
+  "c15ebf8b"
+);
+const CalendarAvailability = __component__.exports;
+const logger = (0,_nextcloud_logger__WEBPACK_IMPORTED_MODULE_8__.getLoggerBuilder)().detectUser().setApp("@nextcloud/calendar-availability-vue").build();
+function getEmptySlots() {
+  return {
+    MO: [],
+    TU: [],
+    WE: [],
+    TH: [],
+    FR: [],
+    SA: [],
+    SU: []
+  };
+}
+function vavailabilityToSlots(vavailability) {
+  const parsedIcal = ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].parse(vavailability);
+  const vcalendarComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component(parsedIcal);
+  const vavailabilityComp = vcalendarComp.getFirstSubcomponent("vavailability");
+  let timezoneId;
+  const timezoneComp = vcalendarComp.getFirstSubcomponent("vtimezone");
+  if (timezoneComp) {
+    timezoneId = timezoneComp.getFirstProperty("tzid").getFirstValue();
+  }
+  const availableComps = vavailabilityComp.getAllSubcomponents("available");
+  const slots = getEmptySlots();
+  availableComps.forEach((availableComp) => {
+    const startIcalDate = availableComp.getFirstProperty("dtstart").getFirstValue();
+    const endIcalDate = availableComp.getFirstProperty("dtend").getFirstValue();
+    const rrule = availableComp.getFirstProperty("rrule");
+    const start = /* @__PURE__ */ new Date();
+    start.setHours(startIcalDate.hour, startIcalDate.minute, 0, 0);
+    const end = /* @__PURE__ */ new Date();
+    end.setHours(endIcalDate.hour, endIcalDate.minute, 0, 0);
+    if (rrule.getFirstValue().freq !== "WEEKLY") {
+      logger.warn("rrule not supported", {
+        rrule: rrule.toICALString()
+      });
+      return;
+    }
+    rrule.getFirstValue().getComponent("BYDAY").forEach((day) => {
+      slots[day].push({
+        start: start.getTime() / 1e3,
+        end: end.getTime() / 1e3
+      });
+    });
+  });
+  return {
+    slots,
+    timezoneId
+  };
+}
+function slotsToVavailability(slots, timezoneId) {
+  const vcalendarComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vcalendar");
+  vcalendarComp.addPropertyWithValue("prodid", "Nextcloud DAV app");
+  const predefinedTimezoneIcal = (0,icalzone__WEBPACK_IMPORTED_MODULE_6__.getZoneString)(timezoneId);
+  if (predefinedTimezoneIcal) {
+    const timezoneComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component(ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].parse(predefinedTimezoneIcal));
+    vcalendarComp.addSubcomponent(timezoneComp);
+  } else {
+    const timezoneComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vtimezone");
+    timezoneComp.addPropertyWithValue("tzid", timezoneId);
+    vcalendarComp.addSubcomponent(timezoneComp);
+  }
+  const vavailabilityComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vavailability");
+  const deduplicated = slots.reduce((acc, slot) => {
+    var _a;
+    const start = new Date(slot.start * 1e3);
+    const end = new Date(slot.end * 1e3);
+    const key = [
+      start.getHours(),
+      start.getMinutes(),
+      end.getHours(),
+      end.getMinutes()
+    ].join("-");
+    return {
+      ...acc,
+      [key]: [...(_a = acc[key]) != null ? _a : [], slot]
+    };
+  }, {});
+  Object.keys(deduplicated).map((key) => {
+    const slots2 = deduplicated[key];
+    const start = slots2[0].start;
+    const end = slots2[0].end;
+    const days = slots2.map((slot) => slot.day).filter((day, index, self) => self.indexOf(day) === index);
+    const availableComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("available");
+    const startTimeProp = availableComp.addPropertyWithValue("dtstart", ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Time.fromJSDate(new Date(start * 1e3), false));
+    startTimeProp.setParameter("tzid", timezoneId);
+    const endTimeProp = availableComp.addPropertyWithValue("dtend", ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Time.fromJSDate(new Date(end * 1e3), false));
+    endTimeProp.setParameter("tzid", timezoneId);
+    availableComp.addPropertyWithValue("uid", (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])());
+    availableComp.addPropertyWithValue("rrule", {
+      freq: "WEEKLY",
+      byday: days
+    });
+    return availableComp;
+  }).map(vavailabilityComp.addSubcomponent.bind(vavailabilityComp));
+  vcalendarComp.addSubcomponent(vavailabilityComp);
+  return vcalendarComp.toString();
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID.bind(crypto);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ randomUUID });
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/i);
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ rng)
+/* harmony export */ });
+let getRandomValues;
+const rnds8 = new Uint8Array(16);
+function rng() {
+    if (!getRandomValues) {
+        if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
+            throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+        }
+        getRandomValues = crypto.getRandomValues.bind(crypto);
+    }
+    return getRandomValues(rnds8);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   unsafeStringify: () => (/* binding */ unsafeStringify)
+/* harmony export */ });
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js");
+
+const byteToHex = [];
+for (let i = 0; i < 256; ++i) {
+    byteToHex.push((i + 0x100).toString(16).slice(1));
+}
+function unsafeStringify(arr, offset = 0) {
+    return (byteToHex[arr[offset + 0]] +
+        byteToHex[arr[offset + 1]] +
+        byteToHex[arr[offset + 2]] +
+        byteToHex[arr[offset + 3]] +
+        '-' +
+        byteToHex[arr[offset + 4]] +
+        byteToHex[arr[offset + 5]] +
+        '-' +
+        byteToHex[arr[offset + 6]] +
+        byteToHex[arr[offset + 7]] +
+        '-' +
+        byteToHex[arr[offset + 8]] +
+        byteToHex[arr[offset + 9]] +
+        '-' +
+        byteToHex[arr[offset + 10]] +
+        byteToHex[arr[offset + 11]] +
+        byteToHex[arr[offset + 12]] +
+        byteToHex[arr[offset + 13]] +
+        byteToHex[arr[offset + 14]] +
+        byteToHex[arr[offset + 15]]).toLowerCase();
+}
+function stringify(arr, offset = 0) {
+    const uuid = unsafeStringify(arr, offset);
+    if (!(0,_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
+        throw TypeError('Stringified UUID is invalid');
+    }
+    return uuid;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (stringify);
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _native_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./native.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js");
+/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rng.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js");
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js");
+
+
+
+function v4(options, buf, offset) {
+    if (_native_js__WEBPACK_IMPORTED_MODULE_0__["default"].randomUUID && !buf && !options) {
+        return _native_js__WEBPACK_IMPORTED_MODULE_0__["default"].randomUUID();
+    }
+    options = options || {};
+    const rnds = options.random ?? options.rng?.() ?? (0,_rng_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    if (rnds.length < 16) {
+        throw new Error('Random bytes length must be >= 16');
+    }
+    rnds[6] = (rnds[6] & 0x0f) | 0x40;
+    rnds[8] = (rnds[8] & 0x3f) | 0x80;
+    if (buf) {
+        offset = offset || 0;
+        if (offset < 0 || offset + 16 > buf.length) {
+            throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);
+        }
+        for (let i = 0; i < 16; ++i) {
+            buf[offset + i] = rnds[i];
+        }
+        return buf;
+    }
+    return (0,_stringify_js__WEBPACK_IMPORTED_MODULE_2__.unsafeStringify)(rnds);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (v4);
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js");
+
+function validate(uuid) {
+    return typeof uuid === 'string' && _regex_js__WEBPACK_IMPORTED_MODULE_0__["default"].test(uuid);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/vue/dist/Components/NcTimezonePicker.mjs":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@nextcloud/vue/dist/Components/NcTimezonePicker.mjs ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcTimezonePicker_DdVLB1Bv_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */ });
+/* harmony import */ var _chunks_NcTimezonePicker_DdVLB1Bv_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcTimezonePicker-DdVLB1Bv.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcTimezonePicker-DdVLB1Bv.mjs");
+
+
+
 
 /***/ }),
 
@@ -10799,61 +11641,6 @@ module.exports = lodash;
 
 /***/ }),
 
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
-/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../../css-loader/dist/cjs.js!./index-UKC4AV1t.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css");
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
-options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
-options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
-options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
-
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
-
-
-
-
-       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _css_loader_dist_cjs_js_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
-
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true ***!
@@ -10964,263 +11751,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./apps/dav/src/components/AbsenceForm.vue":
-/*!*************************************************!*\
-  !*** ./apps/dav/src/components/AbsenceForm.vue ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true");
-/* harmony import */ var _AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=script&lang=js */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js");
-/* harmony import */ var _AbsenceForm_vue_vue_type_style_index_0_id_e2547430_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true */ "./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "e2547430",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/dav/src/components/AbsenceForm.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AvailabilityForm.vue":
-/*!******************************************************!*\
-  !*** ./apps/dav/src/components/AvailabilityForm.vue ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true");
-/* harmony import */ var _AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=script&lang=js */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js");
-/* harmony import */ var _AvailabilityForm_vue_vue_type_style_index_0_id_55a42208_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true */ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "55a42208",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/dav/src/components/AvailabilityForm.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/dav/src/views/Availability.vue":
-/*!*********************************************!*\
-  !*** ./apps/dav/src/views/Availability.vue ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Availability.vue?vue&type=template&id=aad5ff48 */ "./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48");
-/* harmony import */ var _Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Availability.vue?vue&type=script&lang=js */ "./apps/dav/src/views/Availability.vue?vue&type=script&lang=js");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.render,
-  _Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/dav/src/views/Availability.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js":
-/*!*************************************************************************!*\
-  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js":
-/*!******************************************************************************!*\
-  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/dav/src/views/Availability.vue?vue&type=script&lang=js":
-/*!*********************************************************************!*\
-  !*** ./apps/dav/src/views/Availability.vue?vue&type=script&lang=js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Availability.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/views/Availability.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true":
-/*!*******************************************************************************************!*\
-  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true ***!
-  \*******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_template_id_e2547430_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=template&id=e2547430&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true":
-/*!************************************************************************************************!*\
-  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true ***!
-  \************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_template_id_55a42208_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=template&id=55a42208&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48":
-/*!***************************************************************************!*\
-  !*** ./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48 ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Availability_vue_vue_type_template_id_aad5ff48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Availability.vue?vue&type=template&id=aad5ff48 */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/views/Availability.vue?vue&type=template&id=aad5ff48");
-
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true":
-/*!**********************************************************************************************************!*\
-  !*** ./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true ***!
-  \**********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AbsenceForm_vue_vue_type_style_index_0_id_e2547430_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AbsenceForm.vue?vue&type=style&index=0&id=e2547430&lang=scss&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true":
-/*!***************************************************************************************************************!*\
-  !*** ./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true ***!
-  \***************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AvailabilityForm_vue_vue_type_style_index_0_id_55a42208_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/dav/src/components/AvailabilityForm.vue?vue&type=style&index=0&id=55a42208&lang=scss&scoped=true");
-
-
-/***/ }),
-
-/***/ "?4f7e":
-/*!********************************!*\
-  !*** ./util.inspect (ignored) ***!
-  \********************************/
-/***/ (() => {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ "?3e83":
+/***/ "?0cc0":
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
@@ -11240,10 +11771,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "?0cc0":
+/***/ "?3e83":
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
+/***/ (() => {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ "?4f7e":
+/*!********************************!*\
+  !*** ./util.inspect (ignored) ***!
+  \********************************/
 /***/ (() => {
 
 /* (ignored) */
@@ -11257,544 +11798,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (() => {
 
 /* (ignored) */
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/dist/index.mjs":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/dist/index.mjs ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CalendarAvailability: () => (/* binding */ CalendarAvailability),
-/* harmony export */   getEmptySlots: () => (/* binding */ getEmptySlots),
-/* harmony export */   slotsToVavailability: () => (/* binding */ slotsToVavailability),
-/* harmony export */   vavailabilityToSlots: () => (/* binding */ vavailabilityToSlots)
-/* harmony export */ });
-/* harmony import */ var _assets_index_UKC4AV1t_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/index-UKC4AV1t.css */ "./node_modules/@nextcloud/calendar-availability-vue/dist/assets/index-UKC4AV1t.css");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcDateTimePickerNative_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcDateTimePickerNative.js */ "./node_modules/@nextcloud/vue/dist/Components/NcDateTimePickerNative.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcButton.mjs");
-/* harmony import */ var vue_material_design_icons_Delete_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-material-design-icons/Delete.vue */ "./node_modules/vue-material-design-icons/Delete.vue");
-/* harmony import */ var vue_material_design_icons_Plus_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-material-design-icons/Plus.vue */ "./node_modules/vue-material-design-icons/Plus.vue");
-/* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
-/* harmony import */ var icalzone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! icalzone */ "./node_modules/icalzone/dist/index.js");
-/* harmony import */ var ical_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ical.js */ "./node_modules/ical.js/dist/ical.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! uuid */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js");
-/* harmony import */ var _nextcloud_logger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @nextcloud/logger */ "./node_modules/@nextcloud/logger/dist/index.mjs");
-
-
-
-
-
-
-
-
-
-
-function normalizeComponent(scriptExports, render2, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-  if (render2) {
-    options.render = render2;
-    options.staticRenderFns = staticRenderFns;
-    options._compiled = true;
-  }
-  {
-    options._scopeId = "data-v-" + scopeId;
-  }
-  return {
-    exports: scriptExports,
-    options
-  };
-}
-const _sfc_main = {
-  name: "CalendarAvailability",
-  components: {
-    NcDateTimePickerNative: _nextcloud_vue_dist_Components_NcDateTimePickerNative_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-    NcButton: _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-    IconAdd: vue_material_design_icons_Plus_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    IconDelete: vue_material_design_icons_Delete_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-  },
-  props: {
-    slots: {
-      type: Object,
-      required: true
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    l10nTo: {
-      type: String,
-      required: true
-    },
-    l10nDeleteSlot: {
-      type: String,
-      required: true
-    },
-    l10nEmptyDay: {
-      type: String,
-      required: true
-    },
-    l10nAddSlot: {
-      type: String,
-      required: true
-    },
-    l10nWeekDayListLabel: {
-      type: String,
-      default: "Weekdays"
-    },
-    l10nMonday: {
-      type: String,
-      required: true
-    },
-    l10nTuesday: {
-      type: String,
-      required: true
-    },
-    l10nWednesday: {
-      type: String,
-      required: true
-    },
-    l10nThursday: {
-      type: String,
-      required: true
-    },
-    l10nFriday: {
-      type: String,
-      required: true
-    },
-    l10nSaturday: {
-      type: String,
-      required: true
-    },
-    l10nSunday: {
-      type: String,
-      required: true
-    },
-    l10nStartPickerLabel: {
-      type: Function,
-      default: (dayName) => "Pick a start time for ".concat(dayName)
-    },
-    l10nEndPickerLabel: {
-      type: Function,
-      default: (dayName) => "Pick a end time for ".concat(dayName)
-    }
-  },
-  data() {
-    return {
-      internalSlots: this.slotsToInternalData(this.slots)
-    };
-  },
-  watch: {
-    slots() {
-      this.internalSlots = this.slotsToInternalData(this.slots);
-    }
-  },
-  methods: {
-    timeStampSlotsToDateObjectSlots(slots) {
-      return slots.map((slot) => ({
-        start: new Date(slot.start * 1e3),
-        end: new Date(slot.end * 1e3)
-      }));
-    },
-    slotsToInternalData() {
-      const moToSa = [
-        {
-          id: "MO",
-          displayName: this.l10nMonday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.MO)
-        },
-        {
-          id: "TU",
-          displayName: this.l10nTuesday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.TU)
-        },
-        {
-          id: "WE",
-          displayName: this.l10nWednesday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.WE)
-        },
-        {
-          id: "TH",
-          displayName: this.l10nThursday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.TH)
-        },
-        {
-          id: "FR",
-          displayName: this.l10nFriday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.FR)
-        },
-        {
-          id: "SA",
-          displayName: this.l10nSaturday,
-          slots: this.timeStampSlotsToDateObjectSlots(this.slots.SA)
-        }
-      ];
-      const sunday = {
-        id: "SU",
-        displayName: this.l10nSunday,
-        slots: this.timeStampSlotsToDateObjectSlots(this.slots.SU)
-      };
-      return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.getFirstDay)() === 1 ? [...moToSa, sunday] : [sunday, ...moToSa];
-    },
-    internalDataToSlots() {
-      const converted = {};
-      this.internalSlots.forEach(({ id, slots }) => {
-        converted[id] = slots.map((slot) => ({
-          start: Math.round(slot.start.getTime() / 1e3),
-          end: Math.round(slot.end.getTime() / 1e3)
-        }));
-      });
-      return converted;
-    },
-    addSlot(day) {
-      const start = /* @__PURE__ */ new Date();
-      start.setHours(9, 0, 0, 0);
-      const end = /* @__PURE__ */ new Date();
-      end.setHours(17, 0, 0, 0);
-      day.slots.push({
-        start,
-        end
-      });
-      this.onChangeSlots();
-    },
-    removeSlot(day, idx) {
-      day.slots.splice(idx, 1);
-      this.onChangeSlots();
-    },
-    onChangeSlots() {
-      this.$emit("update:slots", this.internalDataToSlots());
-    }
-  }
-};
-var _sfc_render = function render() {
-  var _vm = this, _c = _vm._self._c;
-  return _c("ul", { staticClass: "week-day-container", attrs: { "aria-label": _vm.l10nWeekDayListLabel } }, [_vm._l(_vm.internalSlots, function(day) {
-    return [_c("li", { key: "day-label-".concat(day.id), staticClass: "day-container" }, [_c("div", { staticClass: "label-weekday" }, [_c("span", { attrs: { "id": day.displayName + "-label" } }, [_vm._v(_vm._s(day.displayName))])]), _c("div", { key: "day-slots-".concat(day.id), staticClass: "availability-slots" }, [_c("div", { staticClass: "availability-slot-group" }, [_vm._l(day.slots, function(slot, idx) {
-      var _a, _b;
-      return [_c("div", { key: "slot-".concat(day.id, "-").concat(idx), staticClass: "availability-slot" }, [_c("NcDateTimePickerNative", { staticClass: "start-date", attrs: { "id": "start-".concat(day.id, "-").concat(idx), "type": "time", "label": (_a = _vm.l10nStartPickerLabel) == null ? void 0 : _a.call(_vm, day.displayName), "hide-label": true }, on: { "change": _vm.onChangeSlots }, model: { value: slot.start, callback: function($$v) {
-        _vm.$set(slot, "start", $$v);
-      }, expression: "slot.start" } }), _c("span", { staticClass: "to-text" }, [_vm._v(" " + _vm._s(_vm.l10nTo) + " ")]), _c("NcDateTimePickerNative", { staticClass: "end-date", attrs: { "id": "end-".concat(day.id, "-").concat(idx), "type": "time", "label": (_b = _vm.l10nEndPickerLabel) == null ? void 0 : _b.call(_vm, day.displayName), "hide-label": true }, on: { "change": _vm.onChangeSlots }, model: { value: slot.end, callback: function($$v) {
-        _vm.$set(slot, "end", $$v);
-      }, expression: "slot.end" } }), _c("NcButton", { key: "slot-".concat(day.id, "-").concat(idx, "-btn"), staticClass: "button", attrs: { "type": "tertiary", "aria-label": _vm.l10nDeleteSlot, "title": _vm.l10nDeleteSlot }, on: { "click": function($event) {
-        return _vm.removeSlot(day, idx);
-      } }, scopedSlots: _vm._u([{ key: "icon", fn: function() {
-        return [_c("IconDelete", { attrs: { "size": 20 } })];
-      }, proxy: true }], null, true) })], 1)];
-    })], 2), day.slots.length === 0 ? _c("span", { staticClass: "empty-content" }, [_vm._v(" " + _vm._s(_vm.l10nEmptyDay) + " ")]) : _vm._e()]), _c("NcButton", { key: "add-slot-".concat(day.id), staticClass: "add-another button", attrs: { "disabled": _vm.loading, "title": _vm.l10nAddSlot, "aria-label": _vm.l10nAddSlot }, on: { "click": function($event) {
-      return _vm.addSlot(day);
-    } }, scopedSlots: _vm._u([{ key: "icon", fn: function() {
-      return [_c("IconAdd", { attrs: { "size": 20 } })];
-    }, proxy: true }], null, true) })], 1)];
-  })], 2);
-};
-var _sfc_staticRenderFns = [];
-var __component__ = /* @__PURE__ */ normalizeComponent(
-  _sfc_main,
-  _sfc_render,
-  _sfc_staticRenderFns,
-  false,
-  null,
-  "c15ebf8b"
-);
-const CalendarAvailability = __component__.exports;
-const logger = (0,_nextcloud_logger__WEBPACK_IMPORTED_MODULE_8__.getLoggerBuilder)().detectUser().setApp("@nextcloud/calendar-availability-vue").build();
-function getEmptySlots() {
-  return {
-    MO: [],
-    TU: [],
-    WE: [],
-    TH: [],
-    FR: [],
-    SA: [],
-    SU: []
-  };
-}
-function vavailabilityToSlots(vavailability) {
-  const parsedIcal = ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].parse(vavailability);
-  const vcalendarComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component(parsedIcal);
-  const vavailabilityComp = vcalendarComp.getFirstSubcomponent("vavailability");
-  let timezoneId;
-  const timezoneComp = vcalendarComp.getFirstSubcomponent("vtimezone");
-  if (timezoneComp) {
-    timezoneId = timezoneComp.getFirstProperty("tzid").getFirstValue();
-  }
-  const availableComps = vavailabilityComp.getAllSubcomponents("available");
-  const slots = getEmptySlots();
-  availableComps.forEach((availableComp) => {
-    const startIcalDate = availableComp.getFirstProperty("dtstart").getFirstValue();
-    const endIcalDate = availableComp.getFirstProperty("dtend").getFirstValue();
-    const rrule = availableComp.getFirstProperty("rrule");
-    const start = /* @__PURE__ */ new Date();
-    start.setHours(startIcalDate.hour, startIcalDate.minute, 0, 0);
-    const end = /* @__PURE__ */ new Date();
-    end.setHours(endIcalDate.hour, endIcalDate.minute, 0, 0);
-    if (rrule.getFirstValue().freq !== "WEEKLY") {
-      logger.warn("rrule not supported", {
-        rrule: rrule.toICALString()
-      });
-      return;
-    }
-    rrule.getFirstValue().getComponent("BYDAY").forEach((day) => {
-      slots[day].push({
-        start: start.getTime() / 1e3,
-        end: end.getTime() / 1e3
-      });
-    });
-  });
-  return {
-    slots,
-    timezoneId
-  };
-}
-function slotsToVavailability(slots, timezoneId) {
-  const vcalendarComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vcalendar");
-  vcalendarComp.addPropertyWithValue("prodid", "Nextcloud DAV app");
-  const predefinedTimezoneIcal = (0,icalzone__WEBPACK_IMPORTED_MODULE_6__.getZoneString)(timezoneId);
-  if (predefinedTimezoneIcal) {
-    const timezoneComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component(ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].parse(predefinedTimezoneIcal));
-    vcalendarComp.addSubcomponent(timezoneComp);
-  } else {
-    const timezoneComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vtimezone");
-    timezoneComp.addPropertyWithValue("tzid", timezoneId);
-    vcalendarComp.addSubcomponent(timezoneComp);
-  }
-  const vavailabilityComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("vavailability");
-  const deduplicated = slots.reduce((acc, slot) => {
-    var _a;
-    const start = new Date(slot.start * 1e3);
-    const end = new Date(slot.end * 1e3);
-    const key = [
-      start.getHours(),
-      start.getMinutes(),
-      end.getHours(),
-      end.getMinutes()
-    ].join("-");
-    return {
-      ...acc,
-      [key]: [...(_a = acc[key]) != null ? _a : [], slot]
-    };
-  }, {});
-  Object.keys(deduplicated).map((key) => {
-    const slots2 = deduplicated[key];
-    const start = slots2[0].start;
-    const end = slots2[0].end;
-    const days = slots2.map((slot) => slot.day).filter((day, index, self) => self.indexOf(day) === index);
-    const availableComp = new ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Component("available");
-    const startTimeProp = availableComp.addPropertyWithValue("dtstart", ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Time.fromJSDate(new Date(start * 1e3), false));
-    startTimeProp.setParameter("tzid", timezoneId);
-    const endTimeProp = availableComp.addPropertyWithValue("dtend", ical_js__WEBPACK_IMPORTED_MODULE_7__["default"].Time.fromJSDate(new Date(end * 1e3), false));
-    endTimeProp.setParameter("tzid", timezoneId);
-    availableComp.addPropertyWithValue("uid", (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])());
-    availableComp.addPropertyWithValue("rrule", {
-      freq: "WEEKLY",
-      byday: days
-    });
-    return availableComp;
-  }).map(vavailabilityComp.addSubcomponent.bind(vavailabilityComp));
-  vcalendarComp.addSubcomponent(vavailabilityComp);
-  return vcalendarComp.toString();
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js ***!
-  \********************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.randomUUID.bind(crypto);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ randomUUID });
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js":
-/*!*******************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js ***!
-  \*******************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/i);
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js ***!
-  \*****************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ rng)
-/* harmony export */ });
-let getRandomValues;
-const rnds8 = new Uint8Array(16);
-function rng() {
-    if (!getRandomValues) {
-        if (typeof crypto === 'undefined' || !crypto.getRandomValues) {
-            throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-        }
-        getRandomValues = crypto.getRandomValues.bind(crypto);
-    }
-    return getRandomValues(rnds8);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js":
-/*!***********************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js ***!
-  \***********************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   unsafeStringify: () => (/* binding */ unsafeStringify)
-/* harmony export */ });
-/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js");
-
-const byteToHex = [];
-for (let i = 0; i < 256; ++i) {
-    byteToHex.push((i + 0x100).toString(16).slice(1));
-}
-function unsafeStringify(arr, offset = 0) {
-    return (byteToHex[arr[offset + 0]] +
-        byteToHex[arr[offset + 1]] +
-        byteToHex[arr[offset + 2]] +
-        byteToHex[arr[offset + 3]] +
-        '-' +
-        byteToHex[arr[offset + 4]] +
-        byteToHex[arr[offset + 5]] +
-        '-' +
-        byteToHex[arr[offset + 6]] +
-        byteToHex[arr[offset + 7]] +
-        '-' +
-        byteToHex[arr[offset + 8]] +
-        byteToHex[arr[offset + 9]] +
-        '-' +
-        byteToHex[arr[offset + 10]] +
-        byteToHex[arr[offset + 11]] +
-        byteToHex[arr[offset + 12]] +
-        byteToHex[arr[offset + 13]] +
-        byteToHex[arr[offset + 14]] +
-        byteToHex[arr[offset + 15]]).toLowerCase();
-}
-function stringify(arr, offset = 0) {
-    const uuid = unsafeStringify(arr, offset);
-    if (!(0,_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
-        throw TypeError('Stringified UUID is invalid');
-    }
-    return uuid;
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (stringify);
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js":
-/*!****************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/v4.js ***!
-  \****************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _native_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./native.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/native.js");
-/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rng.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/rng.js");
-/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/stringify.js");
-
-
-
-function v4(options, buf, offset) {
-    if (_native_js__WEBPACK_IMPORTED_MODULE_0__["default"].randomUUID && !buf && !options) {
-        return _native_js__WEBPACK_IMPORTED_MODULE_0__["default"].randomUUID();
-    }
-    options = options || {};
-    const rnds = options.random ?? options.rng?.() ?? (0,_rng_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
-    if (rnds.length < 16) {
-        throw new Error('Random bytes length must be >= 16');
-    }
-    rnds[6] = (rnds[6] & 0x0f) | 0x40;
-    rnds[8] = (rnds[8] & 0x3f) | 0x80;
-    if (buf) {
-        offset = offset || 0;
-        if (offset < 0 || offset + 16 > buf.length) {
-            throw new RangeError(`UUID byte range ${offset}:${offset + 15} is out of buffer bounds`);
-        }
-        for (let i = 0; i < 16; ++i) {
-            buf[offset + i] = rnds[i];
-        }
-        return buf;
-    }
-    return (0,_stringify_js__WEBPACK_IMPORTED_MODULE_2__.unsafeStringify)(rnds);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (v4);
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/validate.js ***!
-  \**********************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "./node_modules/@nextcloud/calendar-availability-vue/node_modules/uuid/dist/esm-browser/regex.js");
-
-function validate(uuid) {
-    return typeof uuid === 'string' && _regex_js__WEBPACK_IMPORTED_MODULE_0__["default"].test(uuid);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);
-
-
-/***/ }),
-
-/***/ "./node_modules/@nextcloud/vue/dist/Components/NcTimezonePicker.mjs":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@nextcloud/vue/dist/Components/NcTimezonePicker.mjs ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcTimezonePicker_DdVLB1Bv_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
-/* harmony export */ });
-/* harmony import */ var _chunks_NcTimezonePicker_DdVLB1Bv_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcTimezonePicker-DdVLB1Bv.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcTimezonePicker-DdVLB1Bv.mjs");
-
-
-
 
 /***/ })
 
@@ -11907,7 +11910,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"330887213eeef7d8365f"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -12013,7 +12016,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -12124,4 +12127,4 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=dav-settings-personal-availability.js.map?v=40befea3b39439155496
+//# sourceMappingURL=dav-settings-personal-availability.js.map?v=e808cc979188ba1bdc3a

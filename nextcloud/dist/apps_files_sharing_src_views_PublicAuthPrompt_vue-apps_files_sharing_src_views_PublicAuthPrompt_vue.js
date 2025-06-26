@@ -1,6 +1,90 @@
 "use strict";
 (self["webpackChunknextcloud"] = self["webpackChunknextcloud"] || []).push([["apps_files_sharing_src_views_PublicAuthPrompt_vue"],{
 
+/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue":
+/*!***********************************************************!*\
+  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=template&id=4bbba25b */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b");
+/* harmony import */ var _PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=script&lang=ts */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts");
+/* harmony import */ var _PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.render,
+  _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/files_sharing/src/views/PublicAuthPrompt.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts":
+/*!***********************************************************************************!*\
+  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_clonedRuleSet_4_use_1_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js!./node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_clonedRuleSet_4_use_1_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss":
+/*!********************************************************************************************************!*\
+  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss");
+
+
+/***/ }),
+
+/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b":
+/*!*****************************************************************************************!*\
+  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=template&id=4bbba25b */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b");
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js!./node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts":
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts ***!
@@ -257,90 +341,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
-/***/ }),
-
-/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue":
-/*!***********************************************************!*\
-  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=template&id=4bbba25b */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b");
-/* harmony import */ var _PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=script&lang=ts */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts");
-/* harmony import */ var _PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss */ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.render,
-  _PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/files_sharing/src/views/PublicAuthPrompt.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts":
-/*!***********************************************************************************!*\
-  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_clonedRuleSet_4_use_1_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js!./node_modules/ts-loader/index.js??clonedRuleSet-4.use[1]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=script&lang=ts");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_ts_loader_index_js_clonedRuleSet_4_use_1_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b":
-/*!*****************************************************************************************!*\
-  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_template_id_4bbba25b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=template&id=4bbba25b */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=template&id=4bbba25b");
-
-
-/***/ }),
-
-/***/ "./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss":
-/*!********************************************************************************************************!*\
-  !*** ./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss ***!
-  \********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_PublicAuthPrompt_vue_vue_type_style_index_0_id_4bbba25b_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/files_sharing/src/views/PublicAuthPrompt.vue?vue&type=style&index=0&id=4bbba25b&lang=scss");
-
-
 /***/ })
 
 }]);
-//# sourceMappingURL=apps_files_sharing_src_views_PublicAuthPrompt_vue-apps_files_sharing_src_views_PublicAuthPrompt_vue.js.map?v=239c813543df6fb8799b
+//# sourceMappingURL=apps_files_sharing_src_views_PublicAuthPrompt_vue-apps_files_sharing_src_views_PublicAuthPrompt_vue.js.map?v=4aca3a2c352d428dfae9

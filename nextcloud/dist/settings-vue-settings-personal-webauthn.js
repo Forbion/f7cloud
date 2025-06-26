@@ -1,6 +1,291 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue":
+/*!*************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true");
+/* harmony import */ var _AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js");
+/* harmony import */ var _AddDevice_vue_vue_type_style_index_0_id_15f8a53b_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "15f8a53b",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/settings/src/components/WebAuthn/AddDevice.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js":
+/*!*************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss":
+/*!**********************************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_style_index_0_id_15f8a53b_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true":
+/*!*******************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Device.vue":
+/*!**********************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Device.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Device.vue?vue&type=template&id=1b250cbc&scoped=true */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true");
+/* harmony import */ var _Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Device.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js");
+/* harmony import */ var _Device_vue_vue_type_style_index_0_id_1b250cbc_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "1b250cbc",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/settings/src/components/WebAuthn/Device.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js":
+/*!**********************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css":
+/*!******************************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_style_index_0_id_1b250cbc_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true":
+/*!****************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=template&id=1b250cbc&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Section.vue":
+/*!***********************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Section.vue ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Section.vue?vue&type=template&id=47c82c6e&scoped=true */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true");
+/* harmony import */ var _Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Section.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js");
+/* harmony import */ var _Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "47c82c6e",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "apps/settings/src/components/WebAuthn/Section.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js":
+/*!***********************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css":
+/*!*******************************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true":
+/*!*****************************************************************************************************!*\
+  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=template&id=47c82c6e&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true");
+
+
+/***/ }),
+
+/***/ "./apps/settings/src/logger.ts":
+/*!*************************************!*\
+  !*** ./apps/settings/src/logger.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _nextcloud_logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/logger */ "./node_modules/@nextcloud/logger/dist/index.mjs");
+/**
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_nextcloud_logger__WEBPACK_IMPORTED_MODULE_0__.getLoggerBuilder)().setApp('settings').detectUser().build());
+
+/***/ }),
+
 /***/ "./apps/settings/src/main-personal-webauth.js":
 /*!****************************************************!*\
   !*** ./apps/settings/src/main-personal-webauth.js ***!
@@ -33,27 +318,6 @@ new View({
     isLocalhost: window.location.hostname === 'localhost'
   }
 }).$mount('#security-webauthn');
-
-/***/ }),
-
-/***/ "./apps/settings/src/logger.ts":
-/*!*************************************!*\
-  !*** ./apps/settings/src/logger.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _nextcloud_logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/logger */ "./node_modules/@nextcloud/logger/dist/index.mjs");
-/**
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_nextcloud_logger__WEBPACK_IMPORTED_MODULE_0__.getLoggerBuilder)().setApp('settings').detectUser().build());
 
 /***/ }),
 
@@ -127,6 +391,414 @@ async function removeRegistration(id) {
   const url = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateUrl)(`/settings/api/personal/webauthn/registration/${id}`);
   await _nextcloud_axios__WEBPACK_IMPORTED_MODULE_3__["default"].delete(url);
 }
+
+/***/ }),
+
+/***/ "./node_modules/@simplewebauthn/browser/dist/bundle/index.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@simplewebauthn/browser/dist/bundle/index.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   WebAuthnAbortService: () => (/* binding */ WebAuthnAbortService),
+/* harmony export */   WebAuthnError: () => (/* binding */ WebAuthnError),
+/* harmony export */   base64URLStringToBuffer: () => (/* binding */ base64URLStringToBuffer),
+/* harmony export */   browserSupportsWebAuthn: () => (/* binding */ browserSupportsWebAuthn),
+/* harmony export */   browserSupportsWebAuthnAutofill: () => (/* binding */ browserSupportsWebAuthnAutofill),
+/* harmony export */   bufferToBase64URLString: () => (/* binding */ bufferToBase64URLString),
+/* harmony export */   platformAuthenticatorIsAvailable: () => (/* binding */ platformAuthenticatorIsAvailable),
+/* harmony export */   startAuthentication: () => (/* binding */ startAuthentication),
+/* harmony export */   startRegistration: () => (/* binding */ startRegistration)
+/* harmony export */ });
+/* provided dependency */ var console = __webpack_require__(/*! ./node_modules/console-browserify/index.js */ "./node_modules/console-browserify/index.js");
+/* [@simplewebauthn/browser@10.0.0] */
+function bufferToBase64URLString(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let str = '';
+    for (const charCode of bytes) {
+        str += String.fromCharCode(charCode);
+    }
+    const base64String = btoa(str);
+    return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+function base64URLStringToBuffer(base64URLString) {
+    const base64 = base64URLString.replace(/-/g, '+').replace(/_/g, '/');
+    const padLength = (4 - (base64.length % 4)) % 4;
+    const padded = base64.padEnd(base64.length + padLength, '=');
+    const binary = atob(padded);
+    const buffer = new ArrayBuffer(binary.length);
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+    return buffer;
+}
+
+function browserSupportsWebAuthn() {
+    return (window?.PublicKeyCredential !== undefined &&
+        typeof window.PublicKeyCredential === 'function');
+}
+
+function toPublicKeyCredentialDescriptor(descriptor) {
+    const { id } = descriptor;
+    return {
+        ...descriptor,
+        id: base64URLStringToBuffer(id),
+        transports: descriptor.transports,
+    };
+}
+
+function isValidDomain(hostname) {
+    return (hostname === 'localhost' ||
+        /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i.test(hostname));
+}
+
+class WebAuthnError extends Error {
+    constructor({ message, code, cause, name, }) {
+        super(message, { cause });
+        this.name = name ?? cause.name;
+        this.code = code;
+    }
+}
+
+function identifyRegistrationError({ error, options, }) {
+    const { publicKey } = options;
+    if (!publicKey) {
+        throw Error('options was missing required publicKey property');
+    }
+    if (error.name === 'AbortError') {
+        if (options.signal instanceof AbortSignal) {
+            return new WebAuthnError({
+                message: 'Registration ceremony was sent an abort signal',
+                code: 'ERROR_CEREMONY_ABORTED',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'ConstraintError') {
+        if (publicKey.authenticatorSelection?.requireResidentKey === true) {
+            return new WebAuthnError({
+                message: 'Discoverable credentials were required but no available authenticator supported it',
+                code: 'ERROR_AUTHENTICATOR_MISSING_DISCOVERABLE_CREDENTIAL_SUPPORT',
+                cause: error,
+            });
+        }
+        else if (publicKey.authenticatorSelection?.userVerification === 'required') {
+            return new WebAuthnError({
+                message: 'User verification was required but no available authenticator supported it',
+                code: 'ERROR_AUTHENTICATOR_MISSING_USER_VERIFICATION_SUPPORT',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'InvalidStateError') {
+        return new WebAuthnError({
+            message: 'The authenticator was previously registered',
+            code: 'ERROR_AUTHENTICATOR_PREVIOUSLY_REGISTERED',
+            cause: error,
+        });
+    }
+    else if (error.name === 'NotAllowedError') {
+        return new WebAuthnError({
+            message: error.message,
+            code: 'ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY',
+            cause: error,
+        });
+    }
+    else if (error.name === 'NotSupportedError') {
+        const validPubKeyCredParams = publicKey.pubKeyCredParams.filter((param) => param.type === 'public-key');
+        if (validPubKeyCredParams.length === 0) {
+            return new WebAuthnError({
+                message: 'No entry in pubKeyCredParams was of type "public-key"',
+                code: 'ERROR_MALFORMED_PUBKEYCREDPARAMS',
+                cause: error,
+            });
+        }
+        return new WebAuthnError({
+            message: 'No available authenticator supported any of the specified pubKeyCredParams algorithms',
+            code: 'ERROR_AUTHENTICATOR_NO_SUPPORTED_PUBKEYCREDPARAMS_ALG',
+            cause: error,
+        });
+    }
+    else if (error.name === 'SecurityError') {
+        const effectiveDomain = window.location.hostname;
+        if (!isValidDomain(effectiveDomain)) {
+            return new WebAuthnError({
+                message: `${window.location.hostname} is an invalid domain`,
+                code: 'ERROR_INVALID_DOMAIN',
+                cause: error,
+            });
+        }
+        else if (publicKey.rp.id !== effectiveDomain) {
+            return new WebAuthnError({
+                message: `The RP ID "${publicKey.rp.id}" is invalid for this domain`,
+                code: 'ERROR_INVALID_RP_ID',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'TypeError') {
+        if (publicKey.user.id.byteLength < 1 || publicKey.user.id.byteLength > 64) {
+            return new WebAuthnError({
+                message: 'User ID was not between 1 and 64 characters',
+                code: 'ERROR_INVALID_USER_ID_LENGTH',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'UnknownError') {
+        return new WebAuthnError({
+            message: 'The authenticator was unable to process the specified options, or could not create a new credential',
+            code: 'ERROR_AUTHENTICATOR_GENERAL_ERROR',
+            cause: error,
+        });
+    }
+    return error;
+}
+
+class BaseWebAuthnAbortService {
+    createNewAbortSignal() {
+        if (this.controller) {
+            const abortError = new Error('Cancelling existing WebAuthn API call for new one');
+            abortError.name = 'AbortError';
+            this.controller.abort(abortError);
+        }
+        const newController = new AbortController();
+        this.controller = newController;
+        return newController.signal;
+    }
+    cancelCeremony() {
+        if (this.controller) {
+            const abortError = new Error('Manually cancelling existing WebAuthn API call');
+            abortError.name = 'AbortError';
+            this.controller.abort(abortError);
+            this.controller = undefined;
+        }
+    }
+}
+const WebAuthnAbortService = new BaseWebAuthnAbortService();
+
+const attachments = ['cross-platform', 'platform'];
+function toAuthenticatorAttachment(attachment) {
+    if (!attachment) {
+        return;
+    }
+    if (attachments.indexOf(attachment) < 0) {
+        return;
+    }
+    return attachment;
+}
+
+async function startRegistration(optionsJSON) {
+    if (!browserSupportsWebAuthn()) {
+        throw new Error('WebAuthn is not supported in this browser');
+    }
+    const publicKey = {
+        ...optionsJSON,
+        challenge: base64URLStringToBuffer(optionsJSON.challenge),
+        user: {
+            ...optionsJSON.user,
+            id: base64URLStringToBuffer(optionsJSON.user.id),
+        },
+        excludeCredentials: optionsJSON.excludeCredentials?.map(toPublicKeyCredentialDescriptor),
+    };
+    const options = { publicKey };
+    options.signal = WebAuthnAbortService.createNewAbortSignal();
+    let credential;
+    try {
+        credential = (await navigator.credentials.create(options));
+    }
+    catch (err) {
+        throw identifyRegistrationError({ error: err, options });
+    }
+    if (!credential) {
+        throw new Error('Registration was not completed');
+    }
+    const { id, rawId, response, type } = credential;
+    let transports = undefined;
+    if (typeof response.getTransports === 'function') {
+        transports = response.getTransports();
+    }
+    let responsePublicKeyAlgorithm = undefined;
+    if (typeof response.getPublicKeyAlgorithm === 'function') {
+        try {
+            responsePublicKeyAlgorithm = response.getPublicKeyAlgorithm();
+        }
+        catch (error) {
+            warnOnBrokenImplementation('getPublicKeyAlgorithm()', error);
+        }
+    }
+    let responsePublicKey = undefined;
+    if (typeof response.getPublicKey === 'function') {
+        try {
+            const _publicKey = response.getPublicKey();
+            if (_publicKey !== null) {
+                responsePublicKey = bufferToBase64URLString(_publicKey);
+            }
+        }
+        catch (error) {
+            warnOnBrokenImplementation('getPublicKey()', error);
+        }
+    }
+    let responseAuthenticatorData;
+    if (typeof response.getAuthenticatorData === 'function') {
+        try {
+            responseAuthenticatorData = bufferToBase64URLString(response.getAuthenticatorData());
+        }
+        catch (error) {
+            warnOnBrokenImplementation('getAuthenticatorData()', error);
+        }
+    }
+    return {
+        id,
+        rawId: bufferToBase64URLString(rawId),
+        response: {
+            attestationObject: bufferToBase64URLString(response.attestationObject),
+            clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
+            transports,
+            publicKeyAlgorithm: responsePublicKeyAlgorithm,
+            publicKey: responsePublicKey,
+            authenticatorData: responseAuthenticatorData,
+        },
+        type,
+        clientExtensionResults: credential.getClientExtensionResults(),
+        authenticatorAttachment: toAuthenticatorAttachment(credential.authenticatorAttachment),
+    };
+}
+function warnOnBrokenImplementation(methodName, cause) {
+    console.warn(`The browser extension that intercepted this WebAuthn API call incorrectly implemented ${methodName}. You should report this error to them.\n`, cause);
+}
+
+function browserSupportsWebAuthnAutofill() {
+    if (!browserSupportsWebAuthn()) {
+        return new Promise((resolve) => resolve(false));
+    }
+    const globalPublicKeyCredential = window
+        .PublicKeyCredential;
+    if (globalPublicKeyCredential.isConditionalMediationAvailable === undefined) {
+        return new Promise((resolve) => resolve(false));
+    }
+    return globalPublicKeyCredential.isConditionalMediationAvailable();
+}
+
+function identifyAuthenticationError({ error, options, }) {
+    const { publicKey } = options;
+    if (!publicKey) {
+        throw Error('options was missing required publicKey property');
+    }
+    if (error.name === 'AbortError') {
+        if (options.signal instanceof AbortSignal) {
+            return new WebAuthnError({
+                message: 'Authentication ceremony was sent an abort signal',
+                code: 'ERROR_CEREMONY_ABORTED',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'NotAllowedError') {
+        return new WebAuthnError({
+            message: error.message,
+            code: 'ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY',
+            cause: error,
+        });
+    }
+    else if (error.name === 'SecurityError') {
+        const effectiveDomain = window.location.hostname;
+        if (!isValidDomain(effectiveDomain)) {
+            return new WebAuthnError({
+                message: `${window.location.hostname} is an invalid domain`,
+                code: 'ERROR_INVALID_DOMAIN',
+                cause: error,
+            });
+        }
+        else if (publicKey.rpId !== effectiveDomain) {
+            return new WebAuthnError({
+                message: `The RP ID "${publicKey.rpId}" is invalid for this domain`,
+                code: 'ERROR_INVALID_RP_ID',
+                cause: error,
+            });
+        }
+    }
+    else if (error.name === 'UnknownError') {
+        return new WebAuthnError({
+            message: 'The authenticator was unable to process the specified options, or could not create a new assertion signature',
+            code: 'ERROR_AUTHENTICATOR_GENERAL_ERROR',
+            cause: error,
+        });
+    }
+    return error;
+}
+
+async function startAuthentication(optionsJSON, useBrowserAutofill = false) {
+    if (!browserSupportsWebAuthn()) {
+        throw new Error('WebAuthn is not supported in this browser');
+    }
+    let allowCredentials;
+    if (optionsJSON.allowCredentials?.length !== 0) {
+        allowCredentials = optionsJSON.allowCredentials?.map(toPublicKeyCredentialDescriptor);
+    }
+    const publicKey = {
+        ...optionsJSON,
+        challenge: base64URLStringToBuffer(optionsJSON.challenge),
+        allowCredentials,
+    };
+    const options = {};
+    if (useBrowserAutofill) {
+        if (!(await browserSupportsWebAuthnAutofill())) {
+            throw Error('Browser does not support WebAuthn autofill');
+        }
+        const eligibleInputs = document.querySelectorAll("input[autocomplete$='webauthn']");
+        if (eligibleInputs.length < 1) {
+            throw Error('No <input> with "webauthn" as the only or last value in its `autocomplete` attribute was detected');
+        }
+        options.mediation = 'conditional';
+        publicKey.allowCredentials = [];
+    }
+    options.publicKey = publicKey;
+    options.signal = WebAuthnAbortService.createNewAbortSignal();
+    let credential;
+    try {
+        credential = (await navigator.credentials.get(options));
+    }
+    catch (err) {
+        throw identifyAuthenticationError({ error: err, options });
+    }
+    if (!credential) {
+        throw new Error('Authentication was not completed');
+    }
+    const { id, rawId, response, type } = credential;
+    let userHandle = undefined;
+    if (response.userHandle) {
+        userHandle = bufferToBase64URLString(response.userHandle);
+    }
+    return {
+        id,
+        rawId: bufferToBase64URLString(rawId),
+        response: {
+            authenticatorData: bufferToBase64URLString(response.authenticatorData),
+            clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
+            signature: bufferToBase64URLString(response.signature),
+            userHandle,
+        },
+        type,
+        clientExtensionResults: credential.getClientExtensionResults(),
+        authenticatorAttachment: toAuthenticatorAttachment(credential.authenticatorAttachment),
+    };
+}
+
+function platformAuthenticatorIsAvailable() {
+    if (!browserSupportsWebAuthn()) {
+        return new Promise((resolve) => resolve(false));
+    }
+    return PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+}
+
+
+
 
 /***/ }),
 
@@ -4223,675 +4895,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue":
-/*!*************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true");
-/* harmony import */ var _AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js");
-/* harmony import */ var _AddDevice_vue_vue_type_style_index_0_id_15f8a53b_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss */ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "15f8a53b",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/settings/src/components/WebAuthn/AddDevice.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Device.vue":
-/*!**********************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Device.vue ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Device.vue?vue&type=template&id=1b250cbc&scoped=true */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true");
-/* harmony import */ var _Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Device.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js");
-/* harmony import */ var _Device_vue_vue_type_style_index_0_id_1b250cbc_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css */ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "1b250cbc",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/settings/src/components/WebAuthn/Device.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Section.vue":
-/*!***********************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Section.vue ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Section.vue?vue&type=template&id=47c82c6e&scoped=true */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true");
-/* harmony import */ var _Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Section.vue?vue&type=script&lang=js */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js");
-/* harmony import */ var _Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css */ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "47c82c6e",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "apps/settings/src/components/WebAuthn/Section.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js":
-/*!*************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js":
-/*!**********************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js":
-/*!***********************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true":
-/*!*******************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true ***!
-  \*******************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_template_id_15f8a53b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=template&id=15f8a53b&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true":
-/*!****************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true ***!
-  \****************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_template_id_1b250cbc_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=template&id=1b250cbc&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=template&id=1b250cbc&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true":
-/*!*****************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true ***!
-  \*****************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_template_id_47c82c6e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=template&id=47c82c6e&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=template&id=47c82c6e&scoped=true");
-
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss":
-/*!**********************************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss ***!
-  \**********************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDevice_vue_vue_type_style_index_0_id_15f8a53b_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/sass-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/AddDevice.vue?vue&type=style&index=0&id=15f8a53b&scoped=true&lang=scss");
-
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css":
-/*!******************************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css ***!
-  \******************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Device_vue_vue_type_style_index_0_id_1b250cbc_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Device.vue?vue&type=style&index=0&id=1b250cbc&scoped=true&lang=css");
-
-
-/***/ }),
-
-/***/ "./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css":
-/*!*******************************************************************************************************************!*\
-  !*** ./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css ***!
-  \*******************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Section_vue_vue_type_style_index_0_id_47c82c6e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./apps/settings/src/components/WebAuthn/Section.vue?vue&type=style&index=0&id=47c82c6e&scoped=true&lang=css");
-
-
-/***/ }),
-
-/***/ "./node_modules/@simplewebauthn/browser/dist/bundle/index.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@simplewebauthn/browser/dist/bundle/index.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   WebAuthnAbortService: () => (/* binding */ WebAuthnAbortService),
-/* harmony export */   WebAuthnError: () => (/* binding */ WebAuthnError),
-/* harmony export */   base64URLStringToBuffer: () => (/* binding */ base64URLStringToBuffer),
-/* harmony export */   browserSupportsWebAuthn: () => (/* binding */ browserSupportsWebAuthn),
-/* harmony export */   browserSupportsWebAuthnAutofill: () => (/* binding */ browserSupportsWebAuthnAutofill),
-/* harmony export */   bufferToBase64URLString: () => (/* binding */ bufferToBase64URLString),
-/* harmony export */   platformAuthenticatorIsAvailable: () => (/* binding */ platformAuthenticatorIsAvailable),
-/* harmony export */   startAuthentication: () => (/* binding */ startAuthentication),
-/* harmony export */   startRegistration: () => (/* binding */ startRegistration)
-/* harmony export */ });
-/* provided dependency */ var console = __webpack_require__(/*! ./node_modules/console-browserify/index.js */ "./node_modules/console-browserify/index.js");
-/* [@simplewebauthn/browser@10.0.0] */
-function bufferToBase64URLString(buffer) {
-    const bytes = new Uint8Array(buffer);
-    let str = '';
-    for (const charCode of bytes) {
-        str += String.fromCharCode(charCode);
-    }
-    const base64String = btoa(str);
-    return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-}
-
-function base64URLStringToBuffer(base64URLString) {
-    const base64 = base64URLString.replace(/-/g, '+').replace(/_/g, '/');
-    const padLength = (4 - (base64.length % 4)) % 4;
-    const padded = base64.padEnd(base64.length + padLength, '=');
-    const binary = atob(padded);
-    const buffer = new ArrayBuffer(binary.length);
-    const bytes = new Uint8Array(buffer);
-    for (let i = 0; i < binary.length; i++) {
-        bytes[i] = binary.charCodeAt(i);
-    }
-    return buffer;
-}
-
-function browserSupportsWebAuthn() {
-    return (window?.PublicKeyCredential !== undefined &&
-        typeof window.PublicKeyCredential === 'function');
-}
-
-function toPublicKeyCredentialDescriptor(descriptor) {
-    const { id } = descriptor;
-    return {
-        ...descriptor,
-        id: base64URLStringToBuffer(id),
-        transports: descriptor.transports,
-    };
-}
-
-function isValidDomain(hostname) {
-    return (hostname === 'localhost' ||
-        /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i.test(hostname));
-}
-
-class WebAuthnError extends Error {
-    constructor({ message, code, cause, name, }) {
-        super(message, { cause });
-        this.name = name ?? cause.name;
-        this.code = code;
-    }
-}
-
-function identifyRegistrationError({ error, options, }) {
-    const { publicKey } = options;
-    if (!publicKey) {
-        throw Error('options was missing required publicKey property');
-    }
-    if (error.name === 'AbortError') {
-        if (options.signal instanceof AbortSignal) {
-            return new WebAuthnError({
-                message: 'Registration ceremony was sent an abort signal',
-                code: 'ERROR_CEREMONY_ABORTED',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'ConstraintError') {
-        if (publicKey.authenticatorSelection?.requireResidentKey === true) {
-            return new WebAuthnError({
-                message: 'Discoverable credentials were required but no available authenticator supported it',
-                code: 'ERROR_AUTHENTICATOR_MISSING_DISCOVERABLE_CREDENTIAL_SUPPORT',
-                cause: error,
-            });
-        }
-        else if (publicKey.authenticatorSelection?.userVerification === 'required') {
-            return new WebAuthnError({
-                message: 'User verification was required but no available authenticator supported it',
-                code: 'ERROR_AUTHENTICATOR_MISSING_USER_VERIFICATION_SUPPORT',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'InvalidStateError') {
-        return new WebAuthnError({
-            message: 'The authenticator was previously registered',
-            code: 'ERROR_AUTHENTICATOR_PREVIOUSLY_REGISTERED',
-            cause: error,
-        });
-    }
-    else if (error.name === 'NotAllowedError') {
-        return new WebAuthnError({
-            message: error.message,
-            code: 'ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY',
-            cause: error,
-        });
-    }
-    else if (error.name === 'NotSupportedError') {
-        const validPubKeyCredParams = publicKey.pubKeyCredParams.filter((param) => param.type === 'public-key');
-        if (validPubKeyCredParams.length === 0) {
-            return new WebAuthnError({
-                message: 'No entry in pubKeyCredParams was of type "public-key"',
-                code: 'ERROR_MALFORMED_PUBKEYCREDPARAMS',
-                cause: error,
-            });
-        }
-        return new WebAuthnError({
-            message: 'No available authenticator supported any of the specified pubKeyCredParams algorithms',
-            code: 'ERROR_AUTHENTICATOR_NO_SUPPORTED_PUBKEYCREDPARAMS_ALG',
-            cause: error,
-        });
-    }
-    else if (error.name === 'SecurityError') {
-        const effectiveDomain = window.location.hostname;
-        if (!isValidDomain(effectiveDomain)) {
-            return new WebAuthnError({
-                message: `${window.location.hostname} is an invalid domain`,
-                code: 'ERROR_INVALID_DOMAIN',
-                cause: error,
-            });
-        }
-        else if (publicKey.rp.id !== effectiveDomain) {
-            return new WebAuthnError({
-                message: `The RP ID "${publicKey.rp.id}" is invalid for this domain`,
-                code: 'ERROR_INVALID_RP_ID',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'TypeError') {
-        if (publicKey.user.id.byteLength < 1 || publicKey.user.id.byteLength > 64) {
-            return new WebAuthnError({
-                message: 'User ID was not between 1 and 64 characters',
-                code: 'ERROR_INVALID_USER_ID_LENGTH',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'UnknownError') {
-        return new WebAuthnError({
-            message: 'The authenticator was unable to process the specified options, or could not create a new credential',
-            code: 'ERROR_AUTHENTICATOR_GENERAL_ERROR',
-            cause: error,
-        });
-    }
-    return error;
-}
-
-class BaseWebAuthnAbortService {
-    createNewAbortSignal() {
-        if (this.controller) {
-            const abortError = new Error('Cancelling existing WebAuthn API call for new one');
-            abortError.name = 'AbortError';
-            this.controller.abort(abortError);
-        }
-        const newController = new AbortController();
-        this.controller = newController;
-        return newController.signal;
-    }
-    cancelCeremony() {
-        if (this.controller) {
-            const abortError = new Error('Manually cancelling existing WebAuthn API call');
-            abortError.name = 'AbortError';
-            this.controller.abort(abortError);
-            this.controller = undefined;
-        }
-    }
-}
-const WebAuthnAbortService = new BaseWebAuthnAbortService();
-
-const attachments = ['cross-platform', 'platform'];
-function toAuthenticatorAttachment(attachment) {
-    if (!attachment) {
-        return;
-    }
-    if (attachments.indexOf(attachment) < 0) {
-        return;
-    }
-    return attachment;
-}
-
-async function startRegistration(optionsJSON) {
-    if (!browserSupportsWebAuthn()) {
-        throw new Error('WebAuthn is not supported in this browser');
-    }
-    const publicKey = {
-        ...optionsJSON,
-        challenge: base64URLStringToBuffer(optionsJSON.challenge),
-        user: {
-            ...optionsJSON.user,
-            id: base64URLStringToBuffer(optionsJSON.user.id),
-        },
-        excludeCredentials: optionsJSON.excludeCredentials?.map(toPublicKeyCredentialDescriptor),
-    };
-    const options = { publicKey };
-    options.signal = WebAuthnAbortService.createNewAbortSignal();
-    let credential;
-    try {
-        credential = (await navigator.credentials.create(options));
-    }
-    catch (err) {
-        throw identifyRegistrationError({ error: err, options });
-    }
-    if (!credential) {
-        throw new Error('Registration was not completed');
-    }
-    const { id, rawId, response, type } = credential;
-    let transports = undefined;
-    if (typeof response.getTransports === 'function') {
-        transports = response.getTransports();
-    }
-    let responsePublicKeyAlgorithm = undefined;
-    if (typeof response.getPublicKeyAlgorithm === 'function') {
-        try {
-            responsePublicKeyAlgorithm = response.getPublicKeyAlgorithm();
-        }
-        catch (error) {
-            warnOnBrokenImplementation('getPublicKeyAlgorithm()', error);
-        }
-    }
-    let responsePublicKey = undefined;
-    if (typeof response.getPublicKey === 'function') {
-        try {
-            const _publicKey = response.getPublicKey();
-            if (_publicKey !== null) {
-                responsePublicKey = bufferToBase64URLString(_publicKey);
-            }
-        }
-        catch (error) {
-            warnOnBrokenImplementation('getPublicKey()', error);
-        }
-    }
-    let responseAuthenticatorData;
-    if (typeof response.getAuthenticatorData === 'function') {
-        try {
-            responseAuthenticatorData = bufferToBase64URLString(response.getAuthenticatorData());
-        }
-        catch (error) {
-            warnOnBrokenImplementation('getAuthenticatorData()', error);
-        }
-    }
-    return {
-        id,
-        rawId: bufferToBase64URLString(rawId),
-        response: {
-            attestationObject: bufferToBase64URLString(response.attestationObject),
-            clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
-            transports,
-            publicKeyAlgorithm: responsePublicKeyAlgorithm,
-            publicKey: responsePublicKey,
-            authenticatorData: responseAuthenticatorData,
-        },
-        type,
-        clientExtensionResults: credential.getClientExtensionResults(),
-        authenticatorAttachment: toAuthenticatorAttachment(credential.authenticatorAttachment),
-    };
-}
-function warnOnBrokenImplementation(methodName, cause) {
-    console.warn(`The browser extension that intercepted this WebAuthn API call incorrectly implemented ${methodName}. You should report this error to them.\n`, cause);
-}
-
-function browserSupportsWebAuthnAutofill() {
-    if (!browserSupportsWebAuthn()) {
-        return new Promise((resolve) => resolve(false));
-    }
-    const globalPublicKeyCredential = window
-        .PublicKeyCredential;
-    if (globalPublicKeyCredential.isConditionalMediationAvailable === undefined) {
-        return new Promise((resolve) => resolve(false));
-    }
-    return globalPublicKeyCredential.isConditionalMediationAvailable();
-}
-
-function identifyAuthenticationError({ error, options, }) {
-    const { publicKey } = options;
-    if (!publicKey) {
-        throw Error('options was missing required publicKey property');
-    }
-    if (error.name === 'AbortError') {
-        if (options.signal instanceof AbortSignal) {
-            return new WebAuthnError({
-                message: 'Authentication ceremony was sent an abort signal',
-                code: 'ERROR_CEREMONY_ABORTED',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'NotAllowedError') {
-        return new WebAuthnError({
-            message: error.message,
-            code: 'ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY',
-            cause: error,
-        });
-    }
-    else if (error.name === 'SecurityError') {
-        const effectiveDomain = window.location.hostname;
-        if (!isValidDomain(effectiveDomain)) {
-            return new WebAuthnError({
-                message: `${window.location.hostname} is an invalid domain`,
-                code: 'ERROR_INVALID_DOMAIN',
-                cause: error,
-            });
-        }
-        else if (publicKey.rpId !== effectiveDomain) {
-            return new WebAuthnError({
-                message: `The RP ID "${publicKey.rpId}" is invalid for this domain`,
-                code: 'ERROR_INVALID_RP_ID',
-                cause: error,
-            });
-        }
-    }
-    else if (error.name === 'UnknownError') {
-        return new WebAuthnError({
-            message: 'The authenticator was unable to process the specified options, or could not create a new assertion signature',
-            code: 'ERROR_AUTHENTICATOR_GENERAL_ERROR',
-            cause: error,
-        });
-    }
-    return error;
-}
-
-async function startAuthentication(optionsJSON, useBrowserAutofill = false) {
-    if (!browserSupportsWebAuthn()) {
-        throw new Error('WebAuthn is not supported in this browser');
-    }
-    let allowCredentials;
-    if (optionsJSON.allowCredentials?.length !== 0) {
-        allowCredentials = optionsJSON.allowCredentials?.map(toPublicKeyCredentialDescriptor);
-    }
-    const publicKey = {
-        ...optionsJSON,
-        challenge: base64URLStringToBuffer(optionsJSON.challenge),
-        allowCredentials,
-    };
-    const options = {};
-    if (useBrowserAutofill) {
-        if (!(await browserSupportsWebAuthnAutofill())) {
-            throw Error('Browser does not support WebAuthn autofill');
-        }
-        const eligibleInputs = document.querySelectorAll("input[autocomplete$='webauthn']");
-        if (eligibleInputs.length < 1) {
-            throw Error('No <input> with "webauthn" as the only or last value in its `autocomplete` attribute was detected');
-        }
-        options.mediation = 'conditional';
-        publicKey.allowCredentials = [];
-    }
-    options.publicKey = publicKey;
-    options.signal = WebAuthnAbortService.createNewAbortSignal();
-    let credential;
-    try {
-        credential = (await navigator.credentials.get(options));
-    }
-    catch (err) {
-        throw identifyAuthenticationError({ error: err, options });
-    }
-    if (!credential) {
-        throw new Error('Authentication was not completed');
-    }
-    const { id, rawId, response, type } = credential;
-    let userHandle = undefined;
-    if (response.userHandle) {
-        userHandle = bufferToBase64URLString(response.userHandle);
-    }
-    return {
-        id,
-        rawId: bufferToBase64URLString(rawId),
-        response: {
-            authenticatorData: bufferToBase64URLString(response.authenticatorData),
-            clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
-            signature: bufferToBase64URLString(response.signature),
-            userHandle,
-        },
-        type,
-        clientExtensionResults: credential.getClientExtensionResults(),
-        authenticatorAttachment: toAuthenticatorAttachment(credential.authenticatorAttachment),
-    };
-}
-
-function platformAuthenticatorIsAvailable() {
-    if (!browserSupportsWebAuthn()) {
-        return new Promise((resolve) => resolve(false));
-    }
-    return PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-}
-
-
-
-
 /***/ })
 
 /******/ 	});
@@ -5003,7 +5006,7 @@ function platformAuthenticatorIsAvailable() {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"330887213eeef7d8365f"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -5109,7 +5112,7 @@ function platformAuthenticatorIsAvailable() {
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -5220,4 +5223,4 @@ function platformAuthenticatorIsAvailable() {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=settings-vue-settings-personal-webauthn.js.map?v=dffdbbe20e17e686839e
+//# sourceMappingURL=settings-vue-settings-personal-webauthn.js.map?v=d03f874dbed2865a1ceb

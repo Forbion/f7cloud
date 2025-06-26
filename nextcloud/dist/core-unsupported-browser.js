@@ -1,22 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/@nextcloud/browserslist-config/browserlist.config.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@nextcloud/browserslist-config/browserlist.config.js ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-module.exports = [
-  '>0.25%',
-  'not op_mini all',
-  'not dead',
-  'Firefox ESR',
-];
-
-
-/***/ }),
-
 /***/ "./core/src/logger.js":
 /*!****************************!*\
   !*** ./core/src/logger.js ***!
@@ -205,6 +189,110 @@ const testSupportedBrowser = function () {
 
 /***/ }),
 
+/***/ "./core/src/views/UnsupportedBrowser.vue":
+/*!***********************************************!*\
+  !*** ./core/src/views/UnsupportedBrowser.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true */ "./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true");
+/* harmony import */ var _UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=script&lang=js */ "./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js");
+/* harmony import */ var _UnsupportedBrowser_vue_vue_type_style_index_0_id_4d32209e_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true */ "./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "4d32209e",
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "core/src/views/UnsupportedBrowser.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js":
+/*!***********************************************************************!*\
+  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true":
+/*!********************************************************************************************************!*\
+  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_style_index_0_id_4d32209e_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true");
+
+
+/***/ }),
+
+/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true":
+/*!*****************************************************************************************!*\
+  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true");
+
+
+/***/ }),
+
+/***/ "./node_modules/@nextcloud/browserslist-config/browserlist.config.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@nextcloud/browserslist-config/browserlist.config.js ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = [
+  '>0.25%',
+  'not op_mini all',
+  'not dead',
+  'Firefox ESR',
+];
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js ***!
@@ -383,6 +471,1238 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/browserslist-useragent-regexp/dist/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/browserslist-useragent-regexp/dist/index.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AlternativeNode: () => (/* binding */ AlternativeNode),
+/* harmony export */   AstRegExpNode: () => (/* binding */ AstRegExpNode),
+/* harmony export */   CapturingGroupNode: () => (/* binding */ CapturingGroupNode),
+/* harmony export */   CharacterClassNode: () => (/* binding */ CharacterClassNode),
+/* harmony export */   ClassRangeNode: () => (/* binding */ ClassRangeNode),
+/* harmony export */   DigitPatternNode: () => (/* binding */ DigitPatternNode),
+/* harmony export */   DisjunctionCapturingGroupNode: () => (/* binding */ DisjunctionCapturingGroupNode),
+/* harmony export */   DisjunctionNode: () => (/* binding */ DisjunctionNode),
+/* harmony export */   MetaCharNode: () => (/* binding */ MetaCharNode),
+/* harmony export */   NumberCharsNode: () => (/* binding */ NumberCharsNode),
+/* harmony export */   NumberPatternNode: () => (/* binding */ NumberPatternNode),
+/* harmony export */   RangeQuantifierNode: () => (/* binding */ RangeQuantifierNode),
+/* harmony export */   RepetitionNode: () => (/* binding */ RepetitionNode),
+/* harmony export */   SemverPart: () => (/* binding */ SemverPart),
+/* harmony export */   SimpleCharNode: () => (/* binding */ SimpleCharNode),
+/* harmony export */   SimpleQuantifierNode: () => (/* binding */ SimpleQuantifierNode),
+/* harmony export */   applyVersionsToRegex: () => (/* binding */ applyVersionsToRegex),
+/* harmony export */   applyVersionsToRegexes: () => (/* binding */ applyVersionsToRegexes),
+/* harmony export */   clone: () => (/* binding */ clone),
+/* harmony export */   compareArrays: () => (/* binding */ compareArrays),
+/* harmony export */   compareSemvers: () => (/* binding */ compareSemvers),
+/* harmony export */   compileRegex: () => (/* binding */ compileRegex),
+/* harmony export */   compileRegexes: () => (/* binding */ compileRegexes),
+/* harmony export */   concat: () => (/* binding */ concat),
+/* harmony export */   defaultOptions: () => (/* binding */ defaultOptions),
+/* harmony export */   findMatchedVersions: () => (/* binding */ findMatchedVersions),
+/* harmony export */   getBrowsersList: () => (/* binding */ getBrowsersList),
+/* harmony export */   getNumberPatternsCount: () => (/* binding */ getNumberPatternsCount),
+/* harmony export */   getNumberPatternsPart: () => (/* binding */ getNumberPatternsPart),
+/* harmony export */   getPreUserAgentRegexes: () => (/* binding */ getPreUserAgentRegexes),
+/* harmony export */   getRegexesForBrowsers: () => (/* binding */ getRegexesForBrowsers),
+/* harmony export */   getRequiredSemverPartsCount: () => (/* binding */ getRequiredSemverPartsCount),
+/* harmony export */   getUserAgentRegex: () => (/* binding */ getUserAgentRegex),
+/* harmony export */   getUserAgentRegexes: () => (/* binding */ getUserAgentRegexes),
+/* harmony export */   isCharNode: () => (/* binding */ isCharNode),
+/* harmony export */   isDigitRangeNode: () => (/* binding */ isDigitRangeNode),
+/* harmony export */   isExpressionNode: () => (/* binding */ isExpressionNode),
+/* harmony export */   isNumberPatternNode: () => (/* binding */ isNumberPatternNode),
+/* harmony export */   mergeBrowserVersions: () => (/* binding */ mergeBrowserVersions),
+/* harmony export */   mergeDigits: () => (/* binding */ mergeDigits),
+/* harmony export */   numberToDigits: () => (/* binding */ numberToDigits),
+/* harmony export */   numbersToRanges: () => (/* binding */ numbersToRanges),
+/* harmony export */   optimizeRegex: () => (/* binding */ optimizeRegex),
+/* harmony export */   optimizeSegmentNumberPatterns: () => (/* binding */ optimizeSegmentNumberPatterns),
+/* harmony export */   parseBrowsersList: () => (/* binding */ parseBrowsersList),
+/* harmony export */   parseRegex: () => (/* binding */ parseRegex),
+/* harmony export */   rangeSemver: () => (/* binding */ rangeSemver),
+/* harmony export */   rangeToRegex: () => (/* binding */ rangeToRegex),
+/* harmony export */   rangedSemverToRegex: () => (/* binding */ rangedSemverToRegex),
+/* harmony export */   rayRangeDigitPattern: () => (/* binding */ rayRangeDigitPattern),
+/* harmony export */   rayToNumberPatterns: () => (/* binding */ rayToNumberPatterns),
+/* harmony export */   replaceNumberPatterns: () => (/* binding */ replaceNumberPatterns),
+/* harmony export */   segmentRangeNumberPattern: () => (/* binding */ segmentRangeNumberPattern),
+/* harmony export */   segmentToNumberPatterns: () => (/* binding */ segmentToNumberPatterns),
+/* harmony export */   semverify: () => (/* binding */ semverify),
+/* harmony export */   splitCommonDiff: () => (/* binding */ splitCommonDiff),
+/* harmony export */   splitToDecadeRanges: () => (/* binding */ splitToDecadeRanges),
+/* harmony export */   toRegex: () => (/* binding */ toRegex),
+/* harmony export */   toString: () => (/* binding */ toString),
+/* harmony export */   versionsListToRanges: () => (/* binding */ versionsListToRanges),
+/* harmony export */   visitors: () => (/* binding */ visitors)
+/* harmony export */ });
+/* harmony import */ var browserslist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! browserslist */ "./node_modules/browserslist/index.js");
+/* harmony import */ var regexp_tree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regexp-tree */ "./node_modules/regexp-tree/index.js");
+/* harmony import */ var ua_regexes_lite__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ua-regexes-lite */ "./node_modules/ua-regexes-lite/index.js");
+
+
+
+
+/**
+ * Array of numbers to array of first and last elements.
+ * @param numbers - Array of numbers.
+ * @returns Number or two numbers.
+ */ function numbersToRanges(numbers) {
+    if (typeof numbers === "number") {
+        return numbers;
+    }
+    if (numbers.length === 1) {
+        return numbers[0];
+    }
+    return [
+        numbers[0],
+        numbers[numbers.length - 1]
+    ];
+}
+
+var SemverPart;
+(function(SemverPart) {
+    SemverPart[SemverPart["Major"] = 0] = "Major";
+    SemverPart[SemverPart["Minor"] = 1] = "Minor";
+    SemverPart[SemverPart["Patch"] = 2] = "Patch";
+})(SemverPart || (SemverPart = {}));
+
+/**
+ * Get semver from string or array.
+ * @param version - Target to convert.
+ * @returns Array with semver parts.
+ */ function semverify(version) {
+    const versionParts = Array.isArray(version) ? version : version.toString().split(".");
+    if (versionParts[0] === "all") {
+        return [
+            Infinity,
+            0,
+            0
+        ];
+    }
+    let versionPart = null;
+    let semverPart = null;
+    const semver = [
+        0,
+        0,
+        0
+    ];
+    for(let i = 0; i < 3; i++){
+        versionPart = versionParts[i];
+        if (typeof versionPart === "undefined") {
+            continue;
+        }
+        semverPart = typeof versionPart === "number" ? versionPart : parseInt(versionPart, 10);
+        if (isNaN(semverPart)) {
+            return null;
+        }
+        semver[i] = semverPart;
+    }
+    return semver;
+}
+/**
+ * Get semver range.
+ * @param from
+ * @param to
+ * @returns Semver range.
+ */ function rangeSemver(from, to) {
+    let partIndex = 0;
+    const range = [];
+    for(let i = 2; i >= 0; i--){
+        if (from[i] !== to[i]) {
+            partIndex = i;
+            break;
+        }
+    }
+    for(let i1 = from[partIndex], max = to[partIndex]; i1 <= max; i1++){
+        range.push(from.map((v, j)=>j === partIndex ? i1 : v));
+    }
+    return range;
+}
+/**
+ * Compare semvers.
+ * @param a - Semver to compare.
+ * @param b - Semver to compare with.
+ * @param options - Compare options.
+ * @returns Equals or not.
+ */ function compareSemvers(a, b, options) {
+    const [major, minor, patch] = a;
+    const [majorBase, minorBase, patchBase] = b;
+    const { ignoreMinor , ignorePatch , allowHigherVersions  } = options;
+    if (majorBase === Infinity) {
+        return true;
+    }
+    const compareMinor = !ignoreMinor;
+    const comparePatch = compareMinor && !ignorePatch;
+    if (allowHigherVersions) {
+        if (comparePatch && patch < patchBase || compareMinor && minor < minorBase) {
+            return false;
+        }
+        return major >= majorBase;
+    }
+    if (comparePatch && patch !== patchBase || compareMinor && minor !== minorBase) {
+        return false;
+    }
+    return major === majorBase;
+}
+/**
+ * Get required semver parts count.
+ * @param version - Semver parts or ranges.
+ * @param options - Semver compare options.
+ * @returns Required semver parts count.
+ */ function getRequiredSemverPartsCount(version, options) {
+    const { ignoreMinor , ignorePatch , allowZeroSubversions  } = options;
+    let shouldRepeatCount = ignoreMinor ? 1 : ignorePatch ? 2 : 3;
+    if (allowZeroSubversions) {
+        for(let i = shouldRepeatCount - 1; i > 0; i--){
+            if (version[i] !== 0 || shouldRepeatCount === 1) {
+                break;
+            }
+            shouldRepeatCount--;
+        }
+    }
+    return shouldRepeatCount;
+}
+
+/**
+ * Browsers strings to info objects.
+ * @param browsersList - Browsers strings with family and version.
+ * @returns Browser info objects.
+ */ function parseBrowsersList(browsersList) {
+    return browsersList.reduce((browsers, browser)=>{
+        const [family, versionString, versionStringTo] = browser.split(/ |-/);
+        const version = semverify(versionString);
+        const versions = !version ? [] : versionStringTo ? rangeSemver(version, semverify(versionStringTo)) : [
+            version
+        ];
+        return versions.reduce((browsers, semver)=>{
+            if (semver) {
+                browsers.push({
+                    family,
+                    version: semver
+                });
+            }
+            return browsers;
+        }, browsers);
+    }, []);
+}
+/**
+ * Request browsers list.
+ * @param options - Options to get browsers list.
+ * @returns Browser info objects.
+ */ function getBrowsersList(options = {}) {
+    const { browsers , ...browserslistOptions } = options;
+    const browsersList = browserslist__WEBPACK_IMPORTED_MODULE_0__(browsers, browserslistOptions);
+    const parsedBrowsers = parseBrowsersList(browsersList);
+    return parsedBrowsers;
+}
+
+/**
+ * Compare two arrays.
+ * @param a - Array to compare.
+ * @param b - Array to compare.
+ * @param from - Index to start compare from.
+ * @returns Equals or not.
+ */ function compareArrays(a, b, from = 0) {
+    const len = a.length;
+    for(let i = from; i < len; i++){
+        if (a[i] !== b[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+/**
+ * Clone simple object.
+ * @param value
+ * @returns Object clone.
+ */ function clone(value) {
+    if (value === null || typeof value !== "object") {
+        return value;
+    }
+    /* eslint-disable */ const copy = Array.isArray(value) ? [] : {};
+    let i;
+    for(i in value){
+        copy[i] = clone(value[i]);
+    }
+    /* eslint-enable */ return copy;
+}
+/**
+ * Concat arrays.
+ * @param items
+ * @returns Concatinated arrays.
+ */ function concat(items) {
+    return [].concat(...items);
+}
+
+/**
+ * Merge browser info object to map with versions.
+ * @param browsers - Browser info object to merge.
+ * @returns Merged browsers map.
+ */ function mergeBrowserVersions(browsers) {
+    const merge = new Map();
+    browsers.forEach(({ family , version  })=>{
+        const versions = merge.get(family);
+        if (versions) {
+            const strVersion = version.join(".");
+            if (versions.every((_)=>_.join(".") !== strVersion)) {
+                versions.push(version);
+            }
+            return;
+        }
+        merge.set(family, [
+            version
+        ]);
+    });
+    merge.forEach((versions)=>{
+        versions.sort((a, b)=>{
+            for(const i in a){
+                if (a[i] !== b[i]) {
+                    return a[i] - b[i];
+                }
+            }
+            return 0;
+        });
+    });
+    return merge;
+}
+/**
+ * Versions to ranged versions.
+ * @param versions - Semver versions list.
+ * @returns Ranged versions list.
+ */ function versionsListToRanges(versions) {
+    if (versions.length < 2) {
+        return versions;
+    }
+    const max = versions.length + 1;
+    const ranges = [];
+    let prev = null;
+    let current = versions[0];
+    let major = [
+        current[SemverPart.Major]
+    ];
+    let minor = [
+        current[SemverPart.Minor]
+    ];
+    let patch = [
+        current[SemverPart.Patch]
+    ];
+    let part = null;
+    for(let i = 1; i < max; i++){
+        prev = versions[i - 1];
+        current = versions[i] || [];
+        for(let p = SemverPart.Major; p <= SemverPart.Patch; p++){
+            if ((p === part || part === null) && prev[p] + 1 === current[p] && compareArrays(prev, current, p + 1)) {
+                part = p;
+                if (p === SemverPart.Major) {
+                    major.push(current[SemverPart.Major]);
+                } else {
+                    major = current[SemverPart.Major];
+                }
+                if (p === SemverPart.Minor) {
+                    minor.push(current[SemverPart.Minor]);
+                } else {
+                    minor = current[SemverPart.Minor];
+                }
+                if (p === SemverPart.Patch) {
+                    patch.push(current[SemverPart.Patch]);
+                } else {
+                    patch = current[SemverPart.Patch];
+                }
+                break;
+            }
+            if (part === p || prev[p] !== current[p]) {
+                ranges.push([
+                    numbersToRanges(major),
+                    numbersToRanges(minor),
+                    numbersToRanges(patch)
+                ]);
+                major = [
+                    current[SemverPart.Major]
+                ];
+                minor = [
+                    current[SemverPart.Minor]
+                ];
+                patch = [
+                    current[SemverPart.Patch]
+                ];
+                part = null;
+                break;
+            }
+        }
+    }
+    return ranges;
+}
+
+function AstRegExpNode(body) {
+    return {
+        type: "RegExp",
+        body,
+        flags: ""
+    };
+}
+function AlternativeNode(...expressions) {
+    const exps = concat(expressions).filter(Boolean);
+    if (exps.length === 1) {
+        return exps[0];
+    }
+    return {
+        type: "Alternative",
+        expressions: exps
+    };
+}
+function SimpleCharNode(value) {
+    return {
+        type: "Char",
+        kind: "simple",
+        value: String(value),
+        codePoint: NaN
+    };
+}
+function MetaCharNode(value) {
+    return {
+        type: "Char",
+        kind: "meta",
+        value,
+        codePoint: NaN
+    };
+}
+function ClassRangeNode(from, to) {
+    return {
+        type: "ClassRange",
+        from,
+        to
+    };
+}
+function CharacterClassNode(...expressions) {
+    return {
+        type: "CharacterClass",
+        expressions: concat(expressions).filter(Boolean)
+    };
+}
+function SimpleQuantifierNode(kind) {
+    return {
+        type: "Quantifier",
+        kind,
+        greedy: true
+    };
+}
+function RangeQuantifierNode(from, to) {
+    return {
+        type: "Quantifier",
+        kind: "Range",
+        from,
+        to,
+        greedy: true
+    };
+}
+function CapturingGroupNode(expression) {
+    return {
+        type: "Group",
+        capturing: true,
+        expression,
+        number: null
+    };
+}
+function RepetitionNode(expression, quantifier) {
+    return {
+        type: "Repetition",
+        expression,
+        quantifier
+    };
+}
+function DisjunctionNode(...expressions) {
+    const exprs = concat(expressions).filter(Boolean);
+    if (exprs.length === 1) {
+        return exprs[0];
+    }
+    const disjunction = {
+        type: "Disjunction",
+        left: null,
+        right: exprs.pop()
+    };
+    exprs.reduceRight((disjunction, expr, i)=>{
+        if (i === 0) {
+            disjunction.left = expr;
+            return disjunction;
+        }
+        disjunction.left = {
+            type: "Disjunction",
+            left: null,
+            right: expr
+        };
+        return disjunction.left;
+    }, disjunction);
+    return disjunction;
+}
+function DisjunctionCapturingGroupNode(...expressions) {
+    const expr = DisjunctionNode(...expressions);
+    if (expr.type === "Disjunction") {
+        return CapturingGroupNode(expr);
+    }
+    return expr;
+}
+function DigitPatternNode() {
+    return MetaCharNode("\\d");
+}
+function NumberPatternNode(quantifier = SimpleQuantifierNode("+")) {
+    const numberPattern = RepetitionNode(DigitPatternNode(), quantifier);
+    return numberPattern;
+}
+function NumberCharsNode(value) {
+    return AlternativeNode(Array.from(String(value), SimpleCharNode));
+}
+
+/**
+ * Check node whether is number pattern.
+ * @param node - AST node to check.
+ * @returns Is number pattern or not.
+ */ function isNumberPatternNode(node) {
+    if (node.type === "Group" && node.expression.type === "Repetition") {
+        const { expression , quantifier  } = node.expression;
+        return expression.type === "Char" && expression.value === "\\d" && quantifier.kind === "+" && quantifier.greedy;
+    }
+    return false;
+}
+/**
+ * Check node whether is char node.
+ * @param node - AST node to check.
+ * @param value - Value to compare.
+ * @returns Is char node or not.
+ */ function isCharNode(node, value) {
+    if (node && node.type === "Char") {
+        return typeof value === "undefined" || value instanceof RegExp && value.test(node.value) || String(value) === node.value;
+    }
+    return false;
+}
+/**
+ * Check node whether is digit range.
+ * @param node - AST node to check.
+ * @returns Is digit range or not.
+ */ function isDigitRangeNode(node) {
+    if (node.type === "CharacterClass" && node.expressions.length === 1) {
+        const [expression] = node.expressions;
+        return expression.type === "ClassRange" && isCharNode(expression.from, /\d/) && isCharNode(expression.to, /\d/);
+    }
+    return false;
+}
+/**
+ * Check node whether is expression.
+ * @param node - AST node to check.
+ * @returns Is expression node or not.
+ */ function isExpressionNode(node) {
+    return node.type !== "RegExp" && node.type !== "ClassRange" && node.type !== "Quantifier";
+}
+function parseRegex(regex) {
+    return typeof regex === "string" ? regexp_tree__WEBPACK_IMPORTED_MODULE_1__.parse(regex.replace(/^([^/])/, "/$1").replace(/([^/])$/, "$1/")) : regex instanceof RegExp ? regexp_tree__WEBPACK_IMPORTED_MODULE_1__.parse(regex) : regex;
+}
+/**
+ * Get regex from string or AST.
+ * @param src - String or AST.
+ * @returns RegExp.
+ */ function toRegex(src) {
+    return typeof src === "string" ? new RegExp(src) : new RegExp(regexp_tree__WEBPACK_IMPORTED_MODULE_1__.generate(src.body), src.flags);
+}
+/**
+ * Get string from regex or AST.
+ * @param src - RegExp or AST.
+ * @returns String.
+ */ function toString(src) {
+    return typeof src === "string" ? src : src instanceof RegExp ? src.toString() : regexp_tree__WEBPACK_IMPORTED_MODULE_1__.generate(src);
+}
+
+const classes = [
+    "RegExp",
+    "Disjunction",
+    "Alternative",
+    "Assertion",
+    "Char",
+    "CharacterClass",
+    "ClassRange",
+    "Backreference",
+    "Group",
+    "Repetition",
+    "Quantifier"
+];
+/**
+ * Create traversal visitors.
+ * @param visitors
+ * @returns Traversal handlers.
+ */ function visitors(visitors) {
+    const { every  } = visitors;
+    if (!every) {
+        return visitors;
+    }
+    if (typeof every === "function") {
+        return {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            "*": every,
+            ...visitors
+        };
+    }
+    return classes.reduce((newVisitors, className)=>{
+        const visitor = visitors[className];
+        const visitorPre = visitor ? "pre" in visitor ? visitor.pre : visitor : null;
+        const visitorPost = visitor ? "post" in visitor ? visitor.post : null : null;
+        newVisitors[className] = {
+            pre (nodePath) {
+                if (every.pre(nodePath) !== false && visitorPre) {
+                    return visitorPre(nodePath);
+                }
+                return true;
+            },
+            post (nodePath) {
+                if (every.post(nodePath) !== false && visitorPost) {
+                    return visitorPost(nodePath);
+                }
+                return true;
+            }
+        };
+        return newVisitors;
+    }, {});
+}
+
+function optimizeRegex(regex) {
+    // Optimization requires filled codePoints
+    const regexAst = regexp_tree__WEBPACK_IMPORTED_MODULE_1__.optimize(parseRegex(toString(regex))).getAST();
+    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, {
+        Group (nodePath) {
+            const { parent , node  } = nodePath;
+            const { expression  } = node;
+            node.capturing = true;
+            if (parent.type === "RegExp" || expression.type !== "Disjunction" && parent.type !== "Repetition" || expression.type === "Disjunction" && parent.type === "Disjunction") {
+                nodePath.replace(nodePath.node.expression);
+            }
+        }
+    });
+    return regexAst;
+}
+/**
+ * Merge digits patterns if possible.
+ * @param a
+ * @param b
+ * @returns Merged node.
+ */ function mergeDigits(a, b) {
+    if (isCharNode(a) && isCharNode(b) && a.value === b.value) {
+        return b;
+    }
+    if (isCharNode(a, /\d/) && isDigitRangeNode(b) && Number(b.expressions[0].from.value) - Number(a.value) === 1) {
+        return {
+            ...b,
+            expressions: [
+                {
+                    ...b.expressions[0],
+                    from: a
+                }
+            ]
+        };
+    }
+    if (isDigitRangeNode(a) && isCharNode(b, /\d/) && Number(b.value) - Number(a.expressions[0].to.value) === 1) {
+        return {
+            ...a,
+            expressions: [
+                {
+                    ...a.expressions[0],
+                    to: b
+                }
+            ]
+        };
+    }
+    return null;
+}
+/**
+ * Optimize segment number patterns.
+ * @param patterns
+ * @returns Optimized segment number patterns.
+ */ function optimizeSegmentNumberPatterns(patterns) {
+    return patterns.reduce((patterns, node)=>{
+        const prevNode = patterns[patterns.length - 1];
+        if (prevNode && node.type === "Alternative" && prevNode.type === "Alternative" && node.expressions.length === prevNode.expressions.length) {
+            const merged = prevNode.expressions.reduceRight((exps, exp, i)=>{
+                if (!exps) {
+                    return exps;
+                }
+                const merged = mergeDigits(exp, node.expressions[i]);
+                if (merged) {
+                    exps.unshift(merged);
+                } else {
+                    return null;
+                }
+                return exps;
+            }, []);
+            if (merged) {
+                node.expressions = merged;
+                patterns.pop();
+            }
+        }
+        patterns.push(node);
+        return patterns;
+    }, []);
+}
+
+/**
+ * Transform number to digits array.
+ * @param num - Target number.
+ * @returns Digits array.
+ */ function numberToDigits(num) {
+    return Array.from(num.toString(), Number);
+}
+
+/**
+ * Get digit pattern.
+ * @param digit - Ray start.
+ * @param includes - Include start digit or use next.
+ * @returns Digit pattern.
+ */ function rayRangeDigitPattern(digit, includes) {
+    const rangeStart = digit + Number(!includes);
+    if (rangeStart === 0) {
+        return DigitPatternNode();
+    }
+    if (rangeStart === 9) {
+        return SimpleCharNode("9");
+    }
+    if (rangeStart > 9) {
+        return null;
+    }
+    return CharacterClassNode(ClassRangeNode(SimpleCharNode(rangeStart), SimpleCharNode("9")));
+}
+/**
+ * Create numeric ray pattern.
+ * @param from - Start from this number.
+ * @returns Numeric ray pattern parts.
+ */ function rayToNumberPatterns(from) {
+    if (from === 0) {
+        return [
+            NumberPatternNode()
+        ];
+    }
+    const digits = numberToDigits(from);
+    const digitsCount = digits.length;
+    const other = NumberPatternNode(RangeQuantifierNode(digitsCount + 1));
+    const zeros = digitsCount - 1;
+    if (from / Math.pow(10, zeros) === digits[0]) {
+        return [
+            AlternativeNode(rayRangeDigitPattern(digits[0], true), Array.from({
+                length: zeros
+            }, DigitPatternNode)),
+            other
+        ];
+    }
+    const raysNumberPatterns = digits.reduce((topNodes, _, i)=>{
+        const ri = digitsCount - i - 1;
+        const d = i === 0;
+        let prev = SimpleCharNode("");
+        const nodes = digits.reduce((nodes, digit, j)=>{
+            if (j < ri) {
+                nodes.push(SimpleCharNode(digit));
+            } else if (prev) {
+                if (j > ri) {
+                    nodes.push(DigitPatternNode());
+                } else {
+                    prev = rayRangeDigitPattern(digit, d);
+                    if (prev) {
+                        nodes.push(prev);
+                    } else {
+                        return [];
+                    }
+                }
+            }
+            return nodes;
+        }, []);
+        if (nodes.length) {
+            topNodes.push(nodes);
+        }
+        return topNodes;
+    }, []);
+    const numberPatterns = raysNumberPatterns.map((_)=>AlternativeNode(_));
+    numberPatterns.push(other);
+    return numberPatterns;
+}
+
+/**
+ * Get digit pattern.
+ * @param from - Segment start.
+ * @param to - Segment end.
+ * @param zeros - Zeros to add as prefix.
+ * @returns Digit pattern.
+ */ function segmentRangeNumberPattern(from, to, zeros) {
+    if (to < from) {
+        return null;
+    }
+    const fromNode = SimpleCharNode(from);
+    const toNode = SimpleCharNode(to);
+    const zerosPrefix = typeof zeros === "number" && zeros > 0 ? Array.from({
+        length: zeros
+    }, ()=>SimpleCharNode(0)) : [];
+    const addPrefix = zerosPrefix.length ? (node)=>AlternativeNode(zerosPrefix, node) : (node)=>node;
+    if (from === to) {
+        return addPrefix(fromNode);
+    }
+    if (from === 0 && to === 9) {
+        return addPrefix(DigitPatternNode());
+    }
+    if (to - from === 1) {
+        return addPrefix(CharacterClassNode(fromNode, toNode));
+    }
+    return addPrefix(CharacterClassNode(ClassRangeNode(fromNode, toNode)));
+}
+/**
+ * Split segment range to decade ranges.
+ * @param from - Segment start.
+ * @param to - Segment end.
+ * @returns Ranges.
+ */ function splitToDecadeRanges(from, to) {
+    const ranges = [];
+    let num = from;
+    let decade = 1;
+    do {
+        decade *= 10;
+        if (num < decade) {
+            ranges.push([
+                num,
+                Math.min(decade - 1, to)
+            ]);
+            num = decade;
+        }
+    }while (decade <= to);
+    return ranges;
+}
+/**
+ * Get common and diffs of two numbers (arrays of digits).
+ * @param a - Digits.
+ * @param b - Other digits.
+ * @returns Common part and diffs.
+ */ function splitCommonDiff(a, b) {
+    const len = a.length;
+    if (len !== b.length || a[0] !== b[0]) {
+        return null;
+    }
+    let common = a[0].toString();
+    let currA = 0;
+    let currB = 0;
+    let diffA = "";
+    let diffB = "";
+    for(let i = 1; i < len; i++){
+        currA = a[i];
+        currB = b[i];
+        if (currA === currB && diffA === "" && diffB === "") {
+            common += currA;
+        } else {
+            diffA += currA;
+            diffB += currB;
+        }
+    }
+    return [
+        common,
+        parseInt(diffA, 10),
+        parseInt(diffB, 10)
+    ];
+}
+/**
+ * Get segment patterns.
+ * @param from - Segment start.
+ * @param to - Segment end.
+ * @param digitsInNumber - How many digits should be en number. Will be filled by zeros.
+ * @returns Segment patterns.
+ */ function segmentToNumberPatterns(from, to, digitsInNumber = 0) {
+    const fromDigits = numberToDigits(from);
+    const digitsCount = fromDigits.length;
+    if (from < 10 && to < 10 || from === to) {
+        const zeros = digitsInNumber - digitsCount;
+        return [
+            segmentRangeNumberPattern(from, to, zeros)
+        ];
+    }
+    const toDigits = numberToDigits(to);
+    if (digitsCount !== toDigits.length) {
+        const decadeRanges = splitToDecadeRanges(from, to);
+        const parts = concat(decadeRanges.map(([from, to])=>segmentToNumberPatterns(from, to, digitsInNumber)));
+        return parts;
+    }
+    const commonStart = splitCommonDiff(fromDigits, toDigits);
+    if (Array.isArray(commonStart)) {
+        const [common, from1, to1] = commonStart;
+        const digitsInNumber1 = digitsCount - common.length;
+        const diffParts = segmentToNumberPatterns(from1, to1, digitsInNumber1);
+        return [
+            AlternativeNode(Array.from(common, SimpleCharNode), DisjunctionCapturingGroupNode(diffParts))
+        ];
+    }
+    const range = Array.from({
+        length: digitsCount - 1
+    });
+    const middleSegment = segmentRangeNumberPattern(fromDigits[0] + 1, toDigits[0] - 1);
+    const parts1 = [
+        ...range.map((_, i)=>{
+            const ri = digitsCount - i - 1;
+            const d = Number(i > 0);
+            return AlternativeNode(fromDigits.map((digit, j)=>{
+                if (j < ri) {
+                    return SimpleCharNode(digit);
+                }
+                if (j > ri) {
+                    return segmentRangeNumberPattern(0, 9);
+                }
+                return segmentRangeNumberPattern(digit + d, 9);
+            }));
+        }),
+        // but output more readable
+        ...middleSegment ? [
+            AlternativeNode(middleSegment, Array.from({
+                length: digitsCount - 1
+            }, ()=>DigitPatternNode()))
+        ] : [],
+        ...range.map((_, i)=>{
+            const ri = digitsCount - i - 1;
+            const d = Number(i > 0);
+            return AlternativeNode(toDigits.map((digit, j)=>{
+                if (j < ri) {
+                    return SimpleCharNode(digit);
+                }
+                if (j > ri) {
+                    return segmentRangeNumberPattern(0, 9);
+                }
+                return segmentRangeNumberPattern(0, digit - d);
+            }));
+        })
+    ];
+    return optimizeSegmentNumberPatterns(parts1);
+}
+
+/**
+ * Get regex for given numeric range.
+ * @param from - Range start.
+ * @param to - Range end.
+ * @returns Range pattern.
+ */ function rangeToRegex(from, to = Infinity) {
+    if (from === Infinity) {
+        return NumberPatternNode();
+    }
+    const numberPatterns = to === Infinity ? rayToNumberPatterns(from) : segmentToNumberPatterns(from, to);
+    const regex = DisjunctionCapturingGroupNode(numberPatterns);
+    return regex;
+}
+
+/**
+ * Find matched versions.
+ * @param minVersion - Semver version.
+ * @param maxVersion - Semver version.
+ * @param bases - Base semver versions.
+ * @param options - Semver compare options.
+ * @returns Matched versions.
+ */ function findMatchedVersions(minVersion, maxVersion, bases, options) {
+    const compareOptions = {
+        ...options,
+        allowHigherVersions: true
+    };
+    const minComparator = (ver)=>compareSemvers(ver, minVersion, compareOptions);
+    const maxComparator = (ver)=>compareSemvers(maxVersion, ver, compareOptions);
+    const comparator = minVersion && maxVersion ? (ver)=>minComparator(ver) && maxComparator(ver) : minVersion ? minComparator : maxVersion ? maxComparator : ()=>true;
+    return bases.filter(comparator);
+}
+
+/**
+ * Get useragent regexes for given browsers.
+ * @param browsers - Browsers.
+ * @param options - Semver compare options.
+ * @param targetRegexes - Override default regexes.
+ * @returns User agent regexes.
+ */ function getRegexesForBrowsers(browsers, options, targetRegexes = ua_regexes_lite__WEBPACK_IMPORTED_MODULE_2__.regexes) {
+    const result = [];
+    let prevFamily = "";
+    let prevRegexIsGlobal = false;
+    targetRegexes.forEach((regex)=>{
+        const requestVersions = browsers.get(regex.family);
+        if (!requestVersions) {
+            return;
+        }
+        let { version , minVersion , maxVersion  } = regex;
+        if (version) {
+            minVersion = version;
+            maxVersion = version;
+        }
+        let matchedVersions = findMatchedVersions(minVersion, maxVersion, requestVersions, options);
+        if (matchedVersions.length) {
+            // regex contains global patch
+            if (prevFamily === regex.family && prevRegexIsGlobal) {
+                version = undefined;
+                minVersion = undefined;
+                maxVersion = undefined;
+                matchedVersions = requestVersions;
+                result.pop();
+            }
+            result.push({
+                ...regex,
+                version,
+                minVersion,
+                maxVersion,
+                requestVersions,
+                matchedVersions
+            });
+        }
+        prevRegexIsGlobal = !version && !minVersion && !maxVersion;
+        prevFamily = regex.family;
+    });
+    return result;
+}
+
+/**
+ * Compile regexes.
+ * @param regexes - Objects with info about compiled regexes.
+ * @returns Objects with info about compiled regexes.
+ */ function compileRegexes(regexes) {
+    return regexes.map(({ regexAst , ...regex })=>{
+        const optimizedRegexAst = optimizeRegex(regexAst);
+        return {
+            ...regex,
+            regexAst: optimizedRegexAst,
+            regex: toRegex(optimizedRegexAst)
+        };
+    });
+}
+/**
+ * Compile regex.
+ * @param regexes - Objects with info about compiled regexes.
+ * @returns Compiled common regex.
+ */ function compileRegex(regexes) {
+    const partsRegexes = regexes.map(({ regexAst  })=>CapturingGroupNode(regexAst.body));
+    const regexAst = optimizeRegex(AstRegExpNode(DisjunctionCapturingGroupNode(partsRegexes)));
+    return toRegex(regexAst);
+}
+
+/**
+ * Get number patterns count from the regex.
+ * @param regex - Target regex.
+ * @returns Number patterns count.
+ */ function getNumberPatternsCount(regex) {
+    const regexAst = parseRegex(regex);
+    let count = 0;
+    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, {
+        Group (nodePath) {
+            if (isNumberPatternNode(nodePath.node)) {
+                count++;
+            }
+        }
+    });
+    return count;
+}
+function replaceNumberPatterns(regex, numbers, numberPatternsCount) {
+    let regexAst = parseRegex(regex);
+    const numbersToReplace = typeof numberPatternsCount === "number" && numberPatternsCount < numbers.length ? numbers.slice(0, numberPatternsCount) : numbers.slice();
+    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
+        every () {
+            return Boolean(numbersToReplace.length);
+        },
+        Group (nodePath) {
+            if (isNumberPatternNode(nodePath.node) && numbersToReplace.length) {
+                if (regexAst === nodePath.node) {
+                    regexAst = numbersToReplace.shift();
+                } else {
+                    nodePath.replace(numbersToReplace.shift());
+                }
+                return false;
+            }
+            return true;
+        }
+    }));
+    return regexAst;
+}
+/**
+ * Get from regex part with number patterns.
+ * @param regex - Target regex.
+ * @param numberPatternsCount - Number patterns to extract.
+ * @returns Regex part with number patterns.
+ */ function getNumberPatternsPart(regex, numberPatternsCount) {
+    const regexAst = parseRegex(regex);
+    const maxNumbersCount = Math.min(getNumberPatternsCount(regexAst), numberPatternsCount || Infinity);
+    const expressions = [];
+    let numbersCounter = 0;
+    let containsNumberPattern = false;
+    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
+        every: {
+            pre ({ node , parent  }) {
+                if (node === regexAst) {
+                    return true;
+                }
+                if (!isExpressionNode(node)) {
+                    return false;
+                }
+                if (parent === regexAst) {
+                    containsNumberPattern = false;
+                }
+                return numbersCounter < maxNumbersCount;
+            },
+            post ({ node , parent  }) {
+                if (node !== regexAst && parent === regexAst && isExpressionNode(node) && (containsNumberPattern || numbersCounter > 0 && numbersCounter < maxNumbersCount)) {
+                    expressions.push(node);
+                }
+            }
+        },
+        Group (nodePath) {
+            if (isNumberPatternNode(nodePath.node) && numbersCounter < maxNumbersCount) {
+                containsNumberPattern = true;
+                numbersCounter++;
+                return false;
+            }
+            return true;
+        }
+    }));
+    if (expressions.length === 1 && !isNumberPatternNode(expressions[0])) {
+        return getNumberPatternsPart(expressions[0], maxNumbersCount);
+    }
+    return expressions;
+}
+/**
+ * Ranged semver to regex patterns.
+ * @param rangedVersion - Ranged semver.
+ * @param options - Semver compare options.
+ * @returns Array of regex pattern.
+ */ function rangedSemverToRegex(rangedVersion, options) {
+    const { ignoreMinor , ignorePatch , allowHigherVersions  } = options;
+    const ignoreIndex = rangedVersion[0] === Infinity ? 0 : ignoreMinor ? 1 : ignorePatch ? 2 : 3;
+    if (allowHigherVersions) {
+        const numberPatterns = [];
+        let prevWasZero = true;
+        let d = 0;
+        let start = 0;
+        const createMapper = (i)=>(range, j)=>{
+                if (j >= ignoreIndex) {
+                    return NumberPatternNode();
+                }
+                start = Array.isArray(range) ? range[0] : range;
+                if (j < i) {
+                    return NumberCharsNode(start);
+                }
+                if (j > i) {
+                    return NumberPatternNode();
+                }
+                return rangeToRegex(start + d);
+            };
+        for(let i = ignoreIndex - 1; i >= 0; i--){
+            if (prevWasZero && !rangedVersion[i]) {
+                continue;
+            }
+            prevWasZero = false;
+            numberPatterns.push(rangedVersion.map(createMapper(i)));
+            d = 1;
+        }
+        return numberPatterns;
+    }
+    const numberPatterns1 = rangedVersion.map((range, i)=>{
+        if (i >= ignoreIndex) {
+            return NumberPatternNode();
+        }
+        if (Array.isArray(range)) {
+            return rangeToRegex(range[0], range[1]);
+        }
+        return NumberCharsNode(range);
+    });
+    return [
+        numberPatterns1
+    ];
+}
+
+function applyVersionsToRegex(regex, versions, options) {
+    const { allowHigherVersions  } = options;
+    const regexAst = parseRegex(regex);
+    const finalVersions = allowHigherVersions && versions.length ? [
+        versions[0]
+    ] : versions;
+    const maxRequiredPartsCount = finalVersions.reduce((maxRequiredPartsCount, version)=>Math.max(maxRequiredPartsCount, getRequiredSemverPartsCount(version, options)), 1);
+    const numberPatternsPart = getNumberPatternsPart(regexAst, maxRequiredPartsCount);
+    const versionsPart = DisjunctionCapturingGroupNode(...finalVersions.map((version)=>rangedSemverToRegex(version, options).map((parts)=>replaceNumberPatterns(AlternativeNode(clone(numberPatternsPart)), parts, maxRequiredPartsCount))));
+    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
+        every (nodePath) {
+            if (!numberPatternsPart.length) {
+                return false;
+            }
+            if (nodePath.node === numberPatternsPart[0]) {
+                if (numberPatternsPart.length === 1) {
+                    nodePath.replace(versionsPart);
+                } else {
+                    nodePath.remove();
+                }
+                numberPatternsPart.shift();
+            }
+            return true;
+        }
+    }));
+    return regexAst;
+}
+/**
+ * Apply browser versions to info objects.
+ * @param browserRegexes - Objects with requested browser version and regex.
+ * @param options - Semver compare options.
+ * @returns Objects with requested browser version and regex special for this version.
+ */ function applyVersionsToRegexes(browserRegexes, options) {
+    return browserRegexes.map(({ regex: sourceRegex , version , maxVersion , matchedVersions , ...other })=>{
+        let regexAst = parseRegex(sourceRegex);
+        if (!version) {
+            regexAst = applyVersionsToRegex(regexAst, versionsListToRanges(matchedVersions), {
+                ...options,
+                allowHigherVersions: !maxVersion && options.allowHigherVersions
+            });
+        }
+        return {
+            regex: null,
+            sourceRegex,
+            regexAst,
+            version,
+            maxVersion,
+            matchedVersions,
+            ...other
+        };
+    });
+}
+
+const defaultOptions = {
+    ignoreMinor: false,
+    ignorePatch: true,
+    allowZeroSubversions: false,
+    allowHigherVersions: false
+};
+/**
+ * Get source regexes objects from browserslist query.
+ * @param options - Browserslist and semver compare options.
+ * @returns Source regexes objects.
+ */ function getPreUserAgentRegexes(options = {}) {
+    const finalOptions = {
+        ...defaultOptions,
+        ...options
+    };
+    const browsersList = getBrowsersList(finalOptions);
+    const mergedBrowsers = mergeBrowserVersions(browsersList);
+    const sourceRegexes = getRegexesForBrowsers(mergedBrowsers, finalOptions);
+    const versionedRegexes = applyVersionsToRegexes(sourceRegexes, finalOptions);
+    return versionedRegexes;
+}
+/**
+ * Compile browserslist query to regexes.
+ * @param options - Browserslist and semver compare options.
+ * @returns Objects with info about compiled regexes.
+ */ function getUserAgentRegexes(options = {}) {
+    return compileRegexes(getPreUserAgentRegexes(options));
+}
+/**
+ * Compile browserslist query to regex.
+ * @param options - Browserslist and semver compare options.
+ * @returns Compiled regex.
+ */ function getUserAgentRegex(options = {}) {
+    return compileRegex(getPreUserAgentRegexes(options));
+}
+
+
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/browserslist/browser.js":
 /*!**********************************************!*\
   !*** ./node_modules/browserslist/browser.js ***!
@@ -435,6 +1755,8 @@ module.exports = {
 
   findConfig: noop,
 
+  findConfigFile: noop,
+
   clearCaches: noop,
 
   oldDataWarning: noop,
@@ -475,13 +1797,13 @@ module.exports = BrowserslistError
 
 var jsReleases = __webpack_require__(/*! node-releases/data/processed/envs.json */ "./node_modules/node-releases/data/processed/envs.json")
 var agents = (__webpack_require__(/*! caniuse-lite/dist/unpacker/agents */ "./node_modules/caniuse-lite/dist/unpacker/agents.js").agents)
+var e2c = __webpack_require__(/*! electron-to-chromium/versions */ "./node_modules/electron-to-chromium/versions.js")
 var jsEOL = __webpack_require__(/*! node-releases/data/release-schedule/release-schedule.json */ "./node_modules/node-releases/data/release-schedule/release-schedule.json")
 var path = __webpack_require__(/*! path */ "?3465")
-var e2c = __webpack_require__(/*! electron-to-chromium/versions */ "./node_modules/electron-to-chromium/versions.js")
 
 var BrowserslistError = __webpack_require__(/*! ./error */ "./node_modules/browserslist/error.js")
-var parse = __webpack_require__(/*! ./parse */ "./node_modules/browserslist/parse.js")
-var env = __webpack_require__(/*! ./node */ "./node_modules/browserslist/browser.js") // Will load browser.js in webpack
+var env = __webpack_require__(/*! ./node */ "./node_modules/browserslist/browser.js")
+var parseWithoutCache = __webpack_require__(/*! ./parse */ "./node_modules/browserslist/parse.js") // Will load browser.js in webpack
 
 var YEAR = 365.259641 * 24 * 60 * 60 * 1000
 var ANDROID_EVERGREEN_FIRST = '37'
@@ -794,7 +2116,7 @@ function isSupported(flags, withPartial) {
 }
 
 function resolve(queries, context) {
-  return parse(QUERIES, queries).reduce(function (result, node, index) {
+  return parseQueries(queries).reduce(function (result, node, index) {
     if (node.not && index === 0) {
       throw new BrowserslistError(
         'Write any browsers query (for instance, `defaults`) ' +
@@ -870,18 +2192,25 @@ function checkQueries(queries) {
 }
 
 var cache = {}
+var parseCache = {}
 
 function browserslist(queries, opts) {
   opts = prepareOpts(opts)
   queries = prepareQueries(queries, opts)
   checkQueries(queries)
 
+  var needsPath = parseQueries(queries).some(function (node) {
+    return QUERIES[node.type].needsPath
+  })
   var context = {
     ignoreUnknownVersions: opts.ignoreUnknownVersions,
     dangerousExtend: opts.dangerousExtend,
     mobileToDesktop: opts.mobileToDesktop,
-    path: opts.path,
     env: opts.env
+  }
+  // Removing to avoid using context.path without marking query as needsPath
+  if (needsPath) {
+    context.path = opts.path
   }
 
   env.oldDataWarning(browserslist.data)
@@ -916,11 +2245,35 @@ function browserslist(queries, opts) {
   return result
 }
 
+function parseQueries(queries) {
+  var cacheKey = JSON.stringify(queries)
+  if (cacheKey in parseCache) return parseCache[cacheKey]
+  var result = parseWithoutCache(QUERIES, queries)
+  if (!env.env.BROWSERSLIST_DISABLE_CACHE) {
+    parseCache[cacheKey] = result
+  }
+  return result
+}
+
+function loadCustomUsage(context, config) {
+  var stats = env.loadStat(context, config, browserslist.data)
+  if (stats) {
+    context.customUsage = {}
+    for (var browser in stats) {
+      fillUsage(context.customUsage, browser, stats[browser])
+    }
+  }
+  if (!context.customUsage) {
+    throw new BrowserslistError('Custom usage statistics was not provided')
+  }
+  return context.customUsage
+}
+
 browserslist.parse = function (queries, opts) {
   opts = prepareOpts(opts)
   queries = prepareQueries(queries, opts)
   checkQueries(queries)
-  return parse(QUERIES, queries)
+  return parseQueries(queries)
 }
 
 // Will be filled by Can I Use data below
@@ -966,6 +2319,7 @@ browserslist.versionAliases = {}
 browserslist.clearCaches = env.clearCaches
 browserslist.parseConfig = env.parseConfig
 browserslist.readConfig = env.readConfig
+browserslist.findConfigFile = env.findConfigFile
 browserslist.findConfig = env.findConfig
 browserslist.loadConfig = env.loadConfig
 
@@ -1055,19 +2409,21 @@ function coverQuery(context, node) {
       env.loadCountry(browserslist.usage, place, browserslist.data)
       usage = browserslist.usage[place]
     }
+  } else if (node.config) {
+    usage = loadCustomUsage(context, node.config)
   }
   var versions = Object.keys(usage).sort(function (a, b) {
     return usage[b] - usage[a]
   })
-  var coveraged = 0
+  var covered = 0
   var result = []
   var version
   for (var i = 0; i < versions.length; i++) {
     version = versions[i]
     if (usage[version] === 0) break
-    coveraged += usage[version]
+    covered += usage[version]
     result.push(version)
-    if (coveraged >= coverage) break
+    if (covered >= coverage) break
   }
   return result
 }
@@ -1286,17 +2642,7 @@ var QUERIES = {
     regexp: /^(>=?|<=?)\s*(\d+|\d+\.\d+|\.\d+)%\s+in\s+(\S+)\s+stats$/,
     select: function (context, node) {
       var popularity = parseFloat(node.popularity)
-      var stats = env.loadStat(context, node.config, browserslist.data)
-      if (stats) {
-        context.customUsage = {}
-        for (var browser in stats) {
-          fillUsage(context.customUsage, browser, stats[browser])
-        }
-      }
-      if (!context.customUsage) {
-        throw new BrowserslistError('Custom usage statistics was not provided')
-      }
-      var usage = context.customUsage
+      var usage = loadCustomUsage(context, node.config)
       return Object.keys(usage).reduce(function (result, version) {
         var percentage = usage[version]
         if (percentage == null) {
@@ -1368,6 +2714,11 @@ var QUERIES = {
   cover_in: {
     matches: ['coverage', 'place'],
     regexp: /^cover\s+(\d+|\d+\.\d+|\.\d+)%\s+in\s+(my\s+stats|(alt-)?\w\w)$/i,
+    select: coverQuery
+  },
+  cover_config: {
+    matches: ['coverage', 'config'],
+    regexp: /^cover\s+(\d+|\d+\.\d+|\.\d+)%\s+in\s+(\S+)\s+stats$/i,
     select: coverQuery
   },
   supports: {
@@ -1495,7 +2846,7 @@ var QUERIES = {
     matches: [],
     regexp: /^(firefox|ff|fx)\s+esr$/i,
     select: function () {
-      return ['firefox 115', 'firefox 128']
+      return ['firefox 128']
     }
   },
   opera_mini_all: {
@@ -1607,6 +2958,7 @@ var QUERIES = {
   browserslist_config: {
     matches: [],
     regexp: /^browserslist config$/i,
+    needsPath: true,
     select: function (context) {
       return browserslist(undefined, context)
     }
@@ -1614,6 +2966,7 @@ var QUERIES = {
   extends: {
     matches: ['config'],
     regexp: /^extends (.+)$/i,
+    needsPath: true,
     select: function (context, node) {
       return resolve(env.loadQueries(context, node.config), context)
     }
@@ -1709,7 +3062,7 @@ function flatten(array) {
 }
 
 function find(string, predicate) {
-  for (var n = 1, max = string.length; n <= max; n++) {
+  for (var max = string.length, n = 1; n <= max; n++) {
     var parsed = string.substr(-n, n)
     if (predicate(parsed, n, max)) {
       return string.slice(0, -n)
@@ -1786,7 +3139,7 @@ module.exports = function parse(all, queries) {
   \**************************************************/
 /***/ ((module) => {
 
-module.exports={A:{A:{K:0,E:0,F:0.0300576,G:0.0601152,A:0,B:0.541037,bC:0},B:"ms",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","bC","K","E","F","G","A","B","","",""],E:"IE",F:{bC:962323200,K:998870400,E:1161129600,F:1237420800,G:1300060800,A:1346716800,B:1381968000}},B:{A:{"1":0.007426,"2":0.014852,"3":0.011139,"4":0.007426,"5":0.007426,"6":0.011139,"7":0.007426,"8":0.014852,"9":0.03713,C:0,L:0,M:0,H:0,N:0,O:0.003713,P:0.03713,Q:0,I:0,R:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0,a:0,b:0.011139,c:0,d:0,e:0,f:0,g:0,h:0,i:0,j:0,k:0,l:0,m:0,n:0,o:0,p:0,q:0.003713,r:0.007426,s:0.063121,t:0.007426,u:0.007426,AB:0.018565,BB:0.044556,CB:0.059408,DB:0.133668,EB:2.41716,FB:2.03844,D:0.007426},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","C","L","M","H","N","O","P","Q","I","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","1","2","3","4","5","6","7","8","9","AB","BB","CB","DB","EB","FB","D","","",""],E:"Edge",F:{"1":1680825600,"2":1683158400,"3":1685664000,"4":1689897600,"5":1692576000,"6":1694649600,"7":1697155200,"8":1698969600,"9":1701993600,C:1438128000,L:1447286400,M:1470096000,H:1491868800,N:1508198400,O:1525046400,P:1542067200,Q:1579046400,I:1581033600,R:1586736000,S:1590019200,T:1594857600,U:1598486400,V:1602201600,W:1605830400,X:1611360000,Y:1614816000,Z:1618358400,a:1622073600,b:1626912000,c:1630627200,d:1632441600,e:1634774400,f:1637539200,g:1641427200,h:1643932800,i:1646265600,j:1649635200,k:1651190400,l:1653955200,m:1655942400,n:1659657600,o:1661990400,p:1664755200,q:1666915200,r:1670198400,s:1673481600,t:1675900800,u:1678665600,AB:1706227200,BB:1708732800,CB:1711152000,DB:1713398400,EB:1715990400,FB:1718841600,D:1721865600},D:{C:"ms",L:"ms",M:"ms",H:"ms",N:"ms",O:"ms",P:"ms"}},C:{A:{"0":0,"1":0,"2":0.014852,"3":0,"4":0.367587,"5":0,"6":0.007426,"7":0.070547,"8":0,"9":0.007426,cC:0,DC:0,J:0.003713,GB:0,K:0,E:0,F:0,G:0,A:0,B:0.018565,C:0,L:0,M:0,H:0,N:0,O:0,P:0,HB:0,v:0,w:0,x:0,y:0,z:0,IB:0,JB:0,KB:0,LB:0,MB:0,NB:0,OB:0,PB:0,QB:0.003713,RB:0,SB:0,TB:0,UB:0,VB:0,WB:0,XB:0,YB:0,ZB:0.007426,aB:0.007426,bB:0.007426,cB:0,dB:0,eB:0,fB:0,gB:0,hB:0,iB:0.051982,jB:0.003713,kB:0.003713,lB:0,mB:0.018565,nB:0,oB:0,EC:0.003713,pB:0,FC:0,qB:0,rB:0,sB:0,tB:0,uB:0,vB:0,wB:0,xB:0,yB:0,zB:0,"0B":0,"1B":0,"2B":0,"3B":0,"4B":0,"5B":0,"6B":0.014852,Q:0,I:0,R:0,GC:0,S:0,T:0,U:0,V:0,W:0,X:0.007426,Y:0,Z:0,a:0,b:0,c:0,d:0.003713,e:0,f:0,g:0,h:0,i:0,j:0,k:0,l:0.007426,m:0.007426,n:0,o:0,p:0,q:0,r:0.003713,s:0.007426,t:0,u:0,AB:0.007426,BB:0.007426,CB:0.011139,DB:0.018565,EB:0.029704,FB:0.790869,D:0.794582,HC:0.007426,IC:0,JC:0,dC:0,eC:0,fC:0},B:"moz",C:["cC","DC","eC","fC","J","GB","K","E","F","G","A","B","C","L","M","H","N","O","P","HB","v","w","x","y","z","0","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","TB","UB","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","EC","pB","FC","qB","rB","sB","tB","uB","vB","wB","xB","yB","zB","0B","1B","2B","3B","4B","5B","6B","Q","I","R","GC","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","1","2","3","4","5","6","7","8","9","AB","BB","CB","DB","EB","FB","D","HC","IC","JC","dC"],E:"Firefox",F:{"0":1379376000,"1":1681171200,"2":1683590400,"3":1686009600,"4":1688428800,"5":1690848000,"6":1693267200,"7":1695686400,"8":1698105600,"9":1700524800,cC:1161648000,DC:1213660800,eC:1246320000,fC:1264032000,J:1300752000,GB:1308614400,K:1313452800,E:1317081600,F:1317081600,G:1320710400,A:1324339200,B:1327968000,C:1331596800,L:1335225600,M:1338854400,H:1342483200,N:1346112000,O:1349740800,P:1353628800,HB:1357603200,v:1361232000,w:1364860800,x:1368489600,y:1372118400,z:1375747200,IB:1386633600,JB:1391472000,KB:1395100800,LB:1398729600,MB:1402358400,NB:1405987200,OB:1409616000,PB:1413244800,QB:1417392000,RB:1421107200,SB:1424736000,TB:1428278400,UB:1431475200,VB:1435881600,WB:1439251200,XB:1442880000,YB:1446508800,ZB:1450137600,aB:1453852800,bB:1457395200,cB:1461628800,dB:1465257600,eB:1470096000,fB:1474329600,gB:1479168000,hB:1485216000,iB:1488844800,jB:1492560000,kB:1497312000,lB:1502150400,mB:1506556800,nB:1510617600,oB:1516665600,EC:1520985600,pB:1525824000,FC:1529971200,qB:1536105600,rB:1540252800,sB:1544486400,tB:1548720000,uB:1552953600,vB:1558396800,wB:1562630400,xB:1567468800,yB:1571788800,zB:1575331200,"0B":1578355200,"1B":1581379200,"2B":1583798400,"3B":1586304000,"4B":1588636800,"5B":1591056000,"6B":1593475200,Q:1595894400,I:1598313600,R:1600732800,GC:1603152000,S:1605571200,T:1607990400,U:1611619200,V:1614038400,W:1616457600,X:1618790400,Y:1622505600,Z:1626134400,a:1628553600,b:1630972800,c:1633392000,d:1635811200,e:1638835200,f:1641859200,g:1644364800,h:1646697600,i:1649116800,j:1651536000,k:1653955200,l:1656374400,m:1658793600,n:1661212800,o:1663632000,p:1666051200,q:1668470400,r:1670889600,s:1673913600,t:1676332800,u:1678752000,AB:1702944000,BB:1705968000,CB:1708387200,DB:1710806400,EB:1713225600,FB:1715644800,D:1718064000,HC:1720483200,IC:null,JC:null,dC:null}},D:{A:{"0":0,"1":0.044556,"2":0.096538,"3":0.092825,"4":0.029704,"5":0.189363,"6":0.107677,"7":0.081686,"8":0.066834,"9":0.133668,J:0,GB:0,K:0,E:0,F:0,G:0,A:0,B:0,C:0,L:0,M:0,H:0,N:0,O:0,P:0,HB:0,v:0,w:0,x:0,y:0,z:0,IB:0,JB:0,KB:0,LB:0,MB:0,NB:0,OB:0,PB:0,QB:0.003713,RB:0,SB:0,TB:0,UB:0.011139,VB:0,WB:0,XB:0,YB:0,ZB:0,aB:0,bB:0,cB:0,dB:0.007426,eB:0.025991,fB:0.022278,gB:0.011139,hB:0,iB:0.003713,jB:0.007426,kB:0,lB:0,mB:0.011139,nB:0,oB:0.003713,EC:0,pB:0,FC:0.003713,qB:0,rB:0.003713,sB:0,tB:0,uB:0.022278,vB:0.003713,wB:0,xB:0.022278,yB:0.070547,zB:0.003713,"0B":0,"1B":0.011139,"2B":0.007426,"3B":0.007426,"4B":0.007426,"5B":0.029704,"6B":0.018565,Q:0.107677,I:0.011139,R:0.018565,S:0.033417,T:0.007426,U:0.011139,V:0.044556,W:0.070547,X:0.011139,Y:0.011139,Z:0.014852,a:0.059408,b:0.018565,c:0.025991,d:0.059408,e:0.011139,f:0.014852,g:0.018565,h:0.070547,i:0.03713,j:0.040843,k:0.055695,l:0.03713,m:0.167085,n:0.096538,o:0.014852,p:0.033417,q:0.033417,r:0.051982,s:1.4852,t:0.159659,u:0.040843,AB:0.211641,BB:0.181937,CB:0.278475,DB:0.983945,EB:10.1922,FB:6.28982,D:0.025991,HC:0.007426,IC:0,JC:0},B:"webkit",C:["","","","","","","J","GB","K","E","F","G","A","B","C","L","M","H","N","O","P","HB","v","w","x","y","z","0","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","TB","UB","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","EC","pB","FC","qB","rB","sB","tB","uB","vB","wB","xB","yB","zB","0B","1B","2B","3B","4B","5B","6B","Q","I","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","1","2","3","4","5","6","7","8","9","AB","BB","CB","DB","EB","FB","D","HC","IC","JC"],E:"Chrome",F:{"0":1357862400,"1":1680566400,"2":1682985600,"3":1685404800,"4":1689724800,"5":1692057600,"6":1694476800,"7":1696896000,"8":1698710400,"9":1701993600,J:1264377600,GB:1274745600,K:1283385600,E:1287619200,F:1291248000,G:1296777600,A:1299542400,B:1303862400,C:1307404800,L:1312243200,M:1316131200,H:1316131200,N:1319500800,O:1323734400,P:1328659200,HB:1332892800,v:1337040000,w:1340668800,x:1343692800,y:1348531200,z:1352246400,IB:1361404800,JB:1364428800,KB:1369094400,LB:1374105600,MB:1376956800,NB:1384214400,OB:1389657600,PB:1392940800,QB:1397001600,RB:1400544000,SB:1405468800,TB:1409011200,UB:1412640000,VB:1416268800,WB:1421798400,XB:1425513600,YB:1429401600,ZB:1432080000,aB:1437523200,bB:1441152000,cB:1444780800,dB:1449014400,eB:1453248000,fB:1456963200,gB:1460592000,hB:1464134400,iB:1469059200,jB:1472601600,kB:1476230400,lB:1480550400,mB:1485302400,nB:1489017600,oB:1492560000,EC:1496707200,pB:1500940800,FC:1504569600,qB:1508198400,rB:1512518400,sB:1516752000,tB:1520294400,uB:1523923200,vB:1527552000,wB:1532390400,xB:1536019200,yB:1539648000,zB:1543968000,"0B":1548720000,"1B":1552348800,"2B":1555977600,"3B":1559606400,"4B":1564444800,"5B":1568073600,"6B":1571702400,Q:1575936000,I:1580860800,R:1586304000,S:1589846400,T:1594684800,U:1598313600,V:1601942400,W:1605571200,X:1611014400,Y:1614556800,Z:1618272000,a:1621987200,b:1626739200,c:1630368000,d:1632268800,e:1634601600,f:1637020800,g:1641340800,h:1643673600,i:1646092800,j:1648512000,k:1650931200,l:1653350400,m:1655769600,n:1659398400,o:1661817600,p:1664236800,q:1666656000,r:1669680000,s:1673308800,t:1675728000,u:1678147200,AB:1705968000,BB:1708387200,CB:1710806400,DB:1713225600,EB:1715644800,FB:1718064000,D:1721174400,HC:null,IC:null,JC:null}},E:{A:{J:0,GB:0,K:0,E:0,F:0.003713,G:0.003713,A:0,B:0,C:0,L:0.007426,M:0.033417,H:0.007426,gC:0,KC:0,hC:0,iC:0,jC:0,kC:0,LC:0,"7B":0.007426,"8B":0.011139,lC:0.063121,mC:0.089112,nC:0.025991,MC:0.011139,NC:0.022278,"9B":0.033417,oC:0.241345,AC:0.029704,OC:0.044556,PC:0.03713,QC:0.089112,RC:0.033417,SC:0.055695,pC:0.33417,BC:0.025991,TC:0.055695,UC:0.066834,VC:0.07426,WC:0.360161,XC:1.48891,YC:0,CC:0.003713,qC:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","gC","KC","J","GB","hC","K","iC","E","jC","F","G","kC","A","LC","B","7B","C","8B","L","lC","M","mC","H","nC","MC","NC","9B","oC","AC","OC","PC","QC","RC","SC","pC","BC","TC","UC","VC","WC","XC","YC","CC","qC"],E:"Safari",F:{gC:1205798400,KC:1226534400,J:1244419200,GB:1275868800,hC:1311120000,K:1343174400,iC:1382400000,E:1382400000,jC:1410998400,F:1413417600,G:1443657600,kC:1458518400,A:1474329600,LC:1490572800,B:1505779200,"7B":1522281600,C:1537142400,"8B":1553472000,L:1568851200,lC:1585008000,M:1600214400,mC:1619395200,H:1632096000,nC:1635292800,MC:1639353600,NC:1647216000,"9B":1652745600,oC:1658275200,AC:1662940800,OC:1666569600,PC:1670889600,QC:1674432000,RC:1679875200,SC:1684368000,pC:1690156800,BC:1695686400,TC:1698192000,UC:1702252800,VC:1705881600,WC:1709596800,XC:1715558400,YC:null,CC:null,qC:null}},F:{A:{"0":0,G:0,B:0,C:0,H:0,N:0,O:0,P:0,HB:0,v:0,w:0,x:0,y:0,z:0,IB:0,JB:0,KB:0,LB:0,MB:0,NB:0,OB:0,PB:0,QB:0,RB:0,SB:0.003713,TB:0,UB:0,VB:0,WB:0.003713,XB:0,YB:0,ZB:0,aB:0,bB:0,cB:0.014852,dB:0,eB:0,fB:0,gB:0,hB:0,iB:0,jB:0,kB:0,lB:0,mB:0,nB:0,oB:0,pB:0,qB:0,rB:0,sB:0,tB:0,uB:0,vB:0,wB:0,xB:0,yB:0,zB:0,"0B":0,"1B":0,"2B":0,"3B":0,"4B":0,"5B":0,"6B":0,Q:0,I:0,R:0,GC:0,S:0.007426,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0,a:0,b:0,c:0,d:0,e:0.040843,f:0,g:0,h:0,i:0,j:0,k:0,l:0.044556,m:0,n:0,o:0,p:0,q:0.003713,r:0,s:0.497542,t:0.326744,u:0.048269,rC:0,sC:0,tC:0,uC:0,"7B":0,ZC:0,vC:0,"8B":0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","G","rC","sC","tC","uC","B","7B","ZC","vC","C","8B","H","N","O","P","HB","v","w","x","y","z","0","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","TB","UB","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","pB","qB","rB","sB","tB","uB","vB","wB","xB","yB","zB","0B","1B","2B","3B","4B","5B","6B","Q","I","R","GC","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","","",""],E:"Opera",F:{"0":1413331200,G:1150761600,rC:1223424000,sC:1251763200,tC:1267488000,uC:1277942400,B:1292457600,"7B":1302566400,ZC:1309219200,vC:1323129600,C:1323129600,"8B":1352073600,H:1372723200,N:1377561600,O:1381104000,P:1386288000,HB:1390867200,v:1393891200,w:1399334400,x:1401753600,y:1405987200,z:1409616000,IB:1417132800,JB:1422316800,KB:1425945600,LB:1430179200,MB:1433808000,NB:1438646400,OB:1442448000,PB:1445904000,QB:1449100800,RB:1454371200,SB:1457308800,TB:1462320000,UB:1465344000,VB:1470096000,WB:1474329600,XB:1477267200,YB:1481587200,ZB:1486425600,aB:1490054400,bB:1494374400,cB:1498003200,dB:1502236800,eB:1506470400,fB:1510099200,gB:1515024000,hB:1517961600,iB:1521676800,jB:1525910400,kB:1530144000,lB:1534982400,mB:1537833600,nB:1543363200,oB:1548201600,pB:1554768000,qB:1561593600,rB:1566259200,sB:1570406400,tB:1573689600,uB:1578441600,vB:1583971200,wB:1587513600,xB:1592956800,yB:1595894400,zB:1600128000,"0B":1603238400,"1B":1613520000,"2B":1612224000,"3B":1616544000,"4B":1619568000,"5B":1623715200,"6B":1627948800,Q:1631577600,I:1633392000,R:1635984000,GC:1638403200,S:1642550400,T:1644969600,U:1647993600,V:1650412800,W:1652745600,X:1654646400,Y:1657152000,Z:1660780800,a:1663113600,b:1668816000,c:1668643200,d:1671062400,e:1675209600,f:1677024000,g:1679529600,h:1681948800,i:1684195200,j:1687219200,k:1690329600,l:1692748800,m:1696204800,n:1699920000,o:1699920000,p:1702944000,q:1707264000,r:1710115200,s:1711497600,t:1716336000,u:1719273600},D:{G:"o",B:"o",C:"o",rC:"o",sC:"o",tC:"o",uC:"o","7B":"o",ZC:"o",vC:"o","8B":"o"}},G:{A:{F:0,KC:0,wC:0,aC:0.00284927,xC:0.00142463,yC:0.00854781,zC:0.00854781,"0C":0.00142463,"1C":0.00712317,"2C":0.0299173,"3C":0.00569854,"4C":0.0512868,"5C":0.108272,"6C":0.0128217,"7C":0.00997244,"8C":0.189476,"9C":0.00284927,AD:0.0185202,BD:0.00997244,CD:0.0370405,DD:0.105423,ED:0.112546,FD:0.0569854,MC:0.0612593,NC:0.0698071,"9B":0.0840534,GD:0.755056,AC:0.169531,OC:0.354734,PC:0.173805,QC:0.299173,RC:0.0641085,SC:0.126792,HD:1.01149,BC:0.103998,TC:0.165258,UC:0.166682,VC:0.274954,WC:1.95317,XC:7.56766,YC:0.0128217,CC:0.0384651},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","KC","wC","aC","xC","yC","zC","F","0C","1C","2C","3C","4C","5C","6C","7C","8C","9C","AD","BD","CD","DD","ED","FD","MC","NC","9B","GD","AC","OC","PC","QC","RC","SC","HD","BC","TC","UC","VC","WC","XC","YC","CC",""],E:"Safari on iOS",F:{KC:1270252800,wC:1283904000,aC:1299628800,xC:1331078400,yC:1359331200,zC:1394409600,F:1410912000,"0C":1413763200,"1C":1442361600,"2C":1458518400,"3C":1473724800,"4C":1490572800,"5C":1505779200,"6C":1522281600,"7C":1537142400,"8C":1553472000,"9C":1568851200,AD:1572220800,BD:1580169600,CD:1585008000,DD:1600214400,ED:1619395200,FD:1632096000,MC:1639353600,NC:1647216000,"9B":1652659200,GD:1658275200,AC:1662940800,OC:1666569600,PC:1670889600,QC:1674432000,RC:1679875200,SC:1684368000,HD:1690156800,BC:1694995200,TC:1698192000,UC:1702252800,VC:1705881600,WC:1709596800,XC:1715558400,YC:null,CC:null}},H:{A:{ID:0.05},B:"o",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","ID","","",""],E:"Opera Mini",F:{ID:1426464000}},I:{A:{DC:0,J:0.0000653848,D:0.651756,JD:0,KD:0,LD:0,MD:0.00013077,aC:0.000326924,ND:0,OD:0.00117693},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","JD","KD","LD","DC","J","MD","aC","ND","OD","D","","",""],E:"Android Browser",F:{JD:1256515200,KD:1274313600,LD:1291593600,DC:1298332800,J:1318896000,MD:1341792000,aC:1374624000,ND:1386547200,OD:1401667200,D:1721692800}},J:{A:{E:0,A:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","E","A","","",""],E:"Blackberry Browser",F:{E:1325376000,A:1359504000}},K:{A:{A:0,B:0,C:0,I:1.12567,"7B":0,ZC:0,"8B":0},B:"o",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","A","B","7B","ZC","C","8B","I","","",""],E:"Opera Mobile",F:{A:1287100800,B:1300752000,"7B":1314835200,ZC:1318291200,C:1330300800,"8B":1349740800,I:1709769600},D:{I:"webkit"}},L:{A:{D:43.5971},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","D","","",""],E:"Chrome for Android",F:{D:1721692800}},M:{A:{D:0.333211},B:"moz",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","D","","",""],E:"Firefox for Android",F:{D:1718064000}},N:{A:{A:0,B:0},B:"ms",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","A","B","","",""],E:"IE Mobile",F:{A:1340150400,B:1353456000}},O:{A:{"9B":0.993346},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","9B","","",""],E:"UC Browser for Android",F:{"9B":1710115200},D:{"9B":"webkit"}},P:{A:{"0":2.06723,J:0.0969013,v:0.0215336,w:0.053834,x:0.0646008,y:0.0861344,z:0.107668,PD:0.0107668,QD:0.0107668,RD:0.0430672,SD:0,TD:0,LC:0,UD:0.0107668,VD:0,WD:0.0107668,XD:0,YD:0,AC:0,BC:0.0215336,CC:0.0107668,ZD:0.0215336},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","J","PD","QD","RD","SD","TD","LC","UD","VD","WD","XD","YD","AC","BC","CC","ZD","v","w","x","y","z","0","","",""],E:"Samsung Internet",F:{"0":1715126400,J:1461024000,PD:1481846400,QD:1509408000,RD:1528329600,SD:1546128000,TD:1554163200,LC:1567900800,UD:1582588800,VD:1593475200,WD:1605657600,XD:1618531200,YD:1629072000,AC:1640736000,BC:1651708800,CC:1659657600,ZD:1667260800,v:1677369600,w:1684454400,x:1689292800,y:1697587200,z:1711497600}},Q:{A:{aD:0.31435},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","aD","","",""],E:"QQ Browser",F:{aD:1710288000}},R:{A:{bD:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","bD","","",""],E:"Baidu Browser",F:{bD:1710201600}},S:{A:{cD:0.081731,dD:0},B:"moz",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","cD","dD","","",""],E:"KaiOS Browser",F:{cD:1527811200,dD:1631664000}}};
+module.exports={A:{A:{K:0,D:0,E:0.0495078,F:0.0330052,A:0,B:0.396062,qC:0},B:"ms",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","qC","K","D","E","F","A","B","","",""],E:"IE",F:{qC:962323200,K:998870400,D:1161129600,E:1237420800,F:1300060800,A:1346716800,B:1381968000}},B:{A:{"0":0.003545,C:0,L:0,M:0,G:0,N:0.003545,O:0,P:0.088625,Q:0,H:0,R:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0,a:0,b:0.010635,c:0,d:0,e:0,f:0,g:0,h:0,i:0,j:0,k:0,l:0,m:0,n:0,o:0,p:0,q:0.003545,r:0.003545,s:0.046085,t:0.003545,u:0.003545,v:0.00709,w:0.00709,x:0.010635,y:0.003545,z:0.003545,AB:0.003545,BB:0.003545,CB:0.03545,DB:0.010635,EB:0.010635,FB:0.00709,GB:0.00709,HB:0.00709,IB:0.017725,JB:0.017725,KB:0.010635,LB:0.01418,MB:0.017725,NB:0.038995,OB:0.02127,PB:0.031905,QB:0.088625,RB:0.63101,SB:3.64071,I:0.04963},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","C","L","M","G","N","O","P","Q","H","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","AB","BB","CB","DB","EB","FB","GB","HB","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","I","","",""],E:"Edge",F:{"0":1694649600,C:1438128000,L:1447286400,M:1470096000,G:1491868800,N:1508198400,O:1525046400,P:1542067200,Q:1579046400,H:1581033600,R:1586736000,S:1590019200,T:1594857600,U:1598486400,V:1602201600,W:1605830400,X:1611360000,Y:1614816000,Z:1618358400,a:1622073600,b:1626912000,c:1630627200,d:1632441600,e:1634774400,f:1637539200,g:1641427200,h:1643932800,i:1646265600,j:1649635200,k:1651190400,l:1653955200,m:1655942400,n:1659657600,o:1661990400,p:1664755200,q:1666915200,r:1670198400,s:1673481600,t:1675900800,u:1678665600,v:1680825600,w:1683158400,x:1685664000,y:1689897600,z:1692576000,AB:1697155200,BB:1698969600,CB:1701993600,DB:1706227200,EB:1708732800,FB:1711152000,GB:1713398400,HB:1715990400,IB:1718841600,JB:1721865600,KB:1724371200,LB:1726704000,MB:1729123200,NB:1731542400,OB:1737417600,PB:1740614400,QB:1741219200,RB:1743984000,SB:1746316800,I:1748476800},D:{C:"ms",L:"ms",M:"ms",G:"ms",N:"ms",O:"ms",P:"ms"}},C:{A:{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,rC:0,OC:0,J:0,TB:0,K:0,D:0,E:0,F:0,A:0,B:0.067355,C:0,L:0,M:0,G:0,N:0,O:0,P:0,UB:0,VB:0,WB:0,XB:0,YB:0,ZB:0,aB:0,bB:0,cB:0,dB:0,eB:0,fB:0,gB:0,hB:0,iB:0,jB:0,kB:0,lB:0,mB:0,nB:0,oB:0,pB:0,qB:0,rB:0,sB:0.031905,tB:0,uB:0,vB:0,wB:0,xB:0,yB:0,PC:0.00709,zB:0,QC:0,"0B":0,"1B":0,"2B":0,"3B":0,"4B":0,"5B":0,"6B":0,"7B":0,"8B":0,"9B":0,AC:0.003545,BC:0,CC:0,DC:0,EC:0,FC:0,GC:0.010635,Q:0,H:0,R:0,RC:0,S:0,T:0,U:0,V:0,W:0,X:0,Y:0,Z:0,a:0,b:0,c:0,d:0.003545,e:0,f:0,g:0,h:0,i:0,j:0,k:0,l:0,m:0,n:0,o:0,p:0,q:0,r:0,s:0.003545,t:0,u:0,v:0,w:0,x:0,y:0.19852,z:0,AB:0.095715,BB:0,CB:0.003545,DB:0,EB:0,FB:0,GB:0,HB:0.01418,IB:0,JB:0.003545,KB:0.08508,LB:0,MB:0,NB:0,OB:0.00709,PB:0.010635,QB:0.00709,RB:0.01418,SB:0.031905,I:0.13471,SC:1.15213,HC:0.095715,TC:0,sC:0,tC:0,uC:0,vC:0},B:"moz",C:["rC","OC","uC","vC","J","TB","K","D","E","F","A","B","C","L","M","G","N","O","P","UB","1","2","3","4","5","6","7","8","9","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","pB","qB","rB","sB","tB","uB","vB","wB","xB","yB","PC","zB","QC","0B","1B","2B","3B","4B","5B","6B","7B","8B","9B","AC","BC","CC","DC","EC","FC","GC","Q","H","R","RC","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","AB","BB","CB","DB","EB","FB","GB","HB","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","I","SC","HC","TC","sC","tC"],E:"Firefox",F:{"0":1693267200,"1":1361232000,"2":1364860800,"3":1368489600,"4":1372118400,"5":1375747200,"6":1379376000,"7":1386633600,"8":1391472000,"9":1395100800,rC:1161648000,OC:1213660800,uC:1246320000,vC:1264032000,J:1300752000,TB:1308614400,K:1313452800,D:1317081600,E:1317081600,F:1320710400,A:1324339200,B:1327968000,C:1331596800,L:1335225600,M:1338854400,G:1342483200,N:1346112000,O:1349740800,P:1353628800,UB:1357603200,VB:1398729600,WB:1402358400,XB:1405987200,YB:1409616000,ZB:1413244800,aB:1417392000,bB:1421107200,cB:1424736000,dB:1428278400,eB:1431475200,fB:1435881600,gB:1439251200,hB:1442880000,iB:1446508800,jB:1450137600,kB:1453852800,lB:1457395200,mB:1461628800,nB:1465257600,oB:1470096000,pB:1474329600,qB:1479168000,rB:1485216000,sB:1488844800,tB:1492560000,uB:1497312000,vB:1502150400,wB:1506556800,xB:1510617600,yB:1516665600,PC:1520985600,zB:1525824000,QC:1529971200,"0B":1536105600,"1B":1540252800,"2B":1544486400,"3B":1548720000,"4B":1552953600,"5B":1558396800,"6B":1562630400,"7B":1567468800,"8B":1571788800,"9B":1575331200,AC:1578355200,BC:1581379200,CC:1583798400,DC:1586304000,EC:1588636800,FC:1591056000,GC:1593475200,Q:1595894400,H:1598313600,R:1600732800,RC:1603152000,S:1605571200,T:1607990400,U:1611619200,V:1614038400,W:1616457600,X:1618790400,Y:1622505600,Z:1626134400,a:1628553600,b:1630972800,c:1633392000,d:1635811200,e:1638835200,f:1641859200,g:1644364800,h:1646697600,i:1649116800,j:1651536000,k:1653955200,l:1656374400,m:1658793600,n:1661212800,o:1663632000,p:1666051200,q:1668470400,r:1670889600,s:1673913600,t:1676332800,u:1678752000,v:1681171200,w:1683590400,x:1686009600,y:1688428800,z:1690848000,AB:1695686400,BB:1698105600,CB:1700524800,DB:1702944000,EB:1705968000,FB:1708387200,GB:1710806400,HB:1713225600,IB:1715644800,JB:1718064000,KB:1720483200,LB:1722902400,MB:1725321600,NB:1727740800,OB:1730160000,PB:1732579200,QB:1736208000,RB:1738627200,SB:1741046400,I:1743465600,SC:1745884800,HC:1748304000,TC:null,sC:null,tC:null}},D:{A:{"0":0.07799,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,J:0,TB:0,K:0,D:0,E:0,F:0,A:0,B:0,C:0,L:0,M:0,G:0,N:0,O:0,P:0,UB:0,VB:0,WB:0,XB:0,YB:0,ZB:0,aB:0,bB:0,cB:0,dB:0,eB:0.003545,fB:0.010635,gB:0.010635,hB:0.010635,iB:0.010635,jB:0.010635,kB:0.010635,lB:0.010635,mB:0.010635,nB:0.01418,oB:0.02127,pB:0.02127,qB:0.01418,rB:0.010635,sB:0.01418,tB:0.01418,uB:0.010635,vB:0.010635,wB:0.02127,xB:0.010635,yB:0.01418,PC:0.010635,zB:0.010635,QC:0.003545,"0B":0,"1B":0,"2B":0,"3B":0,"4B":0.02127,"5B":0,"6B":0.003545,"7B":0.01418,"8B":0.00709,"9B":0,AC:0,BC:0.00709,CC:0.00709,DC:0.00709,EC:0.003545,FC:0.010635,GC:0.01418,Q:0.08508,H:0.010635,R:0.02127,S:0.053175,T:0.003545,U:0.00709,V:0.017725,W:0.04254,X:0.010635,Y:0.00709,Z:0.00709,a:0.03545,b:0.010635,c:0.01418,d:0.01418,e:0.003545,f:0.010635,g:0.01418,h:0.031905,i:0.02127,j:0.01418,k:0.017725,l:0.01418,m:0.07799,n:0.060265,o:0.010635,p:0.017725,q:0.02127,r:0.038995,s:0.840165,t:0.02127,u:0.03545,v:0.04963,w:0.095715,x:0.04963,y:0.02127,z:0.07799,AB:0.06381,BB:0.04254,CB:0.074445,DB:0.10635,EB:0.07799,FB:0.159525,GB:0.095715,HB:0.116985,IB:0.1418,JB:0.046085,KB:0.102805,LB:0.07799,MB:0.124075,NB:0.825985,OB:0.400585,PB:0.421855,QB:0.52466,RB:3.94204,SB:10.5287,I:0.379315,SC:0.01418,HC:0,TC:0},B:"webkit",C:["","","","","","","","J","TB","K","D","E","F","A","B","C","L","M","G","N","O","P","UB","1","2","3","4","5","6","7","8","9","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","pB","qB","rB","sB","tB","uB","vB","wB","xB","yB","PC","zB","QC","0B","1B","2B","3B","4B","5B","6B","7B","8B","9B","AC","BC","CC","DC","EC","FC","GC","Q","H","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","AB","BB","CB","DB","EB","FB","GB","HB","IB","JB","KB","LB","MB","NB","OB","PB","QB","RB","SB","I","SC","HC","TC"],E:"Chrome",F:{"0":1694476800,"1":1337040000,"2":1340668800,"3":1343692800,"4":1348531200,"5":1352246400,"6":1357862400,"7":1361404800,"8":1364428800,"9":1369094400,J:1264377600,TB:1274745600,K:1283385600,D:1287619200,E:1291248000,F:1296777600,A:1299542400,B:1303862400,C:1307404800,L:1312243200,M:1316131200,G:1316131200,N:1319500800,O:1323734400,P:1328659200,UB:1332892800,VB:1374105600,WB:1376956800,XB:1384214400,YB:1389657600,ZB:1392940800,aB:1397001600,bB:1400544000,cB:1405468800,dB:1409011200,eB:1412640000,fB:1416268800,gB:1421798400,hB:1425513600,iB:1429401600,jB:1432080000,kB:1437523200,lB:1441152000,mB:1444780800,nB:1449014400,oB:1453248000,pB:1456963200,qB:1460592000,rB:1464134400,sB:1469059200,tB:1472601600,uB:1476230400,vB:1480550400,wB:1485302400,xB:1489017600,yB:1492560000,PC:1496707200,zB:1500940800,QC:1504569600,"0B":1508198400,"1B":1512518400,"2B":1516752000,"3B":1520294400,"4B":1523923200,"5B":1527552000,"6B":1532390400,"7B":1536019200,"8B":1539648000,"9B":1543968000,AC:1548720000,BC:1552348800,CC:1555977600,DC:1559606400,EC:1564444800,FC:1568073600,GC:1571702400,Q:1575936000,H:1580860800,R:1586304000,S:1589846400,T:1594684800,U:1598313600,V:1601942400,W:1605571200,X:1611014400,Y:1614556800,Z:1618272000,a:1621987200,b:1626739200,c:1630368000,d:1632268800,e:1634601600,f:1637020800,g:1641340800,h:1643673600,i:1646092800,j:1648512000,k:1650931200,l:1653350400,m:1655769600,n:1659398400,o:1661817600,p:1664236800,q:1666656000,r:1669680000,s:1673308800,t:1675728000,u:1678147200,v:1680566400,w:1682985600,x:1685404800,y:1689724800,z:1692057600,AB:1696896000,BB:1698710400,CB:1701993600,DB:1705968000,EB:1708387200,FB:1710806400,GB:1713225600,HB:1715644800,IB:1718064000,JB:1721174400,KB:1724112000,LB:1726531200,MB:1728950400,NB:1731369600,OB:1736812800,PB:1738627200,QB:1741046400,RB:1743465600,SB:1745884800,I:1748304000,SC:null,HC:null,TC:null}},E:{A:{J:0,TB:0,K:0,D:0,E:0,F:0,A:0,B:0,C:0,L:0,M:0.01418,G:0,wC:0,UC:0,xC:0,yC:0,zC:0,"0C":0,VC:0,IC:0.00709,JC:0.00709,"1C":0.02836,"2C":0.03545,"3C":0.017725,WC:0.003545,XC:0.010635,KC:0.010635,"4C":0.12762,LC:0.024815,YC:0.017725,ZC:0.01418,aC:0.031905,bC:0.010635,cC:0.02127,"5C":0.18434,MC:0.010635,dC:0.11344,eC:0.017725,fC:0.017725,gC:0.038995,hC:0.067355,"6C":0.209155,NC:0.024815,iC:0.060265,jC:0.031905,kC:0.23397,lC:0.97133,mC:0.33323,nC:0,"7C":0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","wC","UC","J","TB","xC","K","yC","D","zC","E","F","0C","A","VC","B","IC","C","JC","L","1C","M","2C","G","3C","WC","XC","KC","4C","LC","YC","ZC","aC","bC","cC","5C","MC","dC","eC","fC","gC","hC","6C","NC","iC","jC","kC","lC","mC","nC","7C",""],E:"Safari",F:{wC:1205798400,UC:1226534400,J:1244419200,TB:1275868800,xC:1311120000,K:1343174400,yC:1382400000,D:1382400000,zC:1410998400,E:1413417600,F:1443657600,"0C":1458518400,A:1474329600,VC:1490572800,B:1505779200,IC:1522281600,C:1537142400,JC:1553472000,L:1568851200,"1C":1585008000,M:1600214400,"2C":1619395200,G:1632096000,"3C":1635292800,WC:1639353600,XC:1647216000,KC:1652745600,"4C":1658275200,LC:1662940800,YC:1666569600,ZC:1670889600,aC:1674432000,bC:1679875200,cC:1684368000,"5C":1690156800,MC:1695686400,dC:1698192000,eC:1702252800,fC:1705881600,gC:1709596800,hC:1715558400,"6C":1722211200,NC:1726444800,iC:1730073600,jC:1733875200,kC:1737936000,lC:1743379200,mC:1747008000,nC:null,"7C":null}},F:{A:{"0":0.02127,"1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,F:0,B:0,C:0,G:0,N:0,O:0,P:0,UB:0,VB:0,WB:0,XB:0,YB:0,ZB:0,aB:0,bB:0,cB:0,dB:0,eB:0,fB:0,gB:0.003545,hB:0,iB:0,jB:0,kB:0,lB:0,mB:0.00709,nB:0,oB:0,pB:0,qB:0,rB:0,sB:0,tB:0,uB:0,vB:0,wB:0,xB:0,yB:0,zB:0,"0B":0,"1B":0,"2B":0,"3B":0,"4B":0,"5B":0,"6B":0,"7B":0,"8B":0,"9B":0,AC:0,BC:0,CC:0,DC:0,EC:0,FC:0,GC:0,Q:0,H:0,R:0,RC:0,S:0,T:0,U:0,V:0,W:0,X:0.003545,Y:0.038995,Z:0,a:0,b:0,c:0,d:0,e:0.031905,f:0,g:0,h:0,i:0,j:0,k:0,l:0.010635,m:0,n:0,o:0,p:0,q:0,r:0,s:0,t:0,u:0,v:0,w:0,x:0,y:0,z:0,"8C":0,"9C":0,AD:0,BD:0,IC:0,oC:0,CD:0,JC:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","F","8C","9C","AD","BD","B","IC","oC","CD","C","JC","G","N","O","P","UB","1","2","3","4","5","6","7","8","9","VB","WB","XB","YB","ZB","aB","bB","cB","dB","eB","fB","gB","hB","iB","jB","kB","lB","mB","nB","oB","pB","qB","rB","sB","tB","uB","vB","wB","xB","yB","zB","0B","1B","2B","3B","4B","5B","6B","7B","8B","9B","AC","BC","CC","DC","EC","FC","GC","Q","H","R","RC","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","","",""],E:"Opera",F:{"0":1739404800,"1":1393891200,"2":1399334400,"3":1401753600,"4":1405987200,"5":1409616000,"6":1413331200,"7":1417132800,"8":1422316800,"9":1425945600,F:1150761600,"8C":1223424000,"9C":1251763200,AD:1267488000,BD:1277942400,B:1292457600,IC:1302566400,oC:1309219200,CD:1323129600,C:1323129600,JC:1352073600,G:1372723200,N:1377561600,O:1381104000,P:1386288000,UB:1390867200,VB:1430179200,WB:1433808000,XB:1438646400,YB:1442448000,ZB:1445904000,aB:1449100800,bB:1454371200,cB:1457308800,dB:1462320000,eB:1465344000,fB:1470096000,gB:1474329600,hB:1477267200,iB:1481587200,jB:1486425600,kB:1490054400,lB:1494374400,mB:1498003200,nB:1502236800,oB:1506470400,pB:1510099200,qB:1515024000,rB:1517961600,sB:1521676800,tB:1525910400,uB:1530144000,vB:1534982400,wB:1537833600,xB:1543363200,yB:1548201600,zB:1554768000,"0B":1561593600,"1B":1566259200,"2B":1570406400,"3B":1573689600,"4B":1578441600,"5B":1583971200,"6B":1587513600,"7B":1592956800,"8B":1595894400,"9B":1600128000,AC:1603238400,BC:1613520000,CC:1612224000,DC:1616544000,EC:1619568000,FC:1623715200,GC:1627948800,Q:1631577600,H:1633392000,R:1635984000,RC:1638403200,S:1642550400,T:1644969600,U:1647993600,V:1650412800,W:1652745600,X:1654646400,Y:1657152000,Z:1660780800,a:1663113600,b:1668816000,c:1668643200,d:1671062400,e:1675209600,f:1677024000,g:1679529600,h:1681948800,i:1684195200,j:1687219200,k:1690329600,l:1692748800,m:1696204800,n:1699920000,o:1699920000,p:1702944000,q:1707264000,r:1710115200,s:1711497600,t:1716336000,u:1719273600,v:1721088000,w:1724284800,x:1727222400,y:1732665600,z:1736294400},D:{F:"o",B:"o",C:"o","8C":"o","9C":"o",AD:"o",BD:"o",IC:"o",oC:"o",CD:"o",JC:"o"}},G:{A:{E:0,UC:0,DD:0,pC:0.00284924,ED:0,FD:0.00569847,GD:0.00569847,HD:0,ID:0.00284924,JD:0.0170954,KD:0.00142462,LD:0.0270678,MD:0.239336,ND:0.00997233,OD:0.00284924,PD:0.102573,QD:0.00142462,RD:0.00427386,SD:0.00427386,TD:0.0170954,UD:0.108271,VD:0.0427386,WD:0.0270678,WC:0.0270678,XC:0.0313416,KC:0.0370401,XD:0.444481,LC:0.0612586,YC:0.131065,ZC:0.0669571,aC:0.116819,bC:0.0270678,cC:0.0470124,YD:0.557026,MC:0.0341908,dC:0.0569847,eC:0.0427386,fC:0.0641078,gC:0.131065,hC:0.245034,ZD:0.678118,NC:0.173803,iC:0.423112,jC:0.212268,kC:1.56138,lC:6.62448,mC:1.82351,nC:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","UC","DD","pC","ED","FD","GD","E","HD","ID","JD","KD","LD","MD","ND","OD","PD","QD","RD","SD","TD","UD","VD","WD","WC","XC","KC","XD","LC","YC","ZC","aC","bC","cC","YD","MC","dC","eC","fC","gC","hC","ZD","NC","iC","jC","kC","lC","mC","nC","",""],E:"Safari on iOS",F:{UC:1270252800,DD:1283904000,pC:1299628800,ED:1331078400,FD:1359331200,GD:1394409600,E:1410912000,HD:1413763200,ID:1442361600,JD:1458518400,KD:1473724800,LD:1490572800,MD:1505779200,ND:1522281600,OD:1537142400,PD:1553472000,QD:1568851200,RD:1572220800,SD:1580169600,TD:1585008000,UD:1600214400,VD:1619395200,WD:1632096000,WC:1639353600,XC:1647216000,KC:1652659200,XD:1658275200,LC:1662940800,YC:1666569600,ZC:1670889600,aC:1674432000,bC:1679875200,cC:1684368000,YD:1690156800,MC:1694995200,dC:1698192000,eC:1702252800,fC:1705881600,gC:1709596800,hC:1715558400,ZD:1722211200,NC:1726444800,iC:1730073600,jC:1733875200,kC:1737936000,lC:1743379200,mC:1747008000,nC:null}},H:{A:{aD:0.05},B:"o",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","aD","","",""],E:"Opera Mini",F:{aD:1426464000}},I:{A:{OC:0,J:0,I:0.799139,bD:0,cD:0,dD:0,eD:0,pC:0.000160084,fD:0,gD:0.000640336},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","bD","cD","dD","OC","J","eD","pC","fD","gD","I","","",""],E:"Android Browser",F:{bD:1256515200,cD:1274313600,dD:1291593600,OC:1298332800,J:1318896000,eD:1341792000,pC:1374624000,fD:1386547200,gD:1401667200,I:1748304000}},J:{A:{D:0,A:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","D","A","","",""],E:"Blackberry Browser",F:{D:1325376000,A:1359504000}},K:{A:{A:0,B:0,C:0,H:0.89243,IC:0,oC:0,JC:0},B:"o",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","A","B","IC","oC","C","JC","H","","",""],E:"Opera Mobile",F:{A:1287100800,B:1300752000,IC:1314835200,oC:1318291200,C:1330300800,JC:1349740800,H:1709769600},D:{H:"webkit"}},L:{A:{I:46.4714},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","I","","",""],E:"Chrome for Android",F:{I:1748304000}},M:{A:{HC:0.316295},B:"moz",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","HC","","",""],E:"Firefox for Android",F:{HC:1748304000}},N:{A:{A:0,B:0},B:"ms",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","A","B","","",""],E:"IE Mobile",F:{A:1340150400,B:1353456000}},O:{A:{KC:0.80042},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","KC","","",""],E:"UC Browser for Android",F:{KC:1710115200},D:{KC:"webkit"}},P:{A:{"1":0,"2":0.0219536,"3":0.0219536,"4":0.0329303,"5":0.0329303,"6":0.0439071,"7":0.0658607,"8":0.406141,"9":1.5148,J:0,hD:0,iD:0,jD:0.0109768,kD:0,lD:0,VC:0,mD:0,nD:0,oD:0,pD:0,qD:0,LC:0,MC:0.0109768,NC:0,rD:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","J","hD","iD","jD","kD","lD","VC","mD","nD","oD","pD","qD","LC","MC","NC","rD","1","2","3","4","5","6","7","8","9","","",""],E:"Samsung Internet",F:{"1":1677369600,"2":1684454400,"3":1689292800,"4":1697587200,"5":1711497600,"6":1715126400,"7":1717718400,"8":1725667200,"9":1746057600,J:1461024000,hD:1481846400,iD:1509408000,jD:1528329600,kD:1546128000,lD:1554163200,VC:1567900800,mD:1582588800,nD:1593475200,oD:1605657600,pD:1618531200,qD:1629072000,LC:1640736000,MC:1651708800,NC:1659657600,rD:1667260800}},Q:{A:{sD:0.20656},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","sD","","",""],E:"QQ Browser",F:{sD:1710288000}},R:{A:{tD:0},B:"webkit",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","tD","","",""],E:"Baidu Browser",F:{tD:1710201600}},S:{A:{uD:0.01291,vD:0},B:"moz",C:["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","uD","vD","","",""],E:"KaiOS Browser",F:{uD:1527811200,vD:1631664000}}};
 
 
 /***/ }),
@@ -1797,7 +3150,7 @@ module.exports={A:{A:{K:0,E:0,F:0.0300576,G:0.0601152,A:0,B:0.541037,bC:0},B:"ms
   \***********************************************************/
 /***/ ((module) => {
 
-module.exports={"0":"25","1":"112","2":"113","3":"114","4":"115","5":"116","6":"117","7":"118","8":"119","9":"120",A:"10",B:"11",C:"12",D:"127",E:"7",F:"8",G:"9",H:"15",I:"80",J:"4",K:"6",L:"13",M:"14",N:"16",O:"17",P:"18",Q:"79",R:"81",S:"83",T:"84",U:"85",V:"86",W:"87",X:"88",Y:"89",Z:"90",a:"91",b:"92",c:"93",d:"94",e:"95",f:"96",g:"97",h:"98",i:"99",j:"100",k:"101",l:"102",m:"103",n:"104",o:"105",p:"106",q:"107",r:"108",s:"109",t:"110",u:"111",v:"20",w:"21",x:"22",y:"23",z:"24",AB:"121",BB:"122",CB:"123",DB:"124",EB:"125",FB:"126",GB:"5",HB:"19",IB:"26",JB:"27",KB:"28",LB:"29",MB:"30",NB:"31",OB:"32",PB:"33",QB:"34",RB:"35",SB:"36",TB:"37",UB:"38",VB:"39",WB:"40",XB:"41",YB:"42",ZB:"43",aB:"44",bB:"45",cB:"46",dB:"47",eB:"48",fB:"49",gB:"50",hB:"51",iB:"52",jB:"53",kB:"54",lB:"55",mB:"56",nB:"57",oB:"58",pB:"60",qB:"62",rB:"63",sB:"64",tB:"65",uB:"66",vB:"67",wB:"68",xB:"69",yB:"70",zB:"71","0B":"72","1B":"73","2B":"74","3B":"75","4B":"76","5B":"77","6B":"78","7B":"11.1","8B":"12.1","9B":"15.5",AC:"16.0",BC:"17.0",CC:"18.0",DC:"3",EC:"59",FC:"61",GC:"82",HC:"128",IC:"129",JC:"130",KC:"3.2",LC:"10.1",MC:"15.2-15.3",NC:"15.4",OC:"16.1",PC:"16.2",QC:"16.3",RC:"16.4",SC:"16.5",TC:"17.1",UC:"17.2",VC:"17.3",WC:"17.4",XC:"17.5",YC:"17.6",ZC:"11.5",aC:"4.2-4.3",bC:"5.5",cC:"2",dC:"131",eC:"3.5",fC:"3.6",gC:"3.1",hC:"5.1",iC:"6.1",jC:"7.1",kC:"9.1",lC:"13.1",mC:"14.1",nC:"15.1",oC:"15.6",pC:"16.6",qC:"TP",rC:"9.5-9.6",sC:"10.0-10.1",tC:"10.5",uC:"10.6",vC:"11.6",wC:"4.0-4.1",xC:"5.0-5.1",yC:"6.0-6.1",zC:"7.0-7.1","0C":"8.1-8.4","1C":"9.0-9.2","2C":"9.3","3C":"10.0-10.2","4C":"10.3","5C":"11.0-11.2","6C":"11.3-11.4","7C":"12.0-12.1","8C":"12.2-12.5","9C":"13.0-13.1",AD:"13.2",BD:"13.3",CD:"13.4-13.7",DD:"14.0-14.4",ED:"14.5-14.8",FD:"15.0-15.1",GD:"15.6-15.8",HD:"16.6-16.7",ID:"all",JD:"2.1",KD:"2.2",LD:"2.3",MD:"4.1",ND:"4.4",OD:"4.4.3-4.4.4",PD:"5.0-5.4",QD:"6.2-6.4",RD:"7.2-7.4",SD:"8.2",TD:"9.2",UD:"11.1-11.2",VD:"12.0",WD:"13.0",XD:"14.0",YD:"15.0",ZD:"19.0",aD:"14.9",bD:"13.52",cD:"2.5",dD:"3.0-3.1"};
+module.exports={"0":"117","1":"20","2":"21","3":"22","4":"23","5":"24","6":"25","7":"26","8":"27","9":"28",A:"10",B:"11",C:"12",D:"7",E:"8",F:"9",G:"15",H:"80",I:"137",J:"4",K:"6",L:"13",M:"14",N:"16",O:"17",P:"18",Q:"79",R:"81",S:"83",T:"84",U:"85",V:"86",W:"87",X:"88",Y:"89",Z:"90",a:"91",b:"92",c:"93",d:"94",e:"95",f:"96",g:"97",h:"98",i:"99",j:"100",k:"101",l:"102",m:"103",n:"104",o:"105",p:"106",q:"107",r:"108",s:"109",t:"110",u:"111",v:"112",w:"113",x:"114",y:"115",z:"116",AB:"118",BB:"119",CB:"120",DB:"121",EB:"122",FB:"123",GB:"124",HB:"125",IB:"126",JB:"127",KB:"128",LB:"129",MB:"130",NB:"131",OB:"132",PB:"133",QB:"134",RB:"135",SB:"136",TB:"5",UB:"19",VB:"29",WB:"30",XB:"31",YB:"32",ZB:"33",aB:"34",bB:"35",cB:"36",dB:"37",eB:"38",fB:"39",gB:"40",hB:"41",iB:"42",jB:"43",kB:"44",lB:"45",mB:"46",nB:"47",oB:"48",pB:"49",qB:"50",rB:"51",sB:"52",tB:"53",uB:"54",vB:"55",wB:"56",xB:"57",yB:"58",zB:"60","0B":"62","1B":"63","2B":"64","3B":"65","4B":"66","5B":"67","6B":"68","7B":"69","8B":"70","9B":"71",AC:"72",BC:"73",CC:"74",DC:"75",EC:"76",FC:"77",GC:"78",HC:"139",IC:"11.1",JC:"12.1",KC:"15.5",LC:"16.0",MC:"17.0",NC:"18.0",OC:"3",PC:"59",QC:"61",RC:"82",SC:"138",TC:"140",UC:"3.2",VC:"10.1",WC:"15.2-15.3",XC:"15.4",YC:"16.1",ZC:"16.2",aC:"16.3",bC:"16.4",cC:"16.5",dC:"17.1",eC:"17.2",fC:"17.3",gC:"17.4",hC:"17.5",iC:"18.1",jC:"18.2",kC:"18.3",lC:"18.4",mC:"18.5",nC:"26.0",oC:"11.5",pC:"4.2-4.3",qC:"5.5",rC:"2",sC:"141",tC:"142",uC:"3.5",vC:"3.6",wC:"3.1",xC:"5.1",yC:"6.1",zC:"7.1","0C":"9.1","1C":"13.1","2C":"14.1","3C":"15.1","4C":"15.6","5C":"16.6","6C":"17.6","7C":"TP","8C":"9.5-9.6","9C":"10.0-10.1",AD:"10.5",BD:"10.6",CD:"11.6",DD:"4.0-4.1",ED:"5.0-5.1",FD:"6.0-6.1",GD:"7.0-7.1",HD:"8.1-8.4",ID:"9.0-9.2",JD:"9.3",KD:"10.0-10.2",LD:"10.3",MD:"11.0-11.2",ND:"11.3-11.4",OD:"12.0-12.1",PD:"12.2-12.5",QD:"13.0-13.1",RD:"13.2",SD:"13.3",TD:"13.4-13.7",UD:"14.0-14.4",VD:"14.5-14.8",WD:"15.0-15.1",XD:"15.6-15.8",YD:"16.6-16.7",ZD:"17.6-17.7",aD:"all",bD:"2.1",cD:"2.2",dD:"2.3",eD:"4.1",fD:"4.4",gD:"4.4.3-4.4.4",hD:"5.0-5.4",iD:"6.2-6.4",jD:"7.2-7.4",kD:"8.2",lD:"9.2",mD:"11.1-11.2",nD:"12.0",oD:"13.0",pD:"14.0",qD:"15.0",rD:"19.0",sD:"14.9",tD:"13.52",uD:"2.5",vD:"3.0-3.1"};
 
 
 /***/ }),
@@ -2107,12 +3460,67 @@ module.exports = {
 	"30.1": "124",
 	"30.2": "124",
 	"30.3": "124",
+	"30.4": "124",
+	"30.5": "124",
 	"31.0": "126",
 	"31.1": "126",
 	"31.2": "126",
 	"31.3": "126",
-	"32.0": "128"
+	"31.4": "126",
+	"31.5": "126",
+	"31.6": "126",
+	"31.7": "126",
+	"32.0": "128",
+	"32.1": "128",
+	"32.2": "128",
+	"32.3": "128",
+	"33.0": "130",
+	"33.1": "130",
+	"33.2": "130",
+	"33.3": "130",
+	"33.4": "130",
+	"34.0": "132",
+	"34.1": "132",
+	"34.2": "132",
+	"34.3": "132",
+	"34.4": "132",
+	"34.5": "132",
+	"35.0": "134",
+	"35.1": "134",
+	"35.2": "134",
+	"35.3": "134",
+	"35.4": "134",
+	"35.5": "134",
+	"36.0": "136",
+	"36.1": "136",
+	"36.2": "136",
+	"36.3": "136",
+	"36.4": "136",
+	"36.5": "136",
+	"37.0": "138"
 };
+
+/***/ }),
+
+/***/ "./node_modules/node-releases/data/processed/envs.json":
+/*!*************************************************************!*\
+  !*** ./node_modules/node-releases/data/processed/envs.json ***!
+  \*************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('[{"name":"nodejs","version":"0.2.0","date":"2011-08-26","lts":false,"security":false,"v8":"2.3.8.0"},{"name":"nodejs","version":"0.3.0","date":"2011-08-26","lts":false,"security":false,"v8":"2.5.1.0"},{"name":"nodejs","version":"0.4.0","date":"2011-08-26","lts":false,"security":false,"v8":"3.1.2.0"},{"name":"nodejs","version":"0.5.0","date":"2011-08-26","lts":false,"security":false,"v8":"3.1.8.25"},{"name":"nodejs","version":"0.6.0","date":"2011-11-04","lts":false,"security":false,"v8":"3.6.6.6"},{"name":"nodejs","version":"0.7.0","date":"2012-01-17","lts":false,"security":false,"v8":"3.8.6.0"},{"name":"nodejs","version":"0.8.0","date":"2012-06-22","lts":false,"security":false,"v8":"3.11.10.10"},{"name":"nodejs","version":"0.9.0","date":"2012-07-20","lts":false,"security":false,"v8":"3.11.10.15"},{"name":"nodejs","version":"0.10.0","date":"2013-03-11","lts":false,"security":false,"v8":"3.14.5.8"},{"name":"nodejs","version":"0.11.0","date":"2013-03-28","lts":false,"security":false,"v8":"3.17.13.0"},{"name":"nodejs","version":"0.12.0","date":"2015-02-06","lts":false,"security":false,"v8":"3.28.73.0"},{"name":"nodejs","version":"4.0.0","date":"2015-09-08","lts":false,"security":false,"v8":"4.5.103.30"},{"name":"nodejs","version":"4.1.0","date":"2015-09-17","lts":false,"security":false,"v8":"4.5.103.33"},{"name":"nodejs","version":"4.2.0","date":"2015-10-12","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.3.0","date":"2016-02-09","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.4.0","date":"2016-03-08","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.5.0","date":"2016-08-16","lts":"Argon","security":false,"v8":"4.5.103.37"},{"name":"nodejs","version":"4.6.0","date":"2016-09-27","lts":"Argon","security":true,"v8":"4.5.103.37"},{"name":"nodejs","version":"4.7.0","date":"2016-12-06","lts":"Argon","security":false,"v8":"4.5.103.43"},{"name":"nodejs","version":"4.8.0","date":"2017-02-21","lts":"Argon","security":false,"v8":"4.5.103.45"},{"name":"nodejs","version":"4.9.0","date":"2018-03-28","lts":"Argon","security":true,"v8":"4.5.103.53"},{"name":"nodejs","version":"5.0.0","date":"2015-10-29","lts":false,"security":false,"v8":"4.6.85.28"},{"name":"nodejs","version":"5.1.0","date":"2015-11-17","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.2.0","date":"2015-12-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.3.0","date":"2015-12-15","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.4.0","date":"2016-01-06","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.5.0","date":"2016-01-21","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.6.0","date":"2016-02-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.7.0","date":"2016-02-23","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.8.0","date":"2016-03-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.9.0","date":"2016-03-16","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.10.0","date":"2016-04-01","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.11.0","date":"2016-04-21","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.12.0","date":"2016-06-23","lts":false,"security":false,"v8":"4.6.85.32"},{"name":"nodejs","version":"6.0.0","date":"2016-04-26","lts":false,"security":false,"v8":"5.0.71.35"},{"name":"nodejs","version":"6.1.0","date":"2016-05-05","lts":false,"security":false,"v8":"5.0.71.35"},{"name":"nodejs","version":"6.2.0","date":"2016-05-17","lts":false,"security":false,"v8":"5.0.71.47"},{"name":"nodejs","version":"6.3.0","date":"2016-07-06","lts":false,"security":false,"v8":"5.0.71.52"},{"name":"nodejs","version":"6.4.0","date":"2016-08-12","lts":false,"security":false,"v8":"5.0.71.60"},{"name":"nodejs","version":"6.5.0","date":"2016-08-26","lts":false,"security":false,"v8":"5.1.281.81"},{"name":"nodejs","version":"6.6.0","date":"2016-09-14","lts":false,"security":false,"v8":"5.1.281.83"},{"name":"nodejs","version":"6.7.0","date":"2016-09-27","lts":false,"security":true,"v8":"5.1.281.83"},{"name":"nodejs","version":"6.8.0","date":"2016-10-12","lts":false,"security":false,"v8":"5.1.281.84"},{"name":"nodejs","version":"6.9.0","date":"2016-10-18","lts":"Boron","security":false,"v8":"5.1.281.84"},{"name":"nodejs","version":"6.10.0","date":"2017-02-21","lts":"Boron","security":false,"v8":"5.1.281.93"},{"name":"nodejs","version":"6.11.0","date":"2017-06-06","lts":"Boron","security":false,"v8":"5.1.281.102"},{"name":"nodejs","version":"6.12.0","date":"2017-11-06","lts":"Boron","security":false,"v8":"5.1.281.108"},{"name":"nodejs","version":"6.13.0","date":"2018-02-10","lts":"Boron","security":false,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.14.0","date":"2018-03-28","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.15.0","date":"2018-11-27","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.16.0","date":"2018-12-26","lts":"Boron","security":false,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.17.0","date":"2019-02-28","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"7.0.0","date":"2016-10-25","lts":false,"security":false,"v8":"5.4.500.36"},{"name":"nodejs","version":"7.1.0","date":"2016-11-08","lts":false,"security":false,"v8":"5.4.500.36"},{"name":"nodejs","version":"7.2.0","date":"2016-11-22","lts":false,"security":false,"v8":"5.4.500.43"},{"name":"nodejs","version":"7.3.0","date":"2016-12-20","lts":false,"security":false,"v8":"5.4.500.45"},{"name":"nodejs","version":"7.4.0","date":"2017-01-04","lts":false,"security":false,"v8":"5.4.500.45"},{"name":"nodejs","version":"7.5.0","date":"2017-01-31","lts":false,"security":false,"v8":"5.4.500.48"},{"name":"nodejs","version":"7.6.0","date":"2017-02-21","lts":false,"security":false,"v8":"5.5.372.40"},{"name":"nodejs","version":"7.7.0","date":"2017-02-28","lts":false,"security":false,"v8":"5.5.372.41"},{"name":"nodejs","version":"7.8.0","date":"2017-03-29","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"7.9.0","date":"2017-04-11","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"7.10.0","date":"2017-05-02","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"8.0.0","date":"2017-05-30","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.1.0","date":"2017-06-08","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.2.0","date":"2017-07-19","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.3.0","date":"2017-08-08","lts":false,"security":false,"v8":"6.0.286.52"},{"name":"nodejs","version":"8.4.0","date":"2017-08-15","lts":false,"security":false,"v8":"6.0.286.52"},{"name":"nodejs","version":"8.5.0","date":"2017-09-12","lts":false,"security":false,"v8":"6.0.287.53"},{"name":"nodejs","version":"8.6.0","date":"2017-09-26","lts":false,"security":false,"v8":"6.0.287.53"},{"name":"nodejs","version":"8.7.0","date":"2017-10-11","lts":false,"security":false,"v8":"6.1.534.42"},{"name":"nodejs","version":"8.8.0","date":"2017-10-24","lts":false,"security":false,"v8":"6.1.534.42"},{"name":"nodejs","version":"8.9.0","date":"2017-10-31","lts":"Carbon","security":false,"v8":"6.1.534.46"},{"name":"nodejs","version":"8.10.0","date":"2018-03-06","lts":"Carbon","security":false,"v8":"6.2.414.50"},{"name":"nodejs","version":"8.11.0","date":"2018-03-28","lts":"Carbon","security":true,"v8":"6.2.414.50"},{"name":"nodejs","version":"8.12.0","date":"2018-09-10","lts":"Carbon","security":false,"v8":"6.2.414.66"},{"name":"nodejs","version":"8.13.0","date":"2018-11-20","lts":"Carbon","security":false,"v8":"6.2.414.72"},{"name":"nodejs","version":"8.14.0","date":"2018-11-27","lts":"Carbon","security":true,"v8":"6.2.414.72"},{"name":"nodejs","version":"8.15.0","date":"2018-12-26","lts":"Carbon","security":false,"v8":"6.2.414.75"},{"name":"nodejs","version":"8.16.0","date":"2019-04-16","lts":"Carbon","security":false,"v8":"6.2.414.77"},{"name":"nodejs","version":"8.17.0","date":"2019-12-17","lts":"Carbon","security":true,"v8":"6.2.414.78"},{"name":"nodejs","version":"9.0.0","date":"2017-10-31","lts":false,"security":false,"v8":"6.2.414.32"},{"name":"nodejs","version":"9.1.0","date":"2017-11-07","lts":false,"security":false,"v8":"6.2.414.32"},{"name":"nodejs","version":"9.2.0","date":"2017-11-14","lts":false,"security":false,"v8":"6.2.414.44"},{"name":"nodejs","version":"9.3.0","date":"2017-12-12","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.4.0","date":"2018-01-10","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.5.0","date":"2018-01-31","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.6.0","date":"2018-02-21","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.7.0","date":"2018-03-01","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.8.0","date":"2018-03-07","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.9.0","date":"2018-03-21","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.10.0","date":"2018-03-28","lts":false,"security":true,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.11.0","date":"2018-04-04","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"10.0.0","date":"2018-04-24","lts":false,"security":false,"v8":"6.6.346.24"},{"name":"nodejs","version":"10.1.0","date":"2018-05-08","lts":false,"security":false,"v8":"6.6.346.27"},{"name":"nodejs","version":"10.2.0","date":"2018-05-23","lts":false,"security":false,"v8":"6.6.346.32"},{"name":"nodejs","version":"10.3.0","date":"2018-05-29","lts":false,"security":false,"v8":"6.6.346.32"},{"name":"nodejs","version":"10.4.0","date":"2018-06-06","lts":false,"security":false,"v8":"6.7.288.43"},{"name":"nodejs","version":"10.5.0","date":"2018-06-20","lts":false,"security":false,"v8":"6.7.288.46"},{"name":"nodejs","version":"10.6.0","date":"2018-07-04","lts":false,"security":false,"v8":"6.7.288.46"},{"name":"nodejs","version":"10.7.0","date":"2018-07-18","lts":false,"security":false,"v8":"6.7.288.49"},{"name":"nodejs","version":"10.8.0","date":"2018-08-01","lts":false,"security":false,"v8":"6.7.288.49"},{"name":"nodejs","version":"10.9.0","date":"2018-08-15","lts":false,"security":false,"v8":"6.8.275.24"},{"name":"nodejs","version":"10.10.0","date":"2018-09-06","lts":false,"security":false,"v8":"6.8.275.30"},{"name":"nodejs","version":"10.11.0","date":"2018-09-19","lts":false,"security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.12.0","date":"2018-10-10","lts":false,"security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.13.0","date":"2018-10-30","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.14.0","date":"2018-11-27","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.15.0","date":"2018-12-26","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.16.0","date":"2019-05-28","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.17.0","date":"2019-10-22","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.18.0","date":"2019-12-17","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.19.0","date":"2020-02-05","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.20.0","date":"2020-03-26","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.21.0","date":"2020-06-02","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.22.0","date":"2020-07-21","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.23.0","date":"2020-10-27","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.24.0","date":"2021-02-23","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"11.0.0","date":"2018-10-23","lts":false,"security":false,"v8":"7.0.276.28"},{"name":"nodejs","version":"11.1.0","date":"2018-10-30","lts":false,"security":false,"v8":"7.0.276.32"},{"name":"nodejs","version":"11.2.0","date":"2018-11-15","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.3.0","date":"2018-11-27","lts":false,"security":true,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.4.0","date":"2018-12-07","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.5.0","date":"2018-12-18","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.6.0","date":"2018-12-26","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.7.0","date":"2019-01-17","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.8.0","date":"2019-01-24","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.9.0","date":"2019-01-30","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.10.0","date":"2019-02-14","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.11.0","date":"2019-03-05","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.12.0","date":"2019-03-14","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.13.0","date":"2019-03-28","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.14.0","date":"2019-04-10","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.15.0","date":"2019-04-30","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"12.0.0","date":"2019-04-23","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.1.0","date":"2019-04-29","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.2.0","date":"2019-05-07","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.3.0","date":"2019-05-21","lts":false,"security":false,"v8":"7.4.288.27"},{"name":"nodejs","version":"12.4.0","date":"2019-06-04","lts":false,"security":false,"v8":"7.4.288.27"},{"name":"nodejs","version":"12.5.0","date":"2019-06-26","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.6.0","date":"2019-07-03","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.7.0","date":"2019-07-23","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.8.0","date":"2019-08-06","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.9.0","date":"2019-08-20","lts":false,"security":false,"v8":"7.6.303.29"},{"name":"nodejs","version":"12.10.0","date":"2019-09-04","lts":false,"security":false,"v8":"7.6.303.29"},{"name":"nodejs","version":"12.11.0","date":"2019-09-25","lts":false,"security":false,"v8":"7.7.299.11"},{"name":"nodejs","version":"12.12.0","date":"2019-10-11","lts":false,"security":false,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.13.0","date":"2019-10-21","lts":"Erbium","security":false,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.14.0","date":"2019-12-17","lts":"Erbium","security":true,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.15.0","date":"2020-02-05","lts":"Erbium","security":true,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.16.0","date":"2020-02-11","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.17.0","date":"2020-05-26","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.18.0","date":"2020-06-02","lts":"Erbium","security":true,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.19.0","date":"2020-10-06","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.20.0","date":"2020-11-24","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.21.0","date":"2021-02-23","lts":"Erbium","security":true,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.22.0","date":"2021-03-30","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"13.0.0","date":"2019-10-22","lts":false,"security":false,"v8":"7.8.279.17"},{"name":"nodejs","version":"13.1.0","date":"2019-11-05","lts":false,"security":false,"v8":"7.8.279.17"},{"name":"nodejs","version":"13.2.0","date":"2019-11-21","lts":false,"security":false,"v8":"7.9.317.23"},{"name":"nodejs","version":"13.3.0","date":"2019-12-03","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.4.0","date":"2019-12-17","lts":false,"security":true,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.5.0","date":"2019-12-18","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.6.0","date":"2020-01-07","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.7.0","date":"2020-01-21","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.8.0","date":"2020-02-05","lts":false,"security":true,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.9.0","date":"2020-02-18","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.10.0","date":"2020-03-04","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.11.0","date":"2020-03-12","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.12.0","date":"2020-03-26","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.13.0","date":"2020-04-14","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.14.0","date":"2020-04-29","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"14.0.0","date":"2020-04-21","lts":false,"security":false,"v8":"8.1.307.30"},{"name":"nodejs","version":"14.1.0","date":"2020-04-29","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.2.0","date":"2020-05-05","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.3.0","date":"2020-05-19","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.4.0","date":"2020-06-02","lts":false,"security":true,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.5.0","date":"2020-06-30","lts":false,"security":false,"v8":"8.3.110.9"},{"name":"nodejs","version":"14.6.0","date":"2020-07-20","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.7.0","date":"2020-07-29","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.8.0","date":"2020-08-11","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.9.0","date":"2020-08-27","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.10.0","date":"2020-09-08","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.11.0","date":"2020-09-15","lts":false,"security":true,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.12.0","date":"2020-09-22","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.13.0","date":"2020-09-29","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.14.0","date":"2020-10-15","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.15.0","date":"2020-10-27","lts":"Fermium","security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.16.0","date":"2021-02-23","lts":"Fermium","security":true,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.17.0","date":"2021-05-11","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.18.0","date":"2021-09-28","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.19.0","date":"2022-02-01","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.20.0","date":"2022-07-07","lts":"Fermium","security":true,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.21.0","date":"2022-11-01","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"15.0.0","date":"2020-10-20","lts":false,"security":false,"v8":"8.6.395.16"},{"name":"nodejs","version":"15.1.0","date":"2020-11-04","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.2.0","date":"2020-11-10","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.3.0","date":"2020-11-24","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.4.0","date":"2020-12-09","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.5.0","date":"2020-12-22","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.6.0","date":"2021-01-14","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.7.0","date":"2021-01-25","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.8.0","date":"2021-02-02","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.9.0","date":"2021-02-18","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.10.0","date":"2021-02-23","lts":false,"security":true,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.11.0","date":"2021-03-03","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.12.0","date":"2021-03-17","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.13.0","date":"2021-03-31","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.14.0","date":"2021-04-06","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"16.0.0","date":"2021-04-20","lts":false,"security":false,"v8":"9.0.257.17"},{"name":"nodejs","version":"16.1.0","date":"2021-05-04","lts":false,"security":false,"v8":"9.0.257.24"},{"name":"nodejs","version":"16.2.0","date":"2021-05-19","lts":false,"security":false,"v8":"9.0.257.25"},{"name":"nodejs","version":"16.3.0","date":"2021-06-03","lts":false,"security":false,"v8":"9.0.257.25"},{"name":"nodejs","version":"16.4.0","date":"2021-06-23","lts":false,"security":false,"v8":"9.1.269.36"},{"name":"nodejs","version":"16.5.0","date":"2021-07-14","lts":false,"security":false,"v8":"9.1.269.38"},{"name":"nodejs","version":"16.6.0","date":"2021-07-29","lts":false,"security":true,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.7.0","date":"2021-08-18","lts":false,"security":false,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.8.0","date":"2021-08-25","lts":false,"security":false,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.9.0","date":"2021-09-07","lts":false,"security":false,"v8":"9.3.345.16"},{"name":"nodejs","version":"16.10.0","date":"2021-09-22","lts":false,"security":false,"v8":"9.3.345.19"},{"name":"nodejs","version":"16.11.0","date":"2021-10-08","lts":false,"security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.12.0","date":"2021-10-20","lts":false,"security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.13.0","date":"2021-10-26","lts":"Gallium","security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.14.0","date":"2022-02-08","lts":"Gallium","security":false,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.15.0","date":"2022-04-26","lts":"Gallium","security":false,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.16.0","date":"2022-07-07","lts":"Gallium","security":true,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.17.0","date":"2022-08-16","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.18.0","date":"2022-10-12","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.19.0","date":"2022-12-13","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.20.0","date":"2023-03-28","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"17.0.0","date":"2021-10-19","lts":false,"security":false,"v8":"9.5.172.21"},{"name":"nodejs","version":"17.1.0","date":"2021-11-09","lts":false,"security":false,"v8":"9.5.172.25"},{"name":"nodejs","version":"17.2.0","date":"2021-11-30","lts":false,"security":false,"v8":"9.6.180.14"},{"name":"nodejs","version":"17.3.0","date":"2021-12-17","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.4.0","date":"2022-01-18","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.5.0","date":"2022-02-10","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.6.0","date":"2022-02-22","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.7.0","date":"2022-03-09","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.8.0","date":"2022-03-22","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.9.0","date":"2022-04-07","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"18.0.0","date":"2022-04-18","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.1.0","date":"2022-05-03","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.2.0","date":"2022-05-17","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.3.0","date":"2022-06-02","lts":false,"security":false,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.4.0","date":"2022-06-16","lts":false,"security":false,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.5.0","date":"2022-07-06","lts":false,"security":true,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.6.0","date":"2022-07-13","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.7.0","date":"2022-07-26","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.8.0","date":"2022-08-24","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.9.0","date":"2022-09-07","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.10.0","date":"2022-09-28","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.11.0","date":"2022-10-13","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.12.0","date":"2022-10-25","lts":"Hydrogen","security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.13.0","date":"2023-01-05","lts":"Hydrogen","security":false,"v8":"10.2.154.23"},{"name":"nodejs","version":"18.14.0","date":"2023-02-01","lts":"Hydrogen","security":false,"v8":"10.2.154.23"},{"name":"nodejs","version":"18.15.0","date":"2023-03-05","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.16.0","date":"2023-04-12","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.17.0","date":"2023-07-18","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.18.0","date":"2023-09-18","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.19.0","date":"2023-11-29","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.20.0","date":"2024-03-26","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"19.0.0","date":"2022-10-17","lts":false,"security":false,"v8":"10.7.193.13"},{"name":"nodejs","version":"19.1.0","date":"2022-11-14","lts":false,"security":false,"v8":"10.7.193.20"},{"name":"nodejs","version":"19.2.0","date":"2022-11-29","lts":false,"security":false,"v8":"10.8.168.20"},{"name":"nodejs","version":"19.3.0","date":"2022-12-14","lts":false,"security":false,"v8":"10.8.168.21"},{"name":"nodejs","version":"19.4.0","date":"2023-01-05","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.5.0","date":"2023-01-24","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.6.0","date":"2023-02-01","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.7.0","date":"2023-02-21","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.8.0","date":"2023-03-14","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.9.0","date":"2023-04-10","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"20.0.0","date":"2023-04-17","lts":false,"security":false,"v8":"11.3.244.4"},{"name":"nodejs","version":"20.1.0","date":"2023-05-03","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.2.0","date":"2023-05-16","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.3.0","date":"2023-06-08","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.4.0","date":"2023-07-04","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.5.0","date":"2023-07-19","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.6.0","date":"2023-08-23","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.7.0","date":"2023-09-18","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.8.0","date":"2023-09-28","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.9.0","date":"2023-10-24","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.10.0","date":"2023-11-22","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.11.0","date":"2024-01-09","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.12.0","date":"2024-03-26","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.13.0","date":"2024-05-07","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.14.0","date":"2024-05-28","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.15.0","date":"2024-06-20","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.16.0","date":"2024-07-24","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.17.0","date":"2024-08-21","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.18.0","date":"2024-10-03","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"21.0.0","date":"2023-10-17","lts":false,"security":false,"v8":"11.8.172.13"},{"name":"nodejs","version":"21.1.0","date":"2023-10-24","lts":false,"security":false,"v8":"11.8.172.15"},{"name":"nodejs","version":"21.2.0","date":"2023-11-14","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.3.0","date":"2023-11-30","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.4.0","date":"2023-12-05","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.5.0","date":"2023-12-19","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.6.0","date":"2024-01-14","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.7.0","date":"2024-03-06","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"22.0.0","date":"2024-04-24","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.1.0","date":"2024-05-02","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.2.0","date":"2024-05-15","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.3.0","date":"2024-06-11","lts":false,"security":false,"v8":"12.4.254.20"},{"name":"nodejs","version":"22.4.0","date":"2024-07-02","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.5.0","date":"2024-07-17","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.6.0","date":"2024-08-06","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.7.0","date":"2024-08-21","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.8.0","date":"2024-09-03","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.9.0","date":"2024-09-17","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.10.0","date":"2024-10-16","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.11.0","date":"2024-10-29","lts":"Jod","security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.12.0","date":"2024-12-02","lts":"Jod","security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"23.0.0","date":"2024-10-16","lts":false,"security":false,"v8":"12.9.202.26"},{"name":"nodejs","version":"23.1.0","date":"2024-10-24","lts":false,"security":false,"v8":"12.9.202.28"},{"name":"nodejs","version":"23.2.0","date":"2024-11-11","lts":false,"security":false,"v8":"12.9.202.28"},{"name":"nodejs","version":"23.3.0","date":"2024-11-20","lts":false,"security":false,"v8":"12.9.202.28"}]');
+
+/***/ }),
+
+/***/ "./node_modules/node-releases/data/release-schedule/release-schedule.json":
+/*!********************************************************************************!*\
+  !*** ./node_modules/node-releases/data/release-schedule/release-schedule.json ***!
+  \********************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"v0.8":{"start":"2012-06-25","end":"2014-07-31"},"v0.10":{"start":"2013-03-11","end":"2016-10-31"},"v0.12":{"start":"2015-02-06","end":"2016-12-31"},"v4":{"start":"2015-09-08","lts":"2015-10-12","maintenance":"2017-04-01","end":"2018-04-30","codename":"Argon"},"v5":{"start":"2015-10-29","maintenance":"2016-04-30","end":"2016-06-30"},"v6":{"start":"2016-04-26","lts":"2016-10-18","maintenance":"2018-04-30","end":"2019-04-30","codename":"Boron"},"v7":{"start":"2016-10-25","maintenance":"2017-04-30","end":"2017-06-30"},"v8":{"start":"2017-05-30","lts":"2017-10-31","maintenance":"2019-01-01","end":"2019-12-31","codename":"Carbon"},"v9":{"start":"2017-10-01","maintenance":"2018-04-01","end":"2018-06-30"},"v10":{"start":"2018-04-24","lts":"2018-10-30","maintenance":"2020-05-19","end":"2021-04-30","codename":"Dubnium"},"v11":{"start":"2018-10-23","maintenance":"2019-04-22","end":"2019-06-01"},"v12":{"start":"2019-04-23","lts":"2019-10-21","maintenance":"2020-11-30","end":"2022-04-30","codename":"Erbium"},"v13":{"start":"2019-10-22","maintenance":"2020-04-01","end":"2020-06-01"},"v14":{"start":"2020-04-21","lts":"2020-10-27","maintenance":"2021-10-19","end":"2023-04-30","codename":"Fermium"},"v15":{"start":"2020-10-20","maintenance":"2021-04-01","end":"2021-06-01"},"v16":{"start":"2021-04-20","lts":"2021-10-26","maintenance":"2022-10-18","end":"2023-09-11","codename":"Gallium"},"v17":{"start":"2021-10-19","maintenance":"2022-04-01","end":"2022-06-01"},"v18":{"start":"2022-04-19","lts":"2022-10-25","maintenance":"2023-10-18","end":"2025-04-30","codename":"Hydrogen"},"v19":{"start":"2022-10-18","maintenance":"2023-04-01","end":"2023-06-01"},"v20":{"start":"2023-04-18","lts":"2023-10-24","maintenance":"2024-10-22","end":"2026-04-30","codename":"Iron"},"v21":{"start":"2023-10-17","maintenance":"2024-04-01","end":"2024-06-01"},"v22":{"start":"2024-04-24","lts":"2024-10-29","maintenance":"2025-10-21","end":"2027-04-30","codename":"Jod"},"v23":{"start":"2024-10-16","maintenance":"2025-04-01","end":"2025-06-01"},"v24":{"start":"2025-04-22","lts":"2025-10-28","maintenance":"2026-10-20","end":"2028-04-30","codename":""}}');
 
 /***/ }),
 
@@ -9710,1509 +11118,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./core/src/views/UnsupportedBrowser.vue":
-/*!***********************************************!*\
-  !*** ./core/src/views/UnsupportedBrowser.vue ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true */ "./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true");
-/* harmony import */ var _UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=script&lang=js */ "./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js");
-/* harmony import */ var _UnsupportedBrowser_vue_vue_type_style_index_0_id_4d32209e_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true */ "./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
-  _UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "4d32209e",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "core/src/views/UnsupportedBrowser.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./node_modules/vue-material-design-icons/Web.vue":
-/*!********************************************************!*\
-  !*** ./node_modules/vue-material-design-icons/Web.vue ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Web.vue?vue&type=template&id=02e31dd8 */ "./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8");
-/* harmony import */ var _Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Web.vue?vue&type=script&lang=js */ "./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js");
-/* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.render,
-  _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "node_modules/vue-material-design-icons/Web.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js":
-/*!*******************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js ***!
-  \*******************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "WebIcon",
-  emits: ['click'],
-  props: {
-    title: {
-      type: String,
-    },
-    fillColor: {
-      type: String,
-      default: "currentColor"
-    },
-    size: {
-      type: Number,
-      default: 24
-    }
-  }
-});
-
-
-/***/ }),
-
-/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js":
-/*!***********************************************************************!*\
-  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true":
-/*!*****************************************************************************************!*\
-  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_template_id_4d32209e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=template&id=4d32209e&scoped=true");
-
-
-/***/ }),
-
-/***/ "./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true":
-/*!********************************************************************************************************!*\
-  !*** ./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true ***!
-  \********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_UnsupportedBrowser_vue_vue_type_style_index_0_id_4d32209e_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./core/src/views/UnsupportedBrowser.vue?vue&type=style&index=0&id=4d32209e&lang=scss&scoped=true");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/index.js??vue-loader-options!./Web.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8 ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../vue-loader/lib/index.js??vue-loader-options!./Web.vue?vue&type=template&id=02e31dd8 */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8 ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c
-  return _c(
-    "span",
-    _vm._b(
-      {
-        staticClass: "material-design-icon web-icon",
-        attrs: {
-          "aria-hidden": _vm.title ? null : "true",
-          "aria-label": _vm.title,
-          role: "img",
-        },
-        on: {
-          click: function ($event) {
-            return _vm.$emit("click", $event)
-          },
-        },
-      },
-      "span",
-      _vm.$attrs,
-      false
-    ),
-    [
-      _c(
-        "svg",
-        {
-          staticClass: "material-design-icon__svg",
-          attrs: {
-            fill: _vm.fillColor,
-            width: _vm.size,
-            height: _vm.size,
-            viewBox: "0 0 24 24",
-          },
-        },
-        [
-          _c(
-            "path",
-            {
-              attrs: {
-                d: "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
-              },
-            },
-            [_vm.title ? _c("title", [_vm._v(_vm._s(_vm.title))]) : _vm._e()]
-          ),
-        ]
-      ),
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "?3465":
-/*!**********************!*\
-  !*** path (ignored) ***!
-  \**********************/
-/***/ (() => {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ "./node_modules/browserslist-useragent-regexp/dist/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/browserslist-useragent-regexp/dist/index.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AlternativeNode: () => (/* binding */ AlternativeNode),
-/* harmony export */   AstRegExpNode: () => (/* binding */ AstRegExpNode),
-/* harmony export */   CapturingGroupNode: () => (/* binding */ CapturingGroupNode),
-/* harmony export */   CharacterClassNode: () => (/* binding */ CharacterClassNode),
-/* harmony export */   ClassRangeNode: () => (/* binding */ ClassRangeNode),
-/* harmony export */   DigitPatternNode: () => (/* binding */ DigitPatternNode),
-/* harmony export */   DisjunctionCapturingGroupNode: () => (/* binding */ DisjunctionCapturingGroupNode),
-/* harmony export */   DisjunctionNode: () => (/* binding */ DisjunctionNode),
-/* harmony export */   MetaCharNode: () => (/* binding */ MetaCharNode),
-/* harmony export */   NumberCharsNode: () => (/* binding */ NumberCharsNode),
-/* harmony export */   NumberPatternNode: () => (/* binding */ NumberPatternNode),
-/* harmony export */   RangeQuantifierNode: () => (/* binding */ RangeQuantifierNode),
-/* harmony export */   RepetitionNode: () => (/* binding */ RepetitionNode),
-/* harmony export */   SemverPart: () => (/* binding */ SemverPart),
-/* harmony export */   SimpleCharNode: () => (/* binding */ SimpleCharNode),
-/* harmony export */   SimpleQuantifierNode: () => (/* binding */ SimpleQuantifierNode),
-/* harmony export */   applyVersionsToRegex: () => (/* binding */ applyVersionsToRegex),
-/* harmony export */   applyVersionsToRegexes: () => (/* binding */ applyVersionsToRegexes),
-/* harmony export */   clone: () => (/* binding */ clone),
-/* harmony export */   compareArrays: () => (/* binding */ compareArrays),
-/* harmony export */   compareSemvers: () => (/* binding */ compareSemvers),
-/* harmony export */   compileRegex: () => (/* binding */ compileRegex),
-/* harmony export */   compileRegexes: () => (/* binding */ compileRegexes),
-/* harmony export */   concat: () => (/* binding */ concat),
-/* harmony export */   defaultOptions: () => (/* binding */ defaultOptions),
-/* harmony export */   findMatchedVersions: () => (/* binding */ findMatchedVersions),
-/* harmony export */   getBrowsersList: () => (/* binding */ getBrowsersList),
-/* harmony export */   getNumberPatternsCount: () => (/* binding */ getNumberPatternsCount),
-/* harmony export */   getNumberPatternsPart: () => (/* binding */ getNumberPatternsPart),
-/* harmony export */   getPreUserAgentRegexes: () => (/* binding */ getPreUserAgentRegexes),
-/* harmony export */   getRegexesForBrowsers: () => (/* binding */ getRegexesForBrowsers),
-/* harmony export */   getRequiredSemverPartsCount: () => (/* binding */ getRequiredSemverPartsCount),
-/* harmony export */   getUserAgentRegex: () => (/* binding */ getUserAgentRegex),
-/* harmony export */   getUserAgentRegexes: () => (/* binding */ getUserAgentRegexes),
-/* harmony export */   isCharNode: () => (/* binding */ isCharNode),
-/* harmony export */   isDigitRangeNode: () => (/* binding */ isDigitRangeNode),
-/* harmony export */   isExpressionNode: () => (/* binding */ isExpressionNode),
-/* harmony export */   isNumberPatternNode: () => (/* binding */ isNumberPatternNode),
-/* harmony export */   mergeBrowserVersions: () => (/* binding */ mergeBrowserVersions),
-/* harmony export */   mergeDigits: () => (/* binding */ mergeDigits),
-/* harmony export */   numberToDigits: () => (/* binding */ numberToDigits),
-/* harmony export */   numbersToRanges: () => (/* binding */ numbersToRanges),
-/* harmony export */   optimizeRegex: () => (/* binding */ optimizeRegex),
-/* harmony export */   optimizeSegmentNumberPatterns: () => (/* binding */ optimizeSegmentNumberPatterns),
-/* harmony export */   parseBrowsersList: () => (/* binding */ parseBrowsersList),
-/* harmony export */   parseRegex: () => (/* binding */ parseRegex),
-/* harmony export */   rangeSemver: () => (/* binding */ rangeSemver),
-/* harmony export */   rangeToRegex: () => (/* binding */ rangeToRegex),
-/* harmony export */   rangedSemverToRegex: () => (/* binding */ rangedSemverToRegex),
-/* harmony export */   rayRangeDigitPattern: () => (/* binding */ rayRangeDigitPattern),
-/* harmony export */   rayToNumberPatterns: () => (/* binding */ rayToNumberPatterns),
-/* harmony export */   replaceNumberPatterns: () => (/* binding */ replaceNumberPatterns),
-/* harmony export */   segmentRangeNumberPattern: () => (/* binding */ segmentRangeNumberPattern),
-/* harmony export */   segmentToNumberPatterns: () => (/* binding */ segmentToNumberPatterns),
-/* harmony export */   semverify: () => (/* binding */ semverify),
-/* harmony export */   splitCommonDiff: () => (/* binding */ splitCommonDiff),
-/* harmony export */   splitToDecadeRanges: () => (/* binding */ splitToDecadeRanges),
-/* harmony export */   toRegex: () => (/* binding */ toRegex),
-/* harmony export */   toString: () => (/* binding */ toString),
-/* harmony export */   versionsListToRanges: () => (/* binding */ versionsListToRanges),
-/* harmony export */   visitors: () => (/* binding */ visitors)
-/* harmony export */ });
-/* harmony import */ var browserslist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! browserslist */ "./node_modules/browserslist/index.js");
-/* harmony import */ var regexp_tree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regexp-tree */ "./node_modules/regexp-tree/index.js");
-/* harmony import */ var ua_regexes_lite__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ua-regexes-lite */ "./node_modules/ua-regexes-lite/index.js");
-
-
-
-
-/**
- * Array of numbers to array of first and last elements.
- * @param numbers - Array of numbers.
- * @returns Number or two numbers.
- */ function numbersToRanges(numbers) {
-    if (typeof numbers === "number") {
-        return numbers;
-    }
-    if (numbers.length === 1) {
-        return numbers[0];
-    }
-    return [
-        numbers[0],
-        numbers[numbers.length - 1]
-    ];
-}
-
-var SemverPart;
-(function(SemverPart) {
-    SemverPart[SemverPart["Major"] = 0] = "Major";
-    SemverPart[SemverPart["Minor"] = 1] = "Minor";
-    SemverPart[SemverPart["Patch"] = 2] = "Patch";
-})(SemverPart || (SemverPart = {}));
-
-/**
- * Get semver from string or array.
- * @param version - Target to convert.
- * @returns Array with semver parts.
- */ function semverify(version) {
-    const versionParts = Array.isArray(version) ? version : version.toString().split(".");
-    if (versionParts[0] === "all") {
-        return [
-            Infinity,
-            0,
-            0
-        ];
-    }
-    let versionPart = null;
-    let semverPart = null;
-    const semver = [
-        0,
-        0,
-        0
-    ];
-    for(let i = 0; i < 3; i++){
-        versionPart = versionParts[i];
-        if (typeof versionPart === "undefined") {
-            continue;
-        }
-        semverPart = typeof versionPart === "number" ? versionPart : parseInt(versionPart, 10);
-        if (isNaN(semverPart)) {
-            return null;
-        }
-        semver[i] = semverPart;
-    }
-    return semver;
-}
-/**
- * Get semver range.
- * @param from
- * @param to
- * @returns Semver range.
- */ function rangeSemver(from, to) {
-    let partIndex = 0;
-    const range = [];
-    for(let i = 2; i >= 0; i--){
-        if (from[i] !== to[i]) {
-            partIndex = i;
-            break;
-        }
-    }
-    for(let i1 = from[partIndex], max = to[partIndex]; i1 <= max; i1++){
-        range.push(from.map((v, j)=>j === partIndex ? i1 : v));
-    }
-    return range;
-}
-/**
- * Compare semvers.
- * @param a - Semver to compare.
- * @param b - Semver to compare with.
- * @param options - Compare options.
- * @returns Equals or not.
- */ function compareSemvers(a, b, options) {
-    const [major, minor, patch] = a;
-    const [majorBase, minorBase, patchBase] = b;
-    const { ignoreMinor , ignorePatch , allowHigherVersions  } = options;
-    if (majorBase === Infinity) {
-        return true;
-    }
-    const compareMinor = !ignoreMinor;
-    const comparePatch = compareMinor && !ignorePatch;
-    if (allowHigherVersions) {
-        if (comparePatch && patch < patchBase || compareMinor && minor < minorBase) {
-            return false;
-        }
-        return major >= majorBase;
-    }
-    if (comparePatch && patch !== patchBase || compareMinor && minor !== minorBase) {
-        return false;
-    }
-    return major === majorBase;
-}
-/**
- * Get required semver parts count.
- * @param version - Semver parts or ranges.
- * @param options - Semver compare options.
- * @returns Required semver parts count.
- */ function getRequiredSemverPartsCount(version, options) {
-    const { ignoreMinor , ignorePatch , allowZeroSubversions  } = options;
-    let shouldRepeatCount = ignoreMinor ? 1 : ignorePatch ? 2 : 3;
-    if (allowZeroSubversions) {
-        for(let i = shouldRepeatCount - 1; i > 0; i--){
-            if (version[i] !== 0 || shouldRepeatCount === 1) {
-                break;
-            }
-            shouldRepeatCount--;
-        }
-    }
-    return shouldRepeatCount;
-}
-
-/**
- * Browsers strings to info objects.
- * @param browsersList - Browsers strings with family and version.
- * @returns Browser info objects.
- */ function parseBrowsersList(browsersList) {
-    return browsersList.reduce((browsers, browser)=>{
-        const [family, versionString, versionStringTo] = browser.split(/ |-/);
-        const version = semverify(versionString);
-        const versions = !version ? [] : versionStringTo ? rangeSemver(version, semverify(versionStringTo)) : [
-            version
-        ];
-        return versions.reduce((browsers, semver)=>{
-            if (semver) {
-                browsers.push({
-                    family,
-                    version: semver
-                });
-            }
-            return browsers;
-        }, browsers);
-    }, []);
-}
-/**
- * Request browsers list.
- * @param options - Options to get browsers list.
- * @returns Browser info objects.
- */ function getBrowsersList(options = {}) {
-    const { browsers , ...browserslistOptions } = options;
-    const browsersList = browserslist__WEBPACK_IMPORTED_MODULE_0__(browsers, browserslistOptions);
-    const parsedBrowsers = parseBrowsersList(browsersList);
-    return parsedBrowsers;
-}
-
-/**
- * Compare two arrays.
- * @param a - Array to compare.
- * @param b - Array to compare.
- * @param from - Index to start compare from.
- * @returns Equals or not.
- */ function compareArrays(a, b, from = 0) {
-    const len = a.length;
-    for(let i = from; i < len; i++){
-        if (a[i] !== b[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-/**
- * Clone simple object.
- * @param value
- * @returns Object clone.
- */ function clone(value) {
-    if (value === null || typeof value !== "object") {
-        return value;
-    }
-    /* eslint-disable */ const copy = Array.isArray(value) ? [] : {};
-    let i;
-    for(i in value){
-        copy[i] = clone(value[i]);
-    }
-    /* eslint-enable */ return copy;
-}
-/**
- * Concat arrays.
- * @param items
- * @returns Concatinated arrays.
- */ function concat(items) {
-    return [].concat(...items);
-}
-
-/**
- * Merge browser info object to map with versions.
- * @param browsers - Browser info object to merge.
- * @returns Merged browsers map.
- */ function mergeBrowserVersions(browsers) {
-    const merge = new Map();
-    browsers.forEach(({ family , version  })=>{
-        const versions = merge.get(family);
-        if (versions) {
-            const strVersion = version.join(".");
-            if (versions.every((_)=>_.join(".") !== strVersion)) {
-                versions.push(version);
-            }
-            return;
-        }
-        merge.set(family, [
-            version
-        ]);
-    });
-    merge.forEach((versions)=>{
-        versions.sort((a, b)=>{
-            for(const i in a){
-                if (a[i] !== b[i]) {
-                    return a[i] - b[i];
-                }
-            }
-            return 0;
-        });
-    });
-    return merge;
-}
-/**
- * Versions to ranged versions.
- * @param versions - Semver versions list.
- * @returns Ranged versions list.
- */ function versionsListToRanges(versions) {
-    if (versions.length < 2) {
-        return versions;
-    }
-    const max = versions.length + 1;
-    const ranges = [];
-    let prev = null;
-    let current = versions[0];
-    let major = [
-        current[SemverPart.Major]
-    ];
-    let minor = [
-        current[SemverPart.Minor]
-    ];
-    let patch = [
-        current[SemverPart.Patch]
-    ];
-    let part = null;
-    for(let i = 1; i < max; i++){
-        prev = versions[i - 1];
-        current = versions[i] || [];
-        for(let p = SemverPart.Major; p <= SemverPart.Patch; p++){
-            if ((p === part || part === null) && prev[p] + 1 === current[p] && compareArrays(prev, current, p + 1)) {
-                part = p;
-                if (p === SemverPart.Major) {
-                    major.push(current[SemverPart.Major]);
-                } else {
-                    major = current[SemverPart.Major];
-                }
-                if (p === SemverPart.Minor) {
-                    minor.push(current[SemverPart.Minor]);
-                } else {
-                    minor = current[SemverPart.Minor];
-                }
-                if (p === SemverPart.Patch) {
-                    patch.push(current[SemverPart.Patch]);
-                } else {
-                    patch = current[SemverPart.Patch];
-                }
-                break;
-            }
-            if (part === p || prev[p] !== current[p]) {
-                ranges.push([
-                    numbersToRanges(major),
-                    numbersToRanges(minor),
-                    numbersToRanges(patch)
-                ]);
-                major = [
-                    current[SemverPart.Major]
-                ];
-                minor = [
-                    current[SemverPart.Minor]
-                ];
-                patch = [
-                    current[SemverPart.Patch]
-                ];
-                part = null;
-                break;
-            }
-        }
-    }
-    return ranges;
-}
-
-function AstRegExpNode(body) {
-    return {
-        type: "RegExp",
-        body,
-        flags: ""
-    };
-}
-function AlternativeNode(...expressions) {
-    const exps = concat(expressions).filter(Boolean);
-    if (exps.length === 1) {
-        return exps[0];
-    }
-    return {
-        type: "Alternative",
-        expressions: exps
-    };
-}
-function SimpleCharNode(value) {
-    return {
-        type: "Char",
-        kind: "simple",
-        value: String(value),
-        codePoint: NaN
-    };
-}
-function MetaCharNode(value) {
-    return {
-        type: "Char",
-        kind: "meta",
-        value,
-        codePoint: NaN
-    };
-}
-function ClassRangeNode(from, to) {
-    return {
-        type: "ClassRange",
-        from,
-        to
-    };
-}
-function CharacterClassNode(...expressions) {
-    return {
-        type: "CharacterClass",
-        expressions: concat(expressions).filter(Boolean)
-    };
-}
-function SimpleQuantifierNode(kind) {
-    return {
-        type: "Quantifier",
-        kind,
-        greedy: true
-    };
-}
-function RangeQuantifierNode(from, to) {
-    return {
-        type: "Quantifier",
-        kind: "Range",
-        from,
-        to,
-        greedy: true
-    };
-}
-function CapturingGroupNode(expression) {
-    return {
-        type: "Group",
-        capturing: true,
-        expression,
-        number: null
-    };
-}
-function RepetitionNode(expression, quantifier) {
-    return {
-        type: "Repetition",
-        expression,
-        quantifier
-    };
-}
-function DisjunctionNode(...expressions) {
-    const exprs = concat(expressions).filter(Boolean);
-    if (exprs.length === 1) {
-        return exprs[0];
-    }
-    const disjunction = {
-        type: "Disjunction",
-        left: null,
-        right: exprs.pop()
-    };
-    exprs.reduceRight((disjunction, expr, i)=>{
-        if (i === 0) {
-            disjunction.left = expr;
-            return disjunction;
-        }
-        disjunction.left = {
-            type: "Disjunction",
-            left: null,
-            right: expr
-        };
-        return disjunction.left;
-    }, disjunction);
-    return disjunction;
-}
-function DisjunctionCapturingGroupNode(...expressions) {
-    const expr = DisjunctionNode(...expressions);
-    if (expr.type === "Disjunction") {
-        return CapturingGroupNode(expr);
-    }
-    return expr;
-}
-function DigitPatternNode() {
-    return MetaCharNode("\\d");
-}
-function NumberPatternNode(quantifier = SimpleQuantifierNode("+")) {
-    const numberPattern = RepetitionNode(DigitPatternNode(), quantifier);
-    return numberPattern;
-}
-function NumberCharsNode(value) {
-    return AlternativeNode(Array.from(String(value), SimpleCharNode));
-}
-
-/**
- * Check node whether is number pattern.
- * @param node - AST node to check.
- * @returns Is number pattern or not.
- */ function isNumberPatternNode(node) {
-    if (node.type === "Group" && node.expression.type === "Repetition") {
-        const { expression , quantifier  } = node.expression;
-        return expression.type === "Char" && expression.value === "\\d" && quantifier.kind === "+" && quantifier.greedy;
-    }
-    return false;
-}
-/**
- * Check node whether is char node.
- * @param node - AST node to check.
- * @param value - Value to compare.
- * @returns Is char node or not.
- */ function isCharNode(node, value) {
-    if (node && node.type === "Char") {
-        return typeof value === "undefined" || value instanceof RegExp && value.test(node.value) || String(value) === node.value;
-    }
-    return false;
-}
-/**
- * Check node whether is digit range.
- * @param node - AST node to check.
- * @returns Is digit range or not.
- */ function isDigitRangeNode(node) {
-    if (node.type === "CharacterClass" && node.expressions.length === 1) {
-        const [expression] = node.expressions;
-        return expression.type === "ClassRange" && isCharNode(expression.from, /\d/) && isCharNode(expression.to, /\d/);
-    }
-    return false;
-}
-/**
- * Check node whether is expression.
- * @param node - AST node to check.
- * @returns Is expression node or not.
- */ function isExpressionNode(node) {
-    return node.type !== "RegExp" && node.type !== "ClassRange" && node.type !== "Quantifier";
-}
-function parseRegex(regex) {
-    return typeof regex === "string" ? regexp_tree__WEBPACK_IMPORTED_MODULE_1__.parse(regex.replace(/^([^/])/, "/$1").replace(/([^/])$/, "$1/")) : regex instanceof RegExp ? regexp_tree__WEBPACK_IMPORTED_MODULE_1__.parse(regex) : regex;
-}
-/**
- * Get regex from string or AST.
- * @param src - String or AST.
- * @returns RegExp.
- */ function toRegex(src) {
-    return typeof src === "string" ? new RegExp(src) : new RegExp(regexp_tree__WEBPACK_IMPORTED_MODULE_1__.generate(src.body), src.flags);
-}
-/**
- * Get string from regex or AST.
- * @param src - RegExp or AST.
- * @returns String.
- */ function toString(src) {
-    return typeof src === "string" ? src : src instanceof RegExp ? src.toString() : regexp_tree__WEBPACK_IMPORTED_MODULE_1__.generate(src);
-}
-
-const classes = [
-    "RegExp",
-    "Disjunction",
-    "Alternative",
-    "Assertion",
-    "Char",
-    "CharacterClass",
-    "ClassRange",
-    "Backreference",
-    "Group",
-    "Repetition",
-    "Quantifier"
-];
-/**
- * Create traversal visitors.
- * @param visitors
- * @returns Traversal handlers.
- */ function visitors(visitors) {
-    const { every  } = visitors;
-    if (!every) {
-        return visitors;
-    }
-    if (typeof every === "function") {
-        return {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            "*": every,
-            ...visitors
-        };
-    }
-    return classes.reduce((newVisitors, className)=>{
-        const visitor = visitors[className];
-        const visitorPre = visitor ? "pre" in visitor ? visitor.pre : visitor : null;
-        const visitorPost = visitor ? "post" in visitor ? visitor.post : null : null;
-        newVisitors[className] = {
-            pre (nodePath) {
-                if (every.pre(nodePath) !== false && visitorPre) {
-                    return visitorPre(nodePath);
-                }
-                return true;
-            },
-            post (nodePath) {
-                if (every.post(nodePath) !== false && visitorPost) {
-                    return visitorPost(nodePath);
-                }
-                return true;
-            }
-        };
-        return newVisitors;
-    }, {});
-}
-
-function optimizeRegex(regex) {
-    // Optimization requires filled codePoints
-    const regexAst = regexp_tree__WEBPACK_IMPORTED_MODULE_1__.optimize(parseRegex(toString(regex))).getAST();
-    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, {
-        Group (nodePath) {
-            const { parent , node  } = nodePath;
-            const { expression  } = node;
-            node.capturing = true;
-            if (parent.type === "RegExp" || expression.type !== "Disjunction" && parent.type !== "Repetition" || expression.type === "Disjunction" && parent.type === "Disjunction") {
-                nodePath.replace(nodePath.node.expression);
-            }
-        }
-    });
-    return regexAst;
-}
-/**
- * Merge digits patterns if possible.
- * @param a
- * @param b
- * @returns Merged node.
- */ function mergeDigits(a, b) {
-    if (isCharNode(a) && isCharNode(b) && a.value === b.value) {
-        return b;
-    }
-    if (isCharNode(a, /\d/) && isDigitRangeNode(b) && Number(b.expressions[0].from.value) - Number(a.value) === 1) {
-        return {
-            ...b,
-            expressions: [
-                {
-                    ...b.expressions[0],
-                    from: a
-                }
-            ]
-        };
-    }
-    if (isDigitRangeNode(a) && isCharNode(b, /\d/) && Number(b.value) - Number(a.expressions[0].to.value) === 1) {
-        return {
-            ...a,
-            expressions: [
-                {
-                    ...a.expressions[0],
-                    to: b
-                }
-            ]
-        };
-    }
-    return null;
-}
-/**
- * Optimize segment number patterns.
- * @param patterns
- * @returns Optimized segment number patterns.
- */ function optimizeSegmentNumberPatterns(patterns) {
-    return patterns.reduce((patterns, node)=>{
-        const prevNode = patterns[patterns.length - 1];
-        if (prevNode && node.type === "Alternative" && prevNode.type === "Alternative" && node.expressions.length === prevNode.expressions.length) {
-            const merged = prevNode.expressions.reduceRight((exps, exp, i)=>{
-                if (!exps) {
-                    return exps;
-                }
-                const merged = mergeDigits(exp, node.expressions[i]);
-                if (merged) {
-                    exps.unshift(merged);
-                } else {
-                    return null;
-                }
-                return exps;
-            }, []);
-            if (merged) {
-                node.expressions = merged;
-                patterns.pop();
-            }
-        }
-        patterns.push(node);
-        return patterns;
-    }, []);
-}
-
-/**
- * Transform number to digits array.
- * @param num - Target number.
- * @returns Digits array.
- */ function numberToDigits(num) {
-    return Array.from(num.toString(), Number);
-}
-
-/**
- * Get digit pattern.
- * @param digit - Ray start.
- * @param includes - Include start digit or use next.
- * @returns Digit pattern.
- */ function rayRangeDigitPattern(digit, includes) {
-    const rangeStart = digit + Number(!includes);
-    if (rangeStart === 0) {
-        return DigitPatternNode();
-    }
-    if (rangeStart === 9) {
-        return SimpleCharNode("9");
-    }
-    if (rangeStart > 9) {
-        return null;
-    }
-    return CharacterClassNode(ClassRangeNode(SimpleCharNode(rangeStart), SimpleCharNode("9")));
-}
-/**
- * Create numeric ray pattern.
- * @param from - Start from this number.
- * @returns Numeric ray pattern parts.
- */ function rayToNumberPatterns(from) {
-    if (from === 0) {
-        return [
-            NumberPatternNode()
-        ];
-    }
-    const digits = numberToDigits(from);
-    const digitsCount = digits.length;
-    const other = NumberPatternNode(RangeQuantifierNode(digitsCount + 1));
-    const zeros = digitsCount - 1;
-    if (from / Math.pow(10, zeros) === digits[0]) {
-        return [
-            AlternativeNode(rayRangeDigitPattern(digits[0], true), Array.from({
-                length: zeros
-            }, DigitPatternNode)),
-            other
-        ];
-    }
-    const raysNumberPatterns = digits.reduce((topNodes, _, i)=>{
-        const ri = digitsCount - i - 1;
-        const d = i === 0;
-        let prev = SimpleCharNode("");
-        const nodes = digits.reduce((nodes, digit, j)=>{
-            if (j < ri) {
-                nodes.push(SimpleCharNode(digit));
-            } else if (prev) {
-                if (j > ri) {
-                    nodes.push(DigitPatternNode());
-                } else {
-                    prev = rayRangeDigitPattern(digit, d);
-                    if (prev) {
-                        nodes.push(prev);
-                    } else {
-                        return [];
-                    }
-                }
-            }
-            return nodes;
-        }, []);
-        if (nodes.length) {
-            topNodes.push(nodes);
-        }
-        return topNodes;
-    }, []);
-    const numberPatterns = raysNumberPatterns.map((_)=>AlternativeNode(_));
-    numberPatterns.push(other);
-    return numberPatterns;
-}
-
-/**
- * Get digit pattern.
- * @param from - Segment start.
- * @param to - Segment end.
- * @param zeros - Zeros to add as prefix.
- * @returns Digit pattern.
- */ function segmentRangeNumberPattern(from, to, zeros) {
-    if (to < from) {
-        return null;
-    }
-    const fromNode = SimpleCharNode(from);
-    const toNode = SimpleCharNode(to);
-    const zerosPrefix = typeof zeros === "number" && zeros > 0 ? Array.from({
-        length: zeros
-    }, ()=>SimpleCharNode(0)) : [];
-    const addPrefix = zerosPrefix.length ? (node)=>AlternativeNode(zerosPrefix, node) : (node)=>node;
-    if (from === to) {
-        return addPrefix(fromNode);
-    }
-    if (from === 0 && to === 9) {
-        return addPrefix(DigitPatternNode());
-    }
-    if (to - from === 1) {
-        return addPrefix(CharacterClassNode(fromNode, toNode));
-    }
-    return addPrefix(CharacterClassNode(ClassRangeNode(fromNode, toNode)));
-}
-/**
- * Split segment range to decade ranges.
- * @param from - Segment start.
- * @param to - Segment end.
- * @returns Ranges.
- */ function splitToDecadeRanges(from, to) {
-    const ranges = [];
-    let num = from;
-    let decade = 1;
-    do {
-        decade *= 10;
-        if (num < decade) {
-            ranges.push([
-                num,
-                Math.min(decade - 1, to)
-            ]);
-            num = decade;
-        }
-    }while (decade <= to);
-    return ranges;
-}
-/**
- * Get common and diffs of two numbers (arrays of digits).
- * @param a - Digits.
- * @param b - Other digits.
- * @returns Common part and diffs.
- */ function splitCommonDiff(a, b) {
-    const len = a.length;
-    if (len !== b.length || a[0] !== b[0]) {
-        return null;
-    }
-    let common = a[0].toString();
-    let currA = 0;
-    let currB = 0;
-    let diffA = "";
-    let diffB = "";
-    for(let i = 1; i < len; i++){
-        currA = a[i];
-        currB = b[i];
-        if (currA === currB && diffA === "" && diffB === "") {
-            common += currA;
-        } else {
-            diffA += currA;
-            diffB += currB;
-        }
-    }
-    return [
-        common,
-        parseInt(diffA, 10),
-        parseInt(diffB, 10)
-    ];
-}
-/**
- * Get segment patterns.
- * @param from - Segment start.
- * @param to - Segment end.
- * @param digitsInNumber - How many digits should be en number. Will be filled by zeros.
- * @returns Segment patterns.
- */ function segmentToNumberPatterns(from, to, digitsInNumber = 0) {
-    const fromDigits = numberToDigits(from);
-    const digitsCount = fromDigits.length;
-    if (from < 10 && to < 10 || from === to) {
-        const zeros = digitsInNumber - digitsCount;
-        return [
-            segmentRangeNumberPattern(from, to, zeros)
-        ];
-    }
-    const toDigits = numberToDigits(to);
-    if (digitsCount !== toDigits.length) {
-        const decadeRanges = splitToDecadeRanges(from, to);
-        const parts = concat(decadeRanges.map(([from, to])=>segmentToNumberPatterns(from, to, digitsInNumber)));
-        return parts;
-    }
-    const commonStart = splitCommonDiff(fromDigits, toDigits);
-    if (Array.isArray(commonStart)) {
-        const [common, from1, to1] = commonStart;
-        const digitsInNumber1 = digitsCount - common.length;
-        const diffParts = segmentToNumberPatterns(from1, to1, digitsInNumber1);
-        return [
-            AlternativeNode(Array.from(common, SimpleCharNode), DisjunctionCapturingGroupNode(diffParts))
-        ];
-    }
-    const range = Array.from({
-        length: digitsCount - 1
-    });
-    const middleSegment = segmentRangeNumberPattern(fromDigits[0] + 1, toDigits[0] - 1);
-    const parts1 = [
-        ...range.map((_, i)=>{
-            const ri = digitsCount - i - 1;
-            const d = Number(i > 0);
-            return AlternativeNode(fromDigits.map((digit, j)=>{
-                if (j < ri) {
-                    return SimpleCharNode(digit);
-                }
-                if (j > ri) {
-                    return segmentRangeNumberPattern(0, 9);
-                }
-                return segmentRangeNumberPattern(digit + d, 9);
-            }));
-        }),
-        // but output more readable
-        ...middleSegment ? [
-            AlternativeNode(middleSegment, Array.from({
-                length: digitsCount - 1
-            }, ()=>DigitPatternNode()))
-        ] : [],
-        ...range.map((_, i)=>{
-            const ri = digitsCount - i - 1;
-            const d = Number(i > 0);
-            return AlternativeNode(toDigits.map((digit, j)=>{
-                if (j < ri) {
-                    return SimpleCharNode(digit);
-                }
-                if (j > ri) {
-                    return segmentRangeNumberPattern(0, 9);
-                }
-                return segmentRangeNumberPattern(0, digit - d);
-            }));
-        })
-    ];
-    return optimizeSegmentNumberPatterns(parts1);
-}
-
-/**
- * Get regex for given numeric range.
- * @param from - Range start.
- * @param to - Range end.
- * @returns Range pattern.
- */ function rangeToRegex(from, to = Infinity) {
-    if (from === Infinity) {
-        return NumberPatternNode();
-    }
-    const numberPatterns = to === Infinity ? rayToNumberPatterns(from) : segmentToNumberPatterns(from, to);
-    const regex = DisjunctionCapturingGroupNode(numberPatterns);
-    return regex;
-}
-
-/**
- * Find matched versions.
- * @param minVersion - Semver version.
- * @param maxVersion - Semver version.
- * @param bases - Base semver versions.
- * @param options - Semver compare options.
- * @returns Matched versions.
- */ function findMatchedVersions(minVersion, maxVersion, bases, options) {
-    const compareOptions = {
-        ...options,
-        allowHigherVersions: true
-    };
-    const minComparator = (ver)=>compareSemvers(ver, minVersion, compareOptions);
-    const maxComparator = (ver)=>compareSemvers(maxVersion, ver, compareOptions);
-    const comparator = minVersion && maxVersion ? (ver)=>minComparator(ver) && maxComparator(ver) : minVersion ? minComparator : maxVersion ? maxComparator : ()=>true;
-    return bases.filter(comparator);
-}
-
-/**
- * Get useragent regexes for given browsers.
- * @param browsers - Browsers.
- * @param options - Semver compare options.
- * @param targetRegexes - Override default regexes.
- * @returns User agent regexes.
- */ function getRegexesForBrowsers(browsers, options, targetRegexes = ua_regexes_lite__WEBPACK_IMPORTED_MODULE_2__.regexes) {
-    const result = [];
-    let prevFamily = "";
-    let prevRegexIsGlobal = false;
-    targetRegexes.forEach((regex)=>{
-        const requestVersions = browsers.get(regex.family);
-        if (!requestVersions) {
-            return;
-        }
-        let { version , minVersion , maxVersion  } = regex;
-        if (version) {
-            minVersion = version;
-            maxVersion = version;
-        }
-        let matchedVersions = findMatchedVersions(minVersion, maxVersion, requestVersions, options);
-        if (matchedVersions.length) {
-            // regex contains global patch
-            if (prevFamily === regex.family && prevRegexIsGlobal) {
-                version = undefined;
-                minVersion = undefined;
-                maxVersion = undefined;
-                matchedVersions = requestVersions;
-                result.pop();
-            }
-            result.push({
-                ...regex,
-                version,
-                minVersion,
-                maxVersion,
-                requestVersions,
-                matchedVersions
-            });
-        }
-        prevRegexIsGlobal = !version && !minVersion && !maxVersion;
-        prevFamily = regex.family;
-    });
-    return result;
-}
-
-/**
- * Compile regexes.
- * @param regexes - Objects with info about compiled regexes.
- * @returns Objects with info about compiled regexes.
- */ function compileRegexes(regexes) {
-    return regexes.map(({ regexAst , ...regex })=>{
-        const optimizedRegexAst = optimizeRegex(regexAst);
-        return {
-            ...regex,
-            regexAst: optimizedRegexAst,
-            regex: toRegex(optimizedRegexAst)
-        };
-    });
-}
-/**
- * Compile regex.
- * @param regexes - Objects with info about compiled regexes.
- * @returns Compiled common regex.
- */ function compileRegex(regexes) {
-    const partsRegexes = regexes.map(({ regexAst  })=>CapturingGroupNode(regexAst.body));
-    const regexAst = optimizeRegex(AstRegExpNode(DisjunctionCapturingGroupNode(partsRegexes)));
-    return toRegex(regexAst);
-}
-
-/**
- * Get number patterns count from the regex.
- * @param regex - Target regex.
- * @returns Number patterns count.
- */ function getNumberPatternsCount(regex) {
-    const regexAst = parseRegex(regex);
-    let count = 0;
-    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, {
-        Group (nodePath) {
-            if (isNumberPatternNode(nodePath.node)) {
-                count++;
-            }
-        }
-    });
-    return count;
-}
-function replaceNumberPatterns(regex, numbers, numberPatternsCount) {
-    let regexAst = parseRegex(regex);
-    const numbersToReplace = typeof numberPatternsCount === "number" && numberPatternsCount < numbers.length ? numbers.slice(0, numberPatternsCount) : numbers.slice();
-    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
-        every () {
-            return Boolean(numbersToReplace.length);
-        },
-        Group (nodePath) {
-            if (isNumberPatternNode(nodePath.node) && numbersToReplace.length) {
-                if (regexAst === nodePath.node) {
-                    regexAst = numbersToReplace.shift();
-                } else {
-                    nodePath.replace(numbersToReplace.shift());
-                }
-                return false;
-            }
-            return true;
-        }
-    }));
-    return regexAst;
-}
-/**
- * Get from regex part with number patterns.
- * @param regex - Target regex.
- * @param numberPatternsCount - Number patterns to extract.
- * @returns Regex part with number patterns.
- */ function getNumberPatternsPart(regex, numberPatternsCount) {
-    const regexAst = parseRegex(regex);
-    const maxNumbersCount = Math.min(getNumberPatternsCount(regexAst), numberPatternsCount || Infinity);
-    const expressions = [];
-    let numbersCounter = 0;
-    let containsNumberPattern = false;
-    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
-        every: {
-            pre ({ node , parent  }) {
-                if (node === regexAst) {
-                    return true;
-                }
-                if (!isExpressionNode(node)) {
-                    return false;
-                }
-                if (parent === regexAst) {
-                    containsNumberPattern = false;
-                }
-                return numbersCounter < maxNumbersCount;
-            },
-            post ({ node , parent  }) {
-                if (node !== regexAst && parent === regexAst && isExpressionNode(node) && (containsNumberPattern || numbersCounter > 0 && numbersCounter < maxNumbersCount)) {
-                    expressions.push(node);
-                }
-            }
-        },
-        Group (nodePath) {
-            if (isNumberPatternNode(nodePath.node) && numbersCounter < maxNumbersCount) {
-                containsNumberPattern = true;
-                numbersCounter++;
-                return false;
-            }
-            return true;
-        }
-    }));
-    if (expressions.length === 1 && !isNumberPatternNode(expressions[0])) {
-        return getNumberPatternsPart(expressions[0], maxNumbersCount);
-    }
-    return expressions;
-}
-/**
- * Ranged semver to regex patterns.
- * @param rangedVersion - Ranged semver.
- * @param options - Semver compare options.
- * @returns Array of regex pattern.
- */ function rangedSemverToRegex(rangedVersion, options) {
-    const { ignoreMinor , ignorePatch , allowHigherVersions  } = options;
-    const ignoreIndex = rangedVersion[0] === Infinity ? 0 : ignoreMinor ? 1 : ignorePatch ? 2 : 3;
-    if (allowHigherVersions) {
-        const numberPatterns = [];
-        let prevWasZero = true;
-        let d = 0;
-        let start = 0;
-        const createMapper = (i)=>(range, j)=>{
-                if (j >= ignoreIndex) {
-                    return NumberPatternNode();
-                }
-                start = Array.isArray(range) ? range[0] : range;
-                if (j < i) {
-                    return NumberCharsNode(start);
-                }
-                if (j > i) {
-                    return NumberPatternNode();
-                }
-                return rangeToRegex(start + d);
-            };
-        for(let i = ignoreIndex - 1; i >= 0; i--){
-            if (prevWasZero && !rangedVersion[i]) {
-                continue;
-            }
-            prevWasZero = false;
-            numberPatterns.push(rangedVersion.map(createMapper(i)));
-            d = 1;
-        }
-        return numberPatterns;
-    }
-    const numberPatterns1 = rangedVersion.map((range, i)=>{
-        if (i >= ignoreIndex) {
-            return NumberPatternNode();
-        }
-        if (Array.isArray(range)) {
-            return rangeToRegex(range[0], range[1]);
-        }
-        return NumberCharsNode(range);
-    });
-    return [
-        numberPatterns1
-    ];
-}
-
-function applyVersionsToRegex(regex, versions, options) {
-    const { allowHigherVersions  } = options;
-    const regexAst = parseRegex(regex);
-    const finalVersions = allowHigherVersions && versions.length ? [
-        versions[0]
-    ] : versions;
-    const maxRequiredPartsCount = finalVersions.reduce((maxRequiredPartsCount, version)=>Math.max(maxRequiredPartsCount, getRequiredSemverPartsCount(version, options)), 1);
-    const numberPatternsPart = getNumberPatternsPart(regexAst, maxRequiredPartsCount);
-    const versionsPart = DisjunctionCapturingGroupNode(...finalVersions.map((version)=>rangedSemverToRegex(version, options).map((parts)=>replaceNumberPatterns(AlternativeNode(clone(numberPatternsPart)), parts, maxRequiredPartsCount))));
-    regexp_tree__WEBPACK_IMPORTED_MODULE_1__.traverse(regexAst, visitors({
-        every (nodePath) {
-            if (!numberPatternsPart.length) {
-                return false;
-            }
-            if (nodePath.node === numberPatternsPart[0]) {
-                if (numberPatternsPart.length === 1) {
-                    nodePath.replace(versionsPart);
-                } else {
-                    nodePath.remove();
-                }
-                numberPatternsPart.shift();
-            }
-            return true;
-        }
-    }));
-    return regexAst;
-}
-/**
- * Apply browser versions to info objects.
- * @param browserRegexes - Objects with requested browser version and regex.
- * @param options - Semver compare options.
- * @returns Objects with requested browser version and regex special for this version.
- */ function applyVersionsToRegexes(browserRegexes, options) {
-    return browserRegexes.map(({ regex: sourceRegex , version , maxVersion , matchedVersions , ...other })=>{
-        let regexAst = parseRegex(sourceRegex);
-        if (!version) {
-            regexAst = applyVersionsToRegex(regexAst, versionsListToRanges(matchedVersions), {
-                ...options,
-                allowHigherVersions: !maxVersion && options.allowHigherVersions
-            });
-        }
-        return {
-            regex: null,
-            sourceRegex,
-            regexAst,
-            version,
-            maxVersion,
-            matchedVersions,
-            ...other
-        };
-    });
-}
-
-const defaultOptions = {
-    ignoreMinor: false,
-    ignorePatch: true,
-    allowZeroSubversions: false,
-    allowHigherVersions: false
-};
-/**
- * Get source regexes objects from browserslist query.
- * @param options - Browserslist and semver compare options.
- * @returns Source regexes objects.
- */ function getPreUserAgentRegexes(options = {}) {
-    const finalOptions = {
-        ...defaultOptions,
-        ...options
-    };
-    const browsersList = getBrowsersList(finalOptions);
-    const mergedBrowsers = mergeBrowserVersions(browsersList);
-    const sourceRegexes = getRegexesForBrowsers(mergedBrowsers, finalOptions);
-    const versionedRegexes = applyVersionsToRegexes(sourceRegexes, finalOptions);
-    return versionedRegexes;
-}
-/**
- * Compile browserslist query to regexes.
- * @param options - Browserslist and semver compare options.
- * @returns Objects with info about compiled regexes.
- */ function getUserAgentRegexes(options = {}) {
-    return compileRegexes(getPreUserAgentRegexes(options));
-}
-/**
- * Compile browserslist query to regex.
- * @param options - Browserslist and semver compare options.
- * @returns Compiled regex.
- */ function getUserAgentRegex(options = {}) {
-    return compileRegex(getPreUserAgentRegexes(options));
-}
-
-
-//# sourceMappingURL=index.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/ua-regexes-lite/index.js":
 /*!***********************************************!*\
   !*** ./node_modules/ua-regexes-lite/index.js ***!
@@ -11486,25 +11391,188 @@ const regexes = [
 
 /***/ }),
 
-/***/ "./node_modules/node-releases/data/processed/envs.json":
-/*!*************************************************************!*\
-  !*** ./node_modules/node-releases/data/processed/envs.json ***!
-  \*************************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('[{"name":"nodejs","version":"0.2.0","date":"2011-08-26","lts":false,"security":false,"v8":"2.3.8.0"},{"name":"nodejs","version":"0.3.0","date":"2011-08-26","lts":false,"security":false,"v8":"2.5.1.0"},{"name":"nodejs","version":"0.4.0","date":"2011-08-26","lts":false,"security":false,"v8":"3.1.2.0"},{"name":"nodejs","version":"0.5.0","date":"2011-08-26","lts":false,"security":false,"v8":"3.1.8.25"},{"name":"nodejs","version":"0.6.0","date":"2011-11-04","lts":false,"security":false,"v8":"3.6.6.6"},{"name":"nodejs","version":"0.7.0","date":"2012-01-17","lts":false,"security":false,"v8":"3.8.6.0"},{"name":"nodejs","version":"0.8.0","date":"2012-06-22","lts":false,"security":false,"v8":"3.11.10.10"},{"name":"nodejs","version":"0.9.0","date":"2012-07-20","lts":false,"security":false,"v8":"3.11.10.15"},{"name":"nodejs","version":"0.10.0","date":"2013-03-11","lts":false,"security":false,"v8":"3.14.5.8"},{"name":"nodejs","version":"0.11.0","date":"2013-03-28","lts":false,"security":false,"v8":"3.17.13.0"},{"name":"nodejs","version":"0.12.0","date":"2015-02-06","lts":false,"security":false,"v8":"3.28.73.0"},{"name":"nodejs","version":"4.0.0","date":"2015-09-08","lts":false,"security":false,"v8":"4.5.103.30"},{"name":"nodejs","version":"4.1.0","date":"2015-09-17","lts":false,"security":false,"v8":"4.5.103.33"},{"name":"nodejs","version":"4.2.0","date":"2015-10-12","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.3.0","date":"2016-02-09","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.4.0","date":"2016-03-08","lts":"Argon","security":false,"v8":"4.5.103.35"},{"name":"nodejs","version":"4.5.0","date":"2016-08-16","lts":"Argon","security":false,"v8":"4.5.103.37"},{"name":"nodejs","version":"4.6.0","date":"2016-09-27","lts":"Argon","security":true,"v8":"4.5.103.37"},{"name":"nodejs","version":"4.7.0","date":"2016-12-06","lts":"Argon","security":false,"v8":"4.5.103.43"},{"name":"nodejs","version":"4.8.0","date":"2017-02-21","lts":"Argon","security":false,"v8":"4.5.103.45"},{"name":"nodejs","version":"4.9.0","date":"2018-03-28","lts":"Argon","security":true,"v8":"4.5.103.53"},{"name":"nodejs","version":"5.0.0","date":"2015-10-29","lts":false,"security":false,"v8":"4.6.85.28"},{"name":"nodejs","version":"5.1.0","date":"2015-11-17","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.2.0","date":"2015-12-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.3.0","date":"2015-12-15","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.4.0","date":"2016-01-06","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.5.0","date":"2016-01-21","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.6.0","date":"2016-02-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.7.0","date":"2016-02-23","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.8.0","date":"2016-03-09","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.9.0","date":"2016-03-16","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.10.0","date":"2016-04-01","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.11.0","date":"2016-04-21","lts":false,"security":false,"v8":"4.6.85.31"},{"name":"nodejs","version":"5.12.0","date":"2016-06-23","lts":false,"security":false,"v8":"4.6.85.32"},{"name":"nodejs","version":"6.0.0","date":"2016-04-26","lts":false,"security":false,"v8":"5.0.71.35"},{"name":"nodejs","version":"6.1.0","date":"2016-05-05","lts":false,"security":false,"v8":"5.0.71.35"},{"name":"nodejs","version":"6.2.0","date":"2016-05-17","lts":false,"security":false,"v8":"5.0.71.47"},{"name":"nodejs","version":"6.3.0","date":"2016-07-06","lts":false,"security":false,"v8":"5.0.71.52"},{"name":"nodejs","version":"6.4.0","date":"2016-08-12","lts":false,"security":false,"v8":"5.0.71.60"},{"name":"nodejs","version":"6.5.0","date":"2016-08-26","lts":false,"security":false,"v8":"5.1.281.81"},{"name":"nodejs","version":"6.6.0","date":"2016-09-14","lts":false,"security":false,"v8":"5.1.281.83"},{"name":"nodejs","version":"6.7.0","date":"2016-09-27","lts":false,"security":true,"v8":"5.1.281.83"},{"name":"nodejs","version":"6.8.0","date":"2016-10-12","lts":false,"security":false,"v8":"5.1.281.84"},{"name":"nodejs","version":"6.9.0","date":"2016-10-18","lts":"Boron","security":false,"v8":"5.1.281.84"},{"name":"nodejs","version":"6.10.0","date":"2017-02-21","lts":"Boron","security":false,"v8":"5.1.281.93"},{"name":"nodejs","version":"6.11.0","date":"2017-06-06","lts":"Boron","security":false,"v8":"5.1.281.102"},{"name":"nodejs","version":"6.12.0","date":"2017-11-06","lts":"Boron","security":false,"v8":"5.1.281.108"},{"name":"nodejs","version":"6.13.0","date":"2018-02-10","lts":"Boron","security":false,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.14.0","date":"2018-03-28","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.15.0","date":"2018-11-27","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.16.0","date":"2018-12-26","lts":"Boron","security":false,"v8":"5.1.281.111"},{"name":"nodejs","version":"6.17.0","date":"2019-02-28","lts":"Boron","security":true,"v8":"5.1.281.111"},{"name":"nodejs","version":"7.0.0","date":"2016-10-25","lts":false,"security":false,"v8":"5.4.500.36"},{"name":"nodejs","version":"7.1.0","date":"2016-11-08","lts":false,"security":false,"v8":"5.4.500.36"},{"name":"nodejs","version":"7.2.0","date":"2016-11-22","lts":false,"security":false,"v8":"5.4.500.43"},{"name":"nodejs","version":"7.3.0","date":"2016-12-20","lts":false,"security":false,"v8":"5.4.500.45"},{"name":"nodejs","version":"7.4.0","date":"2017-01-04","lts":false,"security":false,"v8":"5.4.500.45"},{"name":"nodejs","version":"7.5.0","date":"2017-01-31","lts":false,"security":false,"v8":"5.4.500.48"},{"name":"nodejs","version":"7.6.0","date":"2017-02-21","lts":false,"security":false,"v8":"5.5.372.40"},{"name":"nodejs","version":"7.7.0","date":"2017-02-28","lts":false,"security":false,"v8":"5.5.372.41"},{"name":"nodejs","version":"7.8.0","date":"2017-03-29","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"7.9.0","date":"2017-04-11","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"7.10.0","date":"2017-05-02","lts":false,"security":false,"v8":"5.5.372.43"},{"name":"nodejs","version":"8.0.0","date":"2017-05-30","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.1.0","date":"2017-06-08","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.2.0","date":"2017-07-19","lts":false,"security":false,"v8":"5.8.283.41"},{"name":"nodejs","version":"8.3.0","date":"2017-08-08","lts":false,"security":false,"v8":"6.0.286.52"},{"name":"nodejs","version":"8.4.0","date":"2017-08-15","lts":false,"security":false,"v8":"6.0.286.52"},{"name":"nodejs","version":"8.5.0","date":"2017-09-12","lts":false,"security":false,"v8":"6.0.287.53"},{"name":"nodejs","version":"8.6.0","date":"2017-09-26","lts":false,"security":false,"v8":"6.0.287.53"},{"name":"nodejs","version":"8.7.0","date":"2017-10-11","lts":false,"security":false,"v8":"6.1.534.42"},{"name":"nodejs","version":"8.8.0","date":"2017-10-24","lts":false,"security":false,"v8":"6.1.534.42"},{"name":"nodejs","version":"8.9.0","date":"2017-10-31","lts":"Carbon","security":false,"v8":"6.1.534.46"},{"name":"nodejs","version":"8.10.0","date":"2018-03-06","lts":"Carbon","security":false,"v8":"6.2.414.50"},{"name":"nodejs","version":"8.11.0","date":"2018-03-28","lts":"Carbon","security":true,"v8":"6.2.414.50"},{"name":"nodejs","version":"8.12.0","date":"2018-09-10","lts":"Carbon","security":false,"v8":"6.2.414.66"},{"name":"nodejs","version":"8.13.0","date":"2018-11-20","lts":"Carbon","security":false,"v8":"6.2.414.72"},{"name":"nodejs","version":"8.14.0","date":"2018-11-27","lts":"Carbon","security":true,"v8":"6.2.414.72"},{"name":"nodejs","version":"8.15.0","date":"2018-12-26","lts":"Carbon","security":false,"v8":"6.2.414.75"},{"name":"nodejs","version":"8.16.0","date":"2019-04-16","lts":"Carbon","security":false,"v8":"6.2.414.77"},{"name":"nodejs","version":"8.17.0","date":"2019-12-17","lts":"Carbon","security":true,"v8":"6.2.414.78"},{"name":"nodejs","version":"9.0.0","date":"2017-10-31","lts":false,"security":false,"v8":"6.2.414.32"},{"name":"nodejs","version":"9.1.0","date":"2017-11-07","lts":false,"security":false,"v8":"6.2.414.32"},{"name":"nodejs","version":"9.2.0","date":"2017-11-14","lts":false,"security":false,"v8":"6.2.414.44"},{"name":"nodejs","version":"9.3.0","date":"2017-12-12","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.4.0","date":"2018-01-10","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.5.0","date":"2018-01-31","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.6.0","date":"2018-02-21","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.7.0","date":"2018-03-01","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.8.0","date":"2018-03-07","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.9.0","date":"2018-03-21","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.10.0","date":"2018-03-28","lts":false,"security":true,"v8":"6.2.414.46"},{"name":"nodejs","version":"9.11.0","date":"2018-04-04","lts":false,"security":false,"v8":"6.2.414.46"},{"name":"nodejs","version":"10.0.0","date":"2018-04-24","lts":false,"security":false,"v8":"6.6.346.24"},{"name":"nodejs","version":"10.1.0","date":"2018-05-08","lts":false,"security":false,"v8":"6.6.346.27"},{"name":"nodejs","version":"10.2.0","date":"2018-05-23","lts":false,"security":false,"v8":"6.6.346.32"},{"name":"nodejs","version":"10.3.0","date":"2018-05-29","lts":false,"security":false,"v8":"6.6.346.32"},{"name":"nodejs","version":"10.4.0","date":"2018-06-06","lts":false,"security":false,"v8":"6.7.288.43"},{"name":"nodejs","version":"10.5.0","date":"2018-06-20","lts":false,"security":false,"v8":"6.7.288.46"},{"name":"nodejs","version":"10.6.0","date":"2018-07-04","lts":false,"security":false,"v8":"6.7.288.46"},{"name":"nodejs","version":"10.7.0","date":"2018-07-18","lts":false,"security":false,"v8":"6.7.288.49"},{"name":"nodejs","version":"10.8.0","date":"2018-08-01","lts":false,"security":false,"v8":"6.7.288.49"},{"name":"nodejs","version":"10.9.0","date":"2018-08-15","lts":false,"security":false,"v8":"6.8.275.24"},{"name":"nodejs","version":"10.10.0","date":"2018-09-06","lts":false,"security":false,"v8":"6.8.275.30"},{"name":"nodejs","version":"10.11.0","date":"2018-09-19","lts":false,"security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.12.0","date":"2018-10-10","lts":false,"security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.13.0","date":"2018-10-30","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.14.0","date":"2018-11-27","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.15.0","date":"2018-12-26","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.16.0","date":"2019-05-28","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.17.0","date":"2019-10-22","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.18.0","date":"2019-12-17","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.19.0","date":"2020-02-05","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.20.0","date":"2020-03-26","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.21.0","date":"2020-06-02","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.22.0","date":"2020-07-21","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.23.0","date":"2020-10-27","lts":"Dubnium","security":false,"v8":"6.8.275.32"},{"name":"nodejs","version":"10.24.0","date":"2021-02-23","lts":"Dubnium","security":true,"v8":"6.8.275.32"},{"name":"nodejs","version":"11.0.0","date":"2018-10-23","lts":false,"security":false,"v8":"7.0.276.28"},{"name":"nodejs","version":"11.1.0","date":"2018-10-30","lts":false,"security":false,"v8":"7.0.276.32"},{"name":"nodejs","version":"11.2.0","date":"2018-11-15","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.3.0","date":"2018-11-27","lts":false,"security":true,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.4.0","date":"2018-12-07","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.5.0","date":"2018-12-18","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.6.0","date":"2018-12-26","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.7.0","date":"2019-01-17","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.8.0","date":"2019-01-24","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.9.0","date":"2019-01-30","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.10.0","date":"2019-02-14","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.11.0","date":"2019-03-05","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.12.0","date":"2019-03-14","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.13.0","date":"2019-03-28","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.14.0","date":"2019-04-10","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"11.15.0","date":"2019-04-30","lts":false,"security":false,"v8":"7.0.276.38"},{"name":"nodejs","version":"12.0.0","date":"2019-04-23","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.1.0","date":"2019-04-29","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.2.0","date":"2019-05-07","lts":false,"security":false,"v8":"7.4.288.21"},{"name":"nodejs","version":"12.3.0","date":"2019-05-21","lts":false,"security":false,"v8":"7.4.288.27"},{"name":"nodejs","version":"12.4.0","date":"2019-06-04","lts":false,"security":false,"v8":"7.4.288.27"},{"name":"nodejs","version":"12.5.0","date":"2019-06-26","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.6.0","date":"2019-07-03","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.7.0","date":"2019-07-23","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.8.0","date":"2019-08-06","lts":false,"security":false,"v8":"7.5.288.22"},{"name":"nodejs","version":"12.9.0","date":"2019-08-20","lts":false,"security":false,"v8":"7.6.303.29"},{"name":"nodejs","version":"12.10.0","date":"2019-09-04","lts":false,"security":false,"v8":"7.6.303.29"},{"name":"nodejs","version":"12.11.0","date":"2019-09-25","lts":false,"security":false,"v8":"7.7.299.11"},{"name":"nodejs","version":"12.12.0","date":"2019-10-11","lts":false,"security":false,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.13.0","date":"2019-10-21","lts":"Erbium","security":false,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.14.0","date":"2019-12-17","lts":"Erbium","security":true,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.15.0","date":"2020-02-05","lts":"Erbium","security":true,"v8":"7.7.299.13"},{"name":"nodejs","version":"12.16.0","date":"2020-02-11","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.17.0","date":"2020-05-26","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.18.0","date":"2020-06-02","lts":"Erbium","security":true,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.19.0","date":"2020-10-06","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.20.0","date":"2020-11-24","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.21.0","date":"2021-02-23","lts":"Erbium","security":true,"v8":"7.8.279.23"},{"name":"nodejs","version":"12.22.0","date":"2021-03-30","lts":"Erbium","security":false,"v8":"7.8.279.23"},{"name":"nodejs","version":"13.0.0","date":"2019-10-22","lts":false,"security":false,"v8":"7.8.279.17"},{"name":"nodejs","version":"13.1.0","date":"2019-11-05","lts":false,"security":false,"v8":"7.8.279.17"},{"name":"nodejs","version":"13.2.0","date":"2019-11-21","lts":false,"security":false,"v8":"7.9.317.23"},{"name":"nodejs","version":"13.3.0","date":"2019-12-03","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.4.0","date":"2019-12-17","lts":false,"security":true,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.5.0","date":"2019-12-18","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.6.0","date":"2020-01-07","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.7.0","date":"2020-01-21","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.8.0","date":"2020-02-05","lts":false,"security":true,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.9.0","date":"2020-02-18","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.10.0","date":"2020-03-04","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.11.0","date":"2020-03-12","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.12.0","date":"2020-03-26","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.13.0","date":"2020-04-14","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"13.14.0","date":"2020-04-29","lts":false,"security":false,"v8":"7.9.317.25"},{"name":"nodejs","version":"14.0.0","date":"2020-04-21","lts":false,"security":false,"v8":"8.1.307.30"},{"name":"nodejs","version":"14.1.0","date":"2020-04-29","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.2.0","date":"2020-05-05","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.3.0","date":"2020-05-19","lts":false,"security":false,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.4.0","date":"2020-06-02","lts":false,"security":true,"v8":"8.1.307.31"},{"name":"nodejs","version":"14.5.0","date":"2020-06-30","lts":false,"security":false,"v8":"8.3.110.9"},{"name":"nodejs","version":"14.6.0","date":"2020-07-20","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.7.0","date":"2020-07-29","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.8.0","date":"2020-08-11","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.9.0","date":"2020-08-27","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.10.0","date":"2020-09-08","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.11.0","date":"2020-09-15","lts":false,"security":true,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.12.0","date":"2020-09-22","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.13.0","date":"2020-09-29","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.14.0","date":"2020-10-15","lts":false,"security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.15.0","date":"2020-10-27","lts":"Fermium","security":false,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.16.0","date":"2021-02-23","lts":"Fermium","security":true,"v8":"8.4.371.19"},{"name":"nodejs","version":"14.17.0","date":"2021-05-11","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.18.0","date":"2021-09-28","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.19.0","date":"2022-02-01","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.20.0","date":"2022-07-07","lts":"Fermium","security":true,"v8":"8.4.371.23"},{"name":"nodejs","version":"14.21.0","date":"2022-11-01","lts":"Fermium","security":false,"v8":"8.4.371.23"},{"name":"nodejs","version":"15.0.0","date":"2020-10-20","lts":false,"security":false,"v8":"8.6.395.16"},{"name":"nodejs","version":"15.1.0","date":"2020-11-04","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.2.0","date":"2020-11-10","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.3.0","date":"2020-11-24","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.4.0","date":"2020-12-09","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.5.0","date":"2020-12-22","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.6.0","date":"2021-01-14","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.7.0","date":"2021-01-25","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.8.0","date":"2021-02-02","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.9.0","date":"2021-02-18","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.10.0","date":"2021-02-23","lts":false,"security":true,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.11.0","date":"2021-03-03","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.12.0","date":"2021-03-17","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.13.0","date":"2021-03-31","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"15.14.0","date":"2021-04-06","lts":false,"security":false,"v8":"8.6.395.17"},{"name":"nodejs","version":"16.0.0","date":"2021-04-20","lts":false,"security":false,"v8":"9.0.257.17"},{"name":"nodejs","version":"16.1.0","date":"2021-05-04","lts":false,"security":false,"v8":"9.0.257.24"},{"name":"nodejs","version":"16.2.0","date":"2021-05-19","lts":false,"security":false,"v8":"9.0.257.25"},{"name":"nodejs","version":"16.3.0","date":"2021-06-03","lts":false,"security":false,"v8":"9.0.257.25"},{"name":"nodejs","version":"16.4.0","date":"2021-06-23","lts":false,"security":false,"v8":"9.1.269.36"},{"name":"nodejs","version":"16.5.0","date":"2021-07-14","lts":false,"security":false,"v8":"9.1.269.38"},{"name":"nodejs","version":"16.6.0","date":"2021-07-29","lts":false,"security":true,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.7.0","date":"2021-08-18","lts":false,"security":false,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.8.0","date":"2021-08-25","lts":false,"security":false,"v8":"9.2.230.21"},{"name":"nodejs","version":"16.9.0","date":"2021-09-07","lts":false,"security":false,"v8":"9.3.345.16"},{"name":"nodejs","version":"16.10.0","date":"2021-09-22","lts":false,"security":false,"v8":"9.3.345.19"},{"name":"nodejs","version":"16.11.0","date":"2021-10-08","lts":false,"security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.12.0","date":"2021-10-20","lts":false,"security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.13.0","date":"2021-10-26","lts":"Gallium","security":false,"v8":"9.4.146.19"},{"name":"nodejs","version":"16.14.0","date":"2022-02-08","lts":"Gallium","security":false,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.15.0","date":"2022-04-26","lts":"Gallium","security":false,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.16.0","date":"2022-07-07","lts":"Gallium","security":true,"v8":"9.4.146.24"},{"name":"nodejs","version":"16.17.0","date":"2022-08-16","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.18.0","date":"2022-10-12","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.19.0","date":"2022-12-13","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"16.20.0","date":"2023-03-28","lts":"Gallium","security":false,"v8":"9.4.146.26"},{"name":"nodejs","version":"17.0.0","date":"2021-10-19","lts":false,"security":false,"v8":"9.5.172.21"},{"name":"nodejs","version":"17.1.0","date":"2021-11-09","lts":false,"security":false,"v8":"9.5.172.25"},{"name":"nodejs","version":"17.2.0","date":"2021-11-30","lts":false,"security":false,"v8":"9.6.180.14"},{"name":"nodejs","version":"17.3.0","date":"2021-12-17","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.4.0","date":"2022-01-18","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.5.0","date":"2022-02-10","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.6.0","date":"2022-02-22","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.7.0","date":"2022-03-09","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.8.0","date":"2022-03-22","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"17.9.0","date":"2022-04-07","lts":false,"security":false,"v8":"9.6.180.15"},{"name":"nodejs","version":"18.0.0","date":"2022-04-18","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.1.0","date":"2022-05-03","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.2.0","date":"2022-05-17","lts":false,"security":false,"v8":"10.1.124.8"},{"name":"nodejs","version":"18.3.0","date":"2022-06-02","lts":false,"security":false,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.4.0","date":"2022-06-16","lts":false,"security":false,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.5.0","date":"2022-07-06","lts":false,"security":true,"v8":"10.2.154.4"},{"name":"nodejs","version":"18.6.0","date":"2022-07-13","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.7.0","date":"2022-07-26","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.8.0","date":"2022-08-24","lts":false,"security":false,"v8":"10.2.154.13"},{"name":"nodejs","version":"18.9.0","date":"2022-09-07","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.10.0","date":"2022-09-28","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.11.0","date":"2022-10-13","lts":false,"security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.12.0","date":"2022-10-25","lts":"Hydrogen","security":false,"v8":"10.2.154.15"},{"name":"nodejs","version":"18.13.0","date":"2023-01-05","lts":"Hydrogen","security":false,"v8":"10.2.154.23"},{"name":"nodejs","version":"18.14.0","date":"2023-02-01","lts":"Hydrogen","security":false,"v8":"10.2.154.23"},{"name":"nodejs","version":"18.15.0","date":"2023-03-05","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.16.0","date":"2023-04-12","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.17.0","date":"2023-07-18","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.18.0","date":"2023-09-18","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.19.0","date":"2023-11-29","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"18.20.0","date":"2024-03-26","lts":"Hydrogen","security":false,"v8":"10.2.154.26"},{"name":"nodejs","version":"19.0.0","date":"2022-10-17","lts":false,"security":false,"v8":"10.7.193.13"},{"name":"nodejs","version":"19.1.0","date":"2022-11-14","lts":false,"security":false,"v8":"10.7.193.20"},{"name":"nodejs","version":"19.2.0","date":"2022-11-29","lts":false,"security":false,"v8":"10.8.168.20"},{"name":"nodejs","version":"19.3.0","date":"2022-12-14","lts":false,"security":false,"v8":"10.8.168.21"},{"name":"nodejs","version":"19.4.0","date":"2023-01-05","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.5.0","date":"2023-01-24","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.6.0","date":"2023-02-01","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.7.0","date":"2023-02-21","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.8.0","date":"2023-03-14","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"19.9.0","date":"2023-04-10","lts":false,"security":false,"v8":"10.8.168.25"},{"name":"nodejs","version":"20.0.0","date":"2023-04-17","lts":false,"security":false,"v8":"11.3.244.4"},{"name":"nodejs","version":"20.1.0","date":"2023-05-03","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.2.0","date":"2023-05-16","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.3.0","date":"2023-06-08","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.4.0","date":"2023-07-04","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.5.0","date":"2023-07-19","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.6.0","date":"2023-08-23","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.7.0","date":"2023-09-18","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.8.0","date":"2023-09-28","lts":false,"security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.9.0","date":"2023-10-24","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.10.0","date":"2023-11-22","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.11.0","date":"2024-01-09","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.12.0","date":"2024-03-26","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.13.0","date":"2024-05-07","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.14.0","date":"2024-05-28","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"20.15.0","date":"2024-06-20","lts":"Iron","security":false,"v8":"11.3.244.8"},{"name":"nodejs","version":"21.0.0","date":"2023-10-17","lts":false,"security":false,"v8":"11.8.172.13"},{"name":"nodejs","version":"21.1.0","date":"2023-10-24","lts":false,"security":false,"v8":"11.8.172.15"},{"name":"nodejs","version":"21.2.0","date":"2023-11-14","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.3.0","date":"2023-11-30","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.4.0","date":"2023-12-05","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.5.0","date":"2023-12-19","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.6.0","date":"2024-01-14","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"21.7.0","date":"2024-03-06","lts":false,"security":false,"v8":"11.8.172.17"},{"name":"nodejs","version":"22.0.0","date":"2024-04-24","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.1.0","date":"2024-05-02","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.2.0","date":"2024-05-15","lts":false,"security":false,"v8":"12.4.254.14"},{"name":"nodejs","version":"22.3.0","date":"2024-06-11","lts":false,"security":false,"v8":"12.4.254.20"},{"name":"nodejs","version":"22.4.0","date":"2024-07-02","lts":false,"security":false,"v8":"12.4.254.21"},{"name":"nodejs","version":"22.5.0","date":"2024-07-17","lts":false,"security":false,"v8":"12.4.254.21"}]');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "WebIcon",
+  emits: ['click'],
+  props: {
+    title: {
+      type: String,
+    },
+    fillColor: {
+      type: String,
+      default: "currentColor"
+    },
+    size: {
+      type: Number,
+      default: 24
+    }
+  }
+});
+
 
 /***/ }),
 
-/***/ "./node_modules/node-releases/data/release-schedule/release-schedule.json":
-/*!********************************************************************************!*\
-  !*** ./node_modules/node-releases/data/release-schedule/release-schedule.json ***!
-  \********************************************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8 ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"v0.8":{"start":"2012-06-25","end":"2014-07-31"},"v0.10":{"start":"2013-03-11","end":"2016-10-31"},"v0.12":{"start":"2015-02-06","end":"2016-12-31"},"v4":{"start":"2015-09-08","lts":"2015-10-12","maintenance":"2017-04-01","end":"2018-04-30","codename":"Argon"},"v5":{"start":"2015-10-29","maintenance":"2016-04-30","end":"2016-06-30"},"v6":{"start":"2016-04-26","lts":"2016-10-18","maintenance":"2018-04-30","end":"2019-04-30","codename":"Boron"},"v7":{"start":"2016-10-25","maintenance":"2017-04-30","end":"2017-06-30"},"v8":{"start":"2017-05-30","lts":"2017-10-31","maintenance":"2019-01-01","end":"2019-12-31","codename":"Carbon"},"v9":{"start":"2017-10-01","maintenance":"2018-04-01","end":"2018-06-30"},"v10":{"start":"2018-04-24","lts":"2018-10-30","maintenance":"2020-05-19","end":"2021-04-30","codename":"Dubnium"},"v11":{"start":"2018-10-23","maintenance":"2019-04-22","end":"2019-06-01"},"v12":{"start":"2019-04-23","lts":"2019-10-21","maintenance":"2020-11-30","end":"2022-04-30","codename":"Erbium"},"v13":{"start":"2019-10-22","maintenance":"2020-04-01","end":"2020-06-01"},"v14":{"start":"2020-04-21","lts":"2020-10-27","maintenance":"2021-10-19","end":"2023-04-30","codename":"Fermium"},"v15":{"start":"2020-10-20","maintenance":"2021-04-01","end":"2021-06-01"},"v16":{"start":"2021-04-20","lts":"2021-10-26","maintenance":"2022-10-18","end":"2023-09-11","codename":"Gallium"},"v17":{"start":"2021-10-19","maintenance":"2022-04-01","end":"2022-06-01"},"v18":{"start":"2022-04-19","lts":"2022-10-25","maintenance":"2023-10-18","end":"2025-04-30","codename":"Hydrogen"},"v19":{"start":"2022-10-18","maintenance":"2023-04-01","end":"2023-06-01"},"v20":{"start":"2023-04-18","lts":"2023-10-24","maintenance":"2024-10-22","end":"2026-04-30","codename":"Iron"},"v21":{"start":"2023-10-17","maintenance":"2024-04-01","end":"2024-06-01"},"v22":{"start":"2024-04-24","lts":"2024-10-29","maintenance":"2025-10-21","end":"2027-04-30","codename":""},"v23":{"start":"2024-10-15","maintenance":"2025-04-01","end":"2025-06-01"},"v24":{"start":"2025-04-22","lts":"2025-10-28","maintenance":"2026-10-20","end":"2028-04-30","codename":""}}');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c
+  return _c(
+    "span",
+    _vm._b(
+      {
+        staticClass: "material-design-icon web-icon",
+        attrs: {
+          "aria-hidden": _vm.title ? null : "true",
+          "aria-label": _vm.title,
+          role: "img",
+        },
+        on: {
+          click: function ($event) {
+            return _vm.$emit("click", $event)
+          },
+        },
+      },
+      "span",
+      _vm.$attrs,
+      false
+    ),
+    [
+      _c(
+        "svg",
+        {
+          staticClass: "material-design-icon__svg",
+          attrs: {
+            fill: _vm.fillColor,
+            width: _vm.size,
+            height: _vm.size,
+            viewBox: "0 0 24 24",
+          },
+        },
+        [
+          _c(
+            "path",
+            {
+              attrs: {
+                d: "M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
+              },
+            },
+            [_vm.title ? _c("title", [_vm._v(_vm._s(_vm.title))]) : _vm._e()]
+          ),
+        ]
+      ),
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-material-design-icons/Web.vue":
+/*!********************************************************!*\
+  !*** ./node_modules/vue-material-design-icons/Web.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Web.vue?vue&type=template&id=02e31dd8 */ "./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8");
+/* harmony import */ var _Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Web.vue?vue&type=script&lang=js */ "./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js");
+/* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "node_modules/vue-material-design-icons/Web.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/index.js??vue-loader-options!./Web.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8 ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_3_vue_loader_lib_index_js_vue_loader_options_Web_vue_vue_type_template_id_02e31dd8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!../vue-loader/lib/index.js??vue-loader-options!./Web.vue?vue&type=template&id=02e31dd8 */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-material-design-icons/Web.vue?vue&type=template&id=02e31dd8");
+
+
+/***/ }),
+
+/***/ "?3465":
+/*!**********************!*\
+  !*** path (ignored) ***!
+  \**********************/
+/***/ (() => {
+
+/* (ignored) */
 
 /***/ })
 
@@ -11714,4 +11782,4 @@ module.exports = /*#__PURE__*/JSON.parse('{"v0.8":{"start":"2012-06-25","end":"2
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=core-unsupported-browser.js.map?v=4153c030f3cc9be7eea3
+//# sourceMappingURL=core-unsupported-browser.js.map?v=5a03c98a440d0ead89cf

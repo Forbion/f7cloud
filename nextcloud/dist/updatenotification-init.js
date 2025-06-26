@@ -189,7 +189,7 @@ function showDialog(appId, version) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + "a1c7e9d71386b0c6ac74" + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + "6c014538b58c7a9c2df4" + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -295,7 +295,7 @@ function showDialog(appId, version) {
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -406,4 +406,4 @@ function showDialog(appId, version) {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=updatenotification-init.js.map?v=2b952178d2313e47b638
+//# sourceMappingURL=updatenotification-init.js.map?v=dfe27dc91c5de9d9d918

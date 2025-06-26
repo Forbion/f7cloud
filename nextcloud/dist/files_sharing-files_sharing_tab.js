@@ -456,7 +456,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-share-varia
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_files_sharing_src_models_Share_ts-apps_files_sharing_src_utils_GeneratePassword_ts-node_-14f1ab":"94f170d6c29fb04ac89e","apps_files_sharing_src_services_SharingService_ts-apps_files_sharing_src_views_SharingTab_vue-0e12bb":"260c5db569862d417db0","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_mime_dist_src_index_js":"3b355ad4e0a532c88f28","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_files_sharing_src_models_Share_ts-apps_files_sharing_src_utils_GeneratePassword_ts-node_-14f1ab":"49c699ba96a7edc23890","apps_files_sharing_src_services_SharingService_ts-apps_files_sharing_src_views_SharingTab_vue-0e12bb":"a828d393f9a6562fa542","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_mime_dist_src_index_js":"3b355ad4e0a532c88f28","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"330887213eeef7d8365f"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -562,7 +562,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-share-varia
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -673,4 +673,4 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-share-varia
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=files_sharing-files_sharing_tab.js.map?v=514d70b05748c18ec985
+//# sourceMappingURL=files_sharing-files_sharing_tab.js.map?v=5e61f056d746e45dfe16

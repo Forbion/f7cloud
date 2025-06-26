@@ -139,7 +139,7 @@ if (!window.TESTING && !OC?.config?.no_unsupported_browser_warning) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + "e27cfff99b6afa5790ba" + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + "385dc0cece0fc950c6b2" + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -245,7 +245,7 @@ if (!window.TESTING && !OC?.config?.no_unsupported_browser_warning) {
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -356,4 +356,4 @@ if (!window.TESTING && !OC?.config?.no_unsupported_browser_warning) {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=core-unsupported-browser-redirect.js.map?v=266b03e665b9638b36e8
+//# sourceMappingURL=core-unsupported-browser-redirect.js.map?v=949b5c03d13cd86b9a40

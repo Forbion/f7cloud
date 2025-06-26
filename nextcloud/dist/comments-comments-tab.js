@@ -1,6 +1,126 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/comments/src/comments-activity-tab.ts":
+/*!****************************************************!*\
+  !*** ./apps/comments/src/comments-activity-tab.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   registerCommentsPlugins: () => (/* binding */ registerCommentsPlugins)
+/* harmony export */ });
+/* harmony import */ var _nextcloud_moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/moment */ "./node_modules/@nextcloud/moment/dist/index.mjs");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger.js */ "./apps/comments/src/logger.js");
+/* harmony import */ var _services_GetComments_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/GetComments.js */ "./apps/comments/src/services/GetComments.ts");
+/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
+/**
+ * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(pinia__WEBPACK_IMPORTED_MODULE_4__.PiniaVuePlugin);
+let ActivityTabPluginView;
+let ActivityTabPluginInstance;
+/**
+ * Register the comments plugins for the Activity sidebar
+ */
+function registerCommentsPlugins() {
+  window.OCA.Activity.registerSidebarAction({
+    mount: async (el, _ref) => {
+      let {
+        context,
+        fileInfo,
+        reload
+      } = _ref;
+      const pinia = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.createPinia)();
+      if (!ActivityTabPluginView) {
+        const {
+          default: ActivityCommentAction
+        } = await Promise.all(/*! import() */[__webpack_require__.e("core-common"), __webpack_require__.e("apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue"), __webpack_require__.e("apps_comments_src_views_ActivityCommentAction_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ./views/ActivityCommentAction.vue */ "./apps/comments/src/views/ActivityCommentAction.vue"));
+        /** @ts-expect-error Types are broken for Vue2 */
+        ActivityTabPluginView = vue__WEBPACK_IMPORTED_MODULE_3__["default"].extend(ActivityCommentAction);
+      }
+      ActivityTabPluginInstance = new ActivityTabPluginView({
+        el,
+        parent: context,
+        pinia,
+        propsData: {
+          reloadCallback: reload,
+          resourceId: fileInfo.id
+        }
+      });
+      _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].info('Comments plugin mounted in Activity sidebar action', {
+        fileInfo
+      });
+    },
+    unmount: () => {
+      // destroy previous instance if available
+      if (ActivityTabPluginInstance) {
+        ActivityTabPluginInstance.$destroy();
+      }
+    }
+  });
+  window.OCA.Activity.registerSidebarEntries(async _ref2 => {
+    let {
+      fileInfo,
+      limit,
+      offset
+    } = _ref2;
+    const {
+      data: comments
+    } = await (0,_services_GetComments_js__WEBPACK_IMPORTED_MODULE_2__.getComments)({
+      resourceType: 'files',
+      resourceId: fileInfo.id
+    }, {
+      limit,
+      offset
+    });
+    _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Loaded comments', {
+      fileInfo,
+      comments
+    });
+    const {
+      default: CommentView
+    } = await Promise.all(/*! import() */[__webpack_require__.e("core-common"), __webpack_require__.e("apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue"), __webpack_require__.e("apps_comments_src_views_ActivityCommentEntry_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ./views/ActivityCommentEntry.vue */ "./apps/comments/src/views/ActivityCommentEntry.vue"));
+    /** @ts-expect-error Types are broken for Vue2 */
+    const CommentsViewObject = vue__WEBPACK_IMPORTED_MODULE_3__["default"].extend(CommentView);
+    return comments.map(comment => ({
+      _CommentsViewInstance: undefined,
+      timestamp: (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_0__["default"])(comment.props?.creationDateTime).toDate().getTime(),
+      mount(element, _ref3) {
+        let {
+          context,
+          reload
+        } = _ref3;
+        this._CommentsViewInstance = new CommentsViewObject({
+          el: element,
+          parent: context,
+          propsData: {
+            comment,
+            resourceId: fileInfo.id,
+            reloadCallback: reload
+          }
+        });
+      },
+      unmount() {
+        this._CommentsViewInstance?.$destroy();
+      }
+    }));
+  });
+  window.OCA.Activity.registerSidebarFilter(activity => activity.type !== 'comments');
+  _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].info('Comments plugin registered for Activity sidebar action');
+}
+
+/***/ }),
+
 /***/ "./apps/comments/src/comments-tab.js":
 /*!*******************************************!*\
   !*** ./apps/comments/src/comments-tab.js ***!
@@ -138,151 +258,6 @@ setHeaders((0,_nextcloud_auth__WEBPACK_IMPORTED_MODULE_2__.getRequestToken)());
 
 /***/ }),
 
-/***/ "./apps/comments/src/utils/davUtils.js":
-/*!*********************************************!*\
-  !*** ./apps/comments/src/utils/davUtils.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getRootPath: () => (/* binding */ getRootPath)
-/* harmony export */ });
-/* harmony import */ var _nextcloud_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/router */ "./node_modules/@nextcloud/router/dist/index.mjs");
-/**
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-
-
-const getRootPath = function () {
-  return (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.generateRemoteUrl)('dav/comments');
-};
-
-
-/***/ }),
-
-/***/ "./apps/comments/src/comments-activity-tab.ts":
-/*!****************************************************!*\
-  !*** ./apps/comments/src/comments-activity-tab.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   registerCommentsPlugins: () => (/* binding */ registerCommentsPlugins)
-/* harmony export */ });
-/* harmony import */ var _nextcloud_moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/moment */ "./node_modules/@nextcloud/moment/dist/index.mjs");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var _logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger.js */ "./apps/comments/src/logger.js");
-/* harmony import */ var _services_GetComments_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/GetComments.js */ "./apps/comments/src/services/GetComments.ts");
-/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
-/**
- * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-
-
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(pinia__WEBPACK_IMPORTED_MODULE_4__.PiniaVuePlugin);
-let ActivityTabPluginView;
-let ActivityTabPluginInstance;
-/**
- * Register the comments plugins for the Activity sidebar
- */
-function registerCommentsPlugins() {
-  window.OCA.Activity.registerSidebarAction({
-    mount: async (el, _ref) => {
-      let {
-        context,
-        fileInfo,
-        reload
-      } = _ref;
-      const pinia = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.createPinia)();
-      if (!ActivityTabPluginView) {
-        const {
-          default: ActivityCommentAction
-        } = await Promise.all(/*! import() */[__webpack_require__.e("core-common"), __webpack_require__.e("apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue"), __webpack_require__.e("apps_comments_src_views_ActivityCommentAction_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ./views/ActivityCommentAction.vue */ "./apps/comments/src/views/ActivityCommentAction.vue"));
-        /** @ts-expect-error Types are broken for Vue2 */
-        ActivityTabPluginView = vue__WEBPACK_IMPORTED_MODULE_3__["default"].extend(ActivityCommentAction);
-      }
-      ActivityTabPluginInstance = new ActivityTabPluginView({
-        el,
-        parent: context,
-        pinia,
-        propsData: {
-          reloadCallback: reload,
-          resourceId: fileInfo.id
-        }
-      });
-      _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].info('Comments plugin mounted in Activity sidebar action', {
-        fileInfo
-      });
-    },
-    unmount: () => {
-      // destroy previous instance if available
-      if (ActivityTabPluginInstance) {
-        ActivityTabPluginInstance.$destroy();
-      }
-    }
-  });
-  window.OCA.Activity.registerSidebarEntries(async _ref2 => {
-    let {
-      fileInfo,
-      limit,
-      offset
-    } = _ref2;
-    const {
-      data: comments
-    } = await (0,_services_GetComments_js__WEBPACK_IMPORTED_MODULE_2__.getComments)({
-      resourceType: 'files',
-      resourceId: fileInfo.id
-    }, {
-      limit,
-      offset
-    });
-    _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Loaded comments', {
-      fileInfo,
-      comments
-    });
-    const {
-      default: CommentView
-    } = await Promise.all(/*! import() */[__webpack_require__.e("core-common"), __webpack_require__.e("apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue"), __webpack_require__.e("apps_comments_src_views_ActivityCommentEntry_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ./views/ActivityCommentEntry.vue */ "./apps/comments/src/views/ActivityCommentEntry.vue"));
-    /** @ts-expect-error Types are broken for Vue2 */
-    const CommentsViewObject = vue__WEBPACK_IMPORTED_MODULE_3__["default"].extend(CommentView);
-    return comments.map(comment => ({
-      _CommentsViewInstance: undefined,
-      timestamp: (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_0__["default"])(comment.props?.creationDateTime).toDate().getTime(),
-      mount(element, _ref3) {
-        let {
-          context,
-          reload
-        } = _ref3;
-        this._CommentsViewInstance = new CommentsViewObject({
-          el: element,
-          parent: context,
-          propsData: {
-            comment,
-            resourceId: fileInfo.id,
-            reloadCallback: reload
-          }
-        });
-      },
-      unmount() {
-        this._CommentsViewInstance?.$destroy();
-      }
-    }));
-  });
-  window.OCA.Activity.registerSidebarFilter(activity => activity.type !== 'comments');
-  _logger_js__WEBPACK_IMPORTED_MODULE_1__["default"].info('Comments plugin registered for Activity sidebar action');
-}
-
-/***/ }),
-
 /***/ "./apps/comments/src/services/GetComments.ts":
 /*!***************************************************!*\
   !*** ./apps/comments/src/services/GetComments.ts ***!
@@ -365,6 +340,31 @@ const getDirectoryFiles = function (result) {
 
 /***/ }),
 
+/***/ "./apps/comments/src/utils/davUtils.js":
+/*!*********************************************!*\
+  !*** ./apps/comments/src/utils/davUtils.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getRootPath: () => (/* binding */ getRootPath)
+/* harmony export */ });
+/* harmony import */ var _nextcloud_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/router */ "./node_modules/@nextcloud/router/dist/index.mjs");
+/**
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+
+const getRootPath = function () {
+  return (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.generateRemoteUrl)('dav/comments');
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/@mdi/svg/svg/message-reply-text.svg?raw":
 /*!**************************************************************!*\
   !*** ./node_modules/@mdi/svg/svg/message-reply-text.svg?raw ***!
@@ -376,17 +376,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-message-rep
 
 /***/ }),
 
-/***/ "?4f7e":
-/*!********************************!*\
-  !*** ./util.inspect (ignored) ***!
-  \********************************/
-/***/ (() => {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ "?3e83":
+/***/ "?0cc0":
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
@@ -406,10 +396,20 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-message-rep
 
 /***/ }),
 
-/***/ "?0cc0":
+/***/ "?3e83":
 /*!**********************!*\
   !*** util (ignored) ***!
   \**********************/
+/***/ (() => {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ "?4f7e":
+/*!********************************!*\
+  !*** ./util.inspect (ignored) ***!
+  \********************************/
 /***/ (() => {
 
 /* (ignored) */
@@ -535,7 +535,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-message-rep
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue":"13d9db108a6141100eb2","apps_comments_src_views_ActivityCommentAction_vue":"669542a05c832eda4571","apps_comments_src_views_ActivityCommentEntry_vue":"63e1335d9655af8ec311","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_nextcloud_vue_dist_Components_NcRichContenteditable_mjs":"3f041202971e50bda1be","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"d245b68c993f784f0d60"}[chunkId] + "";
+/******/ 			return "" + chunkId + "-" + chunkId + ".js?v=" + {"apps_comments_src_mixins_CommentView_ts-apps_comments_src_components_Comment_vue":"de4e70fa404e28fffb4b","apps_comments_src_views_ActivityCommentAction_vue":"c520f9bddbd1866331ac","apps_comments_src_views_ActivityCommentEntry_vue":"a47b4cd913914dd6c918","node_modules_nextcloud_dialogs_dist_chunks_index-D5FJasts_mjs":"08b958f56528298001fd","node_modules_nextcloud_vue_dist_Components_NcRichContenteditable_mjs":"3f041202971e50bda1be","data_image_svg_xml_3c_21--_20-_20SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-Lice-84639e":"330887213eeef7d8365f"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -641,7 +641,7 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-message-rep
 /******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
 /******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		scriptUrl = scriptUrl.replace(/^blob:/, "").replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
@@ -752,4 +752,4 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"mdi-message-rep
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=comments-comments-tab.js.map?v=84d0901575f1403849de
+//# sourceMappingURL=comments-comments-tab.js.map?v=f918f41a809d36231476

@@ -2,6 +2,36 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./core/src/ajax-cron.ts":
+/*!*******************************!*\
+  !*** ./core/src/ajax-cron.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _nextcloud_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/router */ "./node_modules/@nextcloud/router/dist/index.mjs");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger */ "./core/src/logger.js");
+/**
+ * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+
+window.addEventListener('DOMContentLoaded', async () => {
+  // When the page is loaded send GET to the cron endpoint to trigger background jobs
+  try {
+    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Running web cron');
+    await window.fetch(`${(0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.getRootUrl)()}/cron.php`);
+    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Web cron successfull');
+  } catch (e) {
+    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Running web cron failed', {
+      error: e
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./core/src/logger.js":
 /*!****************************!*\
   !*** ./core/src/logger.js ***!
@@ -30,36 +60,6 @@ const getLogger = user => {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getLogger((0,_nextcloud_auth__WEBPACK_IMPORTED_MODULE_0__.getCurrentUser)()));
 const unifiedSearchLogger = (0,_nextcloud_logger__WEBPACK_IMPORTED_MODULE_1__.getLoggerBuilder)().setApp('unified-search').detectUser().build();
-
-/***/ }),
-
-/***/ "./core/src/ajax-cron.ts":
-/*!*******************************!*\
-  !*** ./core/src/ajax-cron.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _nextcloud_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/router */ "./node_modules/@nextcloud/router/dist/index.mjs");
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger */ "./core/src/logger.js");
-/**
- * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-
-
-window.addEventListener('DOMContentLoaded', async () => {
-  // When the page is loaded send GET to the cron endpoint to trigger background jobs
-  try {
-    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Running web cron');
-    await window.fetch(`${(0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.getRootUrl)()}/cron.php`);
-    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Web cron successfull');
-  } catch (e) {
-    _logger__WEBPACK_IMPORTED_MODULE_1__["default"].debug('Running web cron failed', {
-      error: e
-    });
-  }
-});
 
 /***/ })
 
