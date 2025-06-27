@@ -1102,6 +1102,8 @@ header .unified-search__wrapper {
                                     }
 
                                     &.msgflag-\\flagged .flagParent {
+                                        display: block;
+
                                         &:after {
                                             background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
                                         }
