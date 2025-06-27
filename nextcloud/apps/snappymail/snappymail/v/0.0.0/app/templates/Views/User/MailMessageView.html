@@ -390,85 +390,6 @@
 			</div>
 		</div>
 		<div id="messageItem">
-<!--			<div class="messageItemHeader" data-bind="if: message, i18nUpdate: message">-->
-<!--				<div data-bind="hidden: showFullInfo">-->
-<!--					<time class="date" data-time-format="FULL" data-bind="visible: 0 < message().dateTimestamp(), time: message().dateTimestamp()"></time>-->
-<!--					<div class="informationShortWrp">-->
-<!--						<div class="informationShort" data-bind="visible: message().to.length">-->
-<!--							<span data-i18n="GLOBAL/TO"></span>:-->
-<!--							<span data-bind="text: message().to"></span>-->
-<!--						</div>-->
-<!--						<div class="informationShort" data-bind="visible: message().cc.length">-->
-<!--							<span data-i18n="GLOBAL/CC"></span>:-->
-<!--							<span data-bind="text: message().cc"></span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="informationShort" data-bind="visible: message().spamResult">-->
-<!--						<span data-i18n="MESSAGE/SPAM_SCORE"></span>:-->
-<!--						<meter min="0" max="100" optimum="0" low="33" high="66" data-bind="value: message().spamScore, attr:{ title: message().spamStatus() }"></meter>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="informationFull" data-bind="visible: showFullInfo, with: message">-->
-<!--					<table>-->
-<!--						<tr data-bind="visible: from.length">-->
-<!--							<td data-i18n="GLOBAL/FROM"></td>-->
-<!--							<td data-bind="text: from"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: to.length">-->
-<!--							<td data-i18n="GLOBAL/TO"></td>-->
-<!--							<td data-bind="text: to"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: cc.length">-->
-<!--							<td data-i18n="GLOBAL/CC"></td>-->
-<!--							<td data-bind="text: cc"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: bcc.length">-->
-<!--							<td data-i18n="GLOBAL/BCC"></td>-->
-<!--							<td data-bind="text: bcc"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: replyTo.length">-->
-<!--							<td data-i18n="GLOBAL/REPLY_TO"></td>-->
-<!--							<td data-bind="text: replyTo"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: dateTimestamp">-->
-<!--							<td data-i18n="MESSAGE/LABEL_DATE"></td>-->
-<!--							<td>-->
-<!--								<time data-time-format="FULL" data-bind="time: dateTimestamp"></time>-->
-<!--								&nbsp;-->
-<!--								(<time data-time-format="FROMNOW" data-bind="time: dateTimestamp"></time>)-->
-<!--							</td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: spamResult">-->
-<!--							<td data-i18n="GLOBAL/SPAM"></td>-->
-<!--							<td data-bind="text: spamStatus()"></td>-->
-<!--						</tr>-->
-<!--						<tr data-bind="visible: friendlySize()">-->
-<!--							<td data-i18n="POPUPS_FILTER/SELECT_FIELD_SIZE"></td>-->
-<!--							<td class="size" data-bind="text: friendlySize()"></td>-->
-<!--						</tr>-->
-<!--					</table>-->
-<!--				</div>-->
-<!--				<div class="hasVirus" data-bind="visible: message().hasVirus" data-i18n="MESSAGE/HAS_VIRUS_WARNING"></div>-->
-<!--				&lt;!&ndash; ko if: tagsAllowed &ndash;&gt;-->
-<!--				<div class="messageTags">-->
-<!--					<span data-i18n="MESSAGE/TAGS"></span>:-->
-<!--					<span class="messageAssignedTags" data-bind="html: tagsToHTML"></span>-->
-<!--					<div class="btn-group" data-bind="registerBootstrapDropdown: true" style="display: inline-block">-->
-<!--						<a class="btn btn-thin btn-transparent dropdown-toggle fontastic" id="tags-dropdown-id" href="#" tabindex="-1">🏷</a>-->
-<!--						<menu class="dropdown-menu right-edge" role="menu" aria-labelledby="tags-dropdown-id">-->
-<!--							<div data-bind="foreach: message().tagOptions()">-->
-<!--								<li role="presentation">-->
-<!--									<a href="#" tabindex="-1" data-icon="☐" data-bind="click: toggle, text: label, attr:{ title: value, class: css, 'data-icon': checked ? '☑' : '☐' }"></a>-->
-<!--								</li>-->
-<!--							</div>-->
-<!--							<li role="presentation" class="dividerbar">-->
-<!--								<a href="#" tabindex="-1" data-icon="✚" data-bind="click: newTag" data-i18n="MESSAGE/NEW_TAG"></a>-->
-<!--							</li>-->
-<!--						</menu>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				&lt;!&ndash; /ko &ndash;&gt;-->
-<!--			</div>-->
 			<div tabindex="0" data-bind="hasfocus: messageDomFocused">
 
 				<div class="loading" data-bind="visible: messageLoadingThrottle">
@@ -483,27 +404,29 @@
 						<details class="attachmentsPlace" data-bind="visible: hasAttachments, css: {'selection-mode' : showAttachmentControls}, attr: { open: hasAttachments }">
 							<summary data-i18n="MESSAGE/PRINT_LABEL_ATTACHMENTS"></summary>
 							<!-- ko ifnot: simpleAttachmentsList -->
-							<ul class="attachmentList" data-bind="foreach: listAttachments">
-								<li class="attachmentItem" draggable="true"
-										data-bind="event: { dragstart: eventDragStart }, attr: { title: fileName }, css: {checked: checked}">
-									<div class="attachmentIcon" data-bind="css: { hasPreview: hasPreview(), hasPreplay: hasPreplay(), isImage: isImage() }, attr: { style: thumbnailStyle() }">
-										<i class="hidePreview iconMain" data-bind="css: iconClass()"></i>
-										<div class="showPreview">
-											<a data-bind="css: {attachmentImagePreview: isImage()}, attr: { 'data-preview-url': linkPreviewMain(), 'data-filename': fileName }"
-											   class="attachment-preview-link">
-												<i class="iconMain" data-bind="visible: !hasThumbnail(), css: iconClass()"></i>
-												<div class="iconPreview fontastic">👁</div>
-											</a>
-										</div>
-									</div>
-									<div class="attachmentNameParent">
-										<div class="attachmentName" data-bind="text: fileName"></div>
-										<div class="attachmentSize" data-bind="text: friendlySize()"></div>
-									</div>
-									<div class="checkboxAttachment fontastic"
-										data-bind="visible: download, text: checked() ? '☑' : '☐', click: toggleChecked"></div>
-								</li>
-							</ul>
+                            <ul class="attachmentList" data-bind="foreach: listAttachments">
+                                <li class="attachmentItem" draggable="true"
+                                    data-bind="event: { dragstart: eventDragStart }, attr: { title: fileName }, css: {checked: checked}">
+                                    <div class="attachmentIcon"
+                                         data-bind="css: { hasPreview: hasPreview(), hasPreplay: hasPreplay(), isImage: isImage() },
+                       attr: { style: thumbnailStyle() },
+                       click: $root.openAttachmentInViewer.bind($root, $data)"> <i class="hidePreview iconMain" data-bind="css: iconClass()"></i>
+                                        <div class="showPreview">
+                                            <a data-bind="css: {attachmentImagePreview: isImage()},
+                            visible: hasPreview" class="attachment-preview-link">
+                                                <i class="iconMain" data-bind="visible: !hasThumbnail(), css: iconClass()"></i>
+                                                <div class="iconPreview fontastic">👁</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="attachmentNameParent">
+                                        <div class="attachmentName" data-bind="text: fileName"></div>
+                                        <div class="attachmentSize" data-bind="text: friendlySize()"></div>
+                                    </div>
+                                    <div class="checkboxAttachment fontastic"
+                                         data-bind="visible: download, text: checked() ? '☑' : '☐', click: toggleChecked"></div>
+                                </li>
+                            </ul>
 							<!-- /ko -->
 							<!-- ko if: simpleAttachmentsList -->
 							<ul class="attachmentListSimple" data-bind="foreach: listAttachments">
@@ -581,39 +504,36 @@
 		</div>
 	</div>
 </div>
-<style>
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1050;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
-    }
-    .modal.show {
-        display: block;
-    }
-    .modal-dialog {
-        background: white;
-        margin: 10% auto;
-        padding: 20px;
-        width: 80%;
-        max-width: 800px;
-        border-radius: 5px;
-    }
-    .modal-header, .modal-footer {
-        padding: 10px 20px;
-    }
-    .modal-body {
-        padding: 20px;
-    }
-    .close {
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-</style>
+<div class="onlyoffice-modal-overlay" data-bind="visible: showOnlyOfficeModal">
+    <div class="onlyoffice-modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" data-bind="text: currentAttachmentFileName">Просмотр вложения</h5>
+            <button type="button" class="close" data-bind="click: closeOnlyOfficeModal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: center; height:100%; display: flex; align-items: center; justify-content: center;">
+            <iframe data-bind="attr: { src: onlyOfficeIframeSrc }, event: { load: handleOnlyOfficeLoaded }, visible: isPdfTxtViewerVisible() || (onlyOfficeIframeSrc() && !isOnlyOfficeLoading())"
+                    style="width:100%; height:100%; border:none;"></iframe>
+
+            <div data-bind="visible: isImageViewerVisible" class="isImageViewerVisible">
+                <img data-bind="attr: { src: currentAttachmentSrc }" style="max-width:100%; max-height:80vh; object-fit: contain;" class="img-fluid">
+            </div>
+
+            <div data-bind="visible: isUnsupportedViewerVisible" style="padding: 20px;">
+                <p>Предпросмотр этого типа файла недоступен. Пожалуйста, скачайте его, чтобы просмотреть.</p>
+            </div>
+
+            <div data-bind="visible: isOnlyOfficeLoading" style="padding: 20px; position: absolute;">
+                <p>Загрузка документа...</p>
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Загрузка...</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a data-bind="attr: { href: currentAttachmentSrc, download: currentAttachmentFileName }" class="btn btn-primary" download>Скачать</a>
+            <button type="button" class="btn btn-secondary" data-bind="click: closeOnlyOfficeModal">Закрыть</button>
+        </div>
+    </div>
+</div>

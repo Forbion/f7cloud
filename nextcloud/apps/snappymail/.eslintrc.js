@@ -1,25 +1,13 @@
 module.exports = {
-	parser: "@babel/eslint-parser",
-	parserOptions: {
-		requireConfigFile: false,
-		babelOptions: {
-			presets: [
-				"@babel/preset-env", // или что использует Snappymail
-				"@babel/preset-react" // если используете React
-			],
-			plugins: [
-				"@babel/plugin-proposal-class-properties" // или что использует Snappymail
-			]
-		},
-		ecmaVersion: 2021,
-		sourceType: "module", // Или "script"
-		ecmaFeatures: {
-			jsx: true // Если используете React
-		}
-	},
-//	extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+	root: true,
+	parser: '@babel/eslint-parser',
 	extends: ['eslint:recommended'],
 
+	parserOptions: {
+		ecmaVersion: 2020,
+		sourceType: 'module',
+		requireConfigFile: false
+	},
 	env: {
 		node: true,
 		browser: true,
@@ -31,7 +19,7 @@ module.exports = {
 		'rainloopTEMPLATES': "readonly",
 		'rl': "readonly",
 		'shortcuts': "readonly",
-//		'__APP_BOOT': "readonly",
+//     '__APP_BOOT': "readonly",
 		// deb/boot.js
 		'progressJs': "readonly",
 		// others
@@ -74,5 +62,5 @@ module.exports = {
 			}
 		],
 		'no-constant-condition': ["error", { "checkLoops": false }]
-	}
+	},
 };

@@ -1,4 +1,4 @@
-/* axios */
+/* global axios */
 import ko from 'ko';
 import { addObservablesTo, addComputablesTo, addSubscribablesTo } from 'External/ko';
 
@@ -94,7 +94,7 @@ const getRequestToken = () => {
 	if (oc && oc.requestToken) {
 		return oc.requestToken;
 	}
-	console.error('getRequestToken: OC.requestToken is not available.');
+		console.error('getRequestToken: OC.requestToken is not available.');
 	return null;
 };
 //test
@@ -497,10 +497,12 @@ export class MailMessageView extends AbstractViewRight {
 		try {
 			// 1. Загружаем файл как blob из SnappyMail
 			console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Загрузка файла вложения как Blob из:', fileDownloadUrl);
+			console.log('getRequestToken', getRequestToken());
 			const response = await axios.get(fileDownloadUrl, {
 				responseType: 'blob',
 				headers: {
 					'Content-Type': fileMimeType,
+					'Authorization': `Bearer `.getRequestToken(),
 					'X-Requested-With': 'XMLHttpRequest'
 				}
 			});
