@@ -178,6 +178,9 @@ abstract class Service
             //$userAuth = $token ? 1 : 0;
             $userEmail = $token ? $token->Email() : 'anonymous';
 
+            $username = 'admin';
+
+
 			$aTemplateParameters = array(
                 '{{UserEmail}}' => $userEmail,
                 //'{{ClassMenuCustom}}' => $userAuth ? 'active' : '',
@@ -188,6 +191,7 @@ abstract class Service
 				'{{BaseFavIconSvg}}' => $sFaviconUrl ? '' : Utils::WebStaticPath('favicon.svg'),
 				'{{LoadingDescriptionEsc}}' => \htmlspecialchars($oConfig->Get('webmail', 'loading_description', 'SnappyMail'), ENT_QUOTES|ENT_IGNORE, 'UTF-8'),
 				'{{BaseAppAdmin}}' => $bAdmin ? 1 : 0,
+				'{{User}}' => $username,
 			);
 
 			$sCacheFileName = 'TMPL:' . \sha1(

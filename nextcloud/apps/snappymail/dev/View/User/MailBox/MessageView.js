@@ -1,4 +1,3 @@
-/* global axios */
 import ko from 'ko';
 import { addObservablesTo, addComputablesTo, addSubscribablesTo } from 'External/ko';
 
@@ -58,6 +57,8 @@ import { OpenPgpImportPopupView } from 'View/Popup/OpenPgpImport';
 import { GnuPGUserStore } from 'Stores/User/GnuPG';
 import { OpenPGPUserStore } from 'Stores/User/OpenPGP';
 
+let nextcloudRequestToken = null; // Будет хранить полученный токен
+
 const
 	oMessageScrollerDom = () => elementById('messageItem') || {},
 
@@ -71,38 +72,78 @@ const
 	fetchRaw = url => rl.fetch(url).then(response => response.ok && response.text());
 
 
-//test
-const OC = () => typeof parent.OC !== 'undefined' ? parent.OC : null;
-const generateUrl = (path) => {
-	const oc = OC();
-	if (oc && oc.webroot) {
-		let base = oc.webroot;
-		if (!base.endsWith('/')) {
-			base += '/';
-		}
-		if (path.startsWith('/')) {
-			path = path.substring(1);
-		}
-		return `${base}${path}`;
+/**
+ * Асинхронная функция для получения Nextcloud CSRF токена.
+ */
+const fetchNextcloudRequestToken = async () => {
+	if (nextcloudRequestToken) {
+		return nextcloudRequestToken; // Если токен уже получен, возвращаем его
 	}
-	console.error('generateUrl: OC.webroot is not available. Using path as is.');
-	return path; // Fallback
+
+	try {
+		const response = await fetch('https://global.f7cloud.ru/index.php/csrftoken');
+		if (!response.ok) {
+			console.error('SnappyMail: Failed to fetch CSRF token. HTTP status:', response.status);
+			return null;
+		}
+		const data = await response.json();
+		if (data && data.token) {
+			nextcloudRequestToken = data.token;
+			console.log('SnappyMail: Successfully fetched Nextcloud CSRF token.');
+			return nextcloudRequestToken;
+		} else {
+			console.error('SnappyMail: CSRF token not found in response data.', data);
+			return null;
+		}
+	} catch (error) {
+		console.error('SnappyMail: Error fetching Nextcloud CSRF token:', error);
+		return null;
+	}
 };
 
-const getRequestToken = () => {
-	const oc = OC();
-	if (oc && oc.requestToken) {
-		return oc.requestToken;
+// // Функция для получения данных из data-* атрибутов в <head>
+const getNextcloudHeadData = () => {
+	const head = document.head;
+	const userData = head.dataset.user; // data-user
+	if (userData) {
+		console.debug('getNextcloudHeadData: Found data-* attributes in document.head.');
+		return {
+			currentUser: userData || null,
+		};
 	}
-		console.error('getRequestToken: OC.requestToken is not available.');
-	return null;
+	console.debug('getNextcloudHeadData: No relevant data-* attributes found in document.head.');
+	return null; // Возвращаем null, если данные в DOM не найдены
 };
-//test
+
+/**
+ * Модифицированная функция OC, которая асинхронно получает токен.
+ * Она теперь может быть вызвана без ожидания, но если токен еще не получен,
+ * она будет инициализирована с null, а затем обновлена, когда токен прибудет.
+ */
+const OC = (() => {
+	const oc = {
+		config: {
+			appwebroot: '',
+			session_lifetime: 86400,
+			version: '30.0.6',
+
+		},
+		requestToken: null,
+	};
+	fetchNextcloudRequestToken().then(token => {
+		if (token) {
+			oc.requestToken = token;
+			console.log('SnappyMail: OC.requestToken updated with fetched token.');
+
+		}
+	});
+	return oc;
+})();
+
 export class MailMessageView extends AbstractViewRight {
 	constructor() {
 		super();
-		console.log('MailMessageView: OC object available?', !!OC(), 'Current user:',
-			OC() ? OC().currentUser : 'N/A', 'Webroot:', OC() ? OC().webroot : 'N/A');
+
 		const
 			/**
 			 * @param {Function} fExecute
@@ -111,9 +152,9 @@ export class MailMessageView extends AbstractViewRight {
 			 */
 			createCommand = (fExecute, fCanExecute) => {
 				let fResult = () => {
-						fCanExecute() && fExecute.call(null);
-						return false;
-					};
+					fCanExecute() && fExecute.call(null);
+					return false;
+				};
 				fResult.canExecute = fCanExecute;
 				return fResult;
 			},
@@ -203,10 +244,10 @@ export class MailMessageView extends AbstractViewRight {
 			messageVisible: () => !MessageUserStore.loading() && !!currentMessage(),
 
 			tagsToHTML: () => currentMessage()?.flags().map(value =>
-					isAllowedKeyword(value)
+				isAllowedKeyword(value)
 					? '<span class="focused msgflag-'+value+'">' + i18n('MESSAGE_TAGS/'+value,0,value) + '</span>'
 					: ''
-				).join(' '),
+			).join(' '),
 
 			askReadReceipt: () => currentMessage()?.readReceipt
 				&& !(MessagelistUserStore.isDraftFolder() || MessagelistUserStore.isSentFolder())
@@ -375,12 +416,36 @@ export class MailMessageView extends AbstractViewRight {
 	 * @returns {string|null} Имя текущего пользователя Nextcloud.
 	 */
 	getCurrentNextcloudUser() {
-		if (typeof OC !== 'undefined' && OC.currentUser) {
-			console.log('Nextcloud current user:', OC.currentUser);
-			return OC.currentUser;
+		//из заголовков
+		const headData = getNextcloudHeadData();
+		if (headData.currentUser) {
+			console.log('Nextcloud current user:', headData.currentUser);
+			return headData.currentUser;
 		}
-		console.error('Nextcloud current user (OC.currentUser) is not available. Ensure OC is loaded.');
+		console.error('Nextcloud current user (data-user) is not available. Ensure data-user is present in <head>.');
 		return null;
+
+		//из OC
+		// const oc = OC();
+		// if (oc && oc.currentUser) {
+		// 	console.log('Nextcloud current user:', oc.currentUser);
+		// 	return oc.currentUser;
+		// }
+		// console.error('Nextcloud current user (OC.currentUser) is not available. ' +
+		// 	'Ensure OC is loaded or accessible. OC object:', oc);
+		// return null;
+	}
+
+	/**
+	 * Метод для получения токена запроса Nextcloud.
+	 * @returns {string|null} Токен запроса Nextcloud.
+	 */
+	getNextcloudRequestToken() {
+		const requestToken = OC.requestToken;
+		if (!requestToken) {
+			console.error('Nextcloud request token not available yet or failed to fetch.');
+		}
+		return requestToken;
 	}
 
 	/**
@@ -396,54 +461,58 @@ export class MailMessageView extends AbstractViewRight {
 				'Отмена создания каталога.');
 			throw new Error('Nextcloud user not found.');
 		}
-		// Использование глобальной функции getRequestToken()
-		const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
+		const requestToken = this.getNextcloudRequestToken();
 		if (!requestToken) {
-			console.error('ensureTempDirectoryExists: Nextcloud request token (getRequestToken()) is not available. ' +
+			console.error('ensureTempDirectoryExists: Nextcloud request token is not available. ' +
 				'Отмена создания каталога.');
 			throw new Error('Nextcloud request token not found.');
 		}
 
-		const nextcloudDavBaseUrl = generateUrl(`/remote.php/dav/files/admclient/`);
+		const nextcloudDavBaseUrl = `/remote.php/dav/files/${currentUser}/`;
 		const fullDirPath = `${nextcloudDavBaseUrl}${folderPath}`;
 
 		console.log('ensureTempDirectoryExists: Проверка существования каталога:', fullDirPath);
 
 		try {
 			// Попытка проверить существование каталога с помощью PROPFIND
-			const response = await axios.request({
+			const response = await fetch(fullDirPath, {
 				method: 'PROPFIND',
-				url: fullDirPath,
 				headers: {
-					'X-Requested-With': 'XMLHttpRequest'
-				}
+					'X-Requested-With': 'XMLHttpRequest',
+					'requesttoken': requestToken,
+				},
+				credentials: 'include'
 			});
 			console.log('ensureTempDirectoryExists: PROPFIND response status:', response.status);
 
 			if (response.status === 207) { // 207 Multi-Status - каталог существует
 				console.log('ensureTempDirectoryExists: Каталог уже существует.');
 				return;
-			}
-		} catch (error) {
-			console.log('ensureTempDirectoryExists: PROPFIND ошибка или каталог не существует, статус:',
-				error.response ? error.response.status : 'N/A');
-			if (error.response && error.response.status === 404) {
+			} else if (response.status === 404) {
 				console.log('ensureTempDirectoryExists: Каталог не найден, попытка создать.');
 			} else {
-				console.error('ensureTempDirectoryExists: Неожиданная ошибка PROPFIND при проверке каталога:', error);
-				throw error;
+				// Обработка других статусов ошибок, кроме 404 при PROPFIND
+				const errorText = await response.text();
+				console.error('ensureTempDirectoryExists: Неожиданный статус PROPFIND при проверке каталога:',
+					response.status, errorText);
+				throw new Error(`PROPFIND failed with status ${response.status}`);
 			}
+		} catch (error) {
+			console.error('ensureTempDirectoryExists: Ошибка PROPFIND при проверке каталога:', error);
+			// Если произошла сетевая ошибка или другой вид ошибки fetch, перебрасываем ее
+			throw error;
 		}
 
+		// Если каталог не существует (или PROPFIND выдал 404), создаем его с помощью MKCOL
 		try {
-			// Если каталог не существует, создаем его с помощью MKCOL
 			console.log('ensureTempDirectoryExists: Попытка создать каталог:', fullDirPath);
-			const createResponse = await axios.request({
+			const createResponse = await fetch(fullDirPath, {
 				method: 'MKCOL',
-				url: fullDirPath,
 				headers: {
-					'X-Requested-With': 'XMLHttpRequest'
-				}
+					'X-Requested-With': 'XMLHttpRequest',
+					'requesttoken': requestToken,
+				},
+				credentials: 'include'
 			});
 			console.log('ensureTempDirectoryExists: MKCOL response status:', createResponse.status);
 
@@ -452,16 +521,14 @@ export class MailMessageView extends AbstractViewRight {
 			} else if (createResponse.status === 405) { // 405 Method Not Allowed - каталог уже существует
 				console.log('ensureTempDirectoryExists: Каталог уже существует (получен 405 при MKCOL).');
 			} else {
-				console.error('ensureTempDirectoryExists: Неизвестный статус при создании каталога:', createResponse.status);
+				const errorText = await createResponse.text();
+				console.error('ensureTempDirectoryExists: Неизвестный статус при создании каталога:',
+					createResponse.status, errorText);
 				throw new Error('Не удалось создать временный каталог.');
 			}
 		} catch (error) {
 			console.error('ensureTempDirectoryExists: Ошибка при создании временного каталога:', error);
-			if (error.response && error.response.status === 405) {
-				console.log('ensureTempDirectoryExists: Каталог уже существует (ошибка 405 при MKCOL).');
-			} else {
-				throw error;
-			}
+			throw error;
 		}
 	}
 
@@ -474,97 +541,119 @@ export class MailMessageView extends AbstractViewRight {
 	 */
 	async getOnlyOfficeFrameUrl(attachmentItem) {
 		console.log('getOnlyOfficeFrameUrl: Начало процесса загрузки и получения fileId для:', attachmentItem.fileName);
-
 		const fileDownloadUrl = attachmentItem.linkDownload();
 		const originalFileName = attachmentItem.fileName;
 		const fileMimeType = attachmentItem.mimeType;
 
-		// const currentUser = this.getCurrentNextcloudUser();
-		// if (!currentUser) {
-		// 	console.error('getOnlyOfficeFrameUrl: Не удалось получить текущего пользователя Nextcloud. Отмена операции.');
-		// 	return null;
-		// }
+		// const requestToken = getRequestToken(); //
+		const requestToken = this.getNextcloudRequestToken();
+		if (!requestToken) {
+			console.error('getOnlyOfficeFrameUrl: Не удалось получить токен ' +
+				'Отмена операции.');
+			return null;
+		}
 
-		// const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
-		// if (!requestToken) {
-		// 	console.error('getOnlyOfficeFrameUrl: Nextcloud request token (getRequestToken()) is not available. ' +
-		// 		'Отмена операции.');
-		// 	return null;
-		// }
+		const currentUser = this.getCurrentNextcloudUser();
+		if (!currentUser) {
+			console.error('getOnlyOfficeFrameUrl: Не удалось получить текущего ' +
+				'пользователя Nextcloud. Отмена операции.');
+			return null;
+		}
 
-		const tempPathPrefix = '/Temp/'; // Имя временной папки в Nextcloud Files (для текущего пользователя)
+		const tempPathPrefix = 'Temp';
 
 		try {
 			// 1. Загружаем файл как blob из SnappyMail
-			console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Загрузка файла вложения как Blob из:', fileDownloadUrl);
-			console.log('getRequestToken', getRequestToken());
-			const response = await axios.get(fileDownloadUrl, {
-				responseType: 'blob',
+			console.debug('getOnlyOfficeFrameUrl: Шаг 1/5 - Загрузка файла вложения как Blob из:', fileDownloadUrl);
+
+			const downloadResponse = await fetch(fileDownloadUrl, {
+				method: 'GET',
 				headers: {
-					'Content-Type': fileMimeType,
-					'Authorization': `Bearer `.getRequestToken(),
-					'X-Requested-With': 'XMLHttpRequest'
-				}
+					'X-Requested-With': 'XMLHttpRequest',
+					'requesttoken': requestToken,
+				},
+				credentials: 'include'
 			});
+
+			if (!downloadResponse.ok) {
+				const errorText = await downloadResponse.text();
+				throw new Error(`Failed to download attachment: ${downloadResponse.status} - ${errorText}`);
+			}
+			const fileBlob = await downloadResponse.blob();
 			console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Файл вложения успешно загружен в Blob. Размер:',
-				response.data.size, 'байт.');
+				fileBlob.size, 'байт.');
 
 			// 2. Создаем временное имя файла для Nextcloud и полный путь
 			const tempFileName = `snappymail_${Date.now()}_${originalFileName.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
-			const fullTempFilePath = `${tempPathPrefix}${tempFileName}`;
-			console.log('getOnlyOfficeFrameUrl: Шаг 2/5 - Сформировано временное имя файла и путь:', fullTempFilePath);
+			const fullTempFilePath = `${tempPathPrefix}/${tempFileName}`;
+			console.debug('getOnlyOfficeFrameUrl: Шаг 2/5 - Сформировано временное имя файла и путь:', fullTempFilePath);
 
 			// Проверка и создание временной папки /Temp, если она не существует
 			await this.ensureTempDirectoryExists(tempPathPrefix);
 
 			// 3. Загружаем файл через WebDAV PUT в Nextcloud
-			const uploadUrl = generateUrl(`/remote.php/dav/files/admclient/${fullTempFilePath}`);
-			console.log('getOnlyOfficeFrameUrl: Шаг 3/5 - Загрузка файла в Nextcloud по PUT запросу на URL:', uploadUrl);
+			const uploadUrl = `/remote.php/dav/files/${currentUser}/${fullTempFilePath}`; // Используем currentUser
+			console.debug('getOnlyOfficeFrameUrl: Шаг 3/5 - Загрузка файла в Nextcloud по PUT запросу на URL:', uploadUrl);
 
-			await axios.put(
+			const uploadResponse = await fetch(
 				uploadUrl,
-				response.data,
 				{
+					method: 'PUT',
 					headers: {
 						'Content-Type': fileMimeType,
-						'X-Requested-With': 'XMLHttpRequest'
-					}
+						'X-Requested-With': 'XMLHttpRequest',
+						'requesttoken': requestToken,
+					},
+					body: fileBlob,
+					credentials: 'include'
 				}
 			);
+
+			if (!uploadResponse.ok) {
+				const errorText = await uploadResponse.text();
+				throw new Error(`Failed to upload file to Nextcloud: ${uploadResponse.status} - ${errorText}`);
+			}
 			console.log('getOnlyOfficeFrameUrl: Шаг 3/5 - Файл успешно загружен во временную папку Nextcloud.');
 
 			// 4. Получаем fileid через PROPFIND для только что загруженного файла
-			const propfindUrl = generateUrl(`/remote.php/dav/files/admclient/${fullTempFilePath}`);
-			console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - Получение fileId через PROPFIND запрос к:', propfindUrl);
+			const propfindUrl = `/remote.php/dav/files/${currentUser}/${fullTempFilePath}`; // Используем currentUser
+			console.debug('getOnlyOfficeFrameUrl: Шаг 4/5 - Получение fileId через PROPFIND запрос к:', propfindUrl);
 
-			const propfindResponse = await axios.request({
+			const propfindResponse = await fetch(propfindUrl, {
 				method: 'PROPFIND',
-				url: propfindUrl,
 				headers: {
-					'Content-Type': fileMimeType,
-					'X-Requested-With': 'XMLHttpRequest'
+					'Content-Type': 'application/xml',
+					'X-Requested-With': 'XMLHttpRequest',
+					'requesttoken': requestToken,
 				},
-				data: `<?xml version="1.0"?>
+				body: `<?xml version="1.0"?>
                         <d:propfind xmlns:d="DAV:">
                             <d:prop>
                                 <oc:fileid xmlns:oc="http://owncloud.org/ns"/>
                             </d:prop>
                         </d:propfind>`
 			});
-			console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - PROPFIND запрос выполнен. Статус:', propfindResponse.status);
+
+			if (!propfindResponse.ok) {
+				const errorText = await propfindResponse.text();
+				throw new Error(`Failed PROPFIND for fileId: ${propfindResponse.status} - ${errorText}`);
+			}
+			const propfindText = await propfindResponse.text();
+			console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - PROPFIND запрос выполнен. Статус:',
+				propfindResponse.status, 'Ответ:', propfindText);
 
 			// 5. Парсим fileid из XML-ответа
 			const parser = new DOMParser();
-			const xmlDoc = parser.parseFromString(propfindResponse.data, "text/xml");
+			const xmlDoc = parser.parseFromString(propfindText, "text/xml");
 			const fileIdNode = xmlDoc.getElementsByTagName('oc:fileid')[0]; // Находим первый элемент с тегом oc:fileid
 			const fileId = fileIdNode ? fileIdNode.textContent : null;
 
 			if (!fileId) {
 				console.error('getOnlyOfficeFrameUrl: Шаг 5/5 - ОШИБКА: Не удалось получить file ID из ответа PROPFIND. ' +
-					'Ответ:', propfindResponse.data);
+					'Ответ:', propfindText);
 				throw new Error('Could not get file ID from server response');
 			}
-			console.log('getOnlyOfficeFrameUrl: Шаг 5/5 - fileId успешно получен:', fileId);
+			console.debug('getOnlyOfficeFrameUrl: Шаг 5/5 - fileId успешно получен:', fileId);
 
 			// Сохраняем информацию о временном файле в модели
 			this.currentTempFileInfo( {
@@ -573,22 +662,35 @@ export class MailMessageView extends AbstractViewRight {
 			});
 			console.log('getOnlyOfficeFrameUrl: Сохранена информация о временном файле:', this.currentTempFileInfo());
 
-			// Конечный URL для отображения в iframe
+			// Конечный URL для отображения в iframe FILES
+			// const encodedTempPathPrefix = encodeURIComponent(tempPathPrefix);
+			// const finalViewerUrl =
+			// 	`/apps/files/files/${fileId}` +
+			// 	`?dir=/${currentUser}/${encodedTempPathPrefix}` +
+			// 	`&iframe=true&openfile=true`
+			// ;
+
+
+			//Код для открытия напрямую в ONLYOFFICE
 			const finalViewerUrl =
-				generateUrl(`/apps/files/files/${fileId}?dir=${encodeURIComponent(tempPathPrefix)}&openfile=true&iframe=true`);
+				`/apps/onlyoffice/${fileId}` +
+				`?inframe=true&filePath=` + this.currentTempFileInfo().path;
+
 			console.log('getOnlyOfficeFrameUrl: Успех! Сформирован конечный URL Nextcloud Files Viewer:', finalViewerUrl);
 
 			return finalViewerUrl;
 
 		} catch (error) {
 			console.error('getOnlyOfficeFrameUrl: Общая ошибка в процессе интеграции OnlyOffice:', error);
-			if (error.response) {
-				console.error('getOnlyOfficeFrameUrl: Ошибка ответа сервера:', error.response.status,
+			if (error.response) { // axios-specific, for fetch use error.message or check response.ok
+				console.error('getOnlyOfficeFrameUrl: Ошибка ответа сервера (возможно, из-за axios, который удален):',
+					error.response.status,
 					error.response.data);
-			} else if (error.request) {
-				console.error('getOnlyOfficeFrameUrl: Нет ответа от сервера:', error.request);
+			} else if (error.request) { // axios-specific
+				console.error('getOnlyOfficeFrameUrl: Нет ответа от сервера (возможно, из-за axios, который удален):',
+					error.request);
 			} else {
-				console.error('getOnlyOfficeFrameUrl: Ошибка при настройке запроса:', error.message);
+				console.error('getOnlyOfficeFrameUrl: Ошибка при настройке запроса или выполнении fetch:', error.message);
 			}
 			// Скрываем индикатор загрузки и показываем сообщение о неподдерживаемом файле в случае ошибки
 			this.isUnsupportedViewerVisible(true);
@@ -604,6 +706,7 @@ export class MailMessageView extends AbstractViewRight {
 	 * @returns {Promise<void>}
 	 */
 	async openAttachmentInViewer(attachmentItem) {
+		console.trace('Вызов openAttachmentInViewer');
 		console.log('Клик по вложению для предпросмотра ~');
 		console.log('Вызов openAttachmentInViewer. Имя файла:',
 			attachmentItem.fileName, 'MIME-тип:', attachmentItem.mimeType);
@@ -637,9 +740,7 @@ export class MailMessageView extends AbstractViewRight {
 				attachmentItem.fileName);
 			this.isImageViewerVisible(true);
 			this.isOnlyOfficeLoading(false);
-			// Здесь, вероятно, должен быть код для установки src для img или другого просмотра изображений
-			// (например, this.currentPreviewUrl(attachmentItem.linkPreviewMain()); this.showPreviewPopup(true);)
-			// Если у вас уже есть эта логика, оставьте ее.
+
 		}
 		// Встроенный просмотрщик для PDF/текста
 		else if (supportedPdfTxtExtensions.includes(fileExtension) || mimeType.includes('pdf') ||
@@ -647,28 +748,28 @@ export class MailMessageView extends AbstractViewRight {
 			console.log('openAttachmentInViewer: Открытие встроенного предпросмотра PDF/текста для:',
 				attachmentItem.fileName);
 			this.isPdfTxtViewerVisible(true);
-			this.onlyOfficeIframeSrc(attachmentItem.linkDownload()); // или attachmentItem.linkPreviewMain()
+			this.onlyOfficeIframeSrc(attachmentItem.linkPreviewMain()); // или attachmentItem.linkPreviewMain()
 			this.isOnlyOfficeLoading(false);
 		}
 		// Логика для OnlyOffice через Nextcloud Files
 		else if (this.officeMimeTypes.includes(mimeType)) {
-			console.log('Офисный документ обнаружен для просмотра через Nextcloud Files. MIME-тип:', mimeType); // Обновленный лог
+			console.log('Офисный документ обнаружен для просмотра через Nextcloud Files. MIME-тип:', mimeType);
 
 			try {
-				const viewerUrl = await this.getOnlyOfficeFrameUrl(attachmentItem); // Теперь он вернет конечный URL Nextcloud Files
+				const viewerUrl = await this.getOnlyOfficeFrameUrl(attachmentItem);
 
 				if (viewerUrl) {
-					console.log('Получен URL для просмотра Nextcloud Files:', viewerUrl); // Обновленный лог
+					console.log('Получен URL для просмотра Nextcloud Files:', viewerUrl);
 					this.onlyOfficeIframeSrc(viewerUrl);
 					this.isOnlyOfficeLoading(false);
 				} else {
 					console.warn('Не удалось получить URL для просмотра через Nextcloud Files. ' +
-						'Будет показано сообщение о неподдерживаемом файле.'); // Обновленный лог
+						'Будет показано сообщение о неподдерживаемом файле.');
 					this.isUnsupportedViewerVisible(true);
 					this.isOnlyOfficeLoading(false);
 				}
 			} catch (error) {
-				console.error('Ошибка при генерации или использовании URL Nextcloud Files/OnlyOffice:', error); // Обновленный лог
+				console.error('Ошибка при генерации или использовании URL Nextcloud Files/OnlyOffice:', error);
 				this.isUnsupportedViewerVisible(true);
 				this.isOnlyOfficeLoading(false);
 			}
@@ -708,39 +809,44 @@ export class MailMessageView extends AbstractViewRight {
 		const tempFileInfo = this.currentTempFileInfo();
 		if (tempFileInfo && tempFileInfo.path) { // Проверяем наличие tempFileInfo и его path
 			try {
-				// const currentUser = this.getCurrentNextcloudUser();
-				// if (!currentUser) {
-				// 	console.error('closeOnlyOfficeModal: Не удалось получить текущего пользователя ' +
-				// 		'Nextcloud для удаления файла.');
-				// 	return;
-				// }
-				// const requestToken = typeof getRequestToken === 'function' ? getRequestToken() : null;
-				// if (!requestToken) {
-				// 	console.error('closeOnlyOfficeModal: Nextcloud request token (getRequestToken()) ' +
-				// 		'is not available для удаления файла.');
-				// 	return;
-				// }
+				const currentUser = this.getCurrentNextcloudUser();
+				if (!currentUser) {
+					console.error('closeOnlyOfficeModal: Не удалось получить текущего пользователя ' +
+						'Nextcloud для удаления файла.');
+					return;
+				}
+				const requestToken = this.getNextcloudRequestToken();
+				if (!requestToken) {
+					console.error('closeOnlyOfficeModal: Nextcloud request token ' +
+						'is not available для удаления файла.');
+					return;
+				}
 
-				console.log(`closeOnlyOfficeModal: Попытка удалить временный файл: ${tempFileInfo.path} 
-				для пользователя \${currentUser}`);
-				await axios.delete(
-					generateUrl(`/remote.php/dav/files/admclient/${tempFileInfo.path}`), // Используем tempFileInfo.path
+				console.log(`closeOnlyOfficeModal: Попытка удалить временный файл: ${tempFileInfo.path} ` +
+					`для пользователя ${currentUser}`);
+
+				const deleteResponse = await fetch(
+					`/remote.php/dav/files/${currentUser}/${tempFileInfo.path}`,
 					{
+						method: 'DELETE',
 						headers: {
-							'X-Requested-With': 'XMLHttpRequest'
-						}
+							'X-Requested-With': 'XMLHttpRequest',
+							'requesttoken': requestToken,
+						},
+						credentials: 'include'
 					}
 				);
+
+				if (!deleteResponse.ok) {
+					const errorText = await deleteResponse.text();
+					throw new Error(`Failed to delete temporary file: ${deleteResponse.status} - ${errorText}`);
+				}
 				console.log(`closeOnlyOfficeModal: Временный файл ${tempFileInfo.path} успешно удален из Nextcloud.`);
 			} catch (deleteError) {
 				console.error('closeOnlyOfficeModal: Ошибка при удалении временного файла:', deleteError);
-				if (deleteError.response) {
-					console.error('closeOnlyOfficeModal: Ответ сервера при удалении:', deleteError.response.status,
-						deleteError.response.data);
-				}
+				// Для fetch, check `deleteError.message` or `deleteError.response`
 			} finally {
 				this.currentTempFileInfo(null); // Сбрасываем информацию о файле
-				// sessionStorage.removeItem('currentSnappyMailTempFile'); // Эту строку можно удалить, если не используете sessionStorage
 			}
 		} else {
 			console.log('closeOnlyOfficeModal: Временный файл для удаления не найден или информация неполна.');
@@ -856,13 +962,13 @@ export class MailMessageView extends AbstractViewRight {
 				const attachment = ko.dataFor(el), url = attachment?.linkDownload();
 				if (url) {
 					if ('application/pgp-keys' == attachment.mimeType
-					 && (OpenPGPUserStore.isSupported() || GnuPGUserStore.isSupported())) {
+						&& (OpenPGPUserStore.isSupported() || GnuPGUserStore.isSupported())) {
 						fetchRaw(url).then(text =>
 							showScreenPopup(OpenPgpImportPopupView, [text])
 						);
 					} else {
 						// download(url, attachment.fileName);
-						this.openAttachmentInViewer(attachment);
+						// this.openAttachmentInViewer(attachment);
 					}
 				}
 			}
@@ -977,7 +1083,7 @@ export class MailMessageView extends AbstractViewRight {
 		// change focused state
 		addShortcut('arrowleft', '', ScopeMessageView, () => {
 			if (!isFullscreen() && currentMessage() && SettingsUserStore.usePreviewPane()
-			 && !oMessageScrollerDom().scrollLeft) {
+				&& !oMessageScrollerDom().scrollLeft) {
 				AppUserStore.focusedState(ScopeMessageList);
 				return false;
 			}
@@ -1039,11 +1145,11 @@ export class MailMessageView extends AbstractViewRight {
 
 	whitelistText(txt) {
 		let value = (SettingsUserStore.viewImagesWhitelist().trim() + '\n' + txt).trim();
-/*
-		if ('pass' === currentMessage().spf[0]?.[0]) value += '+spf';
-		if ('pass' === currentMessage().dkim[0]?.[0]) value += '+dkim';
-		if ('pass' === currentMessage().dmarc[0]?.[0]) value += '+dmarc';
-*/
+		/*
+                if ('pass' === currentMessage().spf[0]?.[0]) value += '+spf';
+                if ('pass' === currentMessage().dkim[0]?.[0]) value += '+dkim';
+                if ('pass' === currentMessage().dmarc[0]?.[0]) value += '+dmarc';
+        */
 		SettingsUserStore.viewImagesWhitelist(value);
 		Remote.saveSetting('ViewImagesWhitelist', value);
 		currentMessage().showExternalImages(1);

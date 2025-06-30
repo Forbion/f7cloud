@@ -378,135 +378,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /**
- * Обработка вложений в SnappyMail
- */
-function initSnappyMailAttachments() {
-    // Проверяем, что мы на странице SnappyMail
-    if (!window.location.pathname.includes('/apps/snappymail/')) {
-        return;
-    }
-
-    console.log('Initializing SnappyMail attachments modal');
-
-    // Создаем модальное окно, если его еще нет
-    if (!document.getElementById('attachmentModal')) {
-        const modalHTML = `
-            <div id="attachmentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="attachmentModalTitle">Просмотр вложения</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="attachmentModalBody">
-                            <iframe id="attachmentIframe" style="width:100%; height:500px; border:none;"></iframe>
-                            <div id="attachmentImageViewer">
-                                <img id="attachmentImage" src="" style="max-width:100%; max-height:80vh;" class="img-fluid">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <a id="attachmentDownloadBtn" href="#" class="btn btn-primary" download>Скачать</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-    }
-
-    // Функция для обработки кликов по вложениям
-    function handleAttachmentClick(e) {
-        if (e.target.closest('.attachment-preview-link')) {
-            e.preventDefault();
-            const link = e.target.closest('.attachment-preview-link');
-            const url = link.getAttribute('data-preview-url');
-            const filename = link.getAttribute('data-filename');
-
-            console.log('Opening attachment:', filename, url);
-
-            const modal = document.getElementById('attachmentModal');
-            const modalTitle = document.getElementById('attachmentModalTitle');
-            const iframe = document.getElementById('attachmentIframe');
-            const imageViewer = document.getElementById('attachmentImageViewer');
-            const image = document.getElementById('attachmentImage');
-            const downloadBtn = document.getElementById('attachmentDownloadBtn');
-
-            modalTitle.textContent = filename;
-            downloadBtn.setAttribute('href', url);
-            downloadBtn.setAttribute('download', filename);
-
-            if (url.match(/\.(jpe?g|gif|png|webp|bmp)$/i)) {
-                iframe.style.display = 'none';
-                imageViewer.style.display = 'block';
-                image.src = url;
-            } else {
-                imageViewer.style.display = 'none';
-                iframe.style.display = 'block';
-                iframe.src = url;
-            }
-
-            // Используем Bootstrap если доступен, иначе простой показ
-            if (typeof $ !== 'undefined' && $.fn.modal) {
-                $(modal).modal('show');
-            } else {
-                modal.style.display = 'block';
-            }
-        }
-    }
-
-    // Обработчик для закрытия модального окна
-    function setupModalCloseHandler() {
-        const modal = document.getElementById('attachmentModal');
-        const closeBtn = modal.querySelector('.close');
-
-        closeBtn.addEventListener('click', function() {
-            if (typeof $ !== 'undefined' && $.fn.modal) {
-                $(modal).modal('hide');
-            } else {
-                modal.style.display = 'none';
-            }
-        });
-    }
-
-    // Инициализация
-    function init() {
-        // Ожидаем появления вложений на странице
-        const checkAttachments = setInterval(() => {
-            const attachments = document.querySelectorAll('.attachment-preview-link');
-            if (attachments.length > 0) {
-                clearInterval(checkAttachments);
-
-                // Добавляем обработчики кликов
-                document.addEventListener('click', handleAttachmentClick);
-
-                // Настраиваем закрытие модального окна
-                setupModalCloseHandler();
-
-                console.log('SnappyMail attachments handlers initialized');
-            }
-        }, 500);
-    }
-
-    // Запускаем инициализацию после загрузки DOM
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(init, 100);
-    } else {
-        document.addEventListener('DOMContentLoaded', init);
-    }
-}
-
-// Добавляем в очередь инициализации
-if (document.readyState === 'complete') {
-    initSnappyMailAttachments();
-} else {
-    document.addEventListener('DOMContentLoaded', initSnappyMailAttachments);
-}
-
-
-/**
  * Toggle password visibility in SnappyMail login form
  */
 function initSnappyMailPasswordToggle() {
@@ -542,14 +413,14 @@ function initSnappyMailPasswordToggle() {
                     eyeOpenIcon.classList.toggle('active');
                     eyeClosedIcon.classList.toggle('active');
                 });
-                return true; // Возвращаем true, если элементы найдены и слушатель добавлен
+                return true;
             }
         }
-        return false; // Возвращаем false, если элементы не найдены или не полностью
+        return false;
     };
 
     if (setupPasswordToggle()) {
-        return; // Если всё сработало, выходим
+        return;
     }
 
     const observer = new MutationObserver((mutationsList, observer) => {
