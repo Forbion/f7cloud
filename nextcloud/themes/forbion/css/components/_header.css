@@ -245,6 +245,9 @@
 #header.header-new .user-control__header .help-online__user {
     margin-right: 10px;
 }
+#header.header-new .user-control__header .help-online__user img {
+    display: block;
+}
 #header.header-new .app-menu .hidden-app-menu__list {
     display: none;
     position: absolute;
