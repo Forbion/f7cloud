@@ -13,6 +13,18 @@
     display: block !important;
 }
 
+.app-navigation-administration li[data-section-id="additional"],
+.app-navigation-administration li[data-section-id="talk"],
+.app-navigation-administration li[data-section-id="workflow"],
+.app-navigation-administration li[data-section-id="onlyoffice"],
+.app-navigation-administration li[data-section-id="groupware"],
+.app-navigation-administration li[data-section-id="ai"],
+.app-navigation-administration li[data-section-id="theming"],
+.app-navigation-administration li[data-section-id="security"],
+.app-navigation-administration li[data-section-id="overview"] {
+    display: none !important;
+}
+
 body#body-settings {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
