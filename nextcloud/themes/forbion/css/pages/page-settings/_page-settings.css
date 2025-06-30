@@ -199,7 +199,7 @@ body#body-settings {
                             font-size: 16px;
                             /*line-height: 40px;*/
                             font-family: Raleway;
-                            font-weight: 500;
+                            font-weight: bold;
                             font-size: 16px;
                             line-height: 20px;
                             letter-spacing: 0%;
@@ -211,10 +211,11 @@ body#body-settings {
 
                         &:before {
                             content: 'Дни недели';
+                            font-weight: bold;
                         }
 
-                        margin-top: 20px;
-                        margin-bottom: 15px;
+                        margin-top: 25px;
+                        margin-bottom: 24px;
 
                         & .day-container {
 
@@ -236,6 +237,10 @@ body#body-settings {
                             & .availability-slots {
                                 margin-left: 8px;
                                 max-width: 225px;
+
+                                & .availability-slot {
+                                    flex-wrap: nowrap;
+                                }
 
                                 & + .button-vue {
                                     opacity: 1 !important;
@@ -277,10 +282,14 @@ body#body-settings {
                                     }
                                 }
                             }
+
+                            &:first-child {
+                                margin-top: 16px;
+                            }
                         }
                     }
 
-                    & > div[data-v-0974f50a] {
+                    & > div[data-v-4a6b5154] {
 
                         & > .checkbox-radio-switch {
 
@@ -324,7 +333,7 @@ body#body-settings {
                     display: none;
                 }
 
-                & > div[data-v-55a42208] {
+                & > div[data-v-4a6b5154] {
                     max-width: 100%;
                     margin-top: 40px;
                     padding: 30px;
@@ -389,11 +398,11 @@ body#body-settings {
 
                 & p.transfer-select-row {
 
-                    & > span[data-v-76fb0136]:empty {
+                    & > span[data-v-77e08075]:empty {
                         display: none;
                     }
 
-                    & > span[data-v-76fb0136] {
+                    & > span[data-v-77e08075] {
                         display: block;
                         margin: 16px 0px -8px;
                     }
@@ -411,12 +420,12 @@ body#body-settings {
                 margin-left: 540px;
                 padding: 0;
 
-                & p[data-v-48a4e087] {
+                & p[data-v-c1026fac] {
                     position: relative;
                 }
 
-                & > p[data-v-48a4e087]:nth-child(2) {
-                    margin-top: 54px;
+                & > p[data-v-c1026fac]:nth-child(2) {
+                    margin-top: -5px;
 
                     & .share-folder__picker {
 
@@ -470,7 +479,7 @@ body#body-settings {
                     }
                 }
 
-                & > p[data-v-48a4e087]:nth-child(3) {
+                & > p[data-v-c1026fac]:nth-child(3) {
                     margin-top: 10px;
                     max-width: 400px;
                 }
@@ -804,7 +813,7 @@ body#body-settings {
 
                     & .personal-settings-setting-box {
 
-                        & section[data-v-22b97e2f] {
+                        & section[data-v-3e4cb5f4] {
                             padding: 0 0 100px;
                             margin-top: 55px;
                             position: relative;
@@ -894,7 +903,7 @@ body#body-settings {
                             width: 263px;
                         }
 
-                        & a[data-v-29aba6ea] {
+                        & a[data-v-f3147138] {
                             margin: unset;
                             position: absolute;
                             bottom: 0;
@@ -1069,7 +1078,7 @@ button.vs__clear {
     background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
 }
 
-@media only screen and (max-width: 1480px) {
+@media only screen and (min-width: 1024px) {
     #files-personal-settings {
         /*border-bottom: unset !important;*/
         margin-bottom: 0 !important;
@@ -1140,4 +1149,8 @@ button.vs__clear {
             }
         }
     }
+}
+
+.day-container[data-v-c15ebf8b] {
+    gap: 60px !important;
 }
