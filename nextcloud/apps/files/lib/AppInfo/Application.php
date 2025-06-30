@@ -119,9 +119,9 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(BeforeNodeCopiedEvent::class, SyncLivePhotosListener::class);
 		$context->registerEventListener(NodeCopiedEvent::class, SyncLivePhotosListener::class);
 		$context->registerEventListener(LoadSearchPlugins::class, LoadSearchPluginsListener::class);
-		$context->registerEventListener(DeclarativeSettingsRegisterFormEvent::class, DeclarativeSettingsRegisterFormEventListener::class);
-		$context->registerEventListener(DeclarativeSettingsGetValueEvent::class, DeclarativeSettingsGetValueEventListener::class);
-		$context->registerEventListener(DeclarativeSettingsSetValueEvent::class, DeclarativeSettingsSetValueEventListener::class);
+		//$context->registerEventListener(DeclarativeSettingsRegisterFormEvent::class, DeclarativeSettingsRegisterFormEventListener::class);
+		//$context->registerEventListener(DeclarativeSettingsGetValueEvent::class, DeclarativeSettingsGetValueEventListener::class);
+		//$context->registerEventListener(DeclarativeSettingsSetValueEvent::class, DeclarativeSettingsSetValueEventListener::class);
 
 		$context->registerSearchProvider(FilesSearchProvider::class);
 

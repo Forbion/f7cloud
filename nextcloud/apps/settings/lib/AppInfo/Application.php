@@ -115,15 +115,15 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(GroupDeletedEvent::class, GroupRemovedListener::class);
 
 		// Register Mail Provider listeners
-		$context->registerEventListener(DeclarativeSettingsGetValueEvent::class, MailProviderListener::class);
-		$context->registerEventListener(DeclarativeSettingsSetValueEvent::class, MailProviderListener::class);
+		//$context->registerEventListener(DeclarativeSettingsGetValueEvent::class, MailProviderListener::class);
+		//$context->registerEventListener(DeclarativeSettingsSetValueEvent::class, MailProviderListener::class);
 
 		// Register well-known handlers
 		$context->registerWellKnownHandler(SecurityTxtHandler::class);
 		$context->registerWellKnownHandler(ChangePasswordHandler::class);
 
 		// Register Settings Form(s)
-		$context->registerDeclarativeSettings(MailProvider::class);
+		//$context->registerDeclarativeSettings(MailProvider::class);
 
 		/**
 		 * Core class wrappers
