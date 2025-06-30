@@ -21,8 +21,7 @@
 .app-navigation-administration li[data-section-id="ai"],
 .app-navigation-administration li[data-section-id="theming"],
 .app-navigation-administration li[data-section-id="security"],
-.app-navigation-administration li[data-section-id="overview"],
-.app-navigation-administration li[data-section-id="server"] {
+.app-navigation-administration li[data-section-id="overview"] {
     display: none !important;
 }
 
