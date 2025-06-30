@@ -70,6 +70,7 @@
     "Untitled item" : "Elementu ensin nome",
     "Unknown calendar" : "Calendariu desconocíu",
     "Could not load deleted calendars and objects" : "Nun se pudieron desaniciar los calendarios y los oxetos",
+    "Could not delete calendar or event" : "Nun se pudo desaniciar el calendariu o l'eventu",
     "Could not restore calendar or event" : "Nun se pudo restaurar el calendariu o l'eventu",
     "Do you really want to empty the trash bin?" : "¿De xuru que quies balerar la papelera de reciclaxe?",
     "Empty trash bin" : "Balerar la papelera",
@@ -199,12 +200,12 @@
     "Has not responded to {organizerName}'s invitation yet" : "Nun respondió a la invitación de: {organizerName}",
     "Busy" : "Ocupáu",
     "Out of office" : "Fuera de la oficina",
-    "Find a time" : "Atopar una hora",
     "with" : "con",
     "Available times:" : "Hores disponibles:",
     "Suggestion accepted" : "Suxerencia aceptada",
     "Done" : "Fecho",
     "Room name" : "Nome de la sala",
+    "Find a time" : "Atopar una hora",
     "The invitation has been accepted successfully." : "La invitación aceptóse correutamente.",
     "Failed to accept the invitation." : "Nun se pue aceptar la invitación",
     "The invitation has been declined successfully." : "La invitación refugóse correutamente.",
@@ -285,11 +286,6 @@
     "An error occurred, unable to delete the calendar." : "Prodúxose un error, nun ye posible desaniciar el calendariu",
     "Imported {filename}" : "Importóse «{filename}»",
     "This is an event reminder." : "Esto ye un recordatoriu del eventu.",
-    "User not found" : "Nun s'atopó l'usuariu",
-    "You do not own this calendar, so you cannot add attendees to this event" : "Esti calendariu nun te pertenez, polo que nun pues amestar asistentes a esti eventu",
-    "[Today]" : "[Güei]",
-    "[Tomorrow]" : "[Mañana]",
-    "[Yesterday]" : "[Ayeri]",
-    "Chat room for event" : "Sala de charra pal eventu"
+    "User not found" : "Nun s'atopó l'usuariu"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

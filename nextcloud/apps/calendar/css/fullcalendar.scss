@@ -286,3 +286,25 @@
 	// previously was 1px for no apparent reason
 	margin-bottom: 0;
 }
+
+// Leave some space for dragging
+.fc-timeGridDay-view, .fc-timeGridWeek-view {
+	.fc-event {
+		margin-right: 1vw;
+	}
+
+	.fc-event-mirror {
+		border: none !important;
+	}
+
+	.fc-highlight {
+		background: none !important;
+	}
+
+}
+
+.fc-timeGridDay-view {
+	.fc-event {
+		margin-right: 2vw;
+	}
+}

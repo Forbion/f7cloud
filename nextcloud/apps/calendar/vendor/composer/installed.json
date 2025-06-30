@@ -61,6 +61,6 @@
             "install-path": "../bamarni/composer-bin-plugin"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }
