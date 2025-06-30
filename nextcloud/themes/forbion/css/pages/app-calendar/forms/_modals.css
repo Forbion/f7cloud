@@ -99,15 +99,15 @@
     max-height: 880px !important;
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f] span.icon-vue {
+.dialog__modal .file-picker__side li[data-v-f5975252] span.icon-vue {
     position: relative;
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f] span.icon-vue svg {
+.dialog__modal .file-picker__side li[data-v-f5975252] span.icon-vue svg {
     display: none;
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f] span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252] span.icon-vue:before {
     content: '';
     position: absolute;
     top: 50%;
@@ -121,27 +121,29 @@
     transition: unset;
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:first-child span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:first-child span.icon-vue:before {
     background-image: url("/themes/forbion/images/folder-black.svg");
+    transform: translate(-50%, -50%) scale(0.8);
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:nth-child(2) span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:nth-child(2) span.icon-vue:before {
     background-image: url("/themes/forbion/images/send-clock-icon.svg");
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:nth-child(3) span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:nth-child(3) span.icon-vue:before {
     background-image: url("/themes/forbion/images/star-outline-icon-black.svg");
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:first-child .button-vue--vue-primary span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:first-child .button-vue--vue-primary span.icon-vue:before {
     background-image: url("/themes/forbion/images/folder-white.svg");
+    transform: translate(-50%, -50%);
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:nth-child(2) .button-vue--vue-primary span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:nth-child(2) .button-vue--vue-primary span.icon-vue:before {
     background-image: url("/themes/forbion/images/send-clock-icon-white.svg");
 }
 
-.dialog__modal .file-picker__side li[data-v-629bf30f]:nth-child(3) .button-vue--vue-primary span.icon-vue:before {
+.dialog__modal .file-picker__side li[data-v-f5975252]:nth-child(3) .button-vue--vue-primary span.icon-vue:before {
     background-image: url("/themes/forbion/images/star-outline-icon-white.svg");
 }
 
