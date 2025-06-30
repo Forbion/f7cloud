@@ -469,7 +469,8 @@ export class FolderModel extends AbstractModel {
 
 			friendlySize: () => FileInfo.friendlySize(this.size),
 
-			detailedName: () => this.name() + ' ' + this.nameInfo(),
+			//detailedName: () => this.name() + ' ' + this.nameInfo(),
+			detailedName: () => this.localName(),
 
 			icon: () => {
 				switch (this.type())
