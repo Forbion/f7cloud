@@ -197,6 +197,15 @@
     height: 30px;
 }
 
+#header.header-new .user-control__header #user-menu-snappymail {
+    background-image: url("/themes/forbion/images/profile_user.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px 30px;
+    width: 40px;
+    height: 40px;
+}
+
 #header.header-new .user-control__header #contactsmenu {
     background-image: url("/themes/forbion/images/contactsmenu.svg");
     background-repeat: no-repeat;
@@ -324,6 +333,14 @@
     #header.header-new .user-control__header #user-menu {
         width: 20px;
         height: 20px;
+        padding: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #header.header-new .user-control__header #user-menu-snappymail {
+        width: 34px;
+        height: 34px;
         padding: 7px;
         display: flex;
         align-items: center;
