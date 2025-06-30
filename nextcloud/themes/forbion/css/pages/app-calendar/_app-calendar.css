@@ -87,6 +87,7 @@ body .app-calendar {
                 & .datepicker-button-section {
 
                     padding-top: 8px;
+                    /*padding-right: 45px;*/
                     border-top-left-radius: 8px;
                     border-top-right-radius: 8px;
 
@@ -99,6 +100,10 @@ body .app-calendar {
 
                     & .button-vue {
                         background: rgb(238, 244, 233);
+                    }
+
+                    & .material-design-icon.plus-icon:before {
+                        background-image: url("/themes/forbion/images/plus.svg");
                     }
                 }
             }
@@ -169,13 +174,14 @@ body .app-calendar {
         }
 
         & .app-navigation-toggle-wrapper {
+            display: none;
             position: absolute;
-            top: 0;
-            right: 33px;
+            top: 7px;
+            right: 41px;
 
             & .button-vue {
-                min-width: 40px;
-                min-height: 40px;
+                min-width: 28px;
+                min-height: 28px;
 
                 & .material-design-icon {
 
@@ -270,7 +276,7 @@ body .app-calendar {
                     padding-left: 5px;
                     padding-right: 5px;
 
-                    &[data-v-fda924a6] {
+                    &[data-v-329e12ad] {
 
                         & .button-vue {
                             background: rgb(238, 244, 233) !important;
@@ -465,15 +471,23 @@ body .app-calendar {
 
                             & .property-title-time-picker__time-pickers-from {
 
-                                & span[data-v-310f4ca4] {
+                                display: flex;
+                                align-items: flex-start;
+
+                                & span[data-v-76b58f87] {
                                     width: auto;
+                                    margin-top: 5px;
                                 }
                             }
 
                             & .property-title-time-picker__time-pickers-to {
 
-                                & span[data-v-310f4ca4] {
+                                display: flex;
+                                align-items: flex-start;
+
+                                & span[data-v-76b58f87] {
                                     width: auto;
+                                    margin-top: 5px;
                                 }
                             }
                         }
@@ -852,9 +866,9 @@ body ul.vs__dropdown-menu {
             }
         }
 
-        & ul[data-v-60a4c99d] {
+        & ul[data-v-d11b605b] {
 
-            & li[data-v-903e8d3b].action {
+            & li[data-v-02eeec54].action {
 
                 & .action-button {
 
@@ -1060,4 +1074,8 @@ thead[role="rowgroup"] .fc-timegrid-axis::before {
 .fc-daygrid-day-frame.fc-scrollgrid-sync-inner .fc-daygrid-day-events:empty,
 .fc-daygrid-day-frame.fc-scrollgrid-sync-inner .fc-daygrid-day-bg:empty {
     display: none;
+}
+
+.property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-from[data-v-76b58f87], .property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-to[data-v-76b58f87] {
+    flex: unset !important;
 }

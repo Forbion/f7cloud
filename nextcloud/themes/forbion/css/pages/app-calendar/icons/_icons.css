@@ -306,6 +306,8 @@
 
 .material-design-icon.check-icon:before {
     background-image: url("/themes/forbion/images/arrow-black.svg");
+    width: 16px;
+    height: 16px;
 }
 
 .material-design-icon.eye-icon:before {
