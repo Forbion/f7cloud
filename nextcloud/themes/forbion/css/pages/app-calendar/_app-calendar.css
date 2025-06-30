@@ -547,6 +547,7 @@ body .app-calendar {
         & .save-buttons {
             bottom: 35px;
             padding-right: 24px;
+            background: unset;
 
             & .button-vue {
 
