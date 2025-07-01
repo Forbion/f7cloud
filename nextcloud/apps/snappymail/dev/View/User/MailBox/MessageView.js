@@ -57,7 +57,6 @@ import { OpenPgpImportPopupView } from 'View/Popup/OpenPgpImport';
 import { GnuPGUserStore } from 'Stores/User/GnuPG';
 import { OpenPGPUserStore } from 'Stores/User/OpenPGP';
 
-let nextcloudRequestToken = null; // Будет хранить полученный токен
 
 const
 	oMessageScrollerDom = () => elementById('messageItem') || {},
@@ -75,11 +74,8 @@ const
 /**
  * Асинхронная функция для получения Nextcloud CSRF токена.
  */
+let nextcloudRequestToken = null; // Объявление переменной для хранения токена
 const fetchNextcloudRequestToken = async () => {
-	if (nextcloudRequestToken) {
-		return nextcloudRequestToken; // Если токен уже получен, возвращаем его
-	}
-
 	try {
 		const baseUrl = window.location.origin;
 		const response = await fetch(`${baseUrl}/index.php/csrftoken`);
@@ -91,7 +87,7 @@ const fetchNextcloudRequestToken = async () => {
 		}
 		const data = await response.json();
 		if (data && data.token) {
-			nextcloudRequestToken = data.token;
+			nextcloudRequestToken = data.token; // Сохранение токена
 			console.log('SnappyMail: Successfully fetched Nextcloud CSRF token.');
 			return nextcloudRequestToken;
 		} else {
@@ -104,44 +100,53 @@ const fetchNextcloudRequestToken = async () => {
 	}
 };
 
-// // Функция для получения данных из data-* атрибутов в <head>
-const getNextcloudHeadData = () => {
-	const head = document.head;
-	const userData = head.dataset.user; // data-user
-	if (userData) {
-		console.debug('getNextcloudHeadData: Found data-* attributes in document.head.');
-		return {
-			currentUser: userData || null,
-		};
+// Запуск получения токена при загрузке модуля (выполняется один раз при загрузке файла)
+fetchNextcloudRequestToken().then(token => {
+	if (token) {
+		nextcloudRequestToken = token;
+		console.log('SnappyMail: Local nextcloudRequestToken updated with fetched token.');
 	}
-	console.debug('getNextcloudHeadData: No relevant data-* attributes found in document.head.');
-	return null; // Возвращаем null, если данные в DOM не найдены
-};
+});
+
+
+// // Функция для получения данных из data-* атрибутов в <head>
+// const getNextcloudHeadData = () => {
+// 	const head = document.head;
+// 	const userData = head.dataset.user; // data-user
+// 	if (userData) {
+// 		console.debug('getNextcloudHeadData: Found data-* attributes in document.head.');
+// 		return {
+// 			currentUser: userData || null,
+// 		};
+// 	}
+// 	console.debug('getNextcloudHeadData: No relevant data-* attributes found in document.head.');
+// 	return null; // Возвращаем null, если данные в DOM не найдены
+// };
 
 /**
  * Модифицированная функция OC, которая асинхронно получает токен.
  * Она теперь может быть вызвана без ожидания, но если токен еще не получен,
  * она будет инициализирована с null, а затем обновлена, когда токен прибудет.
  */
-const OC = (() => {
-	const oc = {
-		config: {
-			appwebroot: '',
-			session_lifetime: 86400,
-			version: '30.0.6',
-
-		},
-		requestToken: null,
-	};
-	fetchNextcloudRequestToken().then(token => {
-		if (token) {
-			oc.requestToken = token;
-			console.log('SnappyMail: OC.requestToken updated with fetched token.');
-
-		}
-	});
-	return oc;
-})();
+// const OC = (() => {
+// 	const oc = {
+// 		config: {
+// 			appwebroot: '',
+// 			session_lifetime: 86400,
+// 			version: '30.0.6',
+//
+// 		},
+// 		requestToken: null,
+// 	};
+// 	fetchNextcloudRequestToken().then(token => {
+// 		if (token) {
+// 			oc.requestToken = token;
+// 			console.log('SnappyMail: OC.requestToken updated with fetched token.');
+//
+// 		}
+// 	});
+// 	return oc;
+// })();
 
 export class MailMessageView extends AbstractViewRight {
 	constructor() {
@@ -415,41 +420,85 @@ export class MailMessageView extends AbstractViewRight {
 	// --- НАЧАЛО МЕТОДОВ КЛАССА MAILMESSAGEVIEW ---
 
 	/**
-	 * Метод для получения текущего пользователя Nextcloud.
-	 * @returns {string|null} Имя текущего пользователя Nextcloud.
+	 * Метод для асинхронного получения текущего пользователя Nextcloud.
+	 * Попытается использовать window.OC.getCurrentUser(), но если оно не возвращает
+	 * пользователя, сделает AJAX-запрос к API Nextcloud.
+	 * @returns {Promise<string|null>} Имя текущего пользователя Nextcloud.
 	 */
-	getCurrentNextcloudUser() {
-		//из заголовков
-		const headData = getNextcloudHeadData();
-		if (headData.currentUser) {
-			console.log('Nextcloud current user:', headData.currentUser);
-			return headData.currentUser;
-		}
-		console.error('Nextcloud current user (data-user) is not available. Ensure data-user is present in <head>.');
-		return null;
+	async getCurrentNextcloudUser() {
+		// Попытка получить пользователя через window.OC.getCurrentUser() с повторными попытками
+		const MAX_RETRIES_OC = 5; // Максимальное количество попыток для window.OC
+		const RETRY_DELAY_MS = 50; // Задержка между попытками в миллисекундах (0.05 секунды)
 
-		//из OC
-		// const oc = OC();
-		// if (oc && oc.currentUser) {
-		// 	console.log('Nextcloud current user:', oc.currentUser);
-		// 	return oc.currentUser;
-		// }
-		// console.error('Nextcloud current user (OC.currentUser) is not available. ' +
-		// 	'Ensure OC is loaded or accessible. OC object:', oc);
-		// return null;
+		for (let i = 0; i < MAX_RETRIES_OC; i++) {
+			if (window.OC && typeof window.OC === 'object' && typeof window.OC.getCurrentUser === 'function') {
+				const userData = window.OC.getCurrentUser();
+				if (userData && (userData.displayName || userData.uid)) {
+					const userName = userData.displayName || userData.uid;
+					console.log(`Nextcloud current user obtained via window.OC.getCurrentUser()
+					 after ${i + 1} attempts:`, userName);
+					return userName;
+				}
+			}
+			console.debug(`Attempt ${i + 1}/${MAX_RETRIES_OC} for window.OC.getCurrentUser():
+			 window.OC or OC.getCurrentUser not yet available or returned null. Retrying...`);
+			await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
+		}
+
+		console.warn('Nextcloud current user not obtained via ' +
+			'window.OC.getCurrentUser() after multiple attempts. Attempting API call.');
+
+		// Если window.OC.getCurrentUser() не сработало, пробуем API-вызов
+		try {
+			const baseUrl = window.location.origin;
+			const requestToken = await fetchNextcloudRequestToken(); // Убедимся, что токен доступен
+			if (!requestToken) {
+				console.error('getCurrentNextcloudUser: Не удалось получить токен Nextcloud для API-запроса.');
+				return null;
+			}
+
+			// Пробуем эндпоинт для получения информации о текущем пользователе
+			// Используем ocs/v2.php/cloud/user для получения данных текущего пользователя
+			const apiUrl = `${baseUrl}/ocs/v2.php/cloud/user?format=json`;
+
+			console.log('getCurrentNextcloudUser: Выполнение API-запроса к:', apiUrl);
+
+			const response = await fetch(apiUrl, {
+				method: 'GET',
+				headers: {
+					'OCS-APIRequest': 'true', // Обязательный заголовок для OCS API
+					'requesttoken': requestToken,
+					'Content-Type': 'application/json'
+				},
+				credentials: 'include' // Важно для передачи куков сессии
+			});
+
+			if (!response.ok) {
+				const errorText = await response.text();
+				console.error(`getCurrentNextcloudUser: API-запрос не удался: ${response.status} - ${errorText}`);
+				return null;
+			}
+
+			const data = await response.json();
+			console.log('getCurrentNextcloudUser: Ответ API:', data);
+
+			// Предполагаем, что данные пользователя будут в data.ocs.data
+			if (data && data.ocs && data.ocs.data && data.ocs.data.id) {
+				const userId = data.ocs.data.id;
+				const displayName = data.ocs.data.displayname || userId; // displayName может быть не всегда
+				console.log('Nextcloud current user obtained via API call:', displayName);
+				return displayName;
+			}
+
+			console.error('getCurrentNextcloudUser: API-ответ не содержит ожидаемых данных пользователя (id).');
+			return null;
+
+		} catch (error) {
+			console.error('getCurrentNextcloudUser: Ошибка при выполнении API-запроса:', error);
+			return null;
+		}
 	}
 
-	/**
-	 * Метод для получения токена запроса Nextcloud.
-	 * @returns {string|null} Токен запроса Nextcloud.
-	 */
-	getNextcloudRequestToken() {
-		const requestToken = OC.requestToken;
-		if (!requestToken) {
-			console.error('Nextcloud request token not available yet or failed to fetch.');
-		}
-		return requestToken;
-	}
 
 	/**
 	 * Убеждается, что временный каталог для OnlyOffice существует.
@@ -458,14 +507,14 @@ export class MailMessageView extends AbstractViewRight {
 	 * @returns {Promise<void>}
 	 */
 	async ensureTempDirectoryExists(folderPath) {
-		const currentUser = this.getCurrentNextcloudUser();
+		const currentUser = await this.getCurrentNextcloudUser();
 		if (!currentUser) {
 			console.error('ensureTempDirectoryExists: Не удалось получить текущего пользователя Nextcloud. ' +
 				'Отмена создания каталога.');
 			throw new Error('Nextcloud user not found.');
 		}
-		const requestToken = this.getNextcloudRequestToken();
-		if (!requestToken) {
+
+		if (!nextcloudRequestToken) {
 			console.error('ensureTempDirectoryExists: Nextcloud request token is not available. ' +
 				'Отмена создания каталога.');
 			throw new Error('Nextcloud request token not found.');
@@ -482,7 +531,7 @@ export class MailMessageView extends AbstractViewRight {
 				method: 'PROPFIND',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest',
-					'requesttoken': requestToken,
+					'requesttoken': nextcloudRequestToken,
 				},
 				credentials: 'include'
 			});
@@ -513,7 +562,7 @@ export class MailMessageView extends AbstractViewRight {
 				method: 'MKCOL',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest',
-					'requesttoken': requestToken,
+					'requesttoken': nextcloudRequestToken,
 				},
 				credentials: 'include'
 			});
@@ -548,15 +597,13 @@ export class MailMessageView extends AbstractViewRight {
 		const originalFileName = attachmentItem.fileName;
 		const fileMimeType = attachmentItem.mimeType;
 
-		// const requestToken = getRequestToken(); //
-		const requestToken = this.getNextcloudRequestToken();
-		if (!requestToken) {
+		if (!nextcloudRequestToken) {
 			console.error('getOnlyOfficeFrameUrl: Не удалось получить токен ' +
 				'Отмена операции.');
 			return null;
 		}
 
-		const currentUser = this.getCurrentNextcloudUser();
+		const currentUser = await this.getCurrentNextcloudUser();
 		if (!currentUser) {
 			console.error('getOnlyOfficeFrameUrl: Не удалось получить текущего ' +
 				'пользователя Nextcloud. Отмена операции.');
@@ -573,7 +620,7 @@ export class MailMessageView extends AbstractViewRight {
 				method: 'GET',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest',
-					'requesttoken': requestToken,
+					'requesttoken': nextcloudRequestToken,
 				},
 				credentials: 'include'
 			});
@@ -605,7 +652,7 @@ export class MailMessageView extends AbstractViewRight {
 					headers: {
 						'Content-Type': fileMimeType,
 						'X-Requested-With': 'XMLHttpRequest',
-						'requesttoken': requestToken,
+						'requesttoken': nextcloudRequestToken,
 					},
 					body: fileBlob,
 					credentials: 'include'
@@ -627,7 +674,7 @@ export class MailMessageView extends AbstractViewRight {
 				headers: {
 					'Content-Type': 'application/xml',
 					'X-Requested-With': 'XMLHttpRequest',
-					'requesttoken': requestToken,
+					'requesttoken': nextcloudRequestToken,
 				},
 				body: `<?xml version="1.0"?>
                         <d:propfind xmlns:d="DAV:">
@@ -812,14 +859,14 @@ export class MailMessageView extends AbstractViewRight {
 		const tempFileInfo = this.currentTempFileInfo();
 		if (tempFileInfo && tempFileInfo.path) { // Проверяем наличие tempFileInfo и его path
 			try {
-				const currentUser = this.getCurrentNextcloudUser();
+				const currentUser = await this.getCurrentNextcloudUser();
 				if (!currentUser) {
 					console.error('closeOnlyOfficeModal: Не удалось получить текущего пользователя ' +
 						'Nextcloud для удаления файла.');
 					return;
 				}
-				const requestToken = this.getNextcloudRequestToken();
-				if (!requestToken) {
+
+				if (!nextcloudRequestToken) {
 					console.error('closeOnlyOfficeModal: Nextcloud request token ' +
 						'is not available для удаления файла.');
 					return;
@@ -834,7 +881,7 @@ export class MailMessageView extends AbstractViewRight {
 						method: 'DELETE',
 						headers: {
 							'X-Requested-With': 'XMLHttpRequest',
-							'requesttoken': requestToken,
+							'requesttoken': nextcloudRequestToken,
 						},
 						credentials: 'include'
 					}
