@@ -81,7 +81,10 @@ const fetchNextcloudRequestToken = async () => {
 	}
 
 	try {
-		const response = await fetch('https://global.f7cloud.ru/index.php/csrftoken');
+		const baseUrl = window.location.origin;
+		const response = await fetch(`${baseUrl}/index.php/csrftoken`);
+
+		console.debug('response',response);
 		if (!response.ok) {
 			console.error('SnappyMail: Failed to fetch CSRF token. HTTP status:', response.status);
 			return null;
