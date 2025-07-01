@@ -973,6 +973,10 @@ header .unified-search__wrapper {
 
                                 & .messageListItem {
 
+                                    .icon-file-text {
+                                        background-image: none !important;
+                                    }
+
                                     padding-top: 5px;
                                     padding-bottom: 5px;
                                     padding-right: 6px;
@@ -1102,8 +1106,6 @@ header .unified-search__wrapper {
                                     }
 
                                     &.msgflag-\\flagged .flagParent {
-                                        display: block;
-
                                         &:after {
                                             background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
                                         }
@@ -1323,6 +1325,13 @@ header .unified-search__wrapper {
                                         & > * {
 
                                             padding: 10px 20px;
+                                        }
+
+                                        & .attachmentsPlace {
+
+                                            & .attachmentIcon {
+                                                cursor: pointer;
+                                            }
                                         }
                                     }
 
