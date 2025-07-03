@@ -124,6 +124,10 @@
         }
 
         & .app-content {
+            & .welcome-content > div:nth-child(n + 4) {
+                display: none;
+            }
+
             & .app-content-wrapper {
 
                 & .editor {
