@@ -20,6 +20,25 @@ html {
     background: #F5F5F5;
 }
 
+#body-login .logo {
+    width: 307px !important;
+    height: 130px;
+    filter: unset !important;
+}
+
+#body-login .icon-search, body .icon-search-dark {
+    background-image: var(--icon-search-white) !important;
+}
+#body-login .guest-box, .body-login-container {
+    --color-text-maxcontrast: black;
+    --color-main-text: black;
+    color: black;
+    background-color: white;
+    box-shadow: 0 0 10px #00000021;
+    -webkit-backdrop-filter: var(--filter-background-blur);
+    backdrop-filter: var(--filter-background-blur);
+}
+
 body#body-user {
     position: relative;
     background: #F5F5F5;
