@@ -10,6 +10,7 @@ OC.L10N.register(
     "Loading …" : "Yn llwytho …",
     "Rename" : "Ailenwi",
     "Delete" : "Dileu",
+    "_Shared with {num} entity_::_Shared with {num} entities_" : ["Rhannwyd gyda {num} endid","Rhannwyd gyda {num} endid","Rhannwyd gyda {num} endid","Rhannwyd gyda {num} endid"],
     "Copied" : "Copïwyd",
     "Copy link" : "Copïo dolen",
     "Download" : "Llwytho i lawr",
@@ -114,7 +115,6 @@ OC.L10N.register(
     "Female" : "Benyw",
     "Male" : "Gwryw",
     "Unknown" : "Anhysbys",
-    "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt"],
-    "Manager" : "Rheolwr"
+    "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt","Methwyd â darllen {failed} cyswllt"]
 },
 "nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;");

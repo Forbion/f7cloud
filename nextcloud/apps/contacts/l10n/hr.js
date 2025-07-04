@@ -127,6 +127,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Nije moguće stvoriti kontakt.",
     "Contact not found" : "Kontakt nije pronađen",
     "Group {group} not found" : "Grupa {group} nije pronađena",
+    "Add member" : "Dodaj člana",
     "New contact" : "Novi kontakt",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} kontakt dodan {name}","{success} kontakta dodana {name}","{success} kontakata dodano {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Dodavanje {success} kontakta {name}","Dodavanje {success} kontakta {name}","Dodavanje {success} kontakata {name}"],
@@ -214,8 +215,6 @@ OC.L10N.register(
     "Time zone" : "Vremenska zona",
     "Spoken languages" : "Poznati jezici",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["{failed} kontakt nije pročitan","{failed} kontakata nije pročitano","{failed} kontakata nije pročitano"],
-    "Unable to delete contact" : "Nije moguće izbrisati kontakt",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Članstvo mora potvrditi/prihvatiti moderator (potrebno je Otvoreno)",
-    "Manager" : "Voditelj"
+    "Unable to delete contact" : "Nije moguće izbrisati kontakt"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

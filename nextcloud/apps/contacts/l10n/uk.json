@@ -164,6 +164,7 @@
     "Add to group" : "Додати до групи",
     "Search {types}" : "Шукати {types}",
     "Search for people to add" : "Шукати контакти для додавання",
+    "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Зауважте, можна додавати контакти тільки з адресних книг, відкритих на запис, до груп контактів. Контакти з адресних книг, до яких є доступ тільки для читання, напр., системна адресна книга, неможливо додати.",
     "No results" : "Немає результатів",
     "Add {type}" : "Додати {type}",
     "New team name" : "Нова назва команди",
@@ -185,6 +186,8 @@
     "Promote as sole owner" : "Зробити єдиним власником",
     "Promote to {level}" : "Підвищити до рівня {level}",
     "Demote to {level}" : "Понизити до рівня {level}",
+    "Are you sure you want to leave this team? This action cannot be undone." : "Дійсно залишити цю команду? Цю дію неможливо буде скасувати.",
+    "Leave team failed." : "Не вдалося вийти з команди.",
     "Could not delete the member {displayName}" : "Неможливо вилучити учасника {displayName}",
     "Could not change the member level to {level}" : "Неможливо змінити рівень участи до {level}",
     "Could not accept membership request" : "Неможливо прийняти запит на участь",
@@ -199,10 +202,12 @@
     "Add contact in group" : "Додати контакт до групи",
     "None" : "Відсутній",
     "Select option" : "Виберіть",
+    "Personal dates" : "Приватні дати",
     "Add property of this type" : "Додайте властивості такого типу",
     "Unable to create the contact." : "Неможливо створити контакт.",
     "Contact not found" : "Контакт не знайдено",
     "Group {group} not found" : "Групу {group} не знайдено",
+    "Add member" : "Додати учасника",
     "New contact" : "Новий контакт",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} контакт додано до {name}","{success} контакти додано до {name}","{success} контактів додано до {name}","{success} контактів додано до {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Додавання {success} контакту до {name}","Додавання {success} контактів до {name}","Додавання {success} контактів до {name}","Додавання {success} контактів до {name}"],
@@ -319,11 +324,6 @@
     "An error has occurred in team(s). Check the console for more details." : "Помилка з командою(-ами). Перевірте консоль для отримання докладної інформації.",
     "Unable to create team {circleName}" : "Не вдалося створити команду {circleName}",
     "Unable to delete team {circleId}" : "Не вдалося вилучити команду {circleId}",
-    "Unable to delete contact" : "Неможливо вилучити контакт",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Участь потрібно підтвердити/прийняти модератором (вимагає відкритої)",
-    "Manager" : "Менеджер",
-    "Members" : "Учасники",
-    "Manage members" : "Керувати учасниками",
-    "Show team details" : "Докладно про команду"
+    "Unable to delete contact" : "Неможливо вилучити контакт"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

@@ -102,6 +102,7 @@ OC.L10N.register(
     "_{count} error_::_{count} errors_" : ["{count} שגיאה","{count} שגיאה","{count} שגיאות"],
     "Close" : "סגירה",
     "_Importing %n contact into {addressbook}_::_Importing %n contacts into {addressbook}_" : ["איש קשר מיובא לתוך {addressbook}","%n אנשי קשר מיובאים לתוך {addressbook}","%n אנשי קשר מיובאים לתוך {addressbook}"],
+    "_Done importing %n contact into {addressbook}_::_Done importing %n contacts into {addressbook}_" : ["הסתיים ייבוא של איש קשר לתוך {addressbook}","הסתיים ייבוא של %n אנשי קשר לתוך {addressbook}","הסתיים ייבוא של %n אנשי קשר לתוך {addressbook}"],
     "Import" : "ייבוא",
     "Not grouped" : "לא מקובץ",
     "Recently contacted" : "נוצר קשר לאחרונה",
@@ -170,7 +171,6 @@ OC.L10N.register(
     "Unknown" : "לא ידוע",
     "Spoken languages" : "שפות מדוברות",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["הקריאה של איש קשר אחד נכשלה","הקריאה של {failed} אנשי קשר נכשלה","הקריאה של {failed} אנשי קשר נכשלה"],
-    "Unable to delete contact" : "לא ניתן למחוק איש קשר",
-    "Manager" : "מנהל/ת"
+    "Unable to delete contact" : "לא ניתן למחוק איש קשר"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

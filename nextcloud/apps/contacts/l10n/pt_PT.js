@@ -99,6 +99,7 @@ OC.L10N.register(
     "Select option" : "Escolher uma opção",
     "Unable to create the contact." : "Não é possível criar o contacto.",
     "Contact not found" : "Contacto não encontrado",
+    "Add member" : "Adicionar membro",
     "New contact" : "Novo contacto",
     "Close" : "Fechar",
     "_Importing %n contact into {addressbook}_::_Importing %n contacts into {addressbook}_" : ["Importar %n contactos para o {addressbook}","Importar %n contactos para o {addressbook}","Importar %n contactos para o {addressbook}"],
@@ -171,7 +172,6 @@ OC.L10N.register(
     "Time zone" : "Fuso horário",
     "Spoken languages" : "Línguas faladas",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["{failed} contactos cuja leitura falhou","{failed} contactos cuja leitura falhou","{failed} contactos cuja leitura falhou"],
-    "Unable to delete contact" : "Não é possível eliminar o contacto.",
-    "Manager" : "Gestor"
+    "Unable to delete contact" : "Não é possível eliminar o contacto."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

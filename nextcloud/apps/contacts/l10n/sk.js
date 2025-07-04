@@ -201,10 +201,12 @@ OC.L10N.register(
     "Add contact in group" : "Pridať kontakt do skupiny",
     "None" : "Žiadne",
     "Select option" : "Vyberte možnosť",
+    "Personal dates" : "Osobné termíny",
     "Add property of this type" : "Pridať vlastnosť tohto typu",
     "Unable to create the contact." : "Nepodarilo sa vytvoriť kontakt.",
     "Contact not found" : "Kontakt sa nenašiel",
     "Group {group} not found" : "Skupina {group} nebola nájdená",
+    "Add member" : "Pridať člena",
     "New contact" : "Nový kontakt",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} kontakt pridaný pre {name}","{success} kontakty pridané pre {name}","{success} kontakty pridané pre {name}","{success} kontakty pridané pre {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Pridanie kontaktu k {name} bolo {success}","Pridanie kontaktov k {name} bolo {success}","Pridanie kontaktov k {name} bolo {success}","Pridanie kontaktov k {name} bolo {success}"],
@@ -321,11 +323,6 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "V aplikácii Tím sa vyskytla chyba. Pre viac informácií skontrolujte konzolu.",
     "Unable to create team {circleName}" : "Nie je možné vytvoriť tím {circleName}",
     "Unable to delete team {circleId}" : "Nie je možné zmazať tím {circleId}",
-    "Unable to delete contact" : "Nepodarilo sa zmazať kontakt.",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Členstvo musí byť potvrdené/prijaté moderátorom (vyžaduje sa Otvorené)",
-    "Manager" : "Manažér",
-    "Members" : "Členovia",
-    "Manage members" : "Spravovať členov",
-    "Show team details" : "Zobraziť podrobnosti tímu"
+    "Unable to delete contact" : "Nepodarilo sa zmazať kontakt."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

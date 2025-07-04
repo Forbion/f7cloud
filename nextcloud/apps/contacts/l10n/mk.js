@@ -144,6 +144,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Неможе да се креира контакт.",
     "Contact not found" : "Контактот не е пронајден",
     "Group {group} not found" : "Групата {group} не е пронајдена",
+    "Add member" : "Додади член",
     "New contact" : "Нов контакт",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["1 контак додаден во {name}","{success} контакти додадени во {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Додавање 1контакт во {name}","Додавање {success} контакти во {name}"],
@@ -234,8 +235,6 @@ OC.L10N.register(
     "Time zone" : "Временска зона",
     "Spoken languages" : "Говорни јазици",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["{failed} еден контакт неможе да се прочита","{failed} контакти неможат да се прочитат"],
-    "Unable to delete contact" : "Неможе да се избрише контакт",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : " Членството мора предходно да се одобри/прифати од модератор (барањето е отворено)",
-    "Manager" : "Менаџер"
+    "Unable to delete contact" : "Неможе да се избрише контакт"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

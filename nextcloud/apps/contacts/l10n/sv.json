@@ -164,6 +164,7 @@
     "Add to group" : "Lägg till grupp",
     "Search {types}" : "Sök {types}",
     "Search for people to add" : "Sök efter personer att lägga till",
+    "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Observera att du bara kan lägga till kontakter från skrivbara adressböcker i kontaktgrupper. Kontakter från skrivskyddade adressböcker, såsom systemets adressbok, kan inte läggas till.",
     "No results" : "Inga resultat",
     "Add {type}" : "Lägg till {type}",
     "New team name" : "Nytt namn på team",
@@ -185,6 +186,8 @@
     "Promote as sole owner" : "Gör till ensam ägare",
     "Promote to {level}" : "Befordra till {level}",
     "Demote to {level}" : "Degradera till {level}",
+    "Are you sure you want to leave this team? This action cannot be undone." : "Är du säker på att du vill lämna det här teamet? Den här åtgärden går inte att ångra.",
+    "Leave team failed." : "Kunde inte lämna teamet.",
     "Could not delete the member {displayName}" : "Kunde inte radera medlemmen {displayName}",
     "Could not change the member level to {level}" : "Kunde inte ändra medlemmens behörighet till {level}",
     "Could not accept membership request" : "Kunde inte acceptera medlemsförfrågan",
@@ -199,10 +202,12 @@
     "Add contact in group" : "Lägg till kontakt i grupp",
     "None" : "Ingen",
     "Select option" : "Välj alternativ",
+    "Personal dates" : "Personliga datum",
     "Add property of this type" : "Lägg till egenskap av denna typ",
     "Unable to create the contact." : "Kunde inte skapa kontakten.",
     "Contact not found" : "Kontakt hittades inte",
     "Group {group} not found" : "Gruppen {group} hittades inte",
+    "Add member" : "Lägg till medlem",
     "New contact" : "Ny kontakt",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} kontakt tillagd till  {name}","{success} kontakter tillagda till {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Lägger till {success} kontakt till {name}","Lägger till {success} kontakter till {name}"],
@@ -319,11 +324,6 @@
     "An error has occurred in team(s). Check the console for more details." : "Ett fel har uppstått i team(s). Kontrollera konsolen för mer information.",
     "Unable to create team {circleName}" : "Kunde inte skapa team {circleName}",
     "Unable to delete team {circleId}" : "Kan inte ta bort team {circleId}",
-    "Unable to delete contact" : "Kunde inte radera kontakten",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Medlemsskap måste bekräftas/godkännas av en moderator (requires Open)",
-    "Manager" : "Chef",
-    "Members" : "Medlemmar",
-    "Manage members" : "Hantera medlemmar",
-    "Show team details" : "Visa detaljer för team"
+    "Unable to delete contact" : "Kunde inte radera kontakten"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

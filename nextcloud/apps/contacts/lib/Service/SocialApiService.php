@@ -11,10 +11,7 @@ namespace OCA\Contacts\Service;
 
 use OCA\Contacts\AppInfo\Application;
 use OCA\Contacts\Service\Social\CompositeSocialProvider;
-
-use OCA\DAV\CardDAV\CardDavBackend;
 use OCA\DAV\CardDAV\ContactsManager;
-
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -24,18 +21,19 @@ use OCP\IAddressBook;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
+use Psr\Container\ContainerInterface;
 
 class SocialApiService {
 	private $appName;
 
 	public function __construct(
 		private CompositeSocialProvider $socialProvider,
+		private ContainerInterface $serverContainer,
 		private IManager $manager,
 		private IConfig $config,
 		private IClientService $clientService,
 		private IL10N $l10n,
 		private IURLGenerator $urlGen,
-		private CardDavBackend $davBackend,
 		private ITimeFactory $timeFactory,
 		private ImageResizer $imageResizer,
 	) {
@@ -115,7 +113,7 @@ class SocialApiService {
 	 * @param {IManager} the contact manager to load
 	 */
 	protected function registerAddressbooks($userId, IManager $manager) {
-		$coma = new ContactsManager($this->davBackend, $this->l10n);
+		$coma = $this->serverContainer->get(ContactsManager::class);
 		$coma->setupContactsProvider($manager, $userId, $this->urlGen);
 		$this->manager = $manager;
 	}
@@ -227,9 +225,8 @@ class SocialApiService {
 	 */
 	public function existsAddressBook(string $searchBookId, string $userId): bool {
 		$manager = $this->manager;
-		$coma = new ContactsManager($this->davBackend, $this->l10n);
+		$coma = $this->serverContainer->get(ContactsManager::class);
 		$coma->setupContactsProvider($manager, $userId, $this->urlGen);
-		$addressBooks = $manager->getUserAddressBooks();
 		return $this->getAddressBook($searchBookId, $manager) !== null;
 	}
 
@@ -245,7 +242,7 @@ class SocialApiService {
 	public function existsContact(string $searchContactId, string $searchBookId, string $userId): bool {
 		// load address books for the user
 		$manager = $this->manager;
-		$coma = new ContactsManager($this->davBackend, $this->l10n);
+		$coma = $this->serverContainer->get(ContactsManager::class);
 		$coma->setupContactsProvider($manager, $userId, $this->urlGen);
 		$addressBook = $this->getAddressBook($searchBookId, $manager);
 		if ($addressBook == null) {
@@ -342,8 +339,8 @@ class SocialApiService {
 		usort($addressBooks, [$this, 'sortAddressBooks']); // make sure the order stays the same in consecutive calls
 
 		foreach ($addressBooks as $addressBook) {
-			if ((is_null($addressBook) ||
-				($addressBook->isShared() || $addressBook->isSystemAddressBook()))) {
+			if ((is_null($addressBook)
+				|| ($addressBook->isShared() || $addressBook->isSystemAddressBook()))) {
 				// TODO: filter out deactivated books, see https://github.com/nextcloud/server/issues/17537
 				continue;
 			}

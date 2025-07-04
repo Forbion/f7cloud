@@ -161,6 +161,7 @@ OC.L10N.register(
     "Unable to create the contact." : "연락처를 만들 수 없습니다.",
     "Contact not found" : "연락처를 찾을 수 없음",
     "Group {group} not found" : "그룹 {group}을(를) 찾을 수 없음",
+    "Add member" : "회원 추가",
     "New contact" : "새 연락처",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} 연락처를 {name}에 추가하는 중"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["{success} 연락처를 {name}에 추가하는 중"],
@@ -250,8 +251,6 @@ OC.L10N.register(
     "Time zone" : "시간대",
     "Spoken languages" : "사용 언어",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["연락처 {failed}개를 읽을 수 없음"],
-    "Unable to delete contact" : "연락처를 삭제할 수 없음",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "중재자가 회원 가입을 확인 및 수락해야 합니다. (요청 가능)",
-    "Manager" : "관리자"
+    "Unable to delete contact" : "연락처를 삭제할 수 없음"
 },
 "nplurals=1; plural=0;");

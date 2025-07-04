@@ -103,6 +103,7 @@
     "Confirm" : "Patvirtinti",
     "Cancel" : "Atsisakyti",
     "Add more info" : "Pridėti daugiau informacijos",
+    "More fields" : "Daugiau laukų",
     "Please select a valid format" : "Pasirinkite tinkamą formatą",
     "Invalid image" : "Netinkamas paveikslas",
     "Error cropping picture" : "Klaida apkerpant nuotrauką",
@@ -173,6 +174,7 @@
     "Unable to create the contact." : "Nepavyko sukurti adresato.",
     "Contact not found" : "Adresatas nerastas",
     "Group {group} not found" : "Grupė {group} nerasta",
+    "Add member" : "Pridėti narį",
     "New contact" : "Naujas adresatas",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} adresatas sėkmingai pridėtas į {name}","{success} adresatai sėkmingai pridėti į {name}","{success} adresatų sėkmingai pridėta į {name}","{success} adresatas sėkmingai pridėtas į {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Pridedamas {success} adresatas į {name}","Pridedami {success} adresatai į {name}","Pridedama {success} adresatų į {name}","Pridedamas {success} adresatas į {name}"],
@@ -276,9 +278,6 @@
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["Nepavyko perskaityti {failed} adresato","Nepavyko perskaityti {failed} adresatų","Nepavyko perskaityti {failed} adresatų","Nepavyko perskaityti {failed} adresato"],
     "Unable to create team {circleName}" : "Nepavyko sukurti komandos {circleName}",
     "Unable to delete team {circleId}" : "Nepavyko ištrinti komandos {circleId}",
-    "Unable to delete contact" : "Nepavyko ištrinti adresato",
-    "Manager" : "Vadovas",
-    "Members" : "Nariai",
-    "Manage members" : "Tvarkyti narius"
+    "Unable to delete contact" : "Nepavyko ištrinti adresato"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

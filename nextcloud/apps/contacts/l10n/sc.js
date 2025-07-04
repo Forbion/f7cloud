@@ -132,6 +132,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Non faghet a creare su cuntatu.",
     "Contact not found" : "Cuntatu no agatadu",
     "Group {group} not found" : "Grupu {group} no agatadu",
+    "Add member" : "Agiunghe partetzipante",
     "New contact" : "Cuntatu nou",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} cuntatos agiuntos a {name}","{success} cuntatos agiuntos a {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Agiunta de {success} contatos a {name}","Agiunta {success} contacts to {name}"],
@@ -220,8 +221,6 @@ OC.L10N.register(
     "Time zone" : "Zona orària",
     "Spoken languages" : "Limbas faeddadas",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["no at fatu a lèghere {failed} ","{failed} contacts failed to be read"],
-    "Unable to delete contact" : "Non faghet a cantzellare su cuntatu",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Sa partetzipatzione depet èssere cunfirmada/atzetada dae una persone chi moderat (Open est rechèdidu)",
-    "Manager" : "Responsàbile"
+    "Unable to delete contact" : "Non faghet a cantzellare su cuntatu"
 },
 "nplurals=2; plural=(n != 1);");

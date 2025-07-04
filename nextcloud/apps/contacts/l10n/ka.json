@@ -164,6 +164,7 @@
     "Unable to create the contact." : "Unable to create the contact.",
     "Contact not found" : "Contact not found",
     "Group {group} not found" : "Group {group} not found",
+    "Add member" : "Add member",
     "New contact" : "New contact",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} contact added to {name}","{success} contacts added to {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Adding {success} contact to {name}","Adding {success} contacts to {name}"],
@@ -254,8 +255,6 @@
     "Time zone" : "Time zone",
     "Spoken languages" : "Spoken languages",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["{failed} contact failed to be read","{failed} contacts failed to be read"],
-    "Unable to delete contact" : "Unable to delete contact",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Memberships must be confirmed/accepted by a Moderator (requires Open)",
-    "Manager" : "Manager"
+    "Unable to delete contact" : "Unable to delete contact"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

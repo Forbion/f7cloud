@@ -201,10 +201,12 @@ OC.L10N.register(
     "Add contact in group" : "إضافة جهة اتصال في المجموعة",
     "None" : "لا شيء",
     "Select option" : "حدّد خياراً",
+    "Personal dates" : "تواريخ شخصية",
     "Add property of this type" : "إضافة خاصية من هذا النوع ",
     "Unable to create the contact." : "تعذّر إنشاء جهة الاتصال",
     "Contact not found" : "جهة الاتصال غير موجودة",
     "Group {group} not found" : "المجموعة {group} غير موجودة",
+    "Add member" : "أضِف عُضْواً",
     "New contact" : "جهة إتصال جديدة",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} أضيفت جهات الاتصال إلى {name}","{success} أضيفت جهة الاتصال إلى {name}","{success} أضيفت جهات الاتصال إلى {name}","{success} أضيفت جهات الاتصال إلى {name}","{success} أضيفت جهات الاتصال إلى {name}","{success} أضيفت جهات الاتصال إلى {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["جار {success} إضافة جهات اتصال إلى {name}","جار {success} إضافة جهة اتصال إلى {name}","جار {success} إضافة جهات اتصال إلى {name}","جار {success} إضافة جهات اتصال إلى {name}","جار {success} إضافة جهات اتصال إلى {name}","جار {success} إضافة جهات اتصال إلى {name}"],
@@ -321,11 +323,6 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "حدث خطأ في الفريق أو الفرق. إفحص شاشة التحكم (console) لمزيد من التفاصيل.",
     "Unable to create team {circleName}" : "تعذّر إنشاء الفريق {circleName}",
     "Unable to delete team {circleId}" : "تعذّر حذف الفريق {circleId}",
-    "Unable to delete contact" : "تعذّر حذف جهة الاتصال",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "يلزم تأكيد/قبول العضويات من قِبَل المنسق (تستلزم الفتح)",
-    "Manager" : "مدير",
-    "Members" : "الأعضاء",
-    "Manage members" : "إدارة الأعضاء",
-    "Show team details" : "عرض تفاصيل الفريق"
+    "Unable to delete contact" : "تعذّر حذف جهة الاتصال"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

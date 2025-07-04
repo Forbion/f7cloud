@@ -167,6 +167,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Αδυναμία δημιουργίας επαφής.",
     "Contact not found" : "Δεν βρέθηκε η επαφή.",
     "Group {group} not found" : "Η ομάδα {group} δε βρέθηκε",
+    "Add member" : "Προσθήκη μέλους",
     "New contact" : "Νέα επαφή",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["Προστέθηκε {success} επαφή σε {name}","Προστέθηκαν {success} επαφές σε {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Προσθήκη {success} επαφής σε {name}","Προσθήκη {success} επαφών σε {name}"],
@@ -256,9 +257,6 @@ OC.L10N.register(
     "Time zone" : "Ζώνη ώρας",
     "Spoken languages" : "Ομιλούσες γλώσσες",
     "_{failed} contact failed to be read_::_{failed} contacts failed to be read_" : ["Αποτυχία ανάγνωσης {failed} επαφής","Αποτυχία ανάγνωσης {failed} επαφών"],
-    "Unable to delete contact" : "Δεν είναι δυνατή η διαγραφή της επαφής",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Τα αιτήματα μελών πρέπει να επιβεβαιωθούν/αποδεχθούν από έναν συντονιστή (απαιτείται Ανοιχτός κύκλος)",
-    "Manager" : "Διευθυντής",
-    "Members" : "Μέλη"
+    "Unable to delete contact" : "Δεν είναι δυνατή η διαγραφή της επαφής"
 },
 "nplurals=2; plural=(n != 1);");

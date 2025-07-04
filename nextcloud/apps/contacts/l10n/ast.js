@@ -104,6 +104,7 @@ OC.L10N.register(
     "Add members" : "Amestar miembros",
     "Pending" : "Pendiente",
     "Unable to create the contact." : "Nun ye posible crear el contautu.",
+    "Add member" : "Amestar un miembru",
     "New contact" : "Contautu nuevu",
     "_{count} error_::_{count} errors_" : ["{count} error","{count} errores"],
     "Close" : "Zarrar",
@@ -155,7 +156,6 @@ OC.L10N.register(
     "Spoken languages" : "Llingües falaes",
     "Unable to create team {circleName}" : "Nun ye posible crear l'equipu «{circleName}»",
     "Unable to delete team {circleId}" : "Nun ye posible crear l'equipu «{circled}»",
-    "Unable to delete contact" : "Nun ye posible desaniciar el contautu",
-    "Members" : "Miiembros"
+    "Unable to delete contact" : "Nun ye posible desaniciar el contautu"
 },
 "nplurals=2; plural=(n != 1);");

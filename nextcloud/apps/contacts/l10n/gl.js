@@ -205,6 +205,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Non é posíbel crear o contacto.",
     "Contact not found" : "Non se atopou o contacto",
     "Group {group} not found" : "Non se atopou o grupo {group}",
+    "Add member" : "Engadir membro",
     "New contact" : "Novo contacto",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["Engadiuse {success} contacto a {name}","Engadironse {success} contactos a {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Engadindo {success} contacto a {name}","Engadindo {success} contactos a {name}"],
@@ -321,11 +322,6 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Produciuse un erro no(s) equipo(s). Consulta a consola para obter máis detalles.",
     "Unable to create team {circleName}" : "Non é posíbel crear o equipo {circleName}",
     "Unable to delete team {circleId}" : "Non é posíbel eliminar o equipo {circleId}",
-    "Unable to delete contact" : "Non é posíbel eliminar o contacto",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "As pertenzas deben ser confirmadas/aceptadas por un moderador (precisa Aberto)",
-    "Manager" : "Xestor/a",
-    "Members" : "Membros",
-    "Manage members" : "Xestionar os membros",
-    "Show team details" : "Amosar os detalles do equipo"
+    "Unable to delete contact" : "Non é posíbel eliminar o contacto"
 },
 "nplurals=2; plural=(n != 1);");

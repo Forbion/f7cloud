@@ -205,6 +205,7 @@ OC.L10N.register(
     "Unable to create the contact." : "Tókst ekki að búa til tengiliðinn.",
     "Contact not found" : "Tengiliður fannst ekki",
     "Group {group} not found" : "Hópurinn {group} fannst ekki",
+    "Add member" : "Bæta við meðlimi",
     "New contact" : "Nýr tengiliður",
     "_{success} contact added to {name}_::_{success} contacts added to {name}_" : ["{success} tengilið bætt við {name}","{success} tengiliðum bætt við {name}"],
     "_Adding {success} contact to {name}_::_Adding {success} contacts to {name}_" : ["Bæti {success} tengilið við {name}","Bæti {success} tengiliðum við {name}"],
@@ -321,11 +322,6 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Villa hefur átt sér stað í teymi/teymum. Skoðaðu stjórnskjáinn til að sjá nánari upplýsingar.",
     "Unable to create team {circleName}" : "Tókst ekki að búa til teymið {circleName}",
     "Unable to delete team {circleId}" : "Tókst ekki að eyða teyminu {circleId}",
-    "Unable to delete contact" : "Tókst ekki að eyða tengilið",
-    "Memberships must be confirmed/accepted by a Moderator (requires Open)" : "Þátttakendur þurfa að vera staðfestir/samþykktir af umsjónarmanni (krefst opins)",
-    "Manager" : "Yfirmaður",
-    "Members" : "Meðlimir",
-    "Manage members" : "Sýsla með meðlimi",
-    "Show team details" : "Sýna ítarlegri upplýsingar um teymi"
+    "Unable to delete contact" : "Tókst ekki að eyða tengilið"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

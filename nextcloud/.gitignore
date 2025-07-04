@@ -51,6 +51,7 @@
 !/apps/workflowengine
 !/apps/snappymail
 !/apps/calendar
+!/apps/contacts
 /apps/files_external/3rdparty/irodsphp/PHPUnitTest
 /apps/files_external/3rdparty/irodsphp/web
 /apps/files_external/3rdparty/irodsphp/prods/test

@@ -154,7 +154,7 @@
 						</NcButton>
 						<NcButton v-else
 							type="secondary"
-							:disabled="loadingUpdate"
+							:disabled="loadingUpdate || !isDataValid"
 							@click="onSave">
 							<template #icon>
 								<IconLoading v-if="loadingUpdate" :size="20" />
@@ -246,11 +246,25 @@
 			<!-- contact details loading -->
 			<IconLoading v-if="loadingData" :size="20" class="contact-details" />
 			<!-- quick actions -->
-			<div v-else-if="!loadingData" class="contact-details-wrapper test">
+			<div v-else-if="!loadingData" class="contact-details-wrapper">
 				<!-- contact details -->
 				<section class="contact-details">
 					<!-- properties iteration -->
 					<!-- using contact.key in the key and index as key to avoid conflicts between similar data and exact key -->
+
+					<!-- Special handling for lifeEvents -->
+					<div v-if="name === 'lifeEvents'" class="life-events-group">
+						<ContactDetailsProperty v-for="(property, index) in properties"
+							:key="`${index}-${contact.key}-${property.name}`"
+							:is-first-property="index===0"
+							:is-last-property="index === properties.length - 1"
+							:property="property"
+							:contact="contact"
+							:local-contact="localContact"
+							:contacts="contacts"
+							:bus="bus"
+							:is-read-only="isReadOnly" />
+					</div>
 
 					<div v-for="(properties, name) in groupedProperties"
 						:key="name">
@@ -273,13 +287,14 @@
 					duplication, we created a fake propModel and property with our own options here) -->
 				<PropertySelect :prop-model="addressbookModel"
 					:options="addressbooksOptions"
-					:value.sync="addressbook"
+					:value="addressbook"
 					:is-first-property="true"
 					:is-last-property="true"
 					:property="{}"
 					:hide-actions="true"
 					:is-read-only="isReadOnly"
-					class="property--addressbooks property--last" />
+					class="property--addressbooks property--last"
+					@update:value="updateAddressbook" />
 
 				<!-- Groups always visible -->
 				<PropertyGroups :prop-model="groupsModel"
@@ -356,18 +371,18 @@ import ICAL from 'ical.js'
 import { getSVG } from '@shortcm/qr-image/lib/svg'
 import mitt from 'mitt'
 import {
-	NcActions as Actions,
+	isMobile,
 	NcActionButton as ActionButton,
 	NcActionLink as ActionLink,
+	NcActions as Actions,
 	NcAppContentDetails as AppContentDetails,
-	NcEmptyContent as EmptyContent,
-	NcModal as Modal,
-	NcSelect,
-	NcLoadingIcon as IconLoading,
 	NcButton,
-	NcRelatedResourcesPanel,
-	isMobile,
+	NcEmptyContent as EmptyContent,
 	NcEmptyContent,
+	NcLoadingIcon as IconLoading,
+	NcModal as Modal,
+	NcRelatedResourcesPanel,
+	NcSelect,
 } from '@nextcloud/vue'
 import IconContact from 'vue-material-design-icons/AccountMultiple.vue'
 import IconDownload from 'vue-material-design-icons/Download.vue'
@@ -397,6 +412,7 @@ import PropertySelect from './Properties/PropertySelect.vue'
 import { generateUrl } from '@nextcloud/router'
 import { loadState } from '@nextcloud/initial-state'
 import isTalkEnabled from '../services/isTalkEnabled.js'
+import Vue from 'vue'
 
 const { profileEnabled } = loadState('user_status', 'profileEnabled', false)
 
@@ -438,6 +454,11 @@ export default {
 	},
 
 	mixins: [isMobile],
+	provide() {
+		return {
+			sharedState: this.sharedState,
+		}
+	},
 
 	props: {
 		contactKey: {
@@ -477,6 +498,7 @@ export default {
 			pickedAddressbook: null,
 			editMode: false,
 			newGroupsValue: [],
+			newAddressBook: null,
 			contactDetailsSelector: '.contact-details',
 			excludeFromBirthdayKey: 'x-nc-exclude-from-birthday-calendar',
 
@@ -493,6 +515,7 @@ export default {
 			filesPanelHasError: false,
 			talkPanelHasError: false,
 			calendarPanelHasError: false,
+			sharedState: Vue.observable({ validEmail: true }),
 
 		}
 	},
@@ -517,6 +540,10 @@ export default {
 		 */
 		isReadOnly() {
 			return this.addressbookIsReadOnly || !this.editMode
+		},
+
+		isDataValid() {
+			return this.sharedState.validEmail
 		},
 
 		/**
@@ -567,28 +594,32 @@ export default {
 		 *
 		 * @return {object}
 		 */
-    groupedProperties() {
-      return this.sortedProperties
-          .reduce((list, property) => {
-            // Если свойство имеет имя 'socialprofile', пропускаем его
-            if (property.name === 'socialprofile') {
-              return list
-            }
+		groupedProperties() {
+			return this.sortedProperties
+				.reduce((list, property) => {
+					// If there is no component to display this prop, ignore it
+					if (!this.canDisplay(property)) {
+						return list
+					}
 
-            // Если нет компонента для отображения этого свойства, пропускаем его
-            if (!this.canDisplay(property)) {
-              return list
-            }
+					// Group bday and deathdate together under 'lifeEvents'
+					if (property.name === 'bday' || property.name === 'deathdate' || property.name === 'anniversary') {
+						if (!list.lifeEvents) {
+							list.lifeEvents = []
+						}
+						list.lifeEvents.push(property)
+						return list
+					}
 
-            // Инициализация, если необходимо
-            if (!list[property.name]) {
-              list[property.name] = []
-            }
+					// Init if needed
+					if (!list[property.name]) {
+						list[property.name] = []
+					}
 
-            list[property.name].push(property)
-            return list
-          }, {})
-    },
+					list[property.name].push(property)
+					return list
+				}, {})
+		},
 
 		/**
 		 * Fake model to use the propertySelect component
@@ -606,19 +637,10 @@ export default {
 		/**
 		 * Usable addressbook object linked to the local contact
 		 *
-		 * @param {string} [addressbookId] set the addressbook id
 		 * @return {string}
 		 */
-		addressbook: {
-			get() {
-				return this.contact.addressbook.id
-			},
-			set(addressbookId) {
-				// Only move when the address book actually changed to prevent a conflict.
-				if (this.contact.addressbook.id !== addressbookId) {
-					this.moveContactToAddressbook(addressbookId)
-				}
-			},
+		addressbook() {
+			return this.contact.addressbook.id
 		},
 
 		/**
@@ -765,6 +787,9 @@ export default {
 	methods: {
 		updateGroups(value) {
 			this.newGroupsValue = value
+		},
+		updateAddressbook(value) {
+			this.newAddressBook = value
 		},
 		/**
 		 * Send the local clone of contact to the store
@@ -1035,6 +1060,10 @@ export default {
 					contact: this.contact,
 				})
 				await this.updateContact()
+				if (this.newAddressBook && this.newAddressBook !== this.contact.addressbook.id) {
+					this.moveContactToAddressbook(this.newAddressBook)
+					this.newAddressBook = null
+				}
 				this.editMode = false
 			} catch (error) {
 				showError(t('contacts', 'Unable to update contact'))
@@ -1049,8 +1078,8 @@ export default {
 .contact-details-wrapper {
 	display: inline;
 	align-items: flex-start;
-	padding-bottom: 20px;
-	gap: 15px;
+	padding-bottom: calc(var(--default-grid-baseline) * 5);
+	gap: calc(var(--default-grid-baseline) * 4);
 	float: left;
 }
 @media only screen and (max-width: 600px) {
