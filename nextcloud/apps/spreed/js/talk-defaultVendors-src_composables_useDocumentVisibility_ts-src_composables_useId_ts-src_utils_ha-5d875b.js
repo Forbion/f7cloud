@@ -2862,6 +2862,7 @@ const PREVIEW_TYPE = {
           return 100;
         case "uploading":
           return this.upload ? this.upload._uploaded / this.upload._size * 100 : 100;
+        // file was removed from the upload queue, so considering done
         case "pendingUpload":
         case "initialised":
         default:
@@ -43944,4 +43945,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=talk-defaultVendors-src_composables_useDocumentVisibility_ts-src_composables_useId_ts-src_utils_ha-5d875b.js.map?v=b29578ace5907fa16bf3
+//# sourceMappingURL=talk-defaultVendors-src_composables_useDocumentVisibility_ts-src_composables_useId_ts-src_utils_ha-5d875b.js.map?v=17d1f83288b32846f4d2

@@ -48021,11 +48021,11 @@ function init() {
     return;
   }
   window.OCA.Deck.registerCardAction({
-    label: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Отправить в обсуждения"),
+    label: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0432 \u043E\u0431\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F"),
     icon: "icon-external",
     callback: async (card) => {
       const conversation = await (0,_utils_requestRoomSelection_js__WEBPACK_IMPORTED_MODULE_6__.requestRoomSelection)("spreed-post-card-to-room-select", {
-        dialogTitle: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "Отправить в обсуждения"),
+        dialogTitle: (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_3__.t)("spreed", "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0432 \u043E\u0431\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F"),
         showPostableOnly: true
       });
       if (conversation) {
@@ -48042,4 +48042,4 @@ document.addEventListener("DOMContentLoaded", init);
 
 /******/ })()
 ;
-//# sourceMappingURL=talk-deck.js.map?v=f75861639ea084660820
+//# sourceMappingURL=talk-deck.js.map?v=dd15d56b015c7cf437e5

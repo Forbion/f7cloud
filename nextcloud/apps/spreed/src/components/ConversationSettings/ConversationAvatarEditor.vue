@@ -197,7 +197,7 @@ export default {
 				minContainerWidth: 300,
 				minContainerHeight: 300,
 			},
-			backgroundColor: '',
+			backgroundColor: '#70B62B',
 			emojiAvatar: '',
 		}
 	},
@@ -312,7 +312,7 @@ export default {
 				color: this.backgroundColor ? this.backgroundColor.slice(1) : null,
 			})
 			this.emojiAvatar = ''
-			this.backgroundColor = ''
+			this.backgroundColor = '#70B62B'
 		},
 
 		async savePictureAvatar() {
@@ -352,7 +352,7 @@ export default {
 			this.showCropper = false
 			this.loading = false
 			this.emojiAvatar = ''
-			this.backgroundColor = ''
+			this.backgroundColor = '#70B62B'
 		},
 	},
 }
@@ -400,7 +400,7 @@ section {
 			height: 100%;
 			padding-bottom: 6px;
 			border-radius: 100%;
-			background-color: var(--color-text-maxcontrast);
+			background-color: #70B62B;
 			font-size: 575%;
 			line-height: 100%;
 

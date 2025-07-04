@@ -215,52 +215,52 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.media-devices-checker[data-v-684b3910
 }
 @keyframes equalizer-684b3910 {
 0% {
-    height: 69%;
-}
-4% {
-    height: 47%;
-}
-8% {
-    height: 25%;
-}
-12% {
-    height: 24%;
-}
-16% {
     height: 70%;
 }
-20% {
-    height: 56%;
+4% {
+    height: 29%;
 }
-24% {
-    height: 59%;
-}
-28% {
+8% {
     height: 39%;
 }
+12% {
+    height: 41%;
+}
+16% {
+    height: 78%;
+}
+20% {
+    height: 45%;
+}
+24% {
+    height: 86%;
+}
+28% {
+    height: 63%;
+}
 32% {
-    height: 44%;
+    height: 74%;
 }
 36% {
-    height: 54%;
+    height: 52%;
 }
 40% {
-    height: 34%;
+    height: 60%;
 }
 44% {
-    height: 42%;
+    height: 31%;
 }
 48% {
-    height: 59%;
+    height: 58%;
 }
 52% {
-    height: 59%;
+    height: 45%;
 }
 56% {
-    height: 66%;
+    height: 47%;
 }
 60% {
-    height: 25%;
+    height: 33%;
 }
 }`, ""]);
 // Exports
@@ -23338,4 +23338,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=talk-files-sidebar-tab-chunk.js.map?v=ec9aba6aaf0d14c230aa
+//# sourceMappingURL=talk-files-sidebar-tab-chunk.js.map?v=cf77ca19b5bbedecf84d
