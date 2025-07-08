@@ -874,19 +874,39 @@ header .unified-search__wrapper {
                             }
 
                             & .btn-group-mail-dropdown {
-                                position: absolute;
-                                bottom: -50px;
-                                right: 42px;
+                                /*position: absolute;*/
+                                /*bottom: -50px;*/
+                                /*right: 42px;*/
                                 box-shadow: unset;
                                 border: unset;
+                                opacity: 1;
                                 z-index: 999;
 
+                                & #more-list-dropdown-id {
+
+                                    padding-top: 5px;
+
+                                    span {
+                                        margin: 2px 0;
+                                        height: 1px;
+                                        width: 20px;
+                                        background: #000000;
+                                        opacity: .6;
+                                    }
+                                }
+
                                 & .btn {
+                                    padding: 0;
+                                    margin: 0;
                                     font-size: 17px;
-                                    color: #70B62B;
+                                    color: #000000;
                                     box-shadow: unset;
                                     border: unset;
                                     background: transparent;
+                                }
+
+                                & .dropdown-menu {
+                                    text-align: left;
                                 }
                             }
                         }
@@ -894,7 +914,7 @@ header .unified-search__wrapper {
                         & .messageList {
 
                             height: calc(100% - 75px);
-                            max-width: 350px;
+                            max-width: 500px;
                             border: unset;
                             border-top-right-radius: unset;
                             border-top-left-radius: unset;
@@ -1106,6 +1126,7 @@ header .unified-search__wrapper {
                                     }
 
                                     &.msgflag-\\flagged .flagParent {
+                                        display: block;
                                         &:after {
                                             background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
                                         }
