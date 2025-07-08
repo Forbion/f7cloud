@@ -920,7 +920,7 @@ header .unified-search__wrapper {
                         & .messageList {
 
                             height: calc(100% - 75px);
-                            max-width: 500px;
+                            width: 400px !important;
                             border: unset;
                             border-top-right-radius: unset;
                             border-top-left-radius: unset;
