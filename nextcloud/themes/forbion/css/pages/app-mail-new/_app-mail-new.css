@@ -1166,11 +1166,7 @@ header .unified-search__wrapper {
                             }
 
                             @media only screen and (max-width: 1400px) {
-                                max-width: 400px;
-                            }
-
-                            @media only screen and (max-width: 1200px) {
-                                max-width: 300px;
+                                width: 350px !important;
                             }
                         }
 
