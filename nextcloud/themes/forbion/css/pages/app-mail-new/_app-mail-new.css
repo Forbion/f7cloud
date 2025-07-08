@@ -890,7 +890,8 @@ header .unified-search__wrapper {
 
                                 & #more-list-dropdown-id {
 
-                                    padding-top: 5px;
+                                    padding: 5px 20px 20px;
+                                    margin: 0 -20px -20px;
 
                                     span {
                                         margin: 2px 0;
@@ -913,6 +914,10 @@ header .unified-search__wrapper {
 
                                 & .dropdown-menu {
                                     text-align: left;
+                                }
+
+                                & .name {
+                                    pointer-events: none;
                                 }
                             }
                         }
