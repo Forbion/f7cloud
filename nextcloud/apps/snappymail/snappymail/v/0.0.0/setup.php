@@ -15,6 +15,7 @@ if ($result) {
 	exit(302);
 }
 
+
 if (defined('APP_VERSION')) {
 	$sCheckName = 'delete_if_you_see_it_after_install';
 	$sCheckFolder = APP_DATA_FOLDER_PATH.$sCheckName;

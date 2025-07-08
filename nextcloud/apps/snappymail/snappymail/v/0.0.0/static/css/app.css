@@ -2049,10 +2049,7 @@ html.rl-left-panel-disabled #rl-left .buttonCompose {
 .attachmentItem .hasPreview .hidePreview {
   display: none;
 }
-/*.attachmentItem .hasPreview:hover .iconPreview {*/
-/*  display: inline-block;*/
-/*}*/
-.attachmentItem .attachmentIcon:hover .iconPreview {
+.attachmentItem .hasPreview:hover .iconPreview {
   display: inline-block;
 }
 .attachmentItem .hasPreplay:hover .iconMain::before {
