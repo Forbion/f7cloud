@@ -833,6 +833,10 @@ header .unified-search__wrapper {
 
                             & .btn-reload {
 
+                                & .name {
+                                    margin-top: 9px;
+                                }
+
                                 & i {
                                     display: flex;
                                     align-items: center;
@@ -843,6 +847,8 @@ header .unified-search__wrapper {
                             }
 
                             & .btn-move {
+
+                                padding-top: 3px;
 
                                 & i {
                                     &:before {
