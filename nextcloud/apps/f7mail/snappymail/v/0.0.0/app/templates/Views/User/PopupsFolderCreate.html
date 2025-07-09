@@ -5,7 +5,43 @@
 <form id="createfolderform" class="modal-body form-horizontal" autocomplete="off" spellcheck="false" data-bind="submit: submitForm">
 	<div class="control-group select-group">
 		<select name="parent" data-bind="options: parentFolderSelectList, value: parentFolder,
-			optionsText: 'name', optionsValue: 'id', optionsAfterRender: defaultOptionsAfterRender"></select>
+			optionsText: function(item) {
+				var nameMap = {
+					'dovecot': 'Сервер',
+					'Shared': 'Общие',
+					'INBOX': 'Входящие',
+					'INFO': 'Инфо',
+					'sieve': 'Фильтры'
+				};
+
+				const originalName = item.name;
+				let translatedName = '';
+				let lastIndex = 0;
+
+				const matches = [...originalName.matchAll(/(\s+)/g)];
+
+				if (matches.length === 0) {
+					return nameMap[originalName] || originalName;
+				}
+
+				for (const match of matches) {
+					const пробелы = match[0];
+					const пробелыIndex = match.index;
+
+					const word = originalName.substring(lastIndex, пробелыIndex);
+					translatedName += nameMap[word] || word;
+
+					translatedName += пробелы;
+
+					lastIndex = пробелыIndex + пробелы.length;
+				}
+
+				const lastWord = originalName.substring(lastIndex);
+				translatedName += nameMap[lastWord] || lastWord;
+
+				return translatedName;
+			},
+			optionsValue: 'id', optionsAfterRender: defaultOptionsAfterRender"></select>
 		<label data-i18n="POPUPS_CREATE_FOLDER/LABEL_PARENT" class="select-label"></label>
 	</div>
 	<div class="control-group">

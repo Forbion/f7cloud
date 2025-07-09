@@ -1,6 +1,15 @@
 <tr data-bind="css: { 'selectable': selectable, 'system': isSystemFolder }">
 	<td data-bind="click: edit, css: 'deep-' + deep">
-		<span class="folder-name" data-bind="text: name, tooltipErrorTip: errorMsg, visible: !isSystemFolder()"></span>
+		<span class="folder-name" data-bind="text:
+            name() == 'dovecot' ? 'Сервер' :
+            name() == 'Shared' ? 'Общие' :
+            name() == 'INBOX' ? 'Входящие' :
+            name() == 'INFO' ? 'Инфо' :
+            name() == 'sieve' ? 'Фильтры' :
+            name,
+            tooltipErrorTip: errorMsg,
+            visible: !isSystemFolder()">
+		</span>
 		<span class="folder-system-name" data-bind="text: nameInfo, visible: isSystemFolder"></span>
 		<span class="folder-size" data-bind="text: friendlySize, visible: size"></span>
 	</td>
