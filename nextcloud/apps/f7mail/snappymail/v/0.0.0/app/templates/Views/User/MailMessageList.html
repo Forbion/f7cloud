@@ -246,6 +246,66 @@
 					</div>
 					<div class="sizeParent" data-bind="text: friendlySize()"></div>
 					<time data-time-format="AUTO" data-bind="time: dateTimestamp"></time>
+					<!-- ko if: test -->
+						<div class="btn btn-group dropdown btn-group-mail-dropdown" data-bind="registerBootstrapDropdown: true">
+							<div class="wrapper">
+								<a class="btn dropdown-toggle more-list-dropdown-id-message fontastic" href="#" tabindex="-1" data-i18n="[title]GLOBAL/MORE">
+									<span></span>
+									<span></span>
+									<span></span>
+								</a>
+								<!-- ko if: test -->
+									<menu class="dropdown-menu" role="menu" aria-labelledby="more-list-dropdown-id-message" >
+									<li role="presentation" data-bind="click: listUnsetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_UNSET_SEEN"></a>
+									</li>
+									<li role="presentation" data-bind="click: listSetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_SET_SEEN"></a>
+									</li>
+									<li role="presentation" data-bind="click: listSetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1" data-icon="★" data-i18n="MESSAGE_LIST/MENU_SET_FLAG"></a>
+									</li>
+									<li role="presentation" data-bind="click: listUnsetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1" data-icon="☆" data-i18n="MESSAGE_LIST/MENU_UNSET_FLAG"></a>
+									</li>
+									<li role="presentation" data-bind="command: downloadAttachCommand, visible: downloadAsZipAllowed">
+										<a href="#" tabindex="-1" data-icon="📦" data-i18n="MESSAGE_LIST/DOWNLOAD_ALL_ATTACHMENTS"></a>
+									</li>
+									<li role="presentation" data-bind="command: downloadZipCommand, visible: downloadAsZipAllowed">
+										<a href="#" tabindex="-1" data-icon="💾" data-i18n="MESSAGE/LINK_DOWNLOAD_AS_ZIP"></a>
+									</li>
+									<li class="dividerbar" role="presentation" data-bind="command: moveCommand">
+										<a href="#" tabindex="-1" data-icon="📁" data-i18n="GLOBAL/MOVE_TO"></a>
+									</li>
+									<li class="presentation" role="presentation" data-bind="command: copyCommand">
+										<a href="#" tabindex="-1" data-icon="&#xE068;" data-i18n="GLOBAL/COPY_TO"></a>
+									</li>
+									<li role="presentation" data-bind="visible: archiveAllowed, command: archiveCommand">
+										<a href="#" tabindex="-1" data-icon="🗄" data-i18n="GLOBAL/TO_ARCHIVE">🗄</a>
+									</li>
+									<li role="presentation" data-bind="visible: canMarkAsSpam, command: spamCommand">
+										<a href="#" tabindex="-1" data-icon="⚠" data-i18n="GLOBAL/SPAM"></a>
+									</li>
+									<li role="presentation" data-bind="visible: isSpamFolder, command: notSpamCommand">
+										<a href="#" tabindex="-1" data-icon="" data-i18n="GLOBAL/NOT_SPAM"></a>
+									</li>
+									<li role="presentation" data-bind="command: deleteCommand">
+										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/DELETE"></a>
+									</li>
+									<li role="presentation" data-bind="command: undeleteCommand, hidden: hideDeleted">
+										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/UNDELETE" class="rotate"></a>
+									</li>
+									<li role="presentation" data-bind="visible: allowDangerousActions, command: deleteWithoutMoveCommand">
+										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="MESSAGE_LIST/BUTTON_DELETE_WITHOUT_MOVE"></a>
+									</li>
+									<li role="presentation" data-bind="visible: allowDangerousActions, click: clear">
+										<a href="#" tabindex="-1" data-icon="🔥" data-i18n="MESSAGE_LIST/BUTTON_EMPTY_FOLDER"></a>
+									</li>
+								</menu>
+								<!-- /ko -->
+							</div>
+						</div>
+					<!-- /ko -->
 				</div>
 			</div>
 		</div>

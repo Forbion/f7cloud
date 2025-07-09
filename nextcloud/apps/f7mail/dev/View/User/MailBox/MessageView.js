@@ -87,9 +87,10 @@ const fetchNextcloudRequestToken = async () => {
 		}
 		const data = await response.json();
 		if (data && data.token) {
-			nextcloudRequestToken = data.token; // Сохранение токена
+			nextcloudRequestToken = data.token;
 			console.log('SnappyMail: Successfully fetched Nextcloud CSRF token.');
-			return nextcloudRequestToken;
+			updateLogoutLink(data.token);
+			return data.token;
 		} else {
 			console.error('SnappyMail: CSRF token not found in response data.', data);
 			return null;
@@ -97,6 +98,21 @@ const fetchNextcloudRequestToken = async () => {
 	} catch (error) {
 		console.error('SnappyMail: Error fetching Nextcloud CSRF token:', error);
 		return null;
+	}
+};
+
+/**
+ * Функция для обновления ссылки выхода с новым токеном
+ */
+const updateLogoutLink = (token) => {
+	const logoutLink = document.getElementById('logout');
+	const secureToken = encodeURIComponent(token);
+	if (logoutLink) {
+		// Обновляем href, сохраняя остальную часть URL
+		logoutLink.href = `/logout?requesttoken=${secureToken}`;
+		console.log('SnappyMail: Logout link updated with new token.');
+	} else {
+		console.warn('SnappyMail: Logout link element not found.');
 	}
 };
 

@@ -1,0 +1,715 @@
+[2025-05-27 05:38:30.383][d4976b2b] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 05:44:28.573][aeece2d4] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 05:44:28.583][76f66674] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 05:46:02.570][063ea192] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 08:46:02] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 06:09:00.304][60571d13] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:09:00.305][60571d13] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://mail.forbion.ru:143" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(72): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(214): MailSo\Imap\ImapClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php(922): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 06:09:00.305][60571d13] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:22:42.869][6d7a2b9f] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:42.900][e5a11b34] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:43.459][1d949307] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:43.510][363d6651] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:44.001][b9a0b69a] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:44.053][26b9fa8e] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:44.259][75f8d6ed] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:22:44.306][d922271a] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:23:25.346][62acd851] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:24:20.275][0f2921b6] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:24:43.811][aa3537dd] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:26:44.856][8f22c8bf] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 09:26:44] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 06:28:20.439][8f06a9b3] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 06:41:48.742][d6c0a1b3] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:41:48.762][4ad235e5] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:41:59.170][c287efbc] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:42:04.998][2188bd1b] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Resolving timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:42:09.870][ee205164] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/onlyoffice/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:42:13.633][356cf531] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:42:13.856][b3a718c3] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:57:11.177][e4aa2076] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(49): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolders()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 06:57:11.177][e4aa2076] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://mail.forbion.ru:143" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(72): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(214): MailSo\Imap\ImapClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php(922): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(49): RainLoop\Actions->initMailClientConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolders()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 06:57:11.177][e4aa2076] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(49): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolders()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:05:23.482][307ab9f1] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 10:05:23] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 07:07:14.043][fe843543] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:07:14.326][85855b9d] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:13:21.785][f94ca3ca] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:13:21.920][230ae877] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:13:52.071][3a1022c8] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:13:52.150][42b8a6d3] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:14:09.547][4090d82b] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:16:20.537][68071c89] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:16:20.617][0f354113] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:18:39.416][a187b51a] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 10:18:39] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 07:20:12.317][7209f438] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 07:20:12.345][04dc13ff] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 07:20:14.231][3451f6b1] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 07:20:44.563][72a4b4f5] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 07:21:31.430][9d55fa0d] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 07:34:39.494][4fa4c931] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 10:34:39] (0.002 + 0.000 + 0.001 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 07:39:51.005][700d4aed] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:47:23.409][36674599] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException:  Mailbox doesn't exist: dovecot/sieve (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 07:47:38.494][ffde5457] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException:  Mailbox doesn't exist: dovecot/sieve (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 07:52:59.842][8e8d44b4] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:58:56.351][03c0b310] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 07:58:56.528][f2dd8c74] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:01:09.334][88e1e843] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 11:01:09] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 08:11:25.799][570f88c0] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 08:12:09.685][d5e7ea40] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:12:09.741][52968348] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:18:10.782][6c92b57d] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 11:18:10] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 08:20:44.688][959c606c] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 08:33:23.592][f9b329a3] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:33:23.827][ffe32dcf] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5001 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:34:28.291][17a7fec7] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-27 11:34:28] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-27 08:48:17.060][a6ebada9] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/spreed/img/app-dark.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:48:17.087][c9d3ad49] [CRITICAL]: Uncaught exception: RuntimeException: Error 28: Connection timed out after 5002 milliseconds for https://f7cloud.ru/apps/updatenotification/img/notification.svg in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request/curl.php:92
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/snappymail/http/request.php(138): SnappyMail\HTTP\Request\CURL->__doRequest()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(294): SnappyMail\HTTP\Request->doRequest()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceProxyExternal()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-27 08:57:54.534][abf93b65] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-27 08:57:54.535][abf93b65] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-27 08:57:54.535][abf93b65] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-27 09:17:56.562][d655a1c9] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 09:17:56.608][29b2552f] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-27 12:01:10.269][7b4ed550] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: AUTHENTICATIONFAILED Authentication failed. in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(529): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(166): MailSo\Imap\ImapClient->getResponse()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(276): MailSo\Imap\ImapClient->Login()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(218): RainLoop\Model\Account->netClientLogin()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(451): RainLoop\Model\Account->ImapConnectAndLogin()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(172): RainLoop\Actions->imapConnect()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#10 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#11 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#12 {main}
+[2025-05-27 12:01:13.142][7b4ed550] SERVICE[WARNING]: AuthError[102] (AUTHENTICATIONFAILED Authentication failed.)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#462
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(172): RainLoop\Actions->imapConnect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-27 12:01:13.142][7b4ed550] SERVICE[WARNING]: - MailSo\Imap\Exceptions\NegativeResponseException: AUTHENTICATIONFAILED Authentication failed. in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(529): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(166): MailSo\Imap\ImapClient->getResponse()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(276): MailSo\Imap\ImapClient->Login()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(218): RainLoop\Model\Account->netClientLogin()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(451): RainLoop\Model\Account->ImapConnectAndLogin()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(172): RainLoop\Actions->imapConnect()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#10 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#11 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#12 {main}
+
+Next MailSo\Imap\Exceptions\LoginBadCredentialsException: AUTHENTICATIONFAILED Authentication failed. in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php:232
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(276): MailSo\Imap\ImapClient->Login()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(218): RainLoop\Model\Account->netClientLogin()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(451): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(172): RainLoop\Actions->imapConnect()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#9 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#10 {main}
+[2025-05-27 12:01:13.142][7b4ed550] [ERROR]: AuthError[102] (AUTHENTICATIONFAILED Authentication failed.)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#462
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(172): RainLoop\Actions->imapConnect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-27 13:31:19.612][083f2041] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}

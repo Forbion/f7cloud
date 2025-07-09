@@ -1,0 +1,86 @@
+[2025-06-02 12:27:43.860][e27d5826] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:43.878][e27d5826] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.029][a676fc6e] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.030][a676fc6e] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.041][a676fc6e] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.306][7d00f562] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.306][7d00f562] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.576][4139db32] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.576][4139db32] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.624][60d78ebe] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.624][60d78ebe] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.646][28c40538] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.647][28c40538] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:48.802][f927c7c2] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:48.803][f927c7c2] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:49.160][d788b244] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:49.161][d788b244] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:49.187][e016d33b] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:49.187][e016d33b] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:52.037][ba06dc99] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:27:52.037][ba06dc99] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:27:52.197][ba06dc99] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:28:20.913][ce1fbdfb] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:28:20.914][ce1fbdfb] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:28:20.963][ce1fbdfb] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:28:23.615][f2ad8ad1] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:28:23.615][f2ad8ad1] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:28:23.617][f2ad8ad1] SERVICE[WARNING]: UnexpectedValueException: RecursiveDirectoryIterator::__construct(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/): Failed to open directory: Permission denied in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Base/Utils.php:511
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Base/Utils.php(511): RecursiveDirectoryIterator->__construct()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php(78): MailSo\Base\Utils::RecTimeDirRemove()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/CacheClient.php(98): MailSo\Cache\Drivers\File->GC()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(114): MailSo\Cache\CacheClient->GC()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoAppDelayStart()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-02 12:28:40.769][002a353c] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:28:40.770][002a353c] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:42:49.793][5047e4c9] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:42:49.794][5047e4c9] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:42:49.880][71152440] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:42:49.881][71152440] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:57:49.555][d5a17d8d] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:57:49.556][d5a17d8d] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:57:49.559][6fdfe12d] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 12:57:49.560][6fdfe12d] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 12:57:49.739][6fdfe12d] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-02 15:57:49] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-02 13:12:49.632][be8d732e] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:12:49.633][be8d732e] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:12:49.661][4bc3f4fa] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:12:49.662][4bc3f4fa] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:42.315][ae54d3f8] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:42.316][ae54d3f8] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:42.464][7da9d52a] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:42.464][7da9d52a] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:48.967][1dc2644e] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:48.968][1dc2644e] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:48.982][1dc2644e] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:50.632][71b9f2a3] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:50.632][71b9f2a3] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:53.369][cda22c6d] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:53.369][cda22c6d] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:53.371][cda22c6d] PHP[WARNING]: file_put_contents(/var/www/nextcloud/apps/snappymail/data/_data_/_default_/cache/CACHEDIR.TAG): Failed to open stream: Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:32, code:2]
+[2025-06-02 13:22:53.372][cda22c6d] PHP[WARNING]: mkdir(): Permission denied /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Cache/Drivers/File.php [line:91, code:2]
+[2025-06-02 13:22:58.361][cda22c6d] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}

@@ -1,0 +1,228 @@
+[2025-06-08 08:15:04.016][b54de071] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 11:15:04] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 08:32:06.736][d0b894cc] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 11:32:06] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 09:23:43.324][ecf39d8d] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 12:23:43] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 09:47:01.375][c985b94a] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 12:47:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 09:53:14.510][3c9c4ae6] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 12:53:14] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 10:17:01.600][7bdfc1e3] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 13:17:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 10:23:44.344][8238d136] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 13:23:44] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 10:47:01.257][cbf56e01] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 13:47:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 10:53:15.190][4bc9f215] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 13:53:15] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 11:17:02.061][898a60fe] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 14:17:02] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 11:23:45.143][d0229279] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 14:23:45] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 11:47:01.069][db737fe5] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 14:47:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 11:53:16.062][e13a498d] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 14:53:16] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 12:17:01.038][46c1cb55] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 15:17:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 12:23:46.335][c6e2d037] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 15:23:46] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 12:47:01.100][fd0086ea] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 15:47:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 12:53:17.256][e07724d5] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 15:53:17] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 13:17:01.342][b43322e2] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 16:17:01] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-06-08 13:23:47.249][3561f4c7] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-06-08 16:23:47] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}

@@ -1,0 +1,524 @@
+[2025-05-25 08:52:04.619][8e56116c] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 08:52:04.620][8e56116c] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 08:52:04.620][8e56116c] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 09:19:34.900][598f3a31] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:20:45.440][7df4eed4] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:21:37.947][96438b28] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:22:58.032][ebd0f94b] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:23:10.055][c2441a59] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:23:44.328][3fd4c62a] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:24:09.804][f7874ceb] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:24:18.024][2f431d9f] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:25:41.886][6487a57b] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:27:39.362][c3df26d6] SERVICE[WARNING]: AuthError[102]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ActionsAdmin.php#129
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\ActionsAdmin->DoAdminLogin()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 09:44:31.859][8284a8b1] [CRITICAL]: Uncaught exception: Error: Call to a member function isAdmin() on int in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:179
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:44:34.738][aedb044f] [CRITICAL]: Uncaught exception: Error: Call to a member function isAdmin() on int in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:179
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:44:36.312][5d9e2b87] [CRITICAL]: Uncaught exception: Error: Call to a member function isAdmin() on int in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:179
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:44:41.077][9cd42e12] PHP[WARNING]: Undefined variable $isAdminAuth /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php [line:190, code:2]
+[2025-05-25 09:44:59.807][d6d2b0e5] [CRITICAL]: Uncaught exception: Error: Call to a member function getRole() on int in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:179
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:45:00.905][9b7631a4] [CRITICAL]: Uncaught exception: Error: Call to a member function getRole() on int in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:179
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:48:11.038][288c40c7] [CRITICAL]: Uncaught exception: Error: Call to undefined method RainLoop\Model\MainAccount::isAdmin() in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:181
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:48:12.064][dd4bafa7] [CRITICAL]: Uncaught exception: Error: Call to undefined method RainLoop\Model\MainAccount::isAdmin() in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:181
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:48:22.733][d0b6bc11] [CRITICAL]: Uncaught exception: Error: Call to undefined method RainLoop\Model\MainAccount::getRole() in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:181
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:49:57.396][60df4b5a] [CRITICAL]: Uncaught exception: Error: Call to undefined method RainLoop\Model\MainAccount::isAdmin() in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:191
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:49:58.280][be42aac4] [CRITICAL]: Uncaught exception: Error: Call to undefined method RainLoop\Model\MainAccount::isAdmin() in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php:191
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#2 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#3 {main}
+[2025-05-25 09:56:11.081][26f7fe82] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#455
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(133): RainLoop\Actions->imapConnect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(139): RainLoop\Actions->loadAdditionalAccountImapClient()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoAccountUnread()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 09:56:11.081][26f7fe82] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://mail.forbion.ru:143" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(72): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(214): MailSo\Imap\ImapClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(451): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(133): RainLoop\Actions->imapConnect()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(139): RainLoop\Actions->loadAdditionalAccountImapClient()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoAccountUnread()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#9 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#10 {main}
+[2025-05-25 09:56:11.081][26f7fe82] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#455
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(133): RainLoop\Actions->imapConnect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Accounts.php(139): RainLoop\Actions->loadAdditionalAccountImapClient()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoAccountUnread()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:01:56.950][141728b0] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-25 10:01:56.951][141728b0] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://mail.forbion.ru:143" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(72): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(214): MailSo\Imap\ImapClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php(922): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-25 10:01:56.951][141728b0] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-25 10:06:12.309][0b591556] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:06:12.310][0b591556] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 10:06:12.310][0b591556] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:13:35.287][fe84d7de] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:13:35.288][fe84d7de] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 10:13:35.288][fe84d7de] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:21:14.586][57fed000] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-25 13:21:14] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-25 10:22:53.987][814b6389] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:22:53.988][814b6389] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 10:22:53.988][814b6389] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:35:26.197][59328b33] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-25 13:35:26] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-25 10:38:00.928][64104c7f] SERVICE[WARNING]: InvalidInputArgument[903]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#147
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-25 10:39:02.408][4c0f2c49] SERVICE[WARNING]: InvalidInputArgument[903]
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#147
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/User.php(41): RainLoop\Actions->LoginProcess()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoLogin()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-25 10:43:26.225][b678f075] IMAP[WARNING]: MailSo\Imap\Exceptions\NegativeResponseException: SERVERBUG Internal error occurred. Refer to server log for more information. [2025-05-25 13:43:26] (0.001 + 0.000 secs). in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ResponseCollection.php:46
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(573): MailSo\Imap\ResponseCollection->validate()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/Commands/Folders.php(198): MailSo\Imap\ImapClient->yieldUntaggedResponses()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Mail/MailClient.php(373): MailSo\Imap\ImapClient->FolderStatus()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Folders.php(386): MailSo\Mail\MailClient->FolderInformation()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFolderInformationMultiply()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-25 10:44:45.569][9c55f526] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 10:44:47.908][859a8033] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 10:44:48.630][596b4e49] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 10:46:37.294][e5a2d133] [CRITICAL]: Uncaught exception: InvalidToken[101] (Account undefined)
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php#311
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/UserAuth.php(230): RainLoop\Actions->getMainAccountFromToken()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(176): RainLoop\Actions->getAccountFromToken()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#4 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#5 {main}
+[2025-05-25 10:54:30.779][3ce3f104] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:54:30.779][3ce3f104] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 10:54:30.779][3ce3f104] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:55:02.410][0f37b58a] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:55:02.410][0f37b58a] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://localhost:4190" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Sieve/SieveClient.php(48): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(253): MailSo\Sieve\SieveClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(31): RainLoop\Model\Account->SieveConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters/SieveStorage.php(41): RainLoop\Providers\Filters\SieveStorage->getConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(36): RainLoop\Providers\Filters\SieveStorage->Load()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#8 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#9 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#10 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#11 {main}
+[2025-05-25 10:55:02.410][0f37b58a] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://localhost:4190")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php#20
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Providers/Filters.php(40): RainLoop\Providers\Filters::handleException()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Filters.php(22): RainLoop\Providers\Filters->Load()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoFilters()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#6 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#7 {main}
+[2025-05-25 10:59:59.650][b57cdaf5] SERVICE[WARNING]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
+[2025-05-25 10:59:59.651][b57cdaf5] SERVICE[WARNING]: - MailSo\Net\Exceptions\SocketCanNotConnectToHostException: Can't connect to host "tcp://mail.forbion.ru:143" in /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Net/NetClient.php:138
+Stack trace:
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/MailSo/Imap/ImapClient.php(72): MailSo\Net\NetClient->Connect()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Model/Account.php(214): MailSo\Imap\ImapClient->Connect()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php(922): RainLoop\Model\Account->ImapConnectAndLogin()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#5 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#6 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#7 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#8 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#9 {main}
+[2025-05-25 10:59:59.651][b57cdaf5] [ERROR]: ConnectionError[104] (Can't connect to host "tcp://mail.forbion.ru:143")
+/var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions.php#924
+#0 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Actions/Messages.php(66): RainLoop\Actions->initMailClientConnection()
+#1 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/ServiceActions.php(143): RainLoop\Actions->DoMessageList()
+#2 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(132): RainLoop\ServiceActions->ServiceJson()
+#3 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/app/libraries/RainLoop/Service.php(14): RainLoop\Service::RunResult()
+#4 /var/www/nextcloud/apps/snappymail/snappymail/v/0.0.0/include.php(137): RainLoop\Service::Handle()
+#5 /var/www/nextcloud/apps/snappymail/index.php(11): include('...')
+#6 {main}
