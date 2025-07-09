@@ -1,0 +1,32 @@
+<!--<div class="b-toolbar btn-toolbar">-->
+<!--	<a class="btn btn-thin fontastic toggleLeft" data-bind="click: toggleLeftPanel"></a>-->
+<!--	<a class="btn" data-bind="click: backToInbox" data-icon="⬅" data-i18n="GLOBAL/BACK"></a>-->
+<!--</div>-->
+<div class="b-title-page">
+	<div class="icon">
+		<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+			<g clip-path="url(#clip0_7366_18969)">
+				<g clip-path="url(#clip1_7366_18969)">
+					<path d="M3.04102 8.16668V2M13.8327 14.3334V12.0209M3.04102 14.3334V11.25M13.8327 8.93751V2M8.43686 4.3125V2M8.43686 14.3334V7.39584" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+					<path d="M3.04167 11.2501C3.89311 11.2501 4.58334 10.5599 4.58334 9.70842C4.58334 8.85698 3.89311 8.16675 3.04167 8.16675C2.19023 8.16675 1.5 8.85698 1.5 9.70842C1.5 10.5599 2.19023 11.2501 3.04167 11.2501Z" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+					<path d="M8.43815 7.39584C9.28959 7.39584 9.97982 6.70561 9.97982 5.85417C9.97982 5.00273 9.28959 4.3125 8.43815 4.3125C7.58671 4.3125 6.89648 5.00273 6.89648 5.85417C6.89648 6.70561 7.58671 7.39584 8.43815 7.39584Z" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+					<path d="M13.8327 12.0208C14.6841 12.0208 15.3744 11.3306 15.3744 10.4792C15.3744 9.62773 14.6841 8.9375 13.8327 8.9375C12.9812 8.9375 12.291 9.62773 12.291 10.4792C12.291 11.3306 12.9812 12.0208 13.8327 12.0208Z" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+				</g>
+			</g>
+			<defs>
+				<clipPath id="clip0_7366_18969">
+					<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+				</clipPath>
+				<clipPath id="clip1_7366_18969">
+					<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+				</clipPath>
+			</defs>
+		</svg>
+	</div>
+	<span class="name">
+		Параметры
+	</span>
+</div>
+<nav data-bind="foreach: menu">
+	<a data-bind="css: {'selected': selected }, attr: { 'href': $root.link(route), 'data-i18n': label }"></a>
+</nav>

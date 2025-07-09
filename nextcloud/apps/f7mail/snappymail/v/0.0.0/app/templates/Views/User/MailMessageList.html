@@ -1,0 +1,264 @@
+<div class="btn-toolbar" data-bind="css: {'hasChecked':checkAll}">
+	<a class="btn btn-thin fontastic toggleLeft d-none"></a>
+	<a class="btn buttonCompose onCheckedHide d-none" data-bind="click: composeClick, css: {'btn-warning': composeInEdit, 'btn-success': !composeInEdit()}" data-i18n="[title]FOLDER_LIST/BUTTON_NEW_MESSAGE">
+		<i class="icon-paper-plane"></i>
+	</a>
+	<i class="btn checkboxCheckAll fontastic" data-bind="css: { 'active': checkAll() || isIncompleteChecked() }">
+		<div class="icon" style="height: 20px">
+			<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+				<g clip-path="url(#clip0_7794_23789)">
+					<path d="M4.7367 12.9556L3.56873 1.66445C3.54113 1.39758 3.83514 1.21781 4.0601 1.36401L13.9749 7.80767C14.1935 7.94976 14.1587 8.27985 13.9153 8.37324L10.9907 9.49518C10.7996 9.56851 10.7259 9.80029 10.8397 9.9705L13.0157 13.2261C13.1186 13.3801 13.0698 13.589 12.9093 13.6813L10.877 14.8508C10.731 14.9347 10.5449 14.8912 10.4514 14.7512L8.21505 11.4054C8.11392 11.2541 7.90696 11.2179 7.76044 11.3258L5.24343 13.1797C5.04468 13.3261 4.7621 13.2011 4.7367 12.9556Z" stroke="#808080" stroke-width="1.5"></path>
+				</g>
+				<defs>
+					<clipPath id="clip0_7794_23789">
+						<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+					</clipPath>
+				</defs>
+			</svg>
+		</div>
+		<span class="name">
+			Выбрать
+		</span>
+	</i>
+	<a href="#" tabindex="-1" class="btn btn-move onCheckedShow" data-bind="command: moveCommand" data-i18n="[title]GLOBAL/MOVE_TO">
+		<div class="icon" style="height: 17px">
+			<i class="icon-copy visible-on-ctrl-btn">
+				<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+					<g clip-path="url(#clip0_7809_23661)">
+						<path d="M8.5 13.6324H3.05556C2.643 13.6324 2.24733 13.4573 1.95561 13.1457C1.66389 12.834 1.5 12.4114 1.5 11.9706V3.66177M1.5 3.66177C1.5 3.22104 1.66389 2.79836 1.95561 2.48672C2.24733 2.17508 2.643 2 3.05556 2H8.5H13.9444C14.357 2 14.7527 2.17508 15.0444 2.48672C15.3361 2.79836 15.5 3.22104 15.5 3.66177M1.5 3.66177L8.5 8.17623L15.5 3.66177M15.5 3.66177V9.89342M10.8333 13.2199H13.1667H15.5M15.5 13.2199L13.1667 11.475M15.5 13.2199L13.1667 15" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+					<defs>
+						<clipPath id="clip0_7809_23661">
+							<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+						</clipPath>
+					</defs>
+				</svg>
+			</i>
+			<i class="fontastic hidden-on-ctrl-btn">
+				<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+					<g clip-path="url(#clip0_7809_23661)">
+						<path d="M8.5 13.6324H3.05556C2.643 13.6324 2.24733 13.4573 1.95561 13.1457C1.66389 12.834 1.5 12.4114 1.5 11.9706V3.66177M1.5 3.66177C1.5 3.22104 1.66389 2.79836 1.95561 2.48672C2.24733 2.17508 2.643 2 3.05556 2H8.5H13.9444C14.357 2 14.7527 2.17508 15.0444 2.48672C15.3361 2.79836 15.5 3.22104 15.5 3.66177M1.5 3.66177L8.5 8.17623L15.5 3.66177M15.5 3.66177V9.89342M10.8333 13.2199H13.1667H15.5M15.5 13.2199L13.1667 11.475M15.5 13.2199L13.1667 15" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+					<defs>
+						<clipPath id="clip0_7809_23661">
+							<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+						</clipPath>
+					</defs>
+				</svg>
+			</i>
+		</div>
+		<span class="name">Переместить</span>
+	</a>
+	<div class="btn btn-group dropdown btn-group-mail-dropdown" data-bind="registerBootstrapDropdown: true">
+		<div class="wrapper">
+			<a id="more-list-dropdown-id" class="btn dropdown-toggle fontastic" href="#" tabindex="-1" data-i18n="[title]GLOBAL/MORE">
+				<span></span>
+				<span></span>
+				<span></span>
+			</a>
+			<menu class="dropdown-menu" role="menu" aria-labelledby="more-list-dropdown-id">
+				<li role="presentation" data-bind="click: listUnsetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+					<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_UNSET_SEEN"></a>
+				</li>
+				<li role="presentation" data-bind="click: listSetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+					<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_SET_SEEN"></a>
+				</li>
+				<li role="presentation" data-bind="click: listSetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+					<a href="#" tabindex="-1" data-icon="★" data-i18n="MESSAGE_LIST/MENU_SET_FLAG"></a>
+				</li>
+				<li role="presentation" data-bind="click: listUnsetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
+					<a href="#" tabindex="-1" data-icon="☆" data-i18n="MESSAGE_LIST/MENU_UNSET_FLAG"></a>
+				</li>
+				<li role="presentation" data-bind="click: listSetAllSeen, css: {'disabled': !messageList().length}">
+					<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_SET_ALL_SEEN"></a>
+				</li>
+				<li class="dividerbar" role="presentation" data-bind="command: forwardCommand">
+					<a href="#" tabindex="-1" data-icon="↞" data-i18n="MESSAGE_LIST/BUTTON_MULTY_FORWARD"></a>
+				</li>
+				<li role="presentation" data-bind="command: downloadAttachCommand, visible: downloadAsZipAllowed">
+					<a href="#" tabindex="-1" data-icon="📦" data-i18n="MESSAGE_LIST/DOWNLOAD_ALL_ATTACHMENTS"></a>
+				</li>
+				<li role="presentation" data-bind="command: downloadZipCommand, visible: downloadAsZipAllowed">
+					<a href="#" tabindex="-1" data-icon="💾" data-i18n="MESSAGE/LINK_DOWNLOAD_AS_ZIP"></a>
+				</li>
+				<li class="dividerbar" role="presentation" data-bind="command: moveCommand">
+					<a href="#" tabindex="-1" data-icon="📁" data-i18n="GLOBAL/MOVE_TO"></a>
+				</li>
+				<li class="presentation" role="presentation" data-bind="command: copyCommand">
+					<a href="#" tabindex="-1" data-icon="&#xE068;" data-i18n="GLOBAL/COPY_TO"></a>
+				</li>
+				<li role="presentation" data-bind="visible: archiveAllowed, command: archiveCommand">
+					<a href="#" tabindex="-1" data-icon="🗄" data-i18n="GLOBAL/TO_ARCHIVE">🗄</a>
+				</li>
+				<li role="presentation" data-bind="visible: canMarkAsSpam, command: spamCommand">
+					<a href="#" tabindex="-1" data-icon="⚠" data-i18n="GLOBAL/SPAM"></a>
+				</li>
+				<li role="presentation" data-bind="visible: isSpamFolder, command: notSpamCommand">
+					<a href="#" tabindex="-1" data-icon="" data-i18n="GLOBAL/NOT_SPAM"></a>
+				</li>
+				<li role="presentation" data-bind="command: deleteCommand">
+					<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/DELETE"></a>
+				</li>
+				<li role="presentation" data-bind="command: undeleteCommand, hidden: hideDeleted">
+					<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/UNDELETE" class="rotate"></a>
+				</li>
+				<li role="presentation" data-bind="visible: allowDangerousActions, command: deleteWithoutMoveCommand">
+					<a href="#" tabindex="-1" data-icon="🗑" data-i18n="MESSAGE_LIST/BUTTON_DELETE_WITHOUT_MOVE"></a>
+				</li>
+				<li role="presentation" data-bind="visible: allowDangerousActions, click: clear">
+					<a href="#" tabindex="-1" data-icon="🔥" data-i18n="MESSAGE_LIST/BUTTON_EMPTY_FOLDER"></a>
+				</li>
+			</menu>
+		</div>
+		<span class="name">
+			Еще
+		</span>
+	</div>
+	<a class="btn btn-reload onCheckedHide" data-bind="click: reload" data-i18n="[title]MESSAGE_LIST/BUTTON_RELOAD">
+		<div class="icon" style="height: 13px; margin-top: 4px;">
+			<i class="icon-spinner not-animated">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+					<g clip-path="url(#clip0_7809_20398)">
+						<path d="M9.09521 1.25C7.28606 1.25 5.55101 1.96868 4.27175 3.24794C2.99249 4.52721 2.2738 6.26226 2.2738 8.07141H0.476923C0.299586 8.07141 0.209975 8.2851 0.334268 8.41159L2.86019 10.9822C2.93802 11.0614 3.06547 11.062 3.14409 10.9836L5.72103 8.41301C5.84727 8.28709 5.75809 8.07141 5.57979 8.07141H3.78967C3.78967 6.66429 4.34865 5.31481 5.34363 4.31983C6.33861 3.32484 7.6881 2.76587 9.09521 2.76587C10.5023 2.76587 11.8518 3.32484 12.8468 4.31983C13.8418 5.31481 14.4008 6.66429 14.4008 8.07141C14.4008 9.47853 13.8418 10.828 12.8468 11.823C11.8518 12.818 10.5023 13.377 9.09521 13.377C7.6324 13.377 6.30602 12.7782 5.35102 11.8156L4.27475 12.8919C4.90506 13.5289 5.65596 14.0339 6.48362 14.3774C7.31128 14.721 8.19909 14.8962 9.09521 14.8928C10.9044 14.8928 12.6394 14.1741 13.9187 12.8949C15.1979 11.6156 15.9166 9.88056 15.9166 8.07141C15.9166 6.26226 15.1979 4.52721 13.9187 3.24794C12.6394 1.96868 10.9044 1.25 9.09521 1.25Z" fill="#808080"></path>
+					</g>
+					<defs>
+						<clipPath id="clip0_7809_20398">
+							<rect width="16" height="16" fill="white"></rect>
+						</clipPath>
+					</defs>
+				</svg>
+			</i>
+		</div>
+		<span class="name">
+			Обновить
+		</span>
+	</a>
+	<div class="btn-group onCheckedShow d-none">
+		<a class="btn fontastic" data-bind="visible: archiveAllowed, command: archiveCommand" data-i18n="[title]GLOBAL/TO_ARCHIVE">🗄</a>
+		<a class="btn fontastic" data-bind="visible: canMarkAsSpam, command: spamCommand" data-i18n="[title]GLOBAL/TO_SPAM">⚠</a>
+		<a class="btn" data-bind="visible: isSpamFolder, command: notSpamCommand" data-i18n="[title]GLOBAL/NOT_SPAM">
+			<i class="icon-check-mark-circle-two"></i>
+		</a>
+		<a class="btn fontastic" data-bind="command: deleteCommand" data-i18n="[title]GLOBAL/DELETE">🗑</a>
+<!--
+		<a class="btn fontastic" data-bind="command: undeleteCommand, hidden: hideDeleted" data-i18n="[title]GLOBAL/UNDELETE" style="transform:rotate(-180deg)">🗑</a>
+-->
+	</div>
+	<div class="btn-group dropdown onCheckedHide d-none" data-bind="visible: !sortSupported()">
+		<div id="no-sort-list" class="btn fontastic" data-i18n="[title]MESSAGE_LIST/NO_SORT">✖⬇</div>
+	</div>
+	<div class="btn-group dropdown onCheckedHide d-none" data-bind="visible: sortSupported(), registerBootstrapDropdown: true">
+		<a id="sort-list-dropdown-id" class="btn dropdown-toggle fontastic" href="#" tabindex="-1" data-i18n="[title]MESSAGE_LIST/SORT" data-bind="text: sortText">⬇</a>
+		<menu class="dropdown-menu" role="menu" aria-labelledby="sort-list-dropdown-id">
+			<li role="presentation" data-sort="" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="📅⬇" data-i18n="MESSAGE_LIST/SORT_DATE_DESC"></a>
+			</li>
+			<li role="presentation" data-sort="DATE" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="📅⬆" data-i18n="MESSAGE_LIST/SORT_DATE_ASC"></a>
+			</li>
+			<li class="dividerbar" role="presentation" data-sort="FROM" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="@⬇" data-i18n="MESSAGE_LIST/SORT_FROM_ASC"></a>
+			</li>
+			<li role="presentation" data-sort="REVERSE FROM" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="@⬆" data-i18n="MESSAGE_LIST/SORT_FROM_DESC"></a>
+			</li>
+			<li class="dividerbar" role="presentation" data-sort="REVERSE SIZE" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="✉⬇" data-i18n="MESSAGE_LIST/SORT_SIZE_DESC"></a>
+			</li>
+			<li role="presentation" data-sort="SIZE" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="✉⬆" data-i18n="MESSAGE_LIST/SORT_SIZE_ASC"></a>
+			</li>
+			<li class="dividerbar" role="presentation" data-sort="SUBJECT" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="𝐒⬇" data-i18n="MESSAGE_LIST/SORT_SUBJECT_ASC"></a>
+			</li>
+			<li role="presentation" data-sort="REVERSE SUBJECT" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="𝐒⬆" data-i18n="MESSAGE_LIST/SORT_SUBJECT_DESC"></a>
+			</li>
+			<li class="dividerbar" role="presentation" data-sort="REVERSE ARRIVAL" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="📨⬇" data-i18n="MESSAGE_LIST/SORT_ARRIVAL_DESC"></a>
+			</li>
+			<li role="presentation" data-sort="ARRIVAL" data-bind="click: changeSort">
+				<a href="#" tabindex="-1" data-icon="📨⬆" data-i18n="MESSAGE_LIST/SORT_ARRIVAL_ASC"></a>
+			</li>
+		</menu>
+	</div>
+</div>
+
+<div class="messageList g-ui-user-select-none" data-bind="css: {'hideMessageListCheckbox': !useCheckboxesInList() }">
+	<div class="second-toolbar thm-message-list-top-toolbar">
+		<div class="search-input-wrp">
+			<input type="search" class="inputSearch" tabindex="-1" placeholder="Search" autocorrect="off" autocapitalize="off" data-i18n="[placeholder]GLOBAL/SEARCH" data-bind="textInput: inputSearch, hasfocus: focusSearch">
+			<a class="closeSearch" data-bind="click: cancelSearch, visible: messageListSearchDesc()">×</a>
+		</div>
+		<a class="btn buttonMoreSearch" data-bind="click: advancedSearchClick"></a>
+	</div>
+	<div class="b-content">
+		<div class="listThreadUidDesc" data-bind="visible: messageList.threadUid(), click: cancelThreadUid"
+			data-icon="⬅" data-i18n="MESSAGE_LIST/BACK_TO_MESSAGE_LIST"></div>
+		<div class="listSearchDesc" data-bind="visible: messageListSearchDesc(), text: messageListSearchDesc"></div>
+		<div class="listDragOver" data-bind="css: {'viewAppendArea': dragOver() && !messageList.error() && !popupVisibility(), 'dragOverEnter': dragOverEnter }"
+			data-icon="⬇" data-i18n="MESSAGE_LIST/PUT_MESSAGE_HERE"></div>
+		<div class="listClear" data-bind="visible: clearListIsVisible()">
+			<a href="#" class="g-ui-link" data-i18n="MESSAGE_LIST/BUTTON_EMPTY_FOLDER" data-bind="click: clear"></a>
+		</div>
+		<div class="listError error" data-bind="visible: !dragOver() && messageList.error(), text: messageList.error"></div>
+		<div class="listEmptyMessage" data-bind="visible: listEmptyMessage(), text: listEmptyMessage()"></div>
+		<div class="listLoading" data-bind="visible: !dragOver() && !messageList().length &&
+			messageList.isLoading() && !messageList.error()">
+			<i class="icon-spinner"></i>
+			<span data-i18n="GLOBAL/LOADING"></span>
+		</div>
+
+		<!-- ko if: listGrouped -->
+		<div class="messageListPlace" data-bind="dragmessages: 1, i18nUpdate: groupedList, foreach: groupedList" draggable="true">
+			<div class="groupLabel" data-bind="text: label, click: $root.groupSearch" data-i18n="[title]GLOBAL/SEARCH"></div>
+			<!-- ko foreach: messages -->
+			<div class="messageListItem" data-bind="css: lineAsCss(), attr: {title: preview}">
+				<div class="messageCheckbox">
+					<div class="checkboxMessage fontastic" data-bind="text: checked() ? '☑' : '☐'"></div>
+				</div><div>
+					<div class="flagParent fontastic"></div>
+					<div class="senderParent" data-bind="attr: {title: senderClearEmailsString}, text: senderEmailsString"></div>
+					<div class="subjectParent" data-bind="text: subject"></div>
+					<div class="threads-len" data-bind="visible: 1 < threadsLen(), text: threadsLenText(), attr: {'data-unseen': threadUnseenLen() || null}"></div>
+					<div class="attachmentParent">
+						<i data-bind="css: attachmentIconClass"></i>
+					</div>
+					<div class="sizeParent" data-bind="text: friendlySize()"></div>
+					<time data-bind="attr:{'data-time-format':$root.timeFormat()}, time: dateTimestamp"></time>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<!-- ko ifnot: listGrouped -->
+		<div class="messageListPlace" data-bind="dragmessages: 1, foreach: messageList" draggable="true">
+			<div class="messageListItem" data-bind="css: lineAsCss(), attr:{title:preview}">
+				<div class="messageCheckbox">
+					<div class="checkboxMessage fontastic" data-bind="text: checked() ? '☑' : '☐'"></div>
+				</div><div data-bind="attr:{style:indent()}, css:{reply:indent()}">
+					<div class="flagParent fontastic"></div>
+					<div class="senderParent" data-bind="attr: {title: senderClearEmailsString}, text: senderEmailsString"></div>
+					<div class="subjectParent" data-bind="text: subject"></div>
+					<div class="threads-len" data-bind="visible: 1 < threadsLen(), text: threadsLenText(), attr: {'data-unseen': threadUnseenLen() || null}"></div>
+					<div class="attachmentParent">
+						<i data-bind="css: attachmentIconClass"></i>
+					</div>
+					<div class="sizeParent" data-bind="text: friendlySize()"></div>
+					<time data-time-format="AUTO" data-bind="time: dateTimestamp"></time>
+				</div>
+			</div>
+		</div>
+		<!-- /ko -->
+
+		<div id="messagesDragImage"><span class="text"></span>&nbsp;<span class="fontastic">✉</span></div>
+	</div>
+	<div class="b-footer thm-message-list-bottom-toolbar">
+		<!-- ko if: userUsageProc() -->
+		<span data-bind="attr: { title: quotaTooltip() }" class="e-quota">
+			<!-- ko text: userUsageProc --><!-- /ko -->%
+		</span>
+		<!-- /ko -->
+		<!-- ko template: { name: 'Paginator', data: messageListPaginator } --><!-- /ko -->
+	</div>
+</div>

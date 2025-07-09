@@ -1,0 +1,90 @@
+<div class="wrapper-setting-tab">
+	<div class="tab-menu">
+		<div class="b-tab-page">
+			<div class="icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+					<g clip-path="url(#clip0_7421_20564)">
+						<circle cx="2.5" cy="4" r="1" fill="#808080"></circle>
+						<path d="M5.5 4L14.5 4" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						<circle cx="2.5" cy="8" r="1" fill="#808080"></circle>
+						<path d="M5.5 8L14.5 8" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						<circle cx="2.5" cy="12" r="1" fill="#808080"></circle>
+						<path d="M5.5 12L14.5 12" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</g>
+					<defs>
+						<clipPath id="clip0_7421_20564">
+							<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+						</clipPath>
+					</defs>
+				</svg>
+			</div>
+			<span class="name">
+				Папки для настройки
+			</span>
+		</div>
+		<div class="b-tab-content">
+			<div class="search-wrapper-tab">
+				<div class="icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+						<g clip-path="url(#clip0_7421_4239)">
+							<circle cx="6" cy="5.5" r="4.75" stroke="#808080" stroke-width="1.5"></circle>
+							<path d="M9.23633 9L15.2363 15" stroke="#808080" stroke-width="1.5" stroke-linecap="round"></path>
+						</g>
+						<defs>
+							<clipPath id="clip0_7421_4239">
+								<rect width="16" height="16" fill="white" transform="translate(0.5)"></rect>
+							</clipPath>
+						</defs>
+					</svg>
+				</div>
+				<input type="search" id="search_folders" name="search" placeholder="Поиск...">
+			</div>
+			<table class="table table-hover list-table" data-bind="i18nUpdate: folderList">
+				<tbody data-bind="template: { name: 'SettingsFolderItem', foreach: folderList }"></tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-content">
+		<div class="tab-panel" style="display: block">
+			<div class="legend">
+<!--				<span data-i18n="SETTINGS_FOLDERS/LEGEND_FOLDERS"></span>-->
+<!--				&nbsp;&nbsp;&nbsp;-->
+<!--				<i class="icon-spinner" style="margin-top: 5px" data-bind="visible: loading"></i>-->
+			</div>
+
+			<div class="control-group w-100" style="margin-bottom:20px;" data-bind="component: {
+	name: 'Checkbox',
+	params: {
+		label: 'SETTINGS_FOLDERS/HIDE_UNSUBSCRIBED',
+		value: hideUnsubscribed
+	}
+}" hidden></div>
+
+			<!-- ko if: showKolab -->
+			<div style="margin-bottom:20px;" data-bind="component: {
+	name: 'Checkbox',
+	params: {
+		label: 'SETTINGS_FOLDERS/UNHIDE_KOLAB_FOLDERS',
+		value: unhideKolabFolders
+	}
+}" hidden></div>
+			<!-- /ko -->
+
+<!--			<a class="btn" data-bind="click: createFolder">-->
+<!--				<i class="icon-folder-add"></i>-->
+<!--				<span data-i18n="SETTINGS_FOLDERS/BUTTON_CREATE"></span>-->
+<!--			</a>-->
+<!--			&nbsp;&nbsp;-->
+<!--			<a class="btn" data-bind="click: systemFolder" data-icon="🔧" data-i18n="SETTINGS_FOLDERS/BUTTON_SYSTEM"></a>-->
+			<div class="alert folders-list-error" data-bind="visible: folderListOptimized">
+				<b data-i18n="SETTINGS_FOLDERS/TO_MANY_FOLDERS_DESC_1"></b>
+				<br>
+				<span data-i18n="SETTINGS_FOLDERS/TO_MANY_FOLDERS_DESC_2"></span>
+			</div>
+			<div class="alert folders-list-error" data-bind="visible: '' !== folderListError()">
+				<a href="#" class="close" data-bind="click: hideError">×</a>
+				<span data-bind="text: folderListError"></span>
+			</div>
+		</div>
+	</div>
+</div>
