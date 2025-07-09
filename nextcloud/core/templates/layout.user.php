@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2011-2016 ownCloud, Inc.
@@ -92,6 +93,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php if ($_['id-app-navigation'] !== null) { ?><a href="<?php p($_['id-app-navigation']); ?>" class="button primary skip-navigation"><?php p($l->t('Skip to navigation of app')); ?></a><?php } ?>
 </div>
 <?php
+
 $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="display: none;"' : '';
 ?>
 <header id="header" class="header-new" <?= $headerStyle ?>>
@@ -102,7 +104,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
         <nav class="app-menu">
             <ul class="app-menu__list">
                 <li class="app-menu-entry">
-                    <a href="/apps/snappymail/" class="app-menu-entry__link">
+                    <a href="/apps/f7mail/" class="app-menu-entry__link">
                         <span class="app-menu-enty__icon">
                             <img src="/themes/forbion/images/menu/mail.svg" alt="mail">
                         </span>
@@ -281,7 +283,9 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
             <div id="user-menu"></div>
 <!--            <div id="contactsmenu"></div>-->
             <div class="help-online__user">
-                <img src="/themes/forbion/images/help_online_user.png">
+                <a target ="_blank" href = "https://lk.forbion.ru/accounts/login/">
+                    <img src="/themes/forbion/images/help_online_user.png">
+                </a>
             </div>
         </div>
     </div>
