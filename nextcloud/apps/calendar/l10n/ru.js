@@ -561,7 +561,7 @@ OC.L10N.register(
     "When shared hide this event" : "Скрыть это событие при публикации",
     "The visibility of this event in shared calendars." : "Видимость этого события в опубликованных календарях. ",
     "Add a location" : "Добавить местоположение",
-    "Add a description\n\n- What is this meeting about\n- Agenda items\n- Anything participants need to prepare" : "Добавьте описание\n\n- Для чего данное событие\n- Агенда\n- Как участникам подготовиться к событию",
+    "Add a description\n\n- What is this meeting about\n- Agenda items\n- Anything participants need to prepare" : "Добавьте описание\n\n- Для чего данное событие\n- Как участникам подготовиться к событию",
     "Status" : "Состояние",
     "Confirmed" : "Подтверждено",
     "Canceled" : "Отменена",
