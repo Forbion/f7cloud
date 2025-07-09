@@ -204,7 +204,7 @@ OC.L10N.register(
     "Add contact in group" : "Добавить контакт в группу",
     "None" : "Никто",
     "Select option" : "Выберете вариант",
-    "Personal dates" : "Личные даты",
+    "Personal dates" : "Дата рождения",
     "Add property of this type" : "Добавить свойство этого типа",
     "Unable to create the contact." : "Невозможно создать контакт.",
     "Contact not found" : "Контакт не найден",
