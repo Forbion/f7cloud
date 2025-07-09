@@ -546,6 +546,7 @@ const actions = {
 			const reactionsStore = useReactionsStore()
 			if (message.systemMessage === 'message_deleted') {
 				reactionsStore.resetReactions(token, message.parent.id)
+				sharedItemsStore.deleteSharedItemFromMessage(token, message.parent.id)
 			} else {
 				reactionsStore.processReaction(token, message)
 			}
@@ -593,6 +594,7 @@ const actions = {
 		}
 
 		if (message.systemMessage === 'history_cleared') {
+			sharedItemsStore.purgeSharedItemsStore(token, message.id)
 			context.commit('clearMessagesHistory', {
 				token,
 				id: message.id,
@@ -601,7 +603,7 @@ const actions = {
 
 		context.commit('addMessage', { token, message })
 
-		if (message.messageParameters && (message.messageType === 'comment' || message.messageType === 'voice-message')) {
+		if (message.messageParameters && ['comment', 'voice-message', 'record-audio', 'record-video'].includes(message.messageType)) {
 			if (message.messageParameters?.object || message.messageParameters?.file) {
 				// Handle voice messages, shares with single file, polls, deck cards, e.t.c
 				sharedItemsStore.addSharedItemFromMessage(token, message)

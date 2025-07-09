@@ -59,6 +59,7 @@ use OCA\Talk\Service\RecordingService;
 use OCA\Talk\Service\RoomFormatter;
 use OCA\Talk\Service\RoomService;
 use OCA\Talk\Service\SessionService;
+use OCA\Talk\Share\Helper\Preloader;
 use OCA\Talk\TalkSession;
 use OCA\Talk\Webinary;
 use OCP\App\IAppManager;
@@ -113,6 +114,7 @@ class RoomController extends AEnvironmentAwareController {
 		protected ITimeFactory $timeFactory,
 		protected ChecksumVerificationService $checksumVerificationService,
 		protected RoomFormatter $roomFormatter,
+		protected Preloader $sharePreloader,
 		protected IConfig $config,
 		protected Config $talkConfig,
 		protected ICloudIdManager $cloudIdManager,
@@ -178,13 +180,14 @@ class RoomController extends AEnvironmentAwareController {
 	 * @param 0|1 $noStatusUpdate When the user status should not be automatically set to online set to 1 (default 0)
 	 * @param bool $includeStatus Include the user status
 	 * @param int $modifiedSince Filter rooms modified after a timestamp
+	 * @param bool $includeLastMessage Include the last message, clients should opt-out when only rendering a compact list
 	 * @psalm-param non-negative-int $modifiedSince
 	 * @return DataResponse<Http::STATUS_OK, TalkRoom[], array{X-Nextcloud-Talk-Hash: string, X-Nextcloud-Talk-Modified-Before: numeric-string, X-Nextcloud-Talk-Federation-Invites?: numeric-string}>
 	 *
 	 * 200: Return list of rooms
 	 */
 	#[NoAdminRequired]
-	public function getRooms(int $noStatusUpdate = 0, bool $includeStatus = false, int $modifiedSince = 0): DataResponse {
+	public function getRooms(int $noStatusUpdate = 0, bool $includeStatus = false, int $modifiedSince = 0, bool $includeLastMessage = true): DataResponse {
 		$nextModifiedSince = $this->timeFactory->getTime();
 
 		$event = new BeforeRoomsFetchEvent($this->userId);
@@ -209,7 +212,7 @@ class RoomController extends AEnvironmentAwareController {
 		}
 
 		$sessionIds = $this->session->getAllActiveSessions();
-		$rooms = $this->manager->getRoomsForUser($this->userId, $sessionIds, true);
+		$rooms = $this->manager->getRoomsForUser($this->userId, $sessionIds, $includeLastMessage);
 
 		if ($modifiedSince !== 0) {
 			$rooms = array_filter($rooms, function (Room $room) use ($includeStatus, $modifiedSince): bool {
@@ -259,10 +262,15 @@ class RoomController extends AEnvironmentAwareController {
 			$statuses = $this->statusManager->getUserStatuses($userIds);
 		}
 
+		if ($includeLastMessage) {
+			$lastMessages = array_filter(array_map(static fn (Room $room) => $room->getLastMessage()?->getVerb() === 'object_shared' ? $room->getLastMessage() : null, $rooms));
+			$this->sharePreloader->preloadShares($lastMessages);
+		}
+
 		$return = [];
 		foreach ($rooms as $room) {
 			try {
-				$return[] = $this->formatRoom($room, $this->participantService->getParticipant($room, $this->userId), $statuses);
+				$return[] = $this->formatRoom($room, $this->participantService->getParticipant($room, $this->userId), $statuses, skipLastMessage: !$includeLastMessage);
 			} catch (ParticipantNotFoundException $e) {
 				// for example in case the room was deleted concurrently,
 				// the user is not a participant anymore
@@ -298,7 +306,7 @@ class RoomController extends AEnvironmentAwareController {
 
 		$return = [];
 		foreach ($rooms as $room) {
-			$return[] = $this->formatRoom($room, null);
+			$return[] = $this->formatRoom($room, null, skipLastMessage: true);
 		}
 
 		return new DataResponse($return, Http::STATUS_OK);
@@ -332,7 +340,7 @@ class RoomController extends AEnvironmentAwareController {
 				$participant = null;
 			}
 
-			$return[] = $this->formatRoom($room, $participant, null, false, true);
+			$return[] = $this->formatRoom($room, $participant, null, false, true, true);
 		}
 
 
@@ -482,7 +490,14 @@ class RoomController extends AEnvironmentAwareController {
 	/**
 	 * @return TalkRoom
 	 */
-	protected function formatRoom(Room $room, ?Participant $currentParticipant, ?array $statuses = null, bool $isSIPBridgeRequest = false, bool $isListingBreakoutRooms = false, array $remoteRoomData = []): array {
+	protected function formatRoom(
+		Room $room,
+		?Participant $currentParticipant,
+		?array $statuses = null,
+		bool $isSIPBridgeRequest = false,
+		bool $isListingBreakoutRooms = false,
+		bool $skipLastMessage = false,
+	): array {
 		return $this->roomFormatter->formatRoom(
 			$this->getResponseFormat(),
 			$this->commonReadMessages,
@@ -491,6 +506,7 @@ class RoomController extends AEnvironmentAwareController {
 			$statuses,
 			$isSIPBridgeRequest,
 			$isListingBreakoutRooms,
+			$skipLastMessage,
 		);
 	}
 
@@ -682,6 +698,10 @@ class RoomController extends AEnvironmentAwareController {
 		} elseif ($objectType === Room::OBJECT_TYPE_PHONE) {
 			// Ignoring any user input on this one
 			$objectId = $objectType;
+		} elseif ($objectType === Room::OBJECT_TYPE_EVENT) {
+			// Allow event rooms in future versions without breaking in older talk versions that the same calendar version supports
+			$objectType = '';
+			$objectId = '';
 		} elseif ($objectType !== '') {
 			return new DataResponse(['error' => 'object'], Http::STATUS_BAD_REQUEST);
 		}
@@ -1666,7 +1686,8 @@ class RoomController extends AEnvironmentAwareController {
 		$authenticatedEmailGuest = $this->session->getAuthedEmailActorIdForRoom($token);
 
 		$headers = [];
-		if ($authenticatedEmailGuest !== null || $room->isFederatedConversation()) {
+		if ($authenticatedEmailGuest !== null || $room->isFederatedConversation()
+			|| ($previousParticipant instanceof Participant && $previousParticipant->isGuest())) {
 			// Skip password checking
 			$result = [
 				'result' => true,
@@ -1831,7 +1852,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse([], Http::STATUS_NOT_FOUND);
 		}
 
-		return new DataResponse($this->formatRoom($this->room, $participant));
+		return new DataResponse($this->formatRoom($this->room, $participant, skipLastMessage: true));
 	}
 
 	/**
@@ -1882,7 +1903,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse([], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse($this->formatRoom($this->room, $participant));
+		return new DataResponse($this->formatRoom($this->room, $participant, skipLastMessage: true));
 	}
 
 	/**
@@ -1917,7 +1938,7 @@ class RoomController extends AEnvironmentAwareController {
 
 		$participant = $this->participantService->joinRoomAsNewGuest($this->roomService, $this->room, '', true);
 
-		return new DataResponse($this->formatRoom($this->room, $participant));
+		return new DataResponse($this->formatRoom($this->room, $participant, skipLastMessage: true));
 	}
 
 	/**

@@ -16,7 +16,7 @@
 				<NcLoadingIcon v-if="isJoiningCall || loading" :size="20" />
 				<IconPhoneDial v-else-if="isPhoneRoom" :size="20" />
 				<IconPhoneOutline v-else-if="silentCall" :size="20" />
-<!--				<IconPhone v-else :size="20" />-->
+				<IconPhone v-else :size="20" />
 			</template>
 			<template v-if="showButtonText" #default>
 				{{ startCallLabel }}
@@ -321,7 +321,7 @@ export default {
 			return this.callEnabled
 				&& this.conversation.type !== CONVERSATION.TYPE.NOTE_TO_SELF
 				&& this.conversation.readOnly === CONVERSATION.STATE.READ_WRITE
-				&& (hasTalkFeature(this.token, 'federation-v2') || !hasTalkFeature(this.token, 'federation-v1') || !this.conversation.remoteServer)
+				&& (!this.conversation.remoteServer || hasTalkFeature(this.token, 'federation-v2'))
 				&& !this.isInCall
 		},
 

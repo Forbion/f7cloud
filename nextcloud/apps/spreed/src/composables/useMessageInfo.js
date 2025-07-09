@@ -8,7 +8,7 @@ import { computed, ref } from 'vue'
 import { t } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
 
-import { useConversationInfo } from './useConversationInfo.js'
+import { useConversationInfo } from './useConversationInfo.ts'
 import { useStore } from './useStore.js'
 import { ATTENDEE, CONVERSATION } from '../constants.js'
 import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
@@ -84,7 +84,7 @@ export function useMessageInfo(message = ref({})) {
 
 	const isDeleteable = computed(() =>
 		(hasTalkFeature(message.value.token, 'delete-messages-unlimited') || (moment(message.value.timestamp * 1000).add(6, 'h')) > moment())
-		&& (message.value.messageType === 'comment' || message.value.messageType === 'voice-message')
+		&& ['comment', 'voice-message', 'record-audio', 'record-video'].includes(message.value.messageType)
 		&& (isCurrentUserOwnMessage.value || (!isOneToOneConversation.value && store.getters.isModerator))
 		&& isConversationModifiable.value)
 

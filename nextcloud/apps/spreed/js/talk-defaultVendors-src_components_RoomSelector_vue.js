@@ -226,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _nextcloud_vue_dist_Components_NcListItem_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcListItem.js */ "./node_modules/@nextcloud/vue/dist/Components/NcListItem.mjs");
 /* harmony import */ var _ConversationIcon_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../ConversationIcon.vue */ "./src/components/ConversationIcon.vue");
-/* harmony import */ var _composables_useConversationInfo_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../composables/useConversationInfo.js */ "./src/composables/useConversationInfo.js");
+/* harmony import */ var _composables_useConversationInfo_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../composables/useConversationInfo.ts */ "./src/composables/useConversationInfo.ts");
 
 
 
@@ -263,7 +263,7 @@ __webpack_require__.r(__webpack_exports__);
     const selectedRoom = (0,vue__WEBPACK_IMPORTED_MODULE_3__.inject)("selectedRoom", null);
     const exposeDescriptionRef = (0,vue__WEBPACK_IMPORTED_MODULE_3__.inject)("exposeDescription", (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(false));
     const exposeMessagesRef = (0,vue__WEBPACK_IMPORTED_MODULE_3__.inject)("exposeMessages", (0,vue__WEBPACK_IMPORTED_MODULE_3__.ref)(false));
-    const { counterType, conversationInformation } = (0,_composables_useConversationInfo_js__WEBPACK_IMPORTED_MODULE_2__.useConversationInfo)({
+    const { counterType, conversationInformation } = (0,_composables_useConversationInfo_ts__WEBPACK_IMPORTED_MODULE_2__.useConversationInfo)({
       item,
       exposeDescriptionRef,
       exposeMessagesRef
@@ -349,7 +349,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var vue_material_design_icons_Magnify_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-material-design-icons/Magnify.vue */ "./node_modules/vue-material-design-icons/Magnify.vue");
 /* harmony import */ var vue_material_design_icons_MessageOutline_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-material-design-icons/MessageOutline.vue */ "./node_modules/vue-material-design-icons/MessageOutline.vue");
 /* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
@@ -359,9 +359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nextcloud_vue_dist_Components_NcTextField_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcTextField.js */ "./node_modules/@nextcloud/vue/dist/Components/NcTextField.mjs");
 /* harmony import */ var _LeftSidebar_ConversationsList_ConversationsSearchListVirtual_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./LeftSidebar/ConversationsList/ConversationsSearchListVirtual.vue */ "./src/components/LeftSidebar/ConversationsList/ConversationsSearchListVirtual.vue");
 /* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../constants.js */ "./src/constants.js");
-/* harmony import */ var _services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/CapabilitiesManager.ts */ "./src/services/CapabilitiesManager.ts");
-/* harmony import */ var _services_conversationsService_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/conversationsService.js */ "./src/services/conversationsService.js");
-
+/* harmony import */ var _services_conversationsService_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/conversationsService.js */ "./src/services/conversationsService.js");
 
 
 
@@ -402,6 +400,13 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     },
     /**
+     * Whether interacting with federated conversations is allowed for this component.
+     */
+    allowFederation: {
+      type: Boolean,
+      default: false
+    },
+    /**
      * Whether to only show open conversations to which the user can join.
      */
     listOpenConversations: {
@@ -418,8 +423,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   emits: ["close", "select"],
   setup() {
-    const selectedRoom = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)(null);
-    (0,vue__WEBPACK_IMPORTED_MODULE_11__.provide)("selectedRoom", selectedRoom);
+    const selectedRoom = (0,vue__WEBPACK_IMPORTED_MODULE_10__.ref)(null);
+    (0,vue__WEBPACK_IMPORTED_MODULE_10__.provide)("selectedRoom", selectedRoom);
     return {
       selectedRoom
     };
@@ -455,8 +460,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     t: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_2__.t,
     async fetchRooms() {
-      const response = this.listOpenConversations ? await (0,_services_conversationsService_js__WEBPACK_IMPORTED_MODULE_10__.searchListedConversations)({ searchText: "" }, {}) : await (0,_services_conversationsService_js__WEBPACK_IMPORTED_MODULE_10__.fetchConversations)({});
-      this.rooms = response.data.ocs.data.sort(this.sortConversations).filter((conversation) => !(0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_9__.hasTalkFeature)(this.currentRoom, "federation-v1") || !conversation.remoteServer);
+      const response = this.listOpenConversations ? await (0,_services_conversationsService_js__WEBPACK_IMPORTED_MODULE_9__.searchListedConversations)({ searchText: "" }, {}) : await (0,_services_conversationsService_js__WEBPACK_IMPORTED_MODULE_9__.fetchConversations)({});
+      this.rooms = response.data.ocs.data.sort(this.sortConversations).filter((conversation) => this.allowFederation || !conversation.remoteServer);
       this.loading = false;
     },
     sortConversations(conversation1, conversation2) {
@@ -3660,14 +3665,15 @@ if (GlobalVue) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcListItem_P2z7dcyT_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcListItem_CA4CzIW8_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcListItem_P2z7dcyT_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcListItem-P2z7dcyT.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcListItem-P2z7dcyT.mjs");
+/* harmony import */ var _chunks_NcListItem_CA4CzIW8_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcListItem-CA4CzIW8.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcListItem-CA4CzIW8.mjs");
 
 
+//# sourceMappingURL=NcListItem.mjs.map
 
 
 /***/ })
 
 }]);
-//# sourceMappingURL=talk-defaultVendors-src_components_RoomSelector_vue.js.map?v=6c6179933fa641c762e9
+//# sourceMappingURL=talk-defaultVendors-src_components_RoomSelector_vue.js.map?v=daa2d93030dfd0f6041f

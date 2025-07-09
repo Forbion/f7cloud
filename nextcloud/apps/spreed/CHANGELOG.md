@@ -5,6 +5,119 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 20.1.8 – 2025-07-03
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(chat): Remove items from the shared items list when a message is deleted
+  [#15222](https://github.com/nextcloud/spreed/issues/15222)
+- fix(chat): Allow deleting shared call recordings
+  [#15241](https://github.com/nextcloud/spreed/issues/15241)
+- fix(federation): Fix sending invites from conversations without an owner
+  [#15353](https://github.com/nextcloud/spreed/issues/15353)
+- fix(settings): Do not break when settings has an incomplete server URL
+  [#15452](https://github.com/nextcloud/spreed/issues/15452)
+
+## 20.1.7 – 2025-05-22
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(call): Fix missing call notification when SIP dial-in is starting a call
+  [#14991](https://github.com/nextcloud/spreed/issues/14991)
+- fix(chat): Improve regex of todo-list handling also uppercase X
+  [#14903](https://github.com/nextcloud/spreed/issues/14903)
+- fix(one-to-one): Add the other participant when sharing a file in one-to-one
+  [#14850](https://github.com/nextcloud/spreed/issues/14850)
+- fix(performance): Fix unnecessary user_status requests from avatar component
+  [#14934](https://github.com/nextcloud/spreed/issues/14934)
+
+## 20.1.6 – 2025-04-10
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix: Improve performance of conversation list
+  [#14810](https://github.com/nextcloud/spreed/issues/14810)
+  [#14830](https://github.com/nextcloud/spreed/issues/14830)
+  [#14834](https://github.com/nextcloud/spreed/issues/14834)
+- fix: Improve performance when rendering system messages
+  [#14816](https://github.com/nextcloud/spreed/issues/14816)
+- fix(guests): Allow guests to reload the page without re-entering the password
+  [#14785](https://github.com/nextcloud/spreed/issues/14785)
+- fix(federation): Fix calls when federated server receive messages in wrong order
+  [#14769](https://github.com/nextcloud/spreed/pull/14769)
+- fix(calls): Fix call after resuming connection
+  [#14736](https://github.com/nextcloud/spreed/pull/14736)
+- fix(calls): Fix wrongly showing "Missed call" in one-to-one conversations
+  [#14832](https://github.com/nextcloud/spreed/pull/14832)
+- fix(workflows): Adjust workflow registration to new mechanism
+  [#14823](https://github.com/nextcloud/spreed/pull/14823)
+- fix(polls): Hide intermediate results from anonymous polls
+  [#14723](https://github.com/nextcloud/spreed/issues/14723)
+
+## 19.0.15 – 2025-04-04
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(calls): Do not reset previous connected users after resuming in a call
+  [#14735](https://github.com/nextcloud/spreed/issues/14735)
+- fix(sidebar): Show tooltips when Talk is in the sidebar
+  [#14697](https://github.com/nextcloud/spreed/issues/14697)
+- fix(guests): Fix style and labels on public share page as a guest
+  [#14720](https://github.com/nextcloud/spreed/issues/14720)
+  [#14726](https://github.com/nextcloud/spreed/issues/14726)
+- fix(calls): Skip password verification for guests that are reconnecting to the call
+  [#14787](https://github.com/nextcloud/spreed/pull/14787)
+- fix(calls): Fix leaving call if a signaling message is received while reconnecting
+  [#14788](https://github.com/nextcloud/spreed/pull/14788)
+
+## 20.1.5 – 2025-03-12
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(calls): Improve call related system messages in one-to-one conversations
+  [#14468](https://github.com/nextcloud/spreed/issues/14468)
+- fix(search): Include caption messages in search results
+  [#14552](https://github.com/nextcloud/spreed/issues/14552)
+- fix(conversation): Stay in chat when removing a group or team the moderator is a member of
+  [#14396](https://github.com/nextcloud/spreed/issues/14396)
+- fix(chat): Correctly start loading the chat when the lobby is removed
+  [#14518](https://github.com/nextcloud/spreed/issues/14518)
+- fix(dashboard): Hide lobbied conversations from the dashboard
+  [#14611](https://github.com/nextcloud/spreed/issues/14611)
+- fix(calls): Further improve false positives when showing the connection warning
+  [#14449](https://github.com/nextcloud/spreed/issues/14449)
+- fix(calls): Fix guest displayname when exporting call participants
+  [#14631](https://github.com/nextcloud/spreed/issues/14631)
+- fix(reminder): Log when generating a reminder failed
+  [#14617](https://github.com/nextcloud/spreed/issues/14617)
+
+## 19.0.14 – 2025-03-12
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(search): Include caption messages in search results
+  [#14551](https://github.com/nextcloud/spreed/issues/14551)
+- fix(conversation): Stay in chat when removing a group or team the moderator is a member of
+  [#14395](https://github.com/nextcloud/spreed/issues/14395)
+- fix(dashboard): Hide lobbied conversations from the dashboard
+  [#14610](https://github.com/nextcloud/spreed/issues/14610)
+- fix(calls): Further improve false positives when showing the connection warning
+  [#14448](https://github.com/nextcloud/spreed/issues/14448)
+- fix(reminder): Log when generating a reminder failed
+  [#14616](https://github.com/nextcloud/spreed/issues/14616)
+
 ## 20.1.4 – 2025-02-13
 ### Changed
 - Update translations

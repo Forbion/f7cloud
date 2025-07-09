@@ -330,25 +330,6 @@
 
 /***/ }),
 
-/***/ "./node_modules/blurhash/dist/esm/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/blurhash/dist/esm/index.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ValidationError: () => (/* binding */ d),
-/* harmony export */   decode: () => (/* binding */ j),
-/* harmony export */   encode: () => (/* binding */ S),
-/* harmony export */   isBlurhashValid: () => (/* binding */ N)
-/* harmony export */ });
-var q=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","#","$","%","*","+",",","-",".",":",";","=","?","@","[","]","^","_","{","|","}","~"],x=t=>{let e=0;for(let r=0;r<t.length;r++){let n=t[r],l=q.indexOf(n);e=e*83+l}return e},p=(t,e)=>{var r="";for(let n=1;n<=e;n++){let l=Math.floor(t)/Math.pow(83,e-n)%83;r+=q[Math.floor(l)]}return r};var f=t=>{let e=t/255;return e<=.04045?e/12.92:Math.pow((e+.055)/1.055,2.4)},h=t=>{let e=Math.max(0,Math.min(1,t));return e<=.0031308?Math.trunc(e*12.92*255+.5):Math.trunc((1.055*Math.pow(e,.4166666666666667)-.055)*255+.5)},F=t=>t<0?-1:1,M=(t,e)=>F(t)*Math.pow(Math.abs(t),e);var d=class extends Error{constructor(e){super(e),this.name="ValidationError",this.message=e}};var C=t=>{if(!t||t.length<6)throw new d("The blurhash string must be at least 6 characters");let e=x(t[0]),r=Math.floor(e/9)+1,n=e%9+1;if(t.length!==4+2*n*r)throw new d(`blurhash length mismatch: length is ${t.length} but it should be ${4+2*n*r}`)},N=t=>{try{C(t)}catch(e){return{result:!1,errorReason:e.message}}return{result:!0}},z=t=>{let e=t>>16,r=t>>8&255,n=t&255;return[f(e),f(r),f(n)]},L=(t,e)=>{let r=Math.floor(t/361),n=Math.floor(t/19)%19,l=t%19;return[M((r-9)/9,2)*e,M((n-9)/9,2)*e,M((l-9)/9,2)*e]},U=(t,e,r,n)=>{C(t),n=n|1;let l=x(t[0]),m=Math.floor(l/9)+1,b=l%9+1,i=(x(t[1])+1)/166,u=new Array(b*m);for(let o=0;o<u.length;o++)if(o===0){let a=x(t.substring(2,6));u[o]=z(a)}else{let a=x(t.substring(4+o*2,6+o*2));u[o]=L(a,i*n)}let c=e*4,s=new Uint8ClampedArray(c*r);for(let o=0;o<r;o++)for(let a=0;a<e;a++){let y=0,B=0,R=0;for(let w=0;w<m;w++)for(let P=0;P<b;P++){let G=Math.cos(Math.PI*a*P/e)*Math.cos(Math.PI*o*w/r),T=u[P+w*b];y+=T[0]*G,B+=T[1]*G,R+=T[2]*G}let V=h(y),I=h(B),E=h(R);s[4*a+0+o*c]=V,s[4*a+1+o*c]=I,s[4*a+2+o*c]=E,s[4*a+3+o*c]=255}return s},j=U;var A=4,D=(t,e,r,n)=>{let l=0,m=0,b=0,g=e*A;for(let u=0;u<e;u++){let c=A*u;for(let s=0;s<r;s++){let o=c+s*g,a=n(u,s);l+=a*f(t[o]),m+=a*f(t[o+1]),b+=a*f(t[o+2])}}let i=1/(e*r);return[l*i,m*i,b*i]},$=t=>{let e=h(t[0]),r=h(t[1]),n=h(t[2]);return(e<<16)+(r<<8)+n},H=(t,e)=>{let r=Math.floor(Math.max(0,Math.min(18,Math.floor(M(t[0]/e,.5)*9+9.5)))),n=Math.floor(Math.max(0,Math.min(18,Math.floor(M(t[1]/e,.5)*9+9.5)))),l=Math.floor(Math.max(0,Math.min(18,Math.floor(M(t[2]/e,.5)*9+9.5))));return r*19*19+n*19+l},O=(t,e,r,n,l)=>{if(n<1||n>9||l<1||l>9)throw new d("BlurHash must have between 1 and 9 components");if(e*r*4!==t.length)throw new d("Width and height must match the pixels array");let m=[];for(let s=0;s<l;s++)for(let o=0;o<n;o++){let a=o==0&&s==0?1:2,y=D(t,e,r,(B,R)=>a*Math.cos(Math.PI*o*B/e)*Math.cos(Math.PI*s*R/r));m.push(y)}let b=m[0],g=m.slice(1),i="",u=n-1+(l-1)*9;i+=p(u,1);let c;if(g.length>0){let s=Math.max(...g.map(a=>Math.max(...a))),o=Math.floor(Math.max(0,Math.min(82,Math.floor(s*166-.5))));c=(o+1)/166,i+=p(o,1)}else c=1,i+=p(0,1);return i+=p($(b),4),g.forEach(s=>{i+=p(H(s,c),2)}),i},S=O;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ "./node_modules/broker-factory/build/es2019/guards/message-port.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/broker-factory/build/es2019/guards/message-port.js ***!
@@ -631,7 +612,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.avatar-wrapper[data-v-0e094405] {
   border-radius: var(--avatar-size);
 }
 .avatar-wrapper--dark .avatar[data-v-0e094405] {
-  background-color: #3B3B3B !important;
+  background-color: #70B62B !important;
 }
 .avatar-wrapper .avatar[data-v-0e094405] {
   position: sticky;
@@ -643,7 +624,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.avatar-wrapper[data-v-0e094405] {
   line-height: var(--avatar-size);
   font-size: calc(var(--avatar-size) / 2);
   border-radius: 50%;
-  background-color: var(--color-text-maxcontrast-default);
+  background-color: #70B62B;
 }
 .avatar-wrapper .avatar.icon[data-v-0e094405] {
   background-size: calc(var(--avatar-size) / 2);
@@ -653,10 +634,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.avatar-wrapper[data-v-0e094405] {
 }
 .avatar-wrapper .avatar.bot[data-v-0e094405] {
   padding-left: 5px;
-  background-color: var(--color-background-darker);
+  background-color: #70B62B !important;
 }
 .avatar-wrapper .avatar.guest[data-v-0e094405] {
   color: #ffffff;
+  background-color: #70B62B !important;
   padding: 0;
   display: block;
   text-align: center;
@@ -2862,7 +2844,6 @@ const PREVIEW_TYPE = {
           return 100;
         case "uploading":
           return this.upload ? this.upload._uploaded / this.upload._size * 100 : 100;
-        // file was removed from the upload queue, so considering done
         case "pendingUpload":
         case "initialised":
         default:
@@ -3295,7 +3276,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getUserId() === null;
     },
     canShareFiles() {
-      return !this.currentUserIsGuest && (!(0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_29__.hasTalkFeature)(this.token, "federation-v1") || !this.conversation.remoteServer);
+      return !this.currentUserIsGuest && !this.conversation.remoteServer;
     },
     canUploadFiles() {
       return (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_29__.getTalkConfig)(this.token, "attachments", "allowed") && this.canShareFiles && this.$store.getters.getAttachmentFolderFreeSpace() !== 0;
@@ -3834,7 +3815,8 @@ __webpack_require__.r(__webpack_exports__);
   data() {
     return {
       collapsed: true,
-      isTextMoreThanOneLine: false
+      isTextMoreThanOneLine: false,
+      resizeObserver: null
     };
   },
   computed: {
@@ -3860,15 +3842,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  watch: {
-    userAbsenceMessage() {
-      this.$nextTick(() => {
-        this.setIsTextMoreThanOneLine();
-      });
-    }
-  },
   mounted() {
     this.setIsTextMoreThanOneLine();
+    this.resizeObserver = new ResizeObserver(this.setIsTextMoreThanOneLine);
+    this.resizeObserver.observe(this.$refs.absenceMessage);
+  },
+  beforeDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   },
   methods: {
     t: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_1__.t,
@@ -3876,6 +3858,9 @@ __webpack_require__.r(__webpack_exports__);
       this.collapsed = !this.collapsed;
     },
     setIsTextMoreThanOneLine() {
+      if (!this.collapsed) {
+        return;
+      }
       this.isTextMoreThanOneLine = this.$refs.absenceMessage?.scrollHeight > this.$refs.absenceMessage?.clientHeight;
     },
     async openConversationWithReplacementUser() {
@@ -4713,7 +4698,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     component() {
-      return this.canCancel ? { tag: "div", link: void 0 } : { tag: "router-link", link: { hash: this.hash, params: { skipLeaveWarning: true } } };
+      return this.canCancel ? { tag: "div", link: void 0 } : { tag: "router-link", link: { hash: this.hash } };
     },
     isOwnMessageQuoted() {
       return this.message.actorId === this.$store.getters.getActorId() && this.message.actorType === this.$store.getters.getActorType();
@@ -5027,7 +5012,7 @@ __webpack_require__.r(__webpack_exports__);
       return "";
     },
     showStartCallButton() {
-      return this.callEnabled && this.conversation.type !== _constants_js__WEBPACK_IMPORTED_MODULE_16__.CONVERSATION.TYPE.NOTE_TO_SELF && this.conversation.readOnly === _constants_js__WEBPACK_IMPORTED_MODULE_16__.CONVERSATION.STATE.READ_WRITE && ((0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_18__.hasTalkFeature)(this.token, "federation-v2") || !(0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_18__.hasTalkFeature)(this.token, "federation-v1") || !this.conversation.remoteServer) && !this.isInCall;
+      return this.callEnabled && this.conversation.type !== _constants_js__WEBPACK_IMPORTED_MODULE_16__.CONVERSATION.TYPE.NOTE_TO_SELF && this.conversation.readOnly === _constants_js__WEBPACK_IMPORTED_MODULE_16__.CONVERSATION.STATE.READ_WRITE && (!this.conversation.remoteServer || (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_18__.hasTalkFeature)(this.token, "federation-v2")) && !this.isInCall;
     },
     showLeaveCallButton() {
       return this.conversation.readOnly === _constants_js__WEBPACK_IMPORTED_MODULE_16__.CONVERSATION.STATE.READ_WRITE && this.isInCall;
@@ -6269,7 +6254,7 @@ var render = function render2() {
         "div",
         { staticClass: "absence-reminder__replacement" },
         [
-          _c("p", [_vm._v(_vm._s(_vm.t("spreed", "Replacement: ")))]),
+          _c("p", [_vm._v(_vm._s(_vm.t("spreed", "Replacement:")))]),
           _vm._v(" "),
           _c("NcUserBubble", {
             key: _vm.isDarkTheme ? "dark" : "light",
@@ -6695,7 +6680,7 @@ var render = function render2() {
             "\n			" + _vm._s(
               _setup.t(
                 "spreed",
-                "Generating summary of unread messages ..."
+                "Generating summary of unread messages \u2026"
               )
             ) + "\n		"
           )
@@ -7684,7 +7669,7 @@ var render = function render2() {
               key: "icon",
               fn: function() {
                 return [
-                  _vm.isJoiningCall || _vm.loading ? _c("NcLoadingIcon", { attrs: { size: 20 } }) : _vm.isPhoneRoom ? _c("IconPhoneDial", { attrs: { size: 20 } }) : _vm.silentCall ? _c("IconPhoneOutline", { attrs: { size: 20 } }) : _vm._e()
+                  _vm.isJoiningCall || _vm.loading ? _c("NcLoadingIcon", { attrs: { size: 20 } }) : _vm.isPhoneRoom ? _c("IconPhoneDial", { attrs: { size: 20 } }) : _vm.silentCall ? _c("IconPhoneOutline", { attrs: { size: 20 } }) : _c("IconPhone", { attrs: { size: 20 } })
                 ];
               },
               proxy: true
@@ -7694,7 +7679,7 @@ var render = function render2() {
               fn: function() {
                 return [
                   _vm._v(
-                    "\n				" + _vm._s(_vm.startCallLabel) + "\n			"
+                    "\n			" + _vm._s(_vm.startCallLabel) + "\n		"
                   )
                 ];
               },
@@ -7732,7 +7717,7 @@ var render = function render2() {
               fn: function() {
                 return [
                   _vm._v(
-                    "\n				" + _vm._s(_vm.endCallLabel) + "\n			"
+                    "\n			" + _vm._s(_vm.endCallLabel) + "\n		"
                   )
                 ];
               },
@@ -7770,7 +7755,7 @@ var render = function render2() {
               fn: function() {
                 return [
                   _vm._v(
-                    "\n				" + _vm._s(_vm.leaveCallLabel) + "\n			"
+                    "\n			" + _vm._s(_vm.leaveCallLabel) + "\n		"
                   )
                 ];
               },
@@ -7827,7 +7812,7 @@ var render = function render2() {
             },
             [
               _vm._v(
-                "\n				" + _vm._s(_vm.backToMainRoomLabel) + "\n			"
+                "\n			" + _vm._s(_vm.backToMainRoomLabel) + "\n		"
               )
             ]
           ) : _vm._e(),
@@ -7850,7 +7835,7 @@ var render = function render2() {
                 }
               ])
             },
-            [_vm._v("\n				" + _vm._s(_vm.leaveCallLabel) + "\n			")]
+            [_vm._v("\n			" + _vm._s(_vm.leaveCallLabel) + "\n		")]
           ),
           _vm._v(" "),
           _vm.canEndForAll ? _c(
@@ -7880,7 +7865,7 @@ var render = function render2() {
             },
             [
               _vm._v(
-                "\n				" + _vm._s(_vm.t("spreed", "End call for everyone")) + "\n			"
+                "\n			" + _vm._s(_vm.t("spreed", "End call for everyone")) + "\n		"
               )
             ]
           ) : _vm._e()
@@ -8028,7 +8013,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
 /* harmony import */ var _nextcloud_moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nextcloud/moment */ "./node_modules/@nextcloud/moment/dist/index.mjs");
-/* harmony import */ var _useConversationInfo_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useConversationInfo.js */ "./src/composables/useConversationInfo.js");
+/* harmony import */ var _useConversationInfo_ts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useConversationInfo.ts */ "./src/composables/useConversationInfo.ts");
 /* harmony import */ var _useStore_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useStore.js */ "./src/composables/useStore.js");
 /* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants.js */ "./src/constants.js");
 /* harmony import */ var _services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/CapabilitiesManager.ts */ "./src/services/CapabilitiesManager.ts");
@@ -8069,7 +8054,7 @@ function useMessageInfo(message = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)({})) 
     isOneToOneConversation,
     isConversationReadOnly,
     isConversationModifiable
-  } = (0,_useConversationInfo_js__WEBPACK_IMPORTED_MODULE_2__.useConversationInfo)({ item: conversation });
+  } = (0,_useConversationInfo_ts__WEBPACK_IMPORTED_MODULE_2__.useConversationInfo)({ item: conversation });
   const isObjectShare = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => Object.keys(Object(message.value.messageParameters)).some((key) => key.startsWith("object")));
   const isCurrentUserOwnMessage = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(
     () => message.value.actorId === currentActorId && message.value.actorType === currentActorType
@@ -8088,7 +8073,7 @@ function useMessageInfo(message = (0,vue__WEBPACK_IMPORTED_MODULE_8__.ref)({})) 
   });
   const isFileShare = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => Object.keys(Object(message.value.messageParameters)).some((key) => key.startsWith("file")));
   const isFileShareWithoutCaption = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => message.value.message === "{file}" && isFileShare.value);
-  const isDeleteable = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => ((0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_5__.hasTalkFeature)(message.value.token, "delete-messages-unlimited") || (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_1__["default"])(message.value.timestamp * 1e3).add(6, "h") > (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_1__["default"])()) && (message.value.messageType === "comment" || message.value.messageType === "voice-message") && (isCurrentUserOwnMessage.value || !isOneToOneConversation.value && store.getters.isModerator) && isConversationModifiable.value);
+  const isDeleteable = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => ((0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_5__.hasTalkFeature)(message.value.token, "delete-messages-unlimited") || (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_1__["default"])(message.value.timestamp * 1e3).add(6, "h") > (0,_nextcloud_moment__WEBPACK_IMPORTED_MODULE_1__["default"])()) && ["comment", "voice-message", "record-audio", "record-video"].includes(message.value.messageType) && (isCurrentUserOwnMessage.value || !isOneToOneConversation.value && store.getters.isModerator) && isConversationModifiable.value);
   const remoteServer = (0,vue__WEBPACK_IMPORTED_MODULE_8__.computed)(() => {
     return message.value.actorType === _constants_js__WEBPACK_IMPORTED_MODULE_4__.ATTENDEE.ACTOR_TYPE.FEDERATED_USERS ? "(" + message.value.actorId.split("@").pop() + ")" : "";
   });
@@ -9542,7 +9527,7 @@ const createIsSupportedPromise = (window) => {
                 const mimeType = 'audio/webm';
                 try {
                     const mediaRecorder = new window.MediaRecorder(mediaStream, { mimeType });
-                    mediaRecorder.addEventListener('dataavailable', ({ data }) => resolve(data.type === mimeType));
+                    mediaRecorder.addEventListener('dataavailable', ({ data }) => resolve(data.type.startsWith(mimeType)));
                     mediaRecorder.start();
                     setTimeout(() => mediaRecorder.stop(), 10);
                 }
@@ -9562,7 +9547,8 @@ const createIsSupportedPromise = (window) => {
              * Bug #7 & #8: Up until v113 Chrome dispatched the dataavailable and stop events before it dispatched the error event.
              */
             new Promise((resolve) => {
-                const mediaRecorder = new window.MediaRecorder(mediaStream);
+                const clonedMediaStream = mediaStream.clone();
+                const mediaRecorder = new window.MediaRecorder(clonedMediaStream);
                 let hasDispatchedDataAvailableEvent = false;
                 let hasDispatchedStopEvent = false;
                 mediaRecorder.addEventListener('dataavailable', () => (hasDispatchedDataAvailableEvent = true));
@@ -9578,7 +9564,7 @@ const createIsSupportedPromise = (window) => {
                 mediaRecorder.addEventListener('stop', () => (hasDispatchedStopEvent = true));
                 mediaRecorder.start();
                 context.fillRect(0, 0, 1, 1);
-                mediaStream.removeTrack(mediaStream.getVideoTracks()[0]);
+                clonedMediaStream.removeTrack(clonedMediaStream.getVideoTracks()[0]);
             })
         ]).then((results) => results.every((result) => result));
     }
@@ -9617,7 +9603,7 @@ const createMediaRecorderConstructor = (createNativeMediaRecorder, createNotSupp
                 // Bug #10: Safari does not yet implement the isTypeSupported() method.
                 if (nativeMediaRecorderConstructor !== null &&
                     nativeMediaRecorderConstructor.isTypeSupported !== undefined &&
-                    nativeMediaRecorderConstructor.isTypeSupported('audio/webm;codecs=pcm')) {
+                    nativeMediaRecorderConstructor.isTypeSupported('audio/webm; codecs=pcm')) {
                     this._internalMediaRecorder = createWebmPcmMediaRecorder(this, nativeMediaRecorderConstructor, stream, mimeType);
                 }
                 else {
@@ -10104,7 +10090,7 @@ const createPromisedAudioNodesEncoderInstanceIdAndPort = async (audioBuffer, aud
     if (standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioWorkletNode === undefined) {
         throw new Error(ERROR_MESSAGE);
     }
-    const audioBufferSourceNode = new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioBufferSourceNode(audioContext, { buffer: audioBuffer });
+    const audioBufferSourceNode = audioBuffer === null ? null : new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioBufferSourceNode(audioContext, { buffer: audioBuffer });
     const mediaStreamAudioSourceNode = new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.MediaStreamAudioSourceNode(audioContext, { mediaStream });
     const recorderAudioWorkletNode = (0,recorder_audio_worklet__WEBPACK_IMPORTED_MODULE_1__.createRecorderAudioWorkletNode)(standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioWorkletNode, audioContext, { channelCount });
     return { audioBufferSourceNode, encoderInstanceId, mediaStreamAudioSourceNode, port, recorderAudioWorkletNode };
@@ -10114,8 +10100,15 @@ const createWebAudioMediaRecorderFactory = (createBlobEvent, createInvalidModifi
         var _a;
         const sampleRate = (_a = mediaStream.getAudioTracks()[0]) === null || _a === void 0 ? void 0 : _a.getSettings().sampleRate;
         const audioContext = new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.MinimalAudioContext({ latencyHint: 'playback', sampleRate });
-        const length = Math.max(1024, Math.ceil(audioContext.baseLatency * audioContext.sampleRate));
-        const audioBuffer = new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioBuffer({ length, sampleRate: audioContext.sampleRate });
+        /*
+         * Bug #22: Safari adds a certain number of leading zeros which need to be skipped.
+         *
+         * Bug #21: Firefox is the only browser not supporting audio/mp4. This is totally unrelated and just used to apply the fix only for
+         * Safari.
+         */
+        const audioBuffer = MediaRecorder.isTypeSupported('audio/mp4')
+            ? new standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.AudioBuffer({ length: 2688, sampleRate: audioContext.sampleRate })
+            : null;
         const bufferedArrayBuffers = [];
         const promisedAudioWorkletModule = (0,recorder_audio_worklet__WEBPACK_IMPORTED_MODULE_1__.addRecorderAudioWorkletModule)((url) => {
             if (standardized_audio_context__WEBPACK_IMPORTED_MODULE_2__.addAudioWorkletModule === undefined) {
@@ -10215,18 +10208,20 @@ const createWebAudioMediaRecorderFactory = (createBlobEvent, createInvalidModifi
                 }
                 eventTarget.dispatchEvent(new Event('start'));
                 const audioTracks = mediaStream.getAudioTracks();
-                const channelCount = audioTracks.length === 0 ? 2 : (_a = audioTracks[0].getSettings().channelCount) !== null && _a !== void 0 ? _a : 2;
+                const channelCount = audioTracks.length === 0 ? 2 : ((_a = audioTracks[0].getSettings().channelCount) !== null && _a !== void 0 ? _a : 2);
                 promisedAudioNodesAndEncoderInstanceId = Promise.all([
                     resume(),
                     promisedAudioWorkletModule.then(() => createPromisedAudioNodesEncoderInstanceIdAndPort(audioBuffer, audioContext, channelCount, mediaStream, mimeType))
                 ]).then(async ([, { audioBufferSourceNode, encoderInstanceId, mediaStreamAudioSourceNode, port, recorderAudioWorkletNode }]) => {
                     mediaStreamAudioSourceNode.connect(recorderAudioWorkletNode);
-                    await new Promise((resolve) => {
-                        audioBufferSourceNode.onended = resolve;
-                        audioBufferSourceNode.connect(recorderAudioWorkletNode);
-                        audioBufferSourceNode.start(audioContext.currentTime + length / audioContext.sampleRate);
-                    });
-                    audioBufferSourceNode.disconnect(recorderAudioWorkletNode);
+                    if (audioBufferSourceNode !== null) {
+                        await new Promise((resolve) => {
+                            audioBufferSourceNode.onended = resolve;
+                            audioBufferSourceNode.connect(recorderAudioWorkletNode);
+                            audioBufferSourceNode.start();
+                        });
+                        audioBufferSourceNode.disconnect(recorderAudioWorkletNode);
+                    }
                     await recorderAudioWorkletNode.record(port);
                     if (timeslice !== undefined) {
                         promisedPartialRecording = requestNextPartialRecording(encoderInstanceId, timeslice);
@@ -10277,7 +10272,7 @@ __webpack_require__.r(__webpack_exports__);
 const createWebmPcmMediaRecorderFactory = (createBlobEvent, decodeWebMChunk, readVariableSizeInteger) => {
     return (eventTarget, nativeMediaRecorderConstructor, mediaStream, mimeType) => {
         const bufferedArrayBuffers = [];
-        const nativeMediaRecorder = new nativeMediaRecorderConstructor(mediaStream, { mimeType: 'audio/webm;codecs=pcm' });
+        const nativeMediaRecorder = new nativeMediaRecorderConstructor(mediaStream, { mimeType: 'audio/webm; codecs=pcm' });
         let promisedPartialRecording = null;
         let stopRecording = () => { }; // tslint:disable-line:no-empty
         const dispatchDataAvailableEvent = (arrayBuffers) => {
@@ -11652,7 +11647,7 @@ const worker = `(()=>{var e={455:function(e,t){!function(e){"use strict";var t=f
 })(this, (function (exports, _slicedToArray, _classCallCheck, _createClass) { 'use strict';
 
     function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
-    function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : undefined; } }
+    function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
     function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
     var MultiBufferDataView = /*#__PURE__*/function () {
       function MultiBufferDataView(buffers) {
@@ -43766,7 +43761,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
 
-const FilePickerVue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineAsyncComponent)(() => Promise.all(/*! import() */[__webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_Components_NcEmptyContent_mjs-node_modules_nex-9efb73"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcCheckboxRadioSwitch-Dm_27r-z_mjs"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_Composables_useHotKey_mjs-node_modules_nextclo-d040bb"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcListItem-P2z7dcyT_mjs"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcActionInput-D1yrXgXY_mjs"), __webpack_require__.e("defaultVendors-node_modules_mdi_js_mdi_js-node_modules_nextcloud_vue_dist_index_mjs"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_capabilities_dist_index_mjs-node_modules_nextcloud_logg-f382d1"), __webpack_require__.e("defaultVendors-node_modules_css-loader_dist_runtime_getUrl_js-node_modules_debounce_index_js--9dd009")]).then(__webpack_require__.bind(__webpack_require__, /*! ./FilePicker-CvXU3iSt.mjs */ "./node_modules/@nextcloud/dialogs/dist/chunks/FilePicker-CvXU3iSt.mjs")));
+const FilePickerVue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineAsyncComponent)(() => Promise.all(/*! import() */[__webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_Components_NcEmptyContent_mjs-node_modules_nex-2da694"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcCheckboxRadioSwitch-BaMf0PDd_mjs"), __webpack_require__.e("defaultVendors-node_modules_blurhash_dist_esm_index_js-node_modules_nextcloud_vue_dist_Compos-095f1b"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcListItem-CA4CzIW8_mjs"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_vue_dist_chunks_NcActionInput-DXiL7Phe_mjs"), __webpack_require__.e("defaultVendors-node_modules_mdi_js_mdi_js-node_modules_nextcloud_vue_dist_index_mjs"), __webpack_require__.e("defaultVendors-node_modules_nextcloud_capabilities_dist_index_mjs-node_modules_nextcloud_logg-96dcdb"), __webpack_require__.e("defaultVendors-node_modules_css-loader_dist_runtime_getUrl_js-node_modules_debounce_index_js--9dd009")]).then(__webpack_require__.bind(__webpack_require__, /*! ./FilePicker-CvXU3iSt.mjs */ "./node_modules/@nextcloud/dialogs/dist/chunks/FilePicker-CvXU3iSt.mjs")));
 
 
 
@@ -43799,11 +43794,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcCheckboxRadioSwitch_Dm_27r_z_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcCheckboxRadioSwitch_BaMf0PDd_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcCheckboxRadioSwitch_Dm_27r_z_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcCheckboxRadioSwitch-Dm_27r-z.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcCheckboxRadioSwitch-Dm_27r-z.mjs");
+/* harmony import */ var _chunks_NcCheckboxRadioSwitch_BaMf0PDd_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcCheckboxRadioSwitch-BaMf0PDd.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcCheckboxRadioSwitch-BaMf0PDd.mjs");
 
 
+//# sourceMappingURL=NcCheckboxRadioSwitch.mjs.map
 
 
 /***/ }),
@@ -43817,11 +43813,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcEmojiPicker_CUVGh_eA_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcEmojiPicker_C5HYxVqp_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcEmojiPicker_CUVGh_eA_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcEmojiPicker-CUVGh_eA.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcEmojiPicker-CUVGh_eA.mjs");
+/* harmony import */ var _chunks_NcEmojiPicker_C5HYxVqp_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcEmojiPicker-C5HYxVqp.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcEmojiPicker-C5HYxVqp.mjs");
 
 
+//# sourceMappingURL=NcEmojiPicker.mjs.map
 
 
 /***/ }),
@@ -43835,11 +43832,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcPopover_DzYbNu_I_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcPopover_C9KlPo4Z_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcPopover_DzYbNu_I_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcPopover-DzYbNu-I.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcPopover-DzYbNu-I.mjs");
+/* harmony import */ var _chunks_NcPopover_C9KlPo4Z_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcPopover-C9KlPo4Z.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcPopover-C9KlPo4Z.mjs");
 
 
+//# sourceMappingURL=NcPopover.mjs.map
 
 
 /***/ }),
@@ -43853,15 +43851,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   NcAutoCompleteResult: () => (/* reexport safe */ _chunks_NcRichContenteditable_DS0VWcxG_mjs__WEBPACK_IMPORTED_MODULE_1__.N),
-/* harmony export */   NcMentionBubble: () => (/* reexport safe */ _chunks_index_bjwozrEX_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcRichContenteditable_DS0VWcxG_mjs__WEBPACK_IMPORTED_MODULE_1__.a)
+/* harmony export */   NcAutoCompleteResult: () => (/* reexport safe */ _chunks_NcRichContenteditable_Ct8cG0U6_mjs__WEBPACK_IMPORTED_MODULE_1__.N),
+/* harmony export */   NcMentionBubble: () => (/* reexport safe */ _chunks_index_G8WQDZ8G_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcRichContenteditable_Ct8cG0U6_mjs__WEBPACK_IMPORTED_MODULE_1__.a)
 /* harmony export */ });
-/* harmony import */ var _chunks_index_bjwozrEX_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/index-bjwozrEX.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/index-bjwozrEX.mjs");
-/* harmony import */ var _chunks_NcRichContenteditable_DS0VWcxG_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chunks/NcRichContenteditable-DS0VWcxG.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcRichContenteditable-DS0VWcxG.mjs");
+/* harmony import */ var _chunks_index_G8WQDZ8G_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/index-G8WQDZ8G.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/index-G8WQDZ8G.mjs");
+/* harmony import */ var _chunks_NcRichContenteditable_Ct8cG0U6_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chunks/NcRichContenteditable-Ct8cG0U6.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcRichContenteditable-Ct8cG0U6.mjs");
 
 
 
+//# sourceMappingURL=NcRichContenteditable.mjs.map
 
 
 /***/ }),
@@ -43875,35 +43874,36 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   NcCustomPickerRenderResult: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.N),
-/* harmony export */   NcReferenceList: () => (/* reexport safe */ _chunks_NcRichText_DA8kGDfO_mjs__WEBPACK_IMPORTED_MODULE_0__.a),
-/* harmony export */   NcReferencePicker: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.e),
-/* harmony export */   NcReferencePickerModal: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.f),
-/* harmony export */   NcReferenceWidget: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.N),
-/* harmony export */   NcRichText: () => (/* reexport safe */ _chunks_NcRichText_DA8kGDfO_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
-/* harmony export */   NcSearch: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.h),
-/* harmony export */   anyLinkProviderId: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.a),
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcRichText_DA8kGDfO_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
-/* harmony export */   getLinkWithPicker: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.g),
-/* harmony export */   getProvider: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.b),
-/* harmony export */   getProviders: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.c),
-/* harmony export */   isCustomPickerElementRegistered: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.d),
-/* harmony export */   isWidgetRegistered: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.i),
-/* harmony export */   registerCustomPickerElement: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.b),
-/* harmony export */   registerWidget: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.r),
-/* harmony export */   renderCustomPickerElement: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.c),
-/* harmony export */   renderWidget: () => (/* reexport safe */ _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__.a),
-/* harmony export */   searchProvider: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.d),
-/* harmony export */   sortProviders: () => (/* reexport safe */ _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__.s)
+/* harmony export */   NcCustomPickerRenderResult: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.N),
+/* harmony export */   NcReferenceList: () => (/* reexport safe */ _chunks_NcRichText_h1RHm2bK_mjs__WEBPACK_IMPORTED_MODULE_0__.a),
+/* harmony export */   NcReferencePicker: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.e),
+/* harmony export */   NcReferencePickerModal: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.f),
+/* harmony export */   NcReferenceWidget: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.N),
+/* harmony export */   NcRichText: () => (/* reexport safe */ _chunks_NcRichText_h1RHm2bK_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
+/* harmony export */   NcSearch: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.h),
+/* harmony export */   anyLinkProviderId: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.a),
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcRichText_h1RHm2bK_mjs__WEBPACK_IMPORTED_MODULE_0__.N),
+/* harmony export */   getLinkWithPicker: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.g),
+/* harmony export */   getProvider: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.b),
+/* harmony export */   getProviders: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.c),
+/* harmony export */   isCustomPickerElementRegistered: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.d),
+/* harmony export */   isWidgetRegistered: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.i),
+/* harmony export */   registerCustomPickerElement: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.b),
+/* harmony export */   registerWidget: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.r),
+/* harmony export */   renderCustomPickerElement: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.c),
+/* harmony export */   renderWidget: () => (/* reexport safe */ _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__.a),
+/* harmony export */   searchProvider: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.d),
+/* harmony export */   sortProviders: () => (/* reexport safe */ _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__.s)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcRichText_DA8kGDfO_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcRichText-DA8kGDfO.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcRichText-DA8kGDfO.mjs");
-/* harmony import */ var _chunks_index_CtoB4eIp_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chunks/index-CtoB4eIp.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/index-CtoB4eIp.mjs");
-/* harmony import */ var _chunks_referencePickerModal_CwmjjIO7_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../chunks/referencePickerModal-CwmjjIO7.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/referencePickerModal-CwmjjIO7.mjs");
+/* harmony import */ var _chunks_NcRichText_h1RHm2bK_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcRichText-h1RHm2bK.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcRichText-h1RHm2bK.mjs");
+/* harmony import */ var _chunks_index_56SXuvlv_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chunks/index-56SXuvlv.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/index-56SXuvlv.mjs");
+/* harmony import */ var _chunks_referencePickerModal_DTLuXI_A_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../chunks/referencePickerModal-DTLuXI-A.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/referencePickerModal-DTLuXI-A.mjs");
 
 
 
 
 
+//# sourceMappingURL=NcRichText.mjs.map
 
 
 /***/ }),
@@ -43917,11 +43917,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcUserBubble_DCy2g6yy_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcUserBubble_X7NIiLjg_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcUserBubble_DCy2g6yy_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcUserBubble-DCy2g6yy.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcUserBubble-DCy2g6yy.mjs");
+/* harmony import */ var _chunks_NcUserBubble_X7NIiLjg_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcUserBubble-X7NIiLjg.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcUserBubble-X7NIiLjg.mjs");
 
 
+//# sourceMappingURL=NcUserBubble.mjs.map
 
 
 /***/ }),
@@ -43935,14 +43936,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_usernameToColor_DNmwg81_mjs__WEBPACK_IMPORTED_MODULE_0__.u)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_usernameToColor_DLOoqQAF_mjs__WEBPACK_IMPORTED_MODULE_0__.u)
 /* harmony export */ });
-/* harmony import */ var _chunks_usernameToColor_DNmwg81_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/usernameToColor-DNmwg81-.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/usernameToColor-DNmwg81-.mjs");
+/* harmony import */ var _chunks_usernameToColor_DLOoqQAF_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/usernameToColor-DLOoqQAF.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/usernameToColor-DLOoqQAF.mjs");
 
 
+//# sourceMappingURL=usernameToColor.mjs.map
 
 
 /***/ })
 
 }]);
-//# sourceMappingURL=talk-defaultVendors-src_composables_useDocumentVisibility_ts-src_composables_useId_ts-src_utils_ha-5d875b.js.map?v=17d1f83288b32846f4d2
+//# sourceMappingURL=talk-defaultVendors-src_composables_useDocumentVisibility_ts-src_composables_useId_ts-src_utils_ha-5d875b.js.map?v=44a7f19ee115bcfb2d26

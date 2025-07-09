@@ -271,7 +271,7 @@
 					<NcAppNavigationCaption :name="sourcesWithoutResultsList" />
 					<Hint :hint="t('spreed', 'No search results')" />
 				</template>
-				<Hint v-else-if="contactsLoading" :hint="t('spreed', 'Loading')" />
+				<Hint v-else-if="contactsLoading" :hint="t('spreed', 'Loading …')" />
 			</ul>
 		</template>
 
@@ -374,6 +374,7 @@ import { useTalkHashStore } from '../../stores/talkHash.js'
 import CancelableRequest from '../../utils/cancelableRequest.js'
 import { hasUnreadMentions, hasCall, filterConversation, shouldIncludeArchived } from '../../utils/conversation.js'
 import { requestTabLeadership } from '../../utils/requestTabLeadership.js'
+import { getPreloadedUserStatus } from '../../utils/userStatus.ts'
 
 const isFederationEnabled = getTalkConfig('local', 'federation', 'enabled')
 const canModerateSipDialOut = hasTalkFeature('local', 'sip-support-dialout')
@@ -1025,6 +1026,7 @@ export default {
 					source: item.source,
 					disableMenu: true,
 					token: 'new',
+					preloadedUserStatus: getPreloadedUserStatus(item),
 					showUserStatus: true,
 				}
 			}
@@ -1043,7 +1045,6 @@ export default {
 	padding-inline: var(--default-grid-baseline);
 	overflow-y: auto;
 	line-height: 20px;
-  padding-top: 4px;
 }
 
 .new-conversation {

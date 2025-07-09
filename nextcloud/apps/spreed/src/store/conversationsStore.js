@@ -63,6 +63,7 @@ import { useBreakoutRoomsStore } from '../stores/breakoutRooms.ts'
 import { useChatExtrasStore } from '../stores/chatExtras.js'
 import { useFederationStore } from '../stores/federation.ts'
 import { useReactionsStore } from '../stores/reactions.js'
+import { useSharedItemsStore } from '../stores/sharedItems.js'
 import { useTalkHashStore } from '../stores/talkHash.js'
 
 const DUMMY_CONVERSATION = {
@@ -303,6 +304,7 @@ const actions = {
 				actorId: conversation.actorId, // FIXME check public share page handling
 				userId: currentUser ? currentUser.uid : '',
 				displayName: currentUser && currentUser.displayName ? currentUser.displayName : '', // TODO guest name from localstore?
+				status: '',
 			},
 		})
 	},
@@ -361,6 +363,8 @@ const actions = {
 		chatExtrasStore.purgeChatExtras(token)
 		const reactionsStore = useReactionsStore()
 		reactionsStore.purgeReactionsStore(token)
+		const sharedItemsStore = useSharedItemsStore()
+		sharedItemsStore.purgeSharedItemsStore(token)
 		context.dispatch('purgeMessagesStore', token)
 		context.commit('deleteConversation', token)
 		context.dispatch('purgeParticipantsStore', token)
@@ -486,6 +490,8 @@ const actions = {
 			chatExtrasStore.removeParentIdToReply(token)
 			const reactionsStore = useReactionsStore()
 			reactionsStore.purgeReactionsStore(token)
+			const sharedItemsStore = useSharedItemsStore()
+			sharedItemsStore.purgeSharedItemsStore(token)
 			context.dispatch('purgeMessagesStore', token)
 			return response
 		} catch (error) {

@@ -18,7 +18,7 @@
 * 🌉 **Sync with other chat solutions** With [Matterbridge](https://github.com/42wim/matterbridge/) being integrated in Talk, you can easily sync a lot of other chat solutions to Nextcloud Talk and vice-versa.
 ]]></description>
 
-	<version>20.1.4</version>
+	<version>20.1.8</version>
 	<licence>agpl</licence>
 
 	<author>Anna Larch</author>
@@ -60,9 +60,9 @@
 	</dependencies>
 
 	<background-jobs>
+		<job>OCA\Talk\BackgroundJob\CheckCertificates</job>
 		<job>OCA\Talk\BackgroundJob\CheckHostedSignalingServer</job>
 		<job>OCA\Talk\BackgroundJob\CheckMatterbridges</job>
-		<job>OCA\Talk\BackgroundJob\CheckTurnCertificate</job>
 		<job>OCA\Talk\BackgroundJob\ExpireChatMessages</job>
 		<job>OCA\Talk\BackgroundJob\ExpireSignalingMessage</job>
 		<job>OCA\Talk\BackgroundJob\MaximumCallDuration</job>

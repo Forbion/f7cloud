@@ -94,9 +94,13 @@
     "You removed the description" : "قمت بحذف الوصف ",
     "An administrator removed the description" : "قام المسؤول بحذف الوصف",
     "You started a silent call" : "لقد بَدَأتَ مكالمة صامتة",
+    "Outgoing silent call" : "مكالمة صامتة صادرة",
     "{actor} started a silent call" : "{actor} بدأ مكالمة صامتة",
+    "Incoming silent call" : "مكالمة صامتة واردة",
     "You started a call" : "أنت بدأت مكالمة",
+    "Outgoing call" : "مكالمة صادرة",
     "{actor} started a call" : "{actor} بدأ مكالمة",
+    "Incoming call" : "مكالمة واردة",
     "{actor} joined the call" : "{actor} انضم إلى المكالمة",
     "You joined the call" : "أنت انضممت للمكالمة",
     "{actor} left the call" : "{actor} غادر المكالمة",
@@ -244,11 +248,13 @@
     "Message deleted by you" : "مُسحت الرسالة بواسطتك",
     "Deleted user" : "مستخدم محذوف",
     "Unknown number" : "رقم غير معروف",
+    "Administration" : "الإدارة",
+    "System" : "النظام",
     "%s (guest)" : "%s (ضيف)",
-    "You missed a call from {user}" : "مكالمة لم ترد عليها من {user}",
-    "You tried to call {user}" : "قمت بمحاولة الاتصال {user}",
-    "Call was ended, as it reached the maximum call duration (Duration {duration})" : "تم إنهاء المكالمة، حيث وصلت إلى الحد الأقصى لمدة المكالمة (المدة {duration})",
+    "Missed call" : "مكالمة فائتة",
+    "Unanswered call" : "مكالمة فائتة",
     "Call ended (Duration {duration})" : "انتهت المكالمة (المدة {duration})",
+    "Call was ended, as it reached the maximum call duration (Duration {duration})" : "تم إنهاء المكالمة، حيث وصلت إلى الحد الأقصى لمدة المكالمة (المدة {duration})",
     "{actor} ended the call (Duration {duration})" : "أنهى {actor} المكالمة (المدة {duration})",
     "_Call with %n guest was ended, as it reached the maximum call duration (Duration {duration})_::_Call with %n guests was ended, as it reached the maximum call duration (Duration {duration})_" : ["إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration} )","إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration})","إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration})","إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration})","إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration})","إنتهت للتوّ مكالمة فيها %n ضيف بسبب تجاوز الحدّ الأقصى لمدة المكالمة (المدة {duration})"],
     "_Call with %n guest ended (Duration {duration})_::_Call with %n guests ended (Duration {duration})_" : ["المكالمة التي فيها %n ضيف انتهت (المدة {duration})","المكالمة التي فيها %n ضيف انتهت (المدة {duration})","المكالمة التي فيها %n ضيف انتهت (المدة{duration})","المكالمة التي فيها %n ضيوف انتهت (المدة {duration})","المكالمة التي فيها %n ضيف انتهت (المدة {duration})","المكالمة التي فيها %n ضيف انتهت (المدة{duration})"],
@@ -293,15 +299,13 @@
     "Writes event information into a conversation of your choice" : "اكتب معلومات الحدث في محادثة من اختيارك",
     "Missing email field in header line" : "خانة البريد الإلكتروني في سطر الترويسة ناقصة",
     "Following lines are invalid: %s" : "السطر التالي غير صحيح %s",
-    "%s invited you to a conversation." : "%s قام بدعوتك للإنضمام لمحادثة.",
-    "You were invited to a conversation." : "تم دعوتك للإنضمام لمحادثة.",
     "Conversation invitation" : "دعوة محادثة",
-    "Click the button below to join." : "اضغط على الزر للإنضمام.",
-    "Join »%s«" : "انضم »%s«",
+    "Description" : "الوصف",
     "You can also dial-in via phone with the following details" : "يمكنك أيضًا الاتصال عبر الهاتف بالتفاصيل التالية",
     "Dial-in information" : "معلومات الإتصال",
     "Meeting ID" : "معرف الإجتماع ",
     "Your PIN" : "رقمك السري",
+    "Talk conversation for event" : "محادثة الحدث ",
     "Password request: %s" : "طلب كلمة المرور: %s",
     "Private conversation" : "محادثة خاصة",
     "Deleted user (%s)" : "تم حذف العضو (%s)",
@@ -323,6 +327,9 @@
     "Accept" : "قبول",
     "Decline" : "رفض",
     "{user1} invited you to a federated conversation" : "{user1} دعاك للانضمام إلى مُحادثة على سحابة اتحاديّة",
+    "New message" : "رسالة جديدة",
+    "Reminder" : "تذكير",
+    "Notification" : "إشعار",
     "Reminder: You in {call}" : "تذكير: أنت في {call}",
     "Reminder: {user} in {call}" : "تذكير: {user} في {call}",
     "Reminder: Deleted user in {call}" : "تذكير: مستخدِم محذوف في {call}",
@@ -380,12 +387,12 @@
     "View message" : "إعرِض الرسالة",
     "Dismiss reminder" : "تجاهل التذكير",
     "View chat" : "عرض المحادثة",
-    "{user} invited you to a private conversation" : "{user} قام بدعوتك إلى محادثة خاصة",
-    "Join call" : "انضمام لمكالمة",
     "{user} invited you to a group conversation: {call}" : "{user} قام بدعوتك للإنضمام لمحادثة جماعية: {call}",
+    "Join call" : "انضمام لمكالمة",
     "Answer call" : "الرد على المكالمة",
     "{user} would like to talk with you" : "{user} يريد التحدث إليك",
     "Call back" : "معاودة الاتصال",
+    "You missed a call from {user}" : "مكالمة لم ترد عليها من {user}",
     "A group call has started in {call}" : "اتصال جماعي بدأ في {call}",
     "You missed a group call in {call}" : "اتصال جماعي لم ترد عليه في {call}",
     "{email} is requesting the password to access {file}" : "{email} انشأ طلب كلمة المرور للوصول إلى الملف {file}",
@@ -447,12 +454,11 @@
     "A place for your private notes, thoughts and ideas" : "مكان لتسجيل ملاحظاتك و خططك و أفكارك",
     "Transcript is AI generated and may contain mistakes" : "النص تمّ توليده بواسطة الذكاء الاصطناعي؛ لذا يُحتمل أنه يحتوي على أخطاء",
     "Summary is AI generated and may contain mistakes" : "الملخص تمّ توليده بواسطة الذكاء الاصطناعي؛ لذا يُحتمل أنه يحتوي على أخطاء",
-    "Let´s get started!" : "لنبدإ الآن!",
+    "Let's get started!" : "فَلْنَبْدَإ الآن!",
     "**Nextcloud Talk** is a secure, self-hosted communication platform that integrates seamlessly with the Nextcloud ecosystem.\n\n#### Key Features of Nextcloud Talk:\n\n* Chat and messaging in private and group chats\n* Voice and video calls\n* File sharing and integration with other Nextcloud apps\n* Customizable conversation settings, moderation and privacy controls\n* Web, desktop and mobile (iOS and Android)\n* Private & secure communication\n\n Find out more in the [user documentation](https://docs.nextcloud.com/server/latest/user_manual/en/talk/index.html)." : "تطبيق \"المحادثة\" من نكست كلاود **Nextcloud Talk** هو عبارة عن منصة اتصال آمنة ذاتية الاستضافة تتكامل بسلاسة مع بيئة نكست كلاود. \n\n#### الميزات الرئيسية: \n* الدردشة والمراسلة في الدردشات الخاصة والجماعية \n* مكالمات صوتية وفيديو \n* مشاركة الملفات والتكامل مع تطبيقات نكست كلاود الأخرى \n* إعدادات محادثة قابلة للتخصيص، والتحكم في الخصوصية، والتنسيق \n* الويب وسطح المكتب والهاتف النقال (iOS وAndroid) \n* اتصالات خاصة وآمنة \n\nتعرف على المزيد في [وثائق المُستخدِم](https://docs.nextcloud.com/server/latest/user_manual/en/talk/index.html).",
     "# Welcome to Nextcloud Talk\n\nNextcloud Talk is a private and powerful messaging app that integrates with Nextcloud. Chat in private or group conversations, collaborate over voice and video calls, organize webinars and events, customize your conversations and more." : "# مرحبًا بك في تطبيق \"المحادثة\" من نكست كلاود Nextcloud Talk \n\nهذا التطبيق هو تطبيق مراسلة خاص وقوي يتكامل مع بيئة نكست كلاود. \nيمكنك الدردشة في محادثات خاصة أو جماعية والتعاون عبر مكالمات الصوت والفيديو وتنظيم الندوات عبر الإنترنت واللقاءات وتخصيص محادثاتك؛ والمزيد المزيد.",
     "## 🎨 Format texts to create rich messages\n\nIn Nextcloud Talk, you can use Markdown syntax to format your messages. For example, apply **bold** or *italic* formatting, or `highlight texts as code`. You can even create tables and add headings to your text.\n\nNeed to fix a typo or change formatting? Edit your message by clicking \"Edit message\" in the message menu." : "## 🎨 تنسيق النصوص لإنشاء رسائل غنية \n\nفي تطبيق \"المحادثة\" من نكست كلاود Nextcloud Talk يمكنك استخدام صيغة Markdown لتنسيق رسائلك. على سبيل المثال، يمكنك تطبيق التنسيق **الغامق** أو *المائل*، أو \"تمييز النصوص ككود برمجي\". يمكنك أيضاً إنشاء جداول وإضافة عناوين إلى نصِّك. \n\nهل تحتاج إلى تصحيح خطأ مطبعي أو تغيير التنسيق؟ عدّل رسالتك بكل بساطة بالنقر فوق \"تعديل الرسالة\" في قائمة الرسائل.",
     "## 🔗 Add attachments and links\n\nAttach files from your Nextcloud Hub using the \"+\" button. Share items from Files and various Nextcloud apps. Some apps even support interactive widgets, for example, the Text app." : "## 🔗 أضِف المُرفقات والروابط \n\nيمكنك إرفاق الملفات من نكست كلاود هَبْ  Hub باستعمال الزر \"+\". شارك العناصر من الملفات وتطبيقات نكست كلاود المتنوعة. تدعم بعض التطبيقات أيضاً عناصر واجهة المستخدم التفاعلية، على سبيل المثال، تطبيق \"الكتابة\" Text.",
-    "## 💭 Let the conversations flow: mention users, react to messages and more\n\nYou can mention everybody in a the conversation @all or mention specific participants by typing \"@\" and picking their name from the list." : "## 💭 دع المحادثات تتدفق: أشِر إلى المُستخدِمين، وتفاعل مع الرسائل؛ والمزيد. \n\nيمكنك الإشارة إلى جميع المُشارِكين في المحادثة باستعمال الرمز @all أو الإشارة إلى مُشارِكين مُحدَّدِين عن طريق كتابة \"@\" واختيار الاسم من القائمة.",
     "You can reply to messages, forward them to other chats and people, or copy message content." : "يمكنك الرّد على الرسائل أو إعادة توجيهها إلى دردشات أو أشخاص آخرين أو نسخ محتوى الرسالة.",
     "## ✨ Do more with Smart Picker\n\nSimply type \"/\" or go to the \"+\" menu to open the Smart Picker where you can attach various content to your messages. You can configure the Smart Picker to be able to add items from Nextcloud apps, GIFs, map locations, AI generated content and much more." : "## ✨ افعل المزيد باستخدام \"اللاقط الذكي\" Smart Picker \n\nما عليك سوى كتابة \"/\" أو الانتقال إلى قائمة \"+\" لفتح \"اللاقط الذكي\"؛ حيث يمكنك إرفاق محتوىً متنوع مع رسائلك. يمكنك تهيئة اللاقط الذكي لتتمكن من إضافة عناصر من تطبيقات نكست كلاود وصور GIF ومواقع الخرائط والمحتوى الذي تم إنشاؤه بواسطة الذكاء الاصطناعي وغير ذلك كثير.",
     "## ⚙️ Manage conversation settings\n\nIn the conversation menu, you can access various settings to manage your conversations, such as:\n* Edit conversation info\n* Manage notifications\n* Apply numerous moderation rules\n* Configure access and security\n* Enable bots\n* and more!" : "## ⚙️ إدارة إعدادات المحادثة \n\nفي قائمة المحادثة، يمكنك الوصول إلى إعدادات مختلفة لإدارة محادثاتك، مثل: \n* تحرير معلومات المحادثة \n* إدارة الإشعارات \n* تطبيق قواعد تعديل متعددة \n* إعدادات حق الوصول والأمان \n* تمكين روبوتات الردود الآلية bot\n* والمزيد!",
@@ -599,7 +605,7 @@
     "Saint Martin (French part)" : "سانت مارتن (الجزء الفرنسي)",
     "Madagascar" : "مدغشقر",
     "Marshall Islands" : "جزر مارشال",
-    "Macedonia, the former Yugoslav Republic of" : "مقدونيا ، جمهورية يوغوسلافيا السابقة",
+    "North Macedonia" : "الجبل الأسود الشمالية",
     "Mali" : "مالي",
     "Myanmar" : "ميانمار",
     "Mongolia" : "منغوليا",
@@ -728,6 +734,9 @@
     "Error: Unknown error occurred" : "خطأ: غير معروف",
     "Warning: Running version: {version}; Server does not support all features of this Talk version, missing features: {features}" : "تحذير: الخادوم في الإصدار الذي تعمل عليه: {version}؛ لا يدعم جميع ميزات هذا الإصدار من تطبيق \"المحادثة\" Talk، و هو يفتقد للميزات: {features}",
     "It is highly recommended to configure a memory cache when running Nextcloud Talk with a High-performance backend." : "يوصى بشدة بتهيئة ذاكرة تخزين مؤقت cache عند تشغيل تطبيق \"المحادثة\" Talk في نكست كلاود بواجهة خلفية عالية الأداء .",
+    "Client Push" : "دفع المعلومات من جهة العميل Client Push",
+    "Client Push is installed, this improves the performance of desktop clients." : "تمّ تثبيت Client Push دفع المعلومات من جهة العميل؛ هذا سيؤدي لتحسين أداء عملاء سطح المكتب. ",
+    "{notify_push} is not installed, this might lead to performance issues when using desktop clients." : "{notify_push} غير مُثبَّت. هذا قد يتسبب في مشاكل في الأداء عند استعمال عملاء سطح المكتب.",
     "Recording backend" : "خلفية التسجيل",
     "Using the recording backend requires a High-performance backend." : "لاستعمال تسجيل المحادثات في الخلفية يلزمك خلفية عالية الأداء.",
     "No recording backend configured" : "لاتوجد خلفية عالية الأداء للتسجيل",
@@ -739,8 +748,8 @@
     "Path is already shared with this conversation" : "المسار سبقت مشاركته سلفاً مع هذه المحادثة",
     "Chat, video & audio-conferencing using WebRTC" : "الدردشة والفيديو والمؤتمرات الصوتية باستخدام WebRTC",
     "Chat, video & audio-conferencing using WebRTC\n\n* 💬 **Chat** Nextcloud Talk comes with a simple text chat, allowing you to share or upload files from your Nextcloud Files app or local device and mention other participants.\n* 👥 **Private, group, public and password protected calls!** Invite someone, a whole group or send a public link to invite to a call.\n* 🌐 **Federated chats** Chat with other Nextcloud users on their servers\n* 💻 **Screen sharing!** Share your screen with the participants of your call.\n* 🚀 **Integration with other Nextcloud apps** like Files, Calendar, User status, Dashboard, Flow, Maps, Smart picker, Contacts, Deck, and many more.\n* 🌉 **Sync with other chat solutions** With [Matterbridge](https://github.com/42wim/matterbridge/) being integrated in Talk, you can easily sync a lot of other chat solutions to Nextcloud Talk and vice-versa." : "الدردشة والفيديو والمؤتمرات الصوتية باستخدام WebRTC\n\n * 💬 **الدردشة** يأتي تطبيق المحادثة Talk في نكست كلاود مع محادثة نصية بسيطة، مما يسمح لك بمشاركة أو تحميل الملفات من تطبيق الملفات Files  في نكست كلاود أو من الجهاز المحلي، و الإشارة إلى المشاركين الآخرين. \n* 👥 **مكالمات خاصة وجماعية وعامة ومحمية بكلمة مرور! ** قم بدعوة شخص ما أو مجموعة كاملة أو أرسل رابطًا عامًا للدعوة لإجراء مكالمة.\n * 🌐 **الدردشات الموحدة** قم بالدردشة مع مستخدمي نكست كلاود الآخرين على خوادمهم \n* 💻 **مشاركة الشاشة!** شارك شاشتك مع المشاركين في مكالمتك. \n* 🚀 **التكامل مع تطبيقات نكست كلاود الأخرى** مثل الملفات والتقويم وحالة المستخدم ولوحة المعلومات وأتمتة سير العمل والخرائط و اللاقط الذكي وجهات الاتصال و رزم البطاقات وغير ذلك الكثير. \n* 🌉 **المزامنة مع حلول الدردشة الأخرى** من خلال دمج [Matterbridge] (https://github.com/42wim/matterbridge/) في Talk، يمكنك بسهولة مزامنة الكثير من حلول الدردشة الأخرى مع تطبيق المحادثة Talk في نكست كلاود، و كذلك بالعكس.",
-    "Navigating away from the page will leave the call in {conversation}" : "الخروج من هذه الصفحة سيؤدي لمغادرة المكالمة في {conversation}",
     "Leave call" : "مغادرة المكالمة",
+    "Navigating away from the page will leave the call in {conversation}" : "الخروج من هذه الصفحة سيؤدي لمغادرة المكالمة في {conversation}",
     "Stay in call" : "البقاء في المكالمة",
     "Discuss this file" : "مناقشة هذا الملف",
     "Share this file with others to discuss it" : "مشاركة هذا الملف للمناقشة",
@@ -752,6 +761,13 @@
     "Error occurred when joining the conversation" : "حدث خطأ أثناء الانضمام إلى المحادثة",
     "Close Talk sidebar" : "إغلاق الشريط الجانبي لتطبيق Talk",
     "Open Talk sidebar" : "فتح الشريط الجانبي لتطبيق Talk",
+    "Everyone" : "الجميع",
+    "Users and moderators" : "الأعضاء والمشرفين",
+    "Moderators only" : "المشرفين فقط",
+    "Disable calls" : "تعطيل المكالمات",
+    "Save changes" : "حفظ التعديلات",
+    "Saving …" : "جاري الحفظ…",
+    "Saved!" : "تم الحفظ!",
     "Limit to groups" : "التقيد إلى مجموعات",
     "When at least one group is selected, only people of the listed groups can be part of conversations." : "عند تحديد مجموعة واحدة، الاعضاء في هذه المجموعة فقط سيشاركون في هذه المحادثة.",
     "Guests can still join public conversations." : "الضيوف بإمكانهم الانضمام للمحادثات العامة.",
@@ -762,26 +778,19 @@
     "Limit starting a call" : "تقييد بدء مكالمة",
     "Limit starting calls" : "تقييد بدء المكالمات",
     "When a call has started, everyone with access to the conversation can join the call." : "في حين مكالمة بدأت، الجميع بصلاحية للمحادثات بإمكانه الانضمام للمكالمة.",
-    "Everyone" : "الجميع",
-    "Users and moderators" : "الأعضاء والمشرفين",
-    "Moderators only" : "المشرفين فقط",
-    "Disable calls" : "تعطيل المكالمات",
-    "Save changes" : "حفظ التعديلات",
-    "Saving …" : "جاري الحفظ…",
-    "Saved!" : "تم الحفظ!",
-    "Bots settings" : "إعدادات الروبوتات Bots",
-    "State" : "الحالة",
-    "Name" : "الاسم",
-    "Description" : "الوصف",
-    "Last error" : "آخر خطأ",
-    "Total errors count" : "العدد الإجمالي للأخطاء",
-    "Find more bots" : "أعثُر على المزيد من الروبوتات",
     "The following bots are installed on this server. In the documentation you can find details how to {linkstart1}build your own bot{linkend} or a {linkstart2}list of bots{linkend} to enable on your server." : "تم تثبيت الروبوتات التالية على هذا الخادوم. في الوثائق، يمكنك العثور على تفاصيل حول كيفية {linkstart1} إنشاء روبوتك الخاص{linkend} أو {linkstart2} قائمة الروبوتات {linkend} لتمكينها على خادومك.",
     "No bots are installed on this server. In the documentation you can find details how to {linkstart1}build your own bot{linkend} or a {linkstart2}list of bots{linkend} to enable on your server." : "لم يتم تثبيت أي روبوتات على هذا الخادوم. في الوثائق، يمكنك العثور على تفاصيل حول كيفية {linkstart1} إنشاء روبوتك الخاص{linkend} أو {linkstart2} قائمة الروبوتات {linkend} لتمكينها على خادومك.",
     "Description is not provided" : "الوصف غير موجود",
     "Locked for moderators" : "مقفل للمشرفين",
     "Enabled" : "مُفعّل",
     "Disabled" : "معطّل",
+    "Bots settings" : "إعدادات الروبوتات Bots",
+    "State" : "الحالة",
+    "Name" : "الاسم",
+    "Last error" : "آخر خطأ",
+    "Total errors count" : "العدد الإجمالي للأخطاء",
+    "Find more bots" : "أعثُر على المزيد من الروبوتات",
+    "Trusted servers can be configured at {linkstart}Sharing settings page{linkend}." : "يمكن تكوين الخوادم الموثوقة في {linkstart} صفحة إعدادات المشاركة {linkend}.",
     "Beta" : "تجريبي",
     "Federated chats and calls work already. Attachment handling is coming in a future version." : "المحادثات والمكالمات الاتحادية تعمل بالفعل. سيتم إضافة إمكانية التعامل مع المرفقات في إصدار مستقبلي.",
     "Enable Federation in Talk app" : "تمكين تطبيق \"المحادثة\" من التواصل عبر السحابة الموحدة",
@@ -792,7 +801,9 @@
     "When at least one group is selected, only people of the listed groups can invite federated users to conversations." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأشخاص المجموعات المدرجة فقط دعوة المستخدِمين من السحابة الموحدة إلى المحادثة.",
     "Groups allowed to invite federated users" : "المجموعات التي يحق لها دعوة مستخدِمين من السحابة الموحدة",
     "Select groups …" : "تحديد المجموعات ...",
-    "Trusted servers can be configured at {linkstart}Sharing settings page{linkend}." : "يمكن تكوين الخوادم الموثوقة في {linkstart} صفحة إعدادات المشاركة {linkend}.",
+    "All messages" : "كافة الرسائل",
+    "@-mentions only" : "@-إشارة فقط",
+    "Off" : "إيقاف",
     "General settings" : "الإعدادات العامة",
     "Default notification settings" : "إعدادات الإشعارات الافتراضية",
     "Default group notification" : "تنبيه المجموعة الافتراضي",
@@ -804,9 +815,14 @@
     "Enable encryption" : "تمكين التشفير",
     "End-to-end encrypted calls with a configured SIP bridge require a newer version of the High-performance backend and SIP bridge." : "تتطلب المكالمات المشفرة من الحد للحد باستخدام جسر SIP مُهيّإٍ إصداراً أحدث من الواجهة الخلفية للأداء العالي وجسر SIP.",
     "Mobile clients do not support end-to-end encrypted calls at the moment." : "الهواتف النقالة العميلة لا تدعم المكالمات المشفرة من الحد للحد في الوقت الحاضر.",
-    "All messages" : "كافة الرسائل",
-    "@-mentions only" : "@-إشارة فقط",
-    "Off" : "إيقاف",
+    "By clicking the button above the information in the form is sent to the servers of Struktur AG. You can find further information at {linkstart}spreed.eu{linkend}." : "بالنقر فوق الزر أعلاه، يتم إرسال المعلومات الواردة في النموذج إلى خوادم شركة Struktur AG. يمكنك العثور على مزيد من المعلومات على {linkstart} spreed.eu {linkend}.",
+    "Pending" : "معلّق",
+    "Error" : "خطأ",
+    "Blocked" : "محجوب",
+    "Active" : "فعال",
+    "Expired" : "منتهي",
+    "The trial could not be requested. Please try again later." : "لا يمكن طلب التجربة. يرجى إعادة المحاولة لاحقًا. ",
+    "The account could not be deleted. Please try again later." : "لا يمكن حذف الحساب، يرجى المحاولة لاحقا.",
     "Hosted High-performance backend" : "خلفية مستضافة عالية الأداء ",
     "Our partner Struktur AG provides a service where a hosted signaling server can be requested. For this you only need to fill out the form below and your Nextcloud will request it. Once the server is set up for you the credentials will be filled automatically. This will overwrite the existing signaling server settings." : "يوفر شريكنا Struktur AG خدمة حيث يمكن طلب خادم التشوير المستضاف. لهذا ما عليك سوى ملء النموذج أدناه وسيطلبه نكست كلاود الخاص بك. وبمجرد تعيين الخادم لك، سيتم ملء بيانات الاعتماد تلقائيًا. سيؤدي هذا إلى الكتابة فوق إعدادات خادم التشوير الحالي.",
     "URL of this Nextcloud instance" : "الرابط لهذا الخادم السحابي نكست كلاود",
@@ -821,20 +837,10 @@
     "Expires at" : "انتهت في",
     "Limits" : "التقييد",
     "Delete the signaling server account" : "حذف حساب خادم التشوير ",
-    "By clicking the button above the information in the form is sent to the servers of Struktur AG. You can find further information at {linkstart}spreed.eu{linkend}." : "بالنقر فوق الزر أعلاه، يتم إرسال المعلومات الواردة في النموذج إلى خوادم شركة Struktur AG. يمكنك العثور على مزيد من المعلومات على {linkstart} spreed.eu {linkend}.",
-    "Pending" : "معلّق",
-    "Error" : "خطأ",
-    "Blocked" : "محجوب",
-    "Active" : "فعال",
-    "Expired" : "منتهي",
-    "The trial could not be requested. Please try again later." : "لا يمكن طلب التجربة. يرجى إعادة المحاولة لاحقًا. ",
-    "The account could not be deleted. Please try again later." : "لا يمكن حذف الحساب، يرجى المحاولة لاحقا.",
     "_%n user_::_%n users_" : ["%n مستخدم ","%n مستخدم ","%n مستخدم ","%n مستخدم ","%n مستخدم ","%n مستخدم"],
-    "Matterbridge integration" : "تكامل Matterbridge",
-    "Enable Matterbridge integration" : "تعطيل تكامل Matterbridge",
     "Installed version: {version}" : "الاصدار المثبت: {version}",
     "You can install the Matterbridge to link Nextcloud Talk to some other services, visit their {linkstart1}GitHub page{linkend} for more details. Downloading and installing the app can take a while. In case it times out, please install it manually from the {linkstart2}Nextcloud App Store{linkend}." : "يمكنك تثبيت Matterbridge لربط Nextcloud Talk ببعض الخدمات الأخرى ، قم بزيارة {linkstart1} صفحة جيت هب {linkend} الخاصة بهم لمزيد من التفاصيل. قد يستغرق تنزيل التطبيق وتثبيته بعض الوقت. في حالة انتهاء المهلة، يرجى تثبيته يدويًا من {linkstart2} متجر تطبيقات نكست كلود {linkend}.",
-    "Matterbridge binary has incorrect permissions. Please make sure the Matterbridge binary file is owned by the correct user and can be executed. It can be found in \"/.../nextcloud/apps/talk_matterbridge/bin/\"." : " Matterbridge الثنائي لديه أذونات غير صحيحة. يرجى التأكد من أن الملف الثنائي Matterbridge مملوك للمستخدم الصحيح ويمكن تنفيذه. يمكن العثور عليها في \"/.../nextcloud/apps/talk_matterbridge/bin/\".",
+    "Matterbridge binary has incorrect permissions. Please make sure the Matterbridge binary file is owned by the correct user and can be executed. It can be found in \"/…/nextcloud/apps/talk_matterbridge/bin/\"." : "كود \"ماتر بريدج\" Matterbridge binary لايملك الأذونات الصحيحة المطلوبة. رجاءً، تأكد من أن المستخدِم مالك ملف كود \"ماتر بريدج\" Matterbridge binary يحمل الصلاحيات اللازمة بحيث يمكن تنفيذه. يمكن إيجاده في: \"/…/nextcloud/apps/talk_matterbridge/bin/\".",
     "Matterbridge binary was not found or couldn't be executed." : "لم يتم العثور على ملف Matterbridge الثنائي أو تعذر تنفيذه.",
     "You can also set the path to the Matterbridge binary manually via the config. Check the {linkstart}Matterbridge integration documentation{linkend} for more information." : "يمكنك أيضًا تعيين المسار إلى ثنائي Matterbridge يدويًا عبر التكوين. راجع {linkstart} وثائق تكامل Matterbridge {linkend} للحصول على مزيد من المعلومات.",
     "Downloading …" : "جاري التحميل…",
@@ -842,21 +848,16 @@
     "An error occurred while installing the Matterbridge app" : "حدث خطأ أثناء تنصيب تطبيق Matterbridge",
     "An error occurred while installing the Talk Matterbridge. Please install it manually" : "حدث خطأ أثناء تنصيب the Talk Matterbridge. رجاءً، قُم بتنصيبه يدوياً",
     "Failed to execute Matterbridge binary." : "فشل تنفيذ برنامج Matterbridge الثنائي.",
-    "Recording backend URL" : "عنوان URL خلفية التسجيل",
-    "Validate SSL certificate" : "التحقق من صلاحية شهادة SSL",
-    "Delete this server" : "حذف هذا الخادم",
-    "Test this server" : "جرّب هذا الخادم",
+    "Matterbridge integration" : "تكامل Matterbridge",
+    "Enable Matterbridge integration" : "تعطيل تكامل Matterbridge",
     "Status: Checking connection" : "الحالة: فحص الاتصال",
     "OK: Running version: {version}" : "ممتاز: الاصدار التشغيلي: {version}",
     "Error: Server seems to be a Signaling server" : "خطأ: يبدو أن الخادوم هو خادوم إشارة Signaling server",
     "Error: System times of Nextcloud server and Recording backend server are out of sync. Please make sure that both servers are connected to a time-server or manually synchronize their time." : "خطأ: أوقات النظام لخادوم نكست كلاود وخادوم التسجيل الصوتي للمكالمات في الخلفية غير متزامنة. يرجى التأكد من أن كلا الخادومين متصلان بخادوم توقيت موحد أو قم  بمزامنة وقتيهما يدوياً.",
-    "Recording backend configuration is only possible with a High-performance backend." : "تهيئة خلفية التسجيل ممكنة فقط بوجود خلفية عالية الأداء.",
-    "Add a new recording backend server" : "إضافة خادم واجهة خلفية للتسجيل جديد",
-    "Shared secret" : "السر المشترك",
-    "Recording consent" : "الإذن بالتسجيل",
-    "Recording transcription" : "مستنسخ التسجيل ",
-    "Automatically transcribe call recordings with a transcription provider" : "القيام تلقائياً باستنساح تسجيلات المكالمات عبر مزود استنساخ",
-    "Automatically summarize call recordings with transcription and summary providers" : "القيام تلقائياً بتلخيص تسجيلات المكالمات عبر مزود استنساخ و تلخيص",
+    "Recording backend URL" : "عنوان URL خلفية التسجيل",
+    "Validate SSL certificate" : "التحقق من صلاحية شهادة SSL",
+    "Delete this server" : "حذف هذا الخادم",
+    "Test this server" : "جرّب هذا الخادم",
     "Disabled for all calls" : "تمّ تعطيله لكل المكالمات",
     "Enabled for all calls" : "تمّ تمكينه لكل المكالمات",
     "Configurable on conversation level by moderators" : "يمكن تهيئته على مستوى المحادثة من قِبَل المشرفين",
@@ -865,6 +866,14 @@
     "Moderators will be allowed to enable consent on conversation level. The consent to be recorded will be required for each participant before joining every call in this conversation." : "المشرفون يمكنهم تمكين الإذونات على مستوى المحادثة. الإذن بالتسجيل مطلوب من كل مشارك قبل الانضمام لكل مكالمة في هذه المحادثة.",
     "The consent to be recorded will be required for each participant before joining every call." : "الإذن بالتسجيل سيُطلب من كل مشارك قبل الانضمام لكل مكالمة. ",
     "The consent to be recorded is not required." : "الإذن بالتسجيل ليس مطلوباً.",
+    "Recording backend configuration is only possible with a High-performance backend." : "تهيئة خلفية التسجيل ممكنة فقط بوجود خلفية عالية الأداء.",
+    "Add a new recording backend server" : "إضافة خادم واجهة خلفية للتسجيل جديد",
+    "Shared secret" : "السر المشترك",
+    "Recording consent" : "الإذن بالتسجيل",
+    "Recording transcription" : "مستنسخ التسجيل ",
+    "Automatically transcribe call recordings with a transcription provider" : "القيام تلقائياً باستنساح تسجيلات المكالمات عبر مزود استنساخ",
+    "Automatically summarize call recordings with transcription and summary providers" : "القيام تلقائياً بتلخيص تسجيلات المكالمات عبر مزود استنساخ و تلخيص",
+    "SIP configuration saved!" : "تم حفظ تكوين SIP!",
     "SIP configuration is only possible with a High-performance backend." : "تهيئة إدارة جلسات المكالمات SIP ممكنة فقط بوجود خلفية عالية الأداء.",
     "Enable SIP Dial-out option" : "تمكين خيار الطلب الهاتفي SIP.",
     "Signaling server needs to be updated to supported SIP Dial-out feature." : "يحتاج خادوم الإشارة Signaling server إلى التحديث إلى ميزة الطلب الهاتفي SIP المدعومة.",
@@ -873,13 +882,15 @@
     "Only users of the following groups can enable SIP in conversations they moderate" : "السماح فقط للمستخدمين من المجموعات التالية بتفعيل SIP في اشرافهم على المحادثات.",
     "Phone number (Country)" : "رقم الجوال (الدولة)",
     "This information is sent in invitation emails as well as displayed in the sidebar to all participants." : "هذه المعلومات مرسله من بريد الدعوة وظاهرة ايضا في الشريط الجانبي لجميع المشاركين.",
-    "SIP configuration saved!" : "تم حفظ تكوين SIP!",
-    "High-performance backend URL" : "رابط خلفية أعلى اداء",
     "Nextcloud base URL" : "عنوان URL الأساسي لنكست كلاود",
     "Talk Backend URL" : "عنوان URL لخلفية \"المحادثة\" Talk",
     "WebSocket URL" : "عنوان URL لـ\"مَقبَس الوِب\" WebSocket",
     "Available features" : "الخصائص المُتَاحة",
+    "Error code" : "رقم الخطأ",
     "Error: Websocket connection failed. Check browser console" : "خطأ: فشل الاتصال عن طريق \"مقبس الوب\" WebSocket. أنظُر طَرَفِيّة المُتصَفِّح browser console",
+    "High-performance backend URL" : "رابط خلفية أعلى اداء",
+    "Missing High-performance backend warning hidden" : "التحذير من عدم وجود خلفية للأداء العالي لن يتم إظهاره",
+    "High-performance backend settings saved" : "تم حفظ إعدادات الواجهة الخلفية عالية الأداء",
     "Nextcloud Talk setup not complete" : "تهيئة \"المحادثة\" Talk من نكست كلاود لم تكتمل بعدُ.",
     "Please note that in calls with more than 2 participants without the High-performance backend, participants will most likely experience connectivity issues and cause high load on participating devices." : "يرجى ملاحظة أنه في المكالمات التي يكون فيها عدد المشاركين أكثر من 2 دون استخدام خلفية الأداء العالي، فمن المرجح أن يواجه المشاركون مشكلات في الاتصال قد يسبب تحميلًا عاليًا على الأجهزة المشاركة.",
     "Install the High-performance backend to ensure calls with multiple participants work seamlessly." : "قُم بتثبيت خلفية الأداء العالي لضمان العمل بسلاسة لمكالمات متعددة المتشاركين.",
@@ -889,30 +900,26 @@
     "It is highly recommended to set up a distributed cache when using Nextcloud Talk with a High-performance backend." : "يوصى بشدة بإعداد ذاكرة تخزين مؤقتة موزعة distriburted cache عند استخدام \"المحادثة\" Talk من نكست كلاود مع خلفية للأداء العالي.",
     "Add High-performance backend server" : "إضافة خادوم خلفية الأداء العالي",
     "Warn about connectivity issues in calls with more than 2 participants" : "تحذير حول إشكاليات في الاتصال بالنسبة للمكالمات التي فيها أكثر من 2 مُشَارِكَيْن.",
-    "Missing High-performance backend warning hidden" : "التحذير من عدم وجود خلفية للأداء العالي لن يتم إظهاره",
-    "High-performance backend settings saved" : "تم حفظ إعدادات الواجهة الخلفية عالية الأداء",
     "STUN server URL" : "عنوان URL لخادم STUN",
     "The server address is invalid" : "عنوان الخادم غير صالح",
+    "STUN settings saved" : "تم حفظ إعدادات خادم STUN",
     "STUN servers" : "خوادم STUN",
     "A STUN server is used to determine the public IP address of participants behind a router." : "يتم استخدام خادم STUN لتحديد عنوان IP العام للمشاركين خلف جهاز توجيه.",
     "Add a new STUN server" : "إضافة خادم STUN جديد",
-    "STUN settings saved" : "تم حفظ إعدادات خادم STUN",
-    "TURN server schemes" : "نظم خادم TURN",
-    "TURN server URL" : "عنوان URL لخادم TURN",
-    "TURN server secret" : "سر خادم TURN",
-    "TURN server protocols" : "بروتوكلات خادم TURN",
     "{schema} scheme must be used with a domain" : "{schema} يجب أن يستخدم من نطاق معين ",
     "{option1} and {option2}" : "{خيار1} و {خيار2}",
     "{option} only" : "{option} فقط ",
     "OK: Successful ICE candidates returned by the TURN server" : "حسنًا: تم إرجاع مرشحي ICE بواسطة خادم TURN بنجاح",
     "Error: No working ICE candidates returned by the TURN server" : "خطأ: لم يتم إرجاع أي من مرشحي ICE بواسطة خادم TURN",
     "Testing whether the TURN server returns ICE candidates" : "تجربة ما إذا كان خادم TURN يعرض مرشحات ICE",
-    "TURN servers" : "خوادم TURN",
-    "Add a new TURN server" : "إضافة خادم TURN جديد",
+    "TURN server schemes" : "نظم خادم TURN",
+    "TURN server URL" : "عنوان URL لخادم TURN",
+    "TURN server secret" : "سر خادم TURN",
+    "TURN server protocols" : "بروتوكلات خادم TURN",
     "A TURN server is used to proxy the traffic from participants behind a firewall. If individual participants cannot connect to others a TURN server is most likely required. See {linkstart}this documentation{linkend} for setup instructions." : "يتم استخدام خادم TURN لتوكيل مرور المشاركين خلف جدار الحماية. إذا لم يتمكن المشاركون الأفراد من الاتصال بالآخرين، فمن المرجح أن يكون خادم TURN مطلوبًا. راجع {linkstart} هذه الوثائق {linkend} للحصول على إرشادات الإعداد.",
     "TURN settings saved" : "تم حفظ إعدادات خادم TURN",
-    "Web server setup checks" : "التحقق من تنصيب خادم الويب",
-    "Files required for virtual background can be loaded" : "يمكن تحميل الملفات المطلوبة للخلفية الافتراضية",
+    "TURN servers" : "خوادم TURN",
+    "Add a new TURN server" : "إضافة خادم TURN جديد",
     "Failed" : "فشل",
     "OK" : "موافق",
     "Checking …" : "جاري التحقق … ",
@@ -920,27 +927,28 @@
     "Failed: \".wasm\" and \".tflite\" files were not properly returned by the web server. Please check \"System requirements\" section in Talk documentation." : "فشل: لم يتم إرجاع ملفات \".wasm\" و \".tflite\" بشكل صحيح من قبل خادم الويب. الرجاء مراجعة قسم \"متطلبات النظام\" في وثائق تطبيق Talk.",
     "OK: \".wasm\" and \".tflite\" files were properly returned by the web server." : "حسنًا: تم إرجاع ملفات \".wasm\" و \".tflite\" بشكل صحيح من قبل خادم الويب.",
     "It seems that the PHP and Apache configuration is not compatible. Please note that PHP can only be used with the MPM_PREFORK module and PHP-FPM can only be used with the MPM_EVENT module." : "يبدو أن إعدادات PHP و Apache غير متوافقة. يرجى ملاحظة أنه لا يمكن استخدام PHP إلا مع الوحدة النمطية MPM_PREFORK ولا يمكن استخدام PHP-FPM إلا مع الوحدة النمطية MPM_EVENT.",
-    "Could not detect the PHP and Apache configuration because exec is disabled or apachectl is not working as expected. Please note that PHP can only be used with the MPM_PREFORK module and PHP-FPM can only be used with the MPM_EVENT module." : "تعذر اكتشاف تهيئة PHP و Apache لأن exec معطل أو أن apachectl لا يعمل علي النحو المتوقع. يرجى ملاحظة أنه لا يمكن استخدام PHP إلا مع الوحدة النمطية MPM_PREFORK ولا يمكن استخدام PHP-FPM إلا مع الوحدة النمطية MPM_EVENT.",
+    "Web server setup checks" : "التحقق من تنصيب خادم الويب",
+    "Files required for virtual background can be loaded" : "يمكن تحميل الملفات المطلوبة للخلفية الافتراضية",
     "Federated user" : "مستخدِم السحابة الموحدة",
+    "Assign participants to rooms" : "تعيين المشاركين للغرف",
+    "Configure breakout rooms" : "تهيئة الغرف الجانبية",
     "Number of breakout rooms" : "عدد الغرف الجانبية",
     "You can create from 1 to 20 breakout rooms." : "يمكنك إنشاء من 1 حتى 20 غرفة جانبية.",
     "Assignment method" : "طريقة التكليف",
     "Automatically assign participants" : "تعيين المشاركين تلقائيًا",
     "Manually assign participants" : "تعيين المشاركين يدويًا",
     "Allow participants to choose" : "السماح للمشاركين بالاختيار",
-    "Assign participants to rooms" : "تعيين المشاركين للغرف",
     "Create rooms" : "إنشاء غرف",
-    "Configure breakout rooms" : "تهيئة الغرف الجانبية",
-    "Unassigned participants" : "المشاركون غير المعينين",
-    "Back" : "العودة",
-    "Assign" : "كَلِّف",
-    "Delete breakout rooms" : "حذف الغرف الجانبية",
-    "Cancel" : "إلغاء",
     "Confirm" : "تأكيد",
     "Create breakout rooms" : "إنشاء غرف جانبية",
     "Reset" : "إعادة الضبط",
+    "Delete breakout rooms" : "حذف الغرف الجانبية",
     "Current breakout rooms and settings will be lost" : "سوف يحدث فقد للغرف الجانبية والإعدادات الحالية",
     "Room {roomNumber}" : "غرفة {roomNumber}",
+    "Unassigned participants" : "المشاركون غير المعينين",
+    "Back" : "العودة",
+    "Assign" : "كَلِّف",
+    "Cancel" : "إلغاء",
     "Add participant \"{user}\"" : "إضافة مشارك \"{user}\"",
     "Now" : "الآن",
     "Invalid calendar selected" : "التقويم الذي تمّ تحديده غير صحيح",
@@ -950,36 +958,33 @@
     "Sending no invitations" : "لم يتم إرسال أي دعوات",
     "{participant0} will receive an invitation" : "{participant0} سوف يستلم دعوةً",
     "{participant0} and {participant1} will receive invitations" : "{participant0} و {participant1} سوف يستلمان دعوةً",
+    "_{participant0}, {participant1} and %n other will receive invitations_::_{participant0}, {participant1} and %n others will receive invitations_" : ["{participant0}, {participant1} و %n آخرون سيستلمون دعواتٍ","{participant0}, {participant1} و %n آخرون سيستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سيستلمون دعواتٍ","{participant0}, {participant1} و%n آخرين سوف يستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سوف يستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سوف يستلمون دعواتٍ"],
     "Meeting created" : "تمّ إنشاء الاجتماع",
     "Upcoming meetings" : "الاجتماعات القادمة",
     "Next meeting" : "الاجتماع التالي",
-    "Open Calendar" : "إفتَح التقويم",
     "Loading …" : "التحميل جارٍ …",
-    "No upcoming events" : "ليست هناك أحداث قادمة",
     "Schedule a meeting" : "جدولة اجتماع",
     "Meeting title" : "عنوان الاجتماع",
     "From" : "مِن :",
     "To" : "إلى :",
     "Calendar" : "الجدول الزمني",
     "Attendees" : "المشاركون",
-    "Invite all users and emails" : "قُم بدعوة كل الأشخاص والإيميلات ",
     "Add attendees" : "إضافة إلى الحُضُور",
     "Save" : "حفظ",
     "Search participants" : "البحث عن مشاركين",
     "No results" : "دون أية نتيجة",
     "Done" : "تمّ",
-    "_{participant0}, {participant1} and %n other will receive invitations_::_{participant0}, {participant1} and %n others will receive invitations_" : ["{participant0}, {participant1} و %n آخرون سيستلمون دعواتٍ","{participant0}, {participant1} و %n آخرون سيستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سيستلمون دعواتٍ","{participant0}, {participant1} و%n آخرين سوف يستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سوف يستلمون دعواتٍ","{participant0}, {participant1} و %n آخرين سوف يستلمون دعواتٍ"],
     "Recording consent is required" : "إذن التسجيل مطلوب",
     "This conversation is read-only" : "هذه المحادثة للقراءة فقط",
     "Conversation not found or not joined" : "المحادثة غير موجودة أو لم يتم الانضمام إليها",
+    "Lobby is still active and you're not a moderator" : "صالة الاستقبال مازالت مفتوحة وأنت ليس مُنسِّقَاً",
     "Connection failed" : "تعذّر الاتصال",
     "{nickName} raised their hand." : "{nickName} رفع يده ",
     "A participant raised their hand." : "رفع مشارك يده. ",
-    "Previous page of videos" : "الصفحة السابقة للفيديوهات ",
-    "Next page of videos" : "الصفحة التالية من الفيديوهات ",
     "Collapse stripe" : "طي الشريط ",
     "Expand stripe" : "توسيع الشريط ",
-    "Copy link" : "انسخ الرابط",
+    "Previous page of videos" : "الصفحة السابقة للفيديوهات ",
+    "Next page of videos" : "الصفحة التالية من الفيديوهات ",
     "Connecting …" : "جارٍ الاتصال…",
     "Calling …" : "الاتصال جارٍ ...",
     "Waiting for {user} to join the call" : "في انتظار انضمام {user} إلى المكالمة",
@@ -987,17 +992,18 @@
     "You can invite others in the participant tab of the sidebar" : "بإمكانك اضافة مشاركيين آخريين من القائمة الجانبية",
     "You can invite others in the participant tab of the sidebar or share this link to invite others!" : "بإمكانك اضافة مشاركيين آخريين من القائمة الجانبية أو مشاركة الرابط لدعوة الآخريين!",
     "Share this link to invite others!" : "شارك هذا الرابط لدعوة الآخريين!",
+    "Copy link" : "انسخ الرابط",
     "You are not allowed to enable audio" : "غير مسموح لك بتمكين الصوت",
     "No audio. Click to select device" : "لا يوجد صَوْت. أنقُر لاختيار الجهاز",
     "Mute audio" : "كتم الصوت",
     "Mute audio (M)" : "كتم الصوت (M)",
     "Unmute audio" : "تشغيل الصوت",
     "Unmute audio (M)" : "تشغيل الصوت (M)",
-    "Hide presenter video" : "إخفاء فيديو مقدم العرض",
     "Access to camera was denied" : "تم رفض الوصول للكاميرا",
     "Error while accessing camera: It is likely in use by another program" : "خطأ أثناء الوصول إلى الكاميرا: من المحتمل أن تكون قيد الاستخدام من قبل برنامج آخر",
     "Error while accessing camera" : "حدث خطأ اثناء الوصول للكاميرا",
     "You have been muted by a moderator" : "تم اغلاق المايكرفون الخاص بك من قبل المشرف",
+    "Hide presenter video" : "إخفاء فيديو مقدم العرض",
     "You are not allowed to enable video" : "غير مسموح لك بتمكين الفيديو",
     "No video. Click to select device" : "لايوجد فيديو. أنقُر لاختيار الجهاز",
     "Disable video" : "تعطيل الفيديو",
@@ -1009,10 +1015,10 @@
     "Enable video. Your connection will be briefly interrupted when enabling the video for the first time" : "سماح الفيديو - سيتم قطع اتصالك للحظات عند تشغيل الفيديو للمره الاولى",
     "Show presenter" : "إظهار مقدم العرض",
     "You" : "أنت",
-    "Show screen" : "اظهار الشاشة",
-    "Stop following" : "ايقاف المتابعة",
     "Mute" : "كتم الصوت",
     "Muted" : "تم كتم الصوت",
+    "Show screen" : "اظهار الشاشة",
+    "Stop following" : "ايقاف المتابعة",
     "Connection could not be established …" : "تعذر إنشاء الاتصال ...",
     "Connection was lost and could not be re-established …" : "انقطع الاتصال ولا يمكن إعادة إنشائه ...",
     "Connection could not be established. Trying again …" : "تعذر إنشاء الاتصال. المحاولة مرة اخرى …",
@@ -1020,37 +1026,44 @@
     "Connection problems …" : "مشاكلات في الاتصال …",
     "Collapse" : "طوي",
     "Expand" : "توسيع",
+    "You need to be logged in to upload files" : "يجب عليك تسجيل الدخول لرفع الملفات",
+    "Drop your files to upload" : "افلت الملفات لرفعها",
     "Conversation messages" : "رسائل المحادثة ",
     "Scroll to bottom" : "انتقل للاسفل",
     "Post message" : "إرسال الرسالة ",
-    "You need to be logged in to upload files" : "يجب عليك تسجيل الدخول لرفع الملفات",
-    "Drop your files to upload" : "افلت الملفات لرفعها",
-    "Favorite" : "المفضلة",
     "Federated conversation" : "محادثة السحابة الموحدة",
     "Public conversation" : "محادثة عمومية",
+    "Favorite" : "المفضلة",
     "Banned users" : "مستخدِمون محظورون",
     "Manage the list of banned users in this conversation." : "إدارة قائمة المستخدمين المحظورين في هذه المحادثة",
     "Manage bans" : "إدارة الحظر",
     "No banned users" : "لا يوجد مستخدِمون محظورون",
-    "Hide details" : "إخفاء التفاصيل",
-    "Show details" : "عرض التفاصيل",
-    "Unban" : "رفع الحظر",
     "Banned by:" : "محظورٌ من قِبَل:",
     "Date:" : "التاريخ:",
     "Note:" : "ملاحظة:",
+    "Hide details" : "إخفاء التفاصيل",
+    "Show details" : "عرض التفاصيل",
+    "Unban" : "رفع الحظر",
+    "Error while updating conversation name" : "خطأ أثناء تحميل اسم المحادثة",
+    "Error while updating conversation description" : "حدث خطأ أثناء تحديث وصف المحادثة",
     "Enter a name for this conversation" : "أدخِل اسماً لهذه المحادثة",
     "Edit conversation name" : "تعديل اسم المحادثة",
     "Edit conversation description" : "تحرير وصف المحادثة",
     "Enter a description for this conversation" : "ادخل وصفًا لهذه المحادثة ",
     "Picture" : "صورة",
-    "Error while updating conversation name" : "خطأ أثناء تحميل اسم المحادثة",
-    "Error while updating conversation description" : "حدث خطأ أثناء تحديث وصف المحادثة",
     "The following bots can be enabled in this conversation. Reach out to your administration to get more bots installed on this server." : "يمكن تمكين الروبوتات bots التالية في هذه المحادثة. تواصل مع إدارتك لتثبيت المزيد من برامج الروبوت على هذا الخادوم.",
     "No bots are installed on this server. Reach out to your administration to get bots installed on this server." : "لم يتم تثبيت أي روبوتات على هذا الخادم. تواصل مع إدارتك لتثبيت برامج الروبوت على هذا الخادوم.",
     "Disable" : "تعطيل",
     "Enable" : "تمكين",
-    "Set up breakout rooms for this conversation" : "جهّز غرفاً جانبيةً لهذه المحادثة",
     "Breakout rooms" : "الغرف الجانبية",
+    "Set up breakout rooms for this conversation" : "جهّز غرفاً جانبيةً لهذه المحادثة",
+    "Please select a valid PNG or JPG file" : "يرجي اختيار ملف PNG أو JPG صالح",
+    "Choose your conversation picture" : "إختَر صورة محادثتك",
+    "Choose" : "إختر",
+    "Error setting conversation picture" : "خطأ في تعيين صورة المحادثة",
+    "Could not set the conversation picture: {error}" : "تعذّر تعيين صورة المحادثة: {error}",
+    "Error cropping conversation picture" : "خطأ في اقتصاص صورة المحادثة",
+    "Error removing conversation picture" : "خطأ في حذف صورة المحادثة",
     "Set emoji as conversation picture" : "تعيين إيموجي كصورة للمحادثة",
     "Set background color for conversation picture" : "تعيين لون الخلفية لصورة المحادثة",
     "Upload conversation picture" : "رفع صورة المحادثة",
@@ -1058,13 +1071,8 @@
     "Remove conversation picture" : "حذف صورة المحادثة",
     "The file must be a PNG or JPG" : "يحب أن يكون الملف PNG أو JPG",
     "Set picture" : "تعيين الصورة",
-    "Choose your conversation picture" : "إختَر صورة محادثتك",
-    "Choose" : "إختر",
-    "Please select a valid PNG or JPG file" : "يرجي اختيار ملف PNG أو JPG صالح",
-    "Error setting conversation picture" : "خطأ في تعيين صورة المحادثة",
-    "Could not set the conversation picture: {error}" : "تعذّر تعيين صورة المحادثة: {error}",
-    "Error cropping conversation picture" : "خطأ في اقتصاص صورة المحادثة",
-    "Error removing conversation picture" : "خطأ في حذف صورة المحادثة",
+    "Default permissions modified for {conversationName}" : "تم تعديل الأذونات الافتراضية لـ {ConversName}",
+    "Could not modify default permissions for {conversationName}" : "تعذر تعديل الأذونات الافتراضية لـ {callingName}",
     "Edit the default permissions for participants in this conversation. These settings do not affect moderators." : "تحرير الأذونات الافتراضية للمشاركين في هذه المحادثة. لا تؤثر هذه الإعدادات على المشرفين.",
     "Every time permissions are modified in this section, custom permissions previously assigned to individual participants will be lost." : "في كل مرة يتم فيها تعديل الأذونات في هذا القسم، فإن الأذونات المخصصة التي سبق تعيينها للمشاركين الفرديين سيقع حذفها.",
     "All permissions" : "كل الأذونات",
@@ -1073,21 +1081,24 @@
     "Participants can join calls, but cannot enable audio nor video nor share screen until a moderator manually grants them permissions." : "يمكن للمشاركين الانضمام إلى المكالمات، لكن لا يمكنهم تمكين الصوت أو الفيديو أو مشاركة الشاشة حتى يمنحهم الميسر الأذونات يدويًا.",
     "Advanced permissions" : "أذونات متقدمة",
     "Edit permissions" : "تحرير الأذونات",
-    "Default permissions modified for {conversationName}" : "تم تعديل الأذونات الافتراضية لـ {ConversName}",
-    "Could not modify default permissions for {conversationName}" : "تعذر تعديل الأذونات الافتراضية لـ {callingName}",
+    "Meeting" : "اجتماع",
     "Conversation settings" : "اعدادات المحادثة",
     "Basic Info" : "معلومات أساسية",
     "Personal" : "شخصي",
-    "Always show the device preview screen before joining a call in this conversation." : "اعرض دائمًا شاشة معاينة الجهاز قبل الانضمام إلى مكالمة في هذه المحادثة.",
     "Moderation" : "الإدارة",
     "Setup overview" : "نظرة عامة على الإعداد",
-    "Meeting" : "اجتماع",
     "Breakout Rooms" : "الغرف الجانبية",
     "Matterbridge" : "Matterbridge",
     "Bots" : "الروبوتات Bots",
     "Danger zone" : "منطقة خطر",
     "Archive conversation" : "أرشفة المحادثة",
     "Archived conversations are hidden from the conversation list by default. However, they will still appear when you search for the conversation name or access a list of archived conversations." : "يتم إخفاء المحادثات المؤرشفة من قائمة المحادثات تلقائيّاً. ومع ذلك، ستظل تظهر عند البحث عن اسم المحادثة أو الوصول إلى قائمة المحادثات المؤرشفة.",
+    "Do you really want to leave \"{displayName}\"?" : "هل ترغب حقاً في المغادرة، \"{displayName}\"؟",
+    "Do you really want to delete \"{displayName}\"?" : "هل تريد حقا حذف \"{displayName}\" ؟",
+    "Do you really want to delete all messages in \"{displayName}\"?" : "هل تريد حقًا حذف كافة الرسائل الموجودة في \"{displayName}\"؟",
+    "You need to promote a new moderator before you can leave the conversation" : "تحتاج إلى إنشاء ميسر جديد قبل أن تتمكن من مغادرة المحادثة",
+    "Error while deleting conversation" : "حدث خطأ أثناء حذف المحادثة ",
+    "Error while clearing chat history" : "خطأ أثناء مسح سجل الدردشة",
     "Be careful, these actions cannot be undone." : "كن حذرًا ، لا يمكن التراجع عن هذه الإجراءات.",
     "Leave conversation" : "غادر المحادثة",
     "Once a conversation is left, to rejoin a closed conversation, an invite is needed. An open conversation can be rejoined at any time." : "عند ترك المحادثة،ولإعادة الانضمام مرة أخرى إلى المحادثة المغلقة، فإن ذلك يتطلبدعوة. ويمكن إعادة الانضمام إلى المحادثة المفتوحة في أي وقت.",
@@ -1099,23 +1110,19 @@
     "Delete chat messages" : "حذف رسائل الدردشة",
     "Permanently delete all the messages in this conversation." : "حذف جميع الرسائل الموجودة في هذه المحادثة بشكل دائم.",
     "Delete all chat messages" : "حذف جميع رسائل الدردشة",
-    "Do you really want to leave \"{displayName}\"?" : "هل ترغب حقاً في المغادرة، \"{displayName}\"؟",
-    "Do you really want to delete \"{displayName}\"?" : "هل تريد حقا حذف \"{displayName}\" ؟",
-    "Do you really want to delete all messages in \"{displayName}\"?" : "هل تريد حقًا حذف كافة الرسائل الموجودة في \"{displayName}\"؟",
-    "You need to promote a new moderator before you can leave the conversation" : "تحتاج إلى إنشاء ميسر جديد قبل أن تتمكن من مغادرة المحادثة",
-    "Error while deleting conversation" : "حدث خطأ أثناء حذف المحادثة ",
-    "Error while clearing chat history" : "خطأ أثناء مسح سجل الدردشة",
-    "Message expiration" : "نهاية صلاحية الرسالة",
-    "Chat messages can be expired after a certain time. Note: Files shared in chat will not be deleted for the owner, but will no longer be shared in the conversation." : "يمكن أن تنتهي صلاحية رسائل الدردشة بعد وقت معين. ملاحظة: لن يتم حذف الملفات التي تمّت مشاركتها في الدردشة عند المالك، و لكن لن تستمر مشاركتها مع الآخرين في المحادثة.",
-    "Set message expiration" : "عيّن تاريخ انتهاء صلاحية الرسالة",
-    "Current message expiration" : "التاريخ الحالي لانتهاء صلاحية الرسالة",
+    "_%n hour_::_%n hours_" : ["%nساعات","%n ساعة","%n ساعات","%n ساعات","%n ساعات","%n ساعات"],
+    "_%n day_::_%n days_" : ["%n أيام","%n يوم","%nأيام","%nأيام","%n أيام","%n أيام"],
+    "_%n week_::_%n weeks_" : ["%n أسابيع","%n أسبوع","%n أسابيع","%n أسابيع","%n أسابيع","%n أسابيع"],
     "Custom expiration time" : "تخصيص إنتهاء الصلاحية",
     "Message expiration disabled" : "تم تعطيل انتهاء صلاحية الرسالة",
     "Message expiration set: {duration}" : "ضبط انتهاء صلاحية الرسالة: {duration}",
     "Error when trying to set message expiration" : "خطأ عند محاولة تعيين انتهاء صلاحية الرسالة",
-    "_%n hour_::_%n hours_" : ["%nساعات","%n ساعة","%n ساعات","%n ساعات","%n ساعات","%n ساعات"],
-    "_%n day_::_%n days_" : ["%n أيام","%n يوم","%nأيام","%nأيام","%n أيام","%n أيام"],
-    "_%n week_::_%n weeks_" : ["%n أسابيع","%n أسبوع","%n أسابيع","%n أسابيع","%n أسابيع","%n أسابيع"],
+    "Message expiration" : "نهاية صلاحية الرسالة",
+    "Chat messages can be expired after a certain time. Note: Files shared in chat will not be deleted for the owner, but will no longer be shared in the conversation." : "يمكن أن تنتهي صلاحية رسائل الدردشة بعد وقت معين. ملاحظة: لن يتم حذف الملفات التي تمّت مشاركتها في الدردشة عند المالك، و لكن لن تستمر مشاركتها مع الآخرين في المحادثة.",
+    "Set message expiration" : "عيّن تاريخ انتهاء صلاحية الرسالة",
+    "Current message expiration" : "التاريخ الحالي لانتهاء صلاحية الرسالة",
+    "Password copied to clipboard" : "تمّ نسخ كلمة المرور إلى الحافظة",
+    "Password could not be copied" : "تعذّر نسخ كلمة المرور",
     "Guest access" : "وصول الضيف",
     "Breakout rooms are not allowed in public conversations." : "الغرف الجانبية غير متاحة في حالة المحادثات العامة.",
     "Allow guests to join this conversation via link" : "السماح للضيوف بالانضمام إلى هذه المحادثة من خلال رابط",
@@ -1129,16 +1136,17 @@
     "Guests are allowed to join this conversation via link" : "الضيوف مسموح لهم بالانضمام لهذه المحادثة عبر الرابط",
     "Guests are not allowed to join this conversation" : "الضيوف غير مسموح لهم بالانضمام لهذه المحادثة",
     "Resend invitations" : "إعادة إرسال الدعوات ",
-    "Password copied to clipboard" : "تمّ نسخ كلمة المرور إلى الحافظة",
-    "Password could not be copied" : "تعذّر نسخ كلمة المرور",
-    "Open conversation to registered users, showing it in search results" : "فتح المحادثة للمستخدمين المسجلين، وإظهارها في نتائج البحث",
-    "Also open to users created with the Guests app" : "و مفتوحةٌ أيضاً للضيوف  المستحدثين عبر تطبيق الضيوف Guests app",
-    "Open conversation" : "فتح المحادثة",
     "This conversation is open to both registered users and users created with the Guests app" : "المحادثة مفتوحة لكل من المستخدِمين المسجلين و للضيوف المستحدثين عبر تطبيق الضيوف Guests app",
     "This conversation is open to registered users" : "المحادثة مفتوحة للمستخدِمين المسجلين",
     "This conversation is limited to the current participants" : "هذه المحادثة مقتصرةٌ على المشاركين الحاليين",
     "You opened the conversation to both registered users and users created with the Guests app" : "أنت قمت بفتح المحادثة لكل من المستخدِمين المسجلين و المستخدِمين المستحدثين عبر تطبيق الضيوف Guests app",
     "Error occurred when opening or limiting the conversation" : "حدث خطأ عند فتح أو تقييد الرد بالمحادثة ",
+    "Open conversation to registered users, showing it in search results" : "فتح المحادثة للمستخدمين المسجلين، وإظهارها في نتائج البحث",
+    "Also open to users created with the Guests app" : "و مفتوحةٌ أيضاً للضيوف  المستحدثين عبر تطبيق الضيوف Guests app",
+    "Open conversation" : "فتح المحادثة",
+    "Start time: {date}" : "بدايةً من: {date}",
+    "Start time has been updated" : "تم تحديث وقت البدء",
+    "Error occurred while updating start time" : "حدث خطأ أثناء تحديث وقت البدء ",
     "Enabling the lobby will remove non-moderators from the ongoing call." : "سيؤدي تمكين صالة الانتظار إلى إزالة الجميع باستثناء المشرفين من المكالمة الجارية.",
     "Enable lobby, restricting the conversation to moderators" : "تمكين صالة الانتظار، و قصر المحادثة على المشرفين",
     "Meeting start time" : "وقت بدء الإجتماع ",
@@ -1147,55 +1155,58 @@
     "You can import a list of email participants from a CSV file." : "يمكنك استيراد قائمة المشاركين في البريد الإلكتروني من ملف CSV.",
     "Poll drafts" : "مسودات الاستبيان",
     "Browse poll drafts" : "استعراض مسودات الاستبيان",
-    "Start time: {date}" : "بدايةً من: {date}",
-    "Error occurred when restricting the conversation to moderator" : "حدث خطأ عندما اقتصرت المحادثة على المشرفيين فقط ",
-    "Error occurred when opening the conversation to everyone" : "حدث خطأ أثناء فتح المحادثة للجميع ",
-    "Start time has been updated" : "تم تحديث وقت البدء",
-    "Error occurred while updating start time" : "حدث خطأ أثناء تحديث وقت البدء ",
+    "Error occurred when locking the conversation" : "حدث خطأ أثناء قفل المحادثة ",
+    "Error occurred when unlocking the conversation" : "حدث خطأ أثناء إزالة قفل المحادثة ",
     "Lock conversation" : "قفل المحادثة",
     "This will also terminate the ongoing call." : "سيؤدي هذا أيضًا إلى إنهاء المكالمة الجارية.",
     "Lock the conversation to prevent anyone to post messages or start calls" : "قفل المحادثة لمنع أي شخص من نشر الرسائل أو بدء المكالمات",
-    "Error occurred when locking the conversation" : "حدث خطأ أثناء قفل المحادثة ",
-    "Error occurred when unlocking the conversation" : "حدث خطأ أثناء إزالة قفل المحادثة ",
     "Edit" : "تعديل",
     "More information" : "المزيد من المعلومات",
     "Delete" : "حذف ",
-    "You can bridge channels from various instant messaging systems with Matterbridge." : "يمكنك ربط القنوات من مختلف أنظمة المراسلة الفورية باستخدام Matterbridge.",
-    "More info on Matterbridge" : "مزيد من المعلومات حول Matterbridge.",
-    "Messaging systems" : "نظم التراسل",
-    "Enable bridge" : "غير متاح ",
-    "Show Matterbridge log" : "إظهار سجل Matterbridge",
-    "Log content" : "محتوى سجل الأحداث",
     "Add new bridged channel to current conversation" : "إضافة قناة وصل جديدة للمحادثة الحالية ",
     "unknown state" : "حالة غير معروفة",
     "running" : "فعال",
     "not running, check Matterbridge log" : "لا يعمل، تحقق من سجل Matterbridge",
     "not running" : "غير فعال",
     "Bridge saved" : "تم الحفظ ",
-    "Allow participants to mention @all" : "السماح للمشاركين بالإشارة إلى الجميع @all",
-    "Mention permissions" : "صلاحية الإشارة لآخرين",
+    "You can bridge channels from various instant messaging systems with Matterbridge." : "يمكنك ربط القنوات من مختلف أنظمة المراسلة الفورية باستخدام Matterbridge.",
+    "More info on Matterbridge" : "مزيد من المعلومات حول Matterbridge.",
+    "Messaging systems" : "نظم التراسل",
+    "Enable bridge" : "غير متاح ",
+    "Show Matterbridge log" : "إظهار سجل Matterbridge",
+    "Log content" : "محتوى سجل الأحداث",
     "Only moderators are allowed to mention @all" : "فقط المشرفون يحق لهم الإشارة إلى الجميع  @all",
     "All participants are allowed to mention @all" : "جميع المشاركين مسموح لهم بالإشارة إلى الجميع @all",
     "Participants are now allowed to mention @all." : "المشاركون غير مسموح لهم بالإشارة إلى الجميع @all",
     "Mentioning @all has been limited to moderators." : "صلاحية الإشارة إلى الجميع @all مقتصرة فقط على المشرفين.",
+    "Allow participants to mention @all" : "السماح للمشاركين بالإشارة إلى الجميع @all",
+    "Mention permissions" : "صلاحية الإشارة لآخرين",
     "Notifications" : "التنبيهات",
     "Notify about calls in this conversation" : "الإخطار حول المكالمات فى هذه المحادثة",
-    "Recording Consent" : "الإذن بالتسجيل ",
-    "Recording consent cannot be changed once a call or breakout session has started." : "لا يمكن تغيير الموافقة على التسجيل بعد بدء المكالمة أو الجلسة الجانبية.",
-    "Require recording consent before joining call in this conversation" : "أطلُب الإذن بالتسجيل قبل الانضمام لهذه المحادثة",
-    "Recording consent is required for all calls" : "الإذن بالتسجيل مطلوبٌ لكل المكالمات",
+    "Important conversation" : "محادثة مهمة",
     "Recording consent is required for calls in this conversation" : "الإذن بالتسجيل مطلوبٌ لكل المكالمات في هذه المحادثة",
     "Recording consent is not required for calls in this conversation" : "الإذن بالتسجيل ليس مطلوباً لكل المكالمات",
     "Recording consent requirement was updated" : "تم تحديث متطلبات الإذن بالتسجيل",
     "Error occurred while updating recording consent" : "حدث خطأ أثناء تحديث الإذن بالتسجيل",
-    "Phone and SIP dial-in" : "الاتصال الهاتفي dial-in، و عبر الإنترنت SIP",
-    "Enable phone and SIP dial-in" : "تمكين الاتصال الهاتفي dial-in، و عبر الإنترنت SIP",
-    "Allow to dial-in without a PIN" : "السماح بالاتصال بدون رقم التعريف الشخصي PIN",
+    "Recording Consent" : "الإذن بالتسجيل ",
+    "Recording consent cannot be changed once a call or breakout session has started." : "لا يمكن تغيير الموافقة على التسجيل بعد بدء المكالمة أو الجلسة الجانبية.",
+    "Require recording consent before joining call in this conversation" : "أطلُب الإذن بالتسجيل قبل الانضمام لهذه المحادثة",
+    "Recording consent is required for all calls" : "الإذن بالتسجيل مطلوبٌ لكل المكالمات",
     "SIP dial-in is now possible without PIN requirement" : "أصبح الاتصال عبر SIP ممكنًا الآن بدون الحاجة إلى رقم التعريف الشخصي",
     "SIP dial-in is now enabled" : "تم تمكين اتصال SIP الآن",
     "SIP dial-in is now disabled" : "تم تعطيل اتصال SIP الآن",
     "Error occurred when enabling SIP dial-in" : "حدث خطأ أثناء تمكين اتصال SIP",
     "Error occurred when disabling SIP dial-in" : "حدث خطأ أثناء تعطيل اتصال SIP",
+    "Phone and SIP dial-in" : "الاتصال الهاتفي dial-in، و عبر الإنترنت SIP",
+    "Enable phone and SIP dial-in" : "تمكين الاتصال الهاتفي dial-in، و عبر الإنترنت SIP",
+    "Allow to dial-in without a PIN" : "السماح بالاتصال بدون رقم التعريف الشخصي PIN",
+    "Join" : "إن",
+    "Error while creating the conversation" : "حدث خطأ اثناء نسخ رابط المحادثة",
+    "Create a new conversation" : "إنشاء محادثة جديدة",
+    "Join open conversations" : "الانضمام إلى محادثات جارية",
+    "Call a phone number" : "اتَّصِل برقم هاتف",
+    "Unread mentions" : "إشارات غير مقروءة",
+    "Create conversation" : "انشاء محادثة",
     "Enter your name" : "أدخِل اسمك",
     "Submit name and join" : "أرسِل الاسم و انضَمّ",
     "Do you already have an account?" : "هل لديك حساب سلفاً؟",
@@ -1213,71 +1224,81 @@
     "_%n invalid email_::_%n invalid emails_" : ["%n إيميل غير صحيح","%n إيميل غير صحيح","%n إيميل غير صحيح","%n إيميلات غير صحيحة","%n إيميل غير صحيح","%n إيميل غير صحيح"],
     "_%n email is already imported or a duplicate_::_%n emails are already imported or duplicates_" : ["%n  إيميل سبق استيراده أو هو مكرر","%n  إيميل سبق استيراده أو هو مكرر","%n  إيميل سبق استيراده أو هو مكرر","%n  إيميلات سبق استيرادها أو هي مكررة","%n  إيميل سبق استيراده أو هو مكرر","%n إيميل سبق استيراده أو هو مكرر"],
     "_%n invitation can be sent_::_%n invitations can be sent_" : ["%n دعوة يمكن إرسالها","%n دعوة يمكن إرسالها","%n دعوة يمكن إرسالها","%n دعوة يمكن إرسالها","%n دعوات يمكن إرسالها","%n دعوة يمكن إرسالها"],
-    "Call a phone number" : "اتَّصِل برقم هاتف",
-    "Search participants or phone numbers" : "البحث عن مشاركين أو أرقام هواتف",
-    "Creating the conversation …" : "إنشاء محادثة ...",
     "An error occurred while calling a phone number" : "حدث خطأ أثناء الاتصال برقم هاتف",
     "Phone number could not be called: {error}" : "تعذّر طلب الاتصال برقم الهاتف: {error}",
     "Phone number could not be called" : "تعذّر الاتصال برقم الهاتف",
-    "Conversation actions" : "إجراءات المحادثة ",
-    "Notify about calls" : "إشعار بالمكالمات",
+    "Search participants or phone numbers" : "البحث عن مشاركين أو أرقام هواتف",
+    "Creating the conversation …" : "إنشاء محادثة ...",
     "Mark as read" : "تحديد كمقروء ",
     "Mark as unread" : "تحديد كغير مقروء ",
     "Remove from favorites" : "إزالتها مِن المفضلة",
     "Add to favorites" : "أضفه إلى المفضلة",
     "Unarchive conversation" : "استرجاع المحادثة من الأرشيف",
     "You need to promote a new moderator before you can leave the conversation." : "يجب عليك ترقية مشرف لاحد المشاركين قبل مغادرة المحادثة.",
+    "Conversation actions" : "إجراءات المحادثة ",
+    "Notify about calls" : "إشعار بالمكالمات",
     "Pending invitations" : "دعوات معلقة",
     "Join conversations from remote Nextcloud servers" : "الانضمام إلى المحادثة من خوادم بعيدة لنكست كلاود",
     "From {user} at {remoteServer}" : "من {user} على الخادم {remoteServer}",
     "Decline invitation" : "رفض الدعوة",
     "Accept invitation" : "قبول الدعوة",
     "No pending invitations" : "لا توجد دعوات معلقة",
-    "Conversation list" : "قائمة المحادثة ",
-    "Filter unread mentions" : "تصفية الإشارات غير المقروءة",
-    "Filter unread messages" : "تصفية الرسائل غير المقروءة",
-    "Clear filters" : "إزالة التصفية",
-    "Create a new conversation" : "إنشاء محادثة جديدة",
-    "New personal note" : "ملاحظة شخصية جديدة",
-    "Join open conversations" : "الانضمام إلى محادثات جارية",
-    "Clear filter" : "إزالة التصفية",
-    "Unread mentions" : "إشارات غير مقروءة",
+    "Unread" : "غير مقروء",
     "No matches found" : "لم يٌمكن إيجاد أي تطابقات",
-    "New group conversation" : "محادثة جماعية جديدة",
-    "Open conversations" : "فتح المحادثات ",
-    "Users" : "المستخدمين:",
-    "New private conversation" : "محادثة جديدة على الخاص",
-    "Groups" : "المجموعات",
-    "Teams" : "الفرق",
-    "Federated users" : "مستخدِمون من السحابة الموحدة",
-    "No search results" : "لا توجد نتائج",
-    "Back to conversations" : "عودة إلى المحادثات",
-    "Archived conversations" : "المحادثات المؤرشفة",
-    "Talk settings" : "إعدادات التحدث",
     "No conversations found" : "لم يتم العثور على المحادثات ",
     "You have no archived conversations." : "ليس لديك أي محادثات مؤرشفة.",
     "You have no unread mentions." : "لا توجد لديك أي إشارات غير مقرؤة.",
     "You have no unread messages." : "لا توجد لديك أي رسائل غير مقرؤة.",
+    "An error occurred while performing the search" : "حدث خطأ اثناء البحث",
+    "Conversation list" : "قائمة المحادثة ",
+    "Unread messages" : "رسائل غير مقروءة",
+    "Clear filters" : "إزالة التصفية",
+    "New personal note" : "ملاحظة شخصية جديدة",
+    "Clear filter" : "إزالة التصفية",
+    "Back to conversations" : "عودة إلى المحادثات",
+    "Archived conversations" : "المحادثات المؤرشفة",
+    "Talk settings" : "إعدادات التحدث",
+    "Users" : "المستخدمين:",
+    "Groups" : "المجموعات",
+    "Teams" : "الفرق",
+    "Federated users" : "مستخدِمون من السحابة الموحدة",
+    "New private conversation" : "محادثة جديدة على الخاص",
+    "Open conversations" : "فتح المحادثات ",
+    "No search results" : "لا توجد نتائج",
     "Users, groups and teams" : "المستخدمين، والمجموعات، والفرق",
     "Users and groups" : "الاعضاء والمجموعات",
     "Users and teams" : "المستخدمين و الفرق",
     "Groups and teams" : "المجموعات والفرق",
     "Other sources" : "مصادر آخرى",
-    "An error occurred while performing the search" : "حدث خطأ اثناء البحث",
-    "You are currently waiting in the lobby" : "أنت حاليا في انتظار الاستقبال",
+    "New group conversation" : "محادثة جماعية جديدة",
     "The meeting will start soon" : "هذا الاجتماع سيبدأ قريباً",
     "This meeting is scheduled for {startTime}" : "تمت جدولة هذا الاجتماع في {startTime}",
-    "Select a device" : "إختَر جهازاً",
-    "Refresh devices list" : "تحديث قائمة الإجهزة",
-    "No microphone available" : "لا يوجد مايكرفون متاح",
-    "Select microphone" : "اختر مايك",
-    "No camera available" : "لا توجد كاميرا متاحة",
-    "Select camera" : "اختر كاميرا",
+    "You are currently waiting in the lobby" : "أنت حاليا في انتظار الاستقبال",
     "None" : "لا شيء",
+    "Select microphone" : "اختر مايك",
+    "No microphone available" : "لا يوجد مايكرفون متاح",
+    "Select speaker" : "حدِّد المُتحَدِّث",
+    "No speaker available" : "لايوجد أيّ مُتحَدِّث",
+    "Select camera" : "اختر كاميرا",
+    "No camera available" : "لا توجد كاميرا متاحة",
+    "Select a device" : "إختَر جهازاً",
     "Playing …" : "قيد التشغيل ...",
     "Test speakers" : "اختبار مكبرات الصوت",
+    "Test" : "اختبار",
+    "Devices" : "الأجهزة",
+    "Backgrounds" : "الخلفيّات",
+    "No audio" : "بدون صوت",
+    "No camera" : "بدون كاميرا",
+    "Display video as you will see it (mirrored)" : "عرض الفيديو كما ستراه أنت (معكوساً)",
+    "Display video as others will see it" : "عرض الفيديو كما سيراه الآخرون",
+    "Calls are not supported in your browser" : "المكالمات غير مدعومة في متصفحك",
+    "Access to microphone is only possible with HTTPS" : "الوصول إلى المايكرفون مسموح فقط في HTTPS",
+    "Access to microphone was denied" : "تم رفض الوصول للمايكرفون",
+    "Error while accessing microphone" : "حدث خطأ اثناء الوصول إلى المايكرفون",
+    "Access to camera is only possible with HTTPS" : "الوصول للكاميرا مسموح فقط في HTTPS",
+    "Your default media state has been saved" : "تمّ حفظ حالة الوسائط الخاصة بك",
+    "Error while setting default media state" : "حدث خطأ أثناء حفظ حالة الوسائط ",
     "Media settings" : "إعدادات الوسائط",
-    "Always show preview for this conversation" : "عرض معاينةً لهذه المحادثة دائما",
     "Start recording immediately with the call" : "إبدأ التسجيل فور بدء المكالمة",
     "The call is being recorded." : "يتم تسجيل المكالمة.",
     "The call might be recorded." : "المكالمة يُمكن أن يتم تسجيلها.",
@@ -1288,16 +1309,6 @@
     "Normal call" : "مكالمة عادية",
     "The conversation participants will be notified about this call" : "سوف يتم إعلام المشاركين في المحادثة بشأن هذه المكالمة",
     "Apply settings" : "طبِّق الإعدادات",
-    "Devices" : "الأجهزة",
-    "Backgrounds" : "الخلفيّات",
-    "No audio" : "بدون صوت",
-    "No camera" : "بدون كاميرا",
-    "Display video as you will see it (mirrored)" : "عرض الفيديو كما ستراه أنت (معكوساً)",
-    "Display video as others will see it" : "عرض الفيديو كما سيراه الآخرون",
-    "Blur" : "تضبيب",
-    "Upload" : "تحميل",
-    "Files" : "الملفات",
-    "Select a file" : "إختَر ملفّاً",
     "Select virtual office background" : "اختر الخلفية الافتراضية للمكتب",
     "Select virtual home background" : "اختر الخلفية الافتراضية للمنزل",
     "Select virtual abstract background" : "اختر الخلفية الافتراضية للملخص",
@@ -1307,11 +1318,12 @@
     "Select virtual library background" : "اختر الخلفية الافتراضية للمكتبة",
     "Select virtual space station background" : "اختر الخلفية الافتراضية لمساحة محطة المستخدم",
     "Error while uploading the file" : "خطأ أثناء رفع الملف",
+    "Select a file" : "إختَر ملفّاً",
     "Invalid path selected" : "تم تحديد مسار غير صحيح",
     "Select virtual background from file {fileName}" : "اختر الخلفية الافتراضية من الملف {fileName}",
-    "Show or collapse system messages" : "إظهار أو طي رسائل النظام",
-    "Unread messages" : "رسائل غير مقروءة",
-    "Generate summary" : "توليد مُلخَّص",
+    "Blur" : "تضبيب",
+    "Upload" : "تحميل",
+    "Files" : "الملفات",
     "Message read by everyone who shares their reading status" : "تمت قراءة الرسالة من قبل كل من يشاركهم الحالة ",
     "Message sent" : "تم إرسال الرسالة ",
     "Sent without notification" : "تمّ الإرسال بدون إشعار",
@@ -1321,6 +1333,26 @@
     "Message could not be deleted because it is too old" : "تعذر مسح الرسالة لإنها قديمة جدًا",
     "Only normal chat messages can be deleted" : "يمكن حذف رسائل الدردشة العادية فقط",
     "An error occurred while deleting the message" : "حدث خطأ أثناء حذف الرسالة",
+    "Show or collapse system messages" : "إظهار أو طي رسائل النظام",
+    "Generate summary" : "توليد مُلخَّص",
+    "Later today – {timeLocale}" : "في وقت لاحقٍ اليوم – {timeLocale}",
+    "Set reminder for later today" : "عيّن التذكير لوقت لاحقٍ اليوم",
+    "Tomorrow – {timeLocale}" : "غداً – {timeLocale}",
+    "Set reminder for tomorrow" : "عيّن التذكير للغد",
+    "This weekend – {timeLocale}" : "نهاية هذا الأسبوع – {timeLocale}",
+    "Set reminder for this weekend" : "عيّن التذكير لنهاية هذا الأسبوع",
+    "Next week – {timeLocale}" : "الأسبوع القادم – {timeLocale}",
+    "Set reminder for next week" : "عيّن التذكير للأسبوع القادم",
+    "Clear reminder – {timeLocale}" : "إمحُ التذكير – {timeLocale}",
+    "Edited by {actor}" : "تمّ تحريرها من قِبَل {actor}",
+    "Message text copied to clipboard" : "تمّ نسخ الرسالة النصّية إلى الحافظة",
+    "Message text could not be copied" : "تعذّر نسخ الرسالة النصّية إلى الحافظة",
+    "Message forwarded to \"Note to self\"" : "الرسالة أُعِيدَ توجيهها إلى \"ملاحظة لنفسي\"",
+    "Error while forwarding message to \"Note to self\"" : "حدث خطأ أثناء إعادة توجيه الرسالة إلى \"ملاحظة لنفسي\"",
+    "A reminder was successfully removed" : "تمّ بنجاح حذف التذكير",
+    "Error occurred when removing a reminder" : "حدث خطأ أثناء حذف التذكير",
+    "A reminder was successfully set at {datetime}" : "تمّ بنجاح تعيين التذكير إلى {datetime}",
+    "Error occurred when creating a reminder" : "حدث خطأ أثناء إنشاء التذكير",
     "Add a reaction to this message" : "إضافة تفاعل على هذه الرسالة",
     "Reply" : "رد",
     "Set reminder" : "ضبط التذكير",
@@ -1336,24 +1368,14 @@
     "Close reactions menu" : "إغلاق قائمة التفاعل",
     "React with {emoji}" : "تفاعل باستخدام {emoji}",
     "React with another emoji" : "تفاعل مع رمز تعبيري آخر",
-    "Set reminder for later today" : "عيّن التذكير لوقت لاحقٍ اليوم",
-    "Set reminder for tomorrow" : "عيّن التذكير للغد",
-    "Set reminder for this weekend" : "عيّن التذكير لنهاية هذا الأسبوع",
-    "Set reminder for next week" : "عيّن التذكير للأسبوع القادم",
-    "Edited by {actor}" : "تمّ تحريرها من قِبَل {actor}",
-    "Message text copied to clipboard" : "تمّ نسخ الرسالة النصّية إلى الحافظة",
-    "Message text could not be copied" : "تعذّر نسخ الرسالة النصّية إلى الحافظة",
-    "Message forwarded to \"Note to self\"" : "الرسالة أُعِيدَ توجيهها إلى \"ملاحظة لنفسي\"",
-    "Error while forwarding message to \"Note to self\"" : "حدث خطأ أثناء إعادة توجيه الرسالة إلى \"ملاحظة لنفسي\"",
-    "A reminder was successfully removed" : "تمّ بنجاح حذف التذكير",
-    "Error occurred when removing a reminder" : "حدث خطأ أثناء حذف التذكير",
-    "A reminder was successfully set at {datetime}" : "تمّ بنجاح تعيين التذكير إلى {datetime}",
-    "Error occurred when creating a reminder" : "حدث خطأ أثناء إنشاء التذكير",
+    "Choose a conversation to forward the selected message." : "اختر محادثة لإعادة توجيه الرسالة المحددة إليها.",
+    "Error while forwarding message" : "خطأ أثناء إعادة توجيه الرسالة",
     "The message has been forwarded to {selectedConversationName}" : "تمت إعادة توجيه الرسالة إلى {selectedConversationName}",
     "Dismiss" : "الغاء",
     "Go to conversation" : "ذهاب إلى المحادثة",
-    "Choose a conversation to forward the selected message." : "اختر محادثة لإعادة توجيه الرسالة المحددة إليها.",
-    "Error while forwarding message" : "خطأ أثناء إعادة توجيه الرسالة",
+    "The message could not be translated" : "لا يمكن ترجمة الرسالة",
+    "Translation copied to clipboard" : "تمّ نسخ الترجمة إلى الحافظة",
+    "Translation could not be copied" : "تعذّر نسخ الترجمة",
     "Translate message" : "ترجِم الرسالة",
     "Source language to translate from" : "اللغة الأصلية التي ستتم الترجمة منها",
     "Translate from" : "ترجِم من",
@@ -1361,16 +1383,12 @@
     "Translate to" : "ترجِم إلى",
     "Translating" : "يترجم",
     "Copy translated text" : "نسخ النص المترجم",
-    "The message could not be translated" : "لا يمكن ترجمة الرسالة",
-    "Translation copied to clipboard" : "تمّ نسخ الترجمة إلى الحافظة",
-    "Translation could not be copied" : "تعذّر نسخ الترجمة",
     "Your browser does not support playing audio files" : "متصفحك لا يدعم تشغيل ملفات الصوت",
     "Contact" : "التواصل",
     "{stack} in {board}" : "{stack} في  {board}",
     "Deck Card" : "بطاقة Deck",
     "Remove {fileName}" : "إزالة {fileName}",
     "Open this location in OpenStreetMap" : "افتح هذا الموقع في تطبيق OpenStreetMap",
-    "Copy code block" : "إنسَخ الكتلة الكودية",
     "Sending message" : "إرسال الرسالة ",
     "Failed to send the message. Click to try again" : "فشل في إرسال الرسالة، انقر للمحاولة مجددًا ",
     "Not enough free space to upload file" : "لا يوجد مساحة تخزينية كافية لرفع الملف ",
@@ -1379,43 +1397,38 @@
     "Code block copied to clipboard" : "إنسَخ الكتلة المنسوخة في الحافظة",
     "Code block could not be copied" : "تعذّر نسخ الكتلة الكودية",
     "Could not update the message" : "تعذّر تحديث الرسالة",
-    "Edit poll draft" : "تحرير مُسوَّدة التصويت",
-    "Delete poll draft" : "حذف مسودة الاستبيان",
-    "Poll" : "استبيان",
-    "See results" : "رؤية النتائج",
+    "Copy code block" : "إنسَخ الكتلة الكودية",
     "Open poll • You voted already" : "فتح الاستطلاع • لقد قمت بالتصويت بالفعل",
     "Open poll • Click to vote" : "فتح الاستطلاع • اضغط للتصويت",
-    "Poll • Ended" : "انتهى•الاستطلاع",
     "_Poll draft • %n option_::_Poll draft • %n options_" : ["مسودة الاستبيان • %n خيارات","مسودة الاستبيان • %n خيار","مسودة الاستبيان • %n خيارات","مسودة الاستبيان • %n خيارات","مسودة الاستبيان • %n خيارات","مسودة الاستبيان • %n خيارات"],
-    "Show all reactions" : "أظهِر جميع التفاعلات",
-    "Add more reactions" : "إضافة تفاعلاتٍ أخرى",
+    "Poll • Ended" : "انتهى•الاستطلاع",
+    "Poll" : "استبيان",
+    "Edit poll draft" : "تحرير مُسوَّدة التصويت",
+    "Delete poll draft" : "حذف مسودة الاستبيان",
+    "See results" : "رؤية النتائج",
     "No permission to post reactions in this conversation" : "لا يوجد إذن لنشر التفاعلات في هذه المحادثة",
     "and {participant}" : "و {participant}",
     "_and %n other participant_::_and %n other participants_" : ["و %n مشارك آخر","و %n مشارك آخر","و %n مُشاركين آخرين","و %n مُشاركين آخرين","و %n مشاركين آخرين","و %n مشاركين آخرين"],
+    "Show all reactions" : "أظهِر جميع التفاعلات",
+    "Add more reactions" : "إضافة تفاعلاتٍ أخرى",
     "Reactions" : "التفاعلات",
-    "No messages" : "لاتوجد رسائل",
-    "All messages have expired or have been deleted." : "كل الرسائل انتهت صلاحيتها أو تمّ حذفها",
     "Today" : "اليوم",
     "Yesterday" : "امس",
     "A week ago" : "منذ أسبوع",
-    "{relativeDate}, {absoluteDate}" : "{relativeDate}, {absoluteDate}",
     "_%n day ago_::_%n days ago_" : ["قبل ساعات","قبل يوم","قبل يومين","قبل %n يوماً","قبل %n يوماً","قبل %n يوماً"],
-    "Add a phone number" : "إضافة رقم هاتف",
+    "{relativeDate}, {absoluteDate}" : "{relativeDate}, {absoluteDate}",
+    "No messages" : "لاتوجد رسائل",
+    "All messages have expired or have been deleted." : "كل الرسائل انتهت صلاحيتها أو تمّ حذفها",
     "Cancel search" : "إلغاء البحث",
-    "Create a new group conversation" : "انشاء محادثة جماعية جديدة",
-    "Create conversation" : "انشاء محادثة",
-    "Add participants" : "اضافة مشارك جديد",
+    "Add a phone number" : "إضافة رقم هاتف",
     "Error: A password is required to create the conversation." : "خطأ: كلمة المرور لازمة لإنشاء المحادثة.",
-    "Error while creating the conversation" : "حدث خطأ اثناء نسخ رابط المحادثة",
     "All set, the conversation \"{conversationName}\" was created." : "تمّ إنشاء المحادثة \"{conversationName}\" بنجاح.",
+    "Create a new group conversation" : "انشاء محادثة جماعية جديدة",
+    "Add participants" : "اضافة مشارك جديد",
+    "Maximum length exceeded ({maxlength} characters)" : "تمّ تجاوز الحدّ الأقصى ({maxlength} حرفاً)",
     "Conversation visibility" : "رؤية المحادثة",
     "Allow guests to join via link" : "السماح بالضيوف بالانضمام عن طريق الرابط",
     "Enter password" : "أدخل كلمة المرور",
-    "Maximum length exceeded ({maxlength} characters)" : "تمّ تجاوز الحدّ الأقصى ({maxlength} حرفاً)",
-    "Add emoji" : "اضافة رمز تعبيري",
-    "Adding a mention will only notify users who did not read the message." : "إضافة إشارة ستؤدي إلى إشعار المستخدِمين الذين لم يسبق لهم قراءة الرسالة.",
-    "Cancel editing" : "إلغاء التحرير",
-    "File to share" : "ملف للمشاركة",
     "This conversation has been locked" : "هذه المحادثة مغلقة",
     "No permission to post messages in this conversation" : "ليس لديك صلاحية لنشر رسائل في هذه المحادثة",
     "Joining conversation …" : "جارٍ الانضمام للمحادثة ",
@@ -1426,16 +1439,20 @@
     "The participant will not be notified about new messages" : "سوف لن يتم إشعار المشارك بشأن الرسائل الجديدة",
     "Participants will not be notified about new messages" : "سوف لن يتم إشعار المُشاركين بشأن الرسائل الجديدة",
     "The message could not be edited" : "تعذّر تحرير الرسالة",
+    "File to share" : "ملف للمشاركة",
     "File upload is not available in this conversation" : "رفع الملفات غير متاح في هذه الدردشة",
-    "Replacement: " : "البديل:",
+    "Add emoji" : "اضافة رمز تعبيري",
+    "Adding a mention will only notify users who did not read the message." : "إضافة إشارة ستؤدي إلى إشعار المستخدِمين الذين لم يسبق لهم قراءة الرسالة.",
+    "Cancel editing" : "إلغاء التحرير",
     "{user} is out of office and might not respond." : "{user} خارج المكتب الآن، و يمكن ألّا يستجيب",
     "Absence period: {startDate} - {endDate}" : "فترة الغياب: {startDate} - {endDate}",
+    "Replacement:" : "البديل:",
+    "Share from {nextcloud}" : "مشاركة من {nextcloud}",
+    "Share from Files" : "مشاركة من الملفات",
     "Share files to the conversation" : "مشاركة ملفات في المحادثة",
     "Upload from device" : "إرفع من جهاز",
     "Create new poll" : "إنشاء استطلاع جديد",
     "Smart picker" : "اللاقط الذكي Smart picker",
-    "Share from {nextcloud}" : "مشاركة من {nextcloud}",
-    "Share from Files" : "مشاركة من الملفات",
     "Record voice message" : "تسجيل رسالة صوتية",
     "End recording and send" : "إنهاء التسجيل والإرسال",
     "Dismiss recording" : "رفض التسجيل",
@@ -1443,21 +1460,24 @@
     "Microphone either not available or disabled in settings" : "الميكروفون إما غير متاح أو تم تعطيله من الإعدادات",
     "Error while recording audio" : "خطأ أثناء تسجيل الصوت",
     "Talk recording from {time} ({conversation})" : "تسجيل حديث من {time} ({conversation})",
-    "Generating summary of unread messages ..." : "توليد مُلخَّص بالرسائل غير المقرؤة ...",
-    "Summary is AI generated and might contain mistakes" : "المُلخَّص يتم توليده بالذكاء الاصطناعي و يمكن أن يحتوي على أخطاء",
     "Error occurred during a summary generation" : "حدث خطأ أثناء توليد المُلخَّص",
-    "Create and share a new file" : "إنشاء ملف جديد ومشاركته",
-    "Name of the new file" : "اسم الملف الجديد",
-    "Create file" : "إنشاء ملف",
+    "Generating summary of unread messages …" : "توليد ملخص للرسائل غير المقرؤة ...",
+    "Summary is AI generated and might contain mistakes" : "المُلخَّص يتم توليده بالذكاء الاصطناعي و يمكن أن يحتوي على أخطاء",
     "New file" : "ملف جديد",
     "Blank" : "فارغ",
     "Error while creating file" : "خطأ أثناء إنشاء الملف",
+    "Create and share a new file" : "إنشاء ملف جديد ومشاركته",
+    "Name of the new file" : "اسم الملف الجديد",
+    "Create file" : "إنشاء ملف",
     "Someone is typing …" : "شخصٌ ما يكتبُ ...",
     "{user1} is typing …" : "{user1} يكتُب…",
     "{user1} and {user2} are typing …" : "{user1} و {user2} يكتُبُون …",
     "{user1}, {user2} and {user3} are typing …" : "{user1}, {user2} و {user3} يكتُبُون …",
-    "Send" : "أرسل",
+    "_{user1}, {user2}, {user3} and %n other are typing …_::_{user1}, {user2}, {user3} and %n others are typing …_" : ["{user1}, {user2} و {user3} و%n أخرون يكتُبُون …","{user1}, {user2} و {user3} و%n آخر يكتُب …","{user1}, {user2} و {user3} و%nأخرون يكتُبُون …","{user1}, {user2} و {user3} و%n أخرون يكتُبُون …","{user1}, {user2} و {user3} و %n أخرون يكتُبُون …","{user1}, {user2} و {user3} و%n أخرون يكتُبُون …"],
     "Add more files" : "اضافة المزيد من الملفات",
+    "Send" : "أرسل",
+    "In this conversation <strong>{user}</strong> can:" : "في هذه المحادثة يستطيع<strong> {user}</strong>:",
+    "Edit default permissions for participants in <strong>{conversationName}</strong>" : "تحرير الأذونات الافتراضية للمشاركين في <strong>{conversationName}</strong>",
     "Start a call" : "بدء المكالمة",
     "Skip the lobby" : "تخطي انتظار القبول",
     "Can post messages and reactions" : "يمكن نشر الرسائل والتفاعلات",
@@ -1466,10 +1486,11 @@
     "Share the screen" : "شارك الشاشة",
     "Update permissions" : "تحديث الأذونات",
     "Updating permissions" : "الرجاء الاتصال بالمسؤول الخاص بك.",
-    "In this conversation <strong>{user}</strong> can:" : "في هذه المحادثة يستطيع<strong> {user}</strong>:",
-    "Edit default permissions for participants in <strong>{conversationName}</strong>" : "تحرير الأذونات الافتراضية للمشاركين في <strong>{conversationName}</strong>",
     "No poll drafts" : "لا توجد أي مسودات للاستبيان",
     "There is no poll drafts yet saved for this conversation" : "لا توجد أي مسودات محفوظة للاستبيان في هذه المحادثة",
+    "Create poll in {name}" : "إنشاء تصويت في {name}",
+    "Create poll" : "صَوّت، رجاءً",
+    "Error while importing poll" : "خطأ أثناء استيراد الاستبيان",
     "Question" : "سؤال",
     "Ask a question" : "طرح سؤال",
     "Import draft from file" : "إستيراد مسودة من ملف",
@@ -1482,29 +1503,24 @@
     "Multiple answers" : "إجابات متعددة",
     "Save as draft" : "إحفَظ كمسودة",
     "Export draft to file" : "تصدير مسودة إلى ملف",
-    "Create poll in {name}" : "إنشاء تصويت في {name}",
-    "Create poll" : "صَوّت، رجاءً",
-    "Error while importing poll" : "خطأ أثناء استيراد الاستبيان",
+    "_Poll results • %n vote_::_Poll results • %n votes_" : ["نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n صوت","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %nأصوات"],
+    "_Open poll • %n vote_::_Open poll • %n votes_" : ["فتح استطلاع • %n أصوات","فتح استطلاع • %n صوت","فتح استطلاع • %n أصوات","فتح استطلاع • %n أصوات","فتح استطلاع • %n أصوات","فتح استطلاع •%n أصوات"],
+    "Open poll" : "فتح استطلاع",
     "You voted for this option" : "أنت صوَّتَّ على هذا الخيار",
     "Submit vote" : "إرسال التصويت",
     "Change your vote" : "تغيير صوتك",
     "End poll" : "نهاية التصويت",
-    "Open poll" : "فتح استطلاع",
-    "_Poll results • %n vote_::_Poll results • %n votes_" : ["نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n صوت","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %n أصوات","نتائج الاستطلاع • %nأصوات"],
-    "_Open poll • %n vote_::_Open poll • %n votes_" : ["فتح استطلاع • %n أصوات","فتح استطلاع • %n صوت","فتح استطلاع • %n أصوات","فتح استطلاع • %n أصوات","فتح استطلاع • %n أصوات","فتح استطلاع •%n أصوات"],
     "Voted participants" : "المُشارِكون المُصَوِّتُون",
-    "(editing)" : "(تعديل)",
     "The message has expired or has been deleted" : "الرسالة انتهت صلاحيتها أو سبق حذفها",
+    "(editing)" : "(تعديل)",
     "Cancel quote" : "إلغاء التعليق",
-    "Join" : "إن",
-    "Dismiss request for assistance" : "رفض طلب المساعدة",
-    "Send message to room" : "إرسال رسالة إلى الغرفة",
     "Send a message to \"{roomName}\"" : "إرسال رسالة إلى \"{roomName}\"",
     "Hide list of participants" : "إخفاء قائمة المشاركين",
     "Show list of participants" : "عرض قائمة المشاركين",
     "Assistance requested in {roomName}" : "تمّ طلب مساعدة في {roomName}",
     "The message was sent to \"{roomName}\"" : "تم إرسال الرسالة إلى \"{roomName}\"",
-    "Send a message to all breakout rooms" : "إرسال رسالة إلى جميع الغرف الجانبية",
+    "Dismiss request for assistance" : "رفض طلب المساعدة",
+    "Send message to room" : "إرسال رسالة إلى الغرفة",
     "Manage breakout rooms" : "أدِر الغرف الجانبية",
     "Back to main room" : "عودة إلى الغرفة الرئيسية",
     "Back to your room" : "الرجوع إلى غرفتك",
@@ -1513,38 +1529,16 @@
     "Start a call before you start a breakout room session" : "إبدأ مكالمة قبل بدأ جلسةً الغرفة الجانبية",
     "Stop session" : "أوقِف الجلسة",
     "The message was sent to all breakout rooms" : "تمّ إرسال الرسالة إلى كل الغُرف الجانبية breakout rooms",
+    "Send a message to all breakout rooms" : "إرسال رسالة إلى جميع الغرف الجانبية",
     "Breakout rooms are not started" : "الغرف الجانبية لم تبدأ ",
     "Calls without High-performance backend can cause connectivity issues and high load on devices. {linkstart}Learn more{linkend}" : " المكالمات بدون استعمال خلفية للأداء العالي تتسبب في إشكاليات في الاتصال و حمل زائد على الأجهزة. {linkstart}تعلَّم المزيد {linkend}",
     "Talk setup incomplete" : "إعدادات \"المحادثة\" Talk لم تكتمل",
-    "An error occurred when opening the conversation to everyone" : "حدث خطأ عند فتح المحادثة للجميع",
     "Disable lobby" : "تعطيل ساحة الإنتظار",
+    "Settings for participant \"{user}\"" : "إعدادات المشارك \"{المستخدم}\"",
+    "Participant \"{user}\"" : "المشارك \"{user}\"",
     "moderator" : "مشرف",
     "bot" : "بوت",
     "guest" : "ضيف",
-    "in the lobby" : "في صالة الانتظار",
-    "Dial out phone" : "أطلُب اتصال هاتفي",
-    "Hang up phone" : "علِّق الاتصال الهاتفي",
-    "Move back to lobby" : "عودة إلى صالة الانتظار",
-    "Move to conversation" : "إنتقال إلى المحادثة",
-    "Dial-in PIN" : "رمز الإتصال الهاتفي ",
-    "Demote from moderator" : "تخفيض رتبة مشرف",
-    "Promote to moderator" : "ترقية لـ مشرف",
-    "Resend invitation" : "إعادة إرسال الدعوة",
-    "Send call notification" : "إرسال إشعار المكالمة",
-    "Dial out phone number" : "أطلُب الاتصال برقم هاتفٍ",
-    "Resume call for phone number" : "استئناف المكالمة مع رقم هاتف",
-    "Put phone number on hold" : "ضع رقم هاتف في وضع الانتظار",
-    "Unmute phone number" : "إلغاء كتم صوت رقم هاتف",
-    "Mute phone number" : "كتم صوت رقم هاتف",
-    "Copy phone number" : "نسخ رقم هاتف",
-    "Reset custom permissions" : "إعادة إعداد الأذونات المخصصة",
-    "Grant all permissions" : "منح كافة الأذونات",
-    "Remove all permissions" : "إزالة كافة الأذونات",
-    "Also ban from this conversation" : "محظور أيضاً في هذه المحادثة",
-    "Internal note (reason to ban)" : "ملاحظة داخلية (سبب الحظر)",
-    "Remove" : "حذف",
-    "Settings for participant \"{user}\"" : "إعدادات المشارك \"{المستخدم}\"",
-    "Participant \"{user}\"" : "المشارك \"{user}\"",
     "Ringing …" : "يَرِنُّ الآن ...",
     "Call rejected" : "تمّ رفض المكالمة",
     "{time} talking …" : "{time} في محادثة …",
@@ -1573,34 +1567,56 @@
     "DTMF message could not be sent" : "تعذّر إرسال رسالة DTMF - النغمة المزدوجة متعددة الترددات-",
     "Phone number copied to clipboard" : "تمّ نسخ رقم الهاتف إلى الحافظة",
     "Phone number could not be copied" : "تعذّر نسخ رقم الهاتف إلى الحافظة",
+    "in the lobby" : "في صالة الانتظار",
+    "Dial out phone" : "أطلُب اتصال هاتفي",
+    "Hang up phone" : "علِّق الاتصال الهاتفي",
+    "Move back to lobby" : "عودة إلى صالة الانتظار",
+    "Move to conversation" : "إنتقال إلى المحادثة",
+    "Dial-in PIN" : "رمز الإتصال الهاتفي ",
+    "Demote from moderator" : "تخفيض رتبة مشرف",
+    "Promote to moderator" : "ترقية لـ مشرف",
+    "Resend invitation" : "إعادة إرسال الدعوة",
+    "Send call notification" : "إرسال إشعار المكالمة",
+    "Dial out phone number" : "أطلُب الاتصال برقم هاتفٍ",
+    "Resume call for phone number" : "استئناف المكالمة مع رقم هاتف",
+    "Put phone number on hold" : "ضع رقم هاتف في وضع الانتظار",
+    "Unmute phone number" : "إلغاء كتم صوت رقم هاتف",
+    "Mute phone number" : "كتم صوت رقم هاتف",
+    "Copy phone number" : "نسخ رقم هاتف",
+    "Reset custom permissions" : "إعادة إعداد الأذونات المخصصة",
+    "Grant all permissions" : "منح كافة الأذونات",
+    "Remove all permissions" : "إزالة كافة الأذونات",
+    "Also ban from this conversation" : "محظور أيضاً في هذه المحادثة",
+    "Internal note (reason to ban)" : "ملاحظة داخلية (سبب الحظر)",
+    "Remove" : "حذف",
     "Permissions modified for {displayName}" : "تم تعديل الأذونات لـ {displayName}",
+    "Add users, groups or teams" : "إضافة مستخدمين، و مجموعات، وفرق",
+    "Add users or groups" : "اضافة اعضاء او مجموعات",
+    "Add users or teams" : "إضافة مستخدمين أو فرق",
     "Add users" : "اضافة اعضاء",
+    "Add groups or teams" : "إضافة مجموعات وفرق",
     "Add groups" : "اضافة مجموعات",
-    "Add emails" : "اضافة عبر البريد",
     "Add teams" : "إضافة فرق",
+    "Add other sources" : "اضافة مصدر آخر",
+    "Add emails" : "اضافة عبر البريد",
     "Integrations" : "مُكاملات",
     "Add federated users" : "إضافة المستخدمين الخارجيين",
     "Searching …" : "جاري البحث…",
     "Search for more users" : "البحث عن مزيد من الاعضاء",
-    "Add users, groups or teams" : "إضافة مستخدمين، و مجموعات، وفرق",
-    "Add users or groups" : "اضافة اعضاء او مجموعات",
-    "Add users or teams" : "إضافة مستخدمين أو فرق",
-    "Add groups or teams" : "إضافة مجموعات وفرق",
-    "Add other sources" : "اضافة مصدر آخر",
-    "Participants" : "المشاركون",
     "You can search or add participants via name, email, or Federated Cloud ID" : "بمكنك البحث عن او اضافة مشاركين بدلالة الاسم أو الايميل أو معرف السحابة الموحدة",
     "Search or add participants" : "بحث او اضافة مشاركين",
     "Invitation was sent to {actorId}" : "تمّ إرسال الدعوة إلى {actId}",
     "An error occurred while adding the participants" : "حدث خطأ اثناء إضافة المشاركين",
+    "Participants" : "المشاركون",
+    "Participants ({count})" : "المشاركون ({count})",
+    "Open chat" : "دردشة مفتوحة",
+    "You have new unread messages in the chat." : "لديك رسائل جديدة غير مقروءة فى الدردشة.",
+    "You have been mentioned in the chat." : "أشار إليك أحدهم في الدردشة",
     "Search messages" : "البحث في الرسائل",
     "Chat" : "الدردشة",
     "Details" : "التفاصيل",
     "Shared items" : "عناصر مُشارَكة",
-    "Participants ({count})" : "المشاركون ({count})",
-    "Open chat" : "دردشة مفتوحة",
     "Search in {name}" : "البحث في {name}",
-    "You have new unread messages in the chat." : "لديك رسائل جديدة غير مقروءة فى الدردشة.",
-    "You have been mentioned in the chat." : "أشار إليك أحدهم في الدردشة",
     "Search messages …" : "البحث في الرسائل ...",
     "Search options" : "خيارات البحث",
     "From User" : "من مُستخدِم",
@@ -1610,32 +1626,35 @@
     "Load more results" : "تحميل المزيد من النتائج",
     "Projects" : "المشاريع",
     "No shared items" : "لا توجد عناصر مشاركة",
-    "Search conversations or users" : "البحث عن المحادثات او الاعضاء",
-    "Select conversation" : "اختر محادثة",
     "Link to a conversation" : "الربط لمحادثة",
     "No open conversations found" : "لا توجد أي محادثات مفتوحة",
     "Either there are no open conversations or you joined all of them." : "إمّا أنه لا توجد أيّ محادثات جارية أو أنك مُنضَمٌّ سلفاً إليها جميعاَ",
     "Check spelling or use complete words." : "تحقَّق من الهجاء أو استخدام كلماتٍ كاملة",
-    "Phone numbers" : "أرقام الهواتف",
+    "Search conversations or users" : "البحث عن المحادثات او الاعضاء",
+    "Select conversation" : "اختر محادثة",
     "Number length is not valid" : "عدد خانات الرقم غير صحيح",
     "Region code is not valid" : "كود المنطقة أو الدولة غير صحيح",
     "Number length is too short" : "عدد خانات الرقم أقل مما يُفترَض",
     "Number length is too long" : "عدد خانات الرقم أكثر مما يُفتَرض",
     "Number is not valid" : "الرقم غير صحيح",
+    "Phone numbers" : "أرقام الهواتف",
+    "Display name: {name}" : "اسم العرض: {name}",
     "Edit display name" : "عَدِّل اسم العرض",
     "Save name" : "حفظ الاسم",
-    "Display name: {name}" : "اسم العرض: {name}",
-    "Enable blur background by default for all conversation" : "قُم بتمكين الخلفية المُضبّبة بشكل تلقائي في كل المحادثات",
-    "Calls are not supported in your browser" : "المكالمات غير مدعومة في متصفحك",
-    "Access to microphone is only possible with HTTPS" : "الوصول إلى المايكرفون مسموح فقط في HTTPS",
-    "Access to microphone was denied" : "تم رفض الوصول للمايكرفون",
-    "Error while accessing microphone" : "حدث خطأ اثناء الوصول إلى المايكرفون",
-    "Access to camera is only possible with HTTPS" : "الوصول للكاميرا مسموح فقط في HTTPS",
-    "Choose devices" : "اختر الاجهزة",
+    "Choose the folder in which attachments should be saved." : "اختر مجلد ليتم فيه حفظ المرفقات.",
+    "Select location for attachments" : "اختر مكان المرفقات",
+    "Error while setting attachment folder" : "خطأ اثناء تحديد مجلد المرفقات",
+    "Your privacy setting has been saved" : "تم حفظ إعدادات الخصوصية الخاصة بك ",
+    "Error while setting read status privacy" : "حدث خطأ عند تعيين خصوصية قراءة الرسائل ",
+    "Error while setting typing status privacy" : "خطأ أثناء تعيين خصوصية حالة الكتابة",
+    "Your personal setting has been saved" : "تمّ حفظ إعداداتك الشخصية",
+    "Error while setting personal setting" : "خطأ أثناء إعداد الاعدادات الشخصية",
+    "Failed to save sounds setting" : "فشل حفظ إعدادت الصوت ",
+    "Sounds setting saved" : "تم حفظ إعدادات الأصوات ",
+    "Error while saving sounds setting" : "حدث خطأ أثناء حفظ إعدادات الأصوات ",
     "Turn off camera and microphone by default when joining a call" : "عطِّل عمل الكاميرات و لاقط الصوت بشكل تلقائي كلما انضممت إلى مكالمة",
     "Attachments folder" : "مجلد المرفقات",
     "Browse …" : "تصفّح …",
-    "Select location for attachments" : "اختر مكان المرفقات",
     "Appearance" : "المظهر",
     "Show conversations list in compact mode" : "عرض قائمة المحادثات في وضعية مضغوطة",
     "Privacy" : "الخصوصية",
@@ -1663,37 +1682,23 @@
     "Raise or lower hand" : "رفع أو خفض اليد ",
     "Mouse wheel" : "عجلة الفارة",
     "Zoom-in / zoom-out a screen share" : "تكبير/تصغير شاشة مُشارَكة",
-    "Choose the folder in which attachments should be saved." : "اختر مجلد ليتم فيه حفظ المرفقات.",
-    "Error while setting attachment folder" : "خطأ اثناء تحديد مجلد المرفقات",
-    "Your privacy setting has been saved" : "تم حفظ إعدادات الخصوصية الخاصة بك ",
-    "Error while setting read status privacy" : "حدث خطأ عند تعيين خصوصية قراءة الرسائل ",
-    "Error while setting typing status privacy" : "خطأ أثناء تعيين خصوصية حالة الكتابة",
-    "Your personal setting has been saved" : "تمّ حفظ إعداداتك الشخصية",
-    "Error while setting personal setting" : "خطأ أثناء إعداد الاعدادات الشخصية",
-    "Failed to save sounds setting" : "فشل حفظ إعدادت الصوت ",
-    "Sounds setting saved" : "تم حفظ إعدادات الأصوات ",
-    "Error while saving sounds setting" : "حدث خطأ أثناء حفظ إعدادات الأصوات ",
-    "Your default media state has been saved" : "تمّ حفظ حالة الوسائط الخاصة بك",
-    "Error while setting default media state" : "حدث خطأ أثناء حفظ حالة الوسائط ",
-    "End call for everyone" : "إنهاء المكالمة للجميع",
     "Start call silently" : "بدء اتصال صامت",
     "Start call" : "ابدء مكالمة",
     "End call" : "إقطَع المكالمة",
     "Nextcloud Talk was updated, you cannot start or join a call." : "تمّ تحديث \"المحادثة\" من نكست كلاود. لايمكنك البدء في أو الانضمام إلى محادثة.",
     "This call has just ended" : "المكالمة انتهت للتّو",
     "You will be able to join the call only after a moderator starts it." : "لن تتمكن من الانضمام إلى المكالمة إلا بعد أن يبدأها المشرف.",
+    "End call for everyone" : "إنهاء المكالمة للجميع",
+    "Starting the recording" : "بدء التسجيل",
+    "Recording" : "تسجيل",
     "The call has been running for one hour." : "المكالمة ما زالت مستمرة منذ حوالي الساعة.",
     "Cancel recording start" : "إلغاء مباشرة التسجيل",
     "Stop recording" : "إيقاف التسجيل",
-    "Starting the recording" : "بدء التسجيل",
-    "Recording" : "تسجيل",
     "Send a reaction" : "إرسال تفاعل",
     "React with {reaction}" : "تَفَاعَل مع {reaction}",
     "All tasks done!" : "تمّ إنجاز جميع المهام!",
     "_{done} of %n task_::_{done} of %n tasks_" : ["{done} من %n مهمة","{done} من %n مهمة","{done} من %n مهمة","{done} من %n مهام","{done} من %n مهمة","{done} من %n مهمة"],
     "_%n participant in call_::_%n participants in call_" : ["%n مشاركين بالمكالمة","%n مشارك بالمكالمة","%n مشاركين بالمكالمة","%n مشاركين بالمكالمة","%n مشاركين بالمكالمة","%n مشاركين بالمكالمة"],
-    "Show your screen" : "مشاركة الشاشة",
-    "Stop screensharing" : "التوقف عن مشاركة الشاشة",
     "Disable background blur" : "تعطيل طمس وتشويش الخلفية",
     "Blur background" : "طمس الخلفية",
     "You are not allowed to enable screensharing" : "غير مسموح لك بتمكين مشاركة الشاشة",
@@ -1725,11 +1730,8 @@
     "Screensharing extension is required to share your screen." : "اكستنشن مشاركة الشاشة مطلوب لمشاركة الشاشة.",
     "Please use a different browser like Firefox or Chrome to share your screen." : "يرجى استخدام متصفح آخر مثل فايرفوكس او كروم لمشاركة الشاشة.",
     "An error occurred while starting screensharing." : "حدث خطأ اثناء محاولة مشاركة الشاشة.",
-    "Mute others" : "كتم صوت الآخرين",
-    "Toggle full screen" : "تبديل إلى ملء الشاشة",
-    "Start recording" : "بدء التسجيل",
-    "Set up breakout rooms" : "جَهِّز الغرف الجانبية",
-    "Download attendance list" : "تنزيل قائمة الحضور",
+    "Show your screen" : "مشاركة الشاشة",
+    "Stop screensharing" : "التوقف عن مشاركة الشاشة",
     "Exit full screen (F)" : "خروج من ملء الشاشة (F)",
     "Full screen (F)" : "ملء الشاشة (F)",
     "Speaker view" : "عرض المتحدث",
@@ -1739,16 +1741,23 @@
     "Lower hand" : "خفض اليد ",
     "Lower hand (R)" : "خفض اليد (R)",
     "You need to close a dialog to toggle full screen" : "يجب إغلاق نافذة الحوار ليمكن التبديل إلى وضع ملء الشاشة",
+    "Mute others" : "كتم صوت الآخرين",
+    "Toggle full screen" : "تبديل إلى ملء الشاشة",
+    "Start recording" : "بدء التسجيل",
+    "Set up breakout rooms" : "جَهِّز الغرف الجانبية",
+    "Download attendance list" : "تنزيل قائمة الحضور",
+    "Open Calendar" : "إفتَح التقويم",
     "Remove participant {name}" : "إزالة المشارك {name}",
+    "Keep" : "حفظ",
     "Open dialpad" : "فتح لوحة طلب الاتصال الهاتفي",
     "Select a region" : "اختر منطقة",
     "Submit" : "إرسال ",
     "Search …" : "البحث …",
-    "Select a conversation" : "إختَر مُحادثةً",
-    "Select a mode" : "إختَر وضعيةً",
     "Message without mention" : "رسالة بدون إشارة",
     "Mention myself" : "إشارة إليّ",
     "Mention everyone" : "أشِر إلى الجميع",
+    "Select a conversation" : "إختَر مُحادثةً",
+    "Select a mode" : "إختَر وضعيةً",
     "You do not have permissions to access this conversation." : "أنت ليس لديك الصلاحية للوصول إلى هذه المحادثة",
     "Join a different conversation or start a new one." : "التحق بمحادثة أخرى أو ابدأ محادثة جديدة",
     "The conversation does not exist" : "المحادثة غير موجودة",
@@ -1756,14 +1765,8 @@
     "Duplicate session" : "تكرار الجلسة",
     "You joined the conversation in another window or device. This is currently not supported by Nextcloud Talk so this session was closed." : "انضممت لمحادثة آخرى في نافذة او جهاز آخر. هذه الخاصية غير مدعومة سيتم اغلاق هذه الجلسة من قبل نكست كلاود التحدث.",
     "Creating and joining a conversation with \"{userid}\"" : "إنشاء و انضمام إلى محادثة مع \"{userid}\"",
-    "Joining a conversation with \"{userid}\"" : "إنضمام إلى محادثة مع \"{userid}\"",
     "Join a conversation or start a new one" : "انضم لمحادثة او ابدء محادثة جديدة",
     "Error while joining the conversation" : "حدث خطأ أثناء الانضمام إلى المحادثة",
-    "Clear reminder – {timeLocale}" : "إمحُ التذكير – {timeLocale}",
-    "Next week – {timeLocale}" : "الأسبوع القادم – {timeLocale}",
-    "This weekend – {timeLocale}" : "نهاية هذا الأسبوع – {timeLocale}",
-    "Tomorrow – {timeLocale}" : "غداً – {timeLocale}",
-    "Later today – {timeLocale}" : "في وقت لاحقٍ اليوم – {timeLocale}",
     "Nextcloud URL" : "رابط الخادم السحابي نكست كلاود",
     "Nextcloud user" : "عضو نكست كلاود",
     "User password" : "كلمة مرور المستخدم",
@@ -1883,17 +1886,26 @@
     "(edited by you)" : "(معدّلة بواسطتك)",
     "(edited by a deleted user)" : "(تمّ تحريرها من قِبَل مُستخدِم محذوف)",
     "(edited by {moderator})" : "(معدّلة بواسطة {moderator})",
+    "You are trying to join a conversation while having an active session in another window or device. This is currently not supported by Nextcloud Talk. What do you want to do?" : "انضممت لمحادثة آخرى في نافذة او جهاز آخر. هذه الخاصية غير مدعومة سيتم اغلاق هذه الجلسة من قبل نكست كلاود التحدث. ماذا تريد ان تفعل؟",
+    "Leave this page" : "مغادرة هذه الصفحة",
+    "Join here" : "انضم لهذا",
     "Deck card has been posted to {conversation}" : "بطاقات تمّ نشرها في {conversation}",
+    "An error occurred while posting deck card to conversation" : "حدث خطأ أثناء نشر كَدْسَة البطاقات إلى المحادثة",
+    "Post to a conversation" : "انشر في محادثة ",
+    "Post to conversation" : "انشر في محادثة ",
     "The recording failed. Please contact your administrator." : "فشل التسجيل. الرجاء الاتصال بمسؤول النظام.",
     "Location has been posted to {conversation}" : "تم نشر الموقع في {conversation}",
+    "An error occurred while posting location to conversation" : "حدث خطأ أثناء نشر الموقع في المحادثة",
+    "Share to a conversation" : "شارِك في مُحادَثة",
+    "Share to conversation" : "شارِك في المُحادثَة",
     "In conversation" : "في المحادثة ...",
     "Search in conversation: {conversation}" : "البحث في المحادثة: {conversation}",
-    "Nextcloud Talk Federation was updated." : "تمّ تحديث \"المحادثة الاتحادية\" Talk Federation من نكست كلاود.",
-    "Error while sharing file" : "خطأ اثناء مشاركة ملف",
     "Your requests are throttled at the moment due to brute force protection" : "يتم تقييد طلباتك في الوقت الحالي كإجراء تحسبي للحماية من هجمات القوة الغاشمة",
     "Error while clearing conversation history" : "خطأ أثناء مسح محفوظات المحادثة",
     "Error occurred while allowing guests" : "حدث خطأ أثناء السماح للضيوف ",
     "Error occurred while disallowing guests" : "حدث خطأ أثناء عدم السماح للضيوف ",
+    "Error occurred when restricting the conversation to moderator" : "حدث خطأ عندما اقتصرت المحادثة على المشرفيين فقط ",
+    "Error occurred when opening the conversation to everyone" : "حدث خطأ أثناء فتح المحادثة للجميع ",
     "Conversation password has been saved" : "تم حفظ كلمة المرور للمحادثة ",
     "Conversation password has been removed" : "حُذفت كلمة المرور للمحادثة ",
     "Error occurred while saving conversation password" : "حدث خطأ أثناء حفظ كلمة السر للمحادثة ",
@@ -1905,7 +1917,7 @@
     "Could not delete the conversation picture" : "تعذر حذف صورة المحادثة",
     "Error while uploading file \"{fileName}\"" : "حدث خطأ أثناء رفع الملف \"{fileName}\"",
     "Not enough free space to upload file \"{fileName}\"" : "لا يوجد مساحة تخزينية كافية لرفع الملف \"{fileName}\"",
-    "An error happened when trying to share your file" : "حدث خطأ ما أثناء محاولة مشاركة ملفك ",
+    "Error while sharing file" : "خطأ اثناء مشاركة ملف",
     "Could not post message: {errorMessage}" : "لا يمكن نشر رسالة: {errorMessage}",
     "Participant is banned successfully" : "تمّ حظر المُشارِك بنجاحٍ",
     "Error while banning the participant" : "حدث خطأ أثناء حظر المُشارك",
@@ -1914,9 +1926,6 @@
     "Invitations sent" : "تم إرسال الدعوات ",
     "Error occurred when sending invitations" : "حدث خطأ أثناء إرسال الدعوات ",
     "Failed to join the conversation." : "تعذّر الانضمام إلى المحادثة.",
-    "You are trying to join a conversation while having an active session in another window or device. This is currently not supported by Nextcloud Talk. What do you want to do?" : "انضممت لمحادثة آخرى في نافذة او جهاز آخر. هذه الخاصية غير مدعومة سيتم اغلاق هذه الجلسة من قبل نكست كلاود التحدث. ماذا تريد ان تفعل؟",
-    "Join here" : "انضم لهذا",
-    "Leave this page" : "مغادرة هذه الصفحة",
     "An error occurred while creating breakout rooms" : "حدث خطأ أثناء إنشاء الغرف الجانبية",
     "An error occurred while re-ordering the attendees" : "حدث خطأٌ أثناء إعادة ترتيب الحاضرين",
     "An error occurred while deleting breakout rooms" : "حدث خطأ أثناء حذف الغرف الجانبية",
@@ -1938,6 +1947,7 @@
     "Failed to add reaction" : "فشل في إضافة تفاعل",
     "Failed to remove reaction" : "فشل في إزالة تفاعل",
     "Nextcloud is in maintenance mode." : "نكست كلاود في وضعية الصيانة.",
+    "Nextcloud Talk Federation was updated." : "تمّ تحديث \"المحادثة الاتحادية\" Talk Federation من نكست كلاود.",
     "The browser you're using is not fully supported by Nextcloud Talk. Please use the latest version of Mozilla Firefox, Microsoft Edge, Google Chrome, Opera or Apple Safari." : "تستخدم متصفح غير مدعوم بالكامل من قبل نكست كلاود التحدث. استخدم اخر اصدار من فايرفوكس، مايكروسوفت ادج، قوقل كروم أو ابل سفاري.",
     "_In %n hour_::_In %n hours_" : ["في %n ساعة","في %n ساعة","في %n ساعة","في %n ساعات","في %n ساعة","في %n ساعة"],
     "_%n minute _::_%n minutes_" : ["%n دقيقة","%n دقيقة","%n دقيقة","%n دقائق","%n دقيقة","%n دقيقة"],
@@ -1990,57 +2000,33 @@
     "Agenda" : "الأجندة",
     "Call summary" : "ملخص المكالمة",
     "Call summary - {title}" : "ملخص المكالمة - {title}",
-    "- Moderators can now create breakout rooms (requires the external signaling server)" : "- أصبح بإمكان المشرفين الآن إنشاء غرف جانبية (يستلزم ذلك خادم خارجي للاتصال external signaling server)",
-    "- Calls can now be recorded (requires the external signaling server)" : "- صار بالإمكان الآن تسجيل المكالمات (يستلزم ذلك خادوماً خارجيّاً للإشارة external signaling server)",
-    "- Unsent message drafts are now saved in your browser " : "- مسودات الرسائل غير المرسلة يمكن الآن حفظها في متصفحك للويب ",
-    "- *Preview:* Text chatting can now be done in a federated way with other Talk servers" : "- *معاينة Preview:* الدردشة النصية يمكن أن تتم الآن بطريقة اتحادية مع خوادم الدردشة الأخرى",
-    "There are currently no commands available." : "لا يوجد أوامر في الوقت الحالي",
-    "The command does not exist" : "الامر غير موجود",
-    "An error occurred while running the command. Please ask an administrator to check the logs." : "خطأ اثناء استدعاء الامر، اطلب من المسؤول مراجعة السجلات.",
-    "_Call with %n guest (Duration {duration})_::_Call with %n guests (Duration {duration})_" : ["مكالمة مع ضيف %n (المدة الزمنية {duration})","مكالمة مع ضيف %n (المدة الزمنية {duration})","مكالمة مع ضيف %n (المدة الزمنية {duration})","مكالمة مع ضيف %n (المدة الزمنية {duration})","مكالمة مع ضيف %n (المدة الزمنية {duration})","مكالمة مع ضيف %n (المدة الزمنية {duration})"],
-    "Call with {user1} and {user2} (Duration {duration})" : "مكالمة مع {user1} و {user2} (المدة الزمنية {duration})",
-    "Call with {user1}, {user2} and {user3} (Duration {duration})" : "مكالمة مع {user1} و {user2} و {user3} (المدة الزمنية {duration})",
-    "Call with {user1}, {user2}, {user3} and {user4} (Duration {duration})" : "مكالمة مع {user1} و {user2} و {user3} و {user4} (المدة الزمنية {duration})",
-    "Call with {user1}, {user2}, {user3}, {user4} and {user5} (Duration {duration})" : "مكالمة مع {user1} و {user2} و {user3} و {user4} و {user5} (المدة الزمنية {duration})",
-    "Commands" : "الاوامر",
-    "Deprecated" : "تمّ استبداله ببديل أحدث",
-    "Command" : "الأمر",
-    "Script" : "السيناريو",
-    "Response to" : "الرد على",
-    "Enabled for" : "السماح لـ",
-    "Commands are a new beta feature in Nextcloud Talk. They allow you to run scripts on your Nextcloud server. You can define them with our command line interface. An example of a calculator script can be found in our {linkstart}documentation{linkend}." : "الاوامر ميزة جديدة تجريبية في نكست كلاود التحدث. تسمح لك بتشغيل سكربتات في خادم نكست كلاود. بإمكانك تعريفهم في واجهة سطر الاوامر. مثال على سكربت التقويم يمكن العثور عليه في مستند {linkstart}التعليمات{linkend}.",
-    "Moderators" : "المشرفين",
-    "Hosted high-performance backend" : "استضافة خلفية أعلى اداء",
-    "SIP configuration is only possible with a high-performance backend." : "إعدادت SIP ممكنة فقط مع خلفية عالية الأداء.",
-    "An external signaling server should optionally be used for larger installations. Leave empty to use the internal signaling server." : "يجب استخدام خادم تشوير خارجي اختياري للتركيبات الكبرى. اتركه فارغًا لاستخدام خادم التشوير الداخلي.",
-    "It is highly recommended to set up a distributed cache when using Nextcloud Talk together with a High Performance Back-end." : "يوصى بشدة تعيين ذاكرة تخزين مؤقتة موزعة عند استخدام Nextcloud Talk مع خلفية عالية الأداء.",
-    "Add a new high-performance backend server" : "إضافة خادم واجهة خلفية جديد عالي الأداء",
-    "Please note that in calls with more than 4 participants without external signaling server, participants can experience connectivity issues and cause high load on participating devices." : "يرجى ملاحظة أنه في حالة إجراء مكالمات مع أكثر من 4 مشاركين بدون وجود  خادوم إشارات خارجي فقد يواجه المشاركين مشكلات في الاتصال والتسبب في حِمْلِ كبيرِ على الأجهزة المشاركة.",
-    "Don't warn about connectivity issues in calls with more than 4 participants" : "لا تقدم انذارات بخصوص مشاكل الاتصال لعدد اكثر من 4 مشاركين",
-    "Missing high-performance backend warning hidden" : "تم إخفاء تحذير فقد الواجهة الخلفية عالية الأداء",
-    "The message could not be sent" : "تعذر إرسال الرسالة",
-    "Copy conversation link" : "نسخ رابط المحادثة",
-    "Channel ID or name" : "معرف القناة او الاسم",
-    "Loading" : "جاري التحميل",
-    "Close" : "إغلاق",
-    "Password protect" : "حماية كلمة السر",
-    "Private poll" : "إستبيان خاص",
-    "Nextcloud Talk was updated, you need to reload the page before you can start or join a call." : "تم تحديث تطبيق نكست كلاود التحدث يرجى تحديث الصفحة قبل بدء مكالمة او الانضمام الى مكالمة.",
-    "Nextcloud Talk was updated, please reload the page" : "تم تحديث نكست كلاود التحدث، يرجى تحديث الصفحة.",
-    "Post to conversation" : "انشر في محادثة ",
-    "Share to conversation" : "شارِك في المُحادثَة",
-    "Failed to join the conversation. Try to reload the page." : "فشل في الانضمام للمحادثة، حدث الصفحة.",
-    "Nextcloud is in maintenance mode, please reload the page" : "نكست كلاود في وضع الصيانة، يرجى تحديث الصفحة",
-    "Lost connection to signaling server. Try to reload the page manually." : "انقطع الاتصال بخادم التشوير. حاول إعادة تحميل الصفحة يدويًا. ",
-    "Specify commands the users can use in chats" : "حدد اوامر ليتم استخدامها في المحادثة من قبل الاعضاء",
-    "TURN server" : "خادم TURN",
-    "The TURN server is used to proxy the traffic from participants behind a firewall." : "يتم استخدام خادم TURN كوسيط لمرور المشاركين خلف جدار الحماية.",
-    "Signaling servers" : "خوادم التشوير ",
-    "An external signaling server can optionally be used for larger installations. Leave empty to use the internal signaling server." : "يجب استخدام خادم تشوير خارجي اختياري للتركيبات الكبرى. اتركه فارغًا لاستخدام خادم التشوير الداخلي.",
+    "You tried to call {user}" : "قمت بمحاولة الاتصال {user}",
+    "%s invited you to a conversation." : "%s قام بدعوتك للإنضمام لمحادثة.",
+    "You were invited to a conversation." : "تم دعوتك للإنضمام لمحادثة.",
+    "Click the button below to join." : "اضغط على الزر للإنضمام.",
+    "Join »%s«" : "انضم »%s«",
+    "{user} invited you to a private conversation" : "{user} قام بدعوتك إلى محادثة خاصة",
     "SIP dial-in" : "الاتصال الهاتفي SIP ",
     "Don't warn about connectivity issues in calls with more than 2 participants" : "لا تقم بالتنبيه لمشاكل في الأداء في المكالمات التي يزيد عدد المشاركين فيها عن 2",
     "Please try to reload the page" : "رجاءً، قم بتحديد مكان الصفحة",
+    "Always show the device preview screen before joining a call in this conversation." : "اعرض دائمًا شاشة معاينة الجهاز قبل الانضمام إلى مكالمة في هذه المحادثة.",
+    "Copy conversation link" : "نسخ رابط المحادثة",
+    "Filter unread mentions" : "تصفية الإشارات غير المقروءة",
+    "Filter unread messages" : "تصفية الرسائل غير المقروءة",
+    "Refresh devices list" : "تحديث قائمة الإجهزة",
+    "Always show preview for this conversation" : "عرض معاينةً لهذه المحادثة دائما",
+    "Close" : "إغلاق",
+    "An error occurred when opening the conversation to everyone" : "حدث خطأ عند فتح المحادثة للجميع",
+    "Enable blur background by default for all conversation" : "قُم بتمكين الخلفية المُضبّبة بشكل تلقائي في كل المحادثات",
+    "Choose devices" : "اختر الاجهزة",
+    "Nextcloud Talk was updated, you need to reload the page before you can start or join a call." : "تم تحديث تطبيق نكست كلاود التحدث يرجى تحديث الصفحة قبل بدء مكالمة او الانضمام الى مكالمة.",
     "Next call" : "المكالمة التالية",
-    "Nextcloud Talk Federation was updated, please reload the page" : "تمّ تحديث المحادثة عبر السحابة الموحدة لنكست كلاود. رجاءً، أعِد تحميل الصفحة"
+    "Joining a conversation with \"{userid}\"" : "إنضمام إلى محادثة مع \"{userid}\"",
+    "Nextcloud Talk was updated, please reload the page" : "تم تحديث نكست كلاود التحدث، يرجى تحديث الصفحة.",
+    "Nextcloud Talk Federation was updated, please reload the page" : "تمّ تحديث المحادثة عبر السحابة الموحدة لنكست كلاود. رجاءً، أعِد تحميل الصفحة",
+    "An error happened when trying to share your file" : "حدث خطأ ما أثناء محاولة مشاركة ملفك ",
+    "Failed to join the conversation. Try to reload the page." : "فشل في الانضمام للمحادثة، حدث الصفحة.",
+    "Nextcloud is in maintenance mode, please reload the page" : "نكست كلاود في وضع الصيانة، يرجى تحديث الصفحة",
+    "Lost connection to signaling server. Try to reload the page manually." : "انقطع الاتصال بخادم التشوير. حاول إعادة تحميل الصفحة يدويًا. "
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

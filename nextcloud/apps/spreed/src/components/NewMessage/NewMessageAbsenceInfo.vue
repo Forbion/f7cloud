@@ -19,7 +19,7 @@
 		<p v-if="userAbsencePeriod">{{ userAbsencePeriod }}</p>
 		<div v-if="userAbsence.replacementUserId" class="absence-reminder__replacement">
 			<!-- TRANSLATORS An acting person during the period of absence of the main contact -->
-			<p>{{ t('spreed','Replacement: ') }}</p>
+			<p>{{ t('spreed','Replacement:') }}</p>
 			<NcUserBubble :key="isDarkTheme ? 'dark' : 'light'"
 				class="absence-reminder__replacement__bubble"
 				:title="t('spreed','Open conversation')"
@@ -89,6 +89,7 @@ export default {
 		return {
 			collapsed: true,
 			isTextMoreThanOneLine: false,
+			resizeObserver: null,
 		}
 	},
 
@@ -119,16 +120,16 @@ export default {
 		},
 	},
 
-	watch: {
-		userAbsenceMessage() {
-			this.$nextTick(() => {
-				this.setIsTextMoreThanOneLine()
-			})
-		},
-	},
-
 	mounted() {
 		this.setIsTextMoreThanOneLine()
+		this.resizeObserver = new ResizeObserver(this.setIsTextMoreThanOneLine)
+		this.resizeObserver.observe(this.$refs.absenceMessage)
+	},
+
+	beforeDestroy() {
+		if (this.resizeObserver) {
+			this.resizeObserver.disconnect()
+		}
 	},
 
 	methods: {
@@ -138,6 +139,9 @@ export default {
 		},
 
 		setIsTextMoreThanOneLine() {
+			if (!this.collapsed) {
+				return
+			}
 			this.isTextMoreThanOneLine = this.$refs.absenceMessage?.scrollHeight > this.$refs.absenceMessage?.clientHeight
 		},
 

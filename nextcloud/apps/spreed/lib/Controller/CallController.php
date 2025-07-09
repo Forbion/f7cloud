@@ -121,8 +121,8 @@ class CallController extends AEnvironmentAwareController {
 	 *
 	 * Required capability: `download-call-participants`
 	 *
-	 * @param 'csv'|'pdf' $format Download format
-	 * @return DataDownloadResponse<Http::STATUS_OK, 'text/csv'|'application/pdf', array{}>|Response<Http::STATUS_BAD_REQUEST, array{}>
+	 * @param 'csv' $format Download format
+	 * @return DataDownloadResponse<Http::STATUS_OK, 'text/csv', array{}>|Response<Http::STATUS_BAD_REQUEST, array{}>
 	 *
 	 * 200: List of participants in the call downloaded in the requested format
 	 * 400: No call in progress
@@ -141,13 +141,8 @@ class CallController extends AEnvironmentAwareController {
 			return new Response(Http::STATUS_BAD_REQUEST);
 		}
 
-		if ($format !== 'csv' && $format !== 'pdf') {
-			// Unsupported format
-			return new Response(Http::STATUS_BAD_REQUEST);
-		}
-
 		if ($format !== 'csv') {
-			// FIXME Remove once pdf was implemented.
+			// Unsupported format
 			return new Response(Http::STATUS_BAD_REQUEST);
 		}
 
@@ -166,12 +161,12 @@ class CallController extends AEnvironmentAwareController {
 			} elseif ($participant->getAttendee()->getActorType() === Attendee::ACTOR_USERS) {
 				$email = $this->userManager->get($participant->getAttendee()->getActorId())?->getEMailAddress() ?? '';
 			}
-			fputcsv($output, [
+			fputcsv($output, array_map([$this, 'escapeFormulae'], [
 				$participant->getAttendee()->getDisplayName(),
 				$email,
 				$participant->getAttendee()->getActorType(),
 				$participant->getAttendee()->getActorId(),
-			], escape: '');
+			]), escape: '');
 		}
 
 		fseek($output, 0);
@@ -196,6 +191,13 @@ class CallController extends AEnvironmentAwareController {
 		$fileName = $cleanedRoomName . ' ' . $date . '.csv';
 
 		return new DataDownloadResponse(stream_get_contents($output), $fileName, 'text/csv');
+	}
+
+	protected function escapeFormulae(string $value): string {
+		if (preg_match('/^[=+\-@\t\r]/', $value)) {
+			return "'" . $value;
+		}
+		return $value;
 	}
 
 	/**
@@ -238,6 +240,7 @@ class CallController extends AEnvironmentAwareController {
 			// Default flags: user is in room with audio/video.
 			$flags = Participant::FLAG_IN_CALL | Participant::FLAG_WITH_AUDIO | Participant::FLAG_WITH_VIDEO;
 		}
+		$lastJoinedCall = $this->timeFactory->getDateTime();
 
 		if ($this->room->isFederatedConversation()) {
 			/** @var \OCA\Talk\Federation\Proxy\TalkV1\Controller\CallController $proxy */
@@ -245,15 +248,15 @@ class CallController extends AEnvironmentAwareController {
 			$response = $proxy->joinFederatedCall($this->room, $this->participant, $flags, $silent, $recordingConsent);
 
 			if ($response->getStatus() === Http::STATUS_OK) {
-				$this->participantService->changeInCall($this->room, $this->participant, $flags, false, $silent);
+				$this->participantService->changeInCall($this->room, $this->participant, $flags, silent: $silent, lastJoinedCall: $lastJoinedCall->getTimestamp());
 			}
 
 			return $response;
 		}
 
 		try {
-			$this->participantService->changeInCall($this->room, $this->participant, $flags, silent: $silent);
-			$this->roomService->setActiveSince($this->room, $this->participant, $this->timeFactory->getDateTime(), $flags, silent: $silent);
+			$this->participantService->changeInCall($this->room, $this->participant, $flags, silent: $silent, lastJoinedCall: $lastJoinedCall->getTimestamp());
+			$this->roomService->setActiveSince($this->room, $this->participant, $lastJoinedCall, $flags, silent: $silent);
 		} catch (\InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}

@@ -215,52 +215,52 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.media-devices-checker[data-v-684b3910
 }
 @keyframes equalizer-684b3910 {
 0% {
-    height: 70%;
+    height: 35%;
 }
 4% {
-    height: 29%;
+    height: 82%;
 }
 8% {
-    height: 39%;
+    height: 66%;
 }
 12% {
-    height: 41%;
-}
-16% {
-    height: 78%;
-}
-20% {
-    height: 45%;
-}
-24% {
-    height: 86%;
-}
-28% {
-    height: 63%;
-}
-32% {
     height: 74%;
 }
+16% {
+    height: 34%;
+}
+20% {
+    height: 39%;
+}
+24% {
+    height: 82%;
+}
+28% {
+    height: 59%;
+}
+32% {
+    height: 25%;
+}
 36% {
-    height: 52%;
+    height: 55%;
 }
 40% {
-    height: 60%;
+    height: 74%;
 }
 44% {
-    height: 31%;
+    height: 86%;
 }
 48% {
-    height: 58%;
+    height: 62%;
 }
 52% {
-    height: 45%;
+    height: 39%;
 }
 56% {
-    height: 47%;
+    height: 73%;
 }
 60% {
-    height: 33%;
+    height: 52%;
 }
 }`, ""]);
 // Exports
@@ -1539,7 +1539,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.poll-modal[data-v-49505d22] {
 .results__options[data-v-49505d22] {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: calc(4 * var(--default-grid-baseline));
   word-wrap: anywhere;
   margin: 8px 0 20px 0;
 }
@@ -1547,11 +1547,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.poll-modal[data-v-49505d22] {
   display: flex;
   flex-direction: column;
 }
+.results__option[data-v-49505d22]:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
 .results__option__details[data-v-49505d22] {
   display: flex;
   margin-bottom: 8px;
 }
 .results__option-subtitle[data-v-49505d22] {
+  display: flex;
+  gap: var(--default-grid-baseline);
   color: var(--color-text-maxcontrast);
 }
 .results__option-progress[data-v-49505d22] {
@@ -1747,7 +1752,7 @@ __webpack_require__.r(__webpack_exports__);
       return !userName && this.isGuest;
     },
     canUploadFiles() {
-      return (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_9__.getTalkConfig)(this.token, "attachments", "allowed") && this.$store.getters.getUserId() && this.$store.getters.getAttachmentFolderFreeSpace() !== 0 && this.conversation.permissions & _constants_js__WEBPACK_IMPORTED_MODULE_8__.PARTICIPANT.PERMISSIONS.CHAT && (!(0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_9__.hasTalkFeature)(this.token, "federation-v1") || !this.conversation.remoteServer);
+      return (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_9__.getTalkConfig)(this.token, "attachments", "allowed") && this.$store.getters.getUserId() && this.$store.getters.getAttachmentFolderFreeSpace() !== 0 && this.conversation.permissions & _constants_js__WEBPACK_IMPORTED_MODULE_8__.PARTICIPANT.PERMISSIONS.CHAT && !this.conversation.remoteServer;
     },
     isDragAndDropBlocked() {
       return this.chatExtrasStore.getMessageIdToEdit(this.token) !== void 0 || !this.canUploadFiles;
@@ -4273,6 +4278,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const regex = (0,emoji_regex__WEBPACK_IMPORTED_MODULE_0__["default"])();
+const checkboxRegexp = /^\s*[-+*]\s.*\[[\sxX]\]/;
+const checkboxCheckedRegexp = /^\s*[-+*]\s.*\[[xX]\]/;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MessageBody",
   components: {
@@ -4486,13 +4493,12 @@ const regex = (0,emoji_regex__WEBPACK_IMPORTED_MODULE_0__["default"])();
       let checkBoxIndex = 0;
       const lines = this.message.message.split("\n");
       for (let i = 0; i < lines.length; i++) {
-        if (lines[i].trim().match(/^- {1,4}\[\s\]/) || lines[i].trim().match(/^- {1,4}\[x\]/)) {
+        if (checkboxRegexp.test(lines[i])) {
           if (checkBoxIndex === index) {
-            const isChecked = lines[i].includes("[x]");
-            if (isChecked) {
-              lines[i] = lines[i].replace("[x]", "[ ]");
+            if (checkboxCheckedRegexp.test(lines[i])) {
+              lines[i] = lines[i].replace(/\[[xX]\]/, "[ ]");
             } else {
-              lines[i] = lines[i].replace("[ ]", "[x]");
+              lines[i] = lines[i].replace(/\[\s\]/, "[x]");
             }
             break;
           }
@@ -6319,29 +6325,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vue_material_design_icons_FileDownload_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-material-design-icons/FileDownload.vue */ "./node_modules/vue-material-design-icons/FileDownload.vue");
-/* harmony import */ var vue_material_design_icons_FileEdit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-material-design-icons/FileEdit.vue */ "./node_modules/vue-material-design-icons/FileEdit.vue");
-/* harmony import */ var vue_material_design_icons_FileLock_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-material-design-icons/FileLock.vue */ "./node_modules/vue-material-design-icons/FileLock.vue");
-/* harmony import */ var vue_material_design_icons_Poll_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-material-design-icons/Poll.vue */ "./node_modules/vue-material-design-icons/Poll.vue");
-/* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcActionButton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActionButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActionButton.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcActionLink_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActionLink.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActionLink.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcActions_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActions.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActions.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcButton.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcCheckboxRadioSwitch_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js */ "./node_modules/@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcLoadingIcon_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcLoadingIcon.js */ "./node_modules/@nextcloud/vue/dist/Components/NcLoadingIcon.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcModal_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcModal.js */ "./node_modules/@nextcloud/vue/dist/Components/NcModal.mjs");
-/* harmony import */ var _nextcloud_vue_dist_Components_NcProgressBar_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcProgressBar.js */ "./node_modules/@nextcloud/vue/dist/Components/NcProgressBar.mjs");
-/* harmony import */ var _PollVotersDetails_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./PollVotersDetails.vue */ "./src/components/PollViewer/PollVotersDetails.vue");
-/* harmony import */ var _composables_useId_ts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../composables/useId.ts */ "./src/composables/useId.ts");
-/* harmony import */ var _composables_useIsInCall_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../composables/useIsInCall.js */ "./src/composables/useIsInCall.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../constants.js */ "./src/constants.js");
-/* harmony import */ var _services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../services/CapabilitiesManager.ts */ "./src/services/CapabilitiesManager.ts");
-/* harmony import */ var _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../services/EventBus.ts */ "./src/services/EventBus.ts");
-/* harmony import */ var _stores_polls_ts__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../stores/polls.ts */ "./src/stores/polls.ts");
-/* harmony import */ var _utils_calculateVotePercentage_ts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../utils/calculateVotePercentage.ts */ "./src/utils/calculateVotePercentage.ts");
-/* harmony import */ var _utils_fileDownload_ts__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../utils/fileDownload.ts */ "./src/utils/fileDownload.ts");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue_material_design_icons_Check_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-material-design-icons/Check.vue */ "./node_modules/vue-material-design-icons/Check.vue");
+/* harmony import */ var vue_material_design_icons_FileDownload_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-material-design-icons/FileDownload.vue */ "./node_modules/vue-material-design-icons/FileDownload.vue");
+/* harmony import */ var vue_material_design_icons_FileEdit_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-material-design-icons/FileEdit.vue */ "./node_modules/vue-material-design-icons/FileEdit.vue");
+/* harmony import */ var vue_material_design_icons_FileLock_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-material-design-icons/FileLock.vue */ "./node_modules/vue-material-design-icons/FileLock.vue");
+/* harmony import */ var vue_material_design_icons_Poll_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-material-design-icons/Poll.vue */ "./node_modules/vue-material-design-icons/Poll.vue");
+/* harmony import */ var _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @nextcloud/l10n */ "./node_modules/@nextcloud/l10n/dist/index.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcActionButton_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActionButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActionButton.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcActionLink_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActionLink.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActionLink.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcActions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcActions.js */ "./node_modules/@nextcloud/vue/dist/Components/NcActions.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcButton.js */ "./node_modules/@nextcloud/vue/dist/Components/NcButton.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcCheckboxRadioSwitch_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js */ "./node_modules/@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcLoadingIcon_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcLoadingIcon.js */ "./node_modules/@nextcloud/vue/dist/Components/NcLoadingIcon.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcModal_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcModal.js */ "./node_modules/@nextcloud/vue/dist/Components/NcModal.mjs");
+/* harmony import */ var _nextcloud_vue_dist_Components_NcProgressBar_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @nextcloud/vue/dist/Components/NcProgressBar.js */ "./node_modules/@nextcloud/vue/dist/Components/NcProgressBar.mjs");
+/* harmony import */ var _PollVotersDetails_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./PollVotersDetails.vue */ "./src/components/PollViewer/PollVotersDetails.vue");
+/* harmony import */ var _composables_useId_ts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../composables/useId.ts */ "./src/composables/useId.ts");
+/* harmony import */ var _composables_useIsInCall_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../composables/useIsInCall.js */ "./src/composables/useIsInCall.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../constants.js */ "./src/constants.js");
+/* harmony import */ var _services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../services/CapabilitiesManager.ts */ "./src/services/CapabilitiesManager.ts");
+/* harmony import */ var _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../services/EventBus.ts */ "./src/services/EventBus.ts");
+/* harmony import */ var _stores_polls_ts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../stores/polls.ts */ "./src/stores/polls.ts");
+/* harmony import */ var _utils_calculateVotePercentage_ts__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../utils/calculateVotePercentage.ts */ "./src/utils/calculateVotePercentage.ts");
+/* harmony import */ var _utils_fileDownload_ts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../utils/fileDownload.ts */ "./src/utils/fileDownload.ts");
+
 
 
 
@@ -6368,34 +6376,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PollViewer",
   components: {
-    NcActions: _nextcloud_vue_dist_Components_NcActions_js__WEBPACK_IMPORTED_MODULE_7__["default"],
-    NcActionButton: _nextcloud_vue_dist_Components_NcActionButton_js__WEBPACK_IMPORTED_MODULE_5__["default"],
-    NcActionLink: _nextcloud_vue_dist_Components_NcActionLink_js__WEBPACK_IMPORTED_MODULE_6__["default"],
-    NcCheckboxRadioSwitch: _nextcloud_vue_dist_Components_NcCheckboxRadioSwitch_js__WEBPACK_IMPORTED_MODULE_9__["default"],
-    NcLoadingIcon: _nextcloud_vue_dist_Components_NcLoadingIcon_js__WEBPACK_IMPORTED_MODULE_10__["default"],
-    NcModal: _nextcloud_vue_dist_Components_NcModal_js__WEBPACK_IMPORTED_MODULE_11__["default"],
-    NcButton: _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_8__["default"],
-    NcProgressBar: _nextcloud_vue_dist_Components_NcProgressBar_js__WEBPACK_IMPORTED_MODULE_12__["default"],
-    PollVotersDetails: _PollVotersDetails_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
+    NcActions: _nextcloud_vue_dist_Components_NcActions_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+    NcActionButton: _nextcloud_vue_dist_Components_NcActionButton_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+    NcActionLink: _nextcloud_vue_dist_Components_NcActionLink_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+    NcCheckboxRadioSwitch: _nextcloud_vue_dist_Components_NcCheckboxRadioSwitch_js__WEBPACK_IMPORTED_MODULE_10__["default"],
+    NcLoadingIcon: _nextcloud_vue_dist_Components_NcLoadingIcon_js__WEBPACK_IMPORTED_MODULE_11__["default"],
+    NcModal: _nextcloud_vue_dist_Components_NcModal_js__WEBPACK_IMPORTED_MODULE_12__["default"],
+    NcButton: _nextcloud_vue_dist_Components_NcButton_js__WEBPACK_IMPORTED_MODULE_9__["default"],
+    NcProgressBar: _nextcloud_vue_dist_Components_NcProgressBar_js__WEBPACK_IMPORTED_MODULE_13__["default"],
+    PollVotersDetails: _PollVotersDetails_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
     // icons
-    FileLock: vue_material_design_icons_FileLock_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    IconFileDownload: vue_material_design_icons_FileDownload_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    IconFileEdit: vue_material_design_icons_FileEdit_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PollIcon: vue_material_design_icons_Poll_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    IconCheck: vue_material_design_icons_Check_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    IconFileLock: vue_material_design_icons_FileLock_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    IconFileDownload: vue_material_design_icons_FileDownload_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    IconFileEdit: vue_material_design_icons_FileEdit_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    IconPoll: vue_material_design_icons_Poll_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   setup() {
-    const voteToSubmit = (0,vue__WEBPACK_IMPORTED_MODULE_22__.ref)([]);
-    const modalPage = (0,vue__WEBPACK_IMPORTED_MODULE_22__.ref)("");
-    const loading = (0,vue__WEBPACK_IMPORTED_MODULE_22__.ref)(false);
-    const dialogHeaderId = `guest-welcome-header-${(0,_composables_useId_ts__WEBPACK_IMPORTED_MODULE_14__.useId)()}`;
-    const pollsStore = (0,_stores_polls_ts__WEBPACK_IMPORTED_MODULE_19__.usePollsStore)();
-    const activePoll = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => pollsStore.activePoll);
-    const name = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => activePoll.value?.name);
-    const id = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => activePoll.value?.id);
-    const token = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => activePoll.value?.token);
-    const poll = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => pollsStore.getPoll(token.value, id.value));
-    const supportPollDrafts = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_17__.hasTalkFeature)(token.value, "talk-polls-drafts"));
-    const exportPollURI = (0,vue__WEBPACK_IMPORTED_MODULE_22__.computed)(() => (0,_utils_fileDownload_ts__WEBPACK_IMPORTED_MODULE_21__.convertToJSONDataURI)({
+    const voteToSubmit = (0,vue__WEBPACK_IMPORTED_MODULE_23__.ref)([]);
+    const modalPage = (0,vue__WEBPACK_IMPORTED_MODULE_23__.ref)("");
+    const loading = (0,vue__WEBPACK_IMPORTED_MODULE_23__.ref)(false);
+    const dialogHeaderId = `guest-welcome-header-${(0,_composables_useId_ts__WEBPACK_IMPORTED_MODULE_15__.useId)()}`;
+    const pollsStore = (0,_stores_polls_ts__WEBPACK_IMPORTED_MODULE_20__.usePollsStore)();
+    const activePoll = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => pollsStore.activePoll);
+    const name = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => activePoll.value?.name);
+    const id = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => activePoll.value?.id);
+    const token = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => activePoll.value?.token);
+    const poll = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => pollsStore.getPoll(token.value, id.value));
+    const supportPollDrafts = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => (0,_services_CapabilitiesManager_ts__WEBPACK_IMPORTED_MODULE_18__.hasTalkFeature)(token.value, "talk-polls-drafts"));
+    const exportPollURI = (0,vue__WEBPACK_IMPORTED_MODULE_23__.computed)(() => (0,_utils_fileDownload_ts__WEBPACK_IMPORTED_MODULE_22__.convertToJSONDataURI)({
       question: poll.value.question,
       options: poll.value.options,
       resultMode: poll.value.resultMode,
@@ -6403,7 +6412,7 @@ __webpack_require__.r(__webpack_exports__);
     }));
     const exportPollFileName = `Talk Poll ${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}`;
     return {
-      isInCall: (0,_composables_useIsInCall_js__WEBPACK_IMPORTED_MODULE_15__.useIsInCall)(),
+      isInCall: (0,_composables_useIsInCall_js__WEBPACK_IMPORTED_MODULE_16__.useIsInCall)(),
       pollsStore,
       voteToSubmit,
       modalPage,
@@ -6423,16 +6432,16 @@ __webpack_require__.r(__webpack_exports__);
       return this.poll?.votedSelf?.length > 0;
     },
     isPollPublic() {
-      return this.poll?.resultMode === _constants_js__WEBPACK_IMPORTED_MODULE_16__.POLL.MODE.PUBLIC;
+      return this.poll?.resultMode === _constants_js__WEBPACK_IMPORTED_MODULE_17__.POLL.MODE.PUBLIC;
     },
     isPollOpen() {
-      return this.poll?.status === _constants_js__WEBPACK_IMPORTED_MODULE_16__.POLL.STATUS.OPEN;
+      return this.poll?.status === _constants_js__WEBPACK_IMPORTED_MODULE_17__.POLL.STATUS.OPEN;
     },
     isPollClosed() {
-      return this.poll?.status === _constants_js__WEBPACK_IMPORTED_MODULE_16__.POLL.STATUS.CLOSED;
+      return this.poll?.status === _constants_js__WEBPACK_IMPORTED_MODULE_17__.POLL.STATUS.CLOSED;
     },
     isMultipleAnswers() {
-      return this.poll?.maxVotes === _constants_js__WEBPACK_IMPORTED_MODULE_16__.POLL.ANSWER_TYPE.MULTIPLE;
+      return this.poll?.maxVotes === _constants_js__WEBPACK_IMPORTED_MODULE_17__.POLL.ANSWER_TYPE.MULTIPLE;
     },
     checked: {
       get() {
@@ -6453,22 +6462,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     pollSummaryText() {
       if (this.isPollClosed) {
-        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.n)("spreed", "Poll results \u2022 %n vote", "Poll results \u2022 %n votes", this.poll?.numVoters);
+        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.n)("spreed", "Poll results \u2022 %n vote", "Poll results \u2022 %n votes", this.poll?.numVoters);
       }
-      if (this.selfIsOwnerOrModerator || this.isPollPublic && this.selfHasVoted) {
-        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.n)("spreed", "Open poll \u2022 %n vote", "Open poll \u2022 %n votes", this.poll?.numVoters);
+      if (this.isPollPublic && (this.selfIsOwnerOrModerator || this.selfHasVoted)) {
+        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.n)("spreed", "Open poll \u2022 %n vote", "Open poll \u2022 %n votes", this.poll?.numVoters);
       }
       if (!this.isPollPublic && this.selfHasVoted) {
-        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.t)("spreed", "Open poll \u2022 You voted already");
+        return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.t)("spreed", "Open poll \u2022 You voted already");
       }
-      return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.t)("spreed", "Open poll");
+      return (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.t)("spreed", "Open poll");
     },
     canEndPoll() {
       return this.isPollOpen && this.selfIsOwnerOrModerator;
     },
+    hasVotesToDisplay() {
+      return Object.keys(Object(this.poll?.votes)).length !== 0;
+    },
     votePercentage() {
       const votes = Object.keys(Object(this.poll?.options)).map((index) => this.poll?.votes["option-" + index] ?? 0);
-      return (0,_utils_calculateVotePercentage_ts__WEBPACK_IMPORTED_MODULE_20__.calculateVotePercentage)(votes, this.poll.numVoters);
+      return (0,_utils_calculateVotePercentage_ts__WEBPACK_IMPORTED_MODULE_21__.calculateVotePercentage)(votes, this.poll.numVoters);
     }
   },
   watch: {
@@ -6499,14 +6511,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted() {
-    _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_18__.EventBus.on("talk:poll-added", this.showPollToast);
+    _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_19__.EventBus.on("talk:poll-added", this.showPollToast);
   },
   beforeDestroy() {
-    _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_18__.EventBus.off("talk:poll-added", this.showPollToast);
+    _services_EventBus_ts__WEBPACK_IMPORTED_MODULE_19__.EventBus.off("talk:poll-added", this.showPollToast);
   },
   methods: {
-    t: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.t,
-    n: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_4__.n,
+    t: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.t,
+    n: _nextcloud_l10n__WEBPACK_IMPORTED_MODULE_5__.n,
     getPollData() {
       if (!this.poll) {
         this.pollsStore.getPollData({
@@ -7004,7 +7016,7 @@ var render = function render2() {
                 { attrs: { type: "secondary", href: _vm.getLoginUrl() } },
                 [
                   _vm._v(
-                    "\n				" + _vm._s(_vm.t("spreed", "Login")) + "\n			"
+                    "\n				" + _vm._s(_vm.t("spreed", "Log in")) + "\n			"
                   )
                 ]
               )
@@ -9130,6 +9142,7 @@ var render = function render2() {
       !_vm.showForwardedConfirmation ? _c("RoomSelector", {
         attrs: {
           "show-postable-only": "",
+          "allow-federation": "",
           "dialog-title": _vm.dialogTitle,
           "dialog-subtitle": _vm.dialogSubtitle
         },
@@ -10675,7 +10688,7 @@ var render = function render2() {
           "div",
           { staticClass: "poll-modal__header" },
           [
-            _c("PollIcon", { attrs: { size: 20 } }),
+            _c("IconPoll", { attrs: { size: 20 } }),
             _vm._v(" "),
             _c(
               "span",
@@ -10735,11 +10748,13 @@ var render = function render2() {
                   [
                     _c("p", [_vm._v(_vm._s(option))]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "percentage" }, [
+                    _vm.hasVotesToDisplay ? _c("p", { staticClass: "percentage" }, [
                       _vm._v(
-                        "\n						" + _vm._s(_vm.votePercentage[index] + "%") + "\n					"
+                        "\n						" + _vm._s(
+                          _vm.votePercentage[index] + "%"
+                        ) + "\n					"
                       )
-                    ])
+                    ]) : _vm._e()
                   ]
                 ),
                 _vm._v(" "),
@@ -10762,6 +10777,9 @@ var render = function render2() {
                         staticClass: "results__option-subtitle"
                       },
                       [
+                        _c("IconCheck", {
+                          attrs: { size: 16 }
+                        }),
                         _vm._v(
                           "\n						" + _vm._s(
                             _vm.t(
@@ -10770,19 +10788,20 @@ var render = function render2() {
                             )
                           ) + "\n					"
                         )
-                      ]
+                      ],
+                      1
                     ) : _vm._e()
                   ],
                   1
                 ) : _vm._e(),
                 _vm._v(" "),
-                _c("NcProgressBar", {
+                _vm.hasVotesToDisplay ? _c("NcProgressBar", {
                   staticClass: "results__option-progress",
                   attrs: {
                     value: _vm.votePercentage[index],
                     size: "medium"
                   }
-                })
+                }) : _vm._e()
               ],
               1
             );
@@ -10912,7 +10931,7 @@ var render = function render2() {
                           key: "icon",
                           fn: function() {
                             return [
-                              _c("FileLock", {
+                              _c("IconFileLock", {
                                 attrs: { size: 20 }
                               })
                             ];
@@ -10922,7 +10941,7 @@ var render = function render2() {
                       ],
                       null,
                       false,
-                      1793525573
+                      995290382
                     )
                   },
                   [
@@ -23269,11 +23288,12 @@ var __vue_script__ = script;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcActionInput_D1yrXgXY_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcActionInput_DXiL7Phe_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcActionInput_D1yrXgXY_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcActionInput-D1yrXgXY.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcActionInput-D1yrXgXY.mjs");
+/* harmony import */ var _chunks_NcActionInput_DXiL7Phe_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcActionInput-DXiL7Phe.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcActionInput-DXiL7Phe.mjs");
 
 
+//# sourceMappingURL=NcActionInput.mjs.map
 
 
 /***/ }),
@@ -23287,11 +23307,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcSelect_COvOHnPx_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
+/* harmony export */   "default": () => (/* reexport safe */ _chunks_NcSelect_DrtYueu1_mjs__WEBPACK_IMPORTED_MODULE_0__.N)
 /* harmony export */ });
-/* harmony import */ var _chunks_NcSelect_COvOHnPx_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcSelect-COvOHnPx.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcSelect-COvOHnPx.mjs");
+/* harmony import */ var _chunks_NcSelect_DrtYueu1_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/NcSelect-DrtYueu1.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/NcSelect-DrtYueu1.mjs");
 
 
+//# sourceMappingURL=NcSelect.mjs.map
 
 
 /***/ }),
@@ -23314,6 +23335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chunks_emoji_BY_D0V5K_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chunks/emoji-BY_D0V5K.mjs */ "./node_modules/@nextcloud/vue/dist/chunks/emoji-BY_D0V5K.mjs");
 
 
+//# sourceMappingURL=emoji.mjs.map
 
 
 /***/ }),
@@ -23338,4 +23360,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=talk-files-sidebar-tab-chunk.js.map?v=cf77ca19b5bbedecf84d
+//# sourceMappingURL=talk-files-sidebar-tab-chunk.js.map?v=f4a0cb716f410d202db6

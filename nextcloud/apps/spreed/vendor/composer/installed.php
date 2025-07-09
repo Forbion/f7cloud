@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'v20.1.4',
-        'version' => '20.1.4.0',
-        'reference' => '33b36b4cae24a2f1cc21df071bad6d3e53280ad1',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '136a17d9d875772ee4ed27ef12123d816dc2305c',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'v20.1.4',
-            'version' => '20.1.4.0',
-            'reference' => '33b36b4cae24a2f1cc21df071bad6d3e53280ad1',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '136a17d9d875772ee4ed27ef12123d816dc2305c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -49,7 +49,7 @@
         'nextcloud/ocp' => array(
             'pretty_version' => 'dev-stable30',
             'version' => 'dev-stable30',
-            'reference' => '850819a2bd061dca3c6a839d44bb6f22f188febc',
+            'reference' => '10759bbd889e38ef5d6785737db9fb119880a194',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nextcloud/ocp',
             'aliases' => array(

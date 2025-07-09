@@ -614,7 +614,6 @@ class ParticipantService {
 	public function getHighestPermissionAttendee(Room $room): ?Attendee {
 		try {
 			$roomOwners = $this->attendeeMapper->getActorsByParticipantTypes($room->getId(), [Participant::OWNER]);
-
 			if (!empty($roomOwners)) {
 				foreach ($roomOwners as $owner) {
 					if ($owner->getActorType() === Attendee::ACTOR_USERS) {
@@ -622,8 +621,9 @@ class ParticipantService {
 					}
 				}
 			}
+
 			$roomModerators = $this->attendeeMapper->getActorsByParticipantTypes($room->getId(), [Participant::MODERATOR]);
-			if (!empty($roomOwners)) {
+			if (!empty($roomModerators)) {
 				foreach ($roomModerators as $moderator) {
 					if ($moderator->getActorType() === Attendee::ACTOR_USERS) {
 						return $moderator;
@@ -631,6 +631,7 @@ class ParticipantService {
 				}
 			}
 		} catch (Exception $e) {
+			$this->logger->error('Error while trying to get owner or moderator in room ' . $room->getToken(), ['exception' => $e]);
 		}
 		return null;
 	}
@@ -978,10 +979,10 @@ class ParticipantService {
 				$participant = $this->getParticipant($room, $user->getUID());
 				$participantType = $participant->getAttendee()->getParticipantType();
 
-				$attendees[] = $participant->getAttendee();
 				if ($participantType === Participant::USER) {
 					// Only remove normal users, not moderators/admins
 					$this->removeAttendee($room, $participant, $reason, true);
+					$attendees[] = $participant->getAttendee();
 				}
 			} catch (ParticipantNotFoundException $e) {
 			}
@@ -1041,10 +1042,10 @@ class ParticipantService {
 				$participant = $this->getParticipant($room, $user->getUID());
 				$participantType = $participant->getAttendee()->getParticipantType();
 
-				$attendees[] = $participant->getAttendee();
 				if ($participantType === Participant::USER) {
 					// Only remove normal users, not moderators/admins
 					$this->removeAttendee($room, $participant, $reason, true);
+					$attendees[] = $participant->getAttendee();
 				}
 			} catch (ParticipantNotFoundException $e) {
 			}
@@ -1193,7 +1194,7 @@ class ParticipantService {
 	 * @psalm-param int-mask-of<Participant::FLAG_*> $flags
 	 * @throws \InvalidArgumentException
 	 */
-	public function changeInCall(Room $room, Participant $participant, int $flags, bool $endCallForEveryone = false, bool $silent = false): void {
+	public function changeInCall(Room $room, Participant $participant, int $flags, bool $endCallForEveryone = false, bool $silent = false, int $lastJoinedCall = 0): void {
 		if ($room->getType() === Room::TYPE_CHANGELOG
 			|| $room->getType() === Room::TYPE_ONE_TO_ONE_FORMER
 			|| $room->getType() === Room::TYPE_NOTE_TO_SELF) {
@@ -1232,7 +1233,7 @@ class ParticipantService {
 
 		$attendee = $participant->getAttendee();
 		if ($flags !== Participant::FLAG_DISCONNECTED) {
-			$attendee->setLastJoinedCall($this->timeFactory->getTime());
+			$attendee->setLastJoinedCall($lastJoinedCall ?: $this->timeFactory->getTime());
 			$this->attendeeMapper->update($attendee);
 		} elseif ($attendee->getActorType() === Attendee::ACTOR_PHONES) {
 			$attendee->setCallId('');
@@ -2147,6 +2148,13 @@ class ParticipantService {
 
 		if ($actorType === Attendee::ACTOR_USERS) {
 			return $this->getParticipant($room, $actorId, false);
+		}
+
+		if ($actorType === Attendee::ACTOR_GUESTS
+			&& in_array($actorId, [Attendee::ACTOR_ID_CLI, Attendee::ACTOR_ID_SYSTEM, Attendee::ACTOR_ID_CHANGELOG], true)) {
+			$exception = new ParticipantNotFoundException('User is not a participant');
+			$this->logger->info('Trying to load hardcoded system guest from attendees table: ' . $actorType . '/' . $actorId);
+			throw $exception;
 		}
 
 		$query = $this->connection->getQueryBuilder();

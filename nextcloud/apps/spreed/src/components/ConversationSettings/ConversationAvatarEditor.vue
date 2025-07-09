@@ -405,7 +405,7 @@ section {
 			line-height: 100%;
 
 			&--dark {
-				background-color: #3B3B3B;
+				background-color: #70B62B;
 			}
 		}
 	}

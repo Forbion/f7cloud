@@ -465,6 +465,7 @@ return array(
     'OCA\\Talk\\SetupCheck\\SIPConfiguration' => $baseDir . '/lib/SetupCheck/SIPConfiguration.php',
     'OCA\\Talk\\Share\\Helper\\DeletedShareAPIController' => $baseDir . '/lib/Share/Helper/DeletedShareAPIController.php',
     'OCA\\Talk\\Share\\Helper\\FilesMetadataCache' => $baseDir . '/lib/Share/Helper/FilesMetadataCache.php',
+    'OCA\\Talk\\Share\\Helper\\Preloader' => $baseDir . '/lib/Share/Helper/Preloader.php',
     'OCA\\Talk\\Share\\Helper\\ShareAPIController' => $baseDir . '/lib/Share/Helper/ShareAPIController.php',
     'OCA\\Talk\\Share\\Listener' => $baseDir . '/lib/Share/Listener.php',
     'OCA\\Talk\\Share\\RoomShareProvider' => $baseDir . '/lib/Share/RoomShareProvider.php',

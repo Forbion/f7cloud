@@ -3613,7 +3613,7 @@ export interface operations {
         parameters: {
             query?: {
                 /** @description Download format */
-                format?: "csv" | "pdf";
+                format?: "csv";
             };
             header: {
                 /** @description Required to be true for the API request to pass */
@@ -3634,7 +3634,6 @@ export interface operations {
                 };
                 content: {
                     "text/csv": string;
-                    "application/pdf": string;
                 };
             };
             /** @description No call in progress */
@@ -6244,6 +6243,8 @@ export interface operations {
                 includeStatus?: 0 | 1;
                 /** @description Filter rooms modified after a timestamp */
                 modifiedSince?: number;
+                /** @description Include the last message, clients should opt-out when only rendering a compact list */
+                includeLastMessage?: 0 | 1;
             };
             header: {
                 /** @description Required to be true for the API request to pass */

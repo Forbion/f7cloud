@@ -218,7 +218,7 @@ export default {
 	border-radius: var(--avatar-size);
 
 	&--dark .avatar {
-		background-color: #3B3B3B !important;
+		background-color: #70B62B !important;
 	}
 
 	.avatar {
@@ -231,7 +231,7 @@ export default {
 		line-height: var(--avatar-size);
 		font-size: calc(var(--avatar-size) / 2);
 		border-radius: 50%;
-		background-color: var(--color-text-maxcontrast-default);
+		background-color: #70B62B;
 
 		&.icon {
 			background-size: calc(var(--avatar-size) / 2);
@@ -242,11 +242,13 @@ export default {
 
 		&.bot {
 			padding-left: 5px;
-			background-color: var(--color-background-darker);
+			//background-color: var(--color-background-darker);
+			background-color: #70B62B !important;
 		}
 
 		&.guest {
 			color: #ffffff;
+			background-color: #70B62B !important;
 			padding: 0;
 			display: block;
 			text-align: center;

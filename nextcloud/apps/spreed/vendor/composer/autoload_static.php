@@ -511,6 +511,7 @@ class ComposerStaticInitTalk
         'OCA\\Talk\\SetupCheck\\SIPConfiguration' => __DIR__ . '/../..' . '/lib/SetupCheck/SIPConfiguration.php',
         'OCA\\Talk\\Share\\Helper\\DeletedShareAPIController' => __DIR__ . '/../..' . '/lib/Share/Helper/DeletedShareAPIController.php',
         'OCA\\Talk\\Share\\Helper\\FilesMetadataCache' => __DIR__ . '/../..' . '/lib/Share/Helper/FilesMetadataCache.php',
+        'OCA\\Talk\\Share\\Helper\\Preloader' => __DIR__ . '/../..' . '/lib/Share/Helper/Preloader.php',
         'OCA\\Talk\\Share\\Helper\\ShareAPIController' => __DIR__ . '/../..' . '/lib/Share/Helper/ShareAPIController.php',
         'OCA\\Talk\\Share\\Listener' => __DIR__ . '/../..' . '/lib/Share/Listener.php',
         'OCA\\Talk\\Share\\RoomShareProvider' => __DIR__ . '/../..' . '/lib/Share/RoomShareProvider.php',
