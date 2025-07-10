@@ -29,7 +29,7 @@ header .unified-search__wrapper {
     height: 40px;
 }
 
-#header.header-new .user-control__header > div:not(.name__user) {
+#header.header-new .user-control__header > div:not(.name__user, .header-menu__wrapper) {
     height: 40px;
     width: 40px;
 }
@@ -1128,7 +1128,7 @@ header .unified-search__wrapper {
                                         & .icon-file-image:before {
                                             content: '';
                                             position: absolute;
-                                            right: 12px;
+                                            right: 17px;
                                             bottom: 10px;
                                             width: 16px;
                                             height: 17px;
@@ -1161,6 +1161,14 @@ header .unified-search__wrapper {
                                                 background: #70B62B;
                                             }
                                         }
+                                    }
+
+                                    & .btn-group-mail-dropdown {
+                                        position: absolute;
+                                        right: 0px;
+                                        bottom: 10px;
+                                        width: 16px;
+                                        height: 17px;
                                     }
                                 }
                             }
@@ -2525,7 +2533,8 @@ header .unified-search__wrapper {
             }
 
             & .alert {
-                margin-top: -10px;
+                /*margin-top: -10px;*/
+                white-space: normal !important;
             }
 
             & textarea {
@@ -3372,23 +3381,37 @@ header .unified-search__wrapper {
                         border: unset;
                         background: #F5F5F5;
                         display: flex;
-                        padding: 12px 16px 14px;
+                        /*padding: 12px 16px 14px;*/
+                        padding: 4px 4px 9px;
                         align-items: center;
 
                         & .btn-group {
 
+                            &#squire-toolgroup-mode > select {
+                                min-width: 162px !important;
+                                margin-left: 10px;
+                            }
+                            &#squire-toolgroup-font > select[data-action="fontFamily"] {
+                                width: 74px;
+                            }
+                            &#squire-toolgroup-font > select[data-action="fontSize"] {
+                                margin-left: 10px;
+                                width: 54px;
+                                margin-right: 8px;
+                            }
+
                             & button {
                                 box-shadow: unset;
                                 border: unset;
-                                margin-right: 12px;
+                                /*margin-right: 12px;*/
                             }
 
                             & select {
                                 width: auto;
-                                margin-right: 8px;
+                                margin-right: 0;
                                 border-radius: 8px;
-                                padding-left: 10px;
-                                line-height: normal;
+                                padding-left: 0;
+                                /*line-height: normal;*/
                                 border-color: #808080;
                                 position: relative;
 
@@ -3399,6 +3422,17 @@ header .unified-search__wrapper {
                                 background-repeat: no-repeat;
                                 background-position-x: 95%;
                                 background-position-y: 9px;
+                                border: none;
+
+
+                                font-family: Raleway !important;
+                                font-weight: 500 !important;
+                                font-size: 14px !important;
+                                line-height: 20px !important;
+                                letter-spacing: 0 !important;
+
+                                padding-right: 0px !important;
+
                             }
                         }
                     }
@@ -3828,4 +3862,15 @@ input {
     height: 100%;
     border: none;
     display: block;
+}
+
+.btn-scenary {
+    margin-right: 8px;
+    position: relative;
+    padding: 12px 14px;
+    color: #000000;
+    height: 40px;
+    background: transparent;
+    border-radius: 8px;
+    line-height: normal;
 }

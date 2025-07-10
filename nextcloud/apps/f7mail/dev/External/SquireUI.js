@@ -84,7 +84,7 @@ class SquireUI
 						cmd: s => squire.setStyle({ fontFamily: s.value })
 					},
 					fontSize: {
-						select: [['Размер шрифта',''],'11px','13px','16px','20px','24px','30px'],
+						select: [['15pt','15pt'],'11pt','13pt','16pt','20pt','24pt','30pt'],
 						defaultValueIndex: 0,
 						cmd: s => squire.setStyle({ fontSize: s.value })
 						// TODO: maybe consider using https://developer.mozilla.org/en-US/docs/Web/CSS/font-size#values
@@ -105,23 +105,60 @@ class SquireUI
 // 						}
 // 					}
 				},
-				dir: {
-					dir_ltr: {
-						html: '⁋',
-						cmd: () => squire.setTextDirection('ltr')
-					},
-					dir_rtl: {
-						html: '¶',
-						cmd: () => squire.setTextDirection('rtl')
-					}
-				},
+				// dir: {
+				// 	dir_ltr: {
+				// 		html: '⁋',
+				// 		cmd: () => squire.setTextDirection('ltr')
+				// 	},
+				// 	dir_rtl: {
+				// 		html: '¶',
+				// 		cmd: () => squire.setTextDirection('rtl')
+				// 	}
+				// },
 				colors: {
 					textColor: {
-						html: 'A<sub>▾</sub>',
+						html: '<svg width="57" height="36" viewBox="0 0 57 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+                            '<g clip-path="url(#clip0_8409_45307)">\n' +
+                            '<path d="M14.875 18H17.875" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+                            '<path d="M11.0938 23.249H21.6279" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+                            '<path d="M13.375 21L16.1853 12.5692C16.246 12.3869 16.504 12.3869 16.5647 12.5692L19.375 21" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
+                            '</g>\n' +
+                            '<g clip-path="url(#clip1_8409_45307)">\n' +
+                            '<g clip-path="url(#clip2_8409_45307)">\n' +
+                            '<path d="M45.1281 15.0839C45.4222 14.7952 45.8946 14.7997 46.1831 15.0939C46.4714 15.3879 46.467 15.8599 46.1732 16.1484L40.9063 21.32C40.8134 21.4118 40.7032 21.4843 40.5822 21.5334C40.4611 21.5824 40.3315 21.6071 40.2009 21.6058C40.0703 21.6046 39.9413 21.5776 39.8211 21.5263C39.701 21.475 39.5922 21.4005 39.501 21.307L34.3284 16.0382C34.04 15.7444 34.0443 15.2724 34.3382 14.984C34.632 14.6956 35.1039 14.7 35.3923 14.9937L40.2152 19.9063L45.1281 15.0839Z" fill="black"/>\n' +
+                            '</g>\n' +
+                            '</g>\n' +
+                            '<defs>\n' +
+                            '<clipPath id="clip0_8409_45307">\n' +
+                            '<rect width="16" height="16" fill="white" transform="translate(8.375 10)"/>\n' +
+                            '</clipPath>\n' +
+                            '<clipPath id="clip1_8409_45307">\n' +
+                            '<rect width="16" height="16" fill="white" transform="translate(32.375 10)"/>\n' +
+                            '</clipPath>\n' +
+                            '<clipPath id="clip2_8409_45307">\n' +
+                            '<rect width="11.9347" height="16" fill="white" transform="translate(48.4844 12.1484) rotate(90.5324)"/>\n' +
+                            '</clipPath>\n' +
+                            '</defs>\n' +
+                            '</svg>\n',
 						cmd: doClr('color')
 					},
 					backgroundColor: {
-						html: '🎨', /* ▧ */
+						html: '<svg width="56" height="36" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<rect x="8" y="10" width="16" height="16" rx="4" fill="#D74642"/>\n' +
+							'<g clip-path="url(#clip0_8391_43987)">\n' +
+							'<g clip-path="url(#clip1_8391_43987)">\n' +
+							'<path d="M44.7531 15.0839C45.0472 14.7952 45.5196 14.7997 45.8081 15.0939C46.0964 15.3879 46.092 15.8599 45.7982 16.1484L40.5313 21.32C40.4384 21.4118 40.3282 21.4843 40.2072 21.5334C40.0861 21.5824 39.9565 21.6071 39.8259 21.6058C39.6953 21.6046 39.5663 21.5776 39.4461 21.5263C39.326 21.475 39.2172 21.4005 39.126 21.307L33.9534 16.0382C33.665 15.7444 33.6693 15.2724 33.9632 14.984C34.257 14.6956 34.7289 14.7 35.0173 14.9937L39.8402 19.9063L44.7531 15.0839Z" fill="black"/>\n' +
+							'</g>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8391_43987">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(32 10)"/>\n' +
+							'</clipPath>\n' +
+							'<clipPath id="clip1_8391_43987">\n' +
+							'<rect width="11.9347" height="16" fill="white" transform="translate(48.1094 12.1484) rotate(90.5324)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n', /* 🎨 ▧ */
 						cmd: doClr('backgroundColor')
 					},
 				},
@@ -229,17 +266,35 @@ class SquireUI
 */
 				changes: {
 					undo: {
-						html: '↶',
+						html: '\n' +
+							'<svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M3.63544 0.885742L1.42188 3.70301L3.63544 6.52023" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M1.42188 3.70312H9.30786C11.7026 3.70312 13.6696 6.11082 13.7629 9.15633C13.8616 12.3745 11.8384 15.0519 9.30786 15.0519H3.50883" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>\n',
 						cmd: () => squire.undo(),
 						key: 'Z'
 					},
 					redo: {
-						html: '↷',
+						html: '\n' +
+							'<svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M11.989 1.57324L14.2344 4.43094L11.989 7.28859" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M14.2344 4.43066H6.23521C3.80613 4.43066 1.81087 6.87291 1.71621 9.96213C1.61615 13.2265 3.66839 15.9423 6.23521 15.9423H12.1175" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>\n',
 						cmd: () => squire.redo(),
 						key: 'Y'
 					},
 					source: {
-						html: '👁',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8600_37557)">\n' +
+							'<path d="M1.95233 8.93701C1.771 8.68834 1.68033 8.56367 1.61767 8.32367C1.57536 8.10997 1.57536 7.89005 1.61767 7.67634C1.68033 7.43567 1.771 7.31101 1.95233 7.06301C2.945 5.69967 5.121 3.33301 8.25233 3.33301C11.3837 3.33301 13.5597 5.69967 14.5523 7.06234C14.7337 7.31101 14.8243 7.43567 14.887 7.67567C14.9293 7.88938 14.9293 8.1093 14.887 8.32301C14.8243 8.56367 14.7337 8.68834 14.5523 8.93634C13.5597 10.2997 11.3837 12.6663 8.25233 12.6663C5.121 12.6663 2.945 10.2997 1.95233 8.93701Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M8.2474 9.33366C8.60102 9.33366 8.94016 9.19318 9.1902 8.94313C9.44025 8.69309 9.58073 8.35395 9.58073 8.00033C9.58073 7.6467 9.44025 7.30757 9.1902 7.05752C8.94016 6.80747 8.60102 6.66699 8.2474 6.66699C7.89377 6.66699 7.55464 6.80747 7.30459 7.05752C7.05454 7.30757 6.91406 7.6467 6.91406 8.00033C6.91406 8.35395 7.05454 8.69309 7.30459 8.94313C7.55464 9.19318 7.89377 9.33366 8.2474 9.33366Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8600_37557">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.25)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: btn => {
 							this.setMode('source' == this.mode ? 'wysiwyg' : 'source');
 							btn.classList.toggle('active', 'source' == this.mode);
@@ -249,7 +304,9 @@ class SquireUI
 
 				clear: {
 					removeStyle: {
-						html: '⎚',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M13.7972 13.6499H6.38173L3.40849 10.6131C3.27696 10.4808 3.20313 10.3018 3.20312 10.1152C3.20313 9.92861 3.27696 9.74962 3.40849 9.6173L10.4708 2.55498C10.6031 2.42344 10.7821 2.34961 10.9687 2.34961C11.1553 2.34961 11.3343 2.42344 11.4666 2.55498L14.9978 6.08614C15.1293 6.21846 15.2031 6.39745 15.2031 6.58403C15.2031 6.77061 15.1293 6.9496 14.9978 7.08192L8.50042 13.6499M13.0909 8.91813L8.64167 4.46886" stroke="black" stroke-width="1.41246" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>\n',
 						cmd: () => squire.setStyle()
 					}
 				}
