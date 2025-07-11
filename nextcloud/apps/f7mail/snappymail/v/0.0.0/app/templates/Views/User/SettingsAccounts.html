@@ -116,9 +116,9 @@
 					</div>
 				</div>
 			</div>
-			<div data-bind="visible: allowIdentities" hidden>
+			<div data-bind="visible: allowIdentities">
 				<div class="legend" data-i18n="SETTINGS_ACCOUNTS/LEGEND_IDENTITIES"></div>
-				<a class="btn" data-bind="click: addNewIdentity">
+				<a class="btn addNewIdentity" data-bind="click: addNewIdentity">
 					<i class="icon-user-add"></i>
 					<span data-i18n="SETTINGS_ACCOUNTS/BUTTON_ADD_IDENTITY"></span>
 				</a>
@@ -132,7 +132,7 @@
 							<span class="identity-name" data-bind="text: $data"></span>
 							<span class="identity-default" data-i18n="GLOBAL/DEFAULT"></span>
 						</td>
-						<td>
+						<td class="btn-delete">
 							<a class="btn btn-small btn-danger button-confirm-delete" data-bind="visible: id, css: {'delete-access': askDelete}, click: function(oIdentity) { $root.deleteIdentity(oIdentity); }"
 							   data-i18n="GLOBAL/ARE_YOU_SURE"></a>
 						</td>

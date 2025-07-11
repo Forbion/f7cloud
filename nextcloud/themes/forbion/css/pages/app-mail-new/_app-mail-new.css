@@ -1667,6 +1667,80 @@ header .unified-search__wrapper {
                                                 }
                                             }
                                         }
+
+                                        &.identities-list {
+
+                                            overflow-x: hidden;
+
+                                            & tbody {
+
+                                                & tr {
+
+                                                    padding-right: 0;
+
+                                                    &:hover {
+                                                        /*background: #70B62B;*/
+                                                    }
+
+                                                    & td {
+
+                                                        position: relative;
+                                                        line-height: 22px;
+
+                                                        & * {
+                                                            display: block !important;
+                                                        }
+
+                                                        & .fontastic.drag-handle {
+                                                            position: absolute;
+                                                            top: 50%;
+                                                            left: 50%;
+                                                            transform: translate(-50%, -50%);
+                                                            color: #aaa;
+                                                        }
+
+                                                        &:first-child {
+                                                            padding: 10px 20px;
+                                                        }
+
+                                                        &:last-child {
+                                                            align-content: center;
+                                                        }
+
+                                                        &.e-action {
+                                                            padding-left: 0;
+                                                            padding-top: 10px;
+                                                            padding-bottom: 10px;
+                                                            width: 170px;
+                                                            white-space: nowrap;
+                                                            overflow: hidden;
+                                                            text-overflow: ellipsis;
+                                                            color: #ccc;
+                                                            cursor: pointer;
+                                                            max-width: 190px;
+
+                                                            & .identity-name {
+                                                                color: #000000;
+                                                            }
+
+                                                            & .identity-default {
+                                                                display: contents;
+                                                            }
+                                                        }
+
+                                                        &.btn-delete {
+
+                                                            & a {
+                                                                position: absolute;
+                                                                right: 0;
+                                                                top: 50%;
+                                                                transform: translateY(-50%);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
 
                                     & .accounts-list {
@@ -2533,8 +2607,7 @@ header .unified-search__wrapper {
             }
 
             & .alert {
-                /*margin-top: -10px;*/
-                white-space: normal !important;
+                margin-top: -10px;
             }
 
             & textarea {
@@ -3379,14 +3452,20 @@ header .unified-search__wrapper {
 
                     & .squire-toolbar {
                         border: unset;
-                        background: #F5F5F5;
+                        background: white;
                         display: flex;
                         /*padding: 12px 16px 14px;*/
                         padding: 4px 4px 9px;
                         align-items: center;
+                        justify-content: center;
 
                         & .btn-group {
 
+                            &#squire-toolgroup-inline,&#squire-toolgroup-block,&#squire-toolgroup-targets,&#squire-toolgroup-changes,&#squire-toolgroup-clear {
+                                & > button {
+                                    margin-right: 12px;
+                                }
+                            }
                             &#squire-toolgroup-mode > select {
                                 min-width: 162px !important;
                                 margin-left: 10px;
@@ -3396,8 +3475,28 @@ header .unified-search__wrapper {
                             }
                             &#squire-toolgroup-font > select[data-action="fontSize"] {
                                 margin-left: 10px;
-                                width: 54px;
+                                width: 75px;
                                 margin-right: 8px;
+                            }
+                            &#squire-toolgroup-colors > svg {
+                                display: flex;
+                            }
+                            &#squire-toolgroup-colors {
+                                margin-right: 0px !important;
+                            }
+
+                            &#squire-toolgroup-colors > button{
+                                background: transparent;
+                                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cg clip-path='url(%23clip0_4763_13201)'%3E%3Cg clip-path='url(%23clip1_4763_13201)'%3E%3Cpath d='M12.7568 5.08399C13.0508 4.79533 13.5233 4.79983 13.8118 5.09404C14.1001 5.38802 14.0956 5.86 13.8018 6.14848L8.53495 11.3202C8.44202 11.4119 8.33187 11.4845 8.21082 11.5335C8.08976 11.5826 7.96021 11.6072 7.8296 11.606C7.699 11.6048 7.56992 11.5777 7.4498 11.5264C7.32968 11.4751 7.22089 11.4006 7.12969 11.3071L1.95708 6.03836C1.66863 5.74455 1.673 5.27254 1.96683 4.98412C2.26062 4.69574 2.73256 4.7001 3.02097 4.99387L7.8439 9.90638L12.7568 5.08399Z' fill='%23808080'/%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_4763_13201'%3E%3Crect width='16' height='16' fill='white'/%3E%3C/clipPath%3E%3CclipPath id='clip1_4763_13201'%3E%3Crect width='11.9347' height='16' fill='black' transform='translate(16.1102 2.14868) rotate(90.5324)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+                                background-repeat: no-repeat;
+                                background-position-x: 24px;
+                                background-position-y: 0;
+                                width: 50px;
+
+                                & svg {
+                                    display: flex;
+                                }
+
                             }
 
                             & button {
@@ -3864,13 +3963,34 @@ input {
     display: block;
 }
 
-.btn-scenary {
-    margin-right: 8px;
+.addNewIdentity {
     position: relative;
-    padding: 12px 14px;
-    color: #000000;
+    padding: 12px 14px 12px 40px;
+    color: #FFFFFF;
     height: 40px;
-    background: transparent;
+    line-height: 1;
+    box-shadow: unset;
+    border: unset;
+    background: #70B62B;
     border-radius: 8px;
-    line-height: normal;
+
+    & span {
+        margin: 0;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
+            background-repeat: no-repeat;
+        }
+    }
+
+    & .icon-user-add {
+        display: none;
+    }
 }
