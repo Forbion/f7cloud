@@ -49,6 +49,7 @@
 !/apps/weather_status
 !/apps/webhook_listeners
 !/apps/workflowengine
+!/apps/f7mail
 !/apps/snappymail
 !/apps/calendar
 !/apps/contacts
