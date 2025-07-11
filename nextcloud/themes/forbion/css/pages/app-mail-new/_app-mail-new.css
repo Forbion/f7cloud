@@ -4032,7 +4032,7 @@ input {
     color: #000000;
     line-height: normal;
     font-weight: normal;
-    background: #F0F1F4;
+    /*background: #F0F1F4;*/
     border-radius: 8px;
     text-shadow: unset;
     box-shadow: unset !important;
