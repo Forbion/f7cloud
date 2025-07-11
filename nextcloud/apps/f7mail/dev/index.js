@@ -17,11 +17,13 @@ function setActiveMenuItemByClick() {
 
             this.classList.add('active');
 
-            if (index === 0) {
-                history.pushState({}, '', '/apps/f7mail/#/new-letter/');
-                document.querySelector('#V-PopupsCompose').classList.add('active');
-            } else {
-                document.querySelector('#V-PopupsCompose').classList.remove('active');
+            if(document.querySelector('#V-PopupsCompose')) {
+                if (index === 0) {
+                    history.pushState({}, '', '/apps/f7mail/#/new-letter/');
+                    document.querySelector('#V-PopupsCompose').classList.add('active');
+                } else {
+                    document.querySelector('#V-PopupsCompose').classList.remove('active');
+                }
             }
         });
     });
