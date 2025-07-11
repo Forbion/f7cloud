@@ -6,6 +6,10 @@
             name() == 'INBOX' ? 'Входящие' :
             name() == 'INFO' ? 'Инфо' :
             name() == 'sieve' ? 'Фильтры' :
+            name() == 'Trash' ? 'Корзина' :
+            name() == 'Sent' ? 'Отправленные' :
+            name() == 'Archive' ? 'Архив' :
+            name() == 'Junk' ? 'В спам' :
             name,
             tooltipErrorTip: errorMsg,
             visible: !isSystemFolder()">
