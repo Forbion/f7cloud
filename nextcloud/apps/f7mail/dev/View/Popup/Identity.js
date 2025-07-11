@@ -13,7 +13,7 @@ import { folderListOptionsBuilder } from 'Common/Folders';
 import { i18n } from 'Common/Translator';
 import { defaultOptionsAfterRender } from 'Common/Utils';
 
-import { showScreenPopup } from 'Knoin/Knoin';
+//import { showScreenPopup } from 'Knoin/Knoin';
 import { AskPopupView } from 'View/Popup/Ask';
 
 export class IdentityPopupView extends AbstractViewPopup {
@@ -134,12 +134,15 @@ export class IdentityPopupView extends AbstractViewPopup {
 	}
 
 	onClose() {
-		if (!this.identity().exists()) {
-			showScreenPopup(AskPopupView, [
-				i18n('POPUPS_ASK/DESC_WANT_CLOSE_THIS_WINDOW'),
-				() => this.close()
-			]);
-			return false;
-		}
+
+		this.close()
+
+		// if (!this.identity().exists()) {
+		// 	showScreenPopup(AskPopupView, [
+		// 		i18n('POPUPS_ASK/DESC_WANT_CLOSE_THIS_WINDOW'),
+		// 		() => this.close()
+		// 	]);
+		// 	return false;
+		// }
 	}
 }

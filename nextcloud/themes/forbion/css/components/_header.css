@@ -24,6 +24,78 @@
 }
 
 #header.header-new {
+    & #header-menu-user-menu-f7mail {
+        /* display: none; */
+        position: fixed;
+        z-index: 2000;
+        right: 5%;
+        top: 65px;
+        width: 200px;
+        background-color: #FFFFFFFF;
+        --color-box-shadow-rgb: 77,77,77;
+        --color-box-shadow: rgba(var(--color-box-shadow-rgb), 0.5);
+        filter: drop-shadow(0 1px 5px var(--color-box-shadow));
+        /*padding: 10px;*/
+        border-radius: 8px;
+        /*border: 1px solid #cccccc;*/
+
+        & .header-menu__content {
+            overflow: auto;
+            width: fit-content !important;
+            max-width: calc(100vw - 16px);
+            min-height: calc(34px * 1.5);
+            max-height: calc(100vh - 50px * 2);
+
+            & .account-menu__list {
+                display: inline-flex;
+                flex-direction: column;
+                padding-block: 4px 0;
+                padding-inline: 0 4px;
+
+                & .list-item__wrapper {
+                    padding: 2px 4px;
+
+
+                    & .list-item__anchor {
+                        color: inherit;
+                        display: flex;
+                        flex: 1 0 auto;
+                        align-items: center;
+                        height: 40px;
+                        min-width: 0;
+
+                        & .account-menu-entry__icon {
+                            height: 16px;
+                            width: 16px;
+                            margin: calc((34px - 16px)/2);
+
+                        }
+                        & .list-item-content {
+                            display: flex;
+                            flex: 1 0;
+                            justify-content: space-between;
+                            padding-left: calc(2 * var(--default-grid-baseline));
+                            min-width: 0;
+
+                            & .list-item-content__main {
+                                width: fit-content;
+
+                                & .list-item-content__name {
+                                    font-family: 'Raleway';
+                                    font-weight: 500;
+                                    vertical-align: baseline;
+                                    font-size: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#header.header-new {
     position: relative !important;
     height: unset !important;
     margin: 0 !important;
@@ -134,7 +206,7 @@
 #header.header-new .user-control__header img {
     pointer-events: none;
 }
-#header.header-new .user-control__header > div:not(.name__user) {
+#header.header-new .user-control__header > div:not(.name__user,.header-menu__wrapper) {
     padding: 5px;
     background: #E0E0E0;
     border-radius: 50%;
@@ -197,7 +269,7 @@
     height: 30px;
 }
 
-#header.header-new .user-control__header #user-menu-snappymail {
+#header.header-new .user-control__header #user-menu-snappymail, #header.header-new .user-control__header #user-menu-f7mail {
     background-image: url("/themes/forbion/images/profile_user.png");
     background-repeat: no-repeat;
     background-position: center;

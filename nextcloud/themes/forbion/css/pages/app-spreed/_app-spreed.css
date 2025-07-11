@@ -1,4 +1,8 @@
 /* APP SPREED */
+.conversation-icon .avatar.icon {
+    --color-text-maxcontrast-default: #70B62B;
+}
+
 body ul.vs__dropdown-menu {
     color: #000000 !important;
     padding: 10px 10px 15px !important;
@@ -122,6 +126,54 @@ body .app-talk{
         background-position: center;
     }
     & .material-design-icon.menu-open-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.folder-multiple-image-icon:after {
+        background-image: url('/themes/forbion/images/files-black.svg') !important;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.folder-multiple-image-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.account-multiple-icon:after {
+        background-image: url('/themes/forbion/images/users.svg') !important;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.account-multiple-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.microphone-icon:after {
+        background-image: url('/themes/forbion/images/mic.svg') !important;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.microphone-icon > svg {
+        display: none;
+    }
+    & .material-design-icon.emoticon-outline-icon:after {
+        background-image: url('/themes/forbion/images/smile-black.svg') !important;
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    & .material-design-icon.emoticon-outline-icon > svg {
         display: none;
     }
     & .material-design-icon.message-icon:after {
@@ -308,8 +360,14 @@ body .app-talk{
 .app-talk .left-sidebar__settings-button-container .material-design-icon__svg > path{
     fill: #808080;
 }
-
-.button-vue__text{
+.app-talk:not(.in-call) .button-vue--text-only .button-vue__text{
+    margin: unset !important;
+    color: #FCFEFC;
+}
+#call_button .material-design-icon.phone-icon .material-design-icon__svg{
+    fill: white;
+}
+#call_button .button-vue__text{
     margin: unset !important;
     color: #FCFEFC;
 }
@@ -386,6 +444,10 @@ body .app-talk{
     background: var(--color-main-background-blur);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+
+    & .button-vue__wrapper {
+        justify-content: flex-start !important;
+    }
 }
 .app-talk:not(.in-call) .app-navigation__search {
     margin-bottom: 8px;
@@ -510,7 +572,8 @@ body .app-talk{
 }
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary  {
     /*padding: 7px 45px 8px 6px !important;*/
-    padding: 6px 8px 6px 8px !important;
+    /*padding: 6px 8px 6px 8px !important;*/
+    padding: 3px 8px 3px 8px !important;
 }
 .app-navigation--close .top-bar-outer {
     width: calc(100%) !important;

@@ -9125,13 +9125,16 @@ body > * {
 		}
 
 		onClose() {
-			if (!this.identity().exists()) {
-				showScreenPopup(AskPopupView, [
-					i18n('POPUPS_ASK/DESC_WANT_CLOSE_THIS_WINDOW'),
-					() => this.close()
-				]);
-				return false;
-			}
+
+			this.close();
+
+			// if (!this.identity().exists()) {
+			// 	showScreenPopup(AskPopupView, [
+			// 		i18n('POPUPS_ASK/DESC_WANT_CLOSE_THIS_WINDOW'),
+			// 		() => this.close()
+			// 	]);
+			// 	return false;
+			// }
 		}
 	}
 
