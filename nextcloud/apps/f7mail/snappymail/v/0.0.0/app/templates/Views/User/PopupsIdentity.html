@@ -126,7 +126,49 @@
 			<div class="control-group">
 				<label data-i18n="FOLDER_LIST/SENT_NAME"></label>
 				<select name="sentFolder" data-bind="options: $root.folderSelectList, value: sentFolder,
-					optionsText: 'name', optionsValue: 'id', optionsAfterRender: $root.defaultOptionsAfterRender"></select>
+							optionsText: function(item) {
+							var nameMap = {
+								'dovecot': 'Сервер',
+								'Shared': 'Общие',
+								'INBOX': 'Входящие',
+								'INFO': 'Инфо',
+								'sieve': 'Фильтры',
+								'Archive': 'Архив',
+								'trash': 'Удаленные',
+								'Drafts': 'Черновики',
+								'Junk': 'Спам',
+								'Sent': 'Отправленные',
+							};
+
+							const originalName = item.name;
+							let translatedName = '';
+							let lastIndex = 0;
+
+							const matches = [...originalName.matchAll(/(\s+)/g)];
+
+							if (matches.length === 0) {
+								return nameMap[originalName] || originalName;
+							}
+
+							for (const match of matches) {
+								const пробелы = match[0];
+								const пробелыIndex = match.index;
+
+								const word = originalName.substring(lastIndex, пробелыIndex);
+								translatedName += nameMap[word] || word;
+
+								translatedName += пробелы;
+
+								lastIndex = пробелыIndex + пробелы.length;
+							}
+
+							const lastWord = originalName.substring(lastIndex);
+							translatedName += nameMap[lastWord] || lastWord;
+
+							return translatedName;
+						}, optionsValue: 'id', optionsAfterRender: $root.defaultOptionsAfterRender"
+				>
+				</select>
 			</div>
 		</div>
 	</div>

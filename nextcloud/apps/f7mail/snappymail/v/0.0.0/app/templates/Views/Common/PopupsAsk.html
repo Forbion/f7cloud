@@ -9,16 +9,9 @@
 		<label data-i18n="GLOBAL/PASSWORD"></label>
 		<input type="password" data-bind="value: passphrase">
 	</div>
-	<div data-bind="visible: askRemeber, component: {
-		name: 'Checkbox',
-		params: {
-			label: 'GLOBAL/REMEMBER',
-			value: remember
-		}
-	}"></div>
 	</form>
 </div>
 <footer>
-	<button class="btn buttonYes" form="AskForm" data-bind="click: yesClick, text: yesButton" data-icon="✔"></button>
 	<button class="btn buttonNo" data-bind="click: noClick, text: noButton" data-icon="✖"></button>
+	<button class="btn buttonYes" form="AskForm" data-bind="click: yesClick, text: yesButton" data-icon="✔"></button>
 </footer>

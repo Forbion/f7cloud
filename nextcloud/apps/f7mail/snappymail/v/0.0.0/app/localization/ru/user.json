@@ -279,9 +279,9 @@
 	"POPUPS_IDENTITY": {
 		"TITLE_ADD_IDENTITY": "Добавить Профиль",
 		"TITLE_UPDATE_IDENTITY": "Обновить Профиль",
-		"LABEL": "Label",
+		"LABEL": "Подпись",
 		"BUTTON_ADD_IDENTITY": "Добавить",
-		"SIGNATURE": "Signature",
+		"SIGNATURE": "Текст",
 		"LABEL_SIGNATURE_INSERT_BEFORE": "Вставлять подпись перед цитированием текста в ответах"
 	},
 	"POPUPS_CREATE_FOLDER": {
@@ -304,7 +304,7 @@
 		"VERIFY": "Проверить",
 		"GOOD_SIGNATURE": "Подтвержденная сигнатура для %USER%",
 		"ERROR": "%TYPE% ошибка: %ERROR%",
-		"CREATE_SELF_SIGNED": "Create self-signed",
+		"CREATE_SELF_SIGNED": "Создать подключение",
 		"VALID_UNTIL": "Valid until",
 		"PRIVATE_KEY": "Private key",
 		"CHANGE_PASS": "Change passphrase",

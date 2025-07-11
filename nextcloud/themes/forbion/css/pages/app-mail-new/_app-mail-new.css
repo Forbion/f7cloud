@@ -1,4 +1,5 @@
 @import url("icons/_icons.css");
+@import url("forms/_modals.css");
 
 * {
     scrollbar-color: #808080 #FFFFFF !important;
@@ -3991,6 +3992,36 @@ input {
     }
 
     & .icon-user-add {
+        display: none;
+    }
+}
+
+.buttonAddIdentity {
+
+    margin-right: 0;
+
+    & span {
+        position: relative;
+        padding: 12px 14px 12px 40px;
+        color: #FFFFFF;
+        height: 40px;
+        background: #70B62B;
+        border-radius: 8px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-image: url("/themes/forbion/images/arrow-btn.svg");
+            background-repeat: no-repeat;
+        }
+    }
+
+    & .icon-ok {
         display: none;
     }
 }

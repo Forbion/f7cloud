@@ -6207,7 +6207,7 @@ class SquireUI
 						cmd: s => squire.setStyle({ fontFamily: s.value })
 					},
 					fontSize: {
-						select: [['15pt','15pt'],'11pt','13pt','16pt','20pt','24pt','30pt'],
+						select: [['Размер',''],'11pt','13pt','16pt','20pt','24pt','30pt'],
 						defaultValueIndex: 0,
 						cmd: s => squire.setStyle({ fontSize: s.value })
 						// TODO: maybe consider using https://developer.mozilla.org/en-US/docs/Web/CSS/font-size#values
@@ -6239,85 +6239,126 @@ class SquireUI
 				// 	}
 				// },
 				colors: {
-					textColor: {
-						html: '<svg width="57" height="36" viewBox="0 0 57 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
-                            '<g clip-path="url(#clip0_8409_45307)">\n' +
-                            '<path d="M14.875 18H17.875" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
-                            '<path d="M11.0938 23.249H21.6279" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
-                            '<path d="M13.375 21L16.1853 12.5692C16.246 12.3869 16.504 12.3869 16.5647 12.5692L19.375 21" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
-                            '</g>\n' +
-                            '<g clip-path="url(#clip1_8409_45307)">\n' +
-                            '<g clip-path="url(#clip2_8409_45307)">\n' +
-                            '<path d="M45.1281 15.0839C45.4222 14.7952 45.8946 14.7997 46.1831 15.0939C46.4714 15.3879 46.467 15.8599 46.1732 16.1484L40.9063 21.32C40.8134 21.4118 40.7032 21.4843 40.5822 21.5334C40.4611 21.5824 40.3315 21.6071 40.2009 21.6058C40.0703 21.6046 39.9413 21.5776 39.8211 21.5263C39.701 21.475 39.5922 21.4005 39.501 21.307L34.3284 16.0382C34.04 15.7444 34.0443 15.2724 34.3382 14.984C34.632 14.6956 35.1039 14.7 35.3923 14.9937L40.2152 19.9063L45.1281 15.0839Z" fill="black"/>\n' +
-                            '</g>\n' +
-                            '</g>\n' +
-                            '<defs>\n' +
-                            '<clipPath id="clip0_8409_45307">\n' +
-                            '<rect width="16" height="16" fill="white" transform="translate(8.375 10)"/>\n' +
-                            '</clipPath>\n' +
-                            '<clipPath id="clip1_8409_45307">\n' +
-                            '<rect width="16" height="16" fill="white" transform="translate(32.375 10)"/>\n' +
-                            '</clipPath>\n' +
-                            '<clipPath id="clip2_8409_45307">\n' +
-                            '<rect width="11.9347" height="16" fill="white" transform="translate(48.4844 12.1484) rotate(90.5324)"/>\n' +
-                            '</clipPath>\n' +
-                            '</defs>\n' +
-                            '</svg>\n',
-						cmd: doClr('color')
-					},
 					backgroundColor: {
-						html: '<svg width="56" height="36" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
-							'<rect x="8" y="10" width="16" height="16" rx="4" fill="#D74642"/>\n' +
-							'<g clip-path="url(#clip0_8391_43987)">\n' +
-							'<g clip-path="url(#clip1_8391_43987)">\n' +
-							'<path d="M44.7531 15.0839C45.0472 14.7952 45.5196 14.7997 45.8081 15.0939C46.0964 15.3879 46.092 15.8599 45.7982 16.1484L40.5313 21.32C40.4384 21.4118 40.3282 21.4843 40.2072 21.5334C40.0861 21.5824 39.9565 21.6071 39.8259 21.6058C39.6953 21.6046 39.5663 21.5776 39.4461 21.5263C39.326 21.475 39.2172 21.4005 39.126 21.307L33.9534 16.0382C33.665 15.7444 33.6693 15.2724 33.9632 14.984C34.257 14.6956 34.7289 14.7 35.0173 14.9937L39.8402 19.9063L44.7531 15.0839Z" fill="black"/>\n' +
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8409_45302)">\n' +
+							'<g clip-path="url(#clip1_8409_45302)">\n' +
+							'<path d="M1.75 4H7.75M1.75 8H14.25M1.75 12H7.75" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M9.75 12L12.5603 3.56921C12.621 3.38687 12.879 3.38687 12.9397 3.56921L15.75 12" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
 							'</g>\n' +
 							'</g>\n' +
 							'<defs>\n' +
-							'<clipPath id="clip0_8391_43987">\n' +
-							'<rect width="16" height="16" fill="white" transform="translate(32 10)"/>\n' +
+							'<clipPath id="clip0_8409_45302">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.75)"/>\n' +
 							'</clipPath>\n' +
-							'<clipPath id="clip1_8391_43987">\n' +
-							'<rect width="11.9347" height="16" fill="white" transform="translate(48.1094 12.1484) rotate(90.5324)"/>\n' +
+							'<clipPath id="clip1_8409_45302">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.75)"/>\n' +
 							'</clipPath>\n' +
 							'</defs>\n' +
 							'</svg>\n', /* 🎨 ▧ */
 						cmd: doClr('backgroundColor')
 					},
+					textColor: {
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8409_45314)">\n' +
+							'<path d="M6.875 8H9.875" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M3.09375 13.249H13.6279" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M5.375 11L8.18526 2.56921C8.24604 2.38687 8.50396 2.38687 8.56474 2.56921L11.375 11" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8409_45314">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.375)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
+						cmd: doClr('color')
+					},
 				},
 				inline: {
 					bold: {
-						html: 'B',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_19644)">\n' +
+							'<g clip-path="url(#clip1_8610_19644)">\n' +
+							'<path d="M5.08594 2.28125H9.33594C9.8982 2.28145 10.4489 2.44126 10.9238 2.74219C11.3988 3.04315 11.7783 3.47312 12.0186 3.98145C12.2588 4.48986 12.3502 5.05617 12.2812 5.61426C12.2123 6.17233 11.9857 6.6992 11.6289 7.13379L11.6055 7.16309L11.6387 7.18066C12.2638 7.52523 12.756 8.06841 13.0391 8.72363C13.3221 9.37903 13.3799 10.1103 13.2021 10.8018C13.0244 11.493 12.6215 12.1054 12.0576 12.543C11.4935 12.9805 10.7998 13.2184 10.0859 13.2188H5.08594C4.89531 13.2188 4.71292 13.1426 4.57812 13.0078C4.44333 12.873 4.36719 12.6906 4.36719 12.5V3C4.36719 2.80938 4.44333 2.62698 4.57812 2.49219C4.71292 2.3574 4.89531 2.28125 5.08594 2.28125ZM5.80469 11.7812H10.0859C10.5584 11.7812 11.0117 11.5938 11.3457 11.2598C11.6798 10.9257 11.8672 10.4724 11.8672 10C11.8672 9.52758 11.6798 9.07428 11.3457 8.74023C11.0117 8.40618 10.5584 8.21875 10.0859 8.21875H5.80469V11.7812ZM5.80469 6.78125H9.33594C9.74205 6.78125 10.1318 6.62017 10.4189 6.33301C10.7061 6.04584 10.8672 5.65611 10.8672 5.25C10.8672 4.84389 10.7061 4.45416 10.4189 4.16699C10.1318 3.87983 9.74205 3.71875 9.33594 3.71875H5.80469V6.78125Z" fill="black" stroke="black" stroke-width="0.0625"/>\n' +
+							'</g>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_19644">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'<clipPath id="clip1_8610_19644">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => this.doAction('bold'),
 						key: 'B',
 						matches: 'B,STRONG'
 					},
 					italic: {
-						html: 'I',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_33226)">\n' +
+							'<g clip-path="url(#clip1_8610_33226)">\n' +
+							'<path d="M6.08594 13L10.5859 3" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
+							'<path d="M8.08594 3H12.5859" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
+							'<path d="M4.08594 13H8.58594" stroke="black" stroke-width="1.5" stroke-linecap="round"/>\n' +
+							'</g>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_33226">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'<clipPath id="clip1_8610_33226">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => this.doAction('italic'),
 						key: 'I',
 						matches: 'I'
 					},
 					underline: {
-						html: '<u>U</u>',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_35440)">\n' +
+							'<path d="M3.80022 2.42871V8.643C3.80022 9.67537 4.25175 10.313 5.05548 10.9158C5.85921 11.5186 6.9493 11.8573 8.08594 11.8573C9.22258 11.8573 10.3127 11.5186 11.1164 10.9158C11.9201 10.313 12.3717 9.49548 12.3717 8.643V2.42871M2.08594 14.4287H14.0859" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_35440">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>',
 						cmd: () => this.doAction('underline'),
 						key: 'U',
 						matches: 'U'
 					},
 					strike: {
-						html: '<s>S</s>',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M2.08594 8.00086H14.0859M11.5145 3.28657C11.3202 2.90939 10.8747 2.57655 10.2515 2.34286C9.62832 2.10916 8.86454 1.98854 8.08594 2.00086H7.22879C6.43315 2.00086 5.67008 2.31693 5.10747 2.87954C4.54487 3.44215 4.22879 4.20521 4.22879 5.00086C4.22879 5.79651 4.54487 6.55957 5.10747 7.12218C5.67008 7.68479 6.43315 8.00086 7.22879 8.00086H8.94308C9.73873 8.00086 10.5018 8.31693 11.0644 8.87954C11.627 9.44215 11.9431 10.2052 11.9431 11.0009C11.9431 11.7965 11.627 12.5596 11.0644 13.1222C10.5018 13.6848 9.73873 14.0009 8.94308 14.0009H7.65737C6.87877 14.0132 6.11499 13.8926 5.49179 13.6589C4.8686 13.4252 4.42315 13.0923 4.22879 12.7151" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>\n',
 						cmd: () => this.doAction('strikethrough'),
 						key: 'Shift + 7',
 						matches: 'S'
 					},
 					sub: {
-						html: 'Xₙ',
+						html: '<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M1.0791 0.448242C1.16784 0.448251 1.24183 0.46759 1.30762 0.503906C1.37295 0.539983 1.42376 0.590011 1.46484 0.658203L1.46777 0.662109L3.52148 3.97461L3.62988 4.14941H4.11719L4.22559 3.97363L6.26074 0.660156L6.2627 0.657227C6.30088 0.593585 6.35176 0.54539 6.42188 0.508789C6.50342 0.466313 6.57826 0.448611 6.64941 0.448242C6.76194 0.448335 6.83752 0.471736 6.89062 0.50293C6.94297 0.5338 6.99523 0.585281 7.04199 0.674805C7.12618 0.836172 7.1256 0.980401 7.02148 1.15527L4.65332 4.85645L4.52539 5.05664L4.65332 5.25586L7.27637 9.35645V9.35742C7.33463 9.45317 7.355 9.53227 7.35645 9.59863C7.35785 9.66456 7.34138 9.74139 7.28906 9.83398C7.19307 10.0038 7.07414 10.0712 6.88965 10.0713C6.80041 10.0713 6.72612 10.0518 6.66016 10.0156C6.59611 9.98053 6.54504 9.93209 6.50391 9.86328L6.5 9.85645L4.22363 6.22949L4.11426 6.05566H3.63086L3.52246 6.22949L1.24609 9.85645L1.24219 9.8623C1.20382 9.92624 1.15277 9.97554 1.08203 10.0127C1.0012 10.0551 0.926904 10.0715 0.857422 10.0713H0.856445C0.74338 10.0713 0.665264 10.0482 0.609375 10.0156C0.554146 9.98344 0.499813 9.93002 0.450195 9.83887C0.362126 9.67702 0.362312 9.53577 0.46582 9.36328L3.0752 5.25488L3.20117 5.05566L3.07422 4.85742L0.706055 1.1377C0.649508 1.04883 0.629075 0.974937 0.626953 0.912109C0.624868 0.849334 0.639935 0.773864 0.69043 0.680664C0.741015 0.587437 0.795691 0.533533 0.848633 0.501953C0.901511 0.470413 0.974029 0.448242 1.0791 0.448242Z" fill="black" stroke="black" stroke-width="0.740259"/>\n' +
+							'</svg>\n',
 						cmd: () => this.doAction('subscript'),
 						key: 'Shift + 5',
 						matches: 'SUB'
 					},
 					sup: {
-						html: 'Xⁿ',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="black" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_5584)">\n' +
+							'<path d="M5.07812 3.92871C5.1669 3.92871 5.24083 3.94902 5.30664 3.98535C5.37187 4.02142 5.42381 4.07055 5.46484 4.13867L5.4668 4.14258L7.52051 7.45508L7.62891 7.63086H8.11621L8.22461 7.4541L10.2607 4.1416L10.2627 4.1377C10.3009 4.07406 10.3517 4.02584 10.4219 3.98926C10.5032 3.94691 10.5775 3.92917 10.6484 3.92871C10.7616 3.92873 10.8374 3.95299 10.8906 3.98438C10.9429 4.01526 10.9953 4.06585 11.042 4.15527C11.1167 4.29846 11.1246 4.42856 11.0527 4.57812L11.0166 4.64355L8.65234 8.33789L8.52441 8.53711L8.65234 8.7373L11.2803 12.8457C11.3353 12.9383 11.355 13.0153 11.3564 13.0801C11.3578 13.146 11.3404 13.2228 11.2881 13.3154C11.1921 13.4852 11.0733 13.5527 10.8887 13.5527C10.7995 13.5527 10.7251 13.5332 10.6592 13.4971C10.5954 13.462 10.5449 13.4133 10.5039 13.3447L10.499 13.3379L8.22266 9.70996L8.11426 9.53711H7.63086L7.52148 9.70996L5.24512 13.3379L5.24121 13.3438C5.20283 13.4077 5.15186 13.457 5.08105 13.4941C5.00022 13.5366 4.92593 13.553 4.85645 13.5527H4.85547C4.74254 13.5527 4.66505 13.5294 4.60938 13.4971C4.55437 13.465 4.4996 13.4122 4.4502 13.3213C4.36223 13.1592 4.36235 13.017 4.46484 12.8447L7.07422 8.73633L7.2002 8.53711L7.07422 8.33887L4.70508 4.61816C4.64863 4.52939 4.6281 4.45536 4.62598 4.39258C4.62394 4.32982 4.63896 4.25428 4.68945 4.16113C4.73991 4.06814 4.79484 4.01501 4.84766 3.9834C4.90053 3.95186 4.97307 3.92872 5.07812 3.92871Z" fill="black" stroke="black" stroke-width="0.740317"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_5584">\n' +
+							'<rect width="16" height="16" fill="black" transform="translate(0.0859375)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => this.doAction('superscript'),
 						key: 'Shift + 6',
 						matches: 'SUP'
@@ -6325,19 +6366,48 @@ class SquireUI
 				},
 				block: {
 					ol: {
-						html: '#',
+						html: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_9125)">\n' +
+							'<path d="M3.5 6V2L2 3.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M8 4L15 4" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M2 10.2206C2 8.5246 4 8.66312 4 10.2206C4 11.3966 2.64 12.3584 2 13C2 13 3.5 13 4.5 13" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M8 11H15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_9125">\n' +
+							'<rect width="16" height="16" fill="white"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => this.doList('OL'),
 						key: 'Shift + 8',
 						matches: 'OL'
 					},
 					ul: {
-						html: '⋮',
+						html: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_40737)">\n' +
+							'<circle cx="2" cy="4" r="1" fill="black"/>\n' +
+							'<path d="M5 4L14 4L5 4Z" fill="black"/>\n' +
+							'<path d="M5 4L14 4" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<circle cx="2" cy="8" r="1" fill="black"/>\n' +
+							'<path d="M5 8L14 8" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<circle cx="2" cy="12" r="1" fill="black"/>\n' +
+							'<path d="M5 12L14 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_40737">\n' +
+							'<rect width="16" height="16" fill="white"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => this.doList('UL'),
 						key: 'Shift + 9',
 						matches: 'UL'
 					},
 					quote: {
-						html: '"',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M4.75 3.78125H6.8125C7.086 3.78125 7.3486 3.88961 7.54199 4.08301C7.73539 4.2764 7.84375 4.539 7.84375 4.8125V8.9375C7.84375 9.95149 7.57769 10.7639 7.08496 11.3818C6.5915 12.0005 5.84596 12.4549 4.83398 12.708L4.83105 12.709C4.78717 12.7203 4.74116 12.7232 4.69629 12.7168C4.6515 12.7104 4.60824 12.695 4.56934 12.6719C4.53039 12.6487 4.49679 12.6174 4.46973 12.5811C4.44277 12.5448 4.42313 12.5038 4.41211 12.46C4.40109 12.416 4.39855 12.37 4.40527 12.3252C4.41201 12.2803 4.42772 12.2371 4.45117 12.1982C4.47461 12.1595 4.50549 12.1254 4.54199 12.0986C4.57851 12.0719 4.62008 12.0527 4.66406 12.042H4.66602C5.4773 11.8391 6.11221 11.4952 6.54004 10.9629C6.96912 10.4289 7.15625 9.74732 7.15625 8.9375V7.90625H4.75L4.65332 7.90137C4.42835 7.88028 4.21584 7.78569 4.04883 7.63086C3.88194 7.4761 3.77147 7.27141 3.7334 7.04883L3.72168 6.95215L3.71875 6.86328V4.8125C3.71875 4.539 3.82711 4.2764 4.02051 4.08301C4.2139 3.88961 4.4765 3.78125 4.75 3.78125ZM10.9375 3.78125H13C13.2735 3.78125 13.5361 3.88961 13.7295 4.08301C13.9229 4.2764 14.0312 4.539 14.0312 4.8125V8.9375C14.0312 9.95149 13.7652 10.7639 13.2725 11.3818C12.779 12.0005 12.0335 12.4549 11.0215 12.708L11.0186 12.709C10.9747 12.7203 10.9287 12.7232 10.8838 12.7168C10.839 12.7104 10.7957 12.695 10.7568 12.6719C10.7179 12.6487 10.6843 12.6174 10.6572 12.5811C10.6303 12.5448 10.6106 12.5038 10.5996 12.46C10.5886 12.416 10.586 12.37 10.5928 12.3252C10.5995 12.2803 10.6152 12.2371 10.6387 12.1982C10.6621 12.1595 10.693 12.1254 10.7295 12.0986C10.766 12.0719 10.8076 12.0527 10.8516 12.042H10.8535C11.6648 11.8391 12.2997 11.4952 12.7275 10.9629C13.1566 10.4289 13.3438 9.74732 13.3438 8.9375V7.90625H10.9375L10.8408 7.90137C10.6158 7.88028 10.4033 7.78569 10.2363 7.63086C10.0694 7.4761 9.95897 7.27141 9.9209 7.04883L9.90918 6.95215L9.90625 6.86328V4.8125C9.90625 4.539 10.0146 4.2764 10.208 4.08301C10.4014 3.88961 10.664 3.78125 10.9375 3.78125Z" fill="black" stroke="black" stroke-width="0.6875"/>\n' +
+							'</svg>\n',
 						cmd: () => {
 							let parent = squire.getSelectionClosest('UL,OL,BLOCKQUOTE')?.nodeName;
 							('BLOCKQUOTE' == parent) ? squire.decreaseQuoteLevel() : squire.increaseQuoteLevel();
@@ -6345,19 +6415,37 @@ class SquireUI
 						matches: 'BLOCKQUOTE'
 					},
 					indentDecrease: {
-						html: '⇤',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M13.8346 4H9.16797M13.8346 8H7.83464M13.8346 12H9.16797M5.83464 5.33333L3.16797 8L5.83464 10.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>\n',
 						cmd: () => squire.changeIndentationLevel('decrease'),
 						key: ']'
 					},
 					indentIncrease: {
-						html: '⇥',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M13.4596 4H6.1263M13.4596 8H8.79297M13.4596 12H6.1263M2.79297 5.33333L5.45964 8L2.79297 10.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>',
 						cmd: () => squire.changeIndentationLevel('increase'),
 						key: '['
 					}
 				},
 				targets: {
 					link: {
-						html: '🔗',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<g clip-path="url(#clip0_8610_29689)">\n' +
+							'<g clip-path="url(#clip1_8610_29689)">\n' +
+							'<path d="M5.95 7.8H11.55M6.65 5H4.55C3.80739 5 3.0952 5.295 2.5701 5.8201C2.045 6.3452 1.75 7.05739 1.75 7.8C1.75 8.54261 2.045 9.2548 2.5701 9.7799C3.0952 10.305 3.80739 10.6 4.55 10.6H6.65M10.85 5H12.95C13.6926 5 14.4048 5.295 14.9299 5.8201C15.455 6.3452 15.75 7.05739 15.75 7.8C15.75 8.54261 15.455 9.2548 14.9299 9.7799C14.4048 10.305 13.6926 10.6 12.95 10.6H10.85" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</g>\n' +
+							'</g>\n' +
+							'<defs>\n' +
+							'<clipPath id="clip0_8610_29689">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.75)"/>\n' +
+							'</clipPath>\n' +
+							'<clipPath id="clip1_8610_29689">\n' +
+							'<rect width="16" height="16" fill="white" transform="translate(0.75)"/>\n' +
+							'</clipPath>\n' +
+							'</defs>\n' +
+							'</svg>\n',
 						cmd: () => {
 							let node = squire.getSelectionClosest('A'),
 								url = prompt("Link", node?.href || "https://");
@@ -6368,7 +6456,11 @@ class SquireUI
 						matches: 'A'
 					},
 					imageUrl: {
-						html: '🖼️',
+						html: '<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M10.7083 4.88889H10.7161M1.375 3.33333C1.375 2.7145 1.62083 2.121 2.05842 1.68342C2.496 1.24583 3.0895 1 3.70833 1H13.0417C13.6605 1 14.254 1.24583 14.6916 1.68342C15.1292 2.121 15.375 2.7145 15.375 3.33333V12.6667C15.375 13.2855 15.1292 13.879 14.6916 14.3166C14.254 14.7542 13.6605 15 13.0417 15H3.70833C3.0895 15 2.496 14.7542 2.05842 14.3166C1.62083 13.879 1.375 13.2855 1.375 12.6667V3.33333Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M1.375 11.111L5.26389 7.22209C5.98567 6.52753 6.87544 6.52753 7.59722 7.22209L11.4861 11.111" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'<path d="M9.92969 9.55553L10.7075 8.77775C11.4292 8.0832 12.319 8.0832 13.0408 8.77775L15.3741 11.1111" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+							'</svg>',
 						cmd: () => {
 							let node = squire.getSelectionClosest('IMG'),
 								src = prompt("Image", node?.src || "https://");
@@ -6377,7 +6469,10 @@ class SquireUI
 						matches: 'IMG'
 					},
 					imageUpload: {
-						html: '📂️',
+						html: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+							'<path d="M15 4.72274V12.6619C15 13.4009 14.4009 14 13.6619 14H2.33813C1.5991 14 1 13.4009 1 12.6619L1 3.33812C1 2.5991 1.5991 2 2.33813 2H8.17409C8.55792 2 8.92327 2.16483 9.17728 2.45259L9.60049 2.93203C9.8545 3.21979 10.2199 3.38462 10.6037 3.38462H13.6619C14.4009 3.38462 15 3.98371 15 4.72274Z" stroke="black" stroke-width="1.5"/>\n' +
+							'<path d="M1 8.74989V12.6619C1 13.4009 1.5991 14 2.33813 14H13.6619C14.4009 14 15 13.4009 15 12.6619V7.33812C15 6.5991 14.4009 6 13.6619 6H6.86607C6.52921 6 6.20475 6.12705 5.95745 6.35578L5.20044 7.05598C4.95315 7.28472 4.62868 7.41176 4.29183 7.41176H2.33812C1.5991 7.41176 1 8.01086 1 8.74989Z" stroke="black" stroke-width="1.5"/>\n' +
+							'</svg>\n',
 						cmd: () => browseImage.click(),
 						matches: 'IMG'
 					}
@@ -6451,16 +6546,40 @@ class SquireUI
 			colorlist = createElement('datalist');
 			colorlist.id = clrid;
 			// Color blind safe Tableau 10 by Maureen Stone
-			add('#4E79A7');
-			add('#F28E2B');
-			add('#E15759');
-			add('#76B7B2');
-			add('#59A14F');
-			add('#EDC948');
-			add('#B07AA1');
-			add('#FF9DA7');
-			add('#9C755F');
-			add('#BAB0AC');
+			// add('#4E79A7');
+			// add('#F28E2B');
+			// add('#E15759');
+			// add('#76B7B2');
+			// add('#59A14F');
+			// add('#EDC948');
+			// add('#B07AA1');
+			// add('#FF9DA7');
+			// add('#9C755F');
+			// add('#BAB0AC');
+
+
+
+			add('rgba(0,0,0,0)');
+
+			add('#11161F');
+			add('#31393C');
+			add('#747F81');
+			add('#BFCDCE');
+			add('#FFFFFF');
+
+			add('#D74642');
+			add('#F59524');
+			add('#F6E120');
+			add('#99DD57');
+			add('#70B62B');
+
+			add('#37B760');
+			add('#39D5DA');
+			add('#0E8BEF');
+			add('#1B54EC');
+			add('#7454E3');
+
+
 			doc.body.append(colorlist);
 		}
 		clr.setAttribute('list', clrid);
