@@ -1207,16 +1207,18 @@
 									}
 								});
 							} else {
-								visiblePopups.delete(vm);
-								vm.onHide?.();
-								vm.keyScope.unset();
-								vmDom.classList.remove('animate'); // trigger the transitions
-								if(id == 'PopupsCompose') {
-									vmDom.classList.remove('active'); // trigger the transitions
-									history.pushState({}, '', '/apps/f7mail/#/mailbox/');
+								if(id != 'PopupsAsk') {
+									visiblePopups.delete(vm);
+									vm.onHide?.();
+									vm.keyScope.unset();
+									vmDom.classList.remove('animate'); // trigger the transitions
+									if(id == 'PopupsCompose') {
+										vmDom.classList.remove('active'); // trigger the transitions
+										history.pushState({}, '', '/apps/f7mail/#/mailbox/');
 
-									document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
-									document.querySelectorAll('#rl-menu ul.menu li')[1]?.classList.add('active');
+										document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
+										document.querySelectorAll('#rl-menu ul.menu li')[1]?.classList.add('active');
+									}
 								}
 							}
 							arePopupsVisible(0 < visiblePopups.size);
@@ -1805,11 +1807,15 @@
 		yesClick() {
 			this.close();
 
+			document.querySelector('#V-PopupsAsk').classList.remove('animate');
+
 			isFunction(this.fYesAction) && this.fYesAction(this);
 		}
 
 		noClick() {
 			this.close();
+
+			document.querySelector('#V-PopupsAsk').classList.remove('animate');
 
 			isFunction(this.fNoAction) && this.fNoAction(this);
 		}

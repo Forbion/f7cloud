@@ -28,11 +28,15 @@ export class AskPopupView extends AbstractViewPopup {
 	yesClick() {
 		this.close();
 
+		document.querySelector('#V-PopupsAsk').classList.remove('animate');
+
 		isFunction(this.fYesAction) && this.fYesAction(this);
 	}
 
 	noClick() {
 		this.close();
+
+		document.querySelector('#V-PopupsAsk').classList.remove('animate');
 
 		isFunction(this.fNoAction) && this.fNoAction(this);
 	}
