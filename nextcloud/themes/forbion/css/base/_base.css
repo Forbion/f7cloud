@@ -20,6 +20,10 @@ html {
     background: #F5F5F5;
 }
 
+* {
+    --color-success: #70B62B !important;
+}
+
 #body-login .logo {
     width: 307px !important;
     height: 130px;
