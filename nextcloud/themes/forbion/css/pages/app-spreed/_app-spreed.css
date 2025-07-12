@@ -733,6 +733,11 @@ body .app-talk{
 }
 .app-talk .app-sidebar__tab {
     overflow: hidden !important;
+    & .input-field--leading-icon.input-field--trailing-icon {
+        & .magnify-icon > svg {
+            display: none;
+        }
+    }
 }
 
 .app-talk.in-call .app-sidebar-tabs__content {
@@ -778,7 +783,6 @@ body .app-talk{
     right: 28px !important;
     position: relative !important;
 }
-
 .app-talk:not(.in-call) .app-sidebar-tabs .app-sidebar-tabs__content .input-field__main-wrapper .input-field__trailling-button {
     width: 10px;
     height: 10px;
