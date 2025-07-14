@@ -39,7 +39,7 @@
 		<textarea style="width:100%;height:60vh" data-bind="value: body, valueUpdate: 'input'"></textarea>
 	</div>
 	<div data-bind="visible: !$root.rawActive()">
-		<table class="table table-hover list-table filters-list g-ui-user-select-none">
+		<table class="table table-hover list-table filters-list g-ui-user-select-none" data-bind="visible: filters().length > 0">
 			<colgroup>
 				<col style="width: 30px">
 				<col style="width: 16px">
