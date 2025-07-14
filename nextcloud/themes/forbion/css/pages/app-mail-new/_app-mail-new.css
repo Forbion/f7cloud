@@ -2760,7 +2760,15 @@ header .unified-search__wrapper {
             }
 
             & form.modal-body {
-                padding: 8px 20px 20px;
+                padding: 12px 20px 20px;
+
+                & .filters-list {
+                    margin: 0;
+                }
+
+                & .addFilter {
+                    margin: 15px 0;
+                }
             }
 
             & .alert {

@@ -31,13 +31,13 @@
 	</div>
 	<div class="control-group" data-bind="visible: 0 === conditions().length"
 		data-i18n="POPUPS_FILTER/ALL_INCOMING_MESSAGES_DESC"></div>
-	<div class="control-group">
+	<div class="control-group addCondition">
 		<a class="btn" data-bind="click: addCondition" data-icon="✚" data-i18n="POPUPS_FILTER/BUTTON_ADD_CONDITION"></a>
 	</div>
 
 	<div class="legend" data-i18n="POPUPS_FILTER/LEGEND_ACTIONS"></div>
 	<select class="span3" data-bind="options: $root.actionTypeOptions, value: actionType, optionsText: 'name', optionsValue: 'id'"></select>
-	<div data-bind="template: {name: actionTemplate()}, i18nUpdate: actionTemplate"></div>
+	<div class="actionTemplate" data-bind="template: {name: actionTemplate()}, i18nUpdate: actionTemplate"></div>
 </form>
 <footer>
 	<button class="btn buttonSave" form="sieve-script-filter" data-icon="✔" data-i18n="GLOBAL/DONE"></button>

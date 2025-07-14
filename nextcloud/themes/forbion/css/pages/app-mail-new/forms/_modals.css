@@ -24,6 +24,7 @@
             max-height: 100px;
             margin-left: 0;
             border: 1px solid #E6E6E6;
+            border-radius: 8px;
             padding: 12px 12px 12px 12px;
             height: unset;
             color: black;
@@ -128,6 +129,7 @@
                 max-height: 100px;
                 margin-left: 0;
                 border: 1px solid #E6E6E6;
+                border-radius: 8px;
                 padding: 12px 12px 12px 12px;
                 height: unset;
                 color: black;
@@ -139,5 +141,133 @@
     & footer {
         padding-left: 15px !important;
         padding-right: 15px !important;
+    }
+}
+
+#V-PopupsFilter {
+    & .modal-body {
+        padding: 2em 15px;
+    }
+
+    & .control-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+
+        &.control-group-flr {
+            flex-direction: column;
+        }
+
+        & .button-delete {
+            margin-left: 10px;
+        }
+
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        div {
+            display: flex;
+        }
+    }
+
+    & .actionTemplate {
+        .control-group {
+            flex-direction: column;
+            align-items: flex-start;
+
+            & div {
+                flex-direction: column;
+            }
+        }
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        max-height: 100px;
+        margin-left: 0;
+        border: 1px solid #E6E6E6;
+        border-radius: 8px;
+        padding: 12px 12px 12px 12px;
+        height: unset;
+        color: black;
+        resize: none;
+    }
+
+    & label.e-checkbox {
+        display: flex;
+
+        & span {
+            margin-top: 1px;
+            margin-left: 20px;
+        }
+    }
+
+    & input+div[role="checkbox"] {
+        border: unset !important;
+        background-image: url("/themes/forbion/images/snappymail/default-checkbox-tumbler.svg");
+        width: 24px !important;
+        height: 24px !important;
+        transform: unset !important;
+        left: 0 !important;
+        top: unset !important;
+        right: unset !important;
+        bottom: unset !important;
+        cursor: pointer;
+    }
+
+    & input:checked+div[role="checkbox"] {
+        background-image: url("/themes/forbion/images/snappymail/active-checkbox-tumbler.svg") !important;
+    }
+
+    & footer {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .addCondition {
+        margin-top: 20px;
+    }
+
+    .buttonSave {
+
+        margin-right: 0;
+        position: relative;
+        padding: 12px 14px 12px 40px;
+        color: #FFFFFF;
+        height: 40px;
+        background: #70B62B;
+        border-radius: 8px;
+        line-height: normal;
+        box-shadow: unset;
+        border: unset;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-image: url("/themes/forbion/images/arrow-btn.svg");
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+#V-PopupsSieveScript {
+    & .drag-handle {
+        color: #aaa;
+    }
+    & .button-confirm-delete {
+        transform: translateX(30px);
     }
 }
