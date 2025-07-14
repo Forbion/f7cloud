@@ -1749,6 +1749,12 @@ header .unified-search__wrapper {
 
                                             & tr {
 
+                                                &.script-item {
+                                                    & td:first-child {
+                                                        pointer-events: auto;
+                                                    }
+                                                }
+
                                                 padding: 0 5px 0 0;
                                                 position: relative;
 

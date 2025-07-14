@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" height="22" width="22" version="1.1">
-	<circle r="22" cx="22" cy="22" fill="#3B3B3B"/>
+	<circle r="22" cx="22" cy="22" fill="#70B62B"/>
 	<g transform="translate(10.000000, 10.000000)">
-		<path fill="#fff" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+
+		<svg width="22" height="22" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="8.5" cy="3.5" r="2.75" stroke="white" stroke-width="1.5"/>
+			<path d="M8 9C3.98529 9 1.6975 12.3305 1.13662 14.2161C1.01066 14.6396 1.35817 15 1.8 15H14.2C14.6418 15 14.9893 14.6396 14.8634 14.2161C14.3025 12.3305 12.0147 9 8 9Z" stroke="white" stroke-width="1.5"/>
+		</svg>
+
+
 	</g>
 </svg>
