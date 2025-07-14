@@ -22,6 +22,8 @@ html {
 
 * {
     --color-success: #70B62B !important;
+    --color-success-hover: #70B62B !important;
+    --color-primary-element-text: white !important;
 }
 
 #body-login .logo {

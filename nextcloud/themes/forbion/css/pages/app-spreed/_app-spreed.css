@@ -60,11 +60,11 @@ body ul.vs__dropdown-menu {
 /* Состояние без активного звонка */
 .app-talk:not(.in-call) {
     .account-multiple-icon:after {
-        background-image: url('/themes/forbion/images/users.svg');
+        background-image: url('/themes/forbion/images/users.svg') !important;
     }
 
     .emoticon-outline-icon:after {
-        background-image: url('/themes/forbion/images/smile-black.svg');
+        background-image: url('/themes/forbion/images/smile-black.svg') !important;
     }
 }
 
@@ -75,11 +75,11 @@ body ul.vs__dropdown-menu {
     }
 
     .account-multiple-icon:after {
-        background-image: url('/themes/forbion/images/users-gray-eb.svg');
+        background-image: url('/themes/forbion/images/users-gray.svg') !important;
     }
     .app-sidebar-tabs__nav {
         .account-multiple-icon:after {
-            background-image: url('/themes/forbion/images/users.svg');
+            background-image: url('/themes/forbion/images/users.svg') !important;
         }
     }
 
@@ -141,7 +141,7 @@ body .app-talk{
         display: none;
     }
     & .material-design-icon.account-multiple-icon:after {
-        background-image: url('/themes/forbion/images/users.svg') !important;
+        background-image: url('/themes/forbion/images/users.svg');
         content: '';
         width: 20px;
         height: 20px;
@@ -165,7 +165,7 @@ body .app-talk{
         display: none;
     }
     & .material-design-icon.emoticon-outline-icon:after {
-        background-image: url('/themes/forbion/images/smile-black.svg') !important;
+        /*background-image: url('/themes/forbion/images/smile-gray.svg') !important;*/
         content: '';
         width: 20px;
         height: 20px;
@@ -836,8 +836,16 @@ body .app-talk{
 .app-talk:not(.in-call) .navigation-list__link--active {
     background-color: #f5f5f5 !important;
 }
-.app-talk:not(.in-call) #call_button.button-vue--vue-success  {
-    padding: 7px !important;
+#call_button.button-vue--vue-success  {
+    /*padding: 7px !important;*/
+    padding: 3px 10px 3px 3px;
+}
+.media-settings__call-buttons #call_button.button-vue--vue-success  {
+    padding: 7px;
+
+    & .phone-icon {
+        padding-inline: 8px;
+    }
 }
 
 .app-talk:not(.in-call) ~ .dialog__modal,
@@ -946,6 +954,10 @@ body .app-talk{
         --default-clickable-area: 20px;
         --color-primary-element-light-text: #000;
         max-width: 100%;
+
+        & > button {
+            padding: 8px;
+        }
     }
     & .modal-wrapper .modal-container .viewer__content{
         /*height: calc(100% - 80px) !important;*/
@@ -1168,8 +1180,10 @@ body .app-talk{
     left: 5px !important;
 }
 .app-talk.in-call .overlap-icon {
-    top: -2px !important;
-    left: 15px !important;
+    /*top: -2px !important;*/
+    /*left: 15px !important;*/
+    top: 4px !important;
+    left: 5px !important;
 }
 /* Стили для .modal-mask */
 .app-talk ~ .modal-mask,
@@ -1274,11 +1288,17 @@ body .app-talk{
     & .button-vue--vue-secondary {
         padding: 8px !important;
         min-width: 40px;
-        color: #F5F5F5;
+        color: #F5F5F5 !important;
+
     }
     & .button-vue--vue-secondary:hover {
         /*background-color: #F5F5F5 !important;*/
         background-color: var(--color-primary) !important;
+    }
+
+    & .poll-modal__actions {
+        display: flex;
+        align-items: center;
     }
 
     & .v-select.select.vs--open .vs__dropdown-toggle {
