@@ -474,7 +474,7 @@ body .app-calendar {
                                 display: flex;
                                 align-items: flex-start;
 
-                                & span[data-v-76b58f87] {
+                                & span {
                                     width: auto;
                                     margin-top: 5px;
                                 }
@@ -485,14 +485,14 @@ body .app-calendar {
                                 display: flex;
                                 align-items: flex-start;
 
-                                & span[data-v-76b58f87] {
+                                & span {
                                     width: auto;
                                     margin-top: 5px;
                                 }
                             }
                         }
 
-                        & > .button-vue[data-v-b2be1481] {
+                        & > .button-vue {
                             display: none;
                         }
                     }
@@ -1076,6 +1076,6 @@ thead[role="rowgroup"] .fc-timegrid-axis::before {
     display: none;
 }
 
-.property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-from[data-v-76b58f87], .property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-to[data-v-76b58f87] {
+.property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-from, .property-title-time-picker__time-pickers--all-day .property-title-time-picker__time-pickers-to {
     flex: unset !important;
 }
