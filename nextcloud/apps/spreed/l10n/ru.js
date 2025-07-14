@@ -1322,7 +1322,7 @@ OC.L10N.register(
     "New personal note" : "Новая личная заметка",
     "Clear filter" : "Сбросить фильтр",
     "Back to conversations" : "Обратно к обсуждениям",
-    "Archived conversations" : "Архивированные обсуждения",
+    "Archived conversations" : "Архив конференций",
     "Talk settings" : "Настройки приложения",
     "Users" : "Пользователи",
     "Groups" : "Группы",

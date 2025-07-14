@@ -170,8 +170,8 @@ class AvatarService {
 	 */
 	private string $svgTemplate = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<svg width="512" height="512" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-			<rect width="100%" height="100%" fill="white"></rect>
-			<text x="50%" y="330" style="font-size:240px;font-family:{font};text-anchor:middle;">{letter}</text>
+			<rect width="100%" height="100%" fill="#{fill}"></rect>
+			<text x="50%" y="330" style="font-size:240px;font-family:{font};text-anchor:middle;fill:white;">{letter}</text>
 		</svg>';
 
 	public function getAvatar(Room $room, ?IUser $user, bool $darkTheme = false): ISimpleFile {
