@@ -1,16 +1,5 @@
 <?php
 
-/**
- * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
- * SPDX-FileCopyrightText: 2011-2016 ownCloud, Inc.
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
-/**
- * @var \OC_Defaults $theme
- * @var array $_
- */
-
 $getUserAvatar = static function (int $size) use ($_): string {
     return \OC::$server->getURLGenerator()->linkToRoute('core.avatar.getAvatar', [
         'userId' => $_['user_uid'],
@@ -62,12 +51,13 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
         '/apps/files' => '/themes/forbion/css/pages/app-files/_app-files.css',
         '/apps/calendar' => '/themes/forbion/css/pages/app-calendar/_app-calendar.css',
         '/apps/contacts' => '/themes/forbion/css/pages/app-contacts/_app-contacts.css',
-        '/apps/deck' => '/themes/forbion/css/pages/app-deck/_app-deck.css',
+        '/apps/deck' => '/themes/forbion/css/pages/app-deck/_app-deck.css?'.rand(1,1000),
         '/apps/tasks' => '/themes/forbion/css/pages/app-tasks/_app-tasks.css',
         '/settings' => '/themes/forbion/css/pages/page-settings/_page-settings.css',
+        '/settings/users' => '/themes/forbion/css/pages/page-settings/_page-users.css',
         '/apps/spreed' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
         '/call' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
-        '/apps/notes/' => '/themes/forbion/css/pages/app-notes/_app-notes.css'
+        '/apps/notes' => '/themes/forbion/css/pages/app-notes/_app-notes.css'
     ];
 
     $currentUri = $_SERVER['REQUEST_URI'] ?? '';
