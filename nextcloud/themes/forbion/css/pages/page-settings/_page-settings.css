@@ -946,6 +946,10 @@ body#body-settings {
                 line-height: 28px;
                 text-align: center;
                 color: #000000;
+
+                & .material-design-icon.help-circle-icon {
+                    display: none;
+                }
             }
 
             & .settings-section__desc {

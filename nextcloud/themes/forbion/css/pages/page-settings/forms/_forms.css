@@ -286,9 +286,10 @@
 
 .dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:not(:placeholder-shown) + .input-field__label,
 .dialog__modal .input-field.file-picker__filter-input .input-field__main-wrapper input:focus + .input-field__label {
-    top: -11px;
-    left: -17px;
-    transform: unset;
+    /*top: -11px;*/
+    /*left: -17px;*/
+    /*transform: unset;*/
+    display: none;
 }
 
 
