@@ -11,6 +11,10 @@
     display: none;
 }
 
+/*.account-management__settings-toggle .icon-vue svg {*/
+/*    display: none;*/
+/*}*/
+
 .material-design-icon:before {
     content: '';
     position: absolute;
@@ -23,6 +27,19 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+/*.account-management__settings-toggle .icon-vue:before {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-size: auto;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*}*/
 
 .material-design-icon.chevron-down-icon:before {
     background-image: url("/themes/forbion/images/chevron-down-icon.svg");
@@ -60,4 +77,20 @@
     background-image: url("/themes/forbion/images/folder-icon.svg");
     width: 16px;
     height: 16px;
+}
+
+/*.account-management__settings-toggle .icon-vue:before {*/
+/*    background-image: url('/themes/forbion/images/cog-icon-gray.svg');*/
+/*    background-position: left;*/
+/*    left: 45px;*/
+/*    top: -3px;*/
+/*    transform: scale(1.2);*/
+/*}*/
+
+.action-button__icon.icon-delete {
+    background-image: url("/themes/forbion/images/delete-black.svg") !important;
+}
+
+.action-button__icon.icon-mail {
+    background-image: url("/themes/forbion/images/email-icon.svg") !important;
 }

@@ -299,3 +299,142 @@
 .dialog__modal .vue-password-confirmation__submit {
     margin-top: 20px;
 }
+
+.dialog__modal {
+
+    & .modal-container__close {
+        z-index: 9999999999 !important;
+    }
+
+    &.app-settings {
+
+        & section {
+            margin-bottom: 40px;
+        }
+
+        & fieldset {
+
+            & legend {
+                margin-bottom: 8px;
+            }
+        }
+
+        & .checkbox-content__text {
+            margin-left: 8px;
+        }
+    }
+}
+
+#new-user-form {
+
+    .dialog__item {
+        margin-bottom: 12px;
+    }
+
+    .input-field.dialog__item + .dialog__item:not(.input-field) {
+        margin-top: 16px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        height: 44px !important;
+        max-height: 100px;
+        margin-left: 0;
+        border: 1px solid #E6E6E6;
+        border-radius: 8px;
+        padding: 12px 50px 12px 12px;
+        color: black;
+        resize: none;
+    }
+
+    .vs__selected {
+        height: 44px;
+        width: 100%;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+        top: -10px !important;
+    }
+
+    input + label + .input-field__icon {
+
+        display: block !important;
+        width: 100%;
+        opacity: 1;
+        pointer-events: none;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 13px;
+            right: 16px;
+            width: 16px;
+            height: 16px;
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+        }
+    }
+
+    input[data-test="password"] + label + .input-field__icon {
+        &:before {
+            display: none;
+        }
+    }
+
+    label {
+        top: 10px;
+    }
+
+    .input-field__trailing-button.button-vue {
+        top: 6px;
+        right: 10px;
+    }
+
+    .material-design-icon.chevron-down-icon:before {
+        background-image: url('/themes/forbion/images/chevron-down-icon-black.svg');
+        width: 16px;
+        height: 16px;
+    }
+
+    .material-design-icon.eye-icon svg,
+    .material-design-icon.eye-off-icon svg {
+        display: none;
+    }
+
+    .material-design-icon.eye-icon:before {
+        background-image: url('/themes/forbion/images/eye.svg');
+        width: 16px;
+        height: 16px;
+    }
+
+    .material-design-icon.eye-off-icon:before {
+        background-image: url('/themes/forbion/images/eye-off.svg');
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.dialog__modal button[form="new-user-form"] {
+    margin-top: 15px;
+    height: 40px;
+}
+
+.dialog__modal button[form="new-user-form"] .button-vue__wrapper {
+
+    padding-left: 30px;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        background-image: url('/themes/forbion/images/white-plus.svg');
+        top: 3px;
+        left: 7px;
+        width: 16px;
+        height: 16px;
+    }
+}
