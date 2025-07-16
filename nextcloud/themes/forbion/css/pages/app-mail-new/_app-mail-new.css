@@ -1134,6 +1134,7 @@ header .unified-search__wrapper {
                                             width: 12px;
                                             height: 12px;
                                             background-image: url("/themes/forbion/images/snappymail/menu/star.svg");
+                                            z-index: 1;
                                         }
                                     }
 
@@ -1198,6 +1199,23 @@ header .unified-search__wrapper {
                                     &:hover {
                                         & .flagParent {
                                             display: block;
+                                            margin-right: 40px;
+
+                                            &:after {
+                                                right: 39px;
+                                            }
+                                        }
+                                        & .btn-group-mail-dropdown {
+                                            & .wrapper {
+                                                display: block !important;
+
+                                                & .more-list-dropdown-id-message {
+
+                                                    &:after {
+                                                        display: block;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 
@@ -1246,10 +1264,126 @@ header .unified-search__wrapper {
 
                                     & .btn-group-mail-dropdown {
                                         position: absolute;
-                                        right: 0px;
-                                        bottom: 10px;
+                                        top: 17px;
+                                        right: 15px;
                                         width: 16px;
                                         height: 17px;
+                                        border: unset;
+                                        box-shadow: unset;
+                                        background: unset;
+                                        opacity: 1 !important;
+
+                                        & .wrapper:not(.show) {
+                                            display: none;
+                                        }
+
+                                        & .more-list-dropdown-id-message {
+                                            display: flex;
+                                            flex-direction: column;
+                                            border: unset;
+                                            box-shadow: unset;
+                                            position: relative;
+
+                                            &:after {
+                                                content: '';
+                                                position: absolute;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                                width: 16px;
+                                                height: 16px;
+                                                background-image: url("/themes/forbion/images/dots-horizontal-icon.svg");
+                                                opacity: .55;
+                                                display: none;
+                                            }
+                                        }
+
+                                        & .dropdown-menu {
+                                            left: unset !important;
+                                            right: 0;
+                                            text-align: left;
+                                            padding: 6px;
+                                            border-radius: 8px;
+                                            border: 1px solid #e0e0e0;
+                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                            min-width: 220px;
+                                            max-height: 250px;
+                                            background-color: #fff;
+
+                                            & li {
+                                                margin: 2px 0;
+
+                                                &.dividerbar {
+                                                    border-top: 1px solid #f0f0f0;
+                                                    margin: 6px 0;
+                                                    padding-top: 2px;
+                                                }
+
+                                                & > a {
+                                                    display: flex;
+                                                    height: 36px;
+                                                    align-items: center;
+                                                    padding: 0 12px;
+                                                    color: #333;
+                                                    border-radius: 6px;
+                                                    transition: all 0.2s ease;
+
+                                                    & > svg {
+                                                        margin-right: 12px;
+                                                        width: 16px;
+                                                        height: 16px;
+                                                        flex-shrink: 0;
+
+                                                        path, rect {
+                                                            transition: all 0.2s ease;
+                                                        }
+                                                    }
+
+                                                    &:hover, &:focus {
+                                                        background-color: #70B62B;
+                                                        color: #fff;
+                                                        text-decoration: none;
+
+                                                        & > svg {
+                                                            path {
+                                                                stroke: #fff;
+                                                            }
+
+                                                            path[fill], rect[fill] {
+                                                                fill: #fff;
+                                                                stroke: #fff;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                &.disabled > a {
+                                                    color: #aaa;
+                                                    pointer-events: none;
+
+                                                    & > svg {
+                                                        path {
+                                                            stroke: #aaa;
+                                                        }
+
+                                                        path[fill], rect[fill] {
+                                                            fill: #aaa;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .dropdown-menu *+.dividerbar {
+                                            margin-top: 0 !important;
+                                            padding-top: 0 !important;
+                                            border-top: unset !important;
+                                        }
+
+                                        & .dropdown-menu li:not(.disabled)>a:focus, .dropdown-menu li:not(.disabled)>a:hover {
+                                            background-color: #70B62B;
+                                            border-radius: 8px;
+                                        }
                                     }
                                 }
                             }

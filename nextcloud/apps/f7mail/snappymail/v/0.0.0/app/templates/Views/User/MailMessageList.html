@@ -383,7 +383,8 @@
 			<div class="messageListItem" data-bind="css: lineAsCss(), attr:{title:preview}">
 				<div class="messageCheckbox">
 					<div class="checkboxMessage fontastic" data-bind="text: checked() ? '☑' : '☐'"></div>
-				</div><div data-bind="attr:{style:indent()}, css:{reply:indent()}">
+				</div>
+				<div data-bind="attr:{style:indent()}, css:{reply:indent()}">
 					<div class="flagParent fontastic"></div>
 					<div class="senderParent" data-bind="attr: {title: senderClearEmailsString}, text: senderEmailsString"></div>
 					<div class="subjectParent" data-bind="text: subject"></div>
@@ -393,66 +394,179 @@
 					</div>
 					<div class="sizeParent" data-bind="text: friendlySize()"></div>
 					<time data-time-format="AUTO" data-bind="time: dateTimestamp"></time>
-					<!-- ko if: test -->
-						<div class="btn btn-group dropdown btn-group-mail-dropdown" data-bind="registerBootstrapDropdown: true">
+					<div class="btn btn-group dropdown btn-group-mail-dropdown" data-bind="registerBootstrapDropdown: true">
 							<div class="wrapper">
-								<a class="btn dropdown-toggle more-list-dropdown-id-message fontastic" href="#" tabindex="-1" data-i18n="[title]GLOBAL/MORE">
-									<span></span>
-									<span></span>
-									<span></span>
+								<a class="btn dropdown-toggle more-list-dropdown-id-message fontastic" href="#" tabindex="-1">
 								</a>
-								<!-- ko if: test -->
-									<menu class="dropdown-menu" role="menu" aria-labelledby="more-list-dropdown-id-message" >
-									<li role="presentation" data-bind="click: listUnsetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
-										<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_UNSET_SEEN"></a>
+								<menu class="dropdown-menu" role="menu" aria-labelledby="more-list-dropdown-id">
+
+									<!-- Письмо с зеленой точкой -->
+									<li role="presentation" data-bind="click: $root.listUnsetSeen, css: {'disabled': !$root.messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1" data-bind="click: setUnseen">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M10.2227 1.25C10.6369 1.25 10.9727 1.58579 10.9727 2C10.9727 2.41421 10.6369 2.75 10.2227 2.75H3.43066C3.24183 2.75 3.0437 2.83178 2.88574 3.00586C2.79433 3.1066 2.72279 3.23282 2.67773 3.37402L8.88379 7.93262L11.791 5.88672C12.1297 5.64835 12.5975 5.72972 12.8359 6.06836C13.0743 6.40703 12.9929 6.87484 12.6543 7.11328L9.30664 9.4707C9.04315 9.65607 8.69031 9.65267 8.43066 9.46191L2.625 5.19531V12.2861C2.6251 12.564 2.72567 12.8177 2.88574 12.9941C3.0437 13.1682 3.24183 13.25 3.43066 13.25H14.5752C14.8788 13.2499 15.1249 13.0038 15.125 12.7002V6.5C15.125 6.08579 15.4608 5.75 15.875 5.75C16.2892 5.75 16.625 6.08579 16.625 6.5V12.7002C16.6249 13.8322 15.7072 14.7499 14.5752 14.75H3.43066C2.79444 14.75 2.20087 14.4708 1.77539 14.002C1.35219 13.5356 1.1251 12.9173 1.125 12.2861V3.71387C1.1251 3.08269 1.35219 2.46443 1.77539 1.99805C2.20087 1.52922 2.79444 1.25 3.43066 1.25H10.2227Z"
+													  fill="black"></path>
+												<rect x="11.5" y="-0.5" width="6" height="6" rx="3" fill="#70B62B" stroke="#FFF" stroke-width="0.5"></rect>
+											</svg>
+											<span>Отметить как непрочитанное</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="click: listSetSeen, css: {'disabled': !messageList.hasCheckedOrSelected()}">
-										<a href="#" tabindex="-1" data-icon="" data-i18n="MESSAGE_LIST/MENU_SET_SEEN"></a>
+
+									<!-- Открыть письмо -->
+									<li role="presentation" data-bind="click: $root.listSetSeen, css: {'disabled': !$root.messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M1.875 3.71429V12.2857C1.875 12.7404 2.03889 13.1764 2.33061 13.4979C2.62233 13.8194 3.018 14 3.43056 14H14.575C15.293 14 15.875 13.418 15.875 12.7V3.71429M1.875 3.71429C1.875 3.25963 2.03889 2.82359 2.33061 2.5021C2.62233 2.18061 3.018 2 3.43056 2H14.3194C14.732 2 15.1277 2.18061 15.4194 2.5021C15.7111 2.82359 15.875 3.25963 15.875 3.71429M1.875 3.71429L8.875 8.85714L15.875 3.71429" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>Отметить как прочитанное</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="click: listSetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
-										<a href="#" tabindex="-1" data-icon="★" data-i18n="MESSAGE_LIST/MENU_SET_FLAG"></a>
+
+									<!-- Закрепить -->
+									<li role="presentation" data-bind="click: $root.listSetFlags, css: {'disabled': !$root.messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M6.97976 3.60501C7.82443 2.09034 8.24643 1.33301 8.87776 1.33301C9.50909 1.33301 9.93109 2.09034 10.7758 3.60501L10.9944 3.99701C11.2344 4.42767 11.3544 4.64301 11.5411 4.78501C11.7278 4.92701 11.9611 4.97967 12.4278 5.08501L12.8518 5.18101C14.4918 5.55234 15.3111 5.73767 15.5064 6.36501C15.7011 6.99167 15.1424 7.64567 14.0244 8.95301L13.7351 9.29101C13.4178 9.66234 13.2584 9.84834 13.1871 10.0777C13.1158 10.3077 13.1398 10.5557 13.1878 11.051L13.2318 11.5023C13.4004 13.247 13.4851 14.119 12.9744 14.5063C12.4638 14.8937 11.6958 14.5403 10.1611 13.8337L9.76309 13.651C9.32709 13.4497 9.10909 13.3497 8.87776 13.3497C8.64643 13.3497 8.42843 13.4497 7.99243 13.651L7.59509 13.8337C6.05976 14.5403 5.29176 14.8937 4.78176 14.507C4.27043 14.119 4.35509 13.247 4.52376 11.5023L4.56776 11.0517C4.61576 10.5557 4.63976 10.3077 4.56776 10.0783C4.49709 9.84834 4.33776 9.66234 4.02043 9.29167L3.73109 8.95301C2.61309 7.64634 2.05443 6.99234 2.24909 6.36501C2.44376 5.73767 3.26443 5.55167 4.90443 5.18101L5.32843 5.08501C5.79443 4.97967 6.02709 4.92701 6.21443 4.78501C6.40176 4.64301 6.52109 4.42767 6.76109 3.99701L6.97976 3.60501Z" fill="#70B62B" stroke="#70B62B" stroke-width="1.5"/>
+											</svg>
+											<span>Установить флаг</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="click: listUnsetFlags, css: {'disabled': !messageList.hasCheckedOrSelected()}">
-										<a href="#" tabindex="-1" data-icon="☆" data-i18n="MESSAGE_LIST/MENU_UNSET_FLAG"></a>
+
+									<!-- 4. Открепить -->
+									<li role="presentation" data-bind="click: $root.listUnsetFlags, css: {'disabled': !$root.messageList.hasCheckedOrSelected()}">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M6.97976 3.53372C7.82443 2.01905 8.24643 1.26172 8.87776 1.26172C9.50909 1.26172 9.93109 2.01905 10.7758 3.53372L10.9944 3.92572C11.2344 4.35639 11.3544 4.57172 11.5411 4.71372C11.7278 4.85572 11.9611 4.90839 12.4278 5.01372L12.8518 5.10972C14.4918 5.48105 15.3111 5.66639 15.5064 6.29372C15.7011 6.92039 15.1424 7.57439 14.0244 8.88172L13.7351 9.21972C13.4178 9.59105 13.2584 9.77705 13.1871 10.0064C13.1158 10.2364 13.1398 10.4844 13.1878 10.9797L13.2318 11.4311C13.4004 13.1757 13.4851 14.0477 12.9744 14.4351C12.4638 14.8224 11.6958 14.4691 10.1611 13.7624L9.76309 13.5797C9.32709 13.3784 9.10909 13.2784 8.87776 13.2784C8.64643 13.2784 8.42843 13.3784 7.99243 13.5797L7.59509 13.7624C6.05976 14.4691 5.29176 14.8224 4.78176 14.4357C4.27043 14.0477 4.35509 13.1757 4.52376 11.4311L4.56776 10.9804C4.61576 10.4844 4.63976 10.2364 4.56776 10.0071C4.49709 9.77705 4.33776 9.59105 4.02043 9.22039L3.73109 8.88172C2.61309 7.57505 2.05443 6.92105 2.24909 6.29372C2.44376 5.66639 3.26443 5.48039 4.90443 5.10972L5.32843 5.01372C5.79443 4.90839 6.02709 4.85572 6.21443 4.71372C6.40176 4.57172 6.52109 4.35639 6.76109 3.92572L6.97976 3.53372Z" stroke="black" stroke-width="1.5"/>
+											</svg>
+											<span>Снять флаг</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="command: downloadAttachCommand, visible: downloadAsZipAllowed">
-										<a href="#" tabindex="-1" data-icon="📦" data-i18n="MESSAGE_LIST/DOWNLOAD_ALL_ATTACHMENTS"></a>
+
+									<!-- 7. Скачать вложения -->
+									<li role="presentation" data-bind="command: $root.downloadAttachCommand, visible: $root.downloadAsZipAllowed">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M8.87412 11L8.87416 2.00002M8.87412 11L5.87416 7.00002M8.87412 11L11.8742 7.00002" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M1.875 9.5V13C1.875 14.1046 2.77043 15 3.875 15H13.875C14.9796 15 15.875 14.1046 15.875 13V10V9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Скачать все вложения</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="command: downloadZipCommand, visible: downloadAsZipAllowed">
-										<a href="#" tabindex="-1" data-icon="💾" data-i18n="MESSAGE/LINK_DOWNLOAD_AS_ZIP"></a>
+
+									<!-- 8. Скачать как ZIP -->
+									<li role="presentation" data-bind="command: $root.downloadZipCommand, visible: $root.downloadAsZipAllowed">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7.5582 14H9.375H13.875C14.4273 14 14.875 13.5523 14.875 13V6.82843C14.875 6.29799 14.6643 5.78929 14.2892 5.41421L10.4608 1.58579C10.0857 1.21071 9.57701 1 9.04657 1H4.875C4.32272 1 3.875 1.44772 3.875 2V7V13C3.875 13.5523 4.32272 14 4.875 14H7.5582ZM7.5582 14V7.95175" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M9.375 1.5V4.5C9.375 5.60457 10.2704 6.5 11.375 6.5H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M6.02344 9.23535H9.02344" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M6.02344 11.4092H9.02344" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Сохранить как zip</span>
+										</a>
 									</li>
-									<li class="dividerbar" role="presentation" data-bind="command: moveCommand">
-										<a href="#" tabindex="-1" data-icon="📁" data-i18n="GLOBAL/MOVE_TO"></a>
+
+									<!-- 9. Переместить -->
+									<li class="dividerbar" role="presentation" data-bind="command: $root.moveCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M8.875 13.6324H3.43056C3.018 13.6324 2.62233 13.4573 2.33061 13.1457C2.03889 12.834 1.875 12.4114 1.875 11.9706V3.66177M1.875 3.66177C1.875 3.22104 2.03889 2.79836 2.33061 2.48672C2.62233 2.17508 3.018 2 3.43056 2H8.875H14.3194C14.732 2 15.1277 2.17508 15.4194 2.48672C15.7111 2.79836 15.875 3.22104 15.875 3.66177M1.875 3.66177L8.875 8.17623L15.875 3.66177M15.875 3.66177V9.89342M11.2083 13.2199H13.5417H15.875M15.875 13.2199L13.5417 11.475M15.875 13.2199L13.5417 15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<span>Переместить в</span>
+										</a>
 									</li>
-									<li class="presentation" role="presentation" data-bind="command: copyCommand">
-										<a href="#" tabindex="-1" data-icon="&#xE068;" data-i18n="GLOBAL/COPY_TO"></a>
+
+									<!-- 10. Копировать -->
+									<li class="presentation" role="presentation" data-bind="command: $root.copyCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M11.875 3.12903C11.875 2.56438 11.6221 2.02285 11.1721 1.62358C10.722 1.22431 10.1115 1 9.475 1H4.275C3.63848 1 3.02803 1.22431 2.57794 1.62358C2.12786 2.02285 1.875 2.56438 1.875 3.12903V9.87097C1.875 10.4356 2.12786 10.9771 2.57794 11.3764C3.02803 11.7757 3.63848 12 4.275 12H9.475C10.1115 12 10.722 11.7757 11.1721 11.3764C11.6221 10.9771 11.875 10.4356 11.875 9.87097V3.12903Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M5.375 14.5H10.875C13.0841 14.5 14.875 12.7091 14.875 10.5V1" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Скопировать в</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="visible: archiveAllowed, command: archiveCommand">
-										<a href="#" tabindex="-1" data-icon="🗄" data-i18n="GLOBAL/TO_ARCHIVE">🗄</a>
+
+									<!-- 11. В архив -->
+									<li role="presentation" data-bind="visible: $root.archiveAllowed, command: $root.archiveCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M2.46094 4.20801V13.5413C2.46209 13.9277 2.61611 14.298 2.88935 14.5712C3.16259 14.8445 3.53285 14.9985 3.91927 14.9997H13.8359C14.2223 14.9985 14.5926 14.8445 14.8658 14.5712C15.1391 14.298 15.2931 13.9277 15.2943 13.5413V4.20801" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M14.9327 1H2.81731C2.29689 1 1.875 1.4701 1.875 2.05V2.95C1.875 3.5299 2.29689 4 2.81731 4H14.9327C15.4531 4 15.875 3.5299 15.875 2.95V2.05C15.875 1.4701 15.4531 1 14.9327 1Z" stroke="black" stroke-width="1.5" stroke-linejoin="round"></path>
+												<path d="M11.2057 9.74967L8.87239 12.083L6.53906 9.74967M8.87239 11.2769V6.83301" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<span>В архив</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="visible: canMarkAsSpam, command: spamCommand">
-										<a href="#" tabindex="-1" data-icon="⚠" data-i18n="GLOBAL/SPAM"></a>
+
+									<!-- 12. В спам -->
+									<li role="presentation" data-bind="visible: $root.canMarkAsSpam, command: $root.spamCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M8.8694 11.3889H8.8757M8.8694 9.22222V5.61111M9.092 2H8.658C6.9528 2 6.1002 2 5.403 2.39939C4.7051 2.79806 4.2914 3.52244 3.4633 4.97194L3.0503 5.69417C2.267 7.06567 1.875 7.75106 1.875 8.5C1.875 9.24894 2.267 9.93433 3.051 11.3058L3.4633 12.0281C4.2914 13.4776 4.7051 14.2019 5.4023 14.6013C6.1002 15 6.9528 15 8.6573 15H9.0927C10.7972 15 11.6498 15 12.3477 14.6013C13.0449 14.2019 13.4586 13.4776 14.2867 12.0281L14.6997 11.3058C15.483 9.93433 15.875 9.24894 15.875 8.5C15.875 7.75106 15.483 7.06567 14.699 5.69417L14.2867 4.97194C13.4586 3.52244 13.0449 2.79806 12.3477 2.39939C11.6498 2 10.7972 2 9.092 2Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<span>В спам</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="visible: isSpamFolder, command: notSpamCommand">
-										<a href="#" tabindex="-1" data-icon="" data-i18n="GLOBAL/NOT_SPAM"></a>
+
+									<!-- 13. Не спам -->
+									<li role="presentation" data-bind="visible: $root.isSpamFolder, command: $root.notSpamCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M14.5572 11.2682C14.095 12.3741 13.3158 13.3186 12.318 13.9826C11.3201 14.6467 10.1481 15.0006 8.94944 15C5.59489 15 2.875 12.284 2.875 8.93333C2.875 5.58267 4.15056 4.21222 6.14556 1C9.88355 2.63333 9.88355 7.53333 9.88355 7.53333C9.88355 7.53333 11.1117 5.17044 13.6223 4.03333C14.4266 6.39933 15.5123 8.98389 14.5572 11.2682Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M8.90451 12.6662C7.87312 12.6662 6.88396 12.2565 6.15465 11.5272C5.42535 10.7979 5.01562 9.80874 5.01562 8.77734" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<span>Не спам</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="command: deleteCommand">
-										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/DELETE"></a>
+
+									<!-- 14. Удалить -->
+									<li role="presentation" data-bind="command: $root.deleteCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M9.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M4.71422 14.1962L2.61422 3.69612C2.49046 3.07732 2.96376 2.5 3.5948 2.5H9.09902H14.0906C14.7194 2.5 15.1922 3.07346 15.0722 3.69072L13.0322 14.1908C12.9409 14.6607 12.5293 15 12.0506 15H5.69481C5.21812 15 4.80771 14.6636 4.71422 14.1962Z" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 2.5H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 6H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M8.875 2.5V1" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Удалить</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="command: undeleteCommand, hidden: hideDeleted">
-										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="GLOBAL/UNDELETE" class="rotate"></a>
+
+									<!-- 15. Восстановить -->
+									<li role="presentation" data-bind="command: $root.undeleteCommand, hidden: $root.hideDeleted">
+										<a href="#" tabindex="-1" class="rotate">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M9.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M4.71422 14.1962L2.61422 3.69612C2.49046 3.07732 2.96376 2.5 3.5948 2.5H9.09902H14.0906C14.7194 2.5 15.1922 3.07346 15.0722 3.69072L13.0322 14.1908C12.9409 14.6607 12.5293 15 12.0506 15H5.69481C5.21812 15 4.80771 14.6636 4.71422 14.1962Z" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 2.5H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 6H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M8.875 2.5V1" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Восстановить</span>
+										</a>
 									</li>
-									<li role="presentation" data-bind="visible: allowDangerousActions, command: deleteWithoutMoveCommand">
-										<a href="#" tabindex="-1" data-icon="🗑" data-i18n="MESSAGE_LIST/BUTTON_DELETE_WITHOUT_MOVE"></a>
-									</li>
-									<li role="presentation" data-bind="visible: allowDangerousActions, click: clear">
-										<a href="#" tabindex="-1" data-icon="🔥" data-i18n="MESSAGE_LIST/BUTTON_EMPTY_FOLDER"></a>
+
+									<!-- 16. Удалить без перемещения -->
+									<li role="presentation" data-bind="visible: $root.allowDangerousActions, command: $root.deleteWithoutMoveCommand">
+										<a href="#" tabindex="-1">
+											<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M7.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M9.875 8.5V13" stroke="black" stroke-linecap="round"></path>
+												<path d="M4.71422 14.1962L2.61422 3.69612C2.49046 3.07732 2.96376 2.5 3.5948 2.5H9.09902H14.0906C14.7194 2.5 15.1922 3.07346 15.0722 3.69072L13.0322 14.1908C12.9409 14.6607 12.5293 15 12.0506 15H5.69481C5.21812 15 4.80771 14.6636 4.71422 14.1962Z" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 2.5H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M3.375 6H14.375" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+												<path d="M8.875 2.5V1" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+											</svg>
+											<span>Удалить мимо корзины</span>
+										</a>
 									</li>
 								</menu>
-								<!-- /ko -->
 							</div>
 						</div>
-					<!-- /ko -->
 				</div>
 			</div>
 		</div>
