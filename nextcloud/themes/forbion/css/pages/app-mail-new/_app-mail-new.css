@@ -2901,7 +2901,15 @@ header .unified-search__wrapper {
                 }
 
                 & .addFilter {
+                    position: relative;
                     margin: 0 0 15px;
+                    padding-left: 30px;
+
+                    &:before {
+                        position: absolute;
+                        left: 10px;
+                        top: 6px;
+                    }
                 }
             }
 
