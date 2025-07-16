@@ -189,7 +189,20 @@ body #app-content-vue {
                             background-size: auto;
                             background-position: center;
                             background-repeat: no-repeat;
-                            background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+                        }
+
+                        &[title="Выполнено"] {
+                            .icon-vue:before {
+                                background-image: url('/themes/forbion/images/confirm-black.svg');
+                                transform: translate(-50%, -50%) scale(1.2);
+                            }
+                        }
+
+                        &[title="Редактирование"] {
+                            .icon-vue:before {
+                                background-image: url('/themes/forbion/images/pencil-icon-black.svg');
+                                transform: translate(-50%, -50%);
+                            }
                         }
                     }
                 }
