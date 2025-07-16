@@ -3975,13 +3975,17 @@ header .unified-search__wrapper {
                         margin: 0 auto;
                         color: #FFFFFF;
                         height: 40px;
+                        width: 230px;
                         background: #70B62B;
                         border: unset;
                         border-radius: 8px;
                         font-family: 'Raleway' !important;
                         line-height: normal;
-                        width: max-content;
                         box-shadow: unset;
+
+                        &:nth-child(2) {
+                            margin-top: 10px;
+                        }
 
                         &:before {
                             content: '';

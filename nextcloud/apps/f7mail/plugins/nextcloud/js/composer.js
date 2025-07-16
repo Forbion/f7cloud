@@ -46,7 +46,7 @@
 	let template = document.getElementById('PopupsCompose');
 	const uploadBtn = template.content.querySelector('#composeUploadButton');
 	if (uploadBtn) {
-		uploadBtn.after(Element.fromHTML(`<a class="btn fontastic" data-bind="click: nextcloudAttach">Прикрепить файлы</a>`));
+		uploadBtn.after(Element.fromHTML(`<a class="btn fontastic" data-bind="click: nextcloudAttach">Прикрепить файлы из F7</a>`));
 	}
 
 /**
