@@ -634,7 +634,7 @@ export default {
 				})
 
 				if (this.editedDisplayName === this.user.displayname) {
-					showSuccess(t('setting', 'Display name was successfully changed'))
+					showSuccess(t('setting', 'Успешно изменено'))
 				}
 			} finally {
 				this.loading.displayName = false
