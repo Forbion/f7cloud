@@ -56,8 +56,8 @@ export default Vue.extend({
 			if (this.loading) {
 				return this.n(
 					'settings',
-					'{userCount} account …',
-					'{userCount} accounts …',
+					'{userCount} аккаунта …',
+					'{userCount} аккаунтов …',
 					this.filteredUsers.length,
 					{
 						userCount: this.filteredUsers.length,
@@ -66,8 +66,8 @@ export default Vue.extend({
 			}
 			return this.n(
 				'settings',
-				'{userCount} account',
-				'{userCount} accounts',
+				'{userCount} аккаунта',
+				'{userCount} аккаунтов',
 				 this.filteredUsers.length,
 				{
 					userCount: this.filteredUsers.length,

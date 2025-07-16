@@ -104,7 +104,8 @@ class PersonalInfo implements ISettings {
 
 		$storageInfo = \OC_Helper::getStorageInfo('/');
 		if ($storageInfo['quota'] === FileInfo::SPACE_UNLIMITED) {
-			$totalSpace = $this->l->t('Unlimited');
+//			$totalSpace = $this->l->t('Unlimited');
+			$totalSpace = 'Не ограничено';
 		} else {
 			$totalSpace = \OC_Helper::humanFileSize($storageInfo['total']);
 		}
