@@ -1,4 +1,5 @@
 <?php
+
 if (defined('APP_VERSION_ROOT_PATH')) {
 	return;
 }
@@ -37,6 +38,7 @@ define('APP_VERSION_ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 date_default_timezone_set('UTC');
 
+$sCustomDataPath = '';
 $sCustomDataPath = '';
 $sCustomConfiguration = '';
 
@@ -92,6 +94,26 @@ if (!defined('SNAPPYMAIL_LIBRARIES_PATH')) {
 			include_once $file;
 		}
 	});
+}
+
+if (!defined('SNAPPYMAIL_LIBRARIES_PATH')) {
+    define('SNAPPYMAIL_LIBRARIES_PATH', rtrim(realpath(__DIR__), '\\/').'/app/libraries/');
+
+    if (false === set_include_path(SNAPPYMAIL_LIBRARIES_PATH . PATH_SEPARATOR . get_include_path())) {
+        exit('set_include_path() failed. Probably due to Apache config using php_admin_value instead of php_value');
+    }
+
+    spl_autoload_extensions('.php');
+    /** lowercase autoloader */
+    spl_autoload_register();
+    /** case-sensitive autoloader */
+    spl_autoload_register(function($sClassName){
+        $file = SNAPPYMAIL_LIBRARIES_PATH . strtr($sClassName, '\\', DIRECTORY_SEPARATOR) . '.php';
+//		if ($file = stream_resolve_include_path(strtr($sClassName, '\\', DIRECTORY_SEPARATOR) . '.php')) {
+        if (is_file($file)) {
+            include_once $file;
+        }
+    });
 }
 
 // installation checking data folder

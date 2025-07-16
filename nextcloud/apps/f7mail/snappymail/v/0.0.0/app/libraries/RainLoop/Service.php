@@ -224,6 +224,7 @@ abstract class Service
 				$aTemplateParameters['{{BaseAppThemeCss}}'] = \preg_replace('/\\s*([:;{},]+)\\s*/s', '$1', $oActions->compileCss($sThemeName, $bAdmin));
 				$aTemplateParameters['{{BaseLanguage}}'] = $oActions->compileLanguage($sLanguage, $bAdmin);
 				$aTemplateParameters['{{BaseTemplates}}'] = Utils::ClearHtmlOutput($oServiceActions->compileTemplates($bAdmin));
+                $aTemplateParameters['{{RequestToken}}'] =  \OCP\Util::callRegister();
 				$aTemplateParameters['{{NO_SCRIPT_DESC}}'] = \nl2br($oActions->StaticI18N('NO_SCRIPT_TITLE') . "\n" . $oActions->StaticI18N('NO_SCRIPT_DESC'));
 				$aTemplateParameters['{{NO_COOKIE_TITLE}}'] = $oActions->StaticI18N('NO_COOKIE_TITLE');
 				$aTemplateParameters['{{NO_COOKIE_DESC}}'] = $oActions->StaticI18N('NO_COOKIE_DESC');
