@@ -3530,6 +3530,7 @@ header .unified-search__wrapper {
     width: calc(100% - 176px) !important;
     max-width: unset !important;
     max-height: calc(100vh - 132px) !important;
+    min-height: 780px;
     height: 100% !important;
     resize: unset !important;
     box-shadow: unset !important;
@@ -3559,6 +3560,8 @@ header .unified-search__wrapper {
                 justify-content: center;
                 padding: 20px 0;
                 border-bottom: 1px solid #E6E6E6;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
 
                 & .button-save {
                     display: flex;
