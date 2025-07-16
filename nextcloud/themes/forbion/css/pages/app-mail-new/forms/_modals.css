@@ -234,6 +234,17 @@
 
     .addCondition {
         margin-top: 20px;
+
+        & .btn {
+            position: relative;
+            padding-left: 30px;
+
+            &:before {
+                position: absolute;
+                left: 10px;
+                top: 6px;
+            }
+        }
     }
 
     .buttonSave {
