@@ -282,3 +282,60 @@
         transform: translateX(30px);
     }
 }
+
+#V-PopupsNextcloudFiles {
+
+    [data-icon="📁"]::before {
+        content: '';
+        background-image: url("/themes/forbion/images/folder-icon.svg");
+        background-repeat: no-repeat;
+        width: 16px;
+        height: 16px;
+        margin-bottom: -4px;
+        margin-left: 2px;
+    }
+
+    [data-icon="🗎"]::before {
+        
+    }
+
+    footer {
+
+        padding: 15px;
+
+        button {
+
+            position: relative;
+            padding: 10px 14px 12px 40px;
+            color: #FFFFFF;
+            height: 40px;
+            background: #70B62B;
+            border-radius: 8px;
+            border: unset;
+            box-shadow: unset;
+            cursor: pointer;
+            transition: opacity .3s;
+
+            &:nth-child(2) {
+                margin-left: 10px;
+            }
+
+            &:hover {
+                opacity: .75;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                margin-top: -1px;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+                background-image: url("/themes/forbion/images/arrow-btn.svg");
+                background-repeat: no-repeat;
+            }
+        }
+    }
+}
