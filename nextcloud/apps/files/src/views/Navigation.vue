@@ -90,6 +90,8 @@ export default defineComponent({
 		const { currentView, views } = useNavigation()
 		const { searchQuery } = useFilenameFilter()
 
+    filtersStore.init()
+
 		return {
 			currentView,
 			searchQuery,

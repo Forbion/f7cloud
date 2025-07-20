@@ -478,6 +478,12 @@ export default defineComponent({
 	},
 
 	watch: {
+    'filtersStore.activeChips': {
+      handler() {
+        this.filterDirContent()
+      },
+      deep: true,
+    },
 		/**
 		 * Update the window title to match the page heading
 		 */
