@@ -23,58 +23,63 @@
 			<span class="saved-text hide-mobile" data-bind="text: savedTimeText"></span>
 
 			<div class="pull-right">
+				<a class="btn btnContacts" data-bind="visible: allowContacts, command: contactsCommand" data-i18n="[title]GLOBAL/CONTACTS">
+					<i class="fontastic" data-bind="css: {'icon-spinner': saving()}">
+						<img src="/themes/forbion/images/menu/contacts.svg" alt="contacts">
+					</i>
+					<span class="hide-mobile">Контакты</span>
+				</a>
 				<!--		<a class="btn hide-mobile" data-i18n="GLOBAL/BCC" data-bind="visible: !showBcc(), toggle: showBcc"></a>-->
 				<!--		<a class="btn hide-mobile" data-i18n="GLOBAL/CC" data-bind="visible: !showCc(), toggle: showCc"></a>-->
-				<!--		<a class="btn fontastic" data-bind="visible: allowContacts, command: contactsCommand" data-i18n="[title]GLOBAL/CONTACTS">📇</a>-->
-				<div class="btn-group dropdown" data-bind="registerBootstrapDropdown: true" style="display:inline-block;vertical-align:top">
-					<a class="btn dropdown-toggle fontastic">☰</a>
-					<menu class="dropdown-menu right-edge" role="menu">
-						<li data-bind="toggle: showBcc">
-							<a>
-								<i class="fontastic" data-bind="text: showBcc() ? '☑' : '☐'"></i>
-								<span data-i18n="GLOBAL/BCC"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: showCc">
-							<a>
-								<i class="fontastic" data-bind="text: showCc() ? '☑' : '☐'"></i>
-								<span data-i18n="GLOBAL/CC"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: showReplyTo">
-							<a>
-								<i class="fontastic" data-bind="text: showReplyTo() ? '☑' : '☐'"></i>
-								<span data-i18n="GLOBAL/REPLY_TO"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: requireTLS">
-							<a>
-								<i class="fontastic" data-bind="text: requireTLS() ? '☑' : '☐'"></i>
-								<span data-i18n="COMPOSE/BUTTON_REQUIRE_TLS"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: markAsImportant">
-							<a>
-								<i class="fontastic" data-bind="text: markAsImportant() ? '☑' : '☐'"></i>
-								<span data-i18n="COMPOSE/BUTTON_MARK_AS_IMPORTANT"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: doSign, visible: canSign">
-							<a data-bind="attr:{title: signOptionsText}">
-								<i class="fontastic" data-bind="text: doSign() ? '☑' : '☐'"></i>
-								<span data-icon="✍" data-i18n="CRYPTO/SIGN"></span>
-							</a>
-						</li>
-						<li data-bind="toggle: doEncrypt, visible: canEncrypt">
-							<a data-bind="attr:{title: encryptOptionsText}">
-								<i class="fontastic" data-bind="text: doEncrypt() || 'mailvelope' == viewArea() ? '☑' : '☐'"></i>
-								<span data-icon="🔒" data-i18n="CRYPTO/ENCRYPT"></span>
-							</a>
-						</li>
-					</menu>
-				</div>
-				<a class="minimize-custom" data-bind="click: skipCommand" data-i18n="[title]COMPOSE/BUTTON_MINIMIZE"></a>
-				<a class="close" data-bind="click: doClose" data-i18n="[title]GLOBAL/CANCEL">×</a>
+<!--				<div class="btn-group dropdown" data-bind="registerBootstrapDropdown: true" style="display:inline-block;vertical-align:top">-->
+<!--					<a class="btn dropdown-toggle fontastic">☰</a>-->
+<!--					<menu class="dropdown-menu right-edge" role="menu">-->
+<!--						<li data-bind="toggle: showBcc">-->
+<!--							<a>-->
+<!--								<i class="fontastic" data-bind="text: showBcc() ? '☑' : '☐'"></i>-->
+<!--								<span data-i18n="GLOBAL/BCC"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: showCc">-->
+<!--							<a>-->
+<!--								<i class="fontastic" data-bind="text: showCc() ? '☑' : '☐'"></i>-->
+<!--								<span data-i18n="GLOBAL/CC"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: showReplyTo">-->
+<!--							<a>-->
+<!--								<i class="fontastic" data-bind="text: showReplyTo() ? '☑' : '☐'"></i>-->
+<!--								<span data-i18n="GLOBAL/REPLY_TO"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: requireTLS">-->
+<!--							<a>-->
+<!--								<i class="fontastic" data-bind="text: requireTLS() ? '☑' : '☐'"></i>-->
+<!--								<span data-i18n="COMPOSE/BUTTON_REQUIRE_TLS"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: markAsImportant">-->
+<!--							<a>-->
+<!--								<i class="fontastic" data-bind="text: markAsImportant() ? '☑' : '☐'"></i>-->
+<!--								<span data-i18n="COMPOSE/BUTTON_MARK_AS_IMPORTANT"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: doSign, visible: canSign">-->
+<!--							<a data-bind="attr:{title: signOptionsText}">-->
+<!--								<i class="fontastic" data-bind="text: doSign() ? '☑' : '☐'"></i>-->
+<!--								<span data-icon="✍" data-i18n="CRYPTO/SIGN"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li data-bind="toggle: doEncrypt, visible: canEncrypt">-->
+<!--							<a data-bind="attr:{title: encryptOptionsText}">-->
+<!--								<i class="fontastic" data-bind="text: doEncrypt() || 'mailvelope' == viewArea() ? '☑' : '☐'"></i>-->
+<!--								<span data-icon="🔒" data-i18n="CRYPTO/ENCRYPT"></span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--					</menu>-->
+<!--				</div>-->
+<!--				<a class="minimize-custom" data-bind="click: skipCommand" data-i18n="[title]COMPOSE/BUTTON_MINIMIZE"></a>-->
+<!--				<a class="close" data-bind="click: doClose" data-i18n="[title]GLOBAL/CANCEL">×</a>-->
 			</div>
 		</header>
 		<div class="modal-body">

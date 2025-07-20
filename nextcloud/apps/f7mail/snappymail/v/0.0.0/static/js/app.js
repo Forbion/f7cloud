@@ -12221,7 +12221,7 @@ body > * {
 
 		contactsCommand() {
 			if (this.allowContacts) {
-				this.skipCommand();
+				// this.skipCommand();
 				setTimeout(() => {
 					showScreenPopup(ContactsPopupView, [true, this.sLastFocusedField]);
 				}, 200);

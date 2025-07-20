@@ -743,6 +743,10 @@ header .unified-search__wrapper {
                                 background-color: unset !important;
                                 position: relative;
 
+                                &[data-i18n="SETTINGS_LABELS/CONTACTS"] {
+                                    display: none;
+                                }
+
                                 &.selected {
 
                                     color: #FFFFFF !important;
@@ -3586,10 +3590,27 @@ header .unified-search__wrapper {
                         margin-top: 3px;
                         margin-left: 0;
                     }
+
+                    &.btnContacts {
+                        margin-left: 8px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        height: auto;
+
+                        img {
+                            max-width: 16px;
+                            max-height: 16px;
+                        }
+                    }
                 }
 
                 & > * {
                     display: none;
+                }
+
+                & .pull-right {
+                    display: block;
                 }
             }
 

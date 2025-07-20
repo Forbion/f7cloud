@@ -221,10 +221,10 @@
 		"LABEL_BIRTHDAY": "День рождения",
 		"DISPLAY_NAME": "Полное имя",
 		"LAST_NAME": "Имя",
-		"FIRST_NAME": "Фамилию",
-		"MIDDLE_NAME": "Middle name",
-		"NAME_PREFIX": "Name prefix",
-		"NAME_SUFFIX": "Name suffix",
+		"FIRST_NAME": "Фамилия",
+		"MIDDLE_NAME": "Отчество",
+		"NAME_PREFIX": "Имя (префикс)",
+		"NAME_SUFFIX": "Имя (суффикс)",
 		"NICK_NAME": "Ник",
 		"LABEL_READ_ONLY": "Только чтение",
 		"ADD_MENU_LABEL": "Добавить",
@@ -237,7 +237,7 @@
 		"ADD_MENU_TAGS": "Теги",
 		"BUTTON_SHARE_ALL": "Всем",
 		"BUTTON_SYNC": "Синхронизация (CardDAV)",
-		"SEND_TO_ALL_CONTACT_EMAILS": "Send to all contact emails"
+		"SEND_TO_ALL_CONTACT_EMAILS": "Отправить всем контактам на email"
 	},
 	"COMPOSE": {
 		"LINK_SHOW_INPUTS": "Показать все поля",
