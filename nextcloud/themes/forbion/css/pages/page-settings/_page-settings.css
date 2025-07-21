@@ -435,6 +435,10 @@ body#body-settings {
                 margin-left: 540px;
                 padding: 0;
 
+                & h2 {
+                    margin-bottom: 35px;
+                }
+
                 & p {
                     position: relative;
                 }
