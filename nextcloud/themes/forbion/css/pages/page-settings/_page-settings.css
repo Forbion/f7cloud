@@ -21,8 +21,20 @@
 .app-navigation-administration li[data-section-id="ai"],
 .app-navigation-administration li[data-section-id="theming"],
 .app-navigation-administration li[data-section-id="security"],
+.app-navigation-administration li[data-section-id="admindelegation"],
+.app-navigation-administration li[data-section-id="sociallogin"],
 .app-navigation-administration li[data-section-id="overview"] {
     display: none !important;
+}
+
+.settings-section__name {
+    & .settings-section__info {
+        display: none !important;
+    }
+}
+
+a.icon-info {
+    display: none;
 }
 
 body#body-settings {
@@ -175,6 +187,9 @@ body#body-settings {
                 font-size: 16px;
                 line-height: 20px;
                 font-weight: 500;
+            }
+            & .settings-section--limit-width:nth-of-type(2) {
+                display: none !important;
             }
 
             & .settings-section {
@@ -812,55 +827,57 @@ body#body-settings {
 
                     & .personal-settings-setting-box {
 
-                        & section[data-v-3e4cb5f4] {
-                            padding: 0 0 100px;
-                            margin-top: 55px;
-                            position: relative;
+                        &:first-child {
+                            & section {
+                                padding: 0 0 100px;
+                                margin-top: 55px;
+                                position: relative;
 
-                            & .checkbox-container{
-                                position: absolute;
-                                bottom: 40px;
-                                left: 0;
-                            }
-
-                            & .preview-card__header {
-                                background: #808080;
-
-                                span[data-v-3c8483c2] {
-                                    margin-left: 3px;
-                                    color: #ffffff;
+                                & .checkbox-container{
+                                    position: absolute;
+                                    bottom: 40px;
+                                    left: 0;
                                 }
-                            }
 
-                            & .checkbox-radio-switch {
+                                & .preview-card__header {
+                                    background: #808080;
 
-                                transition: .3s;
+                                    span[data-v-3c8483c2] {
+                                        margin-left: 3px;
+                                        color: #ffffff;
+                                    }
+                                }
 
-                                & .checkbox-content {
+                                & .checkbox-radio-switch {
 
-                                    margin-left: -2px;
-                                    padding-left: 0;
-                                    background: unset !important;
+                                    transition: .3s;
 
-                                    & .checkbox-radio-switch__icon {
+                                    & .checkbox-content {
 
-                                        & .toggle-switch-off-icon {
+                                        margin-left: -2px;
+                                        padding-left: 0;
+                                        background: unset !important;
 
-                                            & svg {
-                                                fill: #808080;
+                                        & .checkbox-radio-switch__icon {
+
+                                            & .toggle-switch-off-icon {
+
+                                                & svg {
+                                                    fill: #808080;
+                                                }
                                             }
+                                        }
+
+                                        & .checkbox-radio-switch__text {
+                                            white-space: nowrap;
+                                            padding-left: 5px;
+                                            color: #000000;
                                         }
                                     }
 
-                                    & .checkbox-radio-switch__text {
-                                        white-space: nowrap;
-                                        padding-left: 5px;
-                                        color: #000000;
+                                    &:hover {
+                                        opacity: .75;
                                     }
-                                }
-
-                                &:hover {
-                                    opacity: .75;
                                 }
                             }
                         }
@@ -902,7 +919,7 @@ body#body-settings {
                             width: 263px;
                         }
 
-                        & a[data-v-f3147138] {
+                        & a:last-child {
                             margin: unset;
                             position: absolute;
                             bottom: 0;
@@ -950,6 +967,7 @@ body#body-settings {
                 & .material-design-icon.help-circle-icon {
                     display: none;
                 }
+
             }
 
             & .settings-section__desc {
