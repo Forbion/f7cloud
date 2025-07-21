@@ -700,7 +700,7 @@ OC.L10N.register(
     "Set account as admin for" : "Назначить администратором",
     "Select account quota" : "Выбор квоты для учётной записи",
     "Set the language" : "Выбрать язык",
-    "{size} used" : "использовано {size}",
+    "{size} used" : "Использовано {size}",
     "Delete account" : "Удалить учётную запись",
     "Disconnect all devices and delete local data" : "Отключить все устройства и удалить локальные данные",
     "Disable account" : "Отключить учётную запись",
