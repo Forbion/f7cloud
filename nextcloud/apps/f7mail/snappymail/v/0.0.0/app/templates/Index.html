@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html class="rl-started-trigger">
-<head data-user="{{User}}"
-	  data-requesttoken="{{RequestToken}}">
+<head data-user data-user-displayname data-requesttoken="{{RequestToken}}">
 	<meta charset="utf-8">
+
 	<meta name="viewport" content="width=device-width">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="google" content="notranslate">
@@ -19,24 +19,27 @@
 	<link rel="stylesheet" href="/themes/forbion/css/pages/app-mail-new/_app-mail-new.css">
 	<script src="/themes/forbion/js/scripts.js"></script>
 
-	<script defer src="/dist/core-common.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-main.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-files_fileinfo.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-files_client.js?v=1e15b149-10"></script>
-	<script defer src="/js/core/merged-template-prepend.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-unsupported-browser-redirect.js?v=1e15b149-10"></script>
-	<script defer src="/core/l10n/ru.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-ajax-cron.js?v=1e15b149-10"></script>
-	<script defer src="/dist/core-unified-search.js?v=1e15b149-10"></script>
-	<script defer src="/apps/spreed/l10n/ru.js?v=1e15b149-10"></script>
-	<script defer src="/apps/spreed/js/talk-search.js?v=1e15b149-10"></script>
-<!--	<script defer src="/apps/theming/l10n/ru.js?v=1e15b149-10"></script>-->
-<!--	<script defer src="/apps/theming/js/theming.js?v=1e15b149-10"></script>-->
-	<script defer src="/apps/user_status/l10n/ru.js?v=1e15b149-10"></script>
-	<script defer src="/dist/user_status-menu.js?v=1e15b149-10"></script>
-	<script defer src="/apps/files_sharing/l10n/ru.js?v=1e15b149-10"></script>
-	<script defer src="/dist/files_sharing-main.js?v=1e15b149-10"></script>
-
+	<script defer src="/dist/core-common.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/core-main.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/core-files_fileinfo.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/core-files_client.js?v=72fe44a9-11"></script>
+	<script defer src="/js/core/merged-template-prepend.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/core-unsupported-browser-redirect.js?v=72fe44a9-11"></script>
+	<script defer src="/core/l10n/ru.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/core-unified-search.js?v=72fe44a9-11"></script>
+	<script defer src="/apps/spreed/l10n/ru.js?v=72fe44a9-11"></script>
+	<script defer src="/apps/spreed/js/talk-search.js?v=72fe44a9-11"></script>
+<!--	<script defer src="/apps/theming/l10n/ru.js?v=72fe44a9-11"></script>-->
+<!--	<script defer src="/apps/theming/js/theming.js?v=72fe44a9-11"></script>-->
+	<script defer src="/apps/user_status/l10n/ru.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/user_status-menu.js?v=72fe44a9-11"></script>
+	<script defer src="/apps/files_sharing/l10n/ru.js?v=72fe44a9-11"></script>
+	<script defer src="/dist/files_sharing-main.js?v=72fe44a9-11"></script>
+	<script nonce="">
+		var _oc_webroot="";
+		var _oc_config={"blacklist_files_regex":"\\.(part|filepart)$","forbidden_filename_characters":["\\","\/","<",">",":","\"","|","?","*","\\","\/"],"auto_logout":false,"loglevel":0,"lost_password_link":null,"modRewriteWorking":true,"no_unsupported_browser_warning":false,"session_keepalive":true,"session_lifetime":1440,"sharing.maxAutocompleteResults":25,"sharing.minSearchStringLength":0,"version":"30.0.6.2","versionstring":"30.0.6","enable_non-accessible_features":true};
+		var oc_userconfig={"avatar":{"version":10,"generated":true}};
+	</script>
 </head>
 <body id="rl-app" data-admin='{{BaseAppAdmin}}' spellcheck="false">
 	<header id="header" class="header-new">
@@ -129,8 +132,8 @@
 			<div class="unified-search__wrapper">
 				<div id="unified-search"></div>
 			</div>
-			<a class="name__user" style="cursor: default;">
-                {{User}}
+			<a id="username-display" class="name__user" style="cursor: default;">
+              &nbsp;
 			</a>
 			<a href="#" id="user-menu-f7mail"></a>
 			<div class="help-online__user">
