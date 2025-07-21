@@ -1,226 +1,102 @@
-<div align="center">
-  <a href="https://github.com/the-djmaze/snappymail">
-    <img src="https://snappymail.eu/static/img/logo-256x256-white.png">
-  </a>
-  <br>
-  <h1>SnappyMail</h1>
-  <br>
+# snappymail-nextcloud
 
-[![github-actions](https://github.com/the-djmaze/snappymail/actions/workflows/docker.yml/badge.svg)](https://github.com/the-djmaze/snappymail/actions/workflows/docker.yml)
-[![docker-image-size](https://img.shields.io/docker/image-size/djmaze/snappymail/latest)](https://hub.docker.com/r/djmaze/snappymail/tags)
+snappymail-nextcloud is a plugin for Nextcloud to use the excellent SnappyMail webmail (https://snappymail.eu/).
 
-  <p>
-    Simple, modern, lightweight &amp; fast web-based email client.
-  </p>
-  <p>
-    The drastically upgraded &amp; secured fork of <a href="https://github.com/RainLoop/rainloop-webmail">RainLoop Webmail Community edition</a>.
-  </p>
-  <p>
-    We thank the RainLoop Team for making a great PHP 5 product that was good in the past.
-  </p>
-  <p>
-    Up to date system requirements, snappy performance, simple installation and upgrade, no database required
-    - all these make SnappyMail a good choice.
-  </p>
-  <h2></h2>
-  <br>
-</div>
+Thank you to all contributors to SnappyMail for nextcloud:
+- RainLoop Team, who initiated it
+- [pierre-alain-b](https://github.com/pierre-alain-b/rainloop-nextcloud)
+- Tab Fitts (@tabp0le)
+- Nextgen Networks (@nextgen-networks)
+- [All testers of issue 96](https://github.com/the-djmaze/snappymail/issues/96)
 
-For more information about the product, check [snappymail.eu](https://snappymail.eu/).
+## How to Install
 
-Information about installing the product, check the [wiki page](https://github.com/the-djmaze/snappymail/wiki/Installation-instructions).
+Start within Nextcloud as user with administrator rights and click on the "+ Apps" button in the upper-right corner dropdown menu:
 
-And don't forget to read the whole [Wiki](https://github.com/the-djmaze/snappymail/wiki).
+![Image1](https://raw.githubusercontent.com/the-djmaze/snappymail/master/integrations/nextcloud/screenshots/help_a1.png)
 
-## License
+Then, enable the SnappyMail plugin that you will find in the "Social & communication" section:
 
-**SnappyMail** is released under
-**GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (AGPL)**.
-http://www.gnu.org/licenses/agpl-3.0.html
+![Image2](https://raw.githubusercontent.com/the-djmaze/snappymail/master/integrations/nextcloud/screenshots/help_a2.png)
 
-Copyright (c) 2020 - 2024 SnappyMail
-Copyright (c) 2013 - 2022 RainLoop
+After a quick wait, SnappyMail is installed. Now you should configure it before use: open the Nextcloud admin panel (upper-right corner dropdown menu -> Settings) and go to "Additional settings" under the "Administration" section. There, click on the "Go to SnappyMail Webmail admin panel" link.
 
-## Modifications
+![Image3](https://raw.githubusercontent.com/the-djmaze/snappymail/master/integrations/nextcloud/screenshots/nextcloud-admin.png)
 
-This fork of RainLoop has the following changes:
+To enter SnappyMail admin area, you must be Nextcloud admin (so you get logged in automatically) or else use the admin login credentials.
+The default login is "admin" and the default password will be generated in `[nextcloud-data]/app_snappymail/_data_/_default_/admin_password.txt`. Don't forget to change it once in the admin panel!
 
-* Privacy/GDPR friendly (no: Social, Gravatar, Facebook, Google, Twitter, DropBox, X-Mailer)
-* Admin uses password_hash/password_verify
-* Auth failed attempts written to syslog
-* Added Fail2ban instructions
-* ES2020
-* PHP 7.4+ required
-* PHP mbstring extension required
-* PHP replaced pclZip with PharData and ZipArchive
-* Dark mode
-* Added option to remove background/font colors from messages for real "dark mode"
-* Removed BackwardCapability (class \RainLoop\Account)
-* Removed ChangePassword (re-implemented as plugin)
-* Removed POP3 support
-* Removed background video support
-* Removed Sentry (Application Monitoring and Error Tracking Software)
-* Removed Spyc yaml
-* Removed OwnCloud
-* Replaced gulp-uglify with gulp-terser
-* CRLF => LF line endings
-* Embed boot.js and boot.css into index.html
-* Removal of old JavaScript code (things are native these days)
-* Added modified [Squire](https://github.com/the-djmaze/Squire/tree/snappymail) HTML editor as replacement for CKEditor
-* Updated [Sabre/VObject](https://github.com/sabre-io/vobject)
-* Split Admin specific JavaScript code from User code
-* Split Sieve specific JavaScript code from User code
-* JSON reviver
-* Better memory garbage collection management
-* Added serviceworker for Notifications
-* Added advanced Sieve scripts editor
-* Slimmed down language files
-* Replaced webpack with rollup
-* No user-agent detection (use device width)
-* Added support to load plugins as .phar
-* Replaced old Sabre library
-* AddressBook Contacts support MySQL/MariaDB utf8mb4
-* Added [Fetch Metadata Request Headers](https://www.w3.org/TR/fetch-metadata/) checks
-* Reduced excessive DOM size
-* Support [Kolab groupware](https://kolab.org/)
-* Support many more [IMAP RFC's](https://snappymail.eu/comparison#IMAP)
-* Support Sodium and OpenSSL for encryption
-* Much better PGP support
+From that point, all instance-wide SnappyMail settings can be tweaked as you wish. One important point is the "Domains" section where you should set up the IMAP/SMTP parameters that will be associated with the email adresses of your users. Basically, if a user of the Nextcloud instance starts SnappyMail and puts "firstname@domain.tld" as an email address, then SnappyMail should know how to connect to the IMAP & SMTP of domain.tld. You can fill in this information in the "Domains" section of the SnappyMail admin settings. For more information how to configure an automatic login for your Nextcloud users see [How to auto-connect to SnappyMail?](#how-to-auto-connect-to-snappymail)
 
+![grafik](https://user-images.githubusercontent.com/63400209/199767908-fbef0f50-ecb7-47ae-9ac1-771959d4b7f5.png)
 
-### Supported browsers
+![grafik](https://user-images.githubusercontent.com/63400209/199768097-7bd939a7-56d0-47ba-b481-aeac08776fb4.png)
 
-This fork uses downsized/simplified versions of scripts and has no support for Internet Explorer nor Edge Legacy.
-Supported are:
+## App Integrations
+### Contacts
+SnappyMail automatically connects with the Nextcloud contacts app. Download and install the [contacts app](https://apps.nextcloud.com/apps/contacts) for SnappyMail to obtain access to all registered users on the Nextcloud system, as well as users' personal contacts saved in here.
 
-* Chrome 80+
-* Edge 80+
-* Firefox 78+
-* Opera 67+
-* Safari 13.1+
+## SnappyMail Settings, Where Are They?
+
+SnappyMail for Nextcloud is highly configurable. But settings are available in multiple places and this can be misleading for first-time users.
+
+### SnappyMail admin settings
+SnappyMail admin settings can be reached only by the Nextcloud administrator. Open the Nextcloud admin panel ("Admin" in the upper-right corner dropdown menu) and go to "Additionnal settings". There, click on the "Go to SnappyMail Webmail admin panel" link. Alternatively, you may use the following link: https://path.to.nextcloud/index.php/apps/snappymail/?admin.
+
+SnappyMail admin settings include all settings that will apply to all SnappyMail users (default login rules, branding, management of plugins, security rules and domains).
+
+### SnappyMail user settings
+Each user of SnappyMail can also change user-specific behaviors in the SnappyMail user settings. SnappyMail user settings are found within SnappyMail by clicking on the user button (in the upper-right corner of SnappyMail) and then choosing "Settings" in the dropdown menu.
+
+SnappyMail user settings include management of contacts, of email accounts, of folders, appearance and OpenPGP.
+
+### The specificity of SnappyMail user accounts
+The plugin passes the login information of the user to the SnappyMail app which then creates and manages the user accounts. Accounts in SnappyMail are based soley on the authenticated email accounts, and do not take into account the nextcloud user which created them in the first place. If two or more Nextcloud users have the same email account in additional settings, they will in fact share the same 'email account' in SnappyMail including any additional email accounts that they may have added subsequently to their main account.
+This is to be kept in mind for the use case where multiple users shall have the same email account but may be also tempted to add additionnal acounts to their SnappyMail.
+
+## How to auto-connect to SnappyMail?
+
+### Default Domain
+As already said SnappyMail uses the domain part (@example.com) to choose the IMAP/SMTP server to use. If in the following settings the username passed to SnappyMail does not contain a domain, the "default domain" is added to this username. In this way SnappyMail can lookup the "Domain" configuration to use (IMAP, SMTP, SIEVE server ecc.).
+Example: if the username `john` is passed to SnappyMail, the "default domain" `example.com` would be added to the username basing on your configuration. So SnappyMail would try to login the user with the username `john@example.com`.
+
+You can configure the "default domain" and connected settings in the SnappyMail Admin Panel under the menu "Login".
+
+### Auto-connect options
+The Nextcloud administrator can choose how SnappyMail tries to automatically login when a user clicks on the icon of SnappyMail within Nextcloud. There are different options that can be found in the Nextcloud "Settings -> Administration -> Additional settings":
+
+#### Option 1: Users will login manually, or define credentials in their personal settings for automatic logins.
+If the user sets his credentials for the mailbox in his personal account under "Settings -> Additional settings", these credentials are used by SnappyMail to login.
+If no personal credentials are defined the user is prompted by SnappyMail to insert his credentials every time he tries to open the SnappyMail App within Nextcloud.
+
+#### Option 2: Attempt to automatically login users with their Nextcloud username and password, or user-defined credentials, if set.
+If the user sets his credentials for the mailbox in his personal account under "Settings -> Additional settings", these credentials are used by SnappyMail to login.
+If no personal credentials are defined the Nextcloud username and password is used by SnappyMail to login (eventually adding the [default domain](#default-domain)).
+
+If your IMAP server only accepts usernames without a domain (for example the ldap username of your user) the automatic addition of the "default domain" would block your users from logging in to your IMAP server - but on the other side it is needed by SnappyMail to determine the server settings to use. In such a case you must configure SnappyMail to strip off the domain part before sending the credentials to your IMAP server. This is done by entering to the SnappyMail Admin Panel -> Domains -> clicking on your default domain -> flagging the checkbox "Use short login" under IMAP and SMTP.
+
+#### Option 3: Attempt to automatically login users with their Nextcloud email and password, or user-defined credentials, if set.
+If the user sets his credentials for the mailbox in his personal account under "Settings -> Additional settings", these credentials are used by SnappyMail to login.
+If no personal credentials are defined the mail address of the Nextcloud user and his password are used by SnappyMail to login. SnappyMail will lookup the "Domain" settings for a configuration that meets the domain part of the mail address passed as username.
+
+#### Option 4: Attempt to automatically login with OIDC when active
+
+### Auto-connection for all Nextcloud users
+If your Nextcloud users base is synchronized with an email system, then it is possible that Nextcloud credentials could be used right away to access the centralized email system. In the SnappyMail admin settings, the Nextcloud administrator can then tick the "Automatically login with Nextcloud/Nextcloud user credentials" checkbox.
+
+Beware, if you tick this box, all Nextcloud users will *not* be able to use the override it with the setting below.
+
+### Auto-connection for one user at a time
+Except if the above setting is activated, any Nextcloud user can have Nextcloud and SnappyMail keep in mind the default email/password to connect to SnappyMail. There, logging in Nextcloud is sufficient to then access SnappyMail within Nextcloud.
+
+To fill in the default email address and password to use, each Nextcloud user should go in the personal settings: choose "Settings" in the upper-right corner dropdown menu. Under "Personal" select the "Additional settings" section where you can find the "SnappyMail Webmail" settings. You can also use this direct link: https://path.to.nextcloud/settings/user/additional.
 
 
-### Removal of old JavaScript
+## How to Activate SnappyMail Logging and then Find Logs
 
-The result is faster and smaller download code (good for mobile networks).
-
-* Added dev/prototype.js for some additional features
-* Modified Jua.js to be without jQuery
-* Replaced Autolinker with simple https/email detection
-* Replaced momentToNode with proper HTML5 `<time>`
-* Replaced resize listeners with ResizeObserver
-* Replaced bootstrap.js with native drop-in replacement
-* Replaced dev/Common/ClientStorageDriver/* with Web Storage Objects polyfill
-* Replaced *Ajax with *Fetch classes because we use the Fetch API, not jQuery.ajax
-* Replaced [knockoutjs](https://github.com/knockout/knockout) 3.4 with a modified 3.5.1
-* Replaced knockout-sortable with native HTML5 drag&drop
-* Replaced simplestatemanager with CSS @media
-* Replaced inputosaurus with own code
-* Replaced keymaster with own shortcuts handler
-* Replaced OpenPGP.js v2 with OpenPGP.js v5
-* Removed ifvisible.js
-* Removed pikaday
-* Removed underscore
-* Removed polyfills
-* Removed Modernizr
-* Removed nanoscroll
-* Removed lightgallery
-* Removed jQuery
-* Removed jquery-ui
-* Removed jquery-scrollstop
-* Removed jquery-mousewheel
-* Removed matchmedia-polyfill
-* Removed momentjs (use Intl)
-* Removed opentip (use CSS)
-* Removed non-community (aka Prem/Premium/License) code
-* Removed ProgressJS
-
-
-RainLoop 1.17 vs SnappyMail
-
-|js/*           	|RainLoop 	|Snappy   	|
-|---------------	|--------:	|--------:	|
-|admin.js        	|2.170.153	|   84.925	|
-|app.js          	|4.207.787	|  447.263	|
-|boot.js         	|  868.735	|    4.343	|
-|libs.js         	|  658.812	|  233.728	|
-|sieve.js         	|        0	|   91.418	|
-|polyfills.js    	|  334.608	|        0	|
-|serviceworker.js	|        0	|      285	|
-|TOTAL           	|8.240.095	|  861.962	|
-
-|js/min/*       	|RainLoop 	|Snappy   	|RL gzip	|SM gzip	|RL brotli	|SM brotli	|
-|---------------	|--------:	|--------:	|------:	|------:	|--------:	|--------:	|
-|admin.min.js    	|  256.831	|   41.719	| 73.606	| 14.022	| 60.877  	| 12.567	|
-|app.min.js      	|  515.367	|  202.101	|139.456	| 68.505	|110.485  	| 58.481	|
-|boot.min.js     	|   84.659	|    2.231	| 26.998	|  1.271	| 23.643  	|  1.067	|
-|libs.min.js     	|  584.772	|  110.646	|180.901	| 39.518	|155.182  	| 35.207	|
-|sieve.min.js     	|        0	|   45.504	|      0	| 11.131	|      0  	|  9.917	|
-|polyfills.min.js	|   32.837	|        0	| 11.406	|      0	| 10.175  	|      0	|
-|TOTAL user      	|1.217.635	|  314.978	|358.761	|109.294	|299.485  	| 94.755	|
-|TOTAL user+sieve	|1.217.635	|  360.482	|358.761	|120.425	|299.485  	|104.672	|
-|TOTAL admin     	|  959.099	|  154.596	|292.911	| 54.811	|249.877  	| 48.841	|
-
-For a user it is around 66% smaller and faster than traditional RainLoop.
-
-### CSS changes
-
-* Solve jQuery removed "features" with native css code
-* Themes work in mobile mode
-* Bugfix invalid/conflicting css rules
-* Use flexbox
-* Use border-box
-* Split app.css to have separate admin.css
-* Remove oldschool 'float'
-* Remove unused css
-* Removed html.no-css
-* Removed dev/Styles/Cmd.less
-* Removed dev/Styles/Scroll.less
-* Removed Internet Explorer from normalize.css
-* Removed node_modules/opentip/css/opentip.css
-* Removed node_modules/pikaday/css/pikaday.css
-* Removed unused vendors/bootstrap/less/*
-* Removed vendors/jquery-nanoscroller/nanoscroller.css
-* Removed vendors/jquery-letterfx/jquery-letterfx.min.css
-* Removed vendors/Progress.js/minified/progressjs.min.css
-* Removed gulp-autoprefixer
-
-
-|css/*       	|RainLoop	|Snappy   	|RL gzip	|SM gzip	|SM brotli	|
-|------------	|-------:	|------:	|------:	|------:	|--------:	|
-|app.css     	| 340.331	| 85.073	| 46.946	| 17.792	| 15.210	|
-|app.min.css 	| 274.947	| 68.272	| 39.647	| 15.615	| 13.636	|
-|boot.css    	|       	|  1.326	|       	|    664	|    545	|
-|boot.min.css	|       	|  1.071	|       	|    590	|    474	|
-|admin.css    	|       	| 30.880	|       	|  7.045	|  6.127	|
-|admin.min.css	|       	| 24.959	|       	|  6.368	|  5.615	|
-
-### PGP
-RainLoop uses the old OpenPGP.js v2
-SnappyMail v2.12 uses OpenPGP.js v5, GnuPG and Mailvelope.
-SnappyMail is able to use and generate ECDSA and EDDSA keys, where RainLoop does not.
-
-Since SnappyMail tries to achieve the best mobile experience, it forked OpenPGP.js to strip it down.
-* remove all unused Node.js
-* remove all old browsers support
-See https://github.com/the-djmaze/openpgpjs for development
-
-|OpenPGP        	|RainLoop 	|Snappy   	|RL gzip	|SM gzip	|RL brotli	|SM brotli	|
-|---------------	|--------:	|--------:	|------:	|-------:	|--------:	|--------:	|
-|openpgp.min.js 	|  330.742	|  546.165	|102.388	| 169.207	| 84.241  	|  138.688	|
-|openpgp.worker 	|    1.499	|         	|    824	|        	|    695 	|        	|
-
-
-### Squire vs CKEditor
-The [Squire](https://github.com/neilj/Squire) implementation is not 100% compatible yet, but it shows the massive overhead of CKEditor.
-
-Still TODO:
-
-* support for tables (really needed?!?)
-
-|       	| normal	| min    	| gzip  	| min gzip	|
-|--------	|-------:	|-------:	|------:	|--------:	|
-|squire  	| 122.321	|  41.906	| 31.867	|   14.330	|
-|ckeditor	|       ?	| 520.035	|      ?	|  155.916	|
-
-CKEditor including the 7 asset requests (css,language,plugins,icons) is 633.46 KB / 180.47 KB (gzip).
+You can activate SnappyMail logging here: `/path/to/nextcloud/data/appdata_snappymail/_data_/_default_/configs/application.ini`
+```
+[logs]
+enable = On
+```
+Logs are then available in `/path/to/nextcloud/data/appdata_snappymail/_data_/_default_/logs/`
