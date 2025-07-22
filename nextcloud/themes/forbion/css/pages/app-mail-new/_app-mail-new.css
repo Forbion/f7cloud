@@ -13,7 +13,7 @@
 }
 
 header .unified-search__wrapper {
-    display: none !important;
+    /*display: none !important;*/
 }
 
 #header.header-new .app-menu .app-menu__list li .app-menu-enty__icon {
@@ -22,7 +22,12 @@ header .unified-search__wrapper {
 }
 
 #header.header-new .user-control__header .name__user {
-    max-width: 200px;
+    margin-right: 15px;
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
 }
 
 #header.header-new .user-control__header #user-menu {
