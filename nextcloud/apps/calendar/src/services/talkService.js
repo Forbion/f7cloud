@@ -21,6 +21,8 @@ import md5 from 'md5'
  * @return {Promise<string>}
  */
 export async function createTalkRoom(eventTitle = null, eventDescription = null, attendees = []) {
+
+	console.log('createTalkRoom')
 	const apiVersion = loadState('calendar', 'talk_api_version')
 	let response
 	let token

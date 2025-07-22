@@ -44,6 +44,9 @@
 					</div>
 				</div>
 			</template>
+      <template #no-options>
+        <span>Ничего не найдено</span>
+      </template>
 		</NcSelect>
 
 		<template>
