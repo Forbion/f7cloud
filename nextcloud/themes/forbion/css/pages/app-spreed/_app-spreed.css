@@ -3,6 +3,10 @@
     --color-text-maxcontrast-default: #70B62B;
 }
 
+#header .logo {
+    filter: none !important;
+}
+
 body ul.vs__dropdown-menu {
     color: #000000 !important;
     padding: 10px 10px 15px !important;
@@ -958,6 +962,10 @@ body .app-talk{
         & > button {
             padding: 8px;
         }
+
+        & #settings-section_privacy {
+            display: none;
+        }
     }
     & .modal-wrapper .modal-container .viewer__content{
         /*height: calc(100% - 80px) !important;*/
@@ -1385,4 +1393,8 @@ body .app-talk{
         }
     }
 
+}
+
+.modal-mask #settings-section_performance {
+    display: none;
 }
