@@ -400,7 +400,7 @@ export class MailMessageView extends AbstractViewRight {
 
 	/**
 	 * Метод для асинхронного получения текущего пользователя Nextcloud через API.
-	 * @returns {Promise<string|null>} Имя текущего пользователя Nextcloud.
+	 * @returns {Promise<{id: string, displayname: string}|null>} Объект с ID и отображаемым именем текущего пользователя Nextcloud.
 	 */
 	async getCurrentNextcloudUser() {
 		try {
@@ -436,11 +436,10 @@ export class MailMessageView extends AbstractViewRight {
 			console.log('SnappyMail: getCurrentNextcloudUser - Ответ API:', data);
 
 			if (data && data.ocs && data.ocs.data && data.ocs.data.id) {
-				// const userId = data.ocs.data.id;
-				const displayName = data.ocs.data.displayname;
-				console.log('SnappyMail: getCurrentNextcloudUser - Имя текущего пользователя Nextcloud получено' +
-					' через API:', displayName);
-				return displayName;
+				const userId = data.ocs.data.id;
+				const userDisplayName = data.ocs.data.displayname || userId; // Fallback to id if displayname is missing
+				console.log(`SnappyMail: getCurrentNextcloudUser - Получен ID: "${userId}", DisplayName: "${userDisplayName}"`);
+				return { id: userId, displayname: userDisplayName };
 			}
 
 			console.error('SnappyMail: getCurrentNextcloudUser - API-ответ не содержит ожидаемых данных пользователя (id).');
@@ -460,12 +459,14 @@ export class MailMessageView extends AbstractViewRight {
 	 * @returns {Promise<void>}
 	 */
 	async ensureTempDirectoryExists(folderPath) {
-		const currentUser = await this.getCurrentNextcloudUser();
-		if (!currentUser) {
-			console.error('SnappyMail: ensureTempDirectoryExists - Не удалось получить текущего пользователя Nextcloud. ' +
+		// Получаем данные пользователя, включая ID для путей к файлам
+		const userData = await this.getCurrentNextcloudUser();
+		if (!userData || !userData.id) {
+			console.error('SnappyMail: ensureTempDirectoryExists - Не удалось получить ID текущего пользователя Nextcloud. ' +
 				'Отмена создания каталога.');
-			throw new Error('Nextcloud user not found.');
+			throw new Error('Nextcloud user ID not found.');
 		}
+		const currentUser = userData.id; // Используем ID для пути
 
 		if (!nextcloudRequestToken) {
 			console.error('SnappyMail: ensureTempDirectoryExists - Nextcloud request token is not available. ' +
@@ -557,12 +558,14 @@ export class MailMessageView extends AbstractViewRight {
 			return null;
 		}
 
-		const currentUser = await this.getCurrentNextcloudUser();
-		if (!currentUser) {
-			console.error('SnappyMail: getOnlyOfficeFrameUrl - Не удалось получить текущего ' +
+		// Получаем данные пользователя, включая ID для путей к файлам
+		const userData = await this.getCurrentNextcloudUser();
+		if (!userData || !userData.id) {
+			console.error('SnappyMail: getOnlyOfficeFrameUrl - Не удалось получить ID текущего ' +
 				'пользователя Nextcloud. Отмена операции.');
 			return null;
 		}
+		const currentUser = userData.id; // Используем ID для пути
 
 		const tempPathPrefix = 'Temp';
 
@@ -825,23 +828,25 @@ export class MailMessageView extends AbstractViewRight {
 		// Логика удаления временного файла
 		const tempFileInfo = this.currentTempFileInfo();
 		if (tempFileInfo && tempFileInfo.path) { // Проверяем наличие tempFileInfo и его path
+			// Получаем данные пользователя, включая ID для путей к файлам
+			const userData = await this.getCurrentNextcloudUser();
+			if (!userData || !userData.id) {
+				console.error('SnappyMail: closeOnlyOfficeModal - Не удалось получить ID текущего пользователя ' +
+					'Nextcloud для удаления файла.');
+				return;
+			}
+			const currentUser = userData.id; // Используем ID для пути
+
+			if (!nextcloudRequestToken) {
+				console.error('SnappyMail: closeOnlyOfficeModal - Nextcloud request token ' +
+					'is not available для удаления файла.');
+				return;
+			}
+
+			console.log(`SnappyMail: closeOnlyOfficeModal - Попытка удалить временный файл: ${tempFileInfo.path} ` +
+				`для пользователя ${currentUser}`);
+
 			try {
-				const currentUser = await this.getCurrentNextcloudUser();
-				if (!currentUser) {
-					console.error('SnappyMail: closeOnlyOfficeModal - Не удалось получить текущего пользователя ' +
-						'Nextcloud для удаления файла.');
-					return;
-				}
-
-				if (!nextcloudRequestToken) {
-					console.error('SnappyMail: closeOnlyOfficeModal - Nextcloud request token ' +
-						'is not available для удаления файла.');
-					return;
-				}
-
-				console.log(`SnappyMail: closeOnlyOfficeModal - Попытка удалить временный файл: ${tempFileInfo.path} ` +
-					`для пользователя ${currentUser}`);
-
 				const deleteResponse = await fetch(
 					`/remote.php/dav/files/${currentUser}/${tempFileInfo.path}`,
 					{
@@ -937,25 +942,33 @@ export class MailMessageView extends AbstractViewRight {
 		}
 
 		// Получение и отображение имени пользователя Nextcloud
-		this.getCurrentNextcloudUser().then(username => {
+		this.getCurrentNextcloudUser().then(userData => {
 			const usernameDisplayElement = elementById('username-display');
 			if (usernameDisplayElement) {
-				if (username) {
-					usernameDisplayElement.textContent = username;
-					usernameDisplayElement.title = username;
-					console.log(`SnappyMail: onBuild - Имя пользователя "${username}" успешно установлено в #username-display.`);
+				if (userData && userData.displayname) {
+					usernameDisplayElement.textContent = userData.displayname; // Отображаем displayname
+					usernameDisplayElement.title = userData.id; // Подсказка - логин (id)
+					console.log(`SnappyMail: onBuild - DisplayName`+
+						` "${userData.displayname}" установлено в #username-display, Title: "${userData.id}".`);
+				} else if (userData && userData.id) { // Fallback, если displayname отсутствует, но id есть
+					usernameDisplayElement.textContent = userData.id;
+					usernameDisplayElement.title = userData.id;
+					console.warn(`SnappyMail: onBuild - DisplayName отсутствует, использован `+
+						` логин "${userData.id}" для #username-display и Title.`);
 				} else {
 					usernameDisplayElement.textContent = 'Неизвестный пользователь';
+					usernameDisplayElement.title = 'Неизвестный пользователь';
 					console.warn('SnappyMail: onBuild - Имя пользователя не получено, установлено "Неизвестный пользователь".');
 				}
 			} else {
 				console.error('SnappyMail: onBuild - Элемент #username-display не найден в DOM.');
 			}
 		}).catch(error => {
-			console.error('SnappyMail: onBuild - Ошибка при получении имени пользователя Nextcloud:', error);
+			console.error('SnappyMail: onBuild - Ошибка при получении данных пользователя Nextcloud:', error);
 			const usernameDisplayElement = elementById('username-display');
 			if (usernameDisplayElement) {
 				usernameDisplayElement.textContent = 'Ошибка загрузки имени';
+				usernameDisplayElement.title = 'Ошибка загрузки имени';
 			}
 		});
 

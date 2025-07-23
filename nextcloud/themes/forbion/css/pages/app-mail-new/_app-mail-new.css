@@ -749,7 +749,7 @@ header .unified-search__wrapper {
                                 position: relative;
 
                                 &[data-i18n="SETTINGS_LABELS/CONTACTS"] {
-                                    display: none;
+                                    /*display: none;*/
                                 }
 
                                 &.selected {
@@ -1703,6 +1703,7 @@ header .unified-search__wrapper {
 
                         & #V-Settings-Security,
                         & #V-Settings-Accounts,
+                        & #V-Settings-Contacts,
                         & #V-Settings-General,
                         & #V-Settings-Folders,
                         & #V-Settings-Filters {
@@ -1768,6 +1769,55 @@ header .unified-search__wrapper {
                                     height: 20px;
                                     background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
                                     background-repeat: no-repeat;
+                                }
+                            }
+                        }
+
+                        & #V-Settings-Contacts {
+                            & .control-group {
+                                width: 100%;
+                                max-width: 100%;
+                                margin-right: 0;
+
+                                & label {
+                                    width: 100%;
+                                    text-align: left;
+                                }
+
+                                &>:not(label) {
+                                    margin-left: 0;
+
+                                    & .e-component:not(.e-checkbox) {
+                                        position: relative;
+                                        width: 250px;
+
+                                        &:before {
+                                            content: '';
+                                            position: absolute;
+                                            top: 20px;
+                                            right: 10px;
+                                            bottom: 35px;
+                                            width: 16px;
+                                            height: 10px;
+                                            background-image: url("/themes/forbion/images/arrow-select.svg");
+                                            background-repeat: no-repeat;
+                                            pointer-events: none;
+                                            z-index: 1;
+                                        }
+                                    }
+                                }
+
+                                & button.btn {
+                                    box-shadow: unset;
+                                    padding: 6px 25px 6px 25px;
+                                    color: #000000;
+                                    background: #F0F1F4;
+                                    border-radius: 8px;
+                                    transition: opacity .3s;
+
+                                    &:hover {
+                                        opacity: .75;
+                                    }
                                 }
                             }
                         }

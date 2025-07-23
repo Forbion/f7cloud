@@ -44,6 +44,16 @@
                                     background-image: url("/themes/forbion/images/snappymail/menu/accounts-white.svg");
                                 }
 
+                                &[data-i18n="SETTINGS_LABELS/CONTACTS"]:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/accounts.svg");
+                                }
+
+                                &[data-i18n="SETTINGS_LABELS/CONTACTS"].selected:before,
+                                &[data-i18n="SETTINGS_LABELS/CONTACTS"]:hover:before {
+                                    background-image: url("/themes/forbion/images/snappymail/menu/accounts-white.svg");
+                                }
+
+
                                 &[data-i18n="SETTINGS_LABELS/SECURITY"]:before {
                                     transform: translateY(-50%) scale(1.05);
                                     background-image: url("/themes/forbion/images/snappymail/menu/security.svg");

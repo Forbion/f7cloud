@@ -14630,23 +14630,24 @@ body > * {
 			const baseUrl = window.location.origin;
 			const response = await fetch(`${baseUrl}/index.php/csrftoken`);
 
-			console.debug('response',response);
+			console.debug('SnappyMail: fetchNextcloudRequestToken - Получен ответ:', response);
 			if (!response.ok) {
-				console.error('SnappyMail: Failed to fetch CSRF token. HTTP status:', response.status);
+				console.error('SnappyMail: fetchNextcloudRequestToken - Не удалось получить CSRF токен. HTTP статус:',
+					response.status);
 				return null;
 			}
 			const data = await response.json();
 			if (data && data.token) {
 				nextcloudRequestToken = data.token;
-				console.log('SnappyMail: Successfully fetched Nextcloud CSRF token.');
+				console.log('SnappyMail: fetchNextcloudRequestToken - CSRF токен Nextcloud успешно получен.');
 				updateLogoutLink(data.token);
 				return data.token;
 			} else {
-				console.error('SnappyMail: CSRF token not found in response data.', data);
+				console.error('SnappyMail: fetchNextcloudRequestToken - CSRF токен не найден в данных ответа.', data);
 				return null;
 			}
 		} catch (error) {
-			console.error('SnappyMail: Error fetching Nextcloud CSRF token:', error);
+			console.error('SnappyMail: fetchNextcloudRequestToken - Ошибка при получении CSRF токена Nextcloud:', error);
 			return null;
 		}
 	};
@@ -14660,9 +14661,9 @@ body > * {
 		if (logoutLink) {
 			// Обновляем href, сохраняя остальную часть URL
 			logoutLink.href = `/logout?requesttoken=${secureToken}`;
-			console.log('SnappyMail: Logout link updated with new token.');
+			console.log('SnappyMail: updateLogoutLink - Ссылка выхода обновлена новым токеном.');
 		} else {
-			console.warn('SnappyMail: Logout link element not found.');
+			console.warn('SnappyMail: updateLogoutLink - Элемент ссылки выхода не найден.');
 		}
 	};
 
@@ -14670,49 +14671,11 @@ body > * {
 	fetchNextcloudRequestToken().then(token => {
 		if (token) {
 			nextcloudRequestToken = token;
-			console.log('SnappyMail: Local nextcloudRequestToken updated with fetched token.');
+			console.log('SnappyMail: Глобальная переменная nextcloudRequestToken обновлена полученным токеном.');
 		}
 	});
 
 
-	// // Функция для получения данных из data-* атрибутов в <head>
-	// const getNextcloudHeadData = () => {
-	// 	const head = document.head;
-	// 	const userData = head.dataset.user; // data-user
-	// 	if (userData) {
-	// 		console.debug('getNextcloudHeadData: Found data-* attributes in document.head.');
-	// 		return {
-	// 			currentUser: userData || null,
-	// 		};
-	// 	}
-	// 	console.debug('getNextcloudHeadData: No relevant data-* attributes found in document.head.');
-	// 	return null; // Возвращаем null, если данные в DOM не найдены
-	// };
-
-	/**
-	 * Модифицированная функция OC, которая асинхронно получает токен.
-	 * Она теперь может быть вызвана без ожидания, но если токен еще не получен,
-	 * она будет инициализирована с null, а затем обновлена, когда токен прибудет.
-	 */
-	// const OC = (() => {
-	// 	const oc = {
-	// 		config: {
-	// 			appwebroot: '',
-	// 			session_lifetime: 86400,
-	// 			version: '30.0.6',
-	//
-	// 		},
-	// 		requestToken: null,
-	// 	};
-	// 	fetchNextcloudRequestToken().then(token => {
-	// 		if (token) {
-	// 			oc.requestToken = token;
-	// 			console.log('SnappyMail: OC.requestToken updated with fetched token.');
-	//
-	// 		}
-	// 	});
-	// 	return oc;
-	// })();
 
 	class MailMessageView extends AbstractViewRight {
 		constructor() {
@@ -14986,81 +14949,54 @@ body > * {
 		// --- НАЧАЛО МЕТОДОВ КЛАССА MAILMESSAGEVIEW ---
 
 		/**
-		 * Метод для асинхронного получения текущего пользователя Nextcloud.
-		 * Попытается использовать window.OC.getCurrentUser(), но если оно не возвращает
-		 * пользователя, сделает AJAX-запрос к API Nextcloud.
-		 * @returns {Promise<string|null>} Имя текущего пользователя Nextcloud.
+		 * Метод для асинхронного получения текущего пользователя Nextcloud через API.
+		 * @returns {Promise<{id: string, displayname: string}|null>} Объект с ID и отображаемым именем текущего пользователя Nextcloud.
 		 */
 		async getCurrentNextcloudUser() {
-			// Попытка получить пользователя через window.OC.getCurrentUser() с повторными попытками
-			const MAX_RETRIES_OC = 5; // Максимальное количество попыток для window.OC
-			const RETRY_DELAY_MS = 50; // Задержка между попытками в миллисекундах (0.05 секунды)
-
-			for (let i = 0; i < MAX_RETRIES_OC; i++) {
-				if (window.OC && typeof window.OC === 'object' && typeof window.OC.getCurrentUser === 'function') {
-					const userData = window.OC.getCurrentUser();
-					if (userData && (userData.displayName || userData.uid)) {
-						const userName = userData.displayName || userData.uid;
-						console.log(`Nextcloud current user obtained via window.OC.getCurrentUser()
-					 after ${i + 1} attempts:`, userName);
-						return userName;
-					}
-				}
-				console.debug(`Attempt ${i + 1}/${MAX_RETRIES_OC} for window.OC.getCurrentUser():
-			 window.OC or OC.getCurrentUser not yet available or returned null. Retrying...`);
-				await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
-			}
-
-			console.warn('Nextcloud current user not obtained via ' +
-				'window.OC.getCurrentUser() after multiple attempts. Attempting API call.');
-
-			// Если window.OC.getCurrentUser() не сработало, пробуем API-вызов
 			try {
+				console.log('SnappyMail: getCurrentNextcloudUser - Запрос на получение текущего пользователя Nextcloud.');
 				const baseUrl = window.location.origin;
 				const requestToken = await fetchNextcloudRequestToken(); // Убедимся, что токен доступен
 				if (!requestToken) {
-					console.error('getCurrentNextcloudUser: Не удалось получить токен Nextcloud для API-запроса.');
+					console.error('SnappyMail: getCurrentNextcloudUser - Не удалось получить токен Nextcloud для API-запроса.');
 					return null;
 				}
 
-				// Пробуем эндпоинт для получения информации о текущем пользователе
-				// Используем ocs/v2.php/cloud/user для получения данных текущего пользователя
 				const apiUrl = `${baseUrl}/ocs/v2.php/cloud/user?format=json`;
 
-				console.log('getCurrentNextcloudUser: Выполнение API-запроса к:', apiUrl);
+				console.log('SnappyMail: getCurrentNextcloudUser - Выполнение API-запроса к:', apiUrl);
 
 				const response = await fetch(apiUrl, {
 					method: 'GET',
 					headers: {
-						'OCS-APIRequest': 'true', // Обязательный заголовок для OCS API
+						'OCS-APIRequest': 'true',
 						'requesttoken': requestToken,
 						'Content-Type': 'application/json'
 					},
-					credentials: 'include' // Важно для передачи куков сессии
+					credentials: 'include'
 				});
 
 				if (!response.ok) {
 					const errorText = await response.text();
-					console.error(`getCurrentNextcloudUser: API-запрос не удался: ${response.status} - ${errorText}`);
+					console.error(`SnappyMail: getCurrentNextcloudUser - API-запрос не удался: ${response.status} - ${errorText}`);
 					return null;
 				}
 
 				const data = await response.json();
-				console.log('getCurrentNextcloudUser: Ответ API:', data);
+				console.log('SnappyMail: getCurrentNextcloudUser - Ответ API:', data);
 
-				// Предполагаем, что данные пользователя будут в data.ocs.data
 				if (data && data.ocs && data.ocs.data && data.ocs.data.id) {
 					const userId = data.ocs.data.id;
-					const displayName = data.ocs.data.displayname || userId; // displayName может быть не всегда
-					console.log('Nextcloud current user obtained via API call:', displayName);
-					return displayName;
+					const userDisplayName = data.ocs.data.displayname || userId; // Fallback to id if displayname is missing
+					console.log(`SnappyMail: getCurrentNextcloudUser - Получен ID: "${userId}", DisplayName: "${userDisplayName}"`);
+					return { id: userId, displayname: userDisplayName };
 				}
 
-				console.error('getCurrentNextcloudUser: API-ответ не содержит ожидаемых данных пользователя (id).');
+				console.error('SnappyMail: getCurrentNextcloudUser - API-ответ не содержит ожидаемых данных пользователя (id).');
 				return null;
 
 			} catch (error) {
-				console.error('getCurrentNextcloudUser: Ошибка при выполнении API-запроса:', error);
+				console.error('SnappyMail: getCurrentNextcloudUser - Ошибка при выполнении API-запроса:', error);
 				return null;
 			}
 		}
@@ -15073,15 +15009,17 @@ body > * {
 		 * @returns {Promise<void>}
 		 */
 		async ensureTempDirectoryExists(folderPath) {
-			const currentUser = await this.getCurrentNextcloudUser();
-			if (!currentUser) {
-				console.error('ensureTempDirectoryExists: Не удалось получить текущего пользователя Nextcloud. ' +
+			// Получаем данные пользователя, включая ID для путей к файлам
+			const userData = await this.getCurrentNextcloudUser();
+			if (!userData || !userData.id) {
+				console.error('SnappyMail: ensureTempDirectoryExists - Не удалось получить ID текущего пользователя Nextcloud. ' +
 					'Отмена создания каталога.');
-				throw new Error('Nextcloud user not found.');
+				throw new Error('Nextcloud user ID not found.');
 			}
+			const currentUser = userData.id; // Используем ID для пути
 
 			if (!nextcloudRequestToken) {
-				console.error('ensureTempDirectoryExists: Nextcloud request token is not available. ' +
+				console.error('SnappyMail: ensureTempDirectoryExists - Nextcloud request token is not available. ' +
 					'Отмена создания каталога.');
 				throw new Error('Nextcloud request token not found.');
 			}
@@ -15089,7 +15027,7 @@ body > * {
 			const nextcloudDavBaseUrl = `/remote.php/dav/files/${currentUser}/`;
 			const fullDirPath = `${nextcloudDavBaseUrl}${folderPath}`;
 
-			console.log('ensureTempDirectoryExists: Проверка существования каталога:', fullDirPath);
+			console.log('SnappyMail: ensureTempDirectoryExists - Проверка существования каталога:', fullDirPath);
 
 			try {
 				// Попытка проверить существование каталога с помощью PROPFIND
@@ -15101,29 +15039,29 @@ body > * {
 					},
 					credentials: 'include'
 				});
-				console.log('ensureTempDirectoryExists: PROPFIND response status:', response.status);
+				console.log('SnappyMail: ensureTempDirectoryExists - PROPFIND response status:', response.status);
 
 				if (response.status === 207) { // 207 Multi-Status - каталог существует
-					console.log('ensureTempDirectoryExists: Каталог уже существует.');
+					console.log('SnappyMail: ensureTempDirectoryExists - Каталог уже существует.');
 					return;
 				} else if (response.status === 404) {
-					console.log('ensureTempDirectoryExists: Каталог не найден, попытка создать.');
+					console.log('SnappyMail: ensureTempDirectoryExists - Каталог не найден, попытка создать.');
 				} else {
 					// Обработка других статусов ошибок, кроме 404 при PROPFIND
 					const errorText = await response.text();
-					console.error('ensureTempDirectoryExists: Неожиданный статус PROPFIND при проверке каталога:',
+					console.error('SnappyMail: ensureTempDirectoryExists - Неожиданный статус PROPFIND при проверке каталога:',
 						response.status, errorText);
 					throw new Error(`PROPFIND failed with status ${response.status}`);
 				}
 			} catch (error) {
-				console.error('ensureTempDirectoryExists: Ошибка PROPFIND при проверке каталога:', error);
+				console.error('SnappyMail: ensureTempDirectoryExists - Ошибка PROPFIND при проверке каталога:', error);
 				// Если произошла сетевая ошибка или другой вид ошибки fetch, перебрасываем ее
 				throw error;
 			}
 
 			// Если каталог не существует (или PROPFIND выдал 404), создаем его с помощью MKCOL
 			try {
-				console.log('ensureTempDirectoryExists: Попытка создать каталог:', fullDirPath);
+				console.log('SnappyMail: ensureTempDirectoryExists - Попытка создать каталог:', fullDirPath);
 				const createResponse = await fetch(fullDirPath, {
 					method: 'MKCOL',
 					headers: {
@@ -15132,20 +15070,20 @@ body > * {
 					},
 					credentials: 'include'
 				});
-				console.log('ensureTempDirectoryExists: MKCOL response status:', createResponse.status);
+				console.log('SnappyMail: ensureTempDirectoryExists - MKCOL response status:', createResponse.status);
 
 				if (createResponse.status === 201) { // 201 Created - каталог успешно создан
-					console.log('ensureTempDirectoryExists: Каталог успешно создан.');
+					console.log('SnappyMail: ensureTempDirectoryExists - Каталог успешно создан.');
 				} else if (createResponse.status === 405) { // 405 Method Not Allowed - каталог уже существует
-					console.log('ensureTempDirectoryExists: Каталог уже существует (получен 405 при MKCOL).');
+					console.log('SnappyMail: ensureTempDirectoryExists - Каталог уже существует (получен 405 при MKCOL).');
 				} else {
 					const errorText = await createResponse.text();
-					console.error('ensureTempDirectoryExists: Неизвестный статус при создании каталога:',
+					console.error('SnappyMail: ensureTempDirectoryExists - Неизвестный статус при создании каталога:',
 						createResponse.status, errorText);
 					throw new Error('Не удалось создать временный каталог.');
 				}
 			} catch (error) {
-				console.error('ensureTempDirectoryExists: Ошибка при создании временного каталога:', error);
+				console.error('SnappyMail: ensureTempDirectoryExists - Ошибка при создании временного каталога:', error);
 				throw error;
 			}
 		}
@@ -15158,29 +15096,33 @@ body > * {
 		 * @returns {Promise<string|null>} URL для iframe OnlyOffice, или null в случае ошибки.
 		 */
 		async getOnlyOfficeFrameUrl(attachmentItem) {
-			console.log('getOnlyOfficeFrameUrl: Начало процесса загрузки и получения fileId для:', attachmentItem.fileName);
+			console.log('SnappyMail: getOnlyOfficeFrameUrl - Начало процесса загрузки и получения fileId для:',
+				attachmentItem.fileName);
 			const fileDownloadUrl = attachmentItem.linkDownload();
 			const originalFileName = attachmentItem.fileName;
 			const fileMimeType = attachmentItem.mimeType;
 
 			if (!nextcloudRequestToken) {
-				console.error('getOnlyOfficeFrameUrl: Не удалось получить токен ' +
+				console.error('SnappyMail: getOnlyOfficeFrameUrl - Не удалось получить токен ' +
 					'Отмена операции.');
 				return null;
 			}
 
-			const currentUser = await this.getCurrentNextcloudUser();
-			if (!currentUser) {
-				console.error('getOnlyOfficeFrameUrl: Не удалось получить текущего ' +
+			// Получаем данные пользователя, включая ID для путей к файлам
+			const userData = await this.getCurrentNextcloudUser();
+			if (!userData || !userData.id) {
+				console.error('SnappyMail: getOnlyOfficeFrameUrl - Не удалось получить ID текущего ' +
 					'пользователя Nextcloud. Отмена операции.');
 				return null;
 			}
+			const currentUser = userData.id; // Используем ID для пути
 
 			const tempPathPrefix = 'Temp';
 
 			try {
 				// 1. Загружаем файл как blob из SnappyMail
-				console.debug('getOnlyOfficeFrameUrl: Шаг 1/5 - Загрузка файла вложения как Blob из:', fileDownloadUrl);
+				console.debug('SnappyMail: getOnlyOfficeFrameUrl - Шаг 1/5 - Загрузка файла вложения как Blob из:',
+					fileDownloadUrl);
 
 				const downloadResponse = await fetch(fileDownloadUrl, {
 					method: 'GET',
@@ -15196,20 +15138,22 @@ body > * {
 					throw new Error(`Failed to download attachment: ${downloadResponse.status} - ${errorText}`);
 				}
 				const fileBlob = await downloadResponse.blob();
-				console.log('getOnlyOfficeFrameUrl: Шаг 1/5 - Файл вложения успешно загружен в Blob. Размер:',
+				console.log('SnappyMail: getOnlyOfficeFrameUrl - Шаг 1/5 - Файл вложения успешно загружен в Blob. Размер:',
 					fileBlob.size, 'байт.');
 
 				// 2. Создаем временное имя файла для Nextcloud и полный путь
 				const tempFileName = `snappymail_${Date.now()}_${originalFileName.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
 				const fullTempFilePath = `${tempPathPrefix}/${tempFileName}`;
-				console.debug('getOnlyOfficeFrameUrl: Шаг 2/5 - Сформировано временное имя файла и путь:', fullTempFilePath);
+				console.debug('SnappyMail: getOnlyOfficeFrameUrl - Шаг 2/5 - Сформировано временное' +
+					' имя файла и путь:', fullTempFilePath);
 
 				// Проверка и создание временной папки /Temp, если она не существует
 				await this.ensureTempDirectoryExists(tempPathPrefix);
 
 				// 3. Загружаем файл через WebDAV PUT в Nextcloud
 				const uploadUrl = `/remote.php/dav/files/${currentUser}/${fullTempFilePath}`; // Используем currentUser
-				console.debug('getOnlyOfficeFrameUrl: Шаг 3/5 - Загрузка файла в Nextcloud по PUT запросу на URL:', uploadUrl);
+				console.debug('SnappyMail: getOnlyOfficeFrameUrl - Шаг 3/5 - Загрузка файла в Nextcloud по ' +
+					'PUT запросу на URL:', uploadUrl);
 
 				const uploadResponse = await fetch(
 					uploadUrl,
@@ -15229,11 +15173,12 @@ body > * {
 					const errorText = await uploadResponse.text();
 					throw new Error(`Failed to upload file to Nextcloud: ${uploadResponse.status} - ${errorText}`);
 				}
-				console.log('getOnlyOfficeFrameUrl: Шаг 3/5 - Файл успешно загружен во временную папку Nextcloud.');
+				console.log('SnappyMail: getOnlyOfficeFrameUrl - Шаг 3/5 - Файл успешно загружен во временную папку Nextcloud.');
 
 				// 4. Получаем fileid через PROPFIND для только что загруженного файла
 				const propfindUrl = `/remote.php/dav/files/${currentUser}/${fullTempFilePath}`; // Используем currentUser
-				console.debug('getOnlyOfficeFrameUrl: Шаг 4/5 - Получение fileId через PROPFIND запрос к:', propfindUrl);
+				console.debug('SnappyMail: getOnlyOfficeFrameUrl - Шаг 4/5 - Получение fileId через PROPFIND запрос к:',
+					propfindUrl);
 
 				const propfindResponse = await fetch(propfindUrl, {
 					method: 'PROPFIND',
@@ -15255,7 +15200,7 @@ body > * {
 					throw new Error(`Failed PROPFIND for fileId: ${propfindResponse.status} - ${errorText}`);
 				}
 				const propfindText = await propfindResponse.text();
-				console.log('getOnlyOfficeFrameUrl: Шаг 4/5 - PROPFIND запрос выполнен. Статус:',
+				console.log('SnappyMail: getOnlyOfficeFrameUrl - Шаг 4/5 - PROPFIND запрос выполнен. Статус:',
 					propfindResponse.status, 'Ответ:', propfindText);
 
 				// 5. Парсим fileid из XML-ответа
@@ -15265,18 +15210,20 @@ body > * {
 				const fileId = fileIdNode ? fileIdNode.textContent : null;
 
 				if (!fileId) {
-					console.error('getOnlyOfficeFrameUrl: Шаг 5/5 - ОШИБКА: Не удалось получить file ID из ответа PROPFIND. ' +
+					console.error('SnappyMail: getOnlyOfficeFrameUrl - Шаг 5/5 - ОШИБКА: ' +
+						'Не удалось получить file ID из ответа PROPFIND. ' +
 						'Ответ:', propfindText);
 					throw new Error('Could not get file ID from server response');
 				}
-				console.debug('getOnlyOfficeFrameUrl: Шаг 5/5 - fileId успешно получен:', fileId);
+				console.debug('SnappyMail: getOnlyOfficeFrameUrl - Шаг 5/5 - fileId успешно получен:', fileId);
 
 				// Сохраняем информацию о временном файле в модели
 				this.currentTempFileInfo( {
 					id: fileId,
 					path: fullTempFilePath // Сохраняем полный WebDAV путь для удобства
 				});
-				console.log('getOnlyOfficeFrameUrl: Сохранена информация о временном файле:', this.currentTempFileInfo());
+				console.log('SnappyMail: getOnlyOfficeFrameUrl - Сохранена информация о временном файле:',
+					this.currentTempFileInfo());
 
 				// Конечный URL для отображения в iframe FILES
 				// const encodedTempPathPrefix = encodeURIComponent(tempPathPrefix);
@@ -15292,21 +15239,25 @@ body > * {
 					`/apps/onlyoffice/${fileId}` +
 					`?inframe=true&filePath=` + this.currentTempFileInfo().path;
 
-				console.log('getOnlyOfficeFrameUrl: Успех! Сформирован конечный URL Nextcloud Files Viewer:', finalViewerUrl);
+				console.log('SnappyMail: getOnlyOfficeFrameUrl - Успех! Сформирован конечный URL Nextcloud Files Viewer:',
+					finalViewerUrl);
 
 				return finalViewerUrl;
 
 			} catch (error) {
-				console.error('getOnlyOfficeFrameUrl: Общая ошибка в процессе интеграции OnlyOffice:', error);
+				console.error('SnappyMail: getOnlyOfficeFrameUrl - Общая ошибка в процессе интеграции OnlyOffice:', error);
 				if (error.response) { // axios-specific, for fetch use error.message or check response.ok
-					console.error('getOnlyOfficeFrameUrl: Ошибка ответа сервера (возможно, из-за axios, который удален):',
+					console.error('SnappyMail: getOnlyOfficeFrameUrl - Ошибка ответа сервера (возможно,' +
+						' из-за axios, который удален):',
 						error.response.status,
 						error.response.data);
 				} else if (error.request) { // axios-specific
-					console.error('getOnlyOfficeFrameUrl: Нет ответа от сервера (возможно, из-за axios, который удален):',
+					console.error('SnappyMail: getOnlyOfficeFrameUrl - Нет ответа от сервера (возможно,' +
+						' из-за axios, который удален):',
 						error.request);
 				} else {
-					console.error('getOnlyOfficeFrameUrl: Ошибка при настройке запроса или выполнении fetch:', error.message);
+					console.error('SnappyMail: getOnlyOfficeFrameUrl - Ошибка при настройке запроса или ' +
+						'выполнении fetch:', error.message);
 				}
 				// Скрываем индикатор загрузки и показываем сообщение о неподдерживаемом файле в случае ошибки
 				this.isUnsupportedViewerVisible(true);
@@ -15322,9 +15273,9 @@ body > * {
 		 * @returns {Promise<void>}
 		 */
 		async openAttachmentInViewer(attachmentItem) {
-			console.trace('Вызов openAttachmentInViewer');
-			console.log('Клик по вложению для предпросмотра ~');
-			console.log('Вызов openAttachmentInViewer. Имя файла:',
+			console.trace('SnappyMail: openAttachmentInViewer - Вызов openAttachmentInViewer');
+			console.log('SnappyMail: openAttachmentInViewer - Клик по вложению для предпросмотра ~');
+			console.log('SnappyMail: openAttachmentInViewer - Вызов openAttachmentInViewer. Имя файла:',
 				attachmentItem.fileName, 'MIME-тип:', attachmentItem.mimeType);
 
 			this.currentAttachmentFileName(attachmentItem.fileName);
@@ -15346,13 +15297,13 @@ body > * {
 			const supportedImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
 			const supportedPdfTxtExtensions = ['pdf', 'txt']; // txt можно открывать как текст, но и в OO
 
-			console.log('openAttachmentInViewer: Проверка условий OnlyOffice/Nextcloud Files.');
-			console.log('openAttachmentInViewer: officeMimeTypes:', this.officeMimeTypes);
-			console.log('openAttachmentInViewer: current MIME-type:', mimeType);
+			console.log('SnappyMail: openAttachmentInViewer - Проверка условий OnlyOffice/Nextcloud Files.');
+			console.log('SnappyMail: openAttachmentInViewer - officeMimeTypes:', this.officeMimeTypes);
+			console.log('SnappyMail: openAttachmentInViewer - current MIME-type:', mimeType);
 
 			// Встроенный просмотрщик для изображений
 			if (supportedImageExtensions.includes(fileExtension) || mimeType.startsWith('image/')) {
-				console.log('openAttachmentInViewer: Открытие встроенного предпросмотра изображения для:',
+				console.log('SnappyMail: openAttachmentInViewer - Открытие встроенного предпросмотра изображения для:',
 					attachmentItem.fileName);
 				this.isImageViewerVisible(true);
 				this.isOnlyOfficeLoading(false);
@@ -15361,7 +15312,7 @@ body > * {
 			// Встроенный просмотрщик для PDF/текста
 			else if (supportedPdfTxtExtensions.includes(fileExtension) || mimeType.includes('pdf') ||
 				mimeType.includes('text/plain')) {
-				console.log('openAttachmentInViewer: Открытие встроенного предпросмотра PDF/текста для:',
+				console.log('SnappyMail: openAttachmentInViewer - Открытие встроенного предпросмотра PDF/текста для:',
 					attachmentItem.fileName);
 				this.isPdfTxtViewerVisible(true);
 				this.onlyOfficeIframeSrc(attachmentItem.linkPreviewMain()); // или attachmentItem.linkPreviewMain()
@@ -15369,30 +15320,33 @@ body > * {
 			}
 			// Логика для OnlyOffice через Nextcloud Files
 			else if (this.officeMimeTypes.includes(mimeType)) {
-				console.log('Офисный документ обнаружен для просмотра через Nextcloud Files. MIME-тип:', mimeType);
+				console.log('SnappyMail: openAttachmentInViewer - Офисный документ обнаружен для просмотра ' +
+					'через Nextcloud Files. MIME-тип:', mimeType);
 
 				try {
 					const viewerUrl = await this.getOnlyOfficeFrameUrl(attachmentItem);
 
 					if (viewerUrl) {
-						console.log('Получен URL для просмотра Nextcloud Files:', viewerUrl);
+						console.log('SnappyMail: openAttachmentInViewer - Получен URL для просмотра Nextcloud Files:', viewerUrl);
 						this.onlyOfficeIframeSrc(viewerUrl);
 						this.isOnlyOfficeLoading(false);
 					} else {
-						console.warn('Не удалось получить URL для просмотра через Nextcloud Files. ' +
+						console.warn('SnappyMail: openAttachmentInViewer - Не удалось получить' +
+							' URL для просмотра через Nextcloud Files. ' +
 							'Будет показано сообщение о неподдерживаемом файле.');
 						this.isUnsupportedViewerVisible(true);
 						this.isOnlyOfficeLoading(false);
 					}
 				} catch (error) {
-					console.error('Ошибка при генерации или использовании URL Nextcloud Files/OnlyOffice:', error);
+					console.error('SnappyMail: openAttachmentInViewer - Ошибка при генерации или использовании ' +
+						'URL Nextcloud Files/OnlyOffice:', error);
 					this.isUnsupportedViewerVisible(true);
 					this.isOnlyOfficeLoading(false);
 				}
 			}
 			// Если ни один из вышеперечисленных случаев не сработал
 			else {
-				console.log('openAttachmentInViewer: Предпросмотр не поддерживается для MIME-типа:', mimeType);
+				console.log('SnappyMail: openAttachmentInViewer - Предпросмотр не поддерживается для MIME-типа:', mimeType);
 				this.isUnsupportedViewerVisible(true);
 				this.isOnlyOfficeLoading(false);
 			}
@@ -15402,7 +15356,7 @@ body > * {
 		 * Метод, который будет вызван, когда iframe Nextcloud Files Viewer загрузится.
 		 */
 		handleOnlyOfficeLoaded() {
-			console.log('Nextcloud Files iframe (возможно, с OnlyOffice) загружен.');
+			console.log('SnappyMail: handleOnlyOfficeLoaded - Nextcloud Files iframe (возможно, с OnlyOffice) загружен.');
 			this.isOnlyOfficeLoading(false);
 		}
 
@@ -15424,23 +15378,25 @@ body > * {
 			// Логика удаления временного файла
 			const tempFileInfo = this.currentTempFileInfo();
 			if (tempFileInfo && tempFileInfo.path) { // Проверяем наличие tempFileInfo и его path
+				// Получаем данные пользователя, включая ID для путей к файлам
+				const userData = await this.getCurrentNextcloudUser();
+				if (!userData || !userData.id) {
+					console.error('SnappyMail: closeOnlyOfficeModal - Не удалось получить ID текущего пользователя ' +
+						'Nextcloud для удаления файла.');
+					return;
+				}
+				const currentUser = userData.id; // Используем ID для пути
+
+				if (!nextcloudRequestToken) {
+					console.error('SnappyMail: closeOnlyOfficeModal - Nextcloud request token ' +
+						'is not available для удаления файла.');
+					return;
+				}
+
+				console.log(`SnappyMail: closeOnlyOfficeModal - Попытка удалить временный файл: ${tempFileInfo.path} ` +
+					`для пользователя ${currentUser}`);
+
 				try {
-					const currentUser = await this.getCurrentNextcloudUser();
-					if (!currentUser) {
-						console.error('closeOnlyOfficeModal: Не удалось получить текущего пользователя ' +
-							'Nextcloud для удаления файла.');
-						return;
-					}
-
-					if (!nextcloudRequestToken) {
-						console.error('closeOnlyOfficeModal: Nextcloud request token ' +
-							'is not available для удаления файла.');
-						return;
-					}
-
-					console.log(`closeOnlyOfficeModal: Попытка удалить временный файл: ${tempFileInfo.path} ` +
-						`для пользователя ${currentUser}`);
-
 					const deleteResponse = await fetch(
 						`/remote.php/dav/files/${currentUser}/${tempFileInfo.path}`,
 						{
@@ -15457,15 +15413,16 @@ body > * {
 						const errorText = await deleteResponse.text();
 						throw new Error(`Failed to delete temporary file: ${deleteResponse.status} - ${errorText}`);
 					}
-					console.log(`closeOnlyOfficeModal: Временный файл ${tempFileInfo.path} успешно удален из Nextcloud.`);
+					console.log(`SnappyMail: closeOnlyOfficeModal - Временный файл ${tempFileInfo.path} 
+				успешно удален из Nextcloud.`);
 				} catch (deleteError) {
-					console.error('closeOnlyOfficeModal: Ошибка при удалении временного файла:', deleteError);
+					console.error('SnappyMail: closeOnlyOfficeModal - Ошибка при удалении временного файла:', deleteError);
 					// Для fetch, check `deleteError.message` or `deleteError.response`
 				} finally {
 					this.currentTempFileInfo(null); // Сбрасываем информацию о файле
 				}
 			} else {
-				console.log('closeOnlyOfficeModal: Временный файл для удаления не найден или информация неполна.');
+				console.log('SnappyMail: closeOnlyOfficeModal - Временный файл для удаления не найден или информация неполна.');
 			}
 		}
 
@@ -15524,9 +15481,47 @@ body > * {
 		}
 
 		onBuild(dom) {
+			console.log('SnappyMail: onBuild - Метод onBuild вызван.');
 
 			const wrapperBlock = document.querySelector('.rl-wrapper');
-			wrapperBlock.classList.add('active');
+			if (wrapperBlock) {
+				wrapperBlock.classList.add('active');
+				console.log('SnappyMail: onBuild - Класс "active" добавлен к .rl-wrapper.');
+			} else {
+				console.warn('SnappyMail: onBuild - Элемент .rl-wrapper не найден.');
+			}
+
+			// Получение и отображение имени пользователя Nextcloud
+			this.getCurrentNextcloudUser().then(userData => {
+				const usernameDisplayElement = elementById('username-display');
+				if (usernameDisplayElement) {
+					if (userData && userData.displayname) {
+						usernameDisplayElement.textContent = userData.displayname; // Отображаем displayname
+						usernameDisplayElement.title = userData.id; // Подсказка - логин (id)
+						console.log(`SnappyMail: onBuild - DisplayName`+
+							` "${userData.displayname}" установлено в #username-display, Title: "${userData.id}".`);
+					} else if (userData && userData.id) { // Fallback, если displayname отсутствует, но id есть
+						usernameDisplayElement.textContent = userData.id;
+						usernameDisplayElement.title = userData.id;
+						console.warn(`SnappyMail: onBuild - DisplayName отсутствует, использован `+
+							` логин "${userData.id}" для #username-display и Title.`);
+					} else {
+						usernameDisplayElement.textContent = 'Неизвестный пользователь';
+						usernameDisplayElement.title = 'Неизвестный пользователь';
+						console.warn('SnappyMail: onBuild - Имя пользователя не получено, установлено "Неизвестный пользователь".');
+					}
+				} else {
+					console.error('SnappyMail: onBuild - Элемент #username-display не найден в DOM.');
+				}
+			}).catch(error => {
+				console.error('SnappyMail: onBuild - Ошибка при получении данных пользователя Nextcloud:', error);
+				const usernameDisplayElement = elementById('username-display');
+				if (usernameDisplayElement) {
+					usernameDisplayElement.textContent = 'Ошибка загрузки имени';
+					usernameDisplayElement.title = 'Ошибка загрузки имени';
+				}
+			});
+
 
 			const eqs = (ev, s) => ev.target.closestWithin(s, dom);
 			dom.addEventListener('click', event => {
