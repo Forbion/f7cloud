@@ -190,7 +190,7 @@ body#body-settings {
             }
 
             & .settings-section--limit-width:nth-of-type(2) {
-                display: none !important;
+                /*display: none !important;*/
             }
 
             & .settings-section {
