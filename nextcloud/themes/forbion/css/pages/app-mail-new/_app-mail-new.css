@@ -1774,6 +1774,11 @@ header .unified-search__wrapper {
                         }
 
                         & #V-Settings-Contacts {
+
+                            & .alert {
+                                word-break: break-all;
+                            }
+
                             & .control-group {
                                 width: 100%;
                                 max-width: 100%;
