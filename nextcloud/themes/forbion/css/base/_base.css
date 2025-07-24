@@ -273,3 +273,123 @@ body#body-user {
 
 
 }
+
+.poll-card {
+    max-width: 100% !important;
+}
+
+.v-popper__wrapper .searchable-list__wrapper {
+    width:unset !important;
+}
+
+.searchable-list__list .button-vue__text{
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.searchable-list__list .button-vue--vue-tertiary{
+    margin-bottom: 10px;
+}
+
+.input-field__main-wrapper .input-field__label{
+    display: none;
+}
+/*.input-field__main-wrapper .input-field__icon--leading{
+    top: 5px;
+}
+.input-field__main-wrapper .input-field__input{
+   height: 30px !important;
+}*/
+
+.modal-mask {
+
+    & .unified-search-modal__header {
+
+        & .input-field {
+
+            height: 40px;
+
+            & .input-field__main-wrapper {
+
+                height: 40px;
+
+                & input {
+
+                    height: 40px !important;
+
+                }
+            }
+        }
+
+        & .unified-search-modal__filters {
+            margin-top: 8px;
+
+            & > div {
+
+                & button {
+                    background: rgb(112, 182, 43) !important;
+                    transition: opacity .2s;
+
+                    &:hover {
+                        background: rgb(112, 182, 43) !important;
+                        opacity: .75 !important;
+                    }
+                }
+
+                & .button-vue__icon {
+                    svg {
+                        fill: #ffffff;
+                    }
+                }
+
+                & .button-vue__text {
+                    color: #FFFFFF !important;
+                }
+            }
+        }
+
+        & .unified-search-modal__filters-applied {
+
+            & .chip {
+
+                background: rgb(112, 182, 43) !important;
+                transition: opacity .2s;
+            }
+        }
+
+        & .text {
+            color: #FFFFFF;
+        }
+    }
+
+    & .unified-search-custom-date-modal {
+
+        h1 {
+            margin-bottom: 16px;
+        }
+
+        & .unified-search-custom-date-modal__pickers {
+
+            & input {
+                height: 40px !important;
+            }
+        }
+
+        & .unified-search-custom-date-modal__footer {
+            margin-top: 25px !important;
+        }
+
+        .button-vue {
+            background-color: rgb(112, 182, 43) !important;
+
+            & .button-vue__icon {
+                svg {
+                    fill: #ffffff;
+                }
+            }
+
+            & .button-vue__text {
+                color: #FFFFFF !important;
+            }
+        }
+    }
+}
