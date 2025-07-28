@@ -203,6 +203,9 @@
     align-items: center;
     align-self: flex-start;
 }
+#header.header-new .user-control__header:hover button {
+    opacity: .75;
+}
 #header.header-new .user-control__header img {
     pointer-events: none;
 }
@@ -218,7 +221,7 @@
 #header.header-new .user-control__header > div:last-child {
     margin-right: 0 !important;
 }
-#header.header-new .user-control__header > div:hover,
+#header.header-new .user-control__header > div:not(.notifications__wrapper):hover,
 #header.header-new .user-control__header > a:hover,
 #header.header-new .user-control__header > nav:not(.header-menu--opened):hover  {
     opacity: .75
@@ -283,6 +286,15 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25px 30px;
+}
+
+
+#header.header-new .user-control__header .notifications__wrapper {
+    margin-right: 10px;
+    background-image: url("/themes/forbion/images/bell.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 25px 30px !important;
 }
 
 #header.header-new .user-control__header #user-menu .header-menu__wrapper {
@@ -448,4 +460,23 @@
     #header.header-new .l-wrapper .logo__header {
         width: 135px;
     }
+}
+
+.notifications__wrapper .button-vue__wrapper{
+    display: unset !important;
+}
+
+.notifications-button__icon path:first-child {
+    display: none;
+}
+
+.notifications-button__icon path:first-child {
+    display: none;
+}
+.notification__dot{
+    fill:#70B62B !important;
+}
+.notifications__wrapper .button-vue {
+   width: 30px !important;
+   height: 30px !important;
 }
