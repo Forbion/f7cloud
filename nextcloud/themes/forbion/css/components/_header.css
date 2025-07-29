@@ -297,6 +297,35 @@
     background-size: 25px 30px !important;
 }
 
+#header.header-new .user-control__header .notifications__wrapper .header-menu__trigger svg {
+    position: relative;
+}
+
+#header.header-new .user-control__header .notifications__wrapper .header-menu__trigger svg.notifications-button__icon .notification__dot {
+    fill: transparent !important;
+}
+
+#header.header-new .user-control__header .notifications__wrapper .header-menu__trigger .alert-icon {
+    position: relative;
+    margin-right: 20px;
+    width: 10px;
+    height: 10px;
+}
+
+#header.header-new .user-control__header .notifications__wrapper .header-menu__trigger .alert-icon::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background-image: url("/themes/forbion/images/alert-notification.svg");
+    width: 10px;
+    height: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
 #header.header-new .user-control__header #user-menu .header-menu__wrapper {
     top: 65px !important;
     right: 5%;
@@ -313,7 +342,8 @@
     height: 35px !important;
     min-height: 35px !important;
     max-height: 35px !important;
-    border-radius: 50%;
+    border-radius: 50% !important;
+    opacity: 1 !important;
 }
 
 #header.header-new .user-control__header #contactsmenu {
@@ -479,4 +509,30 @@
 .notifications__wrapper .button-vue {
    width: 30px !important;
    height: 30px !important;
+}
+#header.header-new .user-control__header .notifications__wrapper {
+
+    & .notification-container.menu {
+        border-radius: 16px;
+    }
+
+    & .notification-subject {
+        margin-bottom: 6px;
+    }
+
+    & .notification-actions {
+        & > a {
+            width: 100% !important;
+            max-width: fit-content;
+        }
+    }
+
+    & .dismiss-all {
+        & .button-vue__icon {
+            margin-left: -3px;
+        }
+        & .button-vue__text {
+            display: none;
+        }
+    }
 }

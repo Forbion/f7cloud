@@ -50,6 +50,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Выпадающее меню
+document.addEventListener('DOMContentLoaded', function() {
+    // console.log('menu-init');
+    const userMenuLink = document.getElementById('user-menu-f7mail');
+    const dropdownMenu = document.getElementById('header-menu-user-menu-f7mail');
+    // console.log('userMenuLink',userMenuLink);
+    // console.log('dropdownMenu',dropdownMenu);
+
+    if (userMenuLink && dropdownMenu) {
+        // console.log('menu-init1');
+        userMenuLink.addEventListener('click', function(e) {
+            // console.log('menu-init2');
+            e.preventDefault();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', function(e) {
+            // console.log('menu-click');
+            if (!dropdownMenu.contains(e.target) && e.target !== userMenuLink) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    }
+
+    //уведомления иконка
+    setTimeout(function () {
+        const newNotifications = document.getElementsByClassName('notification__dot');
+        if (newNotifications.length > 0) {
+            const spanAlert = document.createElement('span');
+            spanAlert.className = 'alert-icon';
+            newNotifications[0].parentNode.parentNode.appendChild(spanAlert);
+        }
+    }, 2000);
+});
+
+
 //axe
 document.addEventListener('DOMContentLoaded', () => {
     // Конфигурация элементов
@@ -308,42 +344,45 @@ const moveElements = () => {
                 searchBox.querySelector('input')?.focus(); // Фокусируемся на инпуте, если он есть
             }
         });
+
+        // Перемещение searchBox
+        if (searchBox && targetContainer && magnifier) {
+            // console.log('insertBefore');
+            targetContainer.insertBefore(searchBox, magnifier);
+            // targetContainer.append(searchBox);
+            searchBox.style.display = ''; // Скрываем по умолчанию
+        }
+
+
+
+        // Обработчики для поля поиска
+        if (searchBox) {
+            const input = searchBox.querySelector('input'); // Предполагаем, что внутри searchBox есть input
+            if (input) {
+                input.addEventListener('focus', () => {
+                    if (magnifier) {
+                        magnifier.style.display = 'none'; // Скрываем лупу при фокусе
+                    }
+                });
+
+                input.addEventListener('blur', () => {
+                    if (magnifier) {
+                        magnifier.style.display = 'flex'; // Показываем лупу при потере фокуса
+                        searchBox.style.display = 'none'; // Скрываем поле поиска
+                    }
+                });
+            }
+        }
     }
 
     // Перемещение buttonAddReplace
     if (buttonAddReplace && searchBoxActual) {
         searchBoxActual.append(buttonAddReplace);
-        buttonDisabled.style.display = 'flex';
-    }
-
-    // Перемещение searchBox
-    if (searchBox && targetContainer && magnifier) {
-        // console.log('insertBefore');
-        targetContainer.insertBefore(searchBox, magnifier);
-        // targetContainer.append(searchBox);
-        searchBox.style.display = ''; // Скрываем по умолчанию
-    }
-
-
-
-    // Обработчики для поля поиска
-    if (searchBox) {
-        const input = searchBox.querySelector('input'); // Предполагаем, что внутри searchBox есть input
-        if (input) {
-            input.addEventListener('focus', () => {
-                if (magnifier) {
-                    magnifier.style.display = 'none'; // Скрываем лупу при фокусе
-                }
-            });
-
-            input.addEventListener('blur', () => {
-                if (magnifier) {
-                    magnifier.style.display = 'flex'; // Показываем лупу при потере фокуса
-                    searchBox.style.display = 'none'; // Скрываем поле поиска
-                }
-            });
+        if (buttonDisabled) {
+            buttonDisabled.style.display = 'flex';
         }
     }
+
 };
 
 // Выполняем при загрузке страницы
