@@ -17,16 +17,21 @@
 	<link rel="stylesheet" href="/core/css/server.css">
 	<link rel="stylesheet" href="/themes/forbion/css/app.css">
 	<link rel="stylesheet" href="/themes/forbion/css/pages/app-mail-new/_app-mail-new.css">
+	<link rel="stylesheet" href="/apps/notifications/css/notifications-main.css?v=150a2902-11">
 	<script src="/themes/forbion/js/scripts.js"></script>
 
 	<script defer src="/dist/core-common.js?v=72fe44a9-11"></script>
 	<script defer src="/dist/core-main.js?v=72fe44a9-11"></script>
+	<script defer src="/apps/updatenotification/l10n/ru.js?v=771fc02f-11"></script>
+	<script defer src="/dist/updatenotification-init.js?v=771fc02f-11"></script>
 	<script defer src="/dist/core-files_fileinfo.js?v=72fe44a9-11"></script>
 	<script defer src="/dist/core-files_client.js?v=72fe44a9-11"></script>
 	<script defer src="/js/core/merged-template-prepend.js?v=72fe44a9-11"></script>
 	<script defer src="/dist/core-unsupported-browser-redirect.js?v=72fe44a9-11"></script>
 	<script defer src="/core/l10n/ru.js?v=72fe44a9-11"></script>
 	<script defer src="/dist/core-unified-search.js?v=72fe44a9-11"></script>
+	<script defer src="/apps/notifications/l10n/ru.js?v=771fc02f-11"></script>
+	<script defer src="/apps/notifications/js/notifications-main.mjs?v=771fc02f-11" type="module"></script>
 	<script defer src="/apps/spreed/l10n/ru.js?v=72fe44a9-11"></script>
 	<script defer src="/apps/spreed/js/talk-search.js?v=72fe44a9-11"></script>
 <!--	<script defer src="/apps/theming/l10n/ru.js?v=72fe44a9-11"></script>-->
@@ -38,10 +43,14 @@
 	<script nonce="">
 		var _oc_webroot="";
 		var _oc_config={"blacklist_files_regex":"\\.(part|filepart)$","forbidden_filename_characters":["\\","\/","<",">",":","\"","|","?","*","\\","\/"],"auto_logout":false,"loglevel":0,"lost_password_link":null,"modRewriteWorking":true,"no_unsupported_browser_warning":false,"session_keepalive":true,"session_lifetime":1440,"sharing.maxAutocompleteResults":25,"sharing.minSearchStringLength":0,"version":"30.0.6.2","versionstring":"30.0.6","enable_non-accessible_features":true};
+		var _oc_appswebroots={"notifications":"/apps/notifications"};
 		var oc_userconfig={"avatar":{"version":10,"generated":true}};
 	</script>
 </head>
 <body id="rl-app" data-admin='{{BaseAppAdmin}}' spellcheck="false">
+<div id="initial-state-container" style="display: none;">
+	<input type="hidden" id="initial-state-notifications-throttled_push_notifications" value="ZmFsc2U=">
+</div>
 	<header id="header" class="header-new">
 		<div class="l-wrapper">
 		<a href="/" class="logo__header">
