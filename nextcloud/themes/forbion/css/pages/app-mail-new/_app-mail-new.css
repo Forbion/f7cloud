@@ -2636,6 +2636,47 @@ header .unified-search__wrapper {
             }
         }
 
+        & #V-PopupsFolderSystem {
+
+            .modal-body {
+                padding: 30px 20px;
+            }
+
+            .control-group {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    right: 20px;
+                    bottom: 16px;
+                    width: 16px;
+                    height: 10px;
+                    background-image: url("/themes/forbion/images/arrow-select.svg");
+                    background-repeat: no-repeat;
+                    pointer-events: none;
+                    z-index: 1;
+                }
+
+                label {
+                    width: 100%;
+                    text-align: left;
+                    margin-bottom: 8px;
+                }
+
+                & select {
+                    margin: 0;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 8px;
+                    padding: 12px 35px 12px 14px !important;
+                    background: white;
+                    width: 100%;
+                    height: auto;
+                    font-weight: 500;
+                }
+            }
+        }
+
         & #V-PopupsFolderCreate {
 
             max-width: 450px;

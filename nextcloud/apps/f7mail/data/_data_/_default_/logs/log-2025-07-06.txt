@@ -1,7 +1,0 @@
-[2025-07-06 13:28:20.898][48deea52] [INFO]: [SM:0.0.0][IP:89.208.96.248][PID:699224][Apache/2.4.58 (Ubuntu)][apache2handler][Streams:tcp,udp,unix,udg,ssl,tls,tlsv1.0,tlsv1.1,tlsv1.2,tlsv1.3][GET https://prod-general.f7cloud.ru/apps/snappymail/]
-[2025-07-06 13:28:20.949][48deea52] TOKENS[NOTICE]: SESSION_TOKEN value invalid: bool
-[2025-07-06 13:28:20.987][48deea52] [INFO]: Memory peak usage: 6MB
-[2025-07-06 13:28:20.987][48deea52] [INFO]: Time delta: 0.191575050354
-[2025-07-06 13:28:21.360][e373baaa] [INFO]: [SM:0.0.0][IP:89.208.96.248][PID:699224][Apache/2.4.58 (Ubuntu)][apache2handler][Streams:tcp,udp,unix,udg,ssl,tls,tlsv1.0,tlsv1.1,tlsv1.2,tlsv1.3][GET https://prod-general.f7cloud.ru/apps/snappymail/?/AppData/0/6739441273541027/]
-[2025-07-06 13:28:21.363][e373baaa] [INFO]: Memory peak usage: 4MB
-[2025-07-06 13:28:21.363][e373baaa] [INFO]: Time delta: 0.01096510887146
