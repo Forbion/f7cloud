@@ -137,6 +137,12 @@ S
                     }
                 }
 
+                & .alternative-logins {
+                    & .button-vue {
+                        height: unset !important;
+                    }
+                }
+
                 & .button-vue {
 
                     margin-top: 0;
@@ -184,7 +190,7 @@ S
                 }
 
                 & #alternative-logins {
-                    display: none;
+                    /*display: none;*/
                 }
 
                 & a {
@@ -222,6 +228,13 @@ S
 
                     &:not(.login-form__link) {
                         max-width: max-content;
+                        padding: 8px !important;
+                        background-color: #70B62B !important;
+
+                        & .button-vue__text {
+                            padding-left: unset;
+                            padding-inline: 8px;
+                        }
                     }
                 }
 

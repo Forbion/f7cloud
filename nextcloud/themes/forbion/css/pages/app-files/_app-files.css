@@ -844,6 +844,14 @@ body .app-files {
         /*    background-position: center;*/
         /*}*/
 
+        & .app-navigation-entry__settings-quota {
+            --app-navigation-quota-margin: 10px !important;
+
+            & .app-navigation-entry__name::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
 
 
         & .app-navigation__search:after {
@@ -1196,6 +1204,9 @@ body .app-files {
     & .app-navigation-toggle-wrapper > button {
         min-height: 40px !important;
     }
+    .app-navigation-toggle-wrapper > button:hover {
+        background-color: #FFFFFF !important;
+    }
 
     & .searchBoxReplace {
         width: 193px;
@@ -1368,7 +1379,7 @@ body .app-files {
             }
 
             & .files-list__filters {
-                display: none;
+                /*display: none;*/
             }
 
             & .files-list__thead-overlay {

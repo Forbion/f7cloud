@@ -11,6 +11,13 @@
     background: unset !important;
 }
 
+.modal-mask.dialog__modal.app-settings {
+    .modal-wrapper--large>.modal-container {
+        width: 800px;
+        MAX-width: 800px;
+    }
+}
+
 body .app-contacts {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;

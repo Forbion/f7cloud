@@ -623,7 +623,11 @@ body .app-deck {
 }
 
 .overview-wrapper .action-item--single {
-    display: none !important;
+    /*display: none !important;*/
+}
+
+.overview-wrapper .action-item--single .icon-add::before {
+    background-image: unset;
 }
 
 .entity-picker__options[data-v-485cea51] {

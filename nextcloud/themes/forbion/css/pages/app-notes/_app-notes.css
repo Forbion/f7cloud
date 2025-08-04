@@ -1050,3 +1050,7 @@
         }
     }
 }
+
+.app-navigation-entry__settings {
+    display: none !important;
+}
