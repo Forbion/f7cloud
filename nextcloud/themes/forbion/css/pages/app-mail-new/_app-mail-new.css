@@ -1726,10 +1726,13 @@ header .unified-search__wrapper {
                                     & .script-item {
 
                                         & td:first-child {
+                                            display: table-cell;
                                             padding-left: 12px;
                                             padding-top: 6px;
-                                            border-top-left-radius: 8px;
-                                            border-bottom-left-radius: 8px;
+                                            /*border-top-left-radius: 8px;*/
+                                            /*border-bottom-left-radius: 8px;*/
+
+                                            border-radius: 0;
                                         }
 
                                         & td:last-child {
@@ -2061,6 +2064,7 @@ header .unified-search__wrapper {
                                                         }
 
                                                         &:first-child {
+                                                            display: table-cell;
                                                             padding: 10px 20px;
                                                         }
 
