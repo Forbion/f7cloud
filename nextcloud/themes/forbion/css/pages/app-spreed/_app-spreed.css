@@ -676,10 +676,12 @@ body .app-talk{
 }
 .app-talk:not(.in-call) .chatView .new-message-form__input .rich-contenteditable__input {
     --contenteditable-block-offset: 5px !important;
-    height: 36px !important;
+    min-height: 36px;
+    /*height: 36px !important;*/
     /*padding: 0 0 0 60px !important;*/
     border-radius: 23px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow-y: auto;
 }
 .app-talk .chatView .new-message-form__input .rich-contenteditable__input {
     border: 1px solid #E0E0E0 !important;
