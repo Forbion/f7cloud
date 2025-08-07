@@ -160,12 +160,16 @@
     padding: 5px;
     background: #E0E0E0;
     border-radius: 50%;
-    height: 40px !important;
-    width: 40px !important;
+    height: 30px !important;
+    width: 30px !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
     pointer-events: none;
+}
+#rl-app #header.header-new .app-menu .app-menu__list li .app-menu-entry__icon {
+    height: 40px !important;
+    width: 40px !important;
 }
 #header.header-new .app-menu .app-menu__list li .app-menu-entry__icon img {
     width: 100%;
