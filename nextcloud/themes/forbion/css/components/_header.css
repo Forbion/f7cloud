@@ -704,7 +704,8 @@
     #header .help-online__user,
     #header .account-menu,
     #header .unified-search__wrapper,
-    #header .notifications__wrapper {
+    #header .notifications__wrapper,
+    #header #user-menu-f7mail {
         z-index: 1000;
     }
     #header .logo__header {
