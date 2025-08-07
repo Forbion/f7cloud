@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var \OC_Defaults $theme
+ * @var array $_
+ */
+
 $getUserAvatar = static function (int $size) use ($_): string {
     return \OC::$server->getURLGenerator()->linkToRoute('core.avatar.getAvatar', [
         'userId' => $_['user_uid'],
@@ -18,7 +23,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
         <?php
         p(!empty($_['pageTitle']) && $_['pageTitle'] !== $_['application'] ? $_['pageTitle'].' - ' : '');
         p(!empty($_['application']) ? $_['application'].' - ' : '');
-        p($theme->getTitle());
+        p('Forbion F7');
         ?>
     </title>
     <meta name="csp-nonce" nonce="<?php p($_['cspNonce']); /* Do not pass into "content" to prevent exfiltration */ ?>">
@@ -29,6 +34,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php if ($theme->getiTunesAppId() !== '') { ?>
         <meta name="apple-itunes-app" content="app-id=<?php p($theme->getiTunesAppId()); ?>">
     <?php } ?>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="<?php p((!empty($_['application']) && $_['appid'] != 'files')? $_['application']:$theme->getTitle()); ?>">
@@ -43,7 +49,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php emit_script_loading_tags($_); ?>
     <?php print_unescaped($_['headers']); ?>
 
-    <link rel="stylesheet" href="/themes/forbion/css/app.css">
+    <link rel="stylesheet" href="/themes/forbion/css/app.css?="<?=rand(1,100)?>>
 
     <?php
     $cssMapping = [
@@ -51,13 +57,13 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
         '/apps/files' => '/themes/forbion/css/pages/app-files/_app-files.css',
         '/apps/calendar' => '/themes/forbion/css/pages/app-calendar/_app-calendar.css',
         '/apps/contacts' => '/themes/forbion/css/pages/app-contacts/_app-contacts.css',
-        '/apps/deck' => '/themes/forbion/css/pages/app-deck/_app-deck.css?'.rand(1,1000),
+        '/apps/deck' => '/themes/forbion/css/pages/app-deck/_app-deck.css',
         '/apps/tasks' => '/themes/forbion/css/pages/app-tasks/_app-tasks.css',
         '/settings' => '/themes/forbion/css/pages/page-settings/_page-settings.css',
         '/settings/users' => '/themes/forbion/css/pages/page-settings/_page-users.css',
         '/apps/spreed' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
         '/call' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
-        '/apps/notes' => '/themes/forbion/css/pages/app-notes/_app-notes.css'
+        '/apps/notes/' => '/themes/forbion/css/pages/app-notes/_app-notes.css'
     ];
 
     $currentUri = $_SERVER['REQUEST_URI'] ?? '';
@@ -88,6 +94,11 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 ?>
 <header id="header" class="header-new" <?= $headerStyle ?>>
     <div class="l-wrapper">
+        <button class="is-header__burger" type="button">
+            <i></i>
+            <i></i>
+            <i></i>
+        </button>
         <a href="/" class="logo__header">
             <img src="/themes/forbion/images/logo-header.svg" alt="logo">
         </a>
@@ -95,7 +106,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
             <ul class="app-menu__list">
                 <li class="app-menu-entry">
                     <a href="/apps/f7mail/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/mail.svg" alt="mail">
                         </span>
                         <span class="app-menu-entry__label">Почта</span>
@@ -103,7 +114,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/files/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/files.svg" alt="files">
                         </span>
                         <span class="app-menu-entry__label">Файлы</span>
@@ -111,7 +122,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/calendar/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/calendar.svg" alt="calendar">
                         </span>
                         <span class="app-menu-entry__label">Календарь</span>
@@ -119,7 +130,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/contacts/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/contacts.svg" alt="contacts">
                         </span>
                         <span class="app-menu-entry__label">Контакты</span>
@@ -127,7 +138,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/spreed/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/conferences.svg" alt="conferences">
                         </span>
                         <span class="app-menu-entry__label">Конференции</span>
@@ -135,7 +146,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/settings/user/security" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
+<!--                        <span class="app-menu-entry__icon">-->
 <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" viewBox="0 0 28 30" fill="none">-->
 <!--                                <circle cx="14" cy="9" r="8.55" fill="#F5F5F5" stroke="black" stroke-width="0.9" />-->
 <!--                                <circle cx="14" cy="9" r="5.55" fill="#E0E0E0" stroke="black" stroke-width="0.9" />-->
@@ -151,7 +162,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 <!--                </li>-->
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/apps/contacts/" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
+<!--                        <span class="app-menu-entry__icon">-->
 <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="29" viewBox="0 0 26 29" fill="none">-->
 <!--                                <path d="M4 25.2893V3.71C4 2.21331 5.21331 1 6.71 1H22.29C23.7867 1 25 2.21331 25 3.71V25.2893C25 26.7864 23.7864 28 22.2893 28H6.71067C5.21361 28 4 26.7864 4 25.2893Z" fill="#F5F5F5" stroke="black" stroke-width="0.903555" />-->
 <!--                                <path d="M4 26V3C4 1.89543 4.89543 1 6 1H8V28H6C4.89543 28 4 27.1046 4 26Z" fill="#F5F5F5" stroke="black" stroke-width="0.903555" />-->
@@ -177,7 +188,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 <!--                </li>-->
                 <li class="app-menu-entry">
                     <span class="app-menu-entry__link-more">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/more.svg" alt="more">
                         </span>
                         <span class="app-menu-entry__label">Еще</span>
@@ -187,7 +198,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
             <ul class="app-menu__list hidden-app-menu__list">
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/apps/mail/" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
+<!--                        <span class="app-menu-entry__icon">-->
 <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="25" viewBox="0 0 31 25" fill="none">-->
 <!--                                <path d="M1 3.33195V22.2722C1 22.8812 1.36501 23.4309 1.92631 23.6671C2.11218 23.7454 2.31181 23.7857 2.51347 23.7857H14.2872H21.3335H28.1001C28.2854 23.7857 28.4696 23.7573 28.6463 23.7015L28.7223 23.6775C29.4771 23.4392 29.9903 22.7391 29.9903 21.9476V3.33195C29.9903 2.33004 29.1781 1.51782 28.1761 1.51782H15.4951H2.81413C1.81221 1.51782 1 2.33004 1 3.33195Z" fill="#F5F5F5" stroke="black" stroke-width="0.907066"></path>-->
 <!--                                <path d="M29.5785 20.5535L17.4516 8.17127C16.3816 7.07877 14.6218 7.08216 13.5561 8.17876L1.75937 20.3169C1.27243 20.8179 1.00003 21.4891 1.00003 22.1877V22.6527C1.00003 23.0415 1.1994 23.4031 1.52818 23.6107C1.70922 23.725 1.91896 23.7857 2.13308 23.7857H3.41589L8.16288 23.7857L21.7535 23.7857L28.3797 23.7857C30.0271 23.7857 30.4021 21.643 29.5785 20.5535Z" stroke="black" stroke-width="0.907066"></path>-->
@@ -201,7 +212,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 <!--                </li>-->
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/apps/contacts/" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
+<!--                        <span class="app-menu-entry__icon">-->
 <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">-->
 <!--                                <path d="M28 12.6762V19.3238C28 20.8018 26.8018 22 25.3237 22H3.67625C2.1982 22 1 20.8018 1 19.3238V9.67625C1 8.1982 2.1982 7 3.67625 7H14.8915C15.6012 7 16.282 7.28196 16.7839 7.78386L18.2161 9.21614C18.718 9.71804 19.3988 10 20.1085 10H25.3238C26.8018 10 28 11.1982 28 12.6762Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083"></path>-->
 <!--                                <path d="M5 1V22H25V1H5Z" fill="#F5F5F5" stroke="black" stroke-width="0.892083"></path>-->
@@ -217,7 +228,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 <!--                </li>-->
 <!--                <li class="app-menu-entry">-->
 <!--                    <a href="/settings/user/security" class="app-menu-entry__link">-->
-<!--                        <span class="app-menu-enty__icon">-->
+<!--                        <span class="app-menu-entry__icon">-->
 <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" viewBox="0 0 28 30" fill="none">-->
 <!--                                <circle cx="14" cy="9" r="8.55" fill="#F5F5F5" stroke="black" stroke-width="0.9" />-->
 <!--                                <circle cx="14" cy="9" r="5.55" fill="#E0E0E0" stroke="black" stroke-width="0.9" />-->
@@ -233,7 +244,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
 <!--                </li>-->
                 <li class="app-menu-entry">
                     <a href="/apps/deck/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/cards.svg" alt="cards">
                         </span>
                         <span class="app-menu-entry__label">Карточки</span>
@@ -241,7 +252,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/tasks/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/tasks.svg" alt="tasks">
                         </span>
                         <span class="app-menu-entry__label">Задачи</span>
@@ -249,7 +260,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                 </li>
                 <li class="app-menu-entry">
                     <a href="/apps/notes/" class="app-menu-entry__link">
-                        <span class="app-menu-enty__icon">
+                        <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/notes.svg" alt="notes">
                         </span>
                         <span class="app-menu-entry__label">Заметки</span>
@@ -266,11 +277,18 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
             <div class="unified-search__wrapper">
                 <div id="unified-search"></div>
             </div>
+
 <!--            <a href="/u/--><?php //p($_['user_uid']);?><!--" class="name__user">-->
             <a class="name__user" style="cursor: default;">
-                <?php p($_['user_uid']); ?>
+                <?php p($_['user_displayname']); ?>
             </a>
+
             <div id="user-menu"></div>
+
+            <div class="notifications__wrapper">
+                <div id="notifications"></div>
+            </div>
+
 <!--            <div id="contactsmenu"></div>-->
             <div class="help-online__user">
                 <a target ="_blank" href = "https://lk.forbion.ru/accounts/login/">

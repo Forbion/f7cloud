@@ -1,5 +1,12 @@
 /* DEFAULT FORBION */
 
+html {
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
 *::selection {
     background: rgb(179, 215, 255) !important;
     color: rgb(0, 0, 0) !important;

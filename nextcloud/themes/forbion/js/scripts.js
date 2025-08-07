@@ -480,3 +480,18 @@ if (document.readyState === 'complete') {
 } else {
     document.addEventListener('DOMContentLoaded', initSnappyMailPasswordToggle);
 }
+
+//hamburger
+document.addEventListener('DOMContentLoaded', function() {
+    const burgerButton = document.querySelector('#header .is-header__burger');
+    const appMenu = document.querySelector('#header .app-menu');
+    const html = document.querySelector('html');
+
+    if (burgerButton && appMenu) {
+        burgerButton.addEventListener('click', function() {
+            this.classList.toggle('is-show-mobile-menu');
+            appMenu.classList.toggle('show');
+            html.classList.toggle('no-scroll');
+        });
+    }
+});
