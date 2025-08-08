@@ -602,11 +602,23 @@ header .unified-search__wrapper {
                                             margin-top: -3px;
                                         }
 
+                                        &[data-icon="★"]:before {
+                                            background-image: url("/themes/forbion/images/snappymail/flagged.svg");
+                                            margin-top: -4px;
+                                        }
+
+                                        &[data-icon="★"].selected:before {
+                                            background-image: url("/themes/forbion/images/snappymail/flagged-active.svg");
+                                        }
+
                                         &:hover {
                                             &[data-icon="📥"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/inbox-active.svg");
                                                 transform: scale(1.02);
                                                 margin-top: -1px;
+                                            }
+                                            &[data-icon="★"]:before {
+                                                background-image: url("/themes/forbion/images/snappymail/flagged-active.svg");
                                             }
                                             &[data-icon="🗎"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/drafts-active.svg");
@@ -631,7 +643,23 @@ header .unified-search__wrapper {
                                     }
 
                                     & .flag-icon {
-                                        display: none;
+                                        /*display: none;*/
+                                        position: relative;
+                                        margin-top: -17px;
+                                        margin-left: 10px;
+
+                                        &:after {
+                                            content: '' !important;
+                                            color: unset;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            width: 16px;
+                                            height: 16px;
+                                            margin: 0;
+                                            background-repeat: no-repeat;
+                                            background-image: url("/themes/forbion/images/snappymail/flagged-active.svg");
+                                        }
                                     }
                                 }
                             }
