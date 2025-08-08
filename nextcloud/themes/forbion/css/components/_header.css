@@ -692,6 +692,8 @@
             width: 100% !important;
             border-radius: 8px !important;
             margin: 0;
+            max-width: -webkit-fill-available;
+            text-align: center;
 
             &:not(:first-child) {
                 margin-top: 8px;
@@ -705,6 +707,7 @@
             max-width: unset !important;
             border-radius: 8px !important;
             margin: 0;
+            text-align: center;
 
             &:not(:first-child) {
                 margin-top: 8px;
