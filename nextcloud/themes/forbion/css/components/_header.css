@@ -686,9 +686,29 @@
     }
 
     & .notification-actions {
+        display: flex;
+        flex-direction: column;
         & > a {
             width: 100% !important;
-            max-width: fit-content;
+            border-radius: 8px !important;
+            margin: 0;
+
+            &:not(:first-child) {
+                margin-top: 8px;
+            }
+        }
+        & > button {
+            width: 100% !important;
+            height: 100% !important;
+            min-width: unset !important;
+            max-height: unset !important;
+            max-width: unset !important;
+            border-radius: 8px !important;
+            margin: 0;
+
+            &:not(:first-child) {
+                margin-top: 8px;
+            }
         }
     }
 
