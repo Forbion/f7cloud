@@ -5049,3 +5049,28 @@ input {
     }
 }
 
+.onlyoffice-modal-overlay {
+
+    & .modal-header {
+        max-height: 80px;
+    }
+
+    & .modal-body {
+        height: 100% !important;
+    }
+
+    & .modal-footer {
+        position: absolute;
+        top: 60px;
+        right: 150px;
+
+        & > * {
+
+            box-shadow: unset;
+
+            &:not(:first-child) {
+                margin-left: 16px;
+            }
+        }
+    }
+}
