@@ -5061,8 +5061,8 @@ input {
 
     & .modal-footer {
         position: absolute;
-        top: 60px;
-        right: 150px;
+        top: calc(5% - 5px);
+        right: calc(5% + 55px);
 
         & > * {
 
@@ -5070,6 +5070,10 @@ input {
 
             &:not(:first-child) {
                 margin-left: 16px;
+            }
+
+            &[data-bind="click: closeOnlyOfficeModal"] {
+                display: none;
             }
         }
     }
