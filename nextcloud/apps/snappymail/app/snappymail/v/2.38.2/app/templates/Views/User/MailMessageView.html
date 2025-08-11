@@ -134,6 +134,9 @@
 		</div>
 
 		<div class="messageItemHeader" data-bind="if: message, i18nUpdate: message">
+			<div class="attachment-import calendar" id="loadCalendars" style="cursor: pointer">
+				Импортировать в календарь
+			</div>
 			<div class="subjectParent">
 				<span class="infoParent g-ui-user-select-none fontastic" data-bind="click: toggleFullInfo">ℹ</span>
 				<span class="flagParent g-ui-user-select-none flagOff fontastic" data-bind="text: message().isFlagged() ? '★' : '☆', css: {flagOn: message().isFlagged(), flagOff: !message().isFlagged()}"></span>

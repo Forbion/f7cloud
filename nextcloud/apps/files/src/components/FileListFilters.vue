@@ -36,15 +36,32 @@ import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
 import NcChip from '@nextcloud/vue/dist/Components/NcChip.js'
 
 const filterStore = useFiltersStore()
-const visualFilters = computed(() => filterStore.filtersWithUI)
-const activeChips = computed(() => filterStore.activeChips)
+const visualFilters = computed(() => {
+  console.log('[Debug] visualFilters updated:', filterStore.filtersWithUI)
+  return filterStore.filtersWithUI
+})
+const activeChips = computed(() => {
+  console.log('[Debug] activeChips updated:', filterStore.activeChips)
+  return filterStore.activeChips
+})
 
 const filterElements = ref<HTMLElement[]>([])
+
 watchEffect(() => {
-	filterElements.value
-		.forEach((el, index) => visualFilters.value[index].mount(el))
+  console.log('[Debug] watchEffect triggered')
+  console.log('[Debug] filterElements:', filterElements.value)
+  console.log('[Debug] visualFilters length:', visualFilters.value.length)
+  filterElements.value.forEach((el, index) => {
+    console.log(`[Debug] Mounting filter index ${index}`, el)
+    try {
+      visualFilters.value[index].mount(el)
+    } catch (err) {
+      console.error('[Debug] Error mounting filter:', err)
+    }
+  })
 })
 </script>
+
 
 <style scoped lang="scss">
 .file-list-filters {
