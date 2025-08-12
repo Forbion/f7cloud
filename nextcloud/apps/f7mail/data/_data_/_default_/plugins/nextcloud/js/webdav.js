@@ -395,7 +395,13 @@ class NextcloudCalendarsPopupView extends rl.pluginPopupView {
 				const e = responseList[i];
 				if (getDavElementByTagName(e, 'resourcetype').getElementsByTagNameNS(nsCalDAV, 'calendar').length) {
 					const displayNameElement = getElementsInNamespaces(e, 'displayname')[0];
-					const displayName = displayNameElement ? displayNameElement.textContent.trim() : '';
+
+					//custom
+					let displayName = displayNameElement ? displayNameElement.textContent.trim() : '';
+
+					if (displayName.includes('Deck:')) {
+						displayName = displayName.replace('Deck:', 'Карточки:');
+					}
 
 					const hrefElement = getElementsInNamespaces(e, 'href')[0];
 					const href = hrefElement ? hrefElement.textContent.trim() : '';
