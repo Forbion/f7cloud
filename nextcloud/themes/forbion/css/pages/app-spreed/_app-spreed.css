@@ -508,6 +508,24 @@ body .app-talk{
     --icon-size: 28px !important;
     width: 28px !important;
     height: 28px !important;
+    margin-right: 10px;
+}
+.app-talk .conversation-icon:after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    background: url("/themes/forbion/images/iconSpreed.png") no-repeat;
+    background-position: center;
+    transform: scale(.9);
+}
+.app-talk .conversation-icon .avatardiv__user-status {
+    z-index: 1;
+}
+.app-talk .conversation-icon .avatar.icon {
+    display: none !important;
 }
 .app-talk:not(.in-call) .button-vue--vue-secondary {
     background-color: unset !important;
