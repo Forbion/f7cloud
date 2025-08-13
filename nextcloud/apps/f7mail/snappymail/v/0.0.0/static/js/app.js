@@ -3959,7 +3959,8 @@
 		 * @returns {string}
 		 */
 		iconClass() {
-			return FileInfo.getTypeIconClass(this.fileType);
+			return this.fileType;
+			// return FileInfo.getTypeIconClass(this.fileType);
 		}
 	}
 

@@ -1727,9 +1727,58 @@ header .unified-search__wrapper {
                                                         height: 100%;
                                                     }
 
-                                                    &.icon-file-calendar {
+                                                    &.calendar {
                                                         &:before {
                                                             background-image: url('/themes/forbion/images/snappymail/attachmentIconCalendar.svg');
+                                                        }
+                                                    }
+
+                                                    &.pdf {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconPdf.svg');
+                                                        }
+                                                    }
+
+                                                    &.eml {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconEml.svg');
+                                                        }
+                                                    }
+
+                                                    &.text,
+                                                    &.txt {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconText.svg');
+                                                        }
+                                                    }
+
+                                                    &.mp3,
+                                                    &.audio {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconAudio.svg');
+                                                        }
+                                                    }
+
+                                                    &.doc,
+                                                    &.docx,
+                                                    &.docs {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconDoc.svg');
+                                                        }
+                                                    }
+
+                                                    &.excel,
+                                                    &.xls,
+                                                    &.xlsx {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconXls.svg');
+                                                        }
+                                                    }
+
+                                                    &.ppt,
+                                                    &.pptx {
+                                                        &:before {
+                                                            background-image: url('/themes/forbion/images/snappymail/attachmentIconPpt.svg');
                                                         }
                                                     }
                                                 }
