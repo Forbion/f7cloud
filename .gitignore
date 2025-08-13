@@ -1,3 +1,9 @@
 /nextcloud/data
 /nextcloud/config/config.php
 /nextcloud/apps/f7mail/data/_data_/_default_/configs
+/nextcloud/apps/f7mail/data/_data_/_default_/logs/
+/nextcloud/apps/f7mail/data/_data_/_default_/storage/
+/nextcloud/apps/f7mail/.docker/dev/mail/config/
+/nextcloud/apps/f7mail/data/_data_/_default_/domains/nextcloud.json
+
+
