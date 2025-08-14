@@ -30,6 +30,7 @@
 
 .content.app-talk .conversation-icon .avatar.icon.icon-contacts {
 	background-size: 21px !important;
+	background-position-x: 4px;
 }
 
 .app-talk .icon-contacts,
