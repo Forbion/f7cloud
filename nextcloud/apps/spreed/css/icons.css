@@ -24,6 +24,14 @@
 	background-image: url(../img/icon-public-white.svg);
 }
 
+.conversation-icon .avatar.icon {
+	background-color: #E0E0E0 !important;
+}
+
+.content.app-talk .conversation-icon .avatar.icon.icon-contacts {
+	background-size: 21px !important;
+}
+
 .app-talk .icon-contacts,
 .modal-mask .icon-contacts,
 .v-popper__popper .icon-contacts,
@@ -32,7 +40,7 @@
 #talk-sidebar .icon-contacts,
 #call-container .icon-contacts,
 .talkChatTab .icon-contacts {
-	background-image: url(../img/icon-contacts-white.svg);
+	background-image: url(../../../themes/forbion/images/iconSpreed.svg);
 }
 
 .app-talk .icon-phone,
