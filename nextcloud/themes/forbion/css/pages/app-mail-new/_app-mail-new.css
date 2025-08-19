@@ -617,24 +617,30 @@ header .unified-search__wrapper {
                                                 transform: scale(1.02);
                                                 margin-top: -1px;
                                             }
+
                                             &[data-icon="★"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/flagged-active.svg");
                                             }
+
                                             &[data-icon="🗎"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/drafts-active.svg");
                                                 margin-left: 1px;
                                             }
+
                                             &[data-icon="📧"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/sended-active.svg");
                                             }
+
                                             &[data-icon="⚠"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/spam-active.svg");
                                                 margin-top: -3px;
                                             }
+
                                             &[data-icon="🗑"]:before {
                                                 background-image: url("/themes/forbion/images/snappymail/trash-active.svg");
                                                 margin-top: -3px;
                                             }
+
                                             &[data-icon="🗄"]:before {
                                                 background-image: url("/themes/forbion/images/inbox-mail-white.svg");
                                                 margin-top: -3px;
@@ -910,6 +916,7 @@ header .unified-search__wrapper {
                                         }
                                     }
                                 }
+
                                 /*display: none;*/
                             }
 
@@ -1023,13 +1030,13 @@ header .unified-search__wrapper {
                                     }
                                 }
 
-                                & .dropdown-menu *+.dividerbar {
+                                & .dropdown-menu * + .dividerbar {
                                     margin-top: 0 !important;
                                     padding-top: 0 !important;
                                     border-top: unset !important;
                                 }
 
-                                & .dropdown-menu li:not(.disabled)>a:focus, .dropdown-menu li:not(.disabled)>a:hover {
+                                & .dropdown-menu li:not(.disabled) > a:focus, .dropdown-menu li:not(.disabled) > a:hover {
                                     background-color: #70B62B;
                                     border-radius: 8px;
                                 }
@@ -1242,6 +1249,7 @@ header .unified-search__wrapper {
                                                 right: 39px;
                                             }
                                         }
+
                                         & .btn-group-mail-dropdown {
                                             & .wrapper {
                                                 display: block !important;
@@ -1274,6 +1282,7 @@ header .unified-search__wrapper {
 
                                     &.msgflag-\\flagged .flagParent {
                                         display: block;
+
                                         &:after {
                                             background-image: url("/themes/forbion/images/snappymail/menu/star-fill.svg") !important;
                                         }
@@ -1411,13 +1420,13 @@ header .unified-search__wrapper {
                                             }
                                         }
 
-                                        & .dropdown-menu *+.dividerbar {
+                                        & .dropdown-menu * + .dividerbar {
                                             margin-top: 0 !important;
                                             padding-top: 0 !important;
                                             border-top: unset !important;
                                         }
 
-                                        & .dropdown-menu li:not(.disabled)>a:focus, .dropdown-menu li:not(.disabled)>a:hover {
+                                        & .dropdown-menu li:not(.disabled) > a:focus, .dropdown-menu li:not(.disabled) > a:hover {
                                             background-color: #70B62B;
                                             border-radius: 8px;
                                         }
@@ -1521,7 +1530,7 @@ header .unified-search__wrapper {
                                         opacity: 1;
                                         line-height: normal;
                                         transition: opacity .3s;
-                                        text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+                                        text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
                                         padding: 0 12px;
 
                                         &:hover {
@@ -1621,20 +1630,20 @@ header .unified-search__wrapper {
                                             }
                                         }
 
-                                        & .dropdown-menu *+.dividerbar {
+                                        & .dropdown-menu * + .dividerbar {
                                             margin-top: 0 !important;
                                             padding-top: 0 !important;
                                             border-top: unset !important;
                                         }
 
-                                        & .dropdown-menu li:not(.disabled)>a:focus, .dropdown-menu li:not(.disabled)>a:hover {
+                                        & .dropdown-menu li:not(.disabled) > a:focus, .dropdown-menu li:not(.disabled) > a:hover {
                                             background-color: #70B62B;
                                             border-radius: 8px;
                                         }
                                     }
                                 }
 
-                                & .messageItemHeader{
+                                & .messageItemHeader {
 
                                     background: #FFFFFF;
                                     padding: 5px 20px 10px;
@@ -1846,9 +1855,29 @@ header .unified-search__wrapper {
 
                             & .list-table {
 
+                                position: relative;
+                                margin-bottom: 0;
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    left: 0;
+                                    bottom: -10px;
+                                    width: 100%;
+                                    height: 1px;
+                                    background: #E6E6E6;
+                                }
+
                                 & tbody {
 
+                                    & th,
+                                    & td {
+                                        border: unset !important;
+                                    }
+
                                     & .script-item {
+
+                                        position: relative;
 
                                         & td:first-child {
                                             display: table-cell;
@@ -1858,11 +1887,75 @@ header .unified-search__wrapper {
                                             /*border-bottom-left-radius: 8px;*/
 
                                             border-radius: 0;
+
+                                            &.no-active,
+                                            & .no-active {
+
+                                                width: 16px;
+                                                height: 16px;
+
+                                                span {
+
+                                                    pointer-events: none;
+
+                                                    &:after {
+                                                        content: '';
+                                                        position: absolute;
+                                                        top: 10px;
+                                                        left: 12px;
+                                                        background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
+                                                        background-position: center;
+                                                        width: 16px;
+                                                        height: 16px;
+                                                    }
+                                                }
+                                            }
+
+                                            &.active,
+                                            & .active {
+
+                                                width: 16px;
+                                                height: 16px;
+
+                                                span {
+
+                                                    pointer-events: none;
+
+                                                    &:after {
+                                                        content: '';
+                                                        position: absolute;
+                                                        top: 11px;
+                                                        left: 12px;
+                                                        background-image: url("/themes/forbion/images/checkbox-marked-icon.svg");
+                                                        background-position: center;
+                                                        width: 16px;
+                                                        height: 16px;
+                                                    }
+                                                }
+                                            }
                                         }
 
                                         & td:last-child {
                                             border-top-right-radius: 8px;
                                             border-bottom-right-radius: 8px;
+                                            position: relative;
+
+                                            & .e-action {
+                                                position: relative;
+                                                font-size: 0;
+
+                                                &:after {
+                                                    content: '';
+                                                    position: absolute;
+                                                    left: -20px;
+                                                    top: -13px;
+                                                    width: 16px;
+                                                    height: 16px;
+                                                    background-image: url("/themes/forbion/images/trashbin2.svg");
+                                                    background-position: center;
+                                                    z-index: 1;
+                                                }
+                                            }
                                         }
 
                                         &:not(:last-child) {
@@ -1877,14 +1970,15 @@ header .unified-search__wrapper {
                             }
 
                             & .bnt-add {
+                                margin-top: 15px;
                                 position: relative;
                                 padding: 12px 14px 12px 40px;
-                                color: #FFFFFF;
+                                color: #808080;
                                 height: 40px;
                                 line-height: normal;
-                                background: #70B62B;
                                 border-radius: 8px;
                                 box-shadow: unset;
+                                font-weight: normal;
                                 border: unset;
 
                                 &:before {
@@ -1893,9 +1987,10 @@ header .unified-search__wrapper {
                                     left: 13px;
                                     top: 50%;
                                     transform: translateY(-50%);
+                                    margin-top: 1px;
                                     width: 20px;
                                     height: 20px;
-                                    background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
+                                    background-image: url("/themes/forbion/images/plus-gray.svg");
                                     background-repeat: no-repeat;
                                 }
                             }
@@ -1917,7 +2012,7 @@ header .unified-search__wrapper {
                                     text-align: left;
                                 }
 
-                                &>:not(label) {
+                                & > :not(label) {
                                     margin-left: 0;
 
                                     & .e-component:not(.e-checkbox) {
@@ -2392,7 +2487,7 @@ header .unified-search__wrapper {
                                             padding-right: 12px !important;
                                         }
 
-                                        & input+div[role="checkbox"] {
+                                        & input + div[role="checkbox"] {
                                             border: unset !important;
                                             background-image: url("/themes/forbion/images/snappymail/default-checkbox-tumbler.svg");
                                             width: 24px !important;
@@ -2406,7 +2501,7 @@ header .unified-search__wrapper {
                                             cursor: pointer;
                                         }
 
-                                        & input:checked+div[role="checkbox"] {
+                                        & input:checked + div[role="checkbox"] {
                                             background-image: url("/themes/forbion/images/snappymail/active-checkbox-tumbler.svg") !important;
                                         }
 
@@ -2904,7 +2999,7 @@ header .unified-search__wrapper {
                             display: none;
                         }
 
-                        & input+div[role="checkbox"] {
+                        & input + div[role="checkbox"] {
                             border: unset !important;
                             background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
                             width: 24px !important;
@@ -2921,7 +3016,7 @@ header .unified-search__wrapper {
                             background-color: unset !important;
                         }
 
-                        & input:checked+div[role="checkbox"] {
+                        & input:checked + div[role="checkbox"] {
                             background-image: url("/themes/forbion/images/checkbox-marked-icon.svg") !important;
                         }
                     }
@@ -3117,7 +3212,7 @@ header .unified-search__wrapper {
                                 max-width: unset;
                             }
 
-                            & input+div[role="checkbox"] {
+                            & input + div[role="checkbox"] {
                                 border: unset !important;
                                 background-image: url("/themes/forbion/images/checkbox-blank-outline-icon-big.svg");
                                 width: 20px !important;
@@ -3131,7 +3226,7 @@ header .unified-search__wrapper {
                                 background-repeat: no-repeat;
                             }
 
-                            & input:checked+div[role="checkbox"] {
+                            & input:checked + div[role="checkbox"] {
                                 background-image: url("/themes/forbion/images/checkbox-marked-icon-big.svg") !important;
                             }
 
@@ -3197,14 +3292,69 @@ header .unified-search__wrapper {
                 }
 
                 & .addFilter {
+                    margin-bottom: 8px;
                     position: relative;
-                    margin: 0 0 15px;
-                    padding-left: 30px;
+                    padding: 8px 20px 8px 44px;
+                    color: #000000;
+                    background: #F0F1F4;
+                    border-radius: 8px;
+                    border: unset;
+                    box-shadow: unset;
+                    font-weight: normal;
+                    font-family: 'Raleway';
+
+                    &:hover {
+                        opacity: .75;
+                    }
 
                     &:before {
+                        content: '';
                         position: absolute;
-                        left: 10px;
-                        top: 6px;
+                        left: 15px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        margin-top: -1px;
+                        width: 16px;
+                        height: 16px;
+                        background-image: url("/themes/forbion/images/plus-gray.svg");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                & .control-group {
+
+                    & details {
+
+                        & summary {
+
+                            position: relative;
+                            padding-left: 25px;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                background-image: url("/themes/forbion/images/snappymail/arrow-black.svg");
+                                width: 16px;
+                                height: 16px;
+                                transition: .3s;
+                            }
+
+                            &::marker {
+                                content: '';
+                            }
+                        }
+
+                        &[open] {
+
+                            & summary {
+
+                                &::after {
+                                    transform: rotateX(180deg);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -3300,6 +3450,7 @@ header .unified-search__wrapper {
 
                 & .buttonSave {
 
+                    margin-left: 10px;
                     margin-right: 0;
                     position: relative;
                     padding: 12px 14px 12px 40px;
@@ -3516,7 +3667,7 @@ header .unified-search__wrapper {
                             display: none;
                         }
 
-                        & input+div[role="checkbox"] {
+                        & input + div[role="checkbox"] {
                             border: unset !important;
                             background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
                             width: 24px !important;
@@ -3533,7 +3684,7 @@ header .unified-search__wrapper {
                             background-color: unset !important;
                         }
 
-                        & input:checked+div[role="checkbox"] {
+                        & input:checked + div[role="checkbox"] {
                             background-image: url("/themes/forbion/images/checkbox-marked-icon.svg") !important;
                         }
                     }
@@ -3719,7 +3870,7 @@ header .unified-search__wrapper {
                             display: none;
                         }
 
-                        & input+div[role="checkbox"] {
+                        & input + div[role="checkbox"] {
                             border: unset !important;
                             background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
                             width: 24px !important;
@@ -3736,7 +3887,7 @@ header .unified-search__wrapper {
                             background-color: unset !important;
                         }
 
-                        & input:checked+div[role="checkbox"] {
+                        & input:checked + div[role="checkbox"] {
                             background-image: url("/themes/forbion/images/checkbox-marked-icon.svg") !important;
                         }
                     }
@@ -4057,6 +4208,7 @@ header .unified-search__wrapper {
                                 justify-content: center;
 
                                 /* Скрываем изображения по умолчанию */
+
                                 & .eye-icon {
                                     display: none;
                                     width: 100%;
@@ -4065,6 +4217,7 @@ header .unified-search__wrapper {
                                 }
 
                                 /* Показываем активную иконку */
+
                                 & .eye-icon.active {
                                     display: block;
                                 }
@@ -4072,11 +4225,13 @@ header .unified-search__wrapper {
                         }
 
                         /* Когда класс show-password активен на родительском div */
+
                         &.password.show-password {
                             & .password-toggle-icon {
                                 & .eye-open { /* Скрываем иконку открытого глаза */
                                     display: none;
                                 }
+
                                 & .eye-closed { /* Показываем иконку закрытого глаза */
                                     display: block;
                                 }
@@ -4486,31 +4641,36 @@ header .unified-search__wrapper {
 
                         & .btn-group {
 
-                            &#squire-toolgroup-inline,&#squire-toolgroup-block,&#squire-toolgroup-targets,&#squire-toolgroup-changes,&#squire-toolgroup-clear {
+                            &#squire-toolgroup-inline, &#squire-toolgroup-block, &#squire-toolgroup-targets, &#squire-toolgroup-changes, &#squire-toolgroup-clear {
                                 & > button {
                                     margin-right: 12px;
                                 }
                             }
+
                             &#squire-toolgroup-mode > select {
                                 min-width: 162px !important;
                                 margin-left: 10px;
                             }
+
                             &#squire-toolgroup-font > select[data-action="fontFamily"] {
                                 width: 74px;
                             }
+
                             &#squire-toolgroup-font > select[data-action="fontSize"] {
                                 margin-left: 10px;
                                 width: 75px;
                                 margin-right: 8px;
                             }
+
                             &#squire-toolgroup-colors > svg {
                                 display: flex;
                             }
+
                             &#squire-toolgroup-colors {
                                 margin-right: 0px !important;
                             }
 
-                            &#squire-toolgroup-colors > button{
+                            &#squire-toolgroup-colors > button {
                                 background: transparent;
                                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cg clip-path='url(%23clip0_4763_13201)'%3E%3Cg clip-path='url(%23clip1_4763_13201)'%3E%3Cpath d='M12.7568 5.08399C13.0508 4.79533 13.5233 4.79983 13.8118 5.09404C14.1001 5.38802 14.0956 5.86 13.8018 6.14848L8.53495 11.3202C8.44202 11.4119 8.33187 11.4845 8.21082 11.5335C8.08976 11.5826 7.96021 11.6072 7.8296 11.606C7.699 11.6048 7.56992 11.5777 7.4498 11.5264C7.32968 11.4751 7.22089 11.4006 7.12969 11.3071L1.95708 6.03836C1.66863 5.74455 1.673 5.27254 1.96683 4.98412C2.26062 4.69574 2.73256 4.7001 3.02097 4.99387L7.8439 9.90638L12.7568 5.08399Z' fill='%23808080'/%3E%3C/g%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_4763_13201'%3E%3Crect width='16' height='16' fill='white'/%3E%3C/clipPath%3E%3CclipPath id='clip1_4763_13201'%3E%3Crect width='11.9347' height='16' fill='black' transform='translate(16.1102 2.14868) rotate(90.5324)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
                                 background-repeat: no-repeat;
@@ -4839,7 +4999,7 @@ input {
     background-color: unset;
 }
 
-#messageItem .attachmentsPlace  {
+#messageItem .attachmentsPlace {
     border-bottom: unset;
 }
 
@@ -4847,7 +5007,7 @@ input {
     border-bottom: unset;
 }
 
-#messageItem .sm-bq-switcher>summary {
+#messageItem .sm-bq-switcher > summary {
     border: unset;
 }
 
@@ -4855,13 +5015,16 @@ input {
 #attachmentModal {
     z-index: 1050;
 }
+
 #attachmentModal .modal-dialog {
     max-width: 90%;
     margin: 1.75rem auto;
 }
+
 .attachment-preview-link {
     cursor: pointer;
 }
+
 #attachmentImageViewer {
     text-align: center;
     padding: 10px;
@@ -4876,14 +5039,16 @@ input {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1050;
 
 }
+
 #attachmentModal[style*="display: block"] {
     display: block !important;
     z-index: 9999;
 }
+
 #attachmentModal .modal-dialog {
     background: white;
     margin: 40px auto;
@@ -4897,14 +5062,17 @@ input {
         display: flex;
         justify-content: space-between;
     }
+
     & .modal-content {
         height: calc(100% - 72px) !important;
     }
+
     & .modal-body {
         height: calc(100% - 72px) !important;
     }
 
 }
+
 #attachmentModal .close {
     float: right;
     font-size: 28px;
@@ -4944,6 +5112,7 @@ input {
         & .modal-title {
             margin-left: 25px;
         }
+
         & button.close {
             position: relative;
             right: 10px;
@@ -4953,6 +5122,7 @@ input {
         & button.close > span {
             font-size: 50px;
         }
+
         & button.close > span:not(:hover) {
             opacity: 0.5;
         }
@@ -4965,6 +5135,7 @@ input {
 
         }
     }
+
     & .modal-footer {
         padding: 20px;
     }
