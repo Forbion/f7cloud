@@ -23,6 +23,24 @@
 			</span>
 		</div>
 		<div class="b-tab-content">
+			<div class="links">
+				<div class="link" data-bind="click: createFolder">
+					<div class="icon">
+						<img src="/themes/forbion/images/plus-gray.svg">
+					</div>
+					<span class="name">
+						Создать папку
+					</span>
+				</div>
+				<div class="link" data-bind="click: systemFolder">
+					<div class="icon">
+						<img src="/themes/forbion/images/settings-folders.svg">
+					</div>
+					<span class="name">
+						Системные папки
+					</span>
+				</div>
+			</div>
 			<div class="search-wrapper-tab">
 				<div class="icon">
 					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
@@ -45,7 +63,7 @@
 		</div>
 	</div>
 	<div class="tab-content">
-		<div class="tab-panel" style="display: block">
+		<div class="tab-panel" style="display: none">
 			<div class="legend">
 				<span data-i18n="SETTINGS_FOLDERS/LEGEND_FOLDERS"></span>
 				&nbsp;&nbsp;&nbsp;

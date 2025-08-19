@@ -2136,6 +2136,34 @@ header .unified-search__wrapper {
                                         }
                                     }
 
+                                    & .links {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        padding: 0 20px;
+                                        margin: 10px 0 20px;
+
+                                        & .link {
+                                            display: flex;
+                                            align-items: center;
+                                            flex-direction: column;
+                                            margin: 0 10px;
+                                            cursor: pointer;
+                                            transition: .3s;
+                                            
+                                            & .icon {
+                                                cursor: pointer;
+                                            }
+                                            
+                                            & .name {
+                                                cursor: pointer;
+                                            }
+
+                                            &:hover {
+                                                opacity: .7;
+                                            }
+                                        }
+                                    }
+
                                     & .search-wrapper-tab {
 
                                         width: 100%;

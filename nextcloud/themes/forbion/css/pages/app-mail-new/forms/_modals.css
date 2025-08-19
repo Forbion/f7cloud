@@ -161,6 +161,22 @@
 
         & .button-delete {
             margin-left: 10px;
+            position: relative;
+            font-size: 0;
+            width: 16px;
+            height: 16px;
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: -3px;
+                width: 16px;
+                height: 16px;
+                background-image: url("/themes/forbion/images/trashbin2.svg");
+                background-position: center;
+                z-index: 1;
+            }
         }
 
         &:last-child {
@@ -205,14 +221,14 @@
         display: flex;
 
         & span {
-            margin-top: 1px;
-            margin-left: 20px;
+            margin-top: 2px;
+            margin-left: 16px;
         }
     }
 
     & input+div[role="checkbox"] {
         border: unset !important;
-        background-image: url("/themes/forbion/images/snappymail/default-checkbox-tumbler.svg");
+        background-image: url("/themes/forbion/images/checkbox-blank-outline-icon.svg");
         width: 24px !important;
         height: 24px !important;
         transform: unset !important;
@@ -221,10 +237,12 @@
         right: unset !important;
         bottom: unset !important;
         cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     & input:checked+div[role="checkbox"] {
-        background-image: url("/themes/forbion/images/snappymail/active-checkbox-tumbler.svg") !important;
+        background-image: url("/themes/forbion/images/checkbox-marked-icon.svg") !important;
     }
 
     & footer {
@@ -236,13 +254,31 @@
         margin-top: 20px;
 
         & .btn {
+            margin-bottom: 8px;
             position: relative;
-            padding-left: 30px;
+            padding: 8px 20px 8px 25px;
+            color: #000000;
+            border-radius: 8px;
+            border: unset;
+            box-shadow: unset;
+            font-weight: normal;
+            font-family: 'Raleway';
+
+            &:hover {
+                opacity: .75;
+            }
 
             &:before {
+                content: '';
                 position: absolute;
-                left: 10px;
-                top: 6px;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-top: -1px;
+                width: 16px;
+                height: 16px;
+                background-image: url("/themes/forbion/images/plus-black.svg");
+                background-repeat: no-repeat;
             }
         }
     }
