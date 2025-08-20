@@ -267,7 +267,7 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                     </a>
                 </li>
                 <li class="app-menu-entry">
-                    <a href="https://cloud.forbion.ru/forbion/" target="_blank" class="app-menu-entry__link">
+                    <a href="/apps/external/1" class="app-menu-entry__link">
                         <span class="app-menu-entry__icon">
                             <img src="/themes/forbion/images/menu/bitrix.svg" alt="notes">
                         </span>
