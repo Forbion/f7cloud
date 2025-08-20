@@ -645,6 +645,10 @@
 
             & .action-button {
 
+                & .action-button__text {
+                    margin-left: 0 !important;
+                }
+
                 & .action-button__icon:empty {
                     width: 10px;
                 }
