@@ -53,68 +53,55 @@
     position: relative;
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/notes/img/notes.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/notes/img/notes.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/notes/img/notes.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchAppNotes.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/files/img/app.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/files/img/app.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/files/img/app.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchAppFiles.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/systemtags/img/app.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/systemtags/img/app.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/systemtags/img/app.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchSystemtagsApp.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/comments/img/comments.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/comments/img/comments.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/comments/img/comments.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchComments.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/deck/img/deck.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/deck/img/deck.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/deck/img/deck.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchDeck.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/spreed/img/app.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/spreed/img/app.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/spreed/img/app.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchSpreedApp.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/img/app.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/img/app.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/img/app.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchSpreedApp.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/core/img/places/default-app-icon.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/core/img/places/default-app-icon.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/core/img/places/default-app-icon.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchDefaultAppIcon.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/contacts/img/contacts.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/contacts/img/contacts.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/contacts/img/contacts.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchContacts.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/calendar/img/calendar.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/calendar/img/calendar.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/calendar/img/calendar.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchCalendar.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/tasks/img/tasks.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/tasks/img/tasks.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/tasks/img/tasks.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchTasks.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings_apps.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/settings/img/settings_apps.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings_apps.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchSettingsApps.svg");
 }
 
-.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings.svg"] + .action-button__text:before,
-.dialog__modal#unified-search img[src="/apps/settings/img/settings.svg"] + span:before {
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings.svg"] + .action-button__text:before {
     background-image: url("/themes/forbion/images/search/searchSettings.svg");
 }
 

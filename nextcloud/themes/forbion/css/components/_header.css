@@ -593,10 +593,12 @@
                 margin-top: -2px;
                 padding: 0;
                 position: relative;
+
+                display: none;
             }
 
             & .text {
-                margin-left: 14px;
+                margin-left: 0;
                 color: #000000;
                 font-weight: normal;
             }
