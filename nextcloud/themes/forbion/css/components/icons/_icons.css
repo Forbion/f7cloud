@@ -1,0 +1,135 @@
+.dialog__modal#unified-search .unified-search-modal__filters .material-design-icon {
+    position: relative;
+}
+
+.dialog__modal#unified-search .material-design-icon.list-box-icon svg,
+.dialog__modal#unified-search .material-design-icon.calendar-range-icon svg,
+.dialog__modal#unified-search .material-design-icon.account-group-icon svg,
+.dialog__modal#unified-search .material-design-icon.close-icon svg,
+.v-popper__popper ul[role="menu"] img[src="/apps/notes/img/notes.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/files/img/app.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/systemtags/img/app.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/comments/img/comments.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/deck/img/deck.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/spreed/img/app.svg"],
+.v-popper__popper ul[role="menu"] img[src="/img/app.svg"],
+.v-popper__popper ul[role="menu"] img[src="/core/img/places/default-app-icon.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/contacts/img/contacts.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/calendar/img/calendar.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/tasks/img/tasks.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings_apps.svg"],
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings.svg"] {
+    display: none;
+}
+
+.dialog__modal#unified-search .material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.v-popper__popper ul[role="menu"] img + .action-button__text:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.v-popper__popper ul[role="menu"] img + .action-button__text {
+    padding-left: 35px;
+    position: relative;
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/notes/img/notes.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/notes/img/notes.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchAppNotes.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/files/img/app.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/files/img/app.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchAppFiles.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/systemtags/img/app.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/systemtags/img/app.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchSystemtagsApp.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/comments/img/comments.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/comments/img/comments.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchComments.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/deck/img/deck.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/deck/img/deck.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchDeck.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/spreed/img/app.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/spreed/img/app.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchSpreedApp.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/img/app.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/img/app.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchSpreedApp.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/core/img/places/default-app-icon.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/core/img/places/default-app-icon.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchDefaultAppIcon.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/contacts/img/contacts.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/contacts/img/contacts.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchContacts.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/calendar/img/calendar.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/calendar/img/calendar.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchCalendar.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/tasks/img/tasks.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/tasks/img/tasks.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchTasks.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings_apps.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/settings/img/settings_apps.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchSettingsApps.svg");
+}
+
+.v-popper__popper ul[role="menu"] img[src="/apps/settings/img/settings.svg"] + .action-button__text:before,
+.dialog__modal#unified-search img[src="/apps/settings/img/settings.svg"] + span:before {
+    background-image: url("/themes/forbion/images/search/searchSettings.svg");
+}
+
+.dialog__modal#unified-search .material-design-icon.list-box-icon:before {
+    background-image: url("/themes/forbion/images/search/searchPlaces.svg");
+}
+
+.dialog__modal#unified-search .material-design-icon.calendar-range-icon:before {
+    background-image: url("/themes/forbion/images/search/searchDateRange.svg");
+}
+
+.dialog__modal#unified-search .material-design-icon.account-group-icon:before {
+    background-image: url("/themes/forbion/images/search/searchPeoples.svg");
+}
+
+.dialog__modal#unified-search .material-design-icon.close-icon:before {
+    background-image: url("/themes/forbion/images/search/searchClose.svg");
+}
