@@ -2444,6 +2444,15 @@ header .unified-search__wrapper {
                                             }
                                         }
                                     }
+
+                                    .legend {
+                                        padding-left: 5px;
+                                        border: unset;
+
+                                        &.legend-identities {
+                                            margin-bottom: -20px;
+                                        }
+                                    }
                                 }
 
                                 @media only screen and (max-width: 1400px) {
@@ -5220,31 +5229,73 @@ input {
     display: block;
 }
 
+.addNewAccount {
+    position: relative;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding: 12px 14px 12px 40px;
+    color: #808080;
+    height: 40px;
+    line-height: normal;
+    border-radius: 8px;
+    box-shadow: unset !important;
+    opacity: 1;
+    font-weight: normal;
+    border: unset;
+    transition: .15s;
+
+    &:hover {
+        opacity: .7;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 1px;
+        width: 20px;
+        height: 20px;
+        background-image: url("/themes/forbion/images/plus-gray.svg");
+        background-repeat: no-repeat;
+    }
+
+    & .icon-user-add {
+        display: none;
+    }
+}
+
 .addNewIdentity {
     position: relative;
+    margin-top: -10px;
+    margin-bottom: -5px;
     padding: 12px 14px 12px 40px;
-    color: #FFFFFF;
+    color: #808080;
     height: 40px;
-    line-height: 1;
-    box-shadow: unset;
-    border: unset;
-    background: #70B62B;
+    line-height: normal;
     border-radius: 8px;
+    box-shadow: unset !important;
+    opacity: 1;
+    font-weight: normal;
+    border: unset;
+    transition: .15s;
 
-    & span {
-        margin: 0;
+    &:hover {
+        opacity: .7;
+    }
 
-        &:before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background-image: url("/themes/forbion/images/snappymail/plus-white-btn.svg");
-            background-repeat: no-repeat;
-        }
+    &:before {
+        content: '';
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 1px;
+        width: 20px;
+        height: 20px;
+        background-image: url("/themes/forbion/images/plus-gray.svg");
+        background-repeat: no-repeat;
     }
 
     & .icon-user-add {

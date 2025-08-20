@@ -52,10 +52,6 @@
 			value: showUnread
 		}
 	}" hidden></div>
-				<a class="btn" data-bind="click: addNewAccount" style="display: none">
-					<i class="icon-user-add"></i>
-					<span data-i18n="SETTINGS_ACCOUNTS/BUTTON_ADD_ACCOUNT"></span>
-				</a>
 				<div class="account-list">
 					<div class="table table-hover list-table accounts-list" data-bind="i18nUpdate: accounts">
 						<div class="accounts" data-bind="foreach: accounts">
@@ -115,13 +111,13 @@
 						</div>
 					</div>
 				</div>
+				<a class="btn addNewAccount" data-bind="click: addNewAccount">
+					<i class="icon-user-add"></i>
+					<span data-i18n="SETTINGS_ACCOUNTS/BUTTON_ADD_ACCOUNT"></span>
+				</a>
 			</div>
 			<div data-bind="visible: allowIdentities">
-				<div class="legend" data-i18n="SETTINGS_ACCOUNTS/LEGEND_IDENTITIES"></div>
-				<a class="btn addNewIdentity" data-bind="click: addNewIdentity">
-					<i class="icon-user-add"></i>
-					<span data-i18n="SETTINGS_ACCOUNTS/BUTTON_ADD_IDENTITY"></span>
-				</a>
+				<div class="legend legend-identities" data-i18n="SETTINGS_ACCOUNTS/LEGEND_IDENTITIES"></div>
 				<table class="table table-hover list-table identities-list" data-bind="i18nUpdate: identities">
 					<tbody data-bind="foreach: identities">
 					<tr draggable="true" data-bind="attr: {'data-identity-id': id}, sortableItem: { list: $root.identities, afterMove: $root.accountsAndIdentitiesAfterMove }">
@@ -142,6 +138,10 @@
 					</tr>
 					</tbody>
 				</table>
+				<a class="btn addNewIdentity" data-bind="click: addNewIdentity">
+					<i class="icon-user-add"></i>
+					<span data-i18n="SETTINGS_ACCOUNTS/BUTTON_ADD_IDENTITY"></span>
+				</a>
 			</div>
 		</div>
 	</div>
