@@ -955,9 +955,9 @@
 
 			let result = FileType.Unknown;
 			const mimeTypeParts = mimeType.split('/'),
-				type = mimeTypeParts[1].replace('-compressed',''),
+				type = mimeTypeParts[1]?.replace('-compressed','') || '',
 				match = str => mimeType.includes(str),
-				archive = /^(zip|7z|tar|rar|gzip|bzip|bzip2)$/;
+				isArchive = str => /^(zip|7z|tar|rar|gzip|bzip|bzip2)$/.test(str);
 
 			switch (true) {
 				case 'image' == mimeTypeParts[0] || ['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext):
@@ -966,7 +966,7 @@
 				case 'audio' == mimeTypeParts[0] || ['mp3', 'ogg', 'oga', 'wav'].includes(ext):
 					result = FileType.Audio;
 					break;
-				case 'video' == mimeTypeParts[0] || 'mkv' == ext || 'avi' == ext:
+				case 'video' == mimeTypeParts[0] || ['mkv', 'avi', 'mp4', 'mov'].includes(ext):
 					result = FileType.Video;
 					break;
 				case ['php', 'js', 'css', 'xml', 'html'].includes(ext) || 'text/html' == mimeType:
@@ -981,24 +981,24 @@
 				case 'text' == mimeTypeParts[0] || 'txt' == ext || 'log' == ext:
 					result = FileType.Text;
 					break;
-				case archive.test(type) || archive.test(ext):
+				case isArchive(type) || isArchive(ext):
 					result = FileType.Archive;
 					break;
 				case 'pdf' == type || 'pdf' == ext:
 					result = FileType.Pdf;
 					break;
 				case [app+'pgp-signature', app+'pgp-keys', exts.p7m, exts.p7s, exts.p12, exts.pfx].includes(mimeType)
-					|| ['asc', 'pem', 'ppk', 'p7s', 'p7m', 'p12', 'pfx'].includes(ext):
+				|| ['asc', 'pem', 'ppk', 'p7s', 'p7m', 'p12', 'pfx'].includes(ext):
 					result = FileType.Certificate;
 					break;
-				case match(msOffice+'.wordprocessingml') || match(openDoc+'.text') || match('vnd.ms-word')
-					|| ['rtf', 'msword', 'vnd.msword'].includes(type):
+				// Office документы - исправленные специфичные проверки
+				case match('wordprocessingml') || match('msword') || ['doc', 'docx', 'odt', 'rtf'].includes(ext):
 					result = FileType.Word;
 					break;
-				case match(msOffice+'.spreadsheetml') || match(openDoc+'.spreadsheet') || match('ms-excel'):
+				case match('spreadsheetml') || match('ms-excel') || ['xls', 'xlsx', 'ods'].includes(ext):
 					result = FileType.Spreadsheet;
 					break;
-				case match(msOffice+'.presentationml') || match(openDoc+'.presentation') || match('ms-powerpoint'):
+				case match('presentationml') || match('ms-powerpoint') || ['ppt', 'pptx', 'odp'].includes(ext):
 					result = FileType.Presentation;
 					break;
 				// no default

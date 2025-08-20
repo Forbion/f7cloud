@@ -1770,7 +1770,8 @@ header .unified-search__wrapper {
 
                                                     &.doc,
                                                     &.docx,
-                                                    &.docs {
+                                                    &.docs,
+                                                    &.word {
                                                         &:before {
                                                             background-image: url('/themes/forbion/images/snappymail/attachmentIconDoc.svg');
                                                         }
@@ -1778,7 +1779,8 @@ header .unified-search__wrapper {
 
                                                     &.excel,
                                                     &.xls,
-                                                    &.xlsx {
+                                                    &.xlsx,
+                                                    &.spreadsheet {
                                                         &:before {
                                                             background-image: url('/themes/forbion/images/snappymail/attachmentIconXls.svg');
                                                         }
