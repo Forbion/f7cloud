@@ -1,0 +1,12 @@
+header {
+    box-shadow: unset !important;
+}
+
+.app-external {
+    margin-top: 20px !important;
+    padding: 0 15px !important;
+
+    & iframe {
+        border-radius: 8px;
+    }
+}

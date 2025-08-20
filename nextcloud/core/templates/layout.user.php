@@ -63,7 +63,8 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
         '/settings/users' => '/themes/forbion/css/pages/page-settings/_page-users.css',
         '/apps/spreed' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
         '/call' => '/themes/forbion/css/pages/app-spreed/_app-spreed.css',
-        '/apps/notes/' => '/themes/forbion/css/pages/app-notes/_app-notes.css'
+        '/apps/notes/' => '/themes/forbion/css/pages/app-notes/_app-notes.css',
+        '/external/' => '/themes/forbion/css/pages/app-external/_app-external.css',
     ];
 
     $currentUri = $_SERVER['REQUEST_URI'] ?? '';
