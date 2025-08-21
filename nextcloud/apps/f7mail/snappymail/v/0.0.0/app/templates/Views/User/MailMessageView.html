@@ -684,7 +684,7 @@
 					<div class="bodySubHeader" data-bind="if: message, i18nUpdate: message">
 						<div class="readReceipt" data-bind="visible: askReadReceipt, click: readReceipt"
 							data-icon="✉" data-i18n="MESSAGE/BUTTON_NOTIFY_READ_RECEIPT"></div>
-						<details class="attachmentsPlace" data-bind="visible: hasAttachments, css: {'selection-mode' : showAttachmentControls}, attr: { open: hasAttachments }">
+						<details class="attachmentsPlace selection-mode" data-bind="visible: hasAttachments, css: {'selection-mode' : showAttachmentControls}, attr: { open: hasAttachments }">
 							<summary data-i18n="MESSAGE/PRINT_LABEL_ATTACHMENTS"></summary>
 							<!-- ko ifnot: simpleAttachmentsList -->
                             <ul class="attachmentList" data-bind="foreach: listAttachments">
@@ -719,7 +719,7 @@
 								</li>
 							</ul>
 							<!-- /ko -->
-							<i class="fontastic controls-handle" data-bind="visible: allowAttachmentControls, click: toggleAttachmentControls">⚙</i>
+							<i class="fontastic controls-handle hidden" data-bind="visible: allowAttachmentControls, click: toggleAttachmentControls">⚙</i>
 							<div class="attachmentsControls" data-bind="visible: showAttachmentControls">
 								<span data-bind="visible: downloadAsZipAllowed">
 									<i class="fontastic iconcolor-red" data-bind="visible: downloadAsZipError">✖</i>
