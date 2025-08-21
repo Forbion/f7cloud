@@ -5065,75 +5065,139 @@ header .unified-search__wrapper {
         }
     }
 
-    & .control-group {
+    & #identityform {
 
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-width: 400px;
-        margin-bottom: 1.2em;
+        & .tabs {
 
-        & > div {
-            margin-left: 0;
-        }
+            &>[id^=tab]:checked+label {
+                border-bottom: 2px solid #70B62B !important;
+            }
 
-        input,
-        textarea,
-        select,
-        .textEmail {
-            width: 100%;
-            max-height: 100px;
-            margin-left: 0;
-            border: 1px solid #E6E6E6;
-            border-radius: 8px;
-            padding: 12px 12px 12px 12px;
-            height: unset;
-            color: black;
-            resize: none;
-        }
+            &>[id^=tab]:not(:checked)+label+.tab-content {
+                display: none;
+            }
 
-        label {
-            text-align: left;
-        }
-    }
+            & > label {
+                padding-bottom: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                box-shadow: unset;
+                border: unset;
+                border-bottom: 2px solid #E6E6E6 !important;
 
-    & .e-signature-place {
-        & .squire-toolbar {
-            padding: 10px;
+                & img {
+                    margin-bottom: 8px;
+                    width: 20px;
+                    height: 20px;
+                }
 
-            & select {
+                & span,
+                & img {
+                    cursor: pointer;
+                }
+            }
+
+            & .tab-content {
+                position: relative;
+                margin-left: 0 !important;
+                padding: 30px 0 0 !important;
+
+                & .e-signature-place {
+                    position: relative;
+                    overflow: hidden;
+
+                    & .squire-toolbar {
+                        padding: 10px;
+                        width: calc(100% - 20px);
+
+                        & select {
+                            width: 100%;
+                            max-width: max-content;
+                        }
+
+                        & > .btn-group {
+
+                            & > button {
+                                box-shadow: unset;
+
+                                &:hover {
+                                    opacity: .75;
+                                }
+
+                                &:not(:last-child) {
+                                    margin-right: 15px;
+                                }
+                            }
+
+                            &:not(:last-child) {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+
+                    & div[contenteditable="true"],
+                    & textarea {
+                        width: 100%;
+                        min-height: 300px;
+                        padding-top: 115px;
+                    }
+                }
+            }
+
+            & .control-group {
+
+                display: flex;
+                flex-direction: column;
                 width: 100%;
-                max-width: max-content;
-            }
+                max-width: 400px;
+                margin-bottom: 1.2em;
 
-            & > .btn-group {
-
-                & > button {
-                    box-shadow: unset;
-
-                    &:hover {
-                        opacity: .75;
-                    }
-
-                    &:not(:last-child) {
-                        margin-right: 15px;
-                    }
+                & > div {
+                    margin-left: 0;
                 }
 
-                &:not(:last-child) {
-                    margin-right: 10px;
+                input,
+                textarea,
+                select,
+                .textEmail {
+                    width: 100%;
+                    max-height: 100px;
+                    margin-left: 0;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 8px;
+                    padding: 12px 12px 12px 12px;
+                    height: unset;
+                    color: black;
+                    resize: none;
+                }
+
+                label {
+                    text-align: left;
                 }
             }
-        }
-
-        & div[contenteditable="true"] {
-            width: 100%;
-            min-height: 200px;
         }
     }
 
     .footer {
-        padding: 20px 15px;
+        padding: 20px 15px 20px 0;
+
+        & button {
+
+            box-shadow: unset;
+
+            & span {
+                display: flex;
+                align-items: center;
+                min-width: 150px;
+                padding: 12px 14px 12px 43px;
+                justify-content: center;
+
+                &:before {
+                    left: 16px;
+                }
+            }
+        }
     }
 
     & label.e-checkbox {
