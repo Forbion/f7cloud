@@ -213,6 +213,8 @@ header .unified-search__wrapper {
 
                     & .settings-inner {
 
+                        display: flex;
+                        flex-direction: column;
                         padding: 15px 8px;
                         cursor: pointer;
                         border-radius: 8px;

@@ -4082,26 +4082,19 @@
 				if (vmPlace) {
 					ViewModelClass.__vm = vm;
 
+					for (let vm of visiblePopups) {
+						vm.tryToClose();
+					}
+
 					if (id == 'PopupsAccount' || id == 'PopupsIdentity') {
 
 						let tabContent = document.querySelector('#V-Settings-Accounts .tab-content');
 
-						if (window.location.href.includes('/settings/accounts')) {
+						vmDom = dialog && id != 'PopupsCompose' && id != 'PopupsAccount' && id != 'PopupsIdentity'
+							? createElement('dialog',{id:'V-'+id})
+							: createElement('div',{id:'V-'+id,hidden:''});
 
-							vmDom = dialog && id != 'PopupsCompose' && id != 'PopupsAccount' && id != 'PopupsIdentity'
-								? createElement('dialog',{id:'V-'+id})
-								: createElement('div',{id:'V-'+id,hidden:''});
-
-							tabContent.append(vmDom);
-
-						} else {
-
-							vmDom = dialog && id != 'PopupsCompose'
-								? createElement('dialog',{id:'V-'+id})
-								: createElement('div',{id:'V-'+id,hidden:''});
-
-							vmPlace.append(vmDom);
-						}
+						tabContent.append(vmDom);
 
 					} else {
 
@@ -4156,6 +4149,19 @@
 
 						vm.modalVisible.subscribe(value => {
 							if (value) {
+
+								if (id === 'PopupsAccount' || id === 'PopupsIdentity') {
+									const oppositeId = id === 'PopupsAccount' ? 'PopupsIdentity' : 'PopupsAccount';
+
+									// Найти и закрыть противоположный попап
+									for (let otherVm of visiblePopups) {
+										if (otherVm.viewModelTemplateID === oppositeId) {
+											otherVm.modalVisible(false);
+											break;
+										}
+									}
+								}
+
 								i18nToNodes(vmDom);
 								visiblePopups.add(vm);
 								vmDom.style.zIndex = 3001 + (visiblePopups.size * 2);
@@ -17365,7 +17371,9 @@ body > * {
 	const addNewAccountButton = document.querySelector('.addNewAccountCustom');
 
 	function handleAddNewAccountClick() {
-	    showScreenPopup(AccountPopupView);
+	    setTimeout(function () {
+	        showScreenPopup(AccountPopupView);
+	    }, 50);
 	}
 
 	addNewAccountButton.addEventListener('click', handleAddNewAccountClick);

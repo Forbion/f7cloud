@@ -123,7 +123,9 @@ window.addEventListener('hashchange', setActiveMenuItem);
 const addNewAccountButton = document.querySelector('.addNewAccountCustom');
 
 function handleAddNewAccountClick() {
-    showScreenPopup(AccountPopupView);
+    setTimeout(function () {
+        showScreenPopup(AccountPopupView);
+    }, 50)
 }
 
 addNewAccountButton.addEventListener('click', handleAddNewAccountClick);
