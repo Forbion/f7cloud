@@ -61,12 +61,12 @@
 		"UNSEEN": "Непрочитанные",
 		"DATE": "Дата",
 		"DATE_ALL": "За всё время",
-		"BEFORE_3_DAYS": "Older then 3 days",
-		"BEFORE_7_DAYS": "Older then 1 week",
-		"BEFORE_MONTH": "Older then 1 month",
-		"BEFORE_3_MONTHS": "Older then 3 months",
-		"BEFORE_6_MONTHS": "Older then 6 months",
-		"BEFORE_YEAR": "Older then 1 year",
+		"BEFORE_3_DAYS": "За период дольше 3 дней",
+		"BEFORE_7_DAYS": "За период дольше 1 недели",
+		"BEFORE_MONTH": "За период дольше 1 месяца",
+		"BEFORE_3_MONTHS": "За период дольше 3 месяцев",
+		"BEFORE_6_MONTHS": "За период дольше  6 месяцев",
+		"BEFORE_YEAR": "За период дольше 1 года",
 		"SINCE_3_DAYS": "За три дня",
 		"SINCE_7_DAYS": "За неделю",
 		"SINCE_MONTH": "За месяц",
@@ -274,7 +274,7 @@
 	"POPUPS_ADD_ACCOUNT": {
 		"TITLE_ADD_ACCOUNT": "Добавить учетную запись",
 		"BUTTON_ADD_ACCOUNT": "Добавить",
-		"TITLE_UPDATE_ACCOUNT": "Настройки аккаунта"
+		"TITLE_UPDATE_ACCOUNT": "Обновить аккаунт"
 	},
 	"POPUPS_IDENTITY": {
 		"TITLE_ADD_IDENTITY": "Добавить Профиль",
