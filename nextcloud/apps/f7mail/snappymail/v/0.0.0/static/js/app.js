@@ -4077,15 +4077,40 @@
 					dialog = ViewTypePopup === vm.viewType,
 					vmPlace = doc.getElementById(position);
 
+				let vmDom;
+
 				if (vmPlace) {
 					ViewModelClass.__vm = vm;
 
-					console.log(dialog);
+					if (id == 'PopupsAccount' || id == 'PopupsIdentity') {
 
-					let vmDom = dialog && id != 'PopupsCompose'
-						? createElement('dialog',{id:'V-'+id})
-						: createElement('div',{id:'V-'+id,hidden:''});
-					vmPlace.append(vmDom);
+						let tabContent = document.querySelector('#V-Settings-Accounts .tab-content');
+
+						if (window.location.href.includes('/settings/accounts')) {
+
+							vmDom = dialog && id != 'PopupsCompose' && id != 'PopupsAccount' && id != 'PopupsIdentity'
+								? createElement('dialog',{id:'V-'+id})
+								: createElement('div',{id:'V-'+id,hidden:''});
+
+							tabContent.append(vmDom);
+
+						} else {
+
+							vmDom = dialog && id != 'PopupsCompose'
+								? createElement('dialog',{id:'V-'+id})
+								: createElement('div',{id:'V-'+id,hidden:''});
+
+							vmPlace.append(vmDom);
+						}
+
+					} else {
+
+						vmDom = dialog && id != 'PopupsCompose'
+							? createElement('dialog',{id:'V-'+id})
+							: createElement('div',{id:'V-'+id,hidden:''});
+
+						vmPlace.append(vmDom);
+					}
 
 					vm.viewModelDom = vmDom;
 
@@ -4150,6 +4175,9 @@
 										document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
 										document.querySelectorAll('#rl-menu ul.menu li')[0]?.classList.add('active');
 									}
+									if(id == 'PopupsAccount' || id == 'PopupsIdentity') {
+										vmDom.classList.add('active');
+									}
 								});
 							} else {
 								if(id != 'PopupsAsk') {
@@ -4163,6 +4191,9 @@
 
 										document.querySelectorAll('#rl-menu ul.menu li.active').forEach(el => el.classList.remove('active'));
 										document.querySelectorAll('#rl-menu ul.menu li')[1]?.classList.add('active');
+									}
+									if(id == 'PopupsAccount' || id == 'PopupsIdentity') {
+										vmDom.classList.remove('active');
 									}
 								}
 							}

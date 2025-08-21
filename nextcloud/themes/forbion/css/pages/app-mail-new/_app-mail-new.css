@@ -2748,7 +2748,8 @@ header .unified-search__wrapper {
 
         & > dialog {
 
-            & header {
+            & header,
+            & .header-account {
 
                 & .close {
 
@@ -2776,132 +2777,6 @@ header .unified-search__wrapper {
 
             & .close {
                 display: none;
-            }
-        }
-
-        & #V-PopupsAccount {
-
-            max-width: 450px;
-
-            & header {
-                padding: 40px 20px 15px;
-                border: unset;
-            }
-
-            & #accountform {
-                padding: 8px 20px 20px;
-            }
-
-            & .control-group {
-
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 15px;
-                position: relative;
-
-                & label {
-
-                    position: absolute;
-                    left: 10px;
-                    top: 9px;
-                    width: auto;
-                    color: #808080;
-                    margin-bottom: 5px;
-                    transition: .3s;
-                    padding: 5px;
-                    background: #ffffff;
-                }
-
-                & input {
-
-                    margin-left: 0;
-                    padding: 10px 12px;
-                    width: 100%;
-                    border: 1px solid #E6E6E6;
-                    border-radius: 8px;
-
-                    &:not(:placeholder-shown) + label,
-                    &:focus + label {
-                        top: -10px;
-                        left: 10px;
-                        font-size: 12px;
-                    }
-                }
-            }
-
-            & footer {
-
-                display: flex;
-                justify-content: flex-end;
-                padding: 0 20px 25px;
-                border: unset;
-
-                & button {
-                    margin: 0;
-                    font-weight: 500;
-                    height: 40px;
-                    box-shadow: unset !important;
-
-                    &:not(:last-child) {
-                        margin-right: 12px;
-                    }
-                }
-
-                & .closeBtn {
-
-                    position: relative;
-                    padding: 10px 14px 10px 40px;
-                    color: #000000;
-                    background: #F0F1F4;
-                    border-radius: 8px;
-
-                    &:hover {
-                        opacity: .75;
-                    }
-
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        left: 15px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        width: 16px;
-                        height: 16px;
-                        background-image: url("/themes/forbion/images/close-gray.svg");
-                        background-repeat: no-repeat;
-                    }
-                }
-
-                & .buttonAddAccount {
-
-                    margin-right: 0;
-
-                    & span {
-                        position: relative;
-                        padding: 12px 14px 12px 40px;
-                        color: #FFFFFF;
-                        height: 40px;
-                        background: #70B62B;
-                        border-radius: 8px;
-
-                        &:before {
-                            content: '';
-                            position: absolute;
-                            left: 10px;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            width: 20px;
-                            height: 20px;
-                            background-image: url("/themes/forbion/images/arrow-btn.svg");
-                            background-repeat: no-repeat;
-                        }
-                    }
-
-                    & .icon-user-add {
-                        display: none;
-                    }
-                }
             }
         }
 
@@ -4417,7 +4292,7 @@ header .unified-search__wrapper {
     }
 }
 
-& #V-PopupsCompose {
+#V-PopupsCompose {
     margin: 122px 20px 0 153px !important;
     width: calc(100% - 176px) !important;
     max-width: unset !important;
@@ -5018,6 +4893,273 @@ header .unified-search__wrapper {
                 }
             }
         }
+    }
+}
+
+#V-Settings-Accounts .tab-content #V-PopupsAccount {
+
+    &.active {
+        display: block;
+    }
+
+    & .header-account {
+        padding: 0;
+        border: unset;
+
+        & .close {
+            display: none;
+        }
+
+        & h3 {
+            margin-top: 0;
+        }
+    }
+
+    & #accountform {
+        margin: -10px;
+        padding: 0 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 700px;
+
+        & .alert {
+            width: 100%;
+            margin: 10px;
+        }
+
+        & .control-group {
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            width: calc(50% - 20px);
+            margin: 10px;
+
+            & label {
+
+                position: absolute;
+                left: 10px;
+                top: 9px;
+                width: auto;
+                color: #808080;
+                margin-bottom: 5px;
+                transition: .3s;
+                padding: 5px;
+                background: #ffffff;
+            }
+
+            & input {
+
+                margin-left: 0;
+                padding: 10px 12px;
+                width: 100%;
+                border: 1px solid #E6E6E6;
+                border-radius: 8px;
+
+                &:not(:placeholder-shown) + label,
+                &:focus + label {
+                    top: -10px;
+                    left: 10px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    & .footer-account {
+
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 0 25px;
+        border: unset;
+
+        & button {
+            margin: 0;
+            font-weight: 500;
+            height: 40px;
+            box-shadow: unset !important;
+
+            &:not(:last-child) {
+                margin-right: 12px;
+            }
+        }
+
+        & .closeBtn {
+
+            position: relative;
+            padding: 10px 14px 10px 40px;
+            color: #000000;
+            background: #F0F1F4;
+            border-radius: 8px;
+
+            &:hover {
+                opacity: .75;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 16px;
+                height: 16px;
+                background-image: url("/themes/forbion/images/close-gray.svg");
+                background-repeat: no-repeat;
+            }
+        }
+
+        & .buttonAddAccount {
+
+            margin-right: 0;
+
+            & span {
+                position: relative;
+                padding: 12px 14px 12px 40px;
+                color: #FFFFFF;
+                height: 40px;
+                background: #70B62B;
+                border-radius: 8px;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("/themes/forbion/images/arrow-btn.svg");
+                    background-repeat: no-repeat;
+                }
+            }
+
+            & .icon-user-add {
+                display: none;
+            }
+        }
+    }
+}
+
+#V-Settings-Accounts .tab-content #V-PopupsIdentity {
+
+    width: 100%;
+    max-width: 100%;
+
+    &.active {
+        display: block;
+    }
+
+    & summary {
+        margin-bottom: 10px;
+    }
+
+    & .header {
+        h3 {
+            margin-top: 0;
+        }
+        .close {
+            display: none;
+        }
+    }
+
+    & .control-group {
+
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 1.2em;
+
+        & > div {
+            margin-left: 0;
+        }
+
+        input,
+        textarea,
+        select,
+        .textEmail {
+            width: 100%;
+            max-height: 100px;
+            margin-left: 0;
+            border: 1px solid #E6E6E6;
+            border-radius: 8px;
+            padding: 12px 12px 12px 12px;
+            height: unset;
+            color: black;
+            resize: none;
+        }
+
+        label {
+            text-align: left;
+        }
+    }
+
+    & .e-signature-place {
+        & .squire-toolbar {
+            padding: 10px;
+
+            & select {
+                width: 100%;
+                max-width: max-content;
+            }
+
+            & > .btn-group {
+
+                & > button {
+                    box-shadow: unset;
+
+                    &:hover {
+                        opacity: .75;
+                    }
+
+                    &:not(:last-child) {
+                        margin-right: 15px;
+                    }
+                }
+
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        & div[contenteditable="true"] {
+            width: 100%;
+            min-height: 200px;
+        }
+    }
+
+    .footer {
+        padding: 20px 15px;
+    }
+
+    & label.e-checkbox {
+        display: flex;
+
+        & span {
+            margin-top: 1px;
+            margin-left: 20px;
+        }
+    }
+
+    & input+div[role="checkbox"] {
+        border: unset !important;
+        background-image: url("/themes/forbion/images/snappymail/default-checkbox-tumbler.svg");
+        width: 24px !important;
+        height: 24px !important;
+        transform: unset !important;
+        left: 0 !important;
+        top: unset !important;
+        right: unset !important;
+        bottom: unset !important;
+        cursor: pointer;
+    }
+
+    & input:checked+div[role="checkbox"] {
+        background-image: url("/themes/forbion/images/snappymail/active-checkbox-tumbler.svg") !important;
     }
 }
 

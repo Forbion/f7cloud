@@ -1,4 +1,4 @@
-#V-PopupsIdentity {
+#rl-popups #V-PopupsIdentity {
 
     & summary {
         margin-bottom: 10px;
@@ -102,7 +102,7 @@
     }
 }
 
-#V-PopupsAsk {
+#rl-popups #V-PopupsAsk {
 
     & .modal-body {
         padding: 2em 15px;
@@ -144,7 +144,7 @@
     }
 }
 
-#V-PopupsFilter {
+#rl-popups #V-PopupsFilter {
     & .modal-body {
         padding: 2em 15px;
     }
@@ -310,7 +310,7 @@
     }
 }
 
-#V-PopupsSieveScript {
+#rl-popups #V-PopupsSieveScript {
     & .drag-handle {
         color: #aaa;
     }
@@ -319,7 +319,7 @@
     }
 }
 
-#V-PopupsNextcloudFiles {
+#rl-popups #V-PopupsNextcloudFiles {
 
     [data-icon="📁"]::before {
         content: '';
@@ -376,7 +376,7 @@
     }
 }
 
-#V-PopupsContacts {
+#rl-popups #V-PopupsContacts {
 
     max-height: 700px;
 

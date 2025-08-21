@@ -274,7 +274,7 @@
 	"POPUPS_ADD_ACCOUNT": {
 		"TITLE_ADD_ACCOUNT": "Добавить учетную запись",
 		"BUTTON_ADD_ACCOUNT": "Добавить",
-		"TITLE_UPDATE_ACCOUNT": "Обновить аккаунт"
+		"TITLE_UPDATE_ACCOUNT": "Настройки аккаунта"
 	},
 	"POPUPS_IDENTITY": {
 		"TITLE_ADD_IDENTITY": "Добавить Профиль",

@@ -1,8 +1,8 @@
-<header>
+<div class="header-account">
 	<a href="#" class="close" data-bind="click: close">×</a>
-	<h3 data-bind="visible: isNew" data-i18n="POPUPS_ADD_ACCOUNT/TITLE_ADD_ACCOUNT"></h3>
-	<h3 data-bind="visible: !isNew()" data-i18n="POPUPS_ADD_ACCOUNT/TITLE_UPDATE_ACCOUNT"></h3>
-</header>
+	<h3 class="legend" data-bind="visible: isNew" data-i18n="POPUPS_ADD_ACCOUNT/TITLE_ADD_ACCOUNT"></h3>
+	<h3 class="legend" data-bind="visible: !isNew()" data-i18n="POPUPS_ADD_ACCOUNT/TITLE_UPDATE_ACCOUNT"></h3>
+</div>
 <form id="accountform" class="modal-body form-horizontal" autocomplete="off" spellcheck="false" data-bind="submit: submitForm">
 	<div class="alert" data-bind="visible: '' !== submitError()">
 		<a href="#" class="close" data-bind="click: hideError">×</a>
@@ -15,15 +15,15 @@
 			   type="text" class="input-xlarge" data-bind="value: name">
 		<label data-i18n="GLOBAL/NAME"></label>
 	</div>
-	<div class="control-group text-group" data-bind="visible: isNew()">
-		<strong style="margin-top: 5px;" data-bind="visible: !isNew(), text: email"></strong>
+	<div class="control-group text-group">
+<!--		<strong style="margin-top: 5px;" data-bind="visible: !isNew(), text: email"></strong>-->
 		<input name="email" type="text" class="input-xlarge"
 			autofocus="" autocorrect="off" autocapitalize="off"
 			   placeholder=""
-			data-bind="visible: isNew, textInput: email, attr: {required: isNew}">
+			data-bind="textInput: email, attr: {required: isNew}">
 		<label data-i18n="GLOBAL/EMAIL"></label>
 	</div>
-	<div class="control-group pass-group" data-bind="visible: isNew()">
+	<div class="control-group pass-group">
 		<input name="password" type="password"
 			   placeholder=""
 			   class="input-xlarge" autocomplete="new-password" autocorrect="off" autocapitalize="off"
@@ -31,7 +31,7 @@
 		<label data-i18n="GLOBAL/PASSWORD"></label>
 	</div>
 </form>
-<footer>
+<div class="footer-account">
 	<button class="closeBtn" data-bind="click: close">
 		Отмена
 	</button>
@@ -41,4 +41,4 @@
 <!--		<i data-bind="visible: !isNew(), css: {'icon-ok': !submitRequest(), 'icon-spinner': submitRequest()}"></i>-->
 		<span data-bind="visible: !isNew()" data-i18n="GLOBAL/SAVE"></span>
 	</button>
-</footer>
+</div>
