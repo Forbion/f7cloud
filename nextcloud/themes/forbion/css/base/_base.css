@@ -1,5 +1,14 @@
 /* DEFAULT FORBION */
 
+#body-login,
+#body-settings {
+    --color-primary-element: #5e922b;
+    --color-primary-element-hover: #68a230;
+    --color-background-plain: #f0f2f5;
+    --image-background: none;
+}
+
+
 html {
 
     &.no-scroll {
