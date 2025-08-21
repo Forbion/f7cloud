@@ -550,6 +550,133 @@
     }
 }
 
+#rl-popups #V-PopupsAccount {
+
+    max-width: 450px;
+
+    & h3 {
+        margin-bottom: 0;
+        padding: 0 25px;
+        border: unset;
+    }
+
+    & #accountform {
+        margin-top: 15px;
+        padding: 0 25px;
+    }
+
+    & .control-group {
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+
+        & label {
+
+            position: absolute;
+            left: 10px;
+            top: 9px;
+            width: auto;
+            color: #808080;
+            margin-bottom: 5px;
+            transition: .3s;
+            padding: 5px;
+            background: #ffffff;
+        }
+
+        & input {
+
+            margin-left: 0;
+            padding: 10px 12px;
+            width: 100%;
+            border: 1px solid #E6E6E6;
+            border-radius: 8px;
+
+            &:not(:placeholder-shown) + label,
+            &:focus + label {
+                top: -10px;
+                left: 10px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    & .footer-account {
+
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 25px 25px;
+        border: unset;
+
+        & button {
+            margin: 0;
+            font-weight: 500;
+            height: 40px;
+            box-shadow: unset !important;
+
+            &:not(:last-child) {
+                margin-right: 12px;
+            }
+        }
+
+        & .closeBtn {
+
+            position: relative;
+            padding: 10px 14px 10px 40px;
+            color: #000000;
+            background: #F0F1F4;
+            border-radius: 8px;
+
+            &:hover {
+                opacity: .75;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 16px;
+                height: 16px;
+                background-image: url("/themes/forbion/images/close-gray.svg");
+                background-repeat: no-repeat;
+            }
+        }
+
+        & .buttonAddAccount {
+
+            margin-right: 0;
+
+            & span {
+                position: relative;
+                padding: 12px 14px 12px 40px;
+                color: #FFFFFF;
+                height: 40px;
+                background: #70B62B;
+                border-radius: 8px;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("/themes/forbion/images/arrow-btn.svg");
+                    background-repeat: no-repeat;
+                }
+            }
+
+            & .icon-user-add {
+                display: none;
+            }
+        }
+    }
+}
+
 /* для модалки поиска некстклауда ctrl+f */
 .modal-mask,
 .v-popper__popper {
