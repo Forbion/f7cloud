@@ -1,5 +1,15 @@
 #rl-popups #V-PopupsIdentity {
 
+    & h3 {
+        padding: 0 20px;
+    }
+
+    & .close {
+        margin-top: -25px;
+        margin-right: 15px;
+        font-size: 45px;
+    }
+
     & summary {
         margin-bottom: 10px;
     }
@@ -71,7 +81,7 @@
         }
     }
 
-    footer {
+    .footer {
         padding: 20px 15px;
     }
 
