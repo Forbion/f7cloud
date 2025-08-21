@@ -56,8 +56,16 @@ class UnifiedSearchController extends OCSController {
 		[$route, $parameters] = $this->getRouteInformation($from);
 
 		$result = $this->composer->getProviders($route, $parameters);
+
+        foreach ($result as $key => $service) {
+            if ($service['id'] == "snappymail") {
+                $result[$key]['name'] = 'F7mail';
+            }
+        }
+
 		$response = new DataResponse($result);
 		$response->setETag(md5(json_encode($result)));
+
 		return $response;
 	}
 
