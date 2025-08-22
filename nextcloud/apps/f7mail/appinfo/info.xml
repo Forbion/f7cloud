@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-	<id>snappymail</id>
-	<name>SnappyMail</name>
-	<summary>SnappyMail Webmail</summary>
+	<id>F7mail</id>
+	<name>F7mail</name>
+	<summary>F7mail Webmail</summary>
 	<version>2.38.2</version>
 	<licence>agpl</licence>
 	<author>SnappyMail, RainLoop Team, Nextgen-Networks, Tab Fitts, Nathan Kinkade, Pierre-Alain Bandinelli</author>
