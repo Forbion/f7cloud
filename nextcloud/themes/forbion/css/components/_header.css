@@ -430,6 +430,7 @@
 
 .modal-mask#unified-search {
     & .dialog__name {
+        display: block !important;
         text-align: left;
         padding-top: 20px;
         margin-bottom: 5px;
@@ -442,12 +443,14 @@
     & .empty-content {
         & .empty-content__icon {
 
+            margin-bottom: 0 !important;
             width: 90px;
             height: 90px;
             position: relative;
             opacity: 1;
             background: #E0E0E0;
             border-radius: 50%;
+            transform: unset !important;
 
             &:after {
                 content: '';
@@ -467,6 +470,7 @@
         }
         
         & .empty-content__name {
+            margin-top: 25px !important;
             margin-bottom: 10px !important;
             text-align: center !important;
             font-weight: 700 !important;
@@ -622,12 +626,18 @@
     & .searchable-list__wrapper {
         min-width: 350px;
         min-height: 350px;
+
+        & .input-field__main-wrapper {
+            height: auto !important;
+        }
+
         & input {
             padding: 8px 75px 8px 12px;
             box-shadow: unset;
             border-radius: 8px;
             color: #808080;
             border: 1px solid #E6E6E6 !important;
+            height: auto !important;
         }
         & .input-field__icon--leading  {
             position: absolute;
@@ -645,7 +655,8 @@
 
             & .action-button {
 
-                & .action-button__text {
+                & .action-button__text,
+                & .action-button__longtext {
                     margin-left: 0 !important;
                 }
 
