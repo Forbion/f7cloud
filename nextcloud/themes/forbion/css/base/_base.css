@@ -304,6 +304,8 @@ body#body-user {
 }
 .searchable-list__list .button-vue--vue-tertiary{
     margin-bottom: 10px;
+    padding-left: 10px !important;
+    height: 34px !important;
 }
 
 .input-field__main-wrapper .input-field__label{
