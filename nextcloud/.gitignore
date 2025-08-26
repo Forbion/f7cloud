@@ -50,6 +50,7 @@
 !/apps/webhook_listeners
 !/apps/workflowengine
 !/apps/f7mail
+!/apps/onlyoffice
 !/apps/snappymail
 !/apps/calendar
 !/apps/contacts

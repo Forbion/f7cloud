@@ -84,6 +84,13 @@ document.addEventListener('click', function(event) {
             document.querySelector('#V-PopupsCompose').classList.add('active');
         }
     }
+
+    //кастом - для того чтобы убрать ошибку null window.parent.OCA.Onlyoffice.context для onlyoffice в письме
+    if (event.target.classList.contains('attachmentIcon')) {
+        window.parent.OCA = window.parent.OCA || {};
+        window.parent.OCA.Onlyoffice = window.parent.OCA.Onlyoffice || {};
+        window.parent.OCA.Onlyoffice.context = '';
+    }
 });
 
 function setActiveMenuItem() {
