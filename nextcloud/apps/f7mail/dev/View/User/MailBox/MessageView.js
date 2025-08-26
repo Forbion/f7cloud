@@ -807,6 +807,13 @@ export class MailMessageView extends AbstractViewRight {
 	 */
 	handleOnlyOfficeLoaded() {
 		console.log('SnappyMail: handleOnlyOfficeLoaded - Nextcloud Files iframe (возможно, с OnlyOffice) загружен.');
+
+		//кастом - для того чтобы убрать ошибку null window.parent.OCA.Onlyoffice.context для onlyoffice в письме
+		window.parent.OCA = window.parent.OCA || {};
+		window.parent.OCA.Onlyoffice = window.parent.OCA.Onlyoffice || {};
+		window.parent.OCA.Onlyoffice.context = '';
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		this.isOnlyOfficeLoading(false);
 	}
 
