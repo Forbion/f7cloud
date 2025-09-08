@@ -55,6 +55,7 @@
 !/apps/calendar
 !/apps/contacts
 !/apps/groupfolders
+!/apps/notes
 /apps/files_external/3rdparty/irodsphp/PHPUnitTest
 /apps/files_external/3rdparty/irodsphp/web
 /apps/files_external/3rdparty/irodsphp/prods/test
