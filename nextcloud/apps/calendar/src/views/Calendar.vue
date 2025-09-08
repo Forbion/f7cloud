@@ -19,7 +19,7 @@
 	<NcContent v-else app-name="calendar" :class="classNames">
 		<AppNavigation v-if="!isWidget &&!isEmbedded && !showEmptyCalendarScreen">
 			<!-- Date Picker, View Buttons, Today Button -->
-			<AppNavigationHeader :is-public="!isAuthenticatedUser" />
+			<AppNavigationHeader :is-public="!isAuthenticatedUser"  :is-widget="false" />
 			<template #list>
 				<!-- Calendar / Subscription List -->
 				<CalendarList :is-public="!isAuthenticatedUser"

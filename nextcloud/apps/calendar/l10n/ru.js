@@ -52,7 +52,7 @@ OC.L10N.register(
     "Next year" : "Следующий год",
     "Next month" : "Следующий месяц",
     "Create new event" : "Создать событие",
-    "Event" : "Событие",
+    "Event" : "Создать событие",
     "Today" : "Сегодня",
     "Day" : "День",
     "Week" : "Неделя",
