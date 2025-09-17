@@ -11,6 +11,10 @@ class ComposerStaticInitDAV
         array (
             'OCA\\DAV\\' => 8,
         ),
+        'M' => 
+        array (
+            'MailSync\\' => 9,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,10 +22,17 @@ class ComposerStaticInitDAV
         array (
             0 => __DIR__ . '/..' . '/../lib',
         ),
+        'MailSync\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/../extension/MailSync',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'MailSync\\Crypt' => __DIR__ . '/..' . '/../extension/MailSync/Crypt.php',
+        'MailSync\\PropertyType' => __DIR__ . '/..' . '/../extension/MailSync/PropertyType.php',
+        'MailSync\\Tools' => __DIR__ . '/..' . '/../extension/MailSync/Tools.php',
         'OCA\\DAV\\AppInfo\\Application' => __DIR__ . '/..' . '/../lib/AppInfo/Application.php',
         'OCA\\DAV\\AppInfo\\PluginManager' => __DIR__ . '/..' . '/../lib/AppInfo/PluginManager.php',
         'OCA\\DAV\\Avatars\\AvatarHome' => __DIR__ . '/..' . '/../lib/Avatars/AvatarHome.php',

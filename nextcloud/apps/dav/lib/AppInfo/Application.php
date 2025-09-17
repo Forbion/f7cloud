@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
@@ -19,7 +20,6 @@ use OCA\DAV\CalDAV\Reminder\NotificationProvider\EmailProvider;
 use OCA\DAV\CalDAV\Reminder\NotificationProvider\PushProvider;
 use OCA\DAV\CalDAV\Reminder\NotificationProviderManager;
 use OCA\DAV\CalDAV\Reminder\Notifier;
-
 use OCA\DAV\Capabilities;
 use OCA\DAV\CardDAV\ContactsManager;
 use OCA\DAV\CardDAV\PhotoCache;
@@ -91,18 +91,68 @@ use OCP\User\Events\OutOfOfficeClearedEvent;
 use OCP\User\Events\OutOfOfficeScheduledEvent;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use MailSync\Tools;
+use OCP\IDBConnection;;
 use Throwable;
+
 use function is_null;
 
 class Application extends App implements IBootstrap {
+
 	public const APP_ID = 'dav';
 
 	public function __construct() {
 		parent::__construct(self::APP_ID);
 	}
 
-	public function register(IRegistrationContext $context): void {
-		$context->registerServiceAlias('CardDAVSyncService', SyncService::class);
+
+    function logToFile($message, $filename = 'app.log', $options = []) {
+        // Настройки по умолчанию
+        $defaults = [
+            'max_depth' => 5, // Максимальная глубина рекурсии для массивов/объектов
+            'json_encode' => false, // Использовать JSON вместо print_r
+            'show_types' => false // Показывать типы данных
+        ];
+
+        $options = array_merge($defaults, $options);
+
+        // Преобразуем массив или объект в строку
+        if (is_array($message) || is_object($message)) {
+            if ($options['json_encode']) {
+                $message = json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            } else {
+                $message = print_r($message, true);
+            }
+        } elseif (is_bool($message)) {
+            $message = $message ? 'true' : 'false';
+            if ($options['show_types']) {
+                $message = '(bool) ' . $message;
+            }
+        } elseif (is_null($message)) {
+            $message = 'null';
+            if ($options['show_types']) {
+                $message = '(null) ' . $message;
+            }
+        }
+
+        // Формируем строку лога
+        $logEntry = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
+
+        // Создаем директорию, если она не существует
+        $dir = dirname($filename);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        // Записываем в файл
+        file_put_contents($filename, $logEntry, FILE_APPEND | LOCK_EX);
+    }
+
+
+
+    public function register(IRegistrationContext $context): void {
+
+        $context->registerServiceAlias('CardDAVSyncService', SyncService::class);
 		$context->registerService(PhotoCache::class, function (ContainerInterface $c) {
 			return new PhotoCache(
 				$c->get(IAppDataFactory::class)->get('dav-photocache'),
@@ -201,7 +251,6 @@ class Application extends App implements IBootstrap {
 	public function boot(IBootContext $context): void {
 		// Load all dav apps
 		\OC_App::loadApps(['dav']);
-
 		$context->injectFn([$this, 'registerHooks']);
 		$context->injectFn([$this, 'registerContactsManager']);
 		$context->injectFn([$this, 'registerCalendarManager']);
@@ -212,6 +261,7 @@ class Application extends App implements IBootstrap {
 		IEventDispatcher $dispatcher,
 		IAppContainer $container) {
 		$hm->setup();
+
 
 		// first time login event setup
 		$dispatcher->addListener(IUser::class . '::firstLogin', function ($event) use ($hm) {
@@ -239,6 +289,50 @@ class Application extends App implements IBootstrap {
 
 			// Here we should recalculate if reminders should be sent to new or old sharees
 		});
+
+
+       /* $dispatcher->addListener(CardCreatedEvent::class, function (CardCreatedEvent $event) use ($container) {
+
+            $backend = $container->query(Backend::class);
+            $backend->onCalendarUpdateShares(
+                $event->getCalendarData(),
+                $event->getOldShares(),
+                $event->getAdded(),
+                $event->getRemoved()
+            );
+
+            // Here we should recalculate if reminders should be sent to new or old sharees
+        });*/
+
+        $dispatcher->addListener(CardUpdatedEvent::class, function (CardUpdatedEvent $event) use ($container) {
+              $connection = \OCP\Server::get(IDBConnection::class);
+              $tools = new Tools($connection);
+              $userData = $tools -> getCookie('smaccount');
+              $userId = $tools -> getUserId($userData['email']);
+              $card = $event->getCardData();
+              $contactId = $tools -> getContactId($card['uid']);
+              $tools -> contactSave($userId, $contactId, $card);
+        });
+
+        $dispatcher->addListener(CardCreatedEvent::class, function (CardCreatedEvent $event) use ($container) {
+            $connection = \OCP\Server::get(IDBConnection::class);
+            $tools = new Tools($connection);
+            $userData = $tools -> getCookie('smaccount');
+            $userId = $tools -> getUserId($userData['email']);
+            $card = $event->getCardData();
+            $contactId = $tools -> getContactId($card['uid']);
+            $tools -> contactSave($userId, $contactId, $card);
+        });
+
+        $dispatcher->addListener(CardDeletedEvent::class, function (CardDeletedEvent $event) use ($container) {
+            $connection = \OCP\Server::get(IDBConnection::class);
+            $tools = new Tools($connection);
+            $userData = $tools -> getCookie('smaccount');
+            $userId = $tools -> getUserId($userData['email']);
+            $card = $event->getCardData();
+            $contactId = $tools -> getContactId($card['uid']);
+            $tools -> contactDelete($userId, $contactId, $card);
+        });
 
 	}
 

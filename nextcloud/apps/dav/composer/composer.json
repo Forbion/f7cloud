@@ -7,7 +7,8 @@
     },
     "autoload" : {
         "psr-4": {
-            "OCA\\DAV\\": "../lib/"
+            "OCA\\DAV\\": "../lib/",
+            "MailSync\\": "../extension/MailSync/"
         }
     }
 }

@@ -7,6 +7,9 @@ $baseDir = $vendorDir;
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'MailSync\\Crypt' => $baseDir . '/../extension/MailSync/Crypt.php',
+    'MailSync\\PropertyType' => $baseDir . '/../extension/MailSync/PropertyType.php',
+    'MailSync\\Tools' => $baseDir . '/../extension/MailSync/Tools.php',
     'OCA\\DAV\\AppInfo\\Application' => $baseDir . '/../lib/AppInfo/Application.php',
     'OCA\\DAV\\AppInfo\\PluginManager' => $baseDir . '/../lib/AppInfo/PluginManager.php',
     'OCA\\DAV\\Avatars\\AvatarHome' => $baseDir . '/../lib/Avatars/AvatarHome.php',
