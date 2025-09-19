@@ -6,10 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
-    'Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
-    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'Psr\\Clock\\' => array($vendorDir . '/psr/clock/src'),
     'OCA\\Talk\\' => array($baseDir . '/lib'),
     'Bamarni\\Composer\\Bin\\' => array($vendorDir . '/bamarni/composer-bin-plugin/src'),
 );

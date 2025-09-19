@@ -2,9 +2,12 @@ OC.L10N.register(
     "groupfolders",
     {
     "Deny" : "Rad etish",
+    "Write" : "Yozish",
     "Create" : "Yaratish",
-    "Delete" : "Delete",
+    "Delete" : "O'chirish",
     "Share" : "Ulashish",
+    "Default" : "Standart",
+    "Unlimited" : "Unlimited",
     "Folder name" : "Folder name",
     "Quota" : "kvota",
     "Previous" : "Oldingi",

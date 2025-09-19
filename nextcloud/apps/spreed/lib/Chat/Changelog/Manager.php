@@ -26,8 +26,6 @@ class Manager {
 		protected ITimeFactory $timeFactory,
 		protected IL10N $l,
 	) {
-        // Принудительное отключение при инициализации
-        $this->config->setAppValue('spreed', 'disable_changelog', 'yes');
 	}
 
 	public function getChangelogForUser(string $userId): int {
@@ -35,32 +33,29 @@ class Manager {
 	}
 
 	public function updateChangelog(string $userId): void {
-        if ($this->config->getAppValue('spreed', 'disable_changelog', 'no') === 'yes') {
-            return;
-        }
-//		$logs = $this->getChangelogs();
-//		$hasReceivedLog = $this->getChangelogForUser($userId);
-//		$shouldHaveReceived = count($logs);
-//
-//		if ($hasReceivedLog === $shouldHaveReceived) {
-//			return;
-//		}
-//
-//		try {
-//			$this->config->setUserValue($userId, 'spreed', 'changelog', (string)$shouldHaveReceived, (string)$hasReceivedLog);
-//		} catch (PreConditionNotMetException) {
-//			// Parallel request won the race
-//			return;
-//		}
-//
-//		$room = $this->roomManager->getChangelogRoom($userId);
-//
-//		foreach ($logs as $key => $changelog) {
-//			if ($key < $hasReceivedLog || $changelog === '') {
-//				continue;
-//			}
-//			$this->chatManager->addChangelogMessage($room, $changelog);
-//		}
+		$logs = $this->getChangelogs();
+		$hasReceivedLog = $this->getChangelogForUser($userId);
+		$shouldHaveReceived = count($logs);
+
+		if ($hasReceivedLog === $shouldHaveReceived) {
+			return;
+		}
+
+		try {
+			$this->config->setUserValue($userId, 'spreed', 'changelog', (string)$shouldHaveReceived, (string)$hasReceivedLog);
+		} catch (PreConditionNotMetException) {
+			// Parallel request won the race
+			return;
+		}
+
+		$room = $this->roomManager->getChangelogRoom($userId);
+
+		foreach ($logs as $key => $changelog) {
+			if ($key < $hasReceivedLog || $changelog === '') {
+				continue;
+			}
+			$this->chatManager->addChangelogMessage($room, $changelog);
+		}
 	}
 
 	public function getChangelogs(): array {

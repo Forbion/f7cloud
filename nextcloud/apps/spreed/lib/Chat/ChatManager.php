@@ -135,6 +135,7 @@ class ChatManager {
 	 */
 	public function addSystemMessage(
 		Room $chat,
+		?Participant $participant,
 		string $actorType,
 		string $actorId,
 		string $message,
@@ -173,11 +174,14 @@ class ChatManager {
 			$comment->setVerb(self::VERB_SYSTEM);
 		}
 
+		$metadata = [];
 		if ($silent) {
-			$comment->setMetaData([
-				Message::METADATA_SILENT => true,
-			]);
+			$metadata[Message::METADATA_SILENT] = true;
 		}
+		if ($chat->getMentionPermissions() === Room::MENTION_PERMISSIONS_EVERYONE || $participant?->hasModeratorPermissions()) {
+			$metadata[Message::METADATA_CAN_MENTION_ALL] = true;
+		}
+		$comment->setMetaData($metadata);
 
 		$this->setMessageExpiration($chat, $comment);
 
@@ -543,6 +547,7 @@ class ChatManager {
 
 		return $this->addSystemMessage(
 			$chat,
+			$participant,
 			$participant->getAttendee()->getActorType(),
 			$participant->getAttendee()->getActorId(),
 			json_encode(['message' => 'message_deleted', 'parameters' => ['message' => $comment->getId()]]),
@@ -632,6 +637,7 @@ class ChatManager {
 
 		return $this->addSystemMessage(
 			$chat,
+			$participant,
 			$participant->getAttendee()->getActorType(),
 			$participant->getAttendee()->getActorId(),
 			json_encode(['message' => 'message_edited', 'parameters' => ['message' => $comment->getId()]]),
@@ -663,6 +669,7 @@ class ChatManager {
 
 		return $this->addSystemMessage(
 			$chat,
+			null,
 			$actorType,
 			$actorId,
 			json_encode(['message' => 'history_cleared', 'parameters' => []]),
@@ -984,13 +991,20 @@ class ChatManager {
 		}
 		if ($search === '' || $this->searchIsPartOfConversationNameOrAtAll($search, $roomDisplayName)) {
 			$participantCount = $this->participantService->getNumberOfUsers($room);
-			$results[] = [
+
+			$atAllResult = [
 				'id' => 'all',
 				'label' => $roomDisplayName,
-				'details' => $this->l->n('All %n participant', 'All %n participants', $participantCount),
 				'source' => 'calls',
 				'mentionId' => 'all',
 			];
+
+			if ($participantCount > 1) {
+				// TRANSLATORS The string will only be used with more than 1 participant, so you can keep the "All" in all plural forms
+				$atAllResult['details'] = $this->l->n('All %n participant', 'All %n participants', $participantCount);
+			}
+
+			$results[] = $atAllResult;
 		}
 		return $results;
 	}

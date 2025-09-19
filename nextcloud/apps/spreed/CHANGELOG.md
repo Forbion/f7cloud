@@ -5,6 +5,32 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 20.1.10 – 2025-09-18
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(chat): Support at-all in captions
+  [#15746](https://github.com/nextcloud/spreed/issues/15746)
+- fix(chat): Fix loading a completely empty conversation as a guest
+  [#15551](https://github.com/nextcloud/spreed/issues/15551)
+- fix(conversation): Fix joining and leaving conversations when errors occurred
+  [#15796](https://github.com/nextcloud/spreed/issues/15796)
+
+## 20.1.9 – 2025-07-17
+### Changed
+- Update translations
+- Update dependencies
+
+### Fixed
+- fix(settings): Allow changing call notification level for federated conversations
+  [#15515](https://github.com/nextcloud/spreed/issues/15515)
+- fix(settings): Fix class name of background job checking certificates
+  [#15463](https://github.com/nextcloud/spreed/issues/15463)
+- fix(polls): Fix deleting poll drafts
+  [#15535](https://github.com/nextcloud/spreed/issues/15535)
+
 ## 20.1.8 – 2025-07-03
 ### Changed
 - Update translations

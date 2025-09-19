@@ -6,9 +6,11 @@ OC.L10N.register(
     "Create" : "Yarat",
     "Delete" : "Sil",
     "Share" : "Paylaş",
+    "Unlimited" : "Limitsiz",
     "Folder name" : "Qovluq adı",
     "Quota" : "Norma",
     "Previous" : "Əvvələ",
-    "User" : "User"
+    "User" : "User",
+    "None" : "Heç bir"
 },
 "nplurals=2; plural=(n != 1);");

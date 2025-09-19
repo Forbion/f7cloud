@@ -26,8 +26,8 @@ use OCP\Security\ISecureRandom;
 
 class AvatarService {
 	public const THEMING_PLACEHOLDER = '{{THEMING}}';
-	public const THEMING_DARK_BACKGROUND = '70B62B';
-	public const THEMING_BRIGHT_BACKGROUND = '70B62B';
+	public const THEMING_DARK_BACKGROUND = '3B3B3B';
+	public const THEMING_BRIGHT_BACKGROUND = '6B6B6B';
 
 	public function __construct(
 		private IAppData $appData,
@@ -171,7 +171,7 @@ class AvatarService {
 	private string $svgTemplate = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<svg width="512" height="512" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
 			<rect width="100%" height="100%" fill="#{fill}"></rect>
-			<text x="50%" y="330" style="font-size:240px;font-family:{font};text-anchor:middle;fill:white;">{letter}</text>
+			<text x="50%" y="330" style="font-size:240px;font-family:{font};text-anchor:middle;">{letter}</text>
 		</svg>';
 
 	public function getAvatar(Room $room, ?IUser $user, bool $darkTheme = false): ISimpleFile {

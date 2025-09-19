@@ -4,9 +4,11 @@
     "Create" : "Yarat",
     "Delete" : "Sil",
     "Share" : "Paylaş",
+    "Unlimited" : "Limitsiz",
     "Folder name" : "Qovluq adı",
     "Quota" : "Norma",
     "Previous" : "Əvvələ",
-    "User" : "User"
+    "User" : "User",
+    "None" : "Heç bir"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

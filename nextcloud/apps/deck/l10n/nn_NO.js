@@ -1,10 +1,11 @@
 OC.L10N.register(
     "deck",
     {
-    "Done" : "Ferdig",
     "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form" : "Den opplasta fila er større enn variabelen MAX_FILE_SIZE i HTML-skjemaet",
     "No file was uploaded" : "Ingen filer vart lasta opp",
     "Missing a temporary folder" : "Manglar ei mellombels mappe",
+    "Done" : "Ferdig",
+    "File" : "Fil",
     "Cancel" : "Avbryt",
     "Completed" : "Fullført",
     "Details" : "Detaljar",
@@ -32,8 +33,9 @@ OC.L10N.register(
     "Search" : "Søk",
     "Shared with you" : "Shared with you",
     "An error occurred" : "Det oppstod ein feil.",
+    "Export" : "Eksporter",
     "Today" : "I dag",
-    "Close" : "Lukk",
+    "Close" : "Lat att",
     "Share" : "Del",
     "Personal" : "Personleg"
 },

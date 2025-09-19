@@ -6,10 +6,12 @@ OC.L10N.register(
     "Create" : "তৈরী কর",
     "Delete" : "মুছে",
     "Share" : "ভাগাভাগি কর",
+    "Unlimited" : "অসীম",
     "Folder name" : "ফোলডারের নাম",
     "Quota" : "কোটা",
     "Previous" : "পূর্ববর্তী",
     "User" : "User",
-    "Unknown" : "অজানা"
+    "Unknown" : "অজানা",
+    "None" : "কোনটিই নয়"
 },
 "nplurals=2; plural=(n != 1);");

@@ -6,14 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
-    'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
-    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
-    'PhpCsFixerCustomFixers\\' => array($vendorDir . '/kubawerlos/php-cs-fixer-custom-fixers/src'),
     'OCA\\Contacts\\' => array($baseDir . '/lib'),
-    'Nextcloud\\CodingStandard\\' => array($vendorDir . '/nextcloud/coding-standard/src'),
-    'Facebook\\WebDriver\\' => array($vendorDir . '/php-webdriver/webdriver/lib'),
-    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
-    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
-    'ChristophWurst\\Nextcloud\\Testing\\' => array($vendorDir . '/christophwurst/nextcloud_testing'),
 );

@@ -1,9 +1,9 @@
 OC.L10N.register(
     "deck",
     {
-    "Done" : "Done",
     "No file was uploaded" : "ವರ್ಗಾವಣೆಗೆ ﻿ಯಾವುದೇ ಕಡತಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
     "Missing a temporary folder" : "ತಾತ್ಕಾಲಿಕ ಕಡತಕೋಶ ದೊರೆಕುತ್ತಿಲ್ಲ",
+    "Done" : "Done",
     "Cancel" : "﻿ರದ್ದು",
     "Open" : "ತೆರೆಯಿರಿ",
     "Sharing" : "﻿ಹಂಚಿಕೆ",
@@ -17,6 +17,7 @@ OC.L10N.register(
     "Save" : "﻿ಉಳಿಸಿ",
     "Search" : "Search",
     "Shared with you" : "Shared with you",
+    "Export" : "ರಫ್ತು",
     "Today" : "Today",
     "Close" : "ಮುಚ್ಚು",
     "Share" : "﻿ಹಂಚಿಕೊಳ್ಳಿ",

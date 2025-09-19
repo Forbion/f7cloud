@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'nextcloud/deck',
-        'pretty_version' => 'v1.14.5',
-        'version' => '1.14.5.0',
-        'reference' => 'cfe346503cae54c3236bf414f2e7af046ed53e66',
+        'pretty_version' => 'v1.14.6',
+        'version' => '1.14.6.0',
+        'reference' => '9f6d33e3374fed6bdd1704e5b551376db549acec',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'nextcloud/deck' => array(
-            'pretty_version' => 'v1.14.5',
-            'version' => '1.14.5.0',
-            'reference' => 'cfe346503cae54c3236bf414f2e7af046ed53e66',
+            'pretty_version' => 'v1.14.6',
+            'version' => '1.14.6.0',
+            'reference' => '9f6d33e3374fed6bdd1704e5b551376db549acec',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

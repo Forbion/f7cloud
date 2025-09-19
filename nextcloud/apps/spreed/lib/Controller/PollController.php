@@ -126,7 +126,7 @@ class PollController extends AEnvironmentAwareController {
 		], JSON_THROW_ON_ERROR);
 
 		try {
-			$this->chatManager->addSystemMessage($this->room, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), true);
+			$this->chatManager->addSystemMessage($this->room, $this->participant, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), true);
 		} catch (\Exception $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 		}
@@ -260,7 +260,7 @@ class PollController extends AEnvironmentAwareController {
 						],
 					],
 				], JSON_THROW_ON_ERROR);
-				$this->chatManager->addSystemMessage($this->room, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), false);
+				$this->chatManager->addSystemMessage($this->room, $this->participant, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), false);
 			} catch (\Exception $e) {
 				$this->logger->error($e->getMessage(), ['exception' => $e]);
 			}
@@ -300,6 +300,11 @@ class PollController extends AEnvironmentAwareController {
 		}
 
 		if ($poll->getStatus() === Poll::STATUS_DRAFT) {
+			if (!$this->participant->hasModeratorPermissions(false)) {
+				// Only moderators can manage drafts
+				return new DataResponse([], Http::STATUS_NOT_FOUND);
+			}
+
 			$this->pollService->deleteByPollId($poll->getId());
 			return new DataResponse([], Http::STATUS_ACCEPTED);
 		}
@@ -331,7 +336,7 @@ class PollController extends AEnvironmentAwareController {
 					],
 				],
 			], JSON_THROW_ON_ERROR);
-			$this->chatManager->addSystemMessage($this->room, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), true);
+			$this->chatManager->addSystemMessage($this->room, $this->participant, $attendee->getActorType(), $attendee->getActorId(), $message, $this->timeFactory->getDateTime(), true);
 		} catch (\Exception $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 		}
