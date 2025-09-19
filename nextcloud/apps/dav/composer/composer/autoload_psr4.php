@@ -7,5 +7,4 @@ $baseDir = $vendorDir;
 
 return array(
     'OCA\\DAV\\' => array($baseDir . '/../lib'),
-    'MailSync\\' => array($baseDir . '/../extension/MailSync'),
 );

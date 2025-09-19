@@ -18,25 +18,6 @@ use OCP\Security\ICrypto;
 use OCP\Security\ISecureRandom;
 
 class NewUserMailHelper {
-	/** @var Defaults */
-	private $themingDefaults;
-	/** @var IURLGenerator */
-	private $urlGenerator;
-	/** @var IFactory */
-	private $l10nFactory;
-	/** @var IMailer */
-	private $mailer;
-	/** @var ISecureRandom */
-	private $secureRandom;
-	/** @var ITimeFactory */
-	private $timeFactory;
-	/** @var IConfig */
-	private $config;
-	/** @var ICrypto */
-	private $crypto;
-	/** @var string */
-	private $fromAddress;
-
 	/**
 	 * @param Defaults $themingDefaults
 	 * @param IURLGenerator $urlGenerator
@@ -48,24 +29,17 @@ class NewUserMailHelper {
 	 * @param ICrypto $crypto
 	 * @param string $fromAddress
 	 */
-	public function __construct(Defaults $themingDefaults,
-		IURLGenerator $urlGenerator,
-		IFactory $l10nFactory,
-		IMailer $mailer,
-		ISecureRandom $secureRandom,
-		ITimeFactory $timeFactory,
-		IConfig $config,
-		ICrypto $crypto,
-		$fromAddress) {
-		$this->themingDefaults = $themingDefaults;
-		$this->urlGenerator = $urlGenerator;
-		$this->l10nFactory = $l10nFactory;
-		$this->mailer = $mailer;
-		$this->secureRandom = $secureRandom;
-		$this->timeFactory = $timeFactory;
-		$this->config = $config;
-		$this->crypto = $crypto;
-		$this->fromAddress = $fromAddress;
+	public function __construct(
+		private Defaults $themingDefaults,
+		private IURLGenerator $urlGenerator,
+		private IFactory $l10nFactory,
+		private IMailer $mailer,
+		private ISecureRandom $secureRandom,
+		private ITimeFactory $timeFactory,
+		private IConfig $config,
+		private ICrypto $crypto,
+		private $fromAddress,
+	) {
 	}
 
 	/**
@@ -101,37 +75,37 @@ class NewUserMailHelper {
 			'resetTokenGenerated' => $generatePasswordResetToken,
 		]);
 
-		$emailTemplate->setSubject($l10n->t('Ваш %s аккаунт был создан', [$this->themingDefaults->getName()]));
+		$emailTemplate->setSubject($l10n->t('Your %s account was created', [$this->themingDefaults->getName()]));
 		$emailTemplate->addHeader();
 		if ($displayName === $userId) {
-			$emailTemplate->addHeading($l10n->t('Добро пожаловать'));
+			$emailTemplate->addHeading($l10n->t('Welcome aboard'));
 		} else {
-			$emailTemplate->addHeading($l10n->t('Добро пожаловать %s', [$displayName]));
+			$emailTemplate->addHeading($l10n->t('Welcome aboard %s', [$displayName]));
 		}
-		$emailTemplate->addBodyText($l10n->t('Добро пожаловать в ваш %s аккаунт, вы можете добавлять, защищать и делиться своими данными.', [$this->themingDefaults->getName()]));
+		$emailTemplate->addBodyText($l10n->t('Welcome to your %s account, you can add, protect, and share your data.', [$this->themingDefaults->getName()]));
 		if ($user->getBackendClassName() !== 'LDAP') {
-			$emailTemplate->addBodyText($l10n->t('Войти как: %s', [$userId]));
+			$emailTemplate->addBodyText($l10n->t('Your Login is: %s', [$userId]));
 		}
 		if ($generatePasswordResetToken) {
-			$leftButtonText = $l10n->t('Установить пароль');
+			$leftButtonText = $l10n->t('Set your password');
 		} else {
-			$leftButtonText = $l10n->t('Перейти в %s', [$this->themingDefaults->getName()]);
+			$leftButtonText = $l10n->t('Go to %s', [$this->themingDefaults->getName()]);
 		}
 
-//		$clientDownload = $this->config->getSystemValue('customclient_desktop', 'https://nextcloud.com/install/#install-clients');
-//		if ($clientDownload === '') {
+		$clientDownload = $this->config->getSystemValue('customclient_desktop', 'https://nextcloud.com/install/#install-clients');
+		if ($clientDownload === '') {
 			$emailTemplate->addBodyButton(
 				$leftButtonText,
 				$link
 			);
-//		} else {
-//			$emailTemplate->addBodyButtonGroup(
-//				$leftButtonText,
-//				$link,
-//				$l10n->t('Install Client'),
-//				$clientDownload
-//			);
-//		}
+		} else {
+			$emailTemplate->addBodyButtonGroup(
+				$leftButtonText,
+				$link,
+				$l10n->t('Install Client'),
+				$clientDownload
+			);
+		}
 
 		$emailTemplate->addFooter('', $lang);
 

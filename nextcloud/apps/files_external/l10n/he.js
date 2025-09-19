@@ -2,8 +2,6 @@ OC.L10N.register(
     "files_external",
     {
     "Grant access" : "הענקת גישה",
-    "Error configuring OAuth1" : "שגיאה בתצורת OAuth1",
-    "Please provide a valid app key and secret." : "יש לספק מפתח יישום וסוד תקניים.",
     "Error configuring OAuth2" : "שגיאה בתצורת OAuth2",
     "Generate keys" : "יצירת מפתחות",
     "Error generating key pair" : "שגיאה ביצירת זוג מפתחות",
@@ -22,9 +20,6 @@ OC.L10N.register(
     "Secret key" : "מפתח סודי",
     "Builtin" : "מובנה",
     "None" : "כלום",
-    "OAuth1" : "OAuth1",
-    "App key" : "מפתח יישום",
-    "App secret" : "סוד יישום",
     "OAuth2" : "OAuth2",
     "Client ID" : "זיהוי לקוח",
     "Client secret" : "סוד לקוח",
@@ -79,7 +74,7 @@ OC.L10N.register(
     "External storage" : "אחסון חיצוני",
     "External storage support" : "תמיכה באחסון חיצוני",
     "Adds basic external storage support" : "מוסיף תמיכה באחסון חיצוני בסיסי",
-    "Submit" : "שליחה",
+    "Confirm" : "אישור",
     "External mount error" : "שגיאת עגינה חיצונית",
     "Storage type" : "סוג אחסון",
     "Unknown" : "לא ידוע",
@@ -110,6 +105,11 @@ OC.L10N.register(
     "Available for" : "זמין עבור",
     "Add storage" : "הוספת אחסון",
     "Advanced settings" : "הגדרות מתקדמות",
-    "Global credentials can be used to authenticate with multiple external storages that have the same credentials." : "ניתן להשתמש בפרטי גישה גלובליים עם מגוון אמצעי אחסון חיצוניים שיש להם את אותם פרטי הגישה."
+    "Global credentials can be used to authenticate with multiple external storages that have the same credentials." : "ניתן להשתמש בפרטי גישה גלובליים עם מגוון אמצעי אחסון חיצוניים שיש להם את אותם פרטי הגישה.",
+    "Error configuring OAuth1" : "שגיאה בתצורת OAuth1",
+    "Please provide a valid app key and secret." : "יש לספק מפתח יישום וסוד תקניים.",
+    "OAuth1" : "OAuth1",
+    "App key" : "מפתח יישום",
+    "App secret" : "סוד יישום"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

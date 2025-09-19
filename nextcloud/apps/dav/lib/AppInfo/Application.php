@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
@@ -21,6 +20,7 @@ use OCA\DAV\CalDAV\Reminder\NotificationProvider\PushProvider;
 use OCA\DAV\CalDAV\Reminder\NotificationProviderManager;
 use OCA\DAV\CalDAV\Reminder\Notifier;
 use OCA\DAV\Capabilities;
+
 use OCA\DAV\CardDAV\ContactsManager;
 use OCA\DAV\CardDAV\PhotoCache;
 use OCA\DAV\CardDAV\SyncService;
@@ -31,12 +31,6 @@ use OCA\DAV\Events\AddressBookUpdatedEvent;
 use OCA\DAV\Events\CalendarCreatedEvent;
 use OCA\DAV\Events\CalendarDeletedEvent;
 use OCA\DAV\Events\CalendarMovedToTrashEvent;
-use OCA\DAV\Events\CalendarObjectCreatedEvent;
-use OCA\DAV\Events\CalendarObjectDeletedEvent;
-use OCA\DAV\Events\CalendarObjectMovedEvent;
-use OCA\DAV\Events\CalendarObjectMovedToTrashEvent;
-use OCA\DAV\Events\CalendarObjectRestoredEvent;
-use OCA\DAV\Events\CalendarObjectUpdatedEvent;
 use OCA\DAV\Events\CalendarPublishedEvent;
 use OCA\DAV\Events\CalendarRestoredEvent;
 use OCA\DAV\Events\CalendarShareUpdatedEvent;
@@ -76,6 +70,12 @@ use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\IAppContainer;
+use OCP\Calendar\Events\CalendarObjectCreatedEvent;
+use OCP\Calendar\Events\CalendarObjectDeletedEvent;
+use OCP\Calendar\Events\CalendarObjectMovedEvent;
+use OCP\Calendar\Events\CalendarObjectMovedToTrashEvent;
+use OCP\Calendar\Events\CalendarObjectRestoredEvent;
+use OCP\Calendar\Events\CalendarObjectUpdatedEvent;
 use OCP\Calendar\IManager as ICalendarManager;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
@@ -86,73 +86,24 @@ use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Federation\Events\TrustedServerRemovedEvent;
 use OCP\Files\AppData\IAppDataFactory;
 use OCP\IUser;
+use OCP\Server;
 use OCP\User\Events\OutOfOfficeChangedEvent;
 use OCP\User\Events\OutOfOfficeClearedEvent;
 use OCP\User\Events\OutOfOfficeScheduledEvent;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use MailSync\Tools;
-use OCP\IDBConnection;;
 use Throwable;
-
 use function is_null;
 
 class Application extends App implements IBootstrap {
-
 	public const APP_ID = 'dav';
 
 	public function __construct() {
 		parent::__construct(self::APP_ID);
 	}
 
-
-    function logToFile($message, $filename = 'app.log', $options = []) {
-        // Настройки по умолчанию
-        $defaults = [
-            'max_depth' => 5, // Максимальная глубина рекурсии для массивов/объектов
-            'json_encode' => false, // Использовать JSON вместо print_r
-            'show_types' => false // Показывать типы данных
-        ];
-
-        $options = array_merge($defaults, $options);
-
-        // Преобразуем массив или объект в строку
-        if (is_array($message) || is_object($message)) {
-            if ($options['json_encode']) {
-                $message = json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-            } else {
-                $message = print_r($message, true);
-            }
-        } elseif (is_bool($message)) {
-            $message = $message ? 'true' : 'false';
-            if ($options['show_types']) {
-                $message = '(bool) ' . $message;
-            }
-        } elseif (is_null($message)) {
-            $message = 'null';
-            if ($options['show_types']) {
-                $message = '(null) ' . $message;
-            }
-        }
-
-        // Формируем строку лога
-        $logEntry = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
-
-        // Создаем директорию, если она не существует
-        $dir = dirname($filename);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-
-        // Записываем в файл
-        file_put_contents($filename, $logEntry, FILE_APPEND | LOCK_EX);
-    }
-
-
-
-    public function register(IRegistrationContext $context): void {
-
-        $context->registerServiceAlias('CardDAVSyncService', SyncService::class);
+	public function register(IRegistrationContext $context): void {
+		$context->registerServiceAlias('CardDAVSyncService', SyncService::class);
 		$context->registerService(PhotoCache::class, function (ContainerInterface $c) {
 			return new PhotoCache(
 				$c->get(IAppDataFactory::class)->get('dav-photocache'),
@@ -251,6 +202,7 @@ class Application extends App implements IBootstrap {
 	public function boot(IBootContext $context): void {
 		// Load all dav apps
 		\OC_App::loadApps(['dav']);
+
 		$context->injectFn([$this, 'registerHooks']);
 		$context->injectFn([$this, 'registerContactsManager']);
 		$context->injectFn([$this, 'registerCalendarManager']);
@@ -262,22 +214,21 @@ class Application extends App implements IBootstrap {
 		IAppContainer $container) {
 		$hm->setup();
 
-
 		// first time login event setup
-		$dispatcher->addListener(IUser::class . '::firstLogin', function ($event) use ($hm) {
+		$dispatcher->addListener(IUser::class . '::firstLogin', function ($event) use ($hm): void {
 			if ($event instanceof GenericEvent) {
 				$hm->firstLogin($event->getSubject());
 			}
 		});
 
-		$dispatcher->addListener(UserUpdatedEvent::class, function (UserUpdatedEvent $event) use ($container) {
+		$dispatcher->addListener(UserUpdatedEvent::class, function (UserUpdatedEvent $event) use ($container): void {
 			/** @var SyncService $syncService */
-			$syncService = \OCP\Server::get(SyncService::class);
+			$syncService = Server::get(SyncService::class);
 			$syncService->updateUser($event->getUser());
 		});
 
 
-		$dispatcher->addListener(CalendarShareUpdatedEvent::class, function (CalendarShareUpdatedEvent $event) use ($container) {
+		$dispatcher->addListener(CalendarShareUpdatedEvent::class, function (CalendarShareUpdatedEvent $event) use ($container): void {
 			/** @var Backend $backend */
 			$backend = $container->query(Backend::class);
 			$backend->onCalendarUpdateShares(
@@ -289,50 +240,6 @@ class Application extends App implements IBootstrap {
 
 			// Here we should recalculate if reminders should be sent to new or old sharees
 		});
-
-
-       /* $dispatcher->addListener(CardCreatedEvent::class, function (CardCreatedEvent $event) use ($container) {
-
-            $backend = $container->query(Backend::class);
-            $backend->onCalendarUpdateShares(
-                $event->getCalendarData(),
-                $event->getOldShares(),
-                $event->getAdded(),
-                $event->getRemoved()
-            );
-
-            // Here we should recalculate if reminders should be sent to new or old sharees
-        });*/
-
-        $dispatcher->addListener(CardUpdatedEvent::class, function (CardUpdatedEvent $event) use ($container) {
-              $connection = \OCP\Server::get(IDBConnection::class);
-              $tools = new Tools($connection);
-              $userData = $tools -> getCookie('smaccount');
-              $userId = $tools -> getUserId($userData['email']);
-              $card = $event->getCardData();
-              $contactId = $tools -> getContactId($card['uid']);
-              $tools -> contactSave($userId, $contactId, $card);
-        });
-
-        $dispatcher->addListener(CardCreatedEvent::class, function (CardCreatedEvent $event) use ($container) {
-            $connection = \OCP\Server::get(IDBConnection::class);
-            $tools = new Tools($connection);
-            $userData = $tools -> getCookie('smaccount');
-            $userId = $tools -> getUserId($userData['email']);
-            $card = $event->getCardData();
-            $contactId = $tools -> getContactId($card['uid']);
-            $tools -> contactSave($userId, $contactId, $card);
-        });
-
-        $dispatcher->addListener(CardDeletedEvent::class, function (CardDeletedEvent $event) use ($container) {
-            $connection = \OCP\Server::get(IDBConnection::class);
-            $tools = new Tools($connection);
-            $userData = $tools -> getCookie('smaccount');
-            $userId = $tools -> getUserId($userData['email']);
-            $card = $event->getCardData();
-            $contactId = $tools -> getContactId($card['uid']);
-            $tools -> contactDelete($userId, $contactId, $card);
-        });
 
 	}
 
@@ -356,17 +263,16 @@ class Application extends App implements IBootstrap {
 		$cm->setupContactsProvider($contactsManager, $userID, $urlGenerator);
 	}
 
-	private function setupSystemContactsProvider(IContactsManager $contactsManager,
-		IAppContainer $container): void {
+	private function setupSystemContactsProvider(IContactsManager $contactsManager, IAppContainer $container): void {
 		/** @var ContactsManager $cm */
 		$cm = $container->query(ContactsManager::class);
 		$urlGenerator = $container->getServer()->getURLGenerator();
-		$cm->setupSystemContactsProvider($contactsManager, $urlGenerator);
+		$cm->setupSystemContactsProvider($contactsManager, null, $urlGenerator);
 	}
 
 	public function registerCalendarManager(ICalendarManager $calendarManager,
 		IAppContainer $container): void {
-		$calendarManager->register(function () use ($container, $calendarManager) {
+		$calendarManager->register(function () use ($container, $calendarManager): void {
 			$user = \OC::$server->getUserSession()->getUser();
 			if ($user !== null) {
 				$this->setupCalendarProvider($calendarManager, $container, $user->getUID());

@@ -8,7 +8,6 @@ style('settings', 'settings');
 script('settings', 'settings');
 \OCP\Util::addScript('settings', 'legacy-admin');
 script('core', 'setupchecks');
-script('files', 'jquery.fileupload');
 
 ?>
 
@@ -19,7 +18,7 @@ script('files', 'jquery.fileupload');
 	<nav class="app-navigation-personal" aria-labelledby="app-navigation-caption-personal">
 		<ul>
 			<?php foreach ($_['forms']['personal'] as $form) {
-				if (isset($form['anchor']) and ($form['anchor'] == 'personal-info' || $form['anchor'] == 'sharing' || $form['anchor'] == 'availability')) {
+				if (isset($form['anchor'])) {
 					$anchor = \OC::$server->getURLGenerator()->linkToRoute('settings.PersonalSettings.index', ['section' => $form['anchor']]);
 					$class = 'nav-icon-' . $form['anchor'];
 					$sectionName = $form['section-name']; ?>
@@ -67,6 +66,6 @@ script('files', 'jquery.fileupload');
 		</ul>
 	</nav>
 </div>
-<div id="app-content" <?php if (!empty($_['activeSectionId'])) { ?> data-active-section-id="<?php print_unescaped($_['activeSectionId']) ?>" <?php } if (!empty($_['activeSectionType'])) { ?> data-active-section-type="<?php print_unescaped($_['activeSectionType']) ?>" <?php } ?>>
+<main id="app-content" <?php if (!empty($_['activeSectionId'])) { ?> data-active-section-id="<?php print_unescaped($_['activeSectionId']) ?>" <?php } if (!empty($_['activeSectionType'])) { ?> data-active-section-type="<?php print_unescaped($_['activeSectionType']) ?>" <?php } ?>>
 	<?php print_unescaped($_['content']); ?>
-</div>
+</main>

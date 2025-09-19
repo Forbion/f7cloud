@@ -15,18 +15,11 @@ use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 
 class OrphanHelper {
-	private IDBConnection $connection;
-	private IRootFolder $rootFolder;
-	private IUserMountCache $userMountCache;
-
 	public function __construct(
-		IDBConnection $connection,
-		IRootFolder $rootFolder,
-		IUserMountCache $userMountCache
+		private IDBConnection $connection,
+		private IRootFolder $rootFolder,
+		private IUserMountCache $userMountCache,
 	) {
-		$this->connection = $connection;
-		$this->rootFolder = $rootFolder;
-		$this->userMountCache = $userMountCache;
 	}
 
 	public function isShareValid(string $owner, int $fileId): bool {
@@ -61,12 +54,19 @@ class OrphanHelper {
 	/**
 	 * @return \Traversable<int, array{id: int, owner: string, fileid: int, target: string}>
 	 */
-	public function getAllShares() {
+	public function getAllShares(?string $owner = null, ?string $with = null) {
 		$query = $this->connection->getQueryBuilder();
 		$query->select('id', 'file_source', 'uid_owner', 'file_target')
 			->from('share')
-			->where($query->expr()->eq('item_type', $query->createNamedParameter('file')))
-			->orWhere($query->expr()->eq('item_type', $query->createNamedParameter('folder')));
+			->where($query->expr()->in('item_type', $query->createNamedParameter(['file', 'folder'], IQueryBuilder::PARAM_STR_ARRAY)));
+
+		if ($owner !== null) {
+			$query->andWhere($query->expr()->eq('uid_owner', $query->createNamedParameter($owner)));
+		}
+		if ($with !== null) {
+			$query->andWhere($query->expr()->eq('share_with', $query->createNamedParameter($with)));
+		}
+
 		$result = $query->executeQuery();
 		while ($row = $result->fetch()) {
 			yield [

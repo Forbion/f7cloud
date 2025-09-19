@@ -15,10 +15,8 @@
   --color-placeholder-light: #e6e6e6;
   --color-placeholder-dark: #cccccc;
   --color-main-text: #222222;
-  /*--color-text-maxcontrast: #6b6b6b;*/
-  --color-text-maxcontrast: #70B62B;
-  /*--color-text-maxcontrast-default: #6b6b6b;*/
-  --color-text-maxcontrast-default: #70B62B;
+  --color-text-maxcontrast: #6b6b6b;
+  --color-text-maxcontrast-default: #6b6b6b;
   --color-text-maxcontrast-background-blur: #595959;
   /** @deprecated use ` --color-main-text` instead */
   --color-text-light: var(--color-main-text);

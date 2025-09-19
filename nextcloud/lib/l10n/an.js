@@ -8,10 +8,10 @@ OC.L10N.register(
     "today" : "Hue",
     "yesterday" : "Ayer",
     "last month" : "Zaguero mes",
-    "last year" : "Zaguero año",
-    "Apps" : "Aplicazions",
-    "Settings" : "Configurazión",
-    "Email" : "Correu electronico",
-    "Users" : "Usuarios"
+    "last year" : "Zaguero anyo",
+    "Apps" : "Aplicacions",
+    "Settings" : "Configuración",
+    "Accounts" : "Accounts",
+    "Email" : "Correu electronico"
 },
 "nplurals=2; plural=(n != 1);");

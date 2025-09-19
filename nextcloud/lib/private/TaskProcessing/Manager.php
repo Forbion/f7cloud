@@ -36,11 +36,14 @@ use OCP\ICacheFactory;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IServerContainer;
+use OCP\IUserManager;
+use OCP\IUserSession;
 use OCP\L10N\IFactory;
 use OCP\Lock\LockedException;
 use OCP\SpeechToText\ISpeechToTextProvider;
 use OCP\SpeechToText\ISpeechToTextProviderWithId;
 use OCP\TaskProcessing\EShapeType;
+use OCP\TaskProcessing\Events\GetTaskProcessingProvidersEvent;
 use OCP\TaskProcessing\Events\TaskFailedEvent;
 use OCP\TaskProcessing\Events\TaskSuccessfulEvent;
 use OCP\TaskProcessing\Exception\NotFoundException;
@@ -70,7 +73,7 @@ class Manager implements IManager {
 	public const LEGACY_PREFIX_TEXTTOIMAGE = 'legacy:TextToImage:';
 	public const LEGACY_PREFIX_SPEECHTOTEXT = 'legacy:SpeechToText:';
 
-	/** @var list<IProvider>|null  */
+	/** @var list<IProvider>|null */
 	private ?array $providers = null;
 
 	/**
@@ -81,8 +84,12 @@ class Manager implements IManager {
 	private IAppData $appData;
 	private ?array $preferences = null;
 	private ?array $providersById = null;
-	private ICache $cache;
+
+	/** @var ITaskType[]|null */
+	private ?array $taskTypes = null;
 	private ICache $distributedCache;
+
+	private ?GetTaskProcessingProvidersEvent $eventResult = null;
 
 	public function __construct(
 		private IConfig $config,
@@ -98,10 +105,11 @@ class Manager implements IManager {
 		private IUserMountCache $userMountCache,
 		private IClientService $clientService,
 		private IAppManager $appManager,
+		private IUserManager $userManager,
+		private IUserSession $userSession,
 		ICacheFactory $cacheFactory,
 	) {
 		$this->appData = $appDataFactory->get('core');
-		$this->cache = $cacheFactory->createLocal('task_processing::');
 		$this->distributedCache = $cacheFactory->createDistributed('task_processing::');
 	}
 
@@ -185,7 +193,7 @@ class Manager implements IManager {
 					}
 					try {
 						return ['output' => $this->provider->process($input['input'])];
-					} catch(\RuntimeException $e) {
+					} catch (\RuntimeException $e) {
 						throw new ProcessingException($e->getMessage(), 0, $e);
 					}
 				}
@@ -316,13 +324,13 @@ class Manager implements IManager {
 				public function process(?string $userId, array $input, callable $reportProgress): array {
 					try {
 						$folder = $this->appData->getFolder('text2image');
-					} catch(\OCP\Files\NotFoundException) {
+					} catch (\OCP\Files\NotFoundException) {
 						$folder = $this->appData->newFolder('text2image');
 					}
 					$resources = [];
 					$files = [];
 					for ($i = 0; $i < $input['numberOfImages']; $i++) {
-						$file = $folder->newFile(time() . '-' . rand(1, 100000) . '-' .  $i);
+						$file = $folder->newFile(time() . '-' . rand(1, 100000) . '-' . $i);
 						$files[] = $file;
 						$resource = $file->write();
 						if ($resource !== false && $resource !== true && is_resource($resource)) {
@@ -491,6 +499,20 @@ class Manager implements IManager {
 	}
 
 	/**
+	 * Dispatches the event to collect external providers and task types.
+	 * Caches the result within the request.
+	 */
+	private function dispatchGetProvidersEvent(): GetTaskProcessingProvidersEvent {
+		if ($this->eventResult !== null) {
+			return $this->eventResult;
+		}
+
+		$this->eventResult = new GetTaskProcessingProvidersEvent();
+		$this->dispatcher->dispatchTyped($this->eventResult);
+		return $this->eventResult ;
+	}
+
+	/**
 	 * @return IProvider[]
 	 */
 	private function _getProviders(): array {
@@ -518,6 +540,16 @@ class Manager implements IManager {
 			}
 		}
 
+		$event = $this->dispatchGetProvidersEvent();
+		$externalProviders = $event->getProviders();
+		foreach ($externalProviders as $provider) {
+			if (!isset($providers[$provider->getId()])) {
+				$providers[$provider->getId()] = $provider;
+			} else {
+				$this->logger->info('Skipping external task processing provider with ID ' . $provider->getId() . ' because a local provider with the same ID already exists.');
+			}
+		}
+
 		$providers += $this->_getTextProcessingProviders() + $this->_getTextToImageProviders() + $this->_getSpeechToTextProviders();
 
 		return $providers;
@@ -531,6 +563,10 @@ class Manager implements IManager {
 
 		if ($context === null) {
 			return [];
+		}
+
+		if ($this->taskTypes !== null) {
+			return $this->taskTypes;
 		}
 
 		// Default task types
@@ -548,6 +584,10 @@ class Manager implements IManager {
 			\OCP\TaskProcessing\TaskTypes\AudioToText::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\AudioToText::class),
 			\OCP\TaskProcessing\TaskTypes\ContextWrite::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\ContextWrite::class),
 			\OCP\TaskProcessing\TaskTypes\GenerateEmoji::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\GenerateEmoji::class),
+			\OCP\TaskProcessing\TaskTypes\TextToTextChangeTone::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\TextToTextChangeTone::class),
+			\OCP\TaskProcessing\TaskTypes\TextToTextChatWithTools::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\TextToTextChatWithTools::class),
+			\OCP\TaskProcessing\TaskTypes\ContextAgentInteraction::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\ContextAgentInteraction::class),
+			\OCP\TaskProcessing\TaskTypes\TextToTextProofread::ID => \OCP\Server::get(\OCP\TaskProcessing\TaskTypes\TextToTextProofread::class),
 		];
 
 		foreach ($context->getTaskProcessingTaskTypes() as $providerServiceRegistration) {
@@ -566,9 +606,42 @@ class Manager implements IManager {
 			}
 		}
 
+		$event = $this->dispatchGetProvidersEvent();
+		$externalTaskTypes = $event->getTaskTypes();
+		foreach ($externalTaskTypes as $taskType) {
+			if (isset($taskTypes[$taskType->getId()])) {
+				$this->logger->warning('External task processing task type is using ID ' . $taskType->getId() . ' which is already used by a locally registered task type (' . get_class($taskTypes[$taskType->getId()]) . ')');
+			}
+			$taskTypes[$taskType->getId()] = $taskType;
+		}
+
 		$taskTypes += $this->_getTextProcessingTaskTypes();
 
-		return $taskTypes;
+		$this->taskTypes = $taskTypes;
+		return $this->taskTypes;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function _getTaskTypeSettings(): array {
+		try {
+			$json = $this->config->getAppValue('core', 'ai.taskprocessing_type_preferences', '');
+			if ($json === '') {
+				return [];
+			}
+			return json_decode($json, true, flags: JSON_THROW_ON_ERROR);
+		} catch (\JsonException $e) {
+			$this->logger->error('Failed to get settings. JSON Error in ai.taskprocessing_type_preferences', ['exception' => $e]);
+			$taskTypeSettings = [];
+			$taskTypes = $this->_getTaskTypes();
+			foreach ($taskTypes as $taskType) {
+				$taskTypeSettings[$taskType->getId()] = false;
+			};
+
+			return $taskTypeSettings;
+		}
+
 	}
 
 	/**
@@ -603,7 +676,7 @@ class Manager implements IManager {
 				$type->validateInput($io[$key]);
 				if ($type === EShapeType::Enum) {
 					if (!isset($enumValues[$key])) {
-						throw new ValidationException('Provider did not provide enum values for an enum slot: "' . $key .'"');
+						throw new ValidationException('Provider did not provide enum values for an enum slot: "' . $key . '"');
 					}
 					$type->validateEnum($io[$key], $enumValues[$key]);
 				}
@@ -739,16 +812,27 @@ class Manager implements IManager {
 		throw new \OCP\TaskProcessing\Exception\Exception('No matching provider found');
 	}
 
-	public function getAvailableTaskTypes(): array {
-		if ($this->availableTaskTypes === null) {
-			// We use local cache only because distributed cache uses JSOn stringify which would botch our ShapeDescriptor objects
-			$this->availableTaskTypes = $this->cache->get('available_task_types');
+	public function getAvailableTaskTypes(bool $showDisabled = false, ?string $userId = null): array {
+		// userId will be obtained from the session if left to null
+		if (!$this->checkGuestAccess($userId)) {
+			return [];
 		}
 		if ($this->availableTaskTypes === null) {
+			$cachedValue = $this->distributedCache->get('available_task_types_v2');
+			if ($cachedValue !== null) {
+				$this->availableTaskTypes = unserialize($cachedValue);
+			}
+		}
+		// Either we have no cache or showDisabled is turned on, which we don't want to cache, ever.
+		if ($this->availableTaskTypes === null || $showDisabled) {
 			$taskTypes = $this->_getTaskTypes();
+			$taskTypeSettings = $this->_getTaskTypeSettings();
 
 			$availableTaskTypes = [];
 			foreach ($taskTypes as $taskType) {
+				if ((!$showDisabled) && isset($taskTypeSettings[$taskType->getId()]) && !$taskTypeSettings[$taskType->getId()]) {
+					continue;
+				}
 				try {
 					$provider = $this->getPreferredProvider($taskType->getId());
 				} catch (\OCP\TaskProcessing\Exception\Exception $e) {
@@ -774,9 +858,15 @@ class Manager implements IManager {
 				}
 			}
 
+			if ($showDisabled) {
+				// Do not cache showDisabled, ever.
+				return $availableTaskTypes;
+			}
+
 			$this->availableTaskTypes = $availableTaskTypes;
-			$this->cache->set('available_task_types', $this->availableTaskTypes, 60);
+			$this->distributedCache->set('available_task_types_v2', serialize($this->availableTaskTypes), 60);
 		}
+
 
 		return $this->availableTaskTypes;
 	}
@@ -785,7 +875,27 @@ class Manager implements IManager {
 		return isset($this->getAvailableTaskTypes()[$task->getTaskTypeId()]);
 	}
 
+	private function checkGuestAccess(?string $userId = null): bool {
+		if ($userId === null && !$this->userSession->isLoggedIn()) {
+			return true;
+		}
+		if ($userId === null) {
+			$user = $this->userSession->getUser();
+		} else {
+			$user = $this->userManager->get($userId);
+		}
+
+		$guestsAllowed = $this->config->getAppValue('core', 'ai.taskprocessing_guests', 'false');
+		if ($guestsAllowed == 'true' || !class_exists(\OCA\Guests\UserBackend::class) || !($user->getBackend() instanceof \OCA\Guests\UserBackend)) {
+			return true;
+		}
+		return false;
+	}
+
 	public function scheduleTask(Task $task): void {
+		if (!$this->checkGuestAccess($task->getUserId())) {
+			throw new \OCP\TaskProcessing\Exception\PreConditionNotMetException('Access to this resource is forbidden for guests.');
+		}
 		if (!$this->canHandleTask($task)) {
 			throw new \OCP\TaskProcessing\Exception\PreConditionNotMetException('No task processing provider is installed that can handle this task type: ' . $task->getTaskTypeId());
 		}
@@ -800,6 +910,9 @@ class Manager implements IManager {
 	}
 
 	public function runTask(Task $task): Task {
+		if (!$this->checkGuestAccess($task->getUserId())) {
+			throw new \OCP\TaskProcessing\Exception\PreConditionNotMetException('Access to this resource is forbidden for guests.');
+		}
 		if (!$this->canHandleTask($task)) {
 			throw new \OCP\TaskProcessing\Exception\PreConditionNotMetException('No task processing provider is installed that can handle this task type: ' . $task->getTaskTypeId());
 		}
@@ -1025,7 +1138,7 @@ class Manager implements IManager {
 		}
 		$newInputOutput = [];
 		$spec = array_reduce($specs, fn ($carry, $spec) => $carry + $spec, []);
-		foreach($spec as $key => $descriptor) {
+		foreach ($spec as $key => $descriptor) {
 			$type = $descriptor->getShapeType();
 			if (!isset($input[$key])) {
 				continue;
@@ -1078,7 +1191,7 @@ class Manager implements IManager {
 
 	public function getTasks(
 		?string $userId, ?string $taskTypeId = null, ?string $appId = null, ?string $customId = null,
-		?int $status = null, ?int $scheduleAfter = null, ?int $endedBefore = null
+		?int $status = null, ?int $scheduleAfter = null, ?int $endedBefore = null,
 	): array {
 		try {
 			$taskEntities = $this->taskMapper->findTasks($userId, $taskTypeId, $appId, $customId, $status, $scheduleAfter, $endedBefore);
@@ -1117,7 +1230,7 @@ class Manager implements IManager {
 			$folder = $this->appData->newFolder('TaskProcessing');
 		}
 		$spec = array_reduce($specs, fn ($carry, $spec) => $carry + $spec, []);
-		foreach($spec as $key => $descriptor) {
+		foreach ($spec as $key => $descriptor) {
 			$type = $descriptor->getShapeType();
 			if (!isset($output[$key])) {
 				continue;
@@ -1233,7 +1346,7 @@ class Manager implements IManager {
 		$provider = $this->getPreferredProvider($task->getTaskTypeId());
 		// calculate expected completion time
 		$completionExpectedAt = new \DateTime('now');
-		$completionExpectedAt->add(new \DateInterval('PT'.$provider->getExpectedRuntime().'S'));
+		$completionExpectedAt->add(new \DateInterval('PT' . $provider->getExpectedRuntime() . 'S'));
 		$task->setCompletionExpectedAt($completionExpectedAt);
 	}
 
@@ -1262,7 +1375,7 @@ class Manager implements IManager {
 	private function validateOutputFileIds(array $output, ...$specs): array {
 		$newOutput = [];
 		$spec = array_reduce($specs, fn ($carry, $spec) => $carry + $spec, []);
-		foreach($spec as $key => $descriptor) {
+		foreach ($spec as $key => $descriptor) {
 			$type = $descriptor->getShapeType();
 			if (!isset($output[$key])) {
 				continue;
@@ -1347,9 +1460,9 @@ class Manager implements IManager {
 			];
 			try {
 				$client->request($httpMethod, $uri, $options);
-			} catch (ClientException | ServerException $e) {
+			} catch (ClientException|ServerException $e) {
 				$this->logger->warning('Task processing HTTP webhook failed for task ' . $task->getId() . '. Request failed', ['exception' => $e]);
-			} catch (\Exception | \Throwable $e) {
+			} catch (\Exception|\Throwable $e) {
 				$this->logger->warning('Task processing HTTP webhook failed for task ' . $task->getId() . '. Unknown error', ['exception' => $e]);
 			}
 		} elseif (str_starts_with($method, 'AppAPI:') && str_starts_with($uri, '/')) {

@@ -14,19 +14,14 @@ use OCP\Settings\IIconSection;
 
 class PersonalInfo implements IIconSection {
 
-	/** @var IL10N */
-	private $l;
-
-	/** @var IURLGenerator */
-	private $urlGenerator;
-
-	public function __construct(IL10N $l, IURLGenerator $urlGenerator) {
-		$this->l = $l;
-		$this->urlGenerator = $urlGenerator;
+	public function __construct(
+		private IL10N $l,
+		private IURLGenerator $urlGenerator,
+	) {
 	}
 
 	public function getIcon() {
-        return $this->urlGenerator->imagePath('core', 'actions/user.svg');
+		return $this->urlGenerator->imagePath('core', 'actions/user.svg');
 	}
 
 	public function getID(): string {

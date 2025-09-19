@@ -87,8 +87,7 @@ class Users extends Base {
 		} elseif ($event->getSubject() === self::SUBJECT_UNSHARED_USER_BY) {
 			$subject = $this->l->t('{actor} removed {user} from {file}');
 		} elseif ($event->getSubject() === self::SUBJECT_SHARED_WITH_BY) {
-//			$subject = $this->l->t('{actor} shared {file} with you');
-			$subject = $this->l->t('{actor} Предоставил(а) вам доступ к файлу {file}');
+			$subject = $this->l->t('{actor} shared {file} with you');
 		} elseif ($event->getSubject() === self::SUBJECT_UNSHARED_BY) {
 			$subject = $this->l->t('{actor} removed you from the share named {file}');
 		} elseif ($event->getSubject() === self::SUBJECT_EXPIRED_USER) {

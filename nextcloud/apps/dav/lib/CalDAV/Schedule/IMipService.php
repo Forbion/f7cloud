@@ -27,13 +27,7 @@ use Sabre\VObject\Recur\EventIterator;
 
 class IMipService {
 
-	private URLGenerator $urlGenerator;
-	private IConfig $config;
-	private IDBConnection $db;
-	private ISecureRandom $random;
-	private L10NFactory $l10nFactory;
 	private IL10N $l10n;
-	private ITimeFactory $timeFactory;
 
 	/** @var string[] */
 	private const STRING_DIFF = [
@@ -43,18 +37,14 @@ class IMipService {
 		'meeting_location' => 'LOCATION'
 	];
 
-	public function __construct(URLGenerator $urlGenerator,
-		IConfig $config,
-		IDBConnection $db,
-		ISecureRandom $random,
-		L10NFactory $l10nFactory,
-		ITimeFactory $timeFactory) {
-		$this->urlGenerator = $urlGenerator;
-		$this->config = $config;
-		$this->db = $db;
-		$this->random = $random;
-		$this->l10nFactory = $l10nFactory;
-		$this->timeFactory = $timeFactory;
+	public function __construct(
+		private URLGenerator $urlGenerator,
+		private IConfig $config,
+		private IDBConnection $db,
+		private ISecureRandom $random,
+		private L10NFactory $l10nFactory,
+		private ITimeFactory $timeFactory,
+	) {
 		$language = $this->l10nFactory->findGenericLanguage();
 		$locale = $this->l10nFactory->findLocale($language);
 		$this->l10n = $this->l10nFactory->get('dav', $language, $locale);
@@ -89,7 +79,7 @@ class IMipService {
 			return $default;
 		}
 		$newstring = $vevent->$property->getValue();
-		if(isset($oldVEvent->$property) && $oldVEvent->$property->getValue() !== $newstring) {
+		if (isset($oldVEvent->$property) && $oldVEvent->$property->getValue() !== $newstring) {
 			$oldstring = $oldVEvent->$property->getValue();
 			return sprintf($strikethrough, $oldstring, $newstring);
 		}
@@ -144,7 +134,7 @@ class IMipService {
 		$data = [];
 		$data['meeting_when'] = $this->generateWhenString($eventReaderCurrent);
 
-		foreach(self::STRING_DIFF as $key => $property) {
+		foreach (self::STRING_DIFF as $key => $property) {
 			$data[$key] = self::readPropertyWithDefault($vEvent, $property, $defaultVal);
 		}
 
@@ -154,7 +144,7 @@ class IMipService {
 			$data['meeting_location_html'] = $locationHtml;
 		}
 
-		if(!empty($oldVEvent)) {
+		if (!empty($oldVEvent)) {
 			$oldMeetingWhen = $this->generateWhenString($eventReaderPrevious);
 			$data['meeting_title_html'] = $this->generateDiffString($vEvent, $oldVEvent, 'SUMMARY', $data['meeting_title']);
 			$data['meeting_description_html'] = $this->generateDiffString($vEvent, $oldVEvent, 'DESCRIPTION', $data['meeting_description']);
@@ -169,7 +159,35 @@ class IMipService {
 		if ($eventReaderCurrent->recurs()) {
 			$data['meeting_occurring'] = $this->generateOccurringString($eventReaderCurrent);
 		}
-		
+		return $data;
+	}
+
+	/**
+	 * @param VEvent $vEvent
+	 * @return array
+	 */
+	public function buildReplyBodyData(VEvent $vEvent): array {
+		// construct event reader
+		$eventReader = new EventReader($vEvent);
+		$defaultVal = '';
+		$data = [];
+		$data['meeting_when'] = $this->generateWhenString($eventReader);
+
+		foreach (self::STRING_DIFF as $key => $property) {
+			$data[$key] = self::readPropertyWithDefault($vEvent, $property, $defaultVal);
+		}
+
+		if (($locationHtml = $this->linkify($data['meeting_location'])) !== null) {
+			$data['meeting_location_html'] = $locationHtml;
+		}
+
+		$data['meeting_url_html'] = $data['meeting_url'] ? sprintf('<a href="%1$s">%1$s</a>', $data['meeting_url']) : '';
+
+		// generate occurring next string
+		if ($eventReader->recurs()) {
+			$data['meeting_occurring'] = $this->generateOccurringString($eventReader);
+		}
+
 		return $data;
 	}
 
@@ -831,7 +849,7 @@ class IMipService {
 			return $dtEnd->getDateTime()->getTimeStamp();
 		}
 
-		if(isset($component->DURATION)) {
+		if (isset($component->DURATION)) {
 			/** @var \DateTime $endDate */
 			$endDate = clone $dtStart->getDateTime();
 			// $component->DTEND->getDateTime() returns DateTimeImmutable
@@ -839,7 +857,7 @@ class IMipService {
 			return $endDate->getTimestamp();
 		}
 
-		if(!$dtStart->hasTime()) {
+		if (!$dtStart->hasTime()) {
 			/** @var \DateTime $endDate */
 			// $component->DTSTART->getDateTime() returns DateTimeImmutable
 			$endDate = clone $dtStart->getDateTime();
@@ -855,7 +873,7 @@ class IMipService {
 	 * @param Property|null $attendee
 	 */
 	public function setL10n(?Property $attendee = null) {
-		if($attendee === null) {
+		if ($attendee === null) {
 			return;
 		}
 
@@ -871,7 +889,7 @@ class IMipService {
 	 * @return bool
 	 */
 	public function getAttendeeRsvpOrReqForParticipant(?Property $attendee = null) {
-		if($attendee === null) {
+		if ($attendee === null) {
 			return false;
 		}
 
@@ -979,10 +997,10 @@ class IMipService {
 				htmlspecialchars($organizer->getNormalizedValue()),
 				htmlspecialchars($organizerName ?: $organizerEmail));
 			$organizerText = sprintf('%s <%s>', $organizerName, $organizerEmail);
-			if(isset($organizer['PARTSTAT'])) {
+			if (isset($organizer['PARTSTAT'])) {
 				/** @var Parameter $partstat */
 				$partstat = $organizer['PARTSTAT'];
-				if(strcasecmp($partstat->getValue(), 'ACCEPTED') === 0) {
+				if (strcasecmp($partstat->getValue(), 'ACCEPTED') === 0) {
 					$organizerHTML .= ' ✔︎';
 					$organizerText .= ' ✔︎';
 				}
@@ -1092,7 +1110,7 @@ class IMipService {
 		$sequence = $iTipMessage->sequence;
 		$recurrenceId = isset($vevent->{'RECURRENCE-ID'}) ?
 			$vevent->{'RECURRENCE-ID'}->serialize() : null;
-		$uid = $vevent->{'UID'};
+		$uid = $vevent->{'UID'}?->getValue();
 
 		$query = $this->db->getQueryBuilder();
 		$query->insert('calendar_invitations')
@@ -1105,7 +1123,7 @@ class IMipService {
 				'expiration' => $query->createNamedParameter($lastOccurrence),
 				'uid' => $query->createNamedParameter($uid)
 			])
-			->execute();
+			->executeStatement();
 
 		return $token;
 	}
@@ -1154,15 +1172,30 @@ class IMipService {
 
 	public function isRoomOrResource(Property $attendee): bool {
 		$cuType = $attendee->offsetGet('CUTYPE');
-		if(!$cuType instanceof Parameter) {
+		if (!$cuType instanceof Parameter) {
 			return false;
 		}
 		$type = $cuType->getValue() ?? 'INDIVIDUAL';
-		if (\in_array(strtoupper($type), ['RESOURCE', 'ROOM', 'UNKNOWN'], true)) {
+		if (\in_array(strtoupper($type), ['RESOURCE', 'ROOM'], true)) {
 			// Don't send emails to things
 			return true;
 		}
 		return false;
+	}
+
+	public function isCircle(Property $attendee): bool {
+		$cuType = $attendee->offsetGet('CUTYPE');
+		if (!$cuType instanceof Parameter) {
+			return false;
+		}
+
+		$uri = $attendee->getValue();
+		if (!$uri) {
+			return false;
+		}
+
+		$cuTypeValue = $cuType->getValue();
+		return $cuTypeValue === 'GROUP' && str_starts_with($uri, 'mailto:circle+');
 	}
 
 	public function minimizeInterval(\DateInterval $dateInterval): array {

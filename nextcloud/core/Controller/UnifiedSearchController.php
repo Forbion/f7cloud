@@ -45,7 +45,7 @@ class UnifiedSearchController extends OCSController {
 	 * Get the providers for unified search
 	 *
 	 * @param string $from the url the user is currently at
-	 * @return DataResponse<Http::STATUS_OK, CoreUnifiedSearchProvider[], array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<CoreUnifiedSearchProvider>, array{}>
 	 *
 	 * 200: Providers returned
 	 */
@@ -56,16 +56,8 @@ class UnifiedSearchController extends OCSController {
 		[$route, $parameters] = $this->getRouteInformation($from);
 
 		$result = $this->composer->getProviders($route, $parameters);
-
-        foreach ($result as $key => $service) {
-            if ($service['id'] == "snappymail") {
-                $result[$key]['name'] = 'F7mail';
-            }
-        }
-
 		$response = new DataResponse($result);
 		$response->setETag(md5(json_encode($result)));
-
 		return $response;
 	}
 

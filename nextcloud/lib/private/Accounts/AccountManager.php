@@ -65,19 +65,20 @@ class AccountManager implements IAccountManager {
 	 * The list of default scopes for each property.
 	 */
 	public const DEFAULT_SCOPES = [
-		self::PROPERTY_DISPLAYNAME => self::SCOPE_FEDERATED,
 		self::PROPERTY_ADDRESS => self::SCOPE_LOCAL,
-		self::PROPERTY_WEBSITE => self::SCOPE_LOCAL,
-		self::PROPERTY_EMAIL => self::SCOPE_FEDERATED,
 		self::PROPERTY_AVATAR => self::SCOPE_FEDERATED,
-		self::PROPERTY_PHONE => self::SCOPE_LOCAL,
-		self::PROPERTY_TWITTER => self::SCOPE_LOCAL,
-		self::PROPERTY_FEDIVERSE => self::SCOPE_LOCAL,
-		self::PROPERTY_ORGANISATION => self::SCOPE_LOCAL,
-		self::PROPERTY_ROLE => self::SCOPE_LOCAL,
-		self::PROPERTY_HEADLINE => self::SCOPE_LOCAL,
 		self::PROPERTY_BIOGRAPHY => self::SCOPE_LOCAL,
 		self::PROPERTY_BIRTHDATE => self::SCOPE_LOCAL,
+		self::PROPERTY_DISPLAYNAME => self::SCOPE_FEDERATED,
+		self::PROPERTY_EMAIL => self::SCOPE_FEDERATED,
+		self::PROPERTY_FEDIVERSE => self::SCOPE_LOCAL,
+		self::PROPERTY_HEADLINE => self::SCOPE_LOCAL,
+		self::PROPERTY_ORGANISATION => self::SCOPE_LOCAL,
+		self::PROPERTY_PHONE => self::SCOPE_LOCAL,
+		self::PROPERTY_PRONOUNS => self::SCOPE_FEDERATED,
+		self::PROPERTY_ROLE => self::SCOPE_LOCAL,
+		self::PROPERTY_TWITTER => self::SCOPE_LOCAL,
+		self::PROPERTY_WEBSITE => self::SCOPE_LOCAL,
 	];
 
 	public function __construct(
@@ -168,7 +169,7 @@ class AccountManager implements IAccountManager {
 		$query = $this->connection->getQueryBuilder();
 		$query->delete($this->table)
 			->where($query->expr()->eq('uid', $query->createNamedParameter($uid)))
-			->execute();
+			->executeStatement();
 
 		$this->deleteUserData($user);
 	}
@@ -181,7 +182,7 @@ class AccountManager implements IAccountManager {
 		$query = $this->connection->getQueryBuilder();
 		$query->delete($this->dataTable)
 			->where($query->expr()->eq('uid', $query->createNamedParameter($uid)))
-			->execute();
+			->executeStatement();
 	}
 
 	/**
@@ -605,6 +606,12 @@ class AccountManager implements IAccountManager {
 				'name' => self::PROPERTY_PROFILE_ENABLED,
 				'value' => $this->isProfileEnabledByDefault($this->config) ? '1' : '0',
 			],
+
+			[
+				'name' => self::PROPERTY_PRONOUNS,
+				'value' => '',
+				'scope' => $scopes[self::PROPERTY_PRONOUNS],
+			],
 		];
 	}
 
@@ -729,7 +736,7 @@ class AccountManager implements IAccountManager {
 
 				try {
 					// try the public account lookup API of mastodon
-					$response = $client->get("https://{$instance}/api/v1/accounts/lookup?acct={$username}@{$instance}");
+					$response = $client->get("https://{$instance}/.well-known/webfinger?resource=acct:{$username}@{$instance}");
 					// should be a json response with account information
 					$data = $response->getBody();
 					if (is_resource($data)) {
@@ -738,8 +745,25 @@ class AccountManager implements IAccountManager {
 					$decoded = json_decode($data, true);
 					// ensure the username is the same the user passed
 					// in this case we can assume this is a valid fediverse server and account
-					if (!is_array($decoded) || ($decoded['username'] ?? '') !== $username) {
+					if (!is_array($decoded) || ($decoded['subject'] ?? '') !== "acct:{$username}@{$instance}") {
 						throw new InvalidArgumentException();
+					}
+					// check for activitypub link
+					if (is_array($decoded['links']) && isset($decoded['links'])) {
+						$found = false;
+						foreach ($decoded['links'] as $link) {
+							// have application/activity+json or application/ld+json
+							if (isset($link['type']) && (
+								$link['type'] === 'application/activity+json' ||
+								$link['type'] === 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'
+							)) {
+								$found = true;
+								break;
+							}
+						}
+						if (!$found) {
+							throw new InvalidArgumentException();
+						}
 					}
 				} catch (InvalidArgumentException) {
 					throw new InvalidArgumentException(self::PROPERTY_FEDIVERSE);

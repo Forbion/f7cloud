@@ -10,4 +10,3 @@ script(\OCA\Files_Sharing\AppInfo\Application::APP_ID, 'personal-settings');
 ?>
 <div id="files-sharing-personal-settings" class="section">
 </div>
-</div><!-- files-personal-settings-page-wrapper -->

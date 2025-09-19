@@ -50,10 +50,10 @@ class PartitionedQueryBuilder extends ShardedQueryBuilder {
 	private ?int $offset = null;
 
 	public function __construct(
-		IQueryBuilder          $builder,
-		array                  $shardDefinitions,
+		IQueryBuilder $builder,
+		array $shardDefinitions,
 		ShardConnectionManager $shardConnectionManager,
-		AutoIncrementHandler   $autoIncrementHandler,
+		AutoIncrementHandler $autoIncrementHandler,
 	) {
 		parent::__construct($builder, $shardDefinitions, $shardConnectionManager, $autoIncrementHandler);
 		$this->quoteHelper = new QuoteHelper();
@@ -443,5 +443,20 @@ class PartitionedQueryBuilder extends ShardedQueryBuilder {
 
 	public function getPartitionCount(): int {
 		return count($this->splitQueries) + 1;
+	}
+
+	public function hintShardKey(string $column, mixed $value, bool $overwrite = false): self {
+		if (str_contains($column, '.')) {
+			[$alias, $column] = explode('.', $column);
+			$partition = $this->getPartition($alias);
+			if ($partition) {
+				$this->splitQueries[$partition->name]->query->hintShardKey($column, $value, $overwrite);
+			} else {
+				parent::hintShardKey($column, $value, $overwrite);
+			}
+		} else {
+			parent::hintShardKey($column, $value, $overwrite);
+		}
+		return $this;
 	}
 }
