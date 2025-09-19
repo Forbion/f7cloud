@@ -36,6 +36,11 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
     <?php emit_script_loading_tags($_); ?>
     <?php print_unescaped($_['headers']); ?>
 
+    <style>
+        #header .logo {
+            filter: unset !important;
+        }
+    </style>
 
     <?php
     $cssMapping = [
