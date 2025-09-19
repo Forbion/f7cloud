@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Calendar" : "ປະຕິທິນ",
     "Confirm" : "ຢືນຢັນ",
+    "Location:" : "ທີ່ຢູ່:",
     "Today" : "ມື້ນີ້",
     "Copy link" : "ສຳເນົາລິງ",
     "Edit" : "ແກ້ໄຂ",
@@ -19,6 +20,7 @@ OC.L10N.register(
     "Filename" : "ຊື່ຟາຍ",
     "Cancel" : "ຍົກເລີກ",
     "List view" : "ລາຍການທີ່ຈະເບິ່ງ",
+    "General" : "ທົ່ວໄປ",
     "Duration" : "ໄລຍະ",
     "Add" : "ເພີ່ມ",
     "Notification" : "ແຈ້ງການ",
@@ -28,8 +30,9 @@ OC.L10N.register(
     "Not available" : "ບໍ່ມີ",
     "Unknown" : "ບໍ່ຮູ້",
     "never" : "ບໍ່ເຄີຍ",
+    "No" : "ບໍ່",
+    "Create" : "ສ້າງ",
     "Personal" : "ສ່ວນບຸກຄົນ",
-    "Details" : "ລາຍລະອຽດ",
     "Close" : "ປິດ",
     "Daily" : "ລາຍວັນ",
     "Weekly" : "ອາທິດ"

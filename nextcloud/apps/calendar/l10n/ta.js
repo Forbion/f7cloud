@@ -2,6 +2,7 @@ OC.L10N.register(
     "calendar",
     {
     "Calendar" : "நாட்காட்டி",
+    "Location:" : "இடம்:",
     "Today" : "இன்று",
     "Week" : "வாரம்",
     "Month" : "மாதம்",
@@ -18,6 +19,8 @@ OC.L10N.register(
     "Save" : "சேமிக்க ",
     "Cancel" : "இரத்து செய்க",
     "Actions" : "செயல்கள்",
+    "General" : "பொதுவான",
+    "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
     "Update" : "இற்றைப்படுத்தல்",
     "Location" : "இடம்",
     "Description" : "விவரிப்பு",
@@ -37,9 +40,12 @@ OC.L10N.register(
     "Attendees" : "பங்கேற்பாளர்கள்",
     "Repeat" : "மீண்டும்",
     "never" : "ஒருபோதும்",
+    "Yes" : "ஆம்",
+    "No" : "இல்லை",
     "Personal" : "தனிப்பட்ட",
-    "Details" : "விவரங்கள்",
     "Close" : "மூடுக",
+    "Selected" : "Selected",
+    "Title" : "தலைப்பு",
     "Other" : "மற்றவை"
 },
 "nplurals=2; plural=(n != 1);");

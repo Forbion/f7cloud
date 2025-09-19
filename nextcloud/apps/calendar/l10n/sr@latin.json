@@ -1,5 +1,6 @@
 { "translations": {
     "Cheers!" : "U zdravlje!",
+    "Location:" : "Lokacija:",
     "Today" : "Today",
     "Preview" : "Pregled",
     "Copy link" : "Kopiraj vezu",
@@ -32,8 +33,10 @@
     "Done" : "Gotovo",
     "Unknown" : "Nepoznato",
     "never" : "never",
-    "Details" : "Detalji",
+    "Yes" : "Da",
+    "No" : "Ne",
     "Close" : "Zatvori",
+    "Participants" : "Učesnici",
     "Daily" : "дневно",
     "Weekly" : "недељно",
     "second" : "sekund",
