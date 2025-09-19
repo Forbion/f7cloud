@@ -5,6 +5,10 @@
     font-weight: 600;
 }
 
+#header .logo {
+    filter: unset !important;
+}
+
 /*.header-old {*/
 /*    display: none !important;*/
 /*    top: 94px !important;*/
@@ -677,7 +681,13 @@
 
 @media only screen and (max-width: 1023px) {
     .l-wrapper {
-        padding: 0 20px !important;
+        padding: 0 16px !important;
+    }
+    #header.header-new {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
     #header.header-new .l-wrapper {
         padding-top: 10px !important;
@@ -693,7 +703,7 @@
         &.show {
             display: flex;
             flex-direction: column;
-            padding: 70px 20px 50px;
+            padding: 70px 16px 50px;
             position: fixed;
             top: 0;
             left: 0;
@@ -972,7 +982,8 @@
     #header .account-menu,
     #header .unified-search__wrapper,
     #header .notifications__wrapper,
-    #header #user-menu-f7mail {
+    #header #user-menu-f7mail,
+    #header #username-display {
         z-index: 1000;
     }
     #header .logo__header {
