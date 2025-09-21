@@ -117,7 +117,7 @@ body .app-files {
     }
 
     & .files-list__row-actions-batch-delete {
-        & .icon-vue > svg {
+        & .icon-vue > span > svg {
             display: none;
         }
         & .icon-vue:after{
@@ -164,7 +164,7 @@ body .app-files {
     & .files-list__thead-overlay {
 
         & .files-list__row-actions-batch-favorite {
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
             & .icon-vue:after {
@@ -175,7 +175,7 @@ body .app-files {
             }
         }
         & .files-list__row-actions-batch-move-copy {
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
             & .icon-vue:after {
@@ -186,7 +186,7 @@ body .app-files {
             }
         }
         & .files-list__row-actions-batch-download {
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
             & .icon-vue:after {
@@ -238,7 +238,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -249,7 +249,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -261,7 +261,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -273,7 +273,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -284,7 +284,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -296,7 +296,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -307,7 +307,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -318,7 +318,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -329,7 +329,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -340,7 +340,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -351,7 +351,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -362,7 +362,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -373,7 +373,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -384,7 +384,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -395,7 +395,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -406,7 +406,7 @@ body .app-files {
                 width: 16px;
                 height: 16px;
             }
-            & .icon-vue > svg {
+            & .icon-vue > span > svg {
                 display: none;
             }
     }
@@ -770,7 +770,7 @@ body .app-files {
 
 
     }
-    & .files-list__row-action-sharing-status .icon-vue > svg {
+    & .files-list__row-action-sharing-status .icon-vue > span > svg {
         display: none;
     }
     & .empty-content__icon .icon-vue {
@@ -785,7 +785,7 @@ body .app-files {
         background-repeat: no-repeat;
         background-position: center;
     }
-    & .empty-content__icon .icon-vue > svg {
+    & .empty-content__icon .icon-vue > span > svg {
         display: none;
     }
     & .files-list:not(.files-list--grid) .action-item__menutoggle .button-vue__icon:after {
@@ -809,7 +809,7 @@ body .app-files {
 
     & .button-vue__icon,
     & .app-navigation-entry-icon {
-        & .icon-vue > svg > path {
+        & .icon-vue > span > svg > path {
             color: #808080 !important;
         }
     }
@@ -874,6 +874,10 @@ body .app-files {
             background-color: #b8d0a0 !important;
             border-radius: 8px;
             /*padding: 10px 14px;*/
+
+            & .app-navigation-search {
+                display: none;
+            }
 
             & .breadcrumb__actions {
 
@@ -1005,7 +1009,7 @@ body .app-files {
             }
 
             /* Скрытие встроенных SVG в иконках */
-            & .app-navigation-entry-icon > span > svg {
+            & .app-navigation-entry-icon > span > span > svg {
                 display: none;
             }
 
@@ -1549,7 +1553,7 @@ body .app-files {
                         background-position: center;
                     }
 
-                    & .icon-vue > svg {
+                    & .icon-vue > span > svg {
                         display: none;
                     }
                 }
@@ -1842,7 +1846,7 @@ body .app-files {
         /*    width: 16px;*/
         /*    height: 16px;*/
         /*}*/
-        /*& .icon-vue > svg {*/
+        /*& .icon-vue > span > svg {*/
         /*        display: none;*/
         /*}*/
     }
@@ -1868,7 +1872,7 @@ body .app-files {
             background-repeat: no-repeat;
             background-size: contain;
         }
-        & .icon-vue > svg {
+        & .icon-vue > span > svg {
                 display: none;
         }
     }
@@ -1892,7 +1896,7 @@ body .app-files {
             width: 16px;
             height: 16px;
         }
-        & .icon-vue > svg {
+        & .icon-vue > span > svg {
             display: none;
         }
     }
@@ -1903,7 +1907,7 @@ body .app-files {
             width: 16px;
             height: 16px;
         }
-        & .icon-vue > svg {
+        & .icon-vue > span > svg {
             display: none;
         }
     }
