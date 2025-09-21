@@ -1,3 +1,2795 @@
-(()=>{(()=>{var Cn={53:((I,g,y)=>{var C="/index.js",P="/",b=y(606),D=(function(){var S=typeof document<"u"&&document.currentScript?document.currentScript.src:void 0;return S=S||C,(function(m){m=m||{};var e=typeof m<"u"?m:{},a,l;e.ready=new Promise(function(n,t){a=n,l=t});var s={},u;for(u in e)e.hasOwnProperty(u)&&(s[u]=e[u]);var i=[],o="./this.program",c=function(n,t){throw t},A=!1,_=!1,h=!1,J=!1;A=typeof window=="object",_=typeof importScripts=="function",h=typeof b=="object"&&typeof b.versions=="object"&&typeof b.versions.node=="string",J=!A&&!h&&!_;var E="";function j(n){return e.locateFile?e.locateFile(n,E):E+n}var z,K,W,Ee,Q,Z;h?(_?E=y(975).dirname(E)+"/":E=P+"/",z=function(t,r){return Q||(Q=y(442)),Z||(Z=y(975)),t=Z.normalize(t),Q.readFileSync(t,r?null:"utf8")},W=function(t){var r=z(t,!0);return r.buffer||(r=new Uint8Array(r)),ie(r.buffer),r},b.argv.length>1&&(o=b.argv[1].replace(/\\/g,"/")),i=b.argv.slice(2),b.on("uncaughtException",function(n){if(!(n instanceof Ae))throw n}),b.on("unhandledRejection",M),c=function(n){b.exit(n)},e.inspect=function(){return"[Emscripten Module object]"}):J?(typeof read<"u"&&(z=function(t){return read(t)}),W=function(t){var r;return typeof readbuffer=="function"?new Uint8Array(readbuffer(t)):(r=read(t,"binary"),ie(typeof r=="object"),r)},typeof scriptArgs<"u"?i=scriptArgs:typeof arguments<"u"&&(i=arguments),typeof quit=="function"&&(c=function(n){quit(n)}),typeof print<"u"&&(typeof console>"u"&&(console={}),console.log=print,console.warn=console.error=typeof printErr<"u"?printErr:print)):(A||_)&&(_?E=self.location.href:typeof document<"u"&&document.currentScript&&(E=document.currentScript.src),S&&(E=S),E.indexOf("blob:")!==0?E=E.substr(0,E.lastIndexOf("/")+1):E="",z=function(n){var t=new XMLHttpRequest;return t.open("GET",n,!1),t.send(null),t.responseText},_&&(W=function(n){var t=new XMLHttpRequest;return t.open("GET",n,!1),t.responseType="arraybuffer",t.send(null),new Uint8Array(t.response)}),K=function(n,t,r){var f=new XMLHttpRequest;f.open("GET",n,!0),f.responseType="arraybuffer",f.onload=function(){if(f.status==200||f.status==0&&f.response){t(f.response);return}r()},f.onerror=r,f.send(null)},Ee=function(n){document.title=n});var Re=e.print||console.log.bind(console),x=e.printErr||console.warn.bind(console);for(u in s)s.hasOwnProperty(u)&&(e[u]=s[u]);s=null,e.arguments&&(i=e.arguments),e.thisProgram&&(o=e.thisProgram),e.quit&&(c=e.quit);var B;e.wasmBinary&&(B=e.wasmBinary);var V;e.noExitRuntime&&(V=e.noExitRuntime),typeof WebAssembly!="object"&&M("no native wasm support detected");var G,$=!1,ae;function ie(n,t){n||M("Assertion failed: "+t)}var se=typeof TextDecoder<"u"?new TextDecoder("utf8"):void 0;function oe(n,t,r){for(var f=t+r,p=t;n[p]&&!(p>=f);)++p;if(p-t>16&&n.subarray&&se)return se.decode(n.subarray(t,p));for(var v="";t<p;){var d=n[t++];if(!(d&128)){v+=String.fromCharCode(d);continue}var w=n[t++]&63;if((d&224)==192){v+=String.fromCharCode((d&31)<<6|w);continue}var O=n[t++]&63;if((d&240)==224?d=(d&15)<<12|w<<6|O:d=(d&7)<<18|w<<12|O<<6|n[t++]&63,d<65536)v+=String.fromCharCode(d);else{var be=d-65536;v+=String.fromCharCode(55296|be>>10,56320|be&1023)}}return v}function Ie(n,t){return n?oe(F,n,t):""}function Te(n,t,r){for(var f=0;f<n.length;++f)ee[t++>>0]=n.charCodeAt(f);r||(ee[t>>0]=0)}function Oe(n,t){return n%t>0&&(n+=t-n%t),n}var ue,ee,F,Pe,Se,T,Ce,Me,He;function fe(n){ue=n,e.HEAP8=ee=new Int8Array(n),e.HEAP16=Pe=new Int16Array(n),e.HEAP32=T=new Int32Array(n),e.HEAPU8=F=new Uint8Array(n),e.HEAPU16=Se=new Uint16Array(n),e.HEAPU32=Ce=new Uint32Array(n),e.HEAPF32=Me=new Float32Array(n),e.HEAPF64=He=new Float64Array(n)}var Mn=e.INITIAL_MEMORY||16777216,ne,ce=[],le=[],Ue=[],de=[],xe=!1,Ne=!1;le.push({func:function(){ye()}});function We(){if(e.preRun)for(typeof e.preRun=="function"&&(e.preRun=[e.preRun]);e.preRun.length;)De(e.preRun.shift());X(ce)}function Be(){xe=!0,X(le)}function Fe(){X(Ue)}function Le(){Ne=!0}function ke(){if(e.postRun)for(typeof e.postRun=="function"&&(e.postRun=[e.postRun]);e.postRun.length;)je(e.postRun.shift());X(de)}function De(n){ce.unshift(n)}function je(n){de.unshift(n)}var U=0,te=null,L=null;function ze(n){U++,e.monitorRunDependencies&&e.monitorRunDependencies(U)}function Ve(n){if(U--,e.monitorRunDependencies&&e.monitorRunDependencies(U),U==0&&(te!==null&&(clearInterval(te),te=null),L)){var t=L;L=null,t()}}e.preloadedImages={},e.preloadedAudios={};function M(n){e.onAbort&&e.onAbort(n),n+="",x(n),$=!0,ae=1,n="abort("+n+"). Build with -s ASSERTIONS=1 for more info.";var t=new WebAssembly.RuntimeError(n);throw l(t),t}function me(n,t){return String.prototype.startsWith?n.startsWith(t):n.indexOf(t)===0}var Ge="data:application/octet-stream;base64,";function pe(n){return me(n,Ge)}var Xe="file://";function ge(n){return me(n,Xe)}var R="tflite-simd.wasm";pe(R)||(R=j(R));function ve(n){try{if(n==R&&B)return new Uint8Array(B);if(W)return W(n);throw"both async and sync fetching of the wasm failed"}catch(t){M(t)}}function qe(){if(!B&&(A||_)){if(typeof fetch=="function"&&!ge(R))return fetch(R,{credentials:"same-origin"}).then(function(n){if(!n.ok)throw"failed to load wasm binary file at '"+R+"'";return n.arrayBuffer()}).catch(function(){return ve(R)});if(K)return new Promise(function(n,t){K(R,function(r){n(new Uint8Array(r))},t)})}return Promise.resolve().then(function(){return ve(R)})}function Ye(){var n={a:vn};function t(d,w){var O=d.exports;e.asm=O,G=e.asm.q,fe(G.buffer),ne=e.asm.D,Ve("wasm-instantiate")}ze("wasm-instantiate");function r(d){t(d.instance)}function f(d){return qe().then(function(w){return WebAssembly.instantiate(w,n)}).then(d,function(w){x("failed to asynchronously prepare wasm: "+w),M(w)})}function p(){return!B&&typeof WebAssembly.instantiateStreaming=="function"&&!pe(R)&&!ge(R)&&typeof fetch=="function"?fetch(R,{credentials:"same-origin"}).then(function(d){var w=WebAssembly.instantiateStreaming(d,n);return w.then(r,function(O){return x("wasm streaming compile failed: "+O),x("falling back to ArrayBuffer instantiation"),f(r)})}):f(r)}if(e.instantiateWasm)try{var v=e.instantiateWasm(n,t);return v}catch(d){return x("Module.instantiateWasm callback failed with error: "+d),!1}return p().catch(l),{}}function X(n){for(;n.length>0;){var t=n.shift();if(typeof t=="function"){t(e);continue}var r=t.func;typeof r=="number"?t.arg===void 0?ne.get(r)():ne.get(r)(t.arg):r(t.arg===void 0?null:t.arg)}}function Je(){M()}var N;h?N=function(){var n=b.hrtime();return n[0]*1e3+n[1]/1e6}:typeof dateNow<"u"?N=dateNow:N=function(){return performance.now()};var Ke=!0;function _e(n){return T[we()>>2]=n,n}function Qe(n,t){var r;if(n===0)r=Date.now();else if((n===1||n===4)&&Ke)r=N();else return _e(28),-1;return T[t>>2]=r/1e3|0,T[t+4>>2]=r%1e3*1e3*1e3|0,0}function Ze(n,t){M("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking")}function $e(n,t){M("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking")}function en(n,t,r){F.copyWithin(n,t,t+r)}function nn(){return F.length}function tn(n){try{return G.grow(n-ue.byteLength+65535>>>16),fe(G.buffer),1}catch{}}function rn(n){n=n>>>0;var t=nn(),r=2147483648;if(n>r)return!1;for(var f=16777216,p=1;p<=4;p*=2){var v=t*(1+.2/p);v=Math.min(v,n+100663296);var d=Math.min(r,Oe(Math.max(f,n,v),65536)),w=tn(d);if(w)return!0}return!1}function an(n){for(var t=N();N()-t<n;);}var he={};function sn(){return o||"./this.program"}function k(){if(!k.strings){var n=(typeof navigator=="object"&&navigator.languages&&navigator.languages[0]||"C").replace("-","_")+".UTF-8",t={USER:"web_user",LOGNAME:"web_user",PATH:"/",PWD:"/",HOME:"/home/web_user",LANG:n,_:sn()};for(var r in he)t[r]=he[r];var f=[];for(var r in t)f.push(r+"="+t[r]);k.strings=f}return k.strings}var q={mappings:{},buffers:[null,[],[]],printChar:function(n,t){var r=q.buffers[n];t===0||t===10?((n===1?Re:x)(oe(r,0)),r.length=0):r.push(t)},varargs:void 0,get:function(){q.varargs+=4;var n=T[q.varargs-4>>2];return n},getStr:function(n){var t=Ie(n);return t},get64:function(n,t){return n}};function on(n,t){var r=0;return k().forEach(function(f,p){var v=t+r;T[n+p*4>>2]=v,Te(f,v),r+=f.length+1}),0}function un(n,t){var r=k();T[n>>2]=r.length;var f=0;return r.forEach(function(p){f+=p.length+1}),T[t>>2]=f,0}function fn(n){Pn(n)}function cn(n){return 0}function ln(n,t,r,f,p){}function dn(n,t,r,f){for(var p=0,v=0;v<r;v++){for(var d=T[t+v*8>>2],w=T[t+(v*8+4)>>2],O=0;O<w;O++)q.printChar(n,F[d+O]);p+=w}return T[f>>2]=p,0}function mn(){return 6}function pn(){return 28}function gn(n){switch(n){case 30:return 16384;case 85:var t=2147483648;return t/16384;case 132:case 133:case 12:case 137:case 138:case 15:case 235:case 16:case 17:case 18:case 19:case 20:case 149:case 13:case 10:case 236:case 153:case 9:case 21:case 22:case 159:case 154:case 14:case 77:case 78:case 139:case 82:case 68:case 67:case 164:case 11:case 29:case 47:case 48:case 95:case 52:case 51:case 46:return 200809;case 27:case 246:case 127:case 128:case 23:case 24:case 160:case 161:case 181:case 182:case 242:case 183:case 184:case 243:case 244:case 245:case 165:case 178:case 179:case 49:case 50:case 168:case 169:case 175:case 170:case 171:case 172:case 97:case 76:case 32:case 173:case 35:case 80:case 81:case 79:return-1;case 176:case 177:case 7:case 155:case 8:case 157:case 125:case 126:case 92:case 93:case 129:case 130:case 131:case 94:case 91:return 1;case 74:case 60:case 69:case 70:case 4:return 1024;case 31:case 42:case 72:return 32;case 87:case 26:case 33:return 2147483647;case 34:case 1:return 47839;case 38:case 36:return 99;case 43:case 37:return 2048;case 0:return 2097152;case 3:return 65536;case 28:return 32768;case 44:return 32767;case 75:return 16384;case 39:return 1e3;case 89:return 700;case 71:return 256;case 40:return 255;case 2:return 100;case 180:return 64;case 25:return 20;case 5:return 16;case 6:return 6;case 73:return 4;case 84:return typeof navigator=="object"&&navigator.hardwareConcurrency||1}return _e(28),-1}var vn={a:Je,n:Qe,i:Ze,e:$e,l:en,m:rn,o:an,p:on,g:un,j:fn,h:cn,k:ln,c:dn,d:mn,f:pn,b:gn},Hn=Ye(),ye=e.___wasm_call_ctors=function(){return(ye=e.___wasm_call_ctors=e.asm.r).apply(null,arguments)},_n=e._getModelBufferMemoryOffset=function(){return(_n=e._getModelBufferMemoryOffset=e.asm.s).apply(null,arguments)},hn=e._getInputMemoryOffset=function(){return(hn=e._getInputMemoryOffset=e.asm.t).apply(null,arguments)},yn=e._getInputHeight=function(){return(yn=e._getInputHeight=e.asm.u).apply(null,arguments)},wn=e._getInputWidth=function(){return(wn=e._getInputWidth=e.asm.v).apply(null,arguments)},An=e._getInputChannelCount=function(){return(An=e._getInputChannelCount=e.asm.w).apply(null,arguments)},bn=e._getOutputMemoryOffset=function(){return(bn=e._getOutputMemoryOffset=e.asm.x).apply(null,arguments)},En=e._getOutputHeight=function(){return(En=e._getOutputHeight=e.asm.y).apply(null,arguments)},Rn=e._getOutputWidth=function(){return(Rn=e._getOutputWidth=e.asm.z).apply(null,arguments)},In=e._getOutputChannelCount=function(){return(In=e._getOutputChannelCount=e.asm.A).apply(null,arguments)},Tn=e._loadModel=function(){return(Tn=e._loadModel=e.asm.B).apply(null,arguments)},On=e._runInference=function(){return(On=e._runInference=e.asm.C).apply(null,arguments)},we=e.___errno_location=function(){return(we=e.___errno_location=e.asm.E).apply(null,arguments)},Y;function Ae(n){this.name="ExitStatus",this.message="Program terminated with exit("+n+")",this.status=n}L=function n(){Y||re(),Y||(L=n)};function re(n){if(n=n||i,U>0||(We(),U>0))return;function t(){Y||(Y=!0,e.calledRun=!0,!$&&(Be(),Fe(),a(e),e.onRuntimeInitialized&&e.onRuntimeInitialized(),ke()))}e.setStatus?(e.setStatus("Running..."),setTimeout(function(){setTimeout(function(){e.setStatus("")},1),t()},1)):t()}e.run=re;function Pn(n,t){t&&V&&n===0||(V||(ae=n,Le(),e.onExit&&e.onExit(n),$=!0),c(n,new Ae(n)))}if(e.preInit)for(typeof e.preInit=="function"&&(e.preInit=[e.preInit]);e.preInit.length>0;)e.preInit.pop()();return V=!0,re(),m.ready})})();I.exports=D}),35:((I,g,y)=>{var C="/index.js",P="/",b=y(606),D=(function(){var S=typeof document<"u"&&document.currentScript?document.currentScript.src:void 0;return S=S||C,(function(m){m=m||{};var e=typeof m<"u"?m:{},a,l;e.ready=new Promise(function(n,t){a=n,l=t});var s={},u;for(u in e)e.hasOwnProperty(u)&&(s[u]=e[u]);var i=[],o="./this.program",c=function(n,t){throw t},A=!1,_=!1,h=!1,J=!1;A=typeof window=="object",_=typeof importScripts=="function",h=typeof b=="object"&&typeof b.versions=="object"&&typeof b.versions.node=="string",J=!A&&!h&&!_;var E="";function j(n){return e.locateFile?e.locateFile(n,E):E+n}var z,K,W,Ee,Q,Z;h?(_?E=y(975).dirname(E)+"/":E=P+"/",z=function(t,r){return Q||(Q=y(442)),Z||(Z=y(975)),t=Z.normalize(t),Q.readFileSync(t,r?null:"utf8")},W=function(t){var r=z(t,!0);return r.buffer||(r=new Uint8Array(r)),ie(r.buffer),r},b.argv.length>1&&(o=b.argv[1].replace(/\\/g,"/")),i=b.argv.slice(2),b.on("uncaughtException",function(n){if(!(n instanceof Ae))throw n}),b.on("unhandledRejection",M),c=function(n){b.exit(n)},e.inspect=function(){return"[Emscripten Module object]"}):J?(typeof read<"u"&&(z=function(t){return read(t)}),W=function(t){var r;return typeof readbuffer=="function"?new Uint8Array(readbuffer(t)):(r=read(t,"binary"),ie(typeof r=="object"),r)},typeof scriptArgs<"u"?i=scriptArgs:typeof arguments<"u"&&(i=arguments),typeof quit=="function"&&(c=function(n){quit(n)}),typeof print<"u"&&(typeof console>"u"&&(console={}),console.log=print,console.warn=console.error=typeof printErr<"u"?printErr:print)):(A||_)&&(_?E=self.location.href:typeof document<"u"&&document.currentScript&&(E=document.currentScript.src),S&&(E=S),E.indexOf("blob:")!==0?E=E.substr(0,E.lastIndexOf("/")+1):E="",z=function(n){var t=new XMLHttpRequest;return t.open("GET",n,!1),t.send(null),t.responseText},_&&(W=function(n){var t=new XMLHttpRequest;return t.open("GET",n,!1),t.responseType="arraybuffer",t.send(null),new Uint8Array(t.response)}),K=function(n,t,r){var f=new XMLHttpRequest;f.open("GET",n,!0),f.responseType="arraybuffer",f.onload=function(){if(f.status==200||f.status==0&&f.response){t(f.response);return}r()},f.onerror=r,f.send(null)},Ee=function(n){document.title=n});var Re=e.print||console.log.bind(console),x=e.printErr||console.warn.bind(console);for(u in s)s.hasOwnProperty(u)&&(e[u]=s[u]);s=null,e.arguments&&(i=e.arguments),e.thisProgram&&(o=e.thisProgram),e.quit&&(c=e.quit);var B;e.wasmBinary&&(B=e.wasmBinary);var V;e.noExitRuntime&&(V=e.noExitRuntime),typeof WebAssembly!="object"&&M("no native wasm support detected");var G,$=!1,ae;function ie(n,t){n||M("Assertion failed: "+t)}var se=typeof TextDecoder<"u"?new TextDecoder("utf8"):void 0;function oe(n,t,r){for(var f=t+r,p=t;n[p]&&!(p>=f);)++p;if(p-t>16&&n.subarray&&se)return se.decode(n.subarray(t,p));for(var v="";t<p;){var d=n[t++];if(!(d&128)){v+=String.fromCharCode(d);continue}var w=n[t++]&63;if((d&224)==192){v+=String.fromCharCode((d&31)<<6|w);continue}var O=n[t++]&63;if((d&240)==224?d=(d&15)<<12|w<<6|O:d=(d&7)<<18|w<<12|O<<6|n[t++]&63,d<65536)v+=String.fromCharCode(d);else{var be=d-65536;v+=String.fromCharCode(55296|be>>10,56320|be&1023)}}return v}function Ie(n,t){return n?oe(F,n,t):""}function Te(n,t,r){for(var f=0;f<n.length;++f)ee[t++>>0]=n.charCodeAt(f);r||(ee[t>>0]=0)}function Oe(n,t){return n%t>0&&(n+=t-n%t),n}var ue,ee,F,Pe,Se,T,Ce,Me,He;function fe(n){ue=n,e.HEAP8=ee=new Int8Array(n),e.HEAP16=Pe=new Int16Array(n),e.HEAP32=T=new Int32Array(n),e.HEAPU8=F=new Uint8Array(n),e.HEAPU16=Se=new Uint16Array(n),e.HEAPU32=Ce=new Uint32Array(n),e.HEAPF32=Me=new Float32Array(n),e.HEAPF64=He=new Float64Array(n)}var Mn=e.INITIAL_MEMORY||16777216,ne,ce=[],le=[],Ue=[],de=[],xe=!1,Ne=!1;le.push({func:function(){ye()}});function We(){if(e.preRun)for(typeof e.preRun=="function"&&(e.preRun=[e.preRun]);e.preRun.length;)De(e.preRun.shift());X(ce)}function Be(){xe=!0,X(le)}function Fe(){X(Ue)}function Le(){Ne=!0}function ke(){if(e.postRun)for(typeof e.postRun=="function"&&(e.postRun=[e.postRun]);e.postRun.length;)je(e.postRun.shift());X(de)}function De(n){ce.unshift(n)}function je(n){de.unshift(n)}var U=0,te=null,L=null;function ze(n){U++,e.monitorRunDependencies&&e.monitorRunDependencies(U)}function Ve(n){if(U--,e.monitorRunDependencies&&e.monitorRunDependencies(U),U==0&&(te!==null&&(clearInterval(te),te=null),L)){var t=L;L=null,t()}}e.preloadedImages={},e.preloadedAudios={};function M(n){e.onAbort&&e.onAbort(n),n+="",x(n),$=!0,ae=1,n="abort("+n+"). Build with -s ASSERTIONS=1 for more info.";var t=new WebAssembly.RuntimeError(n);throw l(t),t}function me(n,t){return String.prototype.startsWith?n.startsWith(t):n.indexOf(t)===0}var Ge="data:application/octet-stream;base64,";function pe(n){return me(n,Ge)}var Xe="file://";function ge(n){return me(n,Xe)}var R="tflite.wasm";pe(R)||(R=j(R));function ve(n){try{if(n==R&&B)return new Uint8Array(B);if(W)return W(n);throw"both async and sync fetching of the wasm failed"}catch(t){M(t)}}function qe(){if(!B&&(A||_)){if(typeof fetch=="function"&&!ge(R))return fetch(R,{credentials:"same-origin"}).then(function(n){if(!n.ok)throw"failed to load wasm binary file at '"+R+"'";return n.arrayBuffer()}).catch(function(){return ve(R)});if(K)return new Promise(function(n,t){K(R,function(r){n(new Uint8Array(r))},t)})}return Promise.resolve().then(function(){return ve(R)})}function Ye(){var n={a:vn};function t(d,w){var O=d.exports;e.asm=O,G=e.asm.q,fe(G.buffer),ne=e.asm.D,Ve("wasm-instantiate")}ze("wasm-instantiate");function r(d){t(d.instance)}function f(d){return qe().then(function(w){return WebAssembly.instantiate(w,n)}).then(d,function(w){x("failed to asynchronously prepare wasm: "+w),M(w)})}function p(){return!B&&typeof WebAssembly.instantiateStreaming=="function"&&!pe(R)&&!ge(R)&&typeof fetch=="function"?fetch(R,{credentials:"same-origin"}).then(function(d){var w=WebAssembly.instantiateStreaming(d,n);return w.then(r,function(O){return x("wasm streaming compile failed: "+O),x("falling back to ArrayBuffer instantiation"),f(r)})}):f(r)}if(e.instantiateWasm)try{var v=e.instantiateWasm(n,t);return v}catch(d){return x("Module.instantiateWasm callback failed with error: "+d),!1}return p().catch(l),{}}function X(n){for(;n.length>0;){var t=n.shift();if(typeof t=="function"){t(e);continue}var r=t.func;typeof r=="number"?t.arg===void 0?ne.get(r)():ne.get(r)(t.arg):r(t.arg===void 0?null:t.arg)}}function Je(){M()}var N;h?N=function(){var n=b.hrtime();return n[0]*1e3+n[1]/1e6}:typeof dateNow<"u"?N=dateNow:N=function(){return performance.now()};var Ke=!0;function _e(n){return T[we()>>2]=n,n}function Qe(n,t){var r;if(n===0)r=Date.now();else if((n===1||n===4)&&Ke)r=N();else return _e(28),-1;return T[t>>2]=r/1e3|0,T[t+4>>2]=r%1e3*1e3*1e3|0,0}function Ze(n,t){M("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking")}function $e(n,t){M("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking")}function en(n,t,r){F.copyWithin(n,t,t+r)}function nn(){return F.length}function tn(n){try{return G.grow(n-ue.byteLength+65535>>>16),fe(G.buffer),1}catch{}}function rn(n){n=n>>>0;var t=nn(),r=2147483648;if(n>r)return!1;for(var f=16777216,p=1;p<=4;p*=2){var v=t*(1+.2/p);v=Math.min(v,n+100663296);var d=Math.min(r,Oe(Math.max(f,n,v),65536)),w=tn(d);if(w)return!0}return!1}function an(n){for(var t=N();N()-t<n;);}var he={};function sn(){return o||"./this.program"}function k(){if(!k.strings){var n=(typeof navigator=="object"&&navigator.languages&&navigator.languages[0]||"C").replace("-","_")+".UTF-8",t={USER:"web_user",LOGNAME:"web_user",PATH:"/",PWD:"/",HOME:"/home/web_user",LANG:n,_:sn()};for(var r in he)t[r]=he[r];var f=[];for(var r in t)f.push(r+"="+t[r]);k.strings=f}return k.strings}var q={mappings:{},buffers:[null,[],[]],printChar:function(n,t){var r=q.buffers[n];t===0||t===10?((n===1?Re:x)(oe(r,0)),r.length=0):r.push(t)},varargs:void 0,get:function(){q.varargs+=4;var n=T[q.varargs-4>>2];return n},getStr:function(n){var t=Ie(n);return t},get64:function(n,t){return n}};function on(n,t){var r=0;return k().forEach(function(f,p){var v=t+r;T[n+p*4>>2]=v,Te(f,v),r+=f.length+1}),0}function un(n,t){var r=k();T[n>>2]=r.length;var f=0;return r.forEach(function(p){f+=p.length+1}),T[t>>2]=f,0}function fn(n){Pn(n)}function cn(n){return 0}function ln(n,t,r,f,p){}function dn(n,t,r,f){for(var p=0,v=0;v<r;v++){for(var d=T[t+v*8>>2],w=T[t+(v*8+4)>>2],O=0;O<w;O++)q.printChar(n,F[d+O]);p+=w}return T[f>>2]=p,0}function mn(){return 6}function pn(){return 28}function gn(n){switch(n){case 30:return 16384;case 85:var t=2147483648;return t/16384;case 132:case 133:case 12:case 137:case 138:case 15:case 235:case 16:case 17:case 18:case 19:case 20:case 149:case 13:case 10:case 236:case 153:case 9:case 21:case 22:case 159:case 154:case 14:case 77:case 78:case 139:case 82:case 68:case 67:case 164:case 11:case 29:case 47:case 48:case 95:case 52:case 51:case 46:return 200809;case 27:case 246:case 127:case 128:case 23:case 24:case 160:case 161:case 181:case 182:case 242:case 183:case 184:case 243:case 244:case 245:case 165:case 178:case 179:case 49:case 50:case 168:case 169:case 175:case 170:case 171:case 172:case 97:case 76:case 32:case 173:case 35:case 80:case 81:case 79:return-1;case 176:case 177:case 7:case 155:case 8:case 157:case 125:case 126:case 92:case 93:case 129:case 130:case 131:case 94:case 91:return 1;case 74:case 60:case 69:case 70:case 4:return 1024;case 31:case 42:case 72:return 32;case 87:case 26:case 33:return 2147483647;case 34:case 1:return 47839;case 38:case 36:return 99;case 43:case 37:return 2048;case 0:return 2097152;case 3:return 65536;case 28:return 32768;case 44:return 32767;case 75:return 16384;case 39:return 1e3;case 89:return 700;case 71:return 256;case 40:return 255;case 2:return 100;case 180:return 64;case 25:return 20;case 5:return 16;case 6:return 6;case 73:return 4;case 84:return typeof navigator=="object"&&navigator.hardwareConcurrency||1}return _e(28),-1}var vn={a:Je,n:Qe,i:Ze,e:$e,l:en,m:rn,o:an,p:on,g:un,j:fn,h:cn,k:ln,c:dn,d:mn,f:pn,b:gn},Hn=Ye(),ye=e.___wasm_call_ctors=function(){return(ye=e.___wasm_call_ctors=e.asm.r).apply(null,arguments)},_n=e._getModelBufferMemoryOffset=function(){return(_n=e._getModelBufferMemoryOffset=e.asm.s).apply(null,arguments)},hn=e._getInputMemoryOffset=function(){return(hn=e._getInputMemoryOffset=e.asm.t).apply(null,arguments)},yn=e._getInputHeight=function(){return(yn=e._getInputHeight=e.asm.u).apply(null,arguments)},wn=e._getInputWidth=function(){return(wn=e._getInputWidth=e.asm.v).apply(null,arguments)},An=e._getInputChannelCount=function(){return(An=e._getInputChannelCount=e.asm.w).apply(null,arguments)},bn=e._getOutputMemoryOffset=function(){return(bn=e._getOutputMemoryOffset=e.asm.x).apply(null,arguments)},En=e._getOutputHeight=function(){return(En=e._getOutputHeight=e.asm.y).apply(null,arguments)},Rn=e._getOutputWidth=function(){return(Rn=e._getOutputWidth=e.asm.z).apply(null,arguments)},In=e._getOutputChannelCount=function(){return(In=e._getOutputChannelCount=e.asm.A).apply(null,arguments)},Tn=e._loadModel=function(){return(Tn=e._loadModel=e.asm.B).apply(null,arguments)},On=e._runInference=function(){return(On=e._runInference=e.asm.C).apply(null,arguments)},we=e.___errno_location=function(){return(we=e.___errno_location=e.asm.E).apply(null,arguments)},Y;function Ae(n){this.name="ExitStatus",this.message="Program terminated with exit("+n+")",this.status=n}L=function n(){Y||re(),Y||(L=n)};function re(n){if(n=n||i,U>0||(We(),U>0))return;function t(){Y||(Y=!0,e.calledRun=!0,!$&&(Be(),Fe(),a(e),e.onRuntimeInitialized&&e.onRuntimeInitialized(),ke()))}e.setStatus?(e.setStatus("Running..."),setTimeout(function(){setTimeout(function(){e.setStatus("")},1),t()},1)):t()}e.run=re;function Pn(n,t){t&&V&&n===0||(V||(ae=n,Le(),e.onExit&&e.onExit(n),$=!0),c(n,new Ae(n)))}if(e.preInit)for(typeof e.preInit=="function"&&(e.preInit=[e.preInit]);e.preInit.length>0;)e.preInit.pop()();return V=!0,re(),m.ready})})();I.exports=D}),975:((I,g,y)=>{"use strict";var C=y(606);function P(m){if(typeof m!="string")throw new TypeError("Path must be a string. Received "+JSON.stringify(m))}function b(m,e){for(var a="",l=0,s=-1,u=0,i,o=0;o<=m.length;++o){if(o<m.length)i=m.charCodeAt(o);else{if(i===47)break;i=47}if(i===47){if(!(s===o-1||u===1))if(s!==o-1&&u===2){if(a.length<2||l!==2||a.charCodeAt(a.length-1)!==46||a.charCodeAt(a.length-2)!==46){if(a.length>2){var c=a.lastIndexOf("/");if(c!==a.length-1){c===-1?(a="",l=0):(a=a.slice(0,c),l=a.length-1-a.lastIndexOf("/")),s=o,u=0;continue}}else if(a.length===2||a.length===1){a="",l=0,s=o,u=0;continue}}e&&(a.length>0?a+="/..":a="..",l=2)}else a.length>0?a+="/"+m.slice(s+1,o):a=m.slice(s+1,o),l=o-s-1;s=o,u=0}else i===46&&u!==-1?++u:u=-1}return a}function D(m,e){var a=e.dir||e.root,l=e.base||(e.name||"")+(e.ext||"");return a?a===e.root?a+l:a+m+l:l}var S={resolve:function(){for(var e="",a=!1,l,s=arguments.length-1;s>=-1&&!a;s--){var u;s>=0?u=arguments[s]:(l===void 0&&(l=C.cwd()),u=l),P(u),u.length!==0&&(e=u+"/"+e,a=u.charCodeAt(0)===47)}return e=b(e,!a),a?e.length>0?"/"+e:"/":e.length>0?e:"."},normalize:function(e){if(P(e),e.length===0)return".";var a=e.charCodeAt(0)===47,l=e.charCodeAt(e.length-1)===47;return e=b(e,!a),e.length===0&&!a&&(e="."),e.length>0&&l&&(e+="/"),a?"/"+e:e},isAbsolute:function(e){return P(e),e.length>0&&e.charCodeAt(0)===47},join:function(){if(arguments.length===0)return".";for(var e,a=0;a<arguments.length;++a){var l=arguments[a];P(l),l.length>0&&(e===void 0?e=l:e+="/"+l)}return e===void 0?".":S.normalize(e)},relative:function(e,a){if(P(e),P(a),e===a||(e=S.resolve(e),a=S.resolve(a),e===a))return"";for(var l=1;l<e.length&&e.charCodeAt(l)===47;++l);for(var s=e.length,u=s-l,i=1;i<a.length&&a.charCodeAt(i)===47;++i);for(var o=a.length,c=o-i,A=u<c?u:c,_=-1,h=0;h<=A;++h){if(h===A){if(c>A){if(a.charCodeAt(i+h)===47)return a.slice(i+h+1);if(h===0)return a.slice(i+h)}else u>A&&(e.charCodeAt(l+h)===47?_=h:h===0&&(_=0));break}var J=e.charCodeAt(l+h),E=a.charCodeAt(i+h);if(J!==E)break;J===47&&(_=h)}var j="";for(h=l+_+1;h<=s;++h)(h===s||e.charCodeAt(h)===47)&&(j.length===0?j+="..":j+="/..");return j.length>0?j+a.slice(i+_):(i+=_,a.charCodeAt(i)===47&&++i,a.slice(i))},_makeLong:function(e){return e},dirname:function(e){if(P(e),e.length===0)return".";for(var a=e.charCodeAt(0),l=a===47,s=-1,u=!0,i=e.length-1;i>=1;--i)if(a=e.charCodeAt(i),a===47){if(!u){s=i;break}}else u=!1;return s===-1?l?"/":".":l&&s===1?"//":e.slice(0,s)},basename:function(e,a){if(a!==void 0&&typeof a!="string")throw new TypeError('"ext" argument must be a string');P(e);var l=0,s=-1,u=!0,i;if(a!==void 0&&a.length>0&&a.length<=e.length){if(a.length===e.length&&a===e)return"";var o=a.length-1,c=-1;for(i=e.length-1;i>=0;--i){var A=e.charCodeAt(i);if(A===47){if(!u){l=i+1;break}}else c===-1&&(u=!1,c=i+1),o>=0&&(A===a.charCodeAt(o)?--o===-1&&(s=i):(o=-1,s=c))}return l===s?s=c:s===-1&&(s=e.length),e.slice(l,s)}else{for(i=e.length-1;i>=0;--i)if(e.charCodeAt(i)===47){if(!u){l=i+1;break}}else s===-1&&(u=!1,s=i+1);return s===-1?"":e.slice(l,s)}},extname:function(e){P(e);for(var a=-1,l=0,s=-1,u=!0,i=0,o=e.length-1;o>=0;--o){var c=e.charCodeAt(o);if(c===47){if(!u){l=o+1;break}continue}s===-1&&(u=!1,s=o+1),c===46?a===-1?a=o:i!==1&&(i=1):a!==-1&&(i=-1)}return a===-1||s===-1||i===0||i===1&&a===s-1&&a===l+1?"":e.slice(a,s)},format:function(e){if(e===null||typeof e!="object")throw new TypeError('The "pathObject" argument must be of type Object. Received type '+typeof e);return D("/",e)},parse:function(e){P(e);var a={root:"",dir:"",base:"",ext:"",name:""};if(e.length===0)return a;var l=e.charCodeAt(0),s=l===47,u;s?(a.root="/",u=1):u=0;for(var i=-1,o=0,c=-1,A=!0,_=e.length-1,h=0;_>=u;--_){if(l=e.charCodeAt(_),l===47){if(!A){o=_+1;break}continue}c===-1&&(A=!1,c=_+1),l===46?i===-1?i=_:h!==1&&(h=1):i!==-1&&(h=-1)}return i===-1||c===-1||h===0||h===1&&i===c-1&&i===o+1?c!==-1&&(o===0&&s?a.base=a.name=e.slice(1,c):a.base=a.name=e.slice(o,c)):(o===0&&s?(a.name=e.slice(1,i),a.base=e.slice(1,c)):(a.name=e.slice(o,i),a.base=e.slice(o,c)),a.ext=e.slice(i,c)),o>0?a.dir=e.slice(0,o-1):s&&(a.dir="/"),a},sep:"/",delimiter:":",win32:null,posix:null};S.posix=S,I.exports=S}),606:(I=>{var g=I.exports={},y,C;function P(){throw new Error("setTimeout has not been defined")}function b(){throw new Error("clearTimeout has not been defined")}(function(){try{typeof setTimeout=="function"?y=setTimeout:y=P}catch{y=P}try{typeof clearTimeout=="function"?C=clearTimeout:C=b}catch{C=b}})();function D(c){if(y===setTimeout)return setTimeout(c,0);if((y===P||!y)&&setTimeout)return y=setTimeout,setTimeout(c,0);try{return y(c,0)}catch{try{return y.call(null,c,0)}catch{return y.call(this,c,0)}}}function S(c){if(C===clearTimeout)return clearTimeout(c);if((C===b||!C)&&clearTimeout)return C=clearTimeout,clearTimeout(c);try{return C(c)}catch{try{return C.call(null,c)}catch{return C.call(this,c)}}}var m=[],e=!1,a,l=-1;function s(){!e||!a||(e=!1,a.length?m=a.concat(m):l=-1,m.length&&u())}function u(){if(!e){var c=D(s);e=!0;for(var A=m.length;A;){for(a=m,m=[];++l<A;)a&&a[l].run();l=-1,A=m.length}a=null,e=!1,S(c)}}g.nextTick=function(c){var A=new Array(arguments.length-1);if(arguments.length>1)for(var _=1;_<arguments.length;_++)A[_-1]=arguments[_];m.push(new i(c,A)),m.length===1&&!e&&D(u)};function i(c,A){this.fun=c,this.array=A}i.prototype.run=function(){this.fun.apply(null,this.array)},g.title="browser",g.browser=!0,g.env={},g.argv=[],g.version="",g.versions={};function o(){}g.on=o,g.addListener=o,g.once=o,g.off=o,g.removeListener=o,g.removeAllListeners=o,g.emit=o,g.prependListener=o,g.prependOnceListener=o,g.listeners=function(c){return[]},g.binding=function(c){throw new Error("process.binding is not supported")},g.cwd=function(){return"/"},g.chdir=function(c){throw new Error("process.chdir is not supported")},g.umask=function(){return 0}}),442:(()=>{})},Sn={};function H(I){var g=Sn[I];if(g!==void 0)return g.exports;var y=Sn[I]={exports:{}};return Cn[I](y,y.exports,H),y.exports}H.n=I=>{var g=I&&I.__esModule?()=>I.default:()=>I;return H.d(g,{a:g}),g},H.d=(I,g)=>{for(var y in g)H.o(g,y)&&!H.o(I,y)&&Object.defineProperty(I,y,{enumerable:!0,get:g[y]})},H.o=(I,g)=>Object.prototype.hasOwnProperty.call(I,g),H.p="/apps/talk/js/",(()=>{"use strict";const I=H.p+"selfie_segmentation_landscape.tflite?v=42d35e9379e4c500a3d3";var g=H(53),y=H.n(g);const C=H.p+"tflite-simd.wasm?v=2424013c64ebd6da057f";var P=H(35),b=H.n(P);const D=H.p+"tflite.wasm?v=21c7be5f89f7b4bae55b",S={modelLandscape:I.split("/").pop()};self.compiled=!1,self.onmessage=s=>{const u=s.data.message;switch(u){case"makeTFLite":self.segmentationPixelCount=s.data.segmentationPixelCount,m(s.data.simd);break;case"resizeSource":if(!self.compiled)return;e(s.data.imageData,s.data.frameId);break;case"runInference":a();break;default:console.error("JitsiStreamBackgroundEffect.worker: Message unknown."),console.error(u);break}};async function m(s){try{switch(s){case!0:self.wasmUrl=C.split("/").pop(),self.tflite=await y()({locateFile:u=>self.wasmUrl});break;case!1:self.wasmUrl=D.split("/").pop(),self.tflite=await b()({locateFile:u=>self.wasmUrl});break;default:return}if(self.modelBufferOffset=self.tflite._getModelBufferMemoryOffset(),self.modelResponse=await fetch(S.modelLandscape),!self.modelResponse.ok)throw new Error("Failed to download tflite model!");if(self.model=await self.modelResponse.arrayBuffer(),self.tflite.HEAPU8.set(new Uint8Array(self.model),self.modelBufferOffset),await self.tflite._loadModel(self.model.byteLength),!self.tflite._getInputWidth()||!self.tflite._getInputHeight()||!self.tflite._getOutputWidth()||!self.tflite._getOutputHeight())throw new Error("Failed to load tflite model!");self.compiled=!0,self.postMessage({message:"loaded"})}catch(u){console.error(u),console.error("JitsiStreamBackgroundEffect.worker: tflite compilation failed. The web server may not be properly configured to send wasm and/or tflite files."),self.postMessage({message:"loadFailed"})}}function e(s,u){const i=self.tflite._getInputMemoryOffset()/4;for(let o=0;o<self.segmentationPixelCount;o++)self.tflite.HEAPF32[i+o*3]=s.data[o*4]/255,self.tflite.HEAPF32[i+o*3+1]=s.data[o*4+1]/255,self.tflite.HEAPF32[i+o*3+2]=s.data[o*4+2]/255;a(u)}function a(s){self.tflite._runInference();const u=self.tflite._getOutputMemoryOffset()/4,i=[];for(let o=0;o<self.segmentationPixelCount;o++){const c=self.tflite.HEAPF32[u+o];i.push({person:c})}self.postMessage({message:"inferenceRun",segmentationResult:i,frameId:s})}const l=null})()})();})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-//# sourceMappingURL=talk-JitsiStreamBackgroundEffect.worker.worker.js.map?v=cb7265b228c08eb52f52
+/***/ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.js":
+/*!*********************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.js ***!
+  \*********************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var __filename = "/index.js";
+var __dirname = "/";
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+var createTFLiteSIMDModule = (function() {
+  var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
+  if (true) _scriptDir = _scriptDir || __filename;
+  return (function(createTFLiteSIMDModule2) {
+    createTFLiteSIMDModule2 = createTFLiteSIMDModule2 || {};
+    var Module = typeof createTFLiteSIMDModule2 !== "undefined" ? createTFLiteSIMDModule2 : {};
+    var readyPromiseResolve, readyPromiseReject;
+    Module["ready"] = new Promise(function(resolve, reject) {
+      readyPromiseResolve = resolve;
+      readyPromiseReject = reject;
+    });
+    var moduleOverrides = {};
+    var key;
+    for (key in Module) {
+      if (Module.hasOwnProperty(key)) {
+        moduleOverrides[key] = Module[key];
+      }
+    }
+    var arguments_ = [];
+    var thisProgram = "./this.program";
+    var quit_ = function(status, toThrow) {
+      throw toThrow;
+    };
+    var ENVIRONMENT_IS_WEB = false;
+    var ENVIRONMENT_IS_WORKER = false;
+    var ENVIRONMENT_IS_NODE = false;
+    var ENVIRONMENT_IS_SHELL = false;
+    ENVIRONMENT_IS_WEB = typeof window === "object";
+    ENVIRONMENT_IS_WORKER = typeof importScripts === "function";
+    ENVIRONMENT_IS_NODE = typeof process === "object" && typeof process.versions === "object" && typeof process.versions.node === "string";
+    ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
+    var scriptDirectory = "";
+    function locateFile(path) {
+      if (Module["locateFile"]) {
+        return Module["locateFile"](path, scriptDirectory);
+      }
+      return scriptDirectory + path;
+    }
+    var read_, readAsync, readBinary, setWindowTitle;
+    var nodeFS;
+    var nodePath;
+    if (ENVIRONMENT_IS_NODE) {
+      if (ENVIRONMENT_IS_WORKER) {
+        scriptDirectory = (__webpack_require__(/*! path */ "./node_modules/path-browserify/index.js").dirname)(scriptDirectory) + "/";
+      } else {
+        scriptDirectory = __dirname + "/";
+      }
+      read_ = function shell_read(filename, binary) {
+        if (!nodeFS) nodeFS = __webpack_require__(/*! fs */ "?5b1c");
+        if (!nodePath) nodePath = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
+        filename = nodePath["normalize"](filename);
+        return nodeFS["readFileSync"](filename, binary ? null : "utf8");
+      };
+      readBinary = function readBinary2(filename) {
+        var ret = read_(filename, true);
+        if (!ret.buffer) {
+          ret = new Uint8Array(ret);
+        }
+        assert(ret.buffer);
+        return ret;
+      };
+      if (process["argv"].length > 1) {
+        thisProgram = process["argv"][1].replace(/\\/g, "/");
+      }
+      arguments_ = process["argv"].slice(2);
+      process["on"]("uncaughtException", function(ex) {
+        if (!(ex instanceof ExitStatus)) {
+          throw ex;
+        }
+      });
+      process["on"]("unhandledRejection", abort);
+      quit_ = function(status) {
+        process["exit"](status);
+      };
+      Module["inspect"] = function() {
+        return "[Emscripten Module object]";
+      };
+    } else if (ENVIRONMENT_IS_SHELL) {
+      if (typeof read != "undefined") {
+        read_ = function shell_read(f) {
+          return read(f);
+        };
+      }
+      readBinary = function readBinary2(f) {
+        var data;
+        if (typeof readbuffer === "function") {
+          return new Uint8Array(readbuffer(f));
+        }
+        data = read(f, "binary");
+        assert(typeof data === "object");
+        return data;
+      };
+      if (typeof scriptArgs != "undefined") {
+        arguments_ = scriptArgs;
+      } else if (typeof arguments != "undefined") {
+        arguments_ = arguments;
+      }
+      if (typeof quit === "function") {
+        quit_ = function(status) {
+          quit(status);
+        };
+      }
+      if (typeof print !== "undefined") {
+        if (typeof console === "undefined") console = {};
+        console.log = print;
+        console.warn = console.error = typeof printErr !== "undefined" ? printErr : print;
+      }
+    } else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
+      if (ENVIRONMENT_IS_WORKER) {
+        scriptDirectory = self.location.href;
+      } else if (typeof document !== "undefined" && document.currentScript) {
+        scriptDirectory = document.currentScript.src;
+      }
+      if (_scriptDir) {
+        scriptDirectory = _scriptDir;
+      }
+      if (scriptDirectory.indexOf("blob:") !== 0) {
+        scriptDirectory = scriptDirectory.substr(0, scriptDirectory.lastIndexOf("/") + 1);
+      } else {
+        scriptDirectory = "";
+      }
+      {
+        read_ = function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, false);
+          xhr.send(null);
+          return xhr.responseText;
+        };
+        if (ENVIRONMENT_IS_WORKER) {
+          readBinary = function(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, false);
+            xhr.responseType = "arraybuffer";
+            xhr.send(null);
+            return new Uint8Array(xhr.response);
+          };
+        }
+        readAsync = function(url, onload, onerror) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, true);
+          xhr.responseType = "arraybuffer";
+          xhr.onload = function() {
+            if (xhr.status == 200 || xhr.status == 0 && xhr.response) {
+              onload(xhr.response);
+              return;
+            }
+            onerror();
+          };
+          xhr.onerror = onerror;
+          xhr.send(null);
+        };
+      }
+      setWindowTitle = function(title) {
+        document.title = title;
+      };
+    } else {
+    }
+    var out = Module["print"] || console.log.bind(console);
+    var err = Module["printErr"] || console.warn.bind(console);
+    for (key in moduleOverrides) {
+      if (moduleOverrides.hasOwnProperty(key)) {
+        Module[key] = moduleOverrides[key];
+      }
+    }
+    moduleOverrides = null;
+    if (Module["arguments"]) arguments_ = Module["arguments"];
+    if (Module["thisProgram"]) thisProgram = Module["thisProgram"];
+    if (Module["quit"]) quit_ = Module["quit"];
+    var wasmBinary;
+    if (Module["wasmBinary"]) wasmBinary = Module["wasmBinary"];
+    var noExitRuntime;
+    if (Module["noExitRuntime"]) noExitRuntime = Module["noExitRuntime"];
+    if (typeof WebAssembly !== "object") {
+      abort("no native wasm support detected");
+    }
+    var wasmMemory;
+    var ABORT = false;
+    var EXITSTATUS;
+    function assert(condition, text) {
+      if (!condition) {
+        abort("Assertion failed: " + text);
+      }
+    }
+    var UTF8Decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf8") : void 0;
+    function UTF8ArrayToString(heap, idx, maxBytesToRead) {
+      var endIdx = idx + maxBytesToRead;
+      var endPtr = idx;
+      while (heap[endPtr] && !(endPtr >= endIdx)) ++endPtr;
+      if (endPtr - idx > 16 && heap.subarray && UTF8Decoder) {
+        return UTF8Decoder.decode(heap.subarray(idx, endPtr));
+      } else {
+        var str = "";
+        while (idx < endPtr) {
+          var u0 = heap[idx++];
+          if (!(u0 & 128)) {
+            str += String.fromCharCode(u0);
+            continue;
+          }
+          var u1 = heap[idx++] & 63;
+          if ((u0 & 224) == 192) {
+            str += String.fromCharCode((u0 & 31) << 6 | u1);
+            continue;
+          }
+          var u2 = heap[idx++] & 63;
+          if ((u0 & 240) == 224) {
+            u0 = (u0 & 15) << 12 | u1 << 6 | u2;
+          } else {
+            u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | heap[idx++] & 63;
+          }
+          if (u0 < 65536) {
+            str += String.fromCharCode(u0);
+          } else {
+            var ch = u0 - 65536;
+            str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+          }
+        }
+      }
+      return str;
+    }
+    function UTF8ToString(ptr, maxBytesToRead) {
+      return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : "";
+    }
+    function writeAsciiToMemory(str, buffer2, dontAddNull) {
+      for (var i = 0; i < str.length; ++i) {
+        HEAP8[buffer2++ >> 0] = str.charCodeAt(i);
+      }
+      if (!dontAddNull) HEAP8[buffer2 >> 0] = 0;
+    }
+    function alignUp(x, multiple) {
+      if (x % multiple > 0) {
+        x += multiple - x % multiple;
+      }
+      return x;
+    }
+    var buffer, HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;
+    function updateGlobalBufferAndViews(buf) {
+      buffer = buf;
+      Module["HEAP8"] = HEAP8 = new Int8Array(buf);
+      Module["HEAP16"] = HEAP16 = new Int16Array(buf);
+      Module["HEAP32"] = HEAP32 = new Int32Array(buf);
+      Module["HEAPU8"] = HEAPU8 = new Uint8Array(buf);
+      Module["HEAPU16"] = HEAPU16 = new Uint16Array(buf);
+      Module["HEAPU32"] = HEAPU32 = new Uint32Array(buf);
+      Module["HEAPF32"] = HEAPF32 = new Float32Array(buf);
+      Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
+    }
+    var INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
+    var wasmTable;
+    var __ATPRERUN__ = [];
+    var __ATINIT__ = [];
+    var __ATMAIN__ = [];
+    var __ATPOSTRUN__ = [];
+    var runtimeInitialized = false;
+    var runtimeExited = false;
+    __ATINIT__.push({ func: function() {
+      ___wasm_call_ctors();
+    } });
+    function preRun() {
+      if (Module["preRun"]) {
+        if (typeof Module["preRun"] == "function") Module["preRun"] = [Module["preRun"]];
+        while (Module["preRun"].length) {
+          addOnPreRun(Module["preRun"].shift());
+        }
+      }
+      callRuntimeCallbacks(__ATPRERUN__);
+    }
+    function initRuntime() {
+      runtimeInitialized = true;
+      callRuntimeCallbacks(__ATINIT__);
+    }
+    function preMain() {
+      callRuntimeCallbacks(__ATMAIN__);
+    }
+    function exitRuntime() {
+      runtimeExited = true;
+    }
+    function postRun() {
+      if (Module["postRun"]) {
+        if (typeof Module["postRun"] == "function") Module["postRun"] = [Module["postRun"]];
+        while (Module["postRun"].length) {
+          addOnPostRun(Module["postRun"].shift());
+        }
+      }
+      callRuntimeCallbacks(__ATPOSTRUN__);
+    }
+    function addOnPreRun(cb) {
+      __ATPRERUN__.unshift(cb);
+    }
+    function addOnPostRun(cb) {
+      __ATPOSTRUN__.unshift(cb);
+    }
+    var runDependencies = 0;
+    var runDependencyWatcher = null;
+    var dependenciesFulfilled = null;
+    function addRunDependency(id) {
+      runDependencies++;
+      if (Module["monitorRunDependencies"]) {
+        Module["monitorRunDependencies"](runDependencies);
+      }
+    }
+    function removeRunDependency(id) {
+      runDependencies--;
+      if (Module["monitorRunDependencies"]) {
+        Module["monitorRunDependencies"](runDependencies);
+      }
+      if (runDependencies == 0) {
+        if (runDependencyWatcher !== null) {
+          clearInterval(runDependencyWatcher);
+          runDependencyWatcher = null;
+        }
+        if (dependenciesFulfilled) {
+          var callback = dependenciesFulfilled;
+          dependenciesFulfilled = null;
+          callback();
+        }
+      }
+    }
+    Module["preloadedImages"] = {};
+    Module["preloadedAudios"] = {};
+    function abort(what) {
+      if (Module["onAbort"]) {
+        Module["onAbort"](what);
+      }
+      what += "";
+      err(what);
+      ABORT = true;
+      EXITSTATUS = 1;
+      what = "abort(" + what + "). Build with -s ASSERTIONS=1 for more info.";
+      var e = new WebAssembly.RuntimeError(what);
+      readyPromiseReject(e);
+      throw e;
+    }
+    function hasPrefix(str, prefix) {
+      return String.prototype.startsWith ? str.startsWith(prefix) : str.indexOf(prefix) === 0;
+    }
+    var dataURIPrefix = "data:application/octet-stream;base64,";
+    function isDataURI(filename) {
+      return hasPrefix(filename, dataURIPrefix);
+    }
+    var fileURIPrefix = "file://";
+    function isFileURI(filename) {
+      return hasPrefix(filename, fileURIPrefix);
+    }
+    var wasmBinaryFile = "tflite-simd.wasm";
+    if (!isDataURI(wasmBinaryFile)) {
+      wasmBinaryFile = locateFile(wasmBinaryFile);
+    }
+    function getBinary(file) {
+      try {
+        if (file == wasmBinaryFile && wasmBinary) {
+          return new Uint8Array(wasmBinary);
+        }
+        if (readBinary) {
+          return readBinary(file);
+        } else {
+          throw "both async and sync fetching of the wasm failed";
+        }
+      } catch (err2) {
+        abort(err2);
+      }
+    }
+    function getBinaryPromise() {
+      if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+        if (typeof fetch === "function" && !isFileURI(wasmBinaryFile)) {
+          return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+            if (!response["ok"]) {
+              throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
+            }
+            return response["arrayBuffer"]();
+          }).catch(function() {
+            return getBinary(wasmBinaryFile);
+          });
+        } else {
+          if (readAsync) {
+            return new Promise(function(resolve, reject) {
+              readAsync(wasmBinaryFile, function(response) {
+                resolve(new Uint8Array(response));
+              }, reject);
+            });
+          }
+        }
+      }
+      return Promise.resolve().then(function() {
+        return getBinary(wasmBinaryFile);
+      });
+    }
+    function createWasm() {
+      var info = { "a": asmLibraryArg };
+      function receiveInstance(instance, module2) {
+        var exports3 = instance.exports;
+        Module["asm"] = exports3;
+        wasmMemory = Module["asm"]["q"];
+        updateGlobalBufferAndViews(wasmMemory.buffer);
+        wasmTable = Module["asm"]["D"];
+        removeRunDependency("wasm-instantiate");
+      }
+      addRunDependency("wasm-instantiate");
+      function receiveInstantiatedSource(output) {
+        receiveInstance(output["instance"]);
+      }
+      function instantiateArrayBuffer(receiver) {
+        return getBinaryPromise().then(function(binary) {
+          return WebAssembly.instantiate(binary, info);
+        }).then(receiver, function(reason) {
+          err("failed to asynchronously prepare wasm: " + reason);
+          abort(reason);
+        });
+      }
+      function instantiateAsync() {
+        if (!wasmBinary && typeof WebAssembly.instantiateStreaming === "function" && !isDataURI(wasmBinaryFile) && !isFileURI(wasmBinaryFile) && typeof fetch === "function") {
+          return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+            var result = WebAssembly.instantiateStreaming(response, info);
+            return result.then(receiveInstantiatedSource, function(reason) {
+              err("wasm streaming compile failed: " + reason);
+              err("falling back to ArrayBuffer instantiation");
+              return instantiateArrayBuffer(receiveInstantiatedSource);
+            });
+          });
+        } else {
+          return instantiateArrayBuffer(receiveInstantiatedSource);
+        }
+      }
+      if (Module["instantiateWasm"]) {
+        try {
+          var exports2 = Module["instantiateWasm"](info, receiveInstance);
+          return exports2;
+        } catch (e) {
+          err("Module.instantiateWasm callback failed with error: " + e);
+          return false;
+        }
+      }
+      instantiateAsync().catch(readyPromiseReject);
+      return {};
+    }
+    function callRuntimeCallbacks(callbacks) {
+      while (callbacks.length > 0) {
+        var callback = callbacks.shift();
+        if (typeof callback == "function") {
+          callback(Module);
+          continue;
+        }
+        var func = callback.func;
+        if (typeof func === "number") {
+          if (callback.arg === void 0) {
+            wasmTable.get(func)();
+          } else {
+            wasmTable.get(func)(callback.arg);
+          }
+        } else {
+          func(callback.arg === void 0 ? null : callback.arg);
+        }
+      }
+    }
+    function _abort() {
+      abort();
+    }
+    var _emscripten_get_now;
+    if (ENVIRONMENT_IS_NODE) {
+      _emscripten_get_now = function() {
+        var t = process["hrtime"]();
+        return t[0] * 1e3 + t[1] / 1e6;
+      };
+    } else if (typeof dateNow !== "undefined") {
+      _emscripten_get_now = dateNow;
+    } else _emscripten_get_now = function() {
+      return performance.now();
+    };
+    var _emscripten_get_now_is_monotonic = true;
+    function setErrNo(value) {
+      HEAP32[___errno_location() >> 2] = value;
+      return value;
+    }
+    function _clock_gettime(clk_id, tp) {
+      var now;
+      if (clk_id === 0) {
+        now = Date.now();
+      } else if ((clk_id === 1 || clk_id === 4) && _emscripten_get_now_is_monotonic) {
+        now = _emscripten_get_now();
+      } else {
+        setErrNo(28);
+        return -1;
+      }
+      HEAP32[tp >> 2] = now / 1e3 | 0;
+      HEAP32[tp + 4 >> 2] = now % 1e3 * 1e3 * 1e3 | 0;
+      return 0;
+    }
+    function _dlopen(filename, flag) {
+      abort("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking");
+    }
+    function _dlsym(handle, symbol) {
+      abort("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking");
+    }
+    function _emscripten_memcpy_big(dest, src, num) {
+      HEAPU8.copyWithin(dest, src, src + num);
+    }
+    function _emscripten_get_heap_size() {
+      return HEAPU8.length;
+    }
+    function emscripten_realloc_buffer(size) {
+      try {
+        wasmMemory.grow(size - buffer.byteLength + 65535 >>> 16);
+        updateGlobalBufferAndViews(wasmMemory.buffer);
+        return 1;
+      } catch (e) {
+      }
+    }
+    function _emscripten_resize_heap(requestedSize) {
+      requestedSize = requestedSize >>> 0;
+      var oldSize = _emscripten_get_heap_size();
+      var maxHeapSize = 2147483648;
+      if (requestedSize > maxHeapSize) {
+        return false;
+      }
+      var minHeapSize = 16777216;
+      for (var cutDown = 1; cutDown <= 4; cutDown *= 2) {
+        var overGrownHeapSize = oldSize * (1 + 0.2 / cutDown);
+        overGrownHeapSize = Math.min(overGrownHeapSize, requestedSize + 100663296);
+        var newSize = Math.min(maxHeapSize, alignUp(Math.max(minHeapSize, requestedSize, overGrownHeapSize), 65536));
+        var replacement = emscripten_realloc_buffer(newSize);
+        if (replacement) {
+          return true;
+        }
+      }
+      return false;
+    }
+    function _emscripten_thread_sleep(msecs) {
+      var start = _emscripten_get_now();
+      while (_emscripten_get_now() - start < msecs) {
+      }
+    }
+    var ENV = {};
+    function getExecutableName() {
+      return thisProgram || "./this.program";
+    }
+    function getEnvStrings() {
+      if (!getEnvStrings.strings) {
+        var lang = (typeof navigator === "object" && navigator.languages && navigator.languages[0] || "C").replace("-", "_") + ".UTF-8";
+        var env = { "USER": "web_user", "LOGNAME": "web_user", "PATH": "/", "PWD": "/", "HOME": "/home/web_user", "LANG": lang, "_": getExecutableName() };
+        for (var x in ENV) {
+          env[x] = ENV[x];
+        }
+        var strings = [];
+        for (var x in env) {
+          strings.push(x + "=" + env[x]);
+        }
+        getEnvStrings.strings = strings;
+      }
+      return getEnvStrings.strings;
+    }
+    var SYSCALLS = { mappings: {}, buffers: [null, [], []], printChar: function(stream, curr) {
+      var buffer2 = SYSCALLS.buffers[stream];
+      if (curr === 0 || curr === 10) {
+        (stream === 1 ? out : err)(UTF8ArrayToString(buffer2, 0));
+        buffer2.length = 0;
+      } else {
+        buffer2.push(curr);
+      }
+    }, varargs: void 0, get: function() {
+      SYSCALLS.varargs += 4;
+      var ret = HEAP32[SYSCALLS.varargs - 4 >> 2];
+      return ret;
+    }, getStr: function(ptr) {
+      var ret = UTF8ToString(ptr);
+      return ret;
+    }, get64: function(low, high) {
+      return low;
+    } };
+    function _environ_get(__environ, environ_buf) {
+      var bufSize = 0;
+      getEnvStrings().forEach(function(string, i) {
+        var ptr = environ_buf + bufSize;
+        HEAP32[__environ + i * 4 >> 2] = ptr;
+        writeAsciiToMemory(string, ptr);
+        bufSize += string.length + 1;
+      });
+      return 0;
+    }
+    function _environ_sizes_get(penviron_count, penviron_buf_size) {
+      var strings = getEnvStrings();
+      HEAP32[penviron_count >> 2] = strings.length;
+      var bufSize = 0;
+      strings.forEach(function(string) {
+        bufSize += string.length + 1;
+      });
+      HEAP32[penviron_buf_size >> 2] = bufSize;
+      return 0;
+    }
+    function _exit(status) {
+      exit(status);
+    }
+    function _fd_close(fd) {
+      return 0;
+    }
+    function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
+    }
+    function _fd_write(fd, iov, iovcnt, pnum) {
+      var num = 0;
+      for (var i = 0; i < iovcnt; i++) {
+        var ptr = HEAP32[iov + i * 8 >> 2];
+        var len = HEAP32[iov + (i * 8 + 4) >> 2];
+        for (var j = 0; j < len; j++) {
+          SYSCALLS.printChar(fd, HEAPU8[ptr + j]);
+        }
+        num += len;
+      }
+      HEAP32[pnum >> 2] = num;
+      return 0;
+    }
+    function _pthread_create() {
+      return 6;
+    }
+    function _pthread_join() {
+      return 28;
+    }
+    function _sysconf(name) {
+      switch (name) {
+        case 30:
+          return 16384;
+        case 85:
+          var maxHeapSize = 2147483648;
+          return maxHeapSize / 16384;
+        case 132:
+        case 133:
+        case 12:
+        case 137:
+        case 138:
+        case 15:
+        case 235:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+        case 149:
+        case 13:
+        case 10:
+        case 236:
+        case 153:
+        case 9:
+        case 21:
+        case 22:
+        case 159:
+        case 154:
+        case 14:
+        case 77:
+        case 78:
+        case 139:
+        case 82:
+        case 68:
+        case 67:
+        case 164:
+        case 11:
+        case 29:
+        case 47:
+        case 48:
+        case 95:
+        case 52:
+        case 51:
+        case 46:
+          return 200809;
+        case 27:
+        case 246:
+        case 127:
+        case 128:
+        case 23:
+        case 24:
+        case 160:
+        case 161:
+        case 181:
+        case 182:
+        case 242:
+        case 183:
+        case 184:
+        case 243:
+        case 244:
+        case 245:
+        case 165:
+        case 178:
+        case 179:
+        case 49:
+        case 50:
+        case 168:
+        case 169:
+        case 175:
+        case 170:
+        case 171:
+        case 172:
+        case 97:
+        case 76:
+        case 32:
+        case 173:
+        case 35:
+        case 80:
+        case 81:
+        case 79:
+          return -1;
+        case 176:
+        case 177:
+        case 7:
+        case 155:
+        case 8:
+        case 157:
+        case 125:
+        case 126:
+        case 92:
+        case 93:
+        case 129:
+        case 130:
+        case 131:
+        case 94:
+        case 91:
+          return 1;
+        case 74:
+        case 60:
+        case 69:
+        case 70:
+        case 4:
+          return 1024;
+        case 31:
+        case 42:
+        case 72:
+          return 32;
+        case 87:
+        case 26:
+        case 33:
+          return 2147483647;
+        case 34:
+        case 1:
+          return 47839;
+        case 38:
+        case 36:
+          return 99;
+        case 43:
+        case 37:
+          return 2048;
+        case 0:
+          return 2097152;
+        case 3:
+          return 65536;
+        case 28:
+          return 32768;
+        case 44:
+          return 32767;
+        case 75:
+          return 16384;
+        case 39:
+          return 1e3;
+        case 89:
+          return 700;
+        case 71:
+          return 256;
+        case 40:
+          return 255;
+        case 2:
+          return 100;
+        case 180:
+          return 64;
+        case 25:
+          return 20;
+        case 5:
+          return 16;
+        case 6:
+          return 6;
+        case 73:
+          return 4;
+        case 84: {
+          if (typeof navigator === "object") return navigator["hardwareConcurrency"] || 1;
+          return 1;
+        }
+      }
+      setErrNo(28);
+      return -1;
+    }
+    var asmLibraryArg = { "a": _abort, "n": _clock_gettime, "i": _dlopen, "e": _dlsym, "l": _emscripten_memcpy_big, "m": _emscripten_resize_heap, "o": _emscripten_thread_sleep, "p": _environ_get, "g": _environ_sizes_get, "j": _exit, "h": _fd_close, "k": _fd_seek, "c": _fd_write, "d": _pthread_create, "f": _pthread_join, "b": _sysconf };
+    var asm = createWasm();
+    var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function() {
+      return (___wasm_call_ctors = Module["___wasm_call_ctors"] = Module["asm"]["r"]).apply(null, arguments);
+    };
+    var _getModelBufferMemoryOffset = Module["_getModelBufferMemoryOffset"] = function() {
+      return (_getModelBufferMemoryOffset = Module["_getModelBufferMemoryOffset"] = Module["asm"]["s"]).apply(null, arguments);
+    };
+    var _getInputMemoryOffset = Module["_getInputMemoryOffset"] = function() {
+      return (_getInputMemoryOffset = Module["_getInputMemoryOffset"] = Module["asm"]["t"]).apply(null, arguments);
+    };
+    var _getInputHeight = Module["_getInputHeight"] = function() {
+      return (_getInputHeight = Module["_getInputHeight"] = Module["asm"]["u"]).apply(null, arguments);
+    };
+    var _getInputWidth = Module["_getInputWidth"] = function() {
+      return (_getInputWidth = Module["_getInputWidth"] = Module["asm"]["v"]).apply(null, arguments);
+    };
+    var _getInputChannelCount = Module["_getInputChannelCount"] = function() {
+      return (_getInputChannelCount = Module["_getInputChannelCount"] = Module["asm"]["w"]).apply(null, arguments);
+    };
+    var _getOutputMemoryOffset = Module["_getOutputMemoryOffset"] = function() {
+      return (_getOutputMemoryOffset = Module["_getOutputMemoryOffset"] = Module["asm"]["x"]).apply(null, arguments);
+    };
+    var _getOutputHeight = Module["_getOutputHeight"] = function() {
+      return (_getOutputHeight = Module["_getOutputHeight"] = Module["asm"]["y"]).apply(null, arguments);
+    };
+    var _getOutputWidth = Module["_getOutputWidth"] = function() {
+      return (_getOutputWidth = Module["_getOutputWidth"] = Module["asm"]["z"]).apply(null, arguments);
+    };
+    var _getOutputChannelCount = Module["_getOutputChannelCount"] = function() {
+      return (_getOutputChannelCount = Module["_getOutputChannelCount"] = Module["asm"]["A"]).apply(null, arguments);
+    };
+    var _loadModel = Module["_loadModel"] = function() {
+      return (_loadModel = Module["_loadModel"] = Module["asm"]["B"]).apply(null, arguments);
+    };
+    var _runInference = Module["_runInference"] = function() {
+      return (_runInference = Module["_runInference"] = Module["asm"]["C"]).apply(null, arguments);
+    };
+    var ___errno_location = Module["___errno_location"] = function() {
+      return (___errno_location = Module["___errno_location"] = Module["asm"]["E"]).apply(null, arguments);
+    };
+    var calledRun;
+    function ExitStatus(status) {
+      this.name = "ExitStatus";
+      this.message = "Program terminated with exit(" + status + ")";
+      this.status = status;
+    }
+    dependenciesFulfilled = function runCaller() {
+      if (!calledRun) run();
+      if (!calledRun) dependenciesFulfilled = runCaller;
+    };
+    function run(args) {
+      args = args || arguments_;
+      if (runDependencies > 0) {
+        return;
+      }
+      preRun();
+      if (runDependencies > 0) {
+        return;
+      }
+      function doRun() {
+        if (calledRun) return;
+        calledRun = true;
+        Module["calledRun"] = true;
+        if (ABORT) return;
+        initRuntime();
+        preMain();
+        readyPromiseResolve(Module);
+        if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();
+        postRun();
+      }
+      if (Module["setStatus"]) {
+        Module["setStatus"]("Running...");
+        setTimeout(function() {
+          setTimeout(function() {
+            Module["setStatus"]("");
+          }, 1);
+          doRun();
+        }, 1);
+      } else {
+        doRun();
+      }
+    }
+    Module["run"] = run;
+    function exit(status, implicit) {
+      if (implicit && noExitRuntime && status === 0) {
+        return;
+      }
+      if (noExitRuntime) {
+      } else {
+        EXITSTATUS = status;
+        exitRuntime();
+        if (Module["onExit"]) Module["onExit"](status);
+        ABORT = true;
+      }
+      quit_(status, new ExitStatus(status));
+    }
+    if (Module["preInit"]) {
+      if (typeof Module["preInit"] == "function") Module["preInit"] = [Module["preInit"]];
+      while (Module["preInit"].length > 0) {
+        Module["preInit"].pop()();
+      }
+    }
+    noExitRuntime = true;
+    run();
+    return createTFLiteSIMDModule2.ready;
+  });
+})();
+if (true)
+  module.exports = createTFLiteSIMDModule;
+else {}
+
+
+/***/ }),
+
+/***/ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite.js":
+/*!****************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/vendor/tflite/tflite.js ***!
+  \****************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var __filename = "/index.js";
+var __dirname = "/";
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+var createTFLiteModule = (function() {
+  var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
+  if (true) _scriptDir = _scriptDir || __filename;
+  return (function(createTFLiteModule2) {
+    createTFLiteModule2 = createTFLiteModule2 || {};
+    var Module = typeof createTFLiteModule2 !== "undefined" ? createTFLiteModule2 : {};
+    var readyPromiseResolve, readyPromiseReject;
+    Module["ready"] = new Promise(function(resolve, reject) {
+      readyPromiseResolve = resolve;
+      readyPromiseReject = reject;
+    });
+    var moduleOverrides = {};
+    var key;
+    for (key in Module) {
+      if (Module.hasOwnProperty(key)) {
+        moduleOverrides[key] = Module[key];
+      }
+    }
+    var arguments_ = [];
+    var thisProgram = "./this.program";
+    var quit_ = function(status, toThrow) {
+      throw toThrow;
+    };
+    var ENVIRONMENT_IS_WEB = false;
+    var ENVIRONMENT_IS_WORKER = false;
+    var ENVIRONMENT_IS_NODE = false;
+    var ENVIRONMENT_IS_SHELL = false;
+    ENVIRONMENT_IS_WEB = typeof window === "object";
+    ENVIRONMENT_IS_WORKER = typeof importScripts === "function";
+    ENVIRONMENT_IS_NODE = typeof process === "object" && typeof process.versions === "object" && typeof process.versions.node === "string";
+    ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
+    var scriptDirectory = "";
+    function locateFile(path) {
+      if (Module["locateFile"]) {
+        return Module["locateFile"](path, scriptDirectory);
+      }
+      return scriptDirectory + path;
+    }
+    var read_, readAsync, readBinary, setWindowTitle;
+    var nodeFS;
+    var nodePath;
+    if (ENVIRONMENT_IS_NODE) {
+      if (ENVIRONMENT_IS_WORKER) {
+        scriptDirectory = (__webpack_require__(/*! path */ "./node_modules/path-browserify/index.js").dirname)(scriptDirectory) + "/";
+      } else {
+        scriptDirectory = __dirname + "/";
+      }
+      read_ = function shell_read(filename, binary) {
+        if (!nodeFS) nodeFS = __webpack_require__(/*! fs */ "?5b1c");
+        if (!nodePath) nodePath = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
+        filename = nodePath["normalize"](filename);
+        return nodeFS["readFileSync"](filename, binary ? null : "utf8");
+      };
+      readBinary = function readBinary2(filename) {
+        var ret = read_(filename, true);
+        if (!ret.buffer) {
+          ret = new Uint8Array(ret);
+        }
+        assert(ret.buffer);
+        return ret;
+      };
+      if (process["argv"].length > 1) {
+        thisProgram = process["argv"][1].replace(/\\/g, "/");
+      }
+      arguments_ = process["argv"].slice(2);
+      process["on"]("uncaughtException", function(ex) {
+        if (!(ex instanceof ExitStatus)) {
+          throw ex;
+        }
+      });
+      process["on"]("unhandledRejection", abort);
+      quit_ = function(status) {
+        process["exit"](status);
+      };
+      Module["inspect"] = function() {
+        return "[Emscripten Module object]";
+      };
+    } else if (ENVIRONMENT_IS_SHELL) {
+      if (typeof read != "undefined") {
+        read_ = function shell_read(f) {
+          return read(f);
+        };
+      }
+      readBinary = function readBinary2(f) {
+        var data;
+        if (typeof readbuffer === "function") {
+          return new Uint8Array(readbuffer(f));
+        }
+        data = read(f, "binary");
+        assert(typeof data === "object");
+        return data;
+      };
+      if (typeof scriptArgs != "undefined") {
+        arguments_ = scriptArgs;
+      } else if (typeof arguments != "undefined") {
+        arguments_ = arguments;
+      }
+      if (typeof quit === "function") {
+        quit_ = function(status) {
+          quit(status);
+        };
+      }
+      if (typeof print !== "undefined") {
+        if (typeof console === "undefined") console = {};
+        console.log = print;
+        console.warn = console.error = typeof printErr !== "undefined" ? printErr : print;
+      }
+    } else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
+      if (ENVIRONMENT_IS_WORKER) {
+        scriptDirectory = self.location.href;
+      } else if (typeof document !== "undefined" && document.currentScript) {
+        scriptDirectory = document.currentScript.src;
+      }
+      if (_scriptDir) {
+        scriptDirectory = _scriptDir;
+      }
+      if (scriptDirectory.indexOf("blob:") !== 0) {
+        scriptDirectory = scriptDirectory.substr(0, scriptDirectory.lastIndexOf("/") + 1);
+      } else {
+        scriptDirectory = "";
+      }
+      {
+        read_ = function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, false);
+          xhr.send(null);
+          return xhr.responseText;
+        };
+        if (ENVIRONMENT_IS_WORKER) {
+          readBinary = function(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, false);
+            xhr.responseType = "arraybuffer";
+            xhr.send(null);
+            return new Uint8Array(xhr.response);
+          };
+        }
+        readAsync = function(url, onload, onerror) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, true);
+          xhr.responseType = "arraybuffer";
+          xhr.onload = function() {
+            if (xhr.status == 200 || xhr.status == 0 && xhr.response) {
+              onload(xhr.response);
+              return;
+            }
+            onerror();
+          };
+          xhr.onerror = onerror;
+          xhr.send(null);
+        };
+      }
+      setWindowTitle = function(title) {
+        document.title = title;
+      };
+    } else {
+    }
+    var out = Module["print"] || console.log.bind(console);
+    var err = Module["printErr"] || console.warn.bind(console);
+    for (key in moduleOverrides) {
+      if (moduleOverrides.hasOwnProperty(key)) {
+        Module[key] = moduleOverrides[key];
+      }
+    }
+    moduleOverrides = null;
+    if (Module["arguments"]) arguments_ = Module["arguments"];
+    if (Module["thisProgram"]) thisProgram = Module["thisProgram"];
+    if (Module["quit"]) quit_ = Module["quit"];
+    var wasmBinary;
+    if (Module["wasmBinary"]) wasmBinary = Module["wasmBinary"];
+    var noExitRuntime;
+    if (Module["noExitRuntime"]) noExitRuntime = Module["noExitRuntime"];
+    if (typeof WebAssembly !== "object") {
+      abort("no native wasm support detected");
+    }
+    var wasmMemory;
+    var ABORT = false;
+    var EXITSTATUS;
+    function assert(condition, text) {
+      if (!condition) {
+        abort("Assertion failed: " + text);
+      }
+    }
+    var UTF8Decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf8") : void 0;
+    function UTF8ArrayToString(heap, idx, maxBytesToRead) {
+      var endIdx = idx + maxBytesToRead;
+      var endPtr = idx;
+      while (heap[endPtr] && !(endPtr >= endIdx)) ++endPtr;
+      if (endPtr - idx > 16 && heap.subarray && UTF8Decoder) {
+        return UTF8Decoder.decode(heap.subarray(idx, endPtr));
+      } else {
+        var str = "";
+        while (idx < endPtr) {
+          var u0 = heap[idx++];
+          if (!(u0 & 128)) {
+            str += String.fromCharCode(u0);
+            continue;
+          }
+          var u1 = heap[idx++] & 63;
+          if ((u0 & 224) == 192) {
+            str += String.fromCharCode((u0 & 31) << 6 | u1);
+            continue;
+          }
+          var u2 = heap[idx++] & 63;
+          if ((u0 & 240) == 224) {
+            u0 = (u0 & 15) << 12 | u1 << 6 | u2;
+          } else {
+            u0 = (u0 & 7) << 18 | u1 << 12 | u2 << 6 | heap[idx++] & 63;
+          }
+          if (u0 < 65536) {
+            str += String.fromCharCode(u0);
+          } else {
+            var ch = u0 - 65536;
+            str += String.fromCharCode(55296 | ch >> 10, 56320 | ch & 1023);
+          }
+        }
+      }
+      return str;
+    }
+    function UTF8ToString(ptr, maxBytesToRead) {
+      return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : "";
+    }
+    function writeAsciiToMemory(str, buffer2, dontAddNull) {
+      for (var i = 0; i < str.length; ++i) {
+        HEAP8[buffer2++ >> 0] = str.charCodeAt(i);
+      }
+      if (!dontAddNull) HEAP8[buffer2 >> 0] = 0;
+    }
+    function alignUp(x, multiple) {
+      if (x % multiple > 0) {
+        x += multiple - x % multiple;
+      }
+      return x;
+    }
+    var buffer, HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;
+    function updateGlobalBufferAndViews(buf) {
+      buffer = buf;
+      Module["HEAP8"] = HEAP8 = new Int8Array(buf);
+      Module["HEAP16"] = HEAP16 = new Int16Array(buf);
+      Module["HEAP32"] = HEAP32 = new Int32Array(buf);
+      Module["HEAPU8"] = HEAPU8 = new Uint8Array(buf);
+      Module["HEAPU16"] = HEAPU16 = new Uint16Array(buf);
+      Module["HEAPU32"] = HEAPU32 = new Uint32Array(buf);
+      Module["HEAPF32"] = HEAPF32 = new Float32Array(buf);
+      Module["HEAPF64"] = HEAPF64 = new Float64Array(buf);
+    }
+    var INITIAL_MEMORY = Module["INITIAL_MEMORY"] || 16777216;
+    var wasmTable;
+    var __ATPRERUN__ = [];
+    var __ATINIT__ = [];
+    var __ATMAIN__ = [];
+    var __ATPOSTRUN__ = [];
+    var runtimeInitialized = false;
+    var runtimeExited = false;
+    __ATINIT__.push({ func: function() {
+      ___wasm_call_ctors();
+    } });
+    function preRun() {
+      if (Module["preRun"]) {
+        if (typeof Module["preRun"] == "function") Module["preRun"] = [Module["preRun"]];
+        while (Module["preRun"].length) {
+          addOnPreRun(Module["preRun"].shift());
+        }
+      }
+      callRuntimeCallbacks(__ATPRERUN__);
+    }
+    function initRuntime() {
+      runtimeInitialized = true;
+      callRuntimeCallbacks(__ATINIT__);
+    }
+    function preMain() {
+      callRuntimeCallbacks(__ATMAIN__);
+    }
+    function exitRuntime() {
+      runtimeExited = true;
+    }
+    function postRun() {
+      if (Module["postRun"]) {
+        if (typeof Module["postRun"] == "function") Module["postRun"] = [Module["postRun"]];
+        while (Module["postRun"].length) {
+          addOnPostRun(Module["postRun"].shift());
+        }
+      }
+      callRuntimeCallbacks(__ATPOSTRUN__);
+    }
+    function addOnPreRun(cb) {
+      __ATPRERUN__.unshift(cb);
+    }
+    function addOnPostRun(cb) {
+      __ATPOSTRUN__.unshift(cb);
+    }
+    var runDependencies = 0;
+    var runDependencyWatcher = null;
+    var dependenciesFulfilled = null;
+    function addRunDependency(id) {
+      runDependencies++;
+      if (Module["monitorRunDependencies"]) {
+        Module["monitorRunDependencies"](runDependencies);
+      }
+    }
+    function removeRunDependency(id) {
+      runDependencies--;
+      if (Module["monitorRunDependencies"]) {
+        Module["monitorRunDependencies"](runDependencies);
+      }
+      if (runDependencies == 0) {
+        if (runDependencyWatcher !== null) {
+          clearInterval(runDependencyWatcher);
+          runDependencyWatcher = null;
+        }
+        if (dependenciesFulfilled) {
+          var callback = dependenciesFulfilled;
+          dependenciesFulfilled = null;
+          callback();
+        }
+      }
+    }
+    Module["preloadedImages"] = {};
+    Module["preloadedAudios"] = {};
+    function abort(what) {
+      if (Module["onAbort"]) {
+        Module["onAbort"](what);
+      }
+      what += "";
+      err(what);
+      ABORT = true;
+      EXITSTATUS = 1;
+      what = "abort(" + what + "). Build with -s ASSERTIONS=1 for more info.";
+      var e = new WebAssembly.RuntimeError(what);
+      readyPromiseReject(e);
+      throw e;
+    }
+    function hasPrefix(str, prefix) {
+      return String.prototype.startsWith ? str.startsWith(prefix) : str.indexOf(prefix) === 0;
+    }
+    var dataURIPrefix = "data:application/octet-stream;base64,";
+    function isDataURI(filename) {
+      return hasPrefix(filename, dataURIPrefix);
+    }
+    var fileURIPrefix = "file://";
+    function isFileURI(filename) {
+      return hasPrefix(filename, fileURIPrefix);
+    }
+    var wasmBinaryFile = "tflite.wasm";
+    if (!isDataURI(wasmBinaryFile)) {
+      wasmBinaryFile = locateFile(wasmBinaryFile);
+    }
+    function getBinary(file) {
+      try {
+        if (file == wasmBinaryFile && wasmBinary) {
+          return new Uint8Array(wasmBinary);
+        }
+        if (readBinary) {
+          return readBinary(file);
+        } else {
+          throw "both async and sync fetching of the wasm failed";
+        }
+      } catch (err2) {
+        abort(err2);
+      }
+    }
+    function getBinaryPromise() {
+      if (!wasmBinary && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
+        if (typeof fetch === "function" && !isFileURI(wasmBinaryFile)) {
+          return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+            if (!response["ok"]) {
+              throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
+            }
+            return response["arrayBuffer"]();
+          }).catch(function() {
+            return getBinary(wasmBinaryFile);
+          });
+        } else {
+          if (readAsync) {
+            return new Promise(function(resolve, reject) {
+              readAsync(wasmBinaryFile, function(response) {
+                resolve(new Uint8Array(response));
+              }, reject);
+            });
+          }
+        }
+      }
+      return Promise.resolve().then(function() {
+        return getBinary(wasmBinaryFile);
+      });
+    }
+    function createWasm() {
+      var info = { "a": asmLibraryArg };
+      function receiveInstance(instance, module2) {
+        var exports3 = instance.exports;
+        Module["asm"] = exports3;
+        wasmMemory = Module["asm"]["q"];
+        updateGlobalBufferAndViews(wasmMemory.buffer);
+        wasmTable = Module["asm"]["D"];
+        removeRunDependency("wasm-instantiate");
+      }
+      addRunDependency("wasm-instantiate");
+      function receiveInstantiatedSource(output) {
+        receiveInstance(output["instance"]);
+      }
+      function instantiateArrayBuffer(receiver) {
+        return getBinaryPromise().then(function(binary) {
+          return WebAssembly.instantiate(binary, info);
+        }).then(receiver, function(reason) {
+          err("failed to asynchronously prepare wasm: " + reason);
+          abort(reason);
+        });
+      }
+      function instantiateAsync() {
+        if (!wasmBinary && typeof WebAssembly.instantiateStreaming === "function" && !isDataURI(wasmBinaryFile) && !isFileURI(wasmBinaryFile) && typeof fetch === "function") {
+          return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function(response) {
+            var result = WebAssembly.instantiateStreaming(response, info);
+            return result.then(receiveInstantiatedSource, function(reason) {
+              err("wasm streaming compile failed: " + reason);
+              err("falling back to ArrayBuffer instantiation");
+              return instantiateArrayBuffer(receiveInstantiatedSource);
+            });
+          });
+        } else {
+          return instantiateArrayBuffer(receiveInstantiatedSource);
+        }
+      }
+      if (Module["instantiateWasm"]) {
+        try {
+          var exports2 = Module["instantiateWasm"](info, receiveInstance);
+          return exports2;
+        } catch (e) {
+          err("Module.instantiateWasm callback failed with error: " + e);
+          return false;
+        }
+      }
+      instantiateAsync().catch(readyPromiseReject);
+      return {};
+    }
+    function callRuntimeCallbacks(callbacks) {
+      while (callbacks.length > 0) {
+        var callback = callbacks.shift();
+        if (typeof callback == "function") {
+          callback(Module);
+          continue;
+        }
+        var func = callback.func;
+        if (typeof func === "number") {
+          if (callback.arg === void 0) {
+            wasmTable.get(func)();
+          } else {
+            wasmTable.get(func)(callback.arg);
+          }
+        } else {
+          func(callback.arg === void 0 ? null : callback.arg);
+        }
+      }
+    }
+    function _abort() {
+      abort();
+    }
+    var _emscripten_get_now;
+    if (ENVIRONMENT_IS_NODE) {
+      _emscripten_get_now = function() {
+        var t = process["hrtime"]();
+        return t[0] * 1e3 + t[1] / 1e6;
+      };
+    } else if (typeof dateNow !== "undefined") {
+      _emscripten_get_now = dateNow;
+    } else _emscripten_get_now = function() {
+      return performance.now();
+    };
+    var _emscripten_get_now_is_monotonic = true;
+    function setErrNo(value) {
+      HEAP32[___errno_location() >> 2] = value;
+      return value;
+    }
+    function _clock_gettime(clk_id, tp) {
+      var now;
+      if (clk_id === 0) {
+        now = Date.now();
+      } else if ((clk_id === 1 || clk_id === 4) && _emscripten_get_now_is_monotonic) {
+        now = _emscripten_get_now();
+      } else {
+        setErrNo(28);
+        return -1;
+      }
+      HEAP32[tp >> 2] = now / 1e3 | 0;
+      HEAP32[tp + 4 >> 2] = now % 1e3 * 1e3 * 1e3 | 0;
+      return 0;
+    }
+    function _dlopen(filename, flag) {
+      abort("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking");
+    }
+    function _dlsym(handle, symbol) {
+      abort("To use dlopen, you need to use Emscripten's linking support, see https://github.com/emscripten-core/emscripten/wiki/Linking");
+    }
+    function _emscripten_memcpy_big(dest, src, num) {
+      HEAPU8.copyWithin(dest, src, src + num);
+    }
+    function _emscripten_get_heap_size() {
+      return HEAPU8.length;
+    }
+    function emscripten_realloc_buffer(size) {
+      try {
+        wasmMemory.grow(size - buffer.byteLength + 65535 >>> 16);
+        updateGlobalBufferAndViews(wasmMemory.buffer);
+        return 1;
+      } catch (e) {
+      }
+    }
+    function _emscripten_resize_heap(requestedSize) {
+      requestedSize = requestedSize >>> 0;
+      var oldSize = _emscripten_get_heap_size();
+      var maxHeapSize = 2147483648;
+      if (requestedSize > maxHeapSize) {
+        return false;
+      }
+      var minHeapSize = 16777216;
+      for (var cutDown = 1; cutDown <= 4; cutDown *= 2) {
+        var overGrownHeapSize = oldSize * (1 + 0.2 / cutDown);
+        overGrownHeapSize = Math.min(overGrownHeapSize, requestedSize + 100663296);
+        var newSize = Math.min(maxHeapSize, alignUp(Math.max(minHeapSize, requestedSize, overGrownHeapSize), 65536));
+        var replacement = emscripten_realloc_buffer(newSize);
+        if (replacement) {
+          return true;
+        }
+      }
+      return false;
+    }
+    function _emscripten_thread_sleep(msecs) {
+      var start = _emscripten_get_now();
+      while (_emscripten_get_now() - start < msecs) {
+      }
+    }
+    var ENV = {};
+    function getExecutableName() {
+      return thisProgram || "./this.program";
+    }
+    function getEnvStrings() {
+      if (!getEnvStrings.strings) {
+        var lang = (typeof navigator === "object" && navigator.languages && navigator.languages[0] || "C").replace("-", "_") + ".UTF-8";
+        var env = { "USER": "web_user", "LOGNAME": "web_user", "PATH": "/", "PWD": "/", "HOME": "/home/web_user", "LANG": lang, "_": getExecutableName() };
+        for (var x in ENV) {
+          env[x] = ENV[x];
+        }
+        var strings = [];
+        for (var x in env) {
+          strings.push(x + "=" + env[x]);
+        }
+        getEnvStrings.strings = strings;
+      }
+      return getEnvStrings.strings;
+    }
+    var SYSCALLS = { mappings: {}, buffers: [null, [], []], printChar: function(stream, curr) {
+      var buffer2 = SYSCALLS.buffers[stream];
+      if (curr === 0 || curr === 10) {
+        (stream === 1 ? out : err)(UTF8ArrayToString(buffer2, 0));
+        buffer2.length = 0;
+      } else {
+        buffer2.push(curr);
+      }
+    }, varargs: void 0, get: function() {
+      SYSCALLS.varargs += 4;
+      var ret = HEAP32[SYSCALLS.varargs - 4 >> 2];
+      return ret;
+    }, getStr: function(ptr) {
+      var ret = UTF8ToString(ptr);
+      return ret;
+    }, get64: function(low, high) {
+      return low;
+    } };
+    function _environ_get(__environ, environ_buf) {
+      var bufSize = 0;
+      getEnvStrings().forEach(function(string, i) {
+        var ptr = environ_buf + bufSize;
+        HEAP32[__environ + i * 4 >> 2] = ptr;
+        writeAsciiToMemory(string, ptr);
+        bufSize += string.length + 1;
+      });
+      return 0;
+    }
+    function _environ_sizes_get(penviron_count, penviron_buf_size) {
+      var strings = getEnvStrings();
+      HEAP32[penviron_count >> 2] = strings.length;
+      var bufSize = 0;
+      strings.forEach(function(string) {
+        bufSize += string.length + 1;
+      });
+      HEAP32[penviron_buf_size >> 2] = bufSize;
+      return 0;
+    }
+    function _exit(status) {
+      exit(status);
+    }
+    function _fd_close(fd) {
+      return 0;
+    }
+    function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
+    }
+    function _fd_write(fd, iov, iovcnt, pnum) {
+      var num = 0;
+      for (var i = 0; i < iovcnt; i++) {
+        var ptr = HEAP32[iov + i * 8 >> 2];
+        var len = HEAP32[iov + (i * 8 + 4) >> 2];
+        for (var j = 0; j < len; j++) {
+          SYSCALLS.printChar(fd, HEAPU8[ptr + j]);
+        }
+        num += len;
+      }
+      HEAP32[pnum >> 2] = num;
+      return 0;
+    }
+    function _pthread_create() {
+      return 6;
+    }
+    function _pthread_join() {
+      return 28;
+    }
+    function _sysconf(name) {
+      switch (name) {
+        case 30:
+          return 16384;
+        case 85:
+          var maxHeapSize = 2147483648;
+          return maxHeapSize / 16384;
+        case 132:
+        case 133:
+        case 12:
+        case 137:
+        case 138:
+        case 15:
+        case 235:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+        case 149:
+        case 13:
+        case 10:
+        case 236:
+        case 153:
+        case 9:
+        case 21:
+        case 22:
+        case 159:
+        case 154:
+        case 14:
+        case 77:
+        case 78:
+        case 139:
+        case 82:
+        case 68:
+        case 67:
+        case 164:
+        case 11:
+        case 29:
+        case 47:
+        case 48:
+        case 95:
+        case 52:
+        case 51:
+        case 46:
+          return 200809;
+        case 27:
+        case 246:
+        case 127:
+        case 128:
+        case 23:
+        case 24:
+        case 160:
+        case 161:
+        case 181:
+        case 182:
+        case 242:
+        case 183:
+        case 184:
+        case 243:
+        case 244:
+        case 245:
+        case 165:
+        case 178:
+        case 179:
+        case 49:
+        case 50:
+        case 168:
+        case 169:
+        case 175:
+        case 170:
+        case 171:
+        case 172:
+        case 97:
+        case 76:
+        case 32:
+        case 173:
+        case 35:
+        case 80:
+        case 81:
+        case 79:
+          return -1;
+        case 176:
+        case 177:
+        case 7:
+        case 155:
+        case 8:
+        case 157:
+        case 125:
+        case 126:
+        case 92:
+        case 93:
+        case 129:
+        case 130:
+        case 131:
+        case 94:
+        case 91:
+          return 1;
+        case 74:
+        case 60:
+        case 69:
+        case 70:
+        case 4:
+          return 1024;
+        case 31:
+        case 42:
+        case 72:
+          return 32;
+        case 87:
+        case 26:
+        case 33:
+          return 2147483647;
+        case 34:
+        case 1:
+          return 47839;
+        case 38:
+        case 36:
+          return 99;
+        case 43:
+        case 37:
+          return 2048;
+        case 0:
+          return 2097152;
+        case 3:
+          return 65536;
+        case 28:
+          return 32768;
+        case 44:
+          return 32767;
+        case 75:
+          return 16384;
+        case 39:
+          return 1e3;
+        case 89:
+          return 700;
+        case 71:
+          return 256;
+        case 40:
+          return 255;
+        case 2:
+          return 100;
+        case 180:
+          return 64;
+        case 25:
+          return 20;
+        case 5:
+          return 16;
+        case 6:
+          return 6;
+        case 73:
+          return 4;
+        case 84: {
+          if (typeof navigator === "object") return navigator["hardwareConcurrency"] || 1;
+          return 1;
+        }
+      }
+      setErrNo(28);
+      return -1;
+    }
+    var asmLibraryArg = { "a": _abort, "n": _clock_gettime, "i": _dlopen, "e": _dlsym, "l": _emscripten_memcpy_big, "m": _emscripten_resize_heap, "o": _emscripten_thread_sleep, "p": _environ_get, "g": _environ_sizes_get, "j": _exit, "h": _fd_close, "k": _fd_seek, "c": _fd_write, "d": _pthread_create, "f": _pthread_join, "b": _sysconf };
+    var asm = createWasm();
+    var ___wasm_call_ctors = Module["___wasm_call_ctors"] = function() {
+      return (___wasm_call_ctors = Module["___wasm_call_ctors"] = Module["asm"]["r"]).apply(null, arguments);
+    };
+    var _getModelBufferMemoryOffset = Module["_getModelBufferMemoryOffset"] = function() {
+      return (_getModelBufferMemoryOffset = Module["_getModelBufferMemoryOffset"] = Module["asm"]["s"]).apply(null, arguments);
+    };
+    var _getInputMemoryOffset = Module["_getInputMemoryOffset"] = function() {
+      return (_getInputMemoryOffset = Module["_getInputMemoryOffset"] = Module["asm"]["t"]).apply(null, arguments);
+    };
+    var _getInputHeight = Module["_getInputHeight"] = function() {
+      return (_getInputHeight = Module["_getInputHeight"] = Module["asm"]["u"]).apply(null, arguments);
+    };
+    var _getInputWidth = Module["_getInputWidth"] = function() {
+      return (_getInputWidth = Module["_getInputWidth"] = Module["asm"]["v"]).apply(null, arguments);
+    };
+    var _getInputChannelCount = Module["_getInputChannelCount"] = function() {
+      return (_getInputChannelCount = Module["_getInputChannelCount"] = Module["asm"]["w"]).apply(null, arguments);
+    };
+    var _getOutputMemoryOffset = Module["_getOutputMemoryOffset"] = function() {
+      return (_getOutputMemoryOffset = Module["_getOutputMemoryOffset"] = Module["asm"]["x"]).apply(null, arguments);
+    };
+    var _getOutputHeight = Module["_getOutputHeight"] = function() {
+      return (_getOutputHeight = Module["_getOutputHeight"] = Module["asm"]["y"]).apply(null, arguments);
+    };
+    var _getOutputWidth = Module["_getOutputWidth"] = function() {
+      return (_getOutputWidth = Module["_getOutputWidth"] = Module["asm"]["z"]).apply(null, arguments);
+    };
+    var _getOutputChannelCount = Module["_getOutputChannelCount"] = function() {
+      return (_getOutputChannelCount = Module["_getOutputChannelCount"] = Module["asm"]["A"]).apply(null, arguments);
+    };
+    var _loadModel = Module["_loadModel"] = function() {
+      return (_loadModel = Module["_loadModel"] = Module["asm"]["B"]).apply(null, arguments);
+    };
+    var _runInference = Module["_runInference"] = function() {
+      return (_runInference = Module["_runInference"] = Module["asm"]["C"]).apply(null, arguments);
+    };
+    var ___errno_location = Module["___errno_location"] = function() {
+      return (___errno_location = Module["___errno_location"] = Module["asm"]["E"]).apply(null, arguments);
+    };
+    var calledRun;
+    function ExitStatus(status) {
+      this.name = "ExitStatus";
+      this.message = "Program terminated with exit(" + status + ")";
+      this.status = status;
+    }
+    dependenciesFulfilled = function runCaller() {
+      if (!calledRun) run();
+      if (!calledRun) dependenciesFulfilled = runCaller;
+    };
+    function run(args) {
+      args = args || arguments_;
+      if (runDependencies > 0) {
+        return;
+      }
+      preRun();
+      if (runDependencies > 0) {
+        return;
+      }
+      function doRun() {
+        if (calledRun) return;
+        calledRun = true;
+        Module["calledRun"] = true;
+        if (ABORT) return;
+        initRuntime();
+        preMain();
+        readyPromiseResolve(Module);
+        if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();
+        postRun();
+      }
+      if (Module["setStatus"]) {
+        Module["setStatus"]("Running...");
+        setTimeout(function() {
+          setTimeout(function() {
+            Module["setStatus"]("");
+          }, 1);
+          doRun();
+        }, 1);
+      } else {
+        doRun();
+      }
+    }
+    Module["run"] = run;
+    function exit(status, implicit) {
+      if (implicit && noExitRuntime && status === 0) {
+        return;
+      }
+      if (noExitRuntime) {
+      } else {
+        EXITSTATUS = status;
+        exitRuntime();
+        if (Module["onExit"]) Module["onExit"](status);
+        ABORT = true;
+      }
+      quit_(status, new ExitStatus(status));
+    }
+    if (Module["preInit"]) {
+      if (typeof Module["preInit"] == "function") Module["preInit"] = [Module["preInit"]];
+      while (Module["preInit"].length > 0) {
+        Module["preInit"].pop()();
+      }
+    }
+    noExitRuntime = true;
+    run();
+    return createTFLiteModule2.ready;
+  });
+})();
+if (true)
+  module.exports = createTFLiteModule;
+else {}
+
+
+/***/ }),
+
+/***/ "./node_modules/path-browserify/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+// 'path' module extracted from Node.js v8.11.1 (only the posix part)
+// transplited with Babel
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+function assertPath(path) {
+  if (typeof path !== 'string') {
+    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
+  }
+}
+
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+  var res = '';
+  var lastSegmentLength = 0;
+  var lastSlash = -1;
+  var dots = 0;
+  var code;
+  for (var i = 0; i <= path.length; ++i) {
+    if (i < path.length)
+      code = path.charCodeAt(i);
+    else if (code === 47 /*/*/)
+      break;
+    else
+      code = 47 /*/*/;
+    if (code === 47 /*/*/) {
+      if (lastSlash === i - 1 || dots === 1) {
+        // NOOP
+      } else if (lastSlash !== i - 1 && dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+          if (res.length > 2) {
+            var lastSlashIndex = res.lastIndexOf('/');
+            if (lastSlashIndex !== res.length - 1) {
+              if (lastSlashIndex === -1) {
+                res = '';
+                lastSegmentLength = 0;
+              } else {
+                res = res.slice(0, lastSlashIndex);
+                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
+              }
+              lastSlash = i;
+              dots = 0;
+              continue;
+            }
+          } else if (res.length === 2 || res.length === 1) {
+            res = '';
+            lastSegmentLength = 0;
+            lastSlash = i;
+            dots = 0;
+            continue;
+          }
+        }
+        if (allowAboveRoot) {
+          if (res.length > 0)
+            res += '/..';
+          else
+            res = '..';
+          lastSegmentLength = 2;
+        }
+      } else {
+        if (res.length > 0)
+          res += '/' + path.slice(lastSlash + 1, i);
+        else
+          res = path.slice(lastSlash + 1, i);
+        lastSegmentLength = i - lastSlash - 1;
+      }
+      lastSlash = i;
+      dots = 0;
+    } else if (code === 46 /*.*/ && dots !== -1) {
+      ++dots;
+    } else {
+      dots = -1;
+    }
+  }
+  return res;
+}
+
+function _format(sep, pathObject) {
+  var dir = pathObject.dir || pathObject.root;
+  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+  if (!dir) {
+    return base;
+  }
+  if (dir === pathObject.root) {
+    return dir + base;
+  }
+  return dir + sep + base;
+}
+
+var posix = {
+  // path.resolve([from ...], to)
+  resolve: function resolve() {
+    var resolvedPath = '';
+    var resolvedAbsolute = false;
+    var cwd;
+
+    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      var path;
+      if (i >= 0)
+        path = arguments[i];
+      else {
+        if (cwd === undefined)
+          cwd = process.cwd();
+        path = cwd;
+      }
+
+      assertPath(path);
+
+      // Skip empty entries
+      if (path.length === 0) {
+        continue;
+      }
+
+      resolvedPath = path + '/' + resolvedPath;
+      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    }
+
+    // At this point the path should be resolved to a full absolute path, but
+    // handle relative paths to be safe (might happen when process.cwd() fails)
+
+    // Normalize the path
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
+
+    if (resolvedAbsolute) {
+      if (resolvedPath.length > 0)
+        return '/' + resolvedPath;
+      else
+        return '/';
+    } else if (resolvedPath.length > 0) {
+      return resolvedPath;
+    } else {
+      return '.';
+    }
+  },
+
+  normalize: function normalize(path) {
+    assertPath(path);
+
+    if (path.length === 0) return '.';
+
+    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
+
+    // Normalize the path
+    path = normalizeStringPosix(path, !isAbsolute);
+
+    if (path.length === 0 && !isAbsolute) path = '.';
+    if (path.length > 0 && trailingSeparator) path += '/';
+
+    if (isAbsolute) return '/' + path;
+    return path;
+  },
+
+  isAbsolute: function isAbsolute(path) {
+    assertPath(path);
+    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+  },
+
+  join: function join() {
+    if (arguments.length === 0)
+      return '.';
+    var joined;
+    for (var i = 0; i < arguments.length; ++i) {
+      var arg = arguments[i];
+      assertPath(arg);
+      if (arg.length > 0) {
+        if (joined === undefined)
+          joined = arg;
+        else
+          joined += '/' + arg;
+      }
+    }
+    if (joined === undefined)
+      return '.';
+    return posix.normalize(joined);
+  },
+
+  relative: function relative(from, to) {
+    assertPath(from);
+    assertPath(to);
+
+    if (from === to) return '';
+
+    from = posix.resolve(from);
+    to = posix.resolve(to);
+
+    if (from === to) return '';
+
+    // Trim any leading backslashes
+    var fromStart = 1;
+    for (; fromStart < from.length; ++fromStart) {
+      if (from.charCodeAt(fromStart) !== 47 /*/*/)
+        break;
+    }
+    var fromEnd = from.length;
+    var fromLen = fromEnd - fromStart;
+
+    // Trim any leading backslashes
+    var toStart = 1;
+    for (; toStart < to.length; ++toStart) {
+      if (to.charCodeAt(toStart) !== 47 /*/*/)
+        break;
+    }
+    var toEnd = to.length;
+    var toLen = toEnd - toStart;
+
+    // Compare paths to find the longest common path from root
+    var length = fromLen < toLen ? fromLen : toLen;
+    var lastCommonSep = -1;
+    var i = 0;
+    for (; i <= length; ++i) {
+      if (i === length) {
+        if (toLen > length) {
+          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+            // We get here if `from` is the exact base path for `to`.
+            // For example: from='/foo/bar'; to='/foo/bar/baz'
+            return to.slice(toStart + i + 1);
+          } else if (i === 0) {
+            // We get here if `from` is the root
+            // For example: from='/'; to='/foo'
+            return to.slice(toStart + i);
+          }
+        } else if (fromLen > length) {
+          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+            // We get here if `to` is the exact base path for `from`.
+            // For example: from='/foo/bar/baz'; to='/foo/bar'
+            lastCommonSep = i;
+          } else if (i === 0) {
+            // We get here if `to` is the root.
+            // For example: from='/foo'; to='/'
+            lastCommonSep = 0;
+          }
+        }
+        break;
+      }
+      var fromCode = from.charCodeAt(fromStart + i);
+      var toCode = to.charCodeAt(toStart + i);
+      if (fromCode !== toCode)
+        break;
+      else if (fromCode === 47 /*/*/)
+        lastCommonSep = i;
+    }
+
+    var out = '';
+    // Generate the relative path based on the path difference between `to`
+    // and `from`
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+        if (out.length === 0)
+          out += '..';
+        else
+          out += '/..';
+      }
+    }
+
+    // Lastly, append the rest of the destination (`to`) path that comes after
+    // the common path parts
+    if (out.length > 0)
+      return out + to.slice(toStart + lastCommonSep);
+    else {
+      toStart += lastCommonSep;
+      if (to.charCodeAt(toStart) === 47 /*/*/)
+        ++toStart;
+      return to.slice(toStart);
+    }
+  },
+
+  _makeLong: function _makeLong(path) {
+    return path;
+  },
+
+  dirname: function dirname(path) {
+    assertPath(path);
+    if (path.length === 0) return '.';
+    var code = path.charCodeAt(0);
+    var hasRoot = code === 47 /*/*/;
+    var end = -1;
+    var matchedSlash = true;
+    for (var i = path.length - 1; i >= 1; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          if (!matchedSlash) {
+            end = i;
+            break;
+          }
+        } else {
+        // We saw the first non-path separator
+        matchedSlash = false;
+      }
+    }
+
+    if (end === -1) return hasRoot ? '/' : '.';
+    if (hasRoot && end === 1) return '//';
+    return path.slice(0, end);
+  },
+
+  basename: function basename(path, ext) {
+    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
+    assertPath(path);
+
+    var start = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i;
+
+    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+      if (ext.length === path.length && ext === path) return '';
+      var extIdx = ext.length - 1;
+      var firstNonSlashEnd = -1;
+      for (i = path.length - 1; i >= 0; --i) {
+        var code = path.charCodeAt(i);
+        if (code === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else {
+          if (firstNonSlashEnd === -1) {
+            // We saw the first non-path separator, remember this index in case
+            // we need it if the extension ends up not matching
+            matchedSlash = false;
+            firstNonSlashEnd = i + 1;
+          }
+          if (extIdx >= 0) {
+            // Try to match the explicit extension
+            if (code === ext.charCodeAt(extIdx)) {
+              if (--extIdx === -1) {
+                // We matched the extension, so mark this as the end of our path
+                // component
+                end = i;
+              }
+            } else {
+              // Extension does not match, so our result is the entire path
+              // component
+              extIdx = -1;
+              end = firstNonSlashEnd;
+            }
+          }
+        }
+      }
+
+      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
+      return path.slice(start, end);
+    } else {
+      for (i = path.length - 1; i >= 0; --i) {
+        if (path.charCodeAt(i) === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // path component
+          matchedSlash = false;
+          end = i + 1;
+        }
+      }
+
+      if (end === -1) return '';
+      return path.slice(start, end);
+    }
+  },
+
+  extname: function extname(path) {
+    assertPath(path);
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+    for (var i = path.length - 1; i >= 0; --i) {
+      var code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1)
+            startDot = i;
+          else if (preDotState !== 1)
+            preDotState = 1;
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+        // We saw a non-dot character immediately before the dot
+        preDotState === 0 ||
+        // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return '';
+    }
+    return path.slice(startDot, end);
+  },
+
+  format: function format(pathObject) {
+    if (pathObject === null || typeof pathObject !== 'object') {
+      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+    }
+    return _format('/', pathObject);
+  },
+
+  parse: function parse(path) {
+    assertPath(path);
+
+    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
+    if (path.length === 0) return ret;
+    var code = path.charCodeAt(0);
+    var isAbsolute = code === 47 /*/*/;
+    var start;
+    if (isAbsolute) {
+      ret.root = '/';
+      start = 1;
+    } else {
+      start = 0;
+    }
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i = path.length - 1;
+
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+
+    // Get non-dir info
+    for (; i >= start; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+        } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      if (end !== -1) {
+        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
+      }
+    } else {
+      if (startPart === 0 && isAbsolute) {
+        ret.name = path.slice(1, startDot);
+        ret.base = path.slice(1, end);
+      } else {
+        ret.name = path.slice(startPart, startDot);
+        ret.base = path.slice(startPart, end);
+      }
+      ret.ext = path.slice(startDot, end);
+    }
+
+    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
+
+    return ret;
+  },
+
+  sep: '/',
+  delimiter: ':',
+  win32: null,
+  posix: null
+};
+
+posix.posix = posix;
+
+module.exports = posix;
+
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+
+/***/ "./src/utils/media/effects/virtual-background/vendor/models/selfie_segmentation_landscape.tflite":
+/*!*******************************************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/vendor/models/selfie_segmentation_landscape.tflite ***!
+  \*******************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "selfie_segmentation_landscape.tflite?v=42d35e9379e4c500a3d3";
+
+/***/ }),
+
+/***/ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.wasm":
+/*!***********************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.wasm ***!
+  \***********************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "tflite-simd.wasm?v=2424013c64ebd6da057f";
+
+/***/ }),
+
+/***/ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite.wasm":
+/*!******************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/vendor/tflite/tflite.wasm ***!
+  \******************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "tflite.wasm?v=21c7be5f89f7b4bae55b";
+
+/***/ }),
+
+/***/ "?5b1c":
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/***/ (() => {
+
+/* (ignored) */
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "/apps/talk/js/";
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!******************************************************************************************!*\
+  !*** ./src/utils/media/effects/virtual-background/JitsiStreamBackgroundEffect.worker.js ***!
+  \******************************************************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vendor_models_selfie_segmentation_landscape_tflite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendor/models/selfie_segmentation_landscape.tflite */ "./src/utils/media/effects/virtual-background/vendor/models/selfie_segmentation_landscape.tflite");
+/* harmony import */ var _vendor_tflite_tflite_simd_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vendor/tflite/tflite-simd.js */ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.js");
+/* harmony import */ var _vendor_tflite_tflite_simd_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_vendor_tflite_tflite_simd_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vendor_tflite_tflite_simd_wasm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vendor/tflite/tflite-simd.wasm */ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite-simd.wasm");
+/* harmony import */ var _vendor_tflite_tflite_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vendor/tflite/tflite.js */ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite.js");
+/* harmony import */ var _vendor_tflite_tflite_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vendor_tflite_tflite_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vendor_tflite_tflite_wasm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vendor/tflite/tflite.wasm */ "./src/utils/media/effects/virtual-background/vendor/tflite/tflite.wasm");
+/**
+ * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+
+
+
+
+
+const models = {
+	modelLandscape: _vendor_models_selfie_segmentation_landscape_tflite__WEBPACK_IMPORTED_MODULE_0__.split('/').pop(),
+}
+
+self.compiled = false
+
+self.onmessage = (e) => {
+	const message = e.data.message
+	switch (message) {
+		case 'makeTFLite':
+			self.segmentationPixelCount = e.data.segmentationPixelCount
+			makeTFLite(e.data.simd)
+			break
+		case 'resizeSource':
+			if (!self.compiled) {
+				return
+			}
+			resizeSource(e.data.imageData, e.data.frameId)
+			break
+		case 'runInference':
+			runInference()
+			break
+		default:
+			console.error('JitsiStreamBackgroundEffect.worker: Message unknown.')
+			console.error(message)
+			break
+	}
+}
+
+/**
+ * @param {boolean} isSimd whether WebAssembly SIMD is available or not
+ */
+async function makeTFLite(isSimd) {
+	try {
+		switch (isSimd) {
+			case true:
+				self.wasmUrl = _vendor_tflite_tflite_simd_wasm__WEBPACK_IMPORTED_MODULE_2__.split('/').pop()
+				self.tflite = await _vendor_tflite_tflite_simd_js__WEBPACK_IMPORTED_MODULE_1___default()({ locateFile: (path) => { return self.wasmUrl } })
+				break
+			case false:
+				self.wasmUrl = _vendor_tflite_tflite_wasm__WEBPACK_IMPORTED_MODULE_4__.split('/').pop()
+				self.tflite = await _vendor_tflite_tflite_js__WEBPACK_IMPORTED_MODULE_3___default()({ locateFile: (path) => { return self.wasmUrl } })
+				break
+			default:
+				return
+		}
+		self.modelBufferOffset = self.tflite._getModelBufferMemoryOffset()
+		self.modelResponse = await fetch(models.modelLandscape)
+
+		if (!self.modelResponse.ok) {
+			throw new Error('Failed to download tflite model!')
+		}
+		self.model = await self.modelResponse.arrayBuffer()
+
+		self.tflite.HEAPU8.set(new Uint8Array(self.model), self.modelBufferOffset)
+
+		await self.tflite._loadModel(self.model.byteLength)
+
+		// Even if the wrong tflite file is downloaded (for example, if an HTML
+		// error is downloaded instead of the file) loading the model will
+		// succeed. However, if the model does not have certain values it could
+		// be assumed that the model failed to load.
+		if (!self.tflite._getInputWidth() || !self.tflite._getInputHeight()
+			|| !self.tflite._getOutputWidth() || !self.tflite._getOutputHeight()) {
+			throw new Error('Failed to load tflite model!')
+		}
+
+		self.compiled = true
+
+		self.postMessage({ message: 'loaded' })
+	} catch (error) {
+		console.error(error)
+		console.error('JitsiStreamBackgroundEffect.worker: tflite compilation failed. The web server may not be properly configured to send wasm and/or tflite files.')
+
+		self.postMessage({ message: 'loadFailed' })
+	}
+}
+
+/**
+ * @param {ImageData} imageData the image data from the canvas
+ * @param {number} frameId the ID of the frame that the image data belongs to
+ */
+function resizeSource(imageData, frameId) {
+	const inputMemoryOffset = self.tflite._getInputMemoryOffset() / 4
+	for (let i = 0; i < self.segmentationPixelCount; i++) {
+		self.tflite.HEAPF32[inputMemoryOffset + (i * 3)] = imageData.data[i * 4] / 255
+		self.tflite.HEAPF32[inputMemoryOffset + (i * 3) + 1] = imageData.data[(i * 4) + 1] / 255
+		self.tflite.HEAPF32[inputMemoryOffset + (i * 3) + 2] = imageData.data[(i * 4) + 2] / 255
+	}
+	runInference(frameId)
+}
+
+/**
+ * @param {number} frameId the ID of the frame that the image data belongs to
+ */
+function runInference(frameId) {
+	self.tflite._runInference()
+	const outputMemoryOffset = self.tflite._getOutputMemoryOffset() / 4
+	const segmentationMaskData = []
+	// All consts in Worker in obj array.
+	for (let i = 0; i < self.segmentationPixelCount; i++) {
+		const person = self.tflite.HEAPF32[outputMemoryOffset + i]
+
+		segmentationMaskData.push({
+			person,
+		})
+	}
+	self.postMessage({ message: 'inferenceRun', segmentationResult: segmentationMaskData, frameId })
+}
+
+// This is needed to make the linter happy, but even if nothing is actually
+// exported the worker is loaded as expected.
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (null);
+
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=talk-JitsiStreamBackgroundEffect.worker.worker.js.map?v=238d3e4bf2381d3889e5
