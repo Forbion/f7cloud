@@ -66,6 +66,8 @@ class Install extends Base {
 				'Specify the list of features for the bot' . "\n"
 				. ' - webhook: The bot receives posted chat messages as webhooks' . "\n"
 				. ' - response: The bot can post messages and reactions as a response' . "\n"
+				. ' - event: The bot reads posted messages from local events' . "\n"
+				. ' - reaction: The bot is notified about adding and removing of reactions' . "\n"
 				. ' - none: When all features should be disabled for the bot'
 			)
 		;
@@ -80,6 +82,11 @@ class Install extends Base {
 
 		if (!empty($input->getOption('feature'))) {
 			$featureFlags = Bot::featureLabelsToFlags($input->getOption('feature'));
+			if (str_starts_with($url, Bot::URL_APP_PREFIX)) {
+				$featureFlags &= ~Bot::FEATURE_WEBHOOK;
+			}
+		} elseif (str_starts_with($url, Bot::URL_APP_PREFIX)) {
+			$featureFlags = Bot::FEATURE_EVENT;
 		} else {
 			$featureFlags = Bot::FEATURE_WEBHOOK + Bot::FEATURE_RESPONSE;
 		}

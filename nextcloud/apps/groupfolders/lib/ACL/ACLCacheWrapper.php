@@ -15,10 +15,15 @@ use OCP\Files\Cache\ICacheEntry;
 use OCP\Files\Search\ISearchQuery;
 
 class ACLCacheWrapper extends CacheWrapper {
-	private ACLManager $aclManager;
-	private bool $inShare;
+	public function __construct(
+		ICache $cache,
+		private ACLManager $aclManager,
+		private bool $inShare,
+	) {
+		parent::__construct($cache);
+	}
 
-	private function getACLPermissionsForPath(string $path, array $rules = []) {
+	private function getACLPermissionsForPath(string $path, array $rules = []): int {
 		if ($rules) {
 			$permissions = $this->aclManager->getPermissionsForPathFromRules($path, $rules);
 		} else {
@@ -31,17 +36,13 @@ class ACLCacheWrapper extends CacheWrapper {
 		} else {
 			$minPermissions = Constants::PERMISSION_READ;
 		}
+
 		$canRead = ($permissions & $minPermissions) === $minPermissions;
+
 		return $canRead ? $permissions : 0;
 	}
 
-	public function __construct(ICache $cache, ACLManager $aclManager, bool $inShare) {
-		parent::__construct($cache);
-		$this->aclManager = $aclManager;
-		$this->inShare = $inShare;
-	}
-
-	protected function formatCacheEntry($entry, array $rules = []) {
+	protected function formatCacheEntry($entry, array $rules = []): ICacheEntry|false {
 		if (isset($entry['permissions'])) {
 			$entry['scan_permissions'] = $entry['permissions'];
 			$entry['permissions'] &= $this->getACLPermissionsForPath($entry['path'], $rules);
@@ -49,44 +50,45 @@ class ACLCacheWrapper extends CacheWrapper {
 				return false;
 			}
 		}
+
 		return $entry;
 	}
 
-	public function getFolderContentsById($fileId) {
+	public function getFolderContentsById($fileId): array {
 		$results = $this->getCache()->getFolderContentsById($fileId);
 		$rules = $this->preloadEntries($results);
-		$entries = array_map(function ($entry) use ($rules) {
-			return $this->formatCacheEntry($entry, $rules);
-		}, $results);
-		return array_filter(array_filter($entries));
+
+		return array_filter(array_map(fn (ICacheEntry $entry): ICacheEntry|false => $this->formatCacheEntry($entry, $rules), $results));
 	}
 
-	public function search($pattern) {
+	public function search($pattern): array {
 		$results = $this->getCache()->search($pattern);
 		$this->preloadEntries($results);
-		return array_map([$this, 'formatCacheEntry'], $results);
+
+		return array_filter(array_map($this->formatCacheEntry(...), $results));
 	}
 
-	public function searchByMime($mimetype) {
+	public function searchByMime($mimetype): array {
 		$results = $this->getCache()->searchByMime($mimetype);
 		$this->preloadEntries($results);
-		return array_map([$this, 'formatCacheEntry'], $results);
+
+		return array_filter(array_map($this->formatCacheEntry(...), $results));
 	}
 
-	public function searchQuery(ISearchQuery $query) {
+	public function searchQuery(ISearchQuery $query): array {
 		$results = $this->getCache()->searchQuery($query);
 		$this->preloadEntries($results);
-		return array_map([$this, 'formatCacheEntry'], $results);
+
+		return array_filter(array_map($this->formatCacheEntry(...), $results));
 	}
 
 	/**
 	 * @param ICacheEntry[] $entries
-	 * @return Rule[][]
+	 * @return array<string, Rule[]>
 	 */
 	private function preloadEntries(array $entries): array {
-		$paths = array_map(function (ICacheEntry $entry) {
-			return $entry->getPath();
-		}, $entries);
+		$paths = array_map(fn (ICacheEntry $entry): string => $entry->getPath(), $entries);
+
 		return $this->aclManager->getRelevantRulesForPath($paths, false);
 	}
 }

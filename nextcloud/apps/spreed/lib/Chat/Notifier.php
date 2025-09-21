@@ -33,6 +33,10 @@ use OCP\Notification\INotification;
  * prepares the notifications for display.
  */
 class Notifier {
+	public const PRIORITY_NONE = 0;
+	public const PRIORITY_NORMAL = 1;
+	public const PRIORITY_IMPORTANT = 2;
+
 	public function __construct(
 		private INotificationManager $notificationManager,
 		private IUserManager $userManager,
@@ -77,7 +81,8 @@ class Notifier {
 		}
 
 		foreach ($usersToNotify as $mentionedUser) {
-			if ($this->shouldMentionedUserBeNotified($mentionedUser['id'], $comment, $chat, $mentionedUser['attendee'] ?? null)) {
+			$shouldMentionedUserBeNotified = $this->shouldMentionedUserBeNotified($mentionedUser['id'], $comment, $chat, $mentionedUser['attendee'] ?? null);
+			if ($shouldMentionedUserBeNotified !== self::PRIORITY_NONE) {
 				if (!$silent) {
 					$notification->setUser($mentionedUser['id']);
 					if (isset($mentionedUser['reason'])) {
@@ -87,6 +92,7 @@ class Notifier {
 					} else {
 						$notification->setSubject('mention', $parameters);
 					}
+					$notification->setPriorityNotification($shouldMentionedUserBeNotified === self::PRIORITY_IMPORTANT);
 					$this->notificationManager->notify($notification);
 				}
 				$alreadyNotifiedUsers[] = $mentionedUser;
@@ -112,6 +118,7 @@ class Notifier {
 	public function getUsersToNotify(Room $chat, IComment $comment, array $alreadyNotifiedUsers, ?Participant $participant = null): array {
 		$usersToNotify = $this->getMentionedUsers($comment);
 		$usersToNotify = $this->getMentionedGroupMembers($chat, $comment, $usersToNotify);
+		$usersToNotify = $this->getMentionedTeamMembers($chat, $comment, $usersToNotify);
 		$usersToNotify = $this->addMentionAllToList($chat, $usersToNotify, $participant);
 		$usersToNotify = $this->removeAlreadyNotifiedUsers($usersToNotify, $alreadyNotifiedUsers);
 
@@ -184,7 +191,7 @@ class Notifier {
 	 * The comment must be a chat message comment. That is, its "objectId" must
 	 * be the room ID.
 	 *
-	 * The author of the message is notified only if he is still able to participate in the room
+	 * The author of the message is notified only if they are still able to participate in the room
 	 *
 	 * @param Room $chat
 	 * @param IComment $comment
@@ -209,13 +216,15 @@ class Notifier {
 			];
 		}
 
-		if (!$this->shouldMentionedUserBeNotified($replyTo->getActorId(), $comment, $chat)) {
+		$shouldMentionedUserBeNotified = $this->shouldMentionedUserBeNotified($replyTo->getActorId(), $comment, $chat);
+		if ($shouldMentionedUserBeNotified === self::PRIORITY_NONE) {
 			return [];
 		}
 
 		if (!$silent) {
 			$notification = $this->createNotification($chat, $comment, 'reply');
 			$notification->setUser($replyTo->getActorId());
+			$notification->setPriorityNotification($shouldMentionedUserBeNotified === self::PRIORITY_IMPORTANT);
 			$this->notificationManager->notify($notification);
 		}
 
@@ -252,11 +261,13 @@ class Notifier {
 
 		$notification = $this->createNotification($chat, $comment, 'chat');
 		foreach ($participants as $participant) {
-			if (!$this->shouldParticipantBeNotified($participant, $comment, $alreadyNotifiedUsers)) {
+			$shouldParticipantBeNotified = $this->shouldParticipantBeNotified($participant, $comment, $alreadyNotifiedUsers);
+			if ($shouldParticipantBeNotified === self::PRIORITY_NONE) {
 				continue;
 			}
 
 			$notification->setUser($participant->getAttendee()->getActorId());
+			$notification->setPriorityNotification($shouldParticipantBeNotified === self::PRIORITY_IMPORTANT);
 			$this->notificationManager->notify($notification);
 		}
 
@@ -264,11 +275,13 @@ class Notifier {
 		if ($this->getDefaultGroupNotification() === Participant::NOTIFY_ALWAYS || $chat->getType() === Room::TYPE_ONE_TO_ONE) {
 			$participants = $this->participantService->getParticipantsByNotificationLevel($chat, Participant::NOTIFY_DEFAULT);
 			foreach ($participants as $participant) {
-				if (!$this->shouldParticipantBeNotified($participant, $comment, $alreadyNotifiedUsers)) {
+				$shouldParticipantBeNotified = $this->shouldParticipantBeNotified($participant, $comment, $alreadyNotifiedUsers);
+				if ($shouldParticipantBeNotified === self::PRIORITY_NONE) {
 					continue;
 				}
 
 				$notification->setUser($participant->getAttendee()->getActorId());
+				$notification->setPriorityNotification($shouldParticipantBeNotified === self::PRIORITY_IMPORTANT);
 				$this->notificationManager->notify($notification);
 			}
 		}
@@ -533,6 +546,57 @@ class Notifier {
 	}
 
 	/**
+	 * @param Room $chat
+	 * @param IComment $comment
+	 * @param array $list
+	 * @psalm-param array<int, array{type: string, id: string, reason: string, sourceId?: string}> $list
+	 * @return array[]
+	 * @psalm-return array<int, array{type: string, id: string, reason: string, sourceId?: string}>
+	 */
+	private function getMentionedTeamMembers(Room $chat, IComment $comment, array $list): array {
+		$mentions = $comment->getMentions();
+
+		if (empty($mentions)) {
+			return [];
+		}
+
+		$alreadyMentionedUserIds = array_filter(
+			array_map(static fn (array $entry) => $entry['type'] === Attendee::ACTOR_USERS ? $entry['id'] : null, $list),
+			static fn ($userId) => $userId !== null
+		);
+		$alreadyMentionedUserIds = array_flip($alreadyMentionedUserIds);
+
+		foreach ($mentions as $mention) {
+			if ($mention['type'] !== 'team') {
+				continue;
+			}
+
+			try {
+				$this->participantService->getParticipantByActor($chat, Attendee::ACTOR_CIRCLES, $mention['id']);
+			} catch (ParticipantNotFoundException) {
+				continue;
+			}
+
+			$members = $this->participantService->getCircleMembers($mention['id']);
+			if (empty($members)) {
+				continue;
+			}
+
+			foreach ($members as $member) {
+				$list[] = [
+					'id' => $member->getUserId(),
+					'type' => Attendee::ACTOR_USERS,
+					'reason' => 'team',
+					'sourceId' => $mention['id'],
+				];
+				$alreadyMentionedUserIds[$member->getUserId()] = true;
+			}
+		}
+
+		return $list;
+	}
+
+	/**
 	 * Creates a notification for the given chat message comment and mentioned
 	 * user ID.
 	 */
@@ -565,16 +629,16 @@ class Notifier {
 	 * 3. The user must be a participant of the room
 	 * 4. The user must not be active in the room
 	 */
-	protected function shouldMentionedUserBeNotified(string $userId, IComment $comment, Room $room, ?Attendee $attendee = null): bool {
+	protected function shouldMentionedUserBeNotified(string $userId, IComment $comment, Room $room, ?Attendee $attendee = null): int {
 		if ($comment->getActorType() === Attendee::ACTOR_USERS && $userId === $comment->getActorId()) {
 			// Do not notify the user if they mentioned themselves
-			return false;
+			return self::PRIORITY_NONE;
 		}
 
 		try {
 			if (!$attendee instanceof Attendee) {
 				if (!$this->userManager->userExists($userId)) {
-					return false;
+					return self::PRIORITY_NONE;
 				}
 
 				$participant = $this->participantService->getParticipant($room, $userId, false);
@@ -585,7 +649,7 @@ class Notifier {
 
 			if ($room->getLobbyState() !== Webinary::LOBBY_NONE &&
 				!($participant->getPermissions() & Attendee::PERMISSIONS_LOBBY_IGNORE)) {
-				return false;
+				return self::PRIORITY_NONE;
 			}
 
 			$notificationLevel = $attendee->getNotificationLevel();
@@ -596,7 +660,14 @@ class Notifier {
 					$notificationLevel = $this->getDefaultGroupNotification();
 				}
 			}
-			return $notificationLevel !== Participant::NOTIFY_NEVER;
+			if ($notificationLevel === Participant::NOTIFY_NEVER) {
+				return self::PRIORITY_NONE;
+			}
+
+			if ($attendee->isImportant()) {
+				return self::PRIORITY_IMPORTANT;
+			}
+			return self::PRIORITY_NORMAL;
 		} catch (ParticipantNotFoundException $e) {
 			if ($room->getObjectType() === 'file' && $this->util->canUserAccessFile($room->getObjectId(), $userId)) {
 				// Users are added on mentions in file-rooms,
@@ -609,9 +680,9 @@ class Notifier {
 					'actorId' => $userId,
 					'displayName' => $userDisplayName ?? $userId,
 				]]);
-				return true;
+				return self::PRIORITY_NORMAL;
 			}
-			return false;
+			return self::PRIORITY_NONE;
 		}
 	}
 
@@ -623,35 +694,35 @@ class Notifier {
 	 * 3. The participant was not mentioned already
 	 * 4. The participant must not be active in the room
 	 *
-	 * @param Participant $participant
-	 * @param IComment $comment
-	 * @param array $alreadyNotifiedUsers
 	 * @psalm-param array<int, array{type: string, id: string, reason: string, sourceId?: string, attendee?: Attendee}> $alreadyNotifiedUsers
-	 * @return bool
 	 */
-	protected function shouldParticipantBeNotified(Participant $participant, IComment $comment, array $alreadyNotifiedUsers): bool {
+	protected function shouldParticipantBeNotified(Participant $participant, IComment $comment, array $alreadyNotifiedUsers): int {
 		if ($participant->getAttendee()->getActorType() !== Attendee::ACTOR_USERS) {
-			return false;
+			return self::PRIORITY_NONE;
 		}
 
 		$userId = $participant->getAttendee()->getActorId();
 		if ($comment->getActorType() === Attendee::ACTOR_USERS && $userId === $comment->getActorId()) {
 			// Do not notify the author
-			return false;
+			return self::PRIORITY_NONE;
 		}
 
 		$actorType = $participant->getAttendee()->getActorType();
 		foreach ($alreadyNotifiedUsers as $user) {
 			if ($user['id'] === $userId && $user['type'] === $actorType) {
-				return false;
+				return self::PRIORITY_NONE;
 			}
 		}
 
-		if ($participant->getSession() instanceof Session) {
+		if ($participant->getSession()?->getLastPing() >= $this->timeFactory->getTime() - Session::SESSION_TIMEOUT) {
 			// User is online
-			return $participant->getSession()->getLastPing() < $this->timeFactory->getTime() - Session::SESSION_TIMEOUT;
+			return self::PRIORITY_NONE;
 		}
 
-		return true;
+		if ($participant->getAttendee()->isImportant()) {
+			return self::PRIORITY_IMPORTANT;
+		}
+
+		return self::PRIORITY_NORMAL;
 	}
 }

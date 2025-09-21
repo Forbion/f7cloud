@@ -30,9 +30,7 @@ class UserMappingManager implements IUserMappingManager {
 	}
 
 	public function getMappingsForUser(IUser $user, bool $userAssignable = true): array {
-		$groupMappings = array_values(array_map(function (IGroup $group) {
-			return new UserMapping('group', $group->getGID(), $group->getDisplayName());
-		}, $this->groupManager->getUserGroups($user)));
+		$groupMappings = array_values(array_map(fn (IGroup $group): UserMapping => new UserMapping('group', $group->getGID(), $group->getDisplayName()), $this->groupManager->getUserGroups($user)));
 		$circleMappings = array_values(array_map(fn (Circle $circle): UserMapping => new UserMapping('circle', $circle->getSingleId(), $circle->getDisplayName()), $this->getUserCircles($user->getUID())));
 
 		return array_merge([

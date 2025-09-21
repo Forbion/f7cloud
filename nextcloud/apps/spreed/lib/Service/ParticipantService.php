@@ -40,16 +40,18 @@ use OCA\Talk\Events\SystemMessagesMultipleSentEvent;
 use OCA\Talk\Events\UserJoinedRoomEvent;
 use OCA\Talk\Exceptions\CannotReachRemoteException;
 use OCA\Talk\Exceptions\DialOutFailedException;
-use OCA\Talk\Exceptions\ForbiddenException;
 use OCA\Talk\Exceptions\InvalidPasswordException;
 use OCA\Talk\Exceptions\ParticipantNotFoundException;
+use OCA\Talk\Exceptions\ParticipantProperty\PermissionsException;
 use OCA\Talk\Exceptions\UnauthorizedException;
 use OCA\Talk\Federation\BackendNotifier;
 use OCA\Talk\Federation\FederationManager;
+use OCA\Talk\GuestManager;
 use OCA\Talk\Manager;
 use OCA\Talk\Model\Attendee;
 use OCA\Talk\Model\AttendeeMapper;
 use OCA\Talk\Model\BreakoutRoom;
+use OCA\Talk\Model\InvitationList;
 use OCA\Talk\Model\SelectHelper;
 use OCA\Talk\Model\Session;
 use OCA\Talk\Model\SessionMapper;
@@ -185,23 +187,26 @@ class ParticipantService {
 	}
 
 	/**
-	 * @throws Exception
-	 * @throws ForbiddenException
+	 * @throws PermissionsException
 	 */
-	public function updatePermissions(Room $room, Participant $participant, string $method, int $newPermissions): bool {
+	public function updatePermissions(Room $room, Participant $participant, string $method, int $newPermissions): void {
 		if ($room->getType() === Room::TYPE_ONE_TO_ONE || $room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
-			return false;
+			throw new PermissionsException(PermissionsException::REASON_ROOM_TYPE);
 		}
 
 		if ($participant->hasModeratorPermissions()) {
-			throw new ForbiddenException();
+			throw new PermissionsException(PermissionsException::REASON_MODERATOR);
 		}
 
 		$attendee = $participant->getAttendee();
 
 		if ($attendee->getActorType() === Attendee::ACTOR_GROUPS || $attendee->getActorType() === Attendee::ACTOR_CIRCLES) {
 			// Can not set publishing permissions for those actor types
-			return false;
+			throw new PermissionsException(PermissionsException::REASON_TYPE);
+		}
+
+		if ($newPermissions < Attendee::PERMISSIONS_DEFAULT || $newPermissions > Attendee::PERMISSIONS_MAX_CUSTOM) {
+			throw new PermissionsException(PermissionsException::REASON_VALUE);
 		}
 
 		$oldPermissions = $participant->getPermissions();
@@ -215,7 +220,7 @@ class ParticipantService {
 		} elseif ($method === Attendee::PERMISSIONS_MODIFY_REMOVE) {
 			$newPermissions = $oldPermissions & ~$newPermissions;
 		} else {
-			return false;
+			throw new PermissionsException(PermissionsException::REASON_METHOD);
 		}
 
 		$event = new BeforeParticipantModifiedEvent($room, $participant, AParticipantModifiedEvent::PROPERTY_PERMISSIONS, $newPermissions, $oldPermissions);
@@ -230,8 +235,6 @@ class ParticipantService {
 
 		$event = new ParticipantModifiedEvent($room, $participant, AParticipantModifiedEvent::PROPERTY_PERMISSIONS, $newPermissions, $oldPermissions);
 		$this->dispatcher->dispatchTyped($event);
-
-		return true;
 	}
 
 	public function updateAllPermissions(Room $room, string $method, int $newState): void {
@@ -273,7 +276,7 @@ class ParticipantService {
 			Participant::NOTIFY_MENTION,
 			Participant::NOTIFY_NEVER
 		], true)) {
-			throw new \InvalidArgumentException('Invalid notification level');
+			throw new \InvalidArgumentException('level');
 		}
 
 		$attendee = $participant->getAttendee();
@@ -285,13 +288,14 @@ class ParticipantService {
 	/**
 	 * @param Participant $participant
 	 * @param int $level
+	 * @throws \InvalidArgumentException
 	 */
 	public function updateNotificationCalls(Participant $participant, int $level): void {
 		if (!\in_array($level, [
 			Participant::NOTIFY_CALLS_OFF,
 			Participant::NOTIFY_CALLS_ON,
 		], true)) {
-			throw new \InvalidArgumentException('Invalid notification level');
+			throw new \InvalidArgumentException('level');
 		}
 
 		$attendee = $participant->getAttendee();
@@ -316,6 +320,46 @@ class ParticipantService {
 	public function unarchiveConversation(Participant $participant): void {
 		$attendee = $participant->getAttendee();
 		$attendee->setArchived(false);
+		$attendee->setLastAttendeeActivity($this->timeFactory->getTime());
+		$this->attendeeMapper->update($attendee);
+	}
+
+	/**
+	 * @param Participant $participant
+	 */
+	public function markConversationAsImportant(Participant $participant): void {
+		$attendee = $participant->getAttendee();
+		$attendee->setImportant(true);
+		$attendee->setLastAttendeeActivity($this->timeFactory->getTime());
+		$this->attendeeMapper->update($attendee);
+	}
+
+	/**
+	 * @param Participant $participant
+	 */
+	public function markConversationAsUnimportant(Participant $participant): void {
+		$attendee = $participant->getAttendee();
+		$attendee->setImportant(false);
+		$attendee->setLastAttendeeActivity($this->timeFactory->getTime());
+		$this->attendeeMapper->update($attendee);
+	}
+
+	/**
+	 * @param Participant $participant
+	 */
+	public function markConversationAsSensitive(Participant $participant): void {
+		$attendee = $participant->getAttendee();
+		$attendee->setSensitive(true);
+		$attendee->setLastAttendeeActivity($this->timeFactory->getTime());
+		$this->attendeeMapper->update($attendee);
+	}
+
+	/**
+	 * @param Participant $participant
+	 */
+	public function markConversationAsInsensitive(Participant $participant): void {
+		$attendee = $participant->getAttendee();
+		$attendee->setSensitive(false);
 		$attendee->setLastAttendeeActivity($this->timeFactory->getTime());
 		$this->attendeeMapper->update($attendee);
 	}
@@ -421,7 +465,7 @@ class ParticipantService {
 	 * @throws InvalidPasswordException
 	 * @throws UnauthorizedException
 	 */
-	public function joinRoomAsNewGuest(RoomService $roomService, Room $room, string $password, bool $passedPasswordProtection = false, ?Participant $previousParticipant = null): Participant {
+	public function joinRoomAsNewGuest(RoomService $roomService, Room $room, string $password, bool $passedPasswordProtection = false, ?Participant $previousParticipant = null, ?string $displayName = null): Participant {
 		$event = new BeforeGuestJoinedRoomEvent($room, $password, $passedPasswordProtection);
 		$this->dispatcher->dispatchTyped($event);
 
@@ -450,6 +494,11 @@ class ParticipantService {
 			$attendee->setParticipantType(Participant::GUEST);
 			$attendee->setPermissions(Attendee::PERMISSIONS_DEFAULT);
 			$attendee->setLastReadMessage($lastMessage);
+
+			if ($displayName !== null && $displayName !== '') {
+				$attendee->setDisplayName($displayName);
+			}
+
 			$this->attendeeMapper->insert($attendee);
 
 			$attendeeEvent = new AttendeesAddedEvent($room, [$attendee]);
@@ -470,6 +519,65 @@ class ParticipantService {
 		$this->dispatcher->dispatchTyped($event);
 
 		return $participant;
+	}
+
+	public function addInvitationList(Room $room, InvitationList $invitationList, ?IUser $addedBy = null): void {
+		$participantsToAdd = [];
+		foreach ($invitationList->getUsers() as $user) {
+			$participantsToAdd[] = [
+				'actorType' => Attendee::ACTOR_USERS,
+				'actorId' => $user->getUID(),
+				'displayName' => $user->getDisplayName(),
+			];
+		}
+
+		foreach ($invitationList->getFederatedUsers() as $cloudId) {
+			$participantsToAdd[] = [
+				'actorType' => Attendee::ACTOR_FEDERATED_USERS,
+				'actorId' => $cloudId->getId(),
+				'displayName' => $cloudId->getDisplayId(),
+			];
+		}
+
+		foreach ($invitationList->getPhoneNumbers() as $phoneNumber) {
+			$participantsToAdd[] = [
+				'actorType' => Attendee::ACTOR_PHONES,
+				'actorId' => sha1($phoneNumber . '#' . $this->timeFactory->getTime()),
+				'displayName' => substr($phoneNumber, 0, -4) . '…', // FIXME Allow the UI to hand in a name (when selected from contacts?)
+				'phoneNumber' => $phoneNumber,
+			];
+		}
+
+		$existingParticipants = [];
+		if (!empty($participantsToAdd)) {
+			$attendees = $this->addUsers($room, $participantsToAdd, $addedBy);
+			$existingParticipants = array_map(static fn (Attendee $attendee): Participant => new Participant($room, $attendee, null), $attendees);
+		}
+
+		$emails = $invitationList->getEmails();
+		if (!empty($emails)) {
+			$guestManager = Server::get(GuestManager::class);
+			foreach ($emails as $email) {
+				$actorId = hash('sha256', $email);
+				try {
+					$this->getParticipantByActor($room, Attendee::ACTOR_EMAILS, $actorId);
+				} catch (ParticipantNotFoundException) {
+					$participant = $this->inviteEmailAddress($room, $actorId, $email);
+					try {
+						$guestManager->sendEmailInvitation($room, $participant);
+					} catch (\InvalidArgumentException) {
+					}
+				}
+			}
+		}
+
+		foreach ($invitationList->getGroup() as $group) {
+			$this->addGroup($room, $group, $existingParticipants);
+		}
+
+		foreach ($invitationList->getTeams() as $team) {
+			$this->addCircle($room, $team, $existingParticipants);
+		}
 	}
 
 	/**
@@ -639,9 +747,9 @@ class ParticipantService {
 	/**
 	 * @param Room $room
 	 * @param IGroup $group
-	 * @param Participant[] $existingParticipants
+	 * @param Participant[] &$existingParticipants
 	 */
-	public function addGroup(Room $room, IGroup $group, array $existingParticipants = []): void {
+	public function addGroup(Room $room, IGroup $group, array &$existingParticipants = []): void {
 		$usersInGroup = $group->getUsers();
 
 		if (empty($existingParticipants)) {
@@ -698,7 +806,10 @@ class ParticipantService {
 			$this->dispatcher->dispatchTyped($attendeeEvent);
 		}
 
-		$this->addUsers($room, $newParticipants, bansAlreadyChecked: true);
+		$attendees = $this->addUsers($room, $newParticipants, bansAlreadyChecked: true);
+		if (!empty($attendees)) {
+			$existingParticipants = array_merge(array_map(static fn (Attendee $attendee): Participant => new Participant($room, $attendee, null), $attendees), $existingParticipants);
+		}
 	}
 
 	/**
@@ -718,22 +829,49 @@ class ParticipantService {
 
 		$circlesManager->startSession($federatedUser);
 		try {
-			$circle = $circlesManager->getCircle($circleId);
-			$circlesManager->stopSession();
-			return $circle;
+			return $circlesManager->getCircle($circleId);
 		} catch (\Exception $e) {
+		} finally {
+			$circlesManager->stopSession();
 		}
 
-		$circlesManager->stopSession();
 		throw new ParticipantNotFoundException('Circle not found or not a member');
+	}
+
+	/**
+	 * @param string $circleId
+	 * @param string $userId
+	 * @return Member[]
+	 * @throws ParticipantNotFoundException
+	 */
+	public function getCircleMembers(string $circleId): array {
+		try {
+			$circlesManager = Server::get(CirclesManager::class);
+		} catch (\Exception) {
+			throw new ParticipantNotFoundException('Circle not found');
+		}
+
+		$circlesManager->startSuperSession();
+		try {
+			$circle = $circlesManager->getCircle($circleId);
+		} catch (\Exception) {
+			throw new ParticipantNotFoundException('Circle not found');
+		} finally {
+			$circlesManager->stopSession();
+		}
+
+		$members = $circle->getInheritedMembers();
+		return array_filter($members, static function (Member $member) {
+			return $member->getUserType() === Member::TYPE_USER;
+		});
 	}
 
 	/**
 	 * @param Room $room
 	 * @param Circle $circle
-	 * @param Participant[] $existingParticipants
+	 * @param Participant[] &$existingParticipants
 	 */
-	public function addCircle(Room $room, Circle $circle, array $existingParticipants = []): void {
+	public function addCircle(Room $room, Circle $circle, array &$existingParticipants = []): void {
 		$membersInCircle = $circle->getInheritedMembers();
 
 		if (empty($existingParticipants)) {
@@ -806,7 +944,10 @@ class ParticipantService {
 			$this->dispatcher->dispatchTyped($attendeeEvent);
 		}
 
-		$this->addUsers($room, $newParticipants, bansAlreadyChecked: true);
+		$attendees = $this->addUsers($room, $newParticipants, bansAlreadyChecked: true);
+		if (!empty($attendees)) {
+			$existingParticipants = array_merge(array_map(static fn (Attendee $attendee): Participant => new Participant($room, $attendee, null), $attendees), $existingParticipants);
+		}
 	}
 
 	public function inviteEmailAddress(Room $room, string $actorId, string $email, ?string $name = null): Participant {
@@ -857,14 +998,18 @@ class ParticipantService {
 		}
 	}
 
-	public function ensureOneToOneRoomIsFilled(Room $room): void {
+	public function ensureOneToOneRoomIsFilled(Room $room, ?string $enforceUserId = null): void {
 		if ($room->getType() !== Room::TYPE_ONE_TO_ONE) {
 			return;
 		}
 
 		$users = json_decode($room->getName(), true);
 		$participants = $this->getParticipantUserIds($room);
-		$missingUsers = array_diff($users, $participants);
+		if ($enforceUserId !== null) {
+			$missingUsers = !in_array($enforceUserId, $participants) ? [$enforceUserId] : [];
+		} else {
+			$missingUsers = array_diff($users, $participants);
+		}
 
 		foreach ($missingUsers as $userId) {
 			$userDisplayName = $this->userManager->getDisplayName($userId);
@@ -1286,7 +1431,7 @@ class ParticipantService {
 	 * @throws DialOutFailedException
 	 * @throws ParticipantNotFoundException
 	 */
-	public function startDialOutRequest(SIPDialOutService $dialOutService, Room $room, int $targetAttendeeId): void {
+	public function startDialOutRequest(SIPDialOutService $dialOutService, Room $room, int $targetAttendeeId, string|bool $callerNumber): void {
 		try {
 			$attendee = $this->attendeeMapper->getById($targetAttendeeId);
 		} catch (DoesNotExistException|MultipleObjectsReturnedException|Exception) {
@@ -1301,7 +1446,7 @@ class ParticipantService {
 			throw new ParticipantNotFoundException();
 		}
 
-		$dialOutResponse = $dialOutService->sendDialOutRequestToBackend($room, $attendee);
+		$dialOutResponse = $dialOutService->sendDialOutRequestToBackend($room, $attendee, $callerNumber);
 
 		if (!$dialOutResponse) {
 			throw new \InvalidArgumentException('backend');
@@ -1491,7 +1636,12 @@ class ParticipantService {
 		$helper = new SelectHelper();
 		$helper->selectAttendeesTable($query);
 		$query->from('talk_attendees', 'a')
-			->where($query->expr()->eq('a.room_id', $query->createNamedParameter($room->getId(), IQueryBuilder::PARAM_INT)));
+			->leftJoin('a', 'talk_sessions', 's', $query->expr()->eq('a.id', 's.attendee_id'))
+			->where($query->expr()->eq('a.room_id', $query->createNamedParameter($room->getId(), IQueryBuilder::PARAM_INT)))
+			->andWhere($query->expr()->orX(
+				$query->expr()->neq('a.actor_type', $query->createNamedParameter(Attendee::ACTOR_GUESTS)),
+				$query->expr()->isNotNull('s.id'),
+			));
 
 		return $this->getParticipantsFromQuery($query, $room);
 	}
@@ -1652,6 +1802,18 @@ class ParticipantService {
 		if ($activeSince->getTimestamp() >= $row['last_joined_call']) {
 			return CallNotificationController::CASE_STILL_CURRENT;
 		}
+
+		// The participant had joined the call, but left again.
+		// In this case we should not ring any more, but clients stop
+		// pinging the endpoint 45s after receiving the push anyway.
+		// However, it is also possible that the participant was ringed
+		// again by a moderator after they had joined the call before.
+		// So if a client pings the endpoint after 45s initial ringing
+		// + 15 seconds for worst case push notification delay, we will
+		// again tell them to show the call notification.
+		if (($activeSince->getTimestamp() + 45 + 15) < $this->timeFactory->getTime()) {
+			return CallNotificationController::CASE_STILL_CURRENT;
+		}
 		return CallNotificationController::CASE_PARTICIPANT_JOINED;
 	}
 
@@ -1807,12 +1969,12 @@ class ParticipantService {
 
 	/**
 	 * @param Room $room
-	 * @return string[]
+	 * @return array<string, bool> (userId => isImportant)
 	 */
-	public function getParticipantUserIdsForCallNotifications(Room $room): array {
+	public function getParticipantUsersForCallNotifications(Room $room): array {
 		$query = $this->connection->getQueryBuilder();
 
-		$query->select('a.actor_id')
+		$query->select('a.actor_id', 'a.important')
 			->from('talk_attendees', 'a')
 			->leftJoin(
 				'a', 'talk_sessions', 's',
@@ -1849,14 +2011,14 @@ class ParticipantService {
 			);
 		}
 
-		$userIds = [];
+		$users = [];
 		$result = $query->executeQuery();
 		while ($row = $result->fetch()) {
-			$userIds[] = $row['actor_id'];
+			$users[$row['actor_id']] = (bool)$row['important'];
 		}
 		$result->closeCursor();
 
-		return $userIds;
+		return $users;
 	}
 
 	/**
@@ -2151,7 +2313,7 @@ class ParticipantService {
 		}
 
 		if ($actorType === Attendee::ACTOR_GUESTS
-			&& in_array($actorId, [Attendee::ACTOR_ID_CLI, Attendee::ACTOR_ID_SYSTEM, Attendee::ACTOR_ID_CHANGELOG], true)) {
+			&& in_array($actorId, [Attendee::ACTOR_ID_CLI, Attendee::ACTOR_ID_SYSTEM, Attendee::ACTOR_ID_CHANGELOG, Attendee::ACTOR_ID_SAMPLE], true)) {
 			$exception = new ParticipantNotFoundException('User is not a participant');
 			$this->logger->info('Trying to load hardcoded system guest from attendees table: ' . $actorType . '/' . $actorId);
 			throw $exception;

@@ -6,13 +6,12 @@ namespace OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Enum;
 
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\InvalidType;
 use RuntimeException;
-use UnitEnum;
 
 /** @internal */
 final class EnumCaseNotFound extends RuntimeException implements InvalidType
 {
     /**
-     * @param class-string<UnitEnum> $enumName
+     * @param class-string $enumName
      */
     public function __construct(string $enumName, string $pattern)
     {

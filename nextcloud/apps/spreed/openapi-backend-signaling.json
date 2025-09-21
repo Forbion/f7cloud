@@ -34,13 +34,15 @@
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "minItems": 1
                     },
                     "features-local": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "minItems": 1
                     },
                     "config": {
                         "type": "object",
@@ -51,7 +53,8 @@
                             "conversations",
                             "federation",
                             "previews",
-                            "signaling"
+                            "signaling",
+                            "experiments"
                         ],
                         "properties": {
                             "attachments": {
@@ -77,13 +80,15 @@
                                     "recording-consent",
                                     "supported-reactions",
                                     "predefined-backgrounds",
+                                    "predefined-backgrounds-v2",
                                     "can-upload-background",
                                     "sip-enabled",
                                     "sip-dialout-enabled",
                                     "can-enable-sip",
                                     "start-without-media",
                                     "max-duration",
-                                    "blur-virtual-background"
+                                    "blur-virtual-background",
+                                    "end-to-end-encryption"
                                 ],
                                 "properties": {
                                     "enabled": {
@@ -107,6 +112,14 @@
                                     },
                                     "predefined-backgrounds": {
                                         "type": "array",
+                                        "description": "List of file names relative to the spreed/img/backgrounds/ web path, e.g. `2_home.jpg`",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "predefined-backgrounds-v2": {
+                                        "type": "array",
+                                        "description": "List of file paths relative to the server web root with leading slash, e.g. `/apps/spreed/img/backgrounds/2_home.jpg`",
                                         "items": {
                                             "type": "string"
                                         }
@@ -132,6 +145,9 @@
                                     },
                                     "blur-virtual-background": {
                                         "type": "boolean"
+                                    },
+                                    "end-to-end-encryption": {
+                                        "type": "boolean"
                                     }
                                 }
                             },
@@ -141,6 +157,7 @@
                                     "max-length",
                                     "read-privacy",
                                     "has-translation-providers",
+                                    "has-translation-task-providers",
                                     "typing-privacy",
                                     "summary-threshold"
                                 ],
@@ -154,6 +171,9 @@
                                         "format": "int64"
                                     },
                                     "has-translation-providers": {
+                                        "type": "boolean"
+                                    },
+                                    "has-translation-task-providers": {
                                         "type": "boolean"
                                     },
                                     "typing-privacy": {
@@ -170,11 +190,47 @@
                             "conversations": {
                                 "type": "object",
                                 "required": [
-                                    "can-create"
+                                    "can-create",
+                                    "force-passwords",
+                                    "list-style",
+                                    "description-length",
+                                    "retention-event",
+                                    "retention-phone",
+                                    "retention-instant-meetings"
                                 ],
                                 "properties": {
                                     "can-create": {
                                         "type": "boolean"
+                                    },
+                                    "force-passwords": {
+                                        "type": "boolean"
+                                    },
+                                    "list-style": {
+                                        "type": "string",
+                                        "enum": [
+                                            "two-lines",
+                                            "compact"
+                                        ]
+                                    },
+                                    "description-length": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "minimum": 1
+                                    },
+                                    "retention-event": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "minimum": 0
+                                    },
+                                    "retention-phone": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "minimum": 0
+                                    },
+                                    "retention-instant-meetings": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "minimum": 0
                                     }
                                 }
                             },
@@ -227,6 +283,19 @@
                                         "type": "string"
                                     }
                                 }
+                            },
+                            "experiments": {
+                                "type": "object",
+                                "required": [
+                                    "enabled"
+                                ],
+                                "properties": {
+                                    "enabled": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "minimum": 0
+                                    }
+                                }
                             }
                         }
                     },
@@ -236,7 +305,8 @@
                             "type": "array",
                             "items": {
                                 "type": "string"
-                            }
+                            },
+                            "minItems": 1
                         }
                     },
                     "version": {
@@ -269,23 +339,12 @@
                 }
             },
             "PublicCapabilities": {
-                "oneOf": [
-                    {
-                        "type": "object",
-                        "required": [
-                            "spreed"
-                        ],
-                        "properties": {
-                            "spreed": {
-                                "$ref": "#/components/schemas/Capabilities"
-                            }
-                        }
-                    },
-                    {
-                        "type": "array",
-                        "maxItems": 0
+                "type": "object",
+                "properties": {
+                    "spreed": {
+                        "$ref": "#/components/schemas/Capabilities"
                     }
-                ]
+                }
             }
         }
     },

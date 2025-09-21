@@ -54,7 +54,7 @@ class BeforePreferenceSetEventListener implements IEventListener {
 	 * @internal Make private/protected once SettingsController route was removed
 	 */
 	public function validatePreference(string $userId, string $key, string|int|null $value): bool {
-		if ($key === 'attachment_folder') {
+		if ($key === UserPreference::ATTACHMENT_FOLDER) {
 			return $this->validateAttachmentFolder($userId, $value);
 		}
 
@@ -70,10 +70,15 @@ class BeforePreferenceSetEventListener implements IEventListener {
 			|| $key === UserPreference::READ_STATUS_PRIVACY) {
 			$valid = is_numeric($value) && ((int)$value === Participant::PRIVACY_PRIVATE || (int)$value === Participant::PRIVACY_PUBLIC);
 
-			if ($valid && $key === 'read_status_privacy') {
+			if ($valid && $key === UserPreference::READ_STATUS_PRIVACY) {
 				$this->participantService->updateReadPrivacyForActor(Attendee::ACTOR_USERS, $userId, (int)$value);
 			}
 			return $valid;
+		}
+
+		// "list-style" 'two-lines' / 'compact'
+		if ($key === UserPreference::CONVERSATIONS_LIST_STYLE) {
+			return $value === UserPreference::CONVERSATION_LIST_STYLE_TWO_LINES || $value === UserPreference::CONVERSATION_LIST_STYLE_COMPACT;
 		}
 
 		return false;

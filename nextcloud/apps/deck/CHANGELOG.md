@@ -5,83 +5,63 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 1.14.6
+# 1.15.2
 ### Fixed
-* [stable30] fix: update DeleteCron to remove deleted lists by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7028
-* [stable30] fix: not show Share with a Deck card for unauthorized users by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7060
-* [stable30] fix: add retry and show warning on description saving error by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7090
-* [stable30] fix: styling for new stack input field by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7112
-* [stable30] fix:allow foreign label deletion by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7129
-* [stable30] fix: acl check when delete, update board acl by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7133
+* [stable31] fix: update DeleteCron to remove deleted lists by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7029
+* [stable31] fix: not show Share with a Deck card for unauthorized users by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7061
+* [stable31] fix: unstable cypress test by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7063
+* [stable31] fix: add retry and show warning on description saving error by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7091
+* [stable31] fix: styling for new stack input field by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7113
+* [stable31] fix:allow foreign label deletion by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7130
+* [stable31] fix: acl check when delete, update board acl by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7132
 
-## 1.14.5
+### Improvements
+* [stable31] perf: don't enrich cards when finding calendar entries by @backportbot[bot] in https://github.com/nextcloud/deck/pull/6959
+
+## 1.15.1
 ### Fixed
-* [stable30] Clear selected stack when selected board changed by @backportbot in https://github.com/nextcloud/deck/pull/6914
-* [stable30] perf: Skip doing a query just to check if a board is deleted by @backportbot in https://github.com/nextcloud/deck/pull/6895
-* [stable30] fix: only delete assignments on unshared board by @grnd-alt in https://github.com/nextcloud/deck/pull/6935
-* [stable30] fix: Limit label actions to labels of the cards board by @backportbot in https://github.com/nextcloud/deck/pull/6953
+* [stable31] fix: Properly show attachment extension by @backportbot in https://github.com/nextcloud/deck/pull/6701
+* [stable31] Clear selected stack when selected board changed by @backportbot in https://github.com/nextcloud/deck/pull/6915
+* [stable31] fix: Use strings as rich object ids by @backportbot in https://github.com/nextcloud/deck/pull/6951
+* [stable31] fix: Limit label actions to labels of the cards board by @backportbot in https://github.com/nextcloud/deck/pull/6954
+* [stable31] fix: only delete assignments on unshared board by @grnd-alt in https://github.com/nextcloud/deck/pull/6934
 
-### Maintenance
-* Chore(deps): Bump @babel/runtime from 7.26.10 to 7.27.0 by @dependabot in https://github.com/nextcloud/deck/pull/6866
-* Chore(deps): Bump dompurify from 3.2.4 to 3.2.5 by @dependabot in https://github.com/nextcloud/deck/pull/6881
-* Chore(deps): Bump @nextcloud/vue from 8.23.1 to 8.24.0 by @dependabot in https://github.com/nextcloud/deck/pull/6882
-* [stable30] Fix npm audit by @nextcloud-command in https://github.com/nextcloud/deck/pull/6887
-* Chore(deps-dev): Bump @nextcloud/webpack-vue-config from 6.2.0 to 6.3.0 by @dependabot in https://github.com/nextcloud/deck/pull/6909
-* [stable30] Fix npm audit by @nextcloud-command in https://github.com/nextcloud/deck/pull/6911
-* Chore(deps): Bump @nextcloud/vue from 8.24.0 to 8.25.1 by @dependabot in https://github.com/nextcloud/deck/pull/6923
-* [stable30] chore: update workflows from templates by @backportbot in https://github.com/nextcloud/deck/pull/6921
-* Chore(deps): Bump @nextcloud/vue from 8.25.1 to 8.26.0 by @dependabot in https://github.com/nextcloud/deck/pull/6939
-* [stable30] Fix npm audit by @nextcloud-command in https://github.com/nextcloud/deck/pull/6948
+### Improvements
+* [stable31] perf: Skip doing a query just to check if a board is deleted by @backportbot in https://github.com/nextcloud/deck/pull/6894
 
-## 1.14.4
+## 1.15.0
 ### Fixed
- - fix: skip exporting a deleted card #6722
- - fix: Properly show attachment extension #6673
+ - Fix: Adapt URLs generated in the backend to new routes #6743
+ - Fix npm audit #6719
+ - Fix: skip exporting a deleted card #6723
 
-### Maintenance
- - Update nextcloud/ocp dependency #6769
- - Update nextcloud/ocp dependency #6718
- - Update nextcloud/ocp dependency #6700
- - Update nextcloud/ocp dependency #6656
-
-## 1.14.3
-### Fixed
- - fix: two close buttons on card modal @app/backportbot [#6659](https://github.com/nextcloud/deck/pull/6659)
- - fix: Catch not found card @app/backportbot [#6652](https://github.com/nextcloud/deck/pull/6652)
- - fix: close modal after deleting card @app/backportbot [#6619](https://github.com/nextcloud/deck/pull/6619)
- - fix: Use new query builder @app/backportbot [#6612](https://github.com/nextcloud/deck/pull/6612)
- - fix: new card input spacing @app/backportbot [#6576](https://github.com/nextcloud/deck/pull/6576)
- - fix(sharing): list accounts with matches in email @app/backportbot [#6524](https://github.com/nextcloud/deck/pull/6524)
-
-## 1.14.2
-### Fixed
-
- - fix: board bubble preview widget [#6477](https://github.com/nextcloud/deck/pull/6477)
-
-### Dependencies
-
- - Update nextcloud/ocp dependency @nextcloud-command [#6470](https://github.com/nextcloud/deck/pull/6470)
- - Fix npm audit @nextcloud-command [#6450](https://github.com/nextcloud/deck/pull/6450)
-
-## 1.14.1
-### Fixed
- - fix: Load archived card if URL is opened directly #6326
- - Update nextcloud/ocp dependency #6322
-
-## 1.14.0
+## 1.15.0-beta.2
 
 ### Added
 
-- export json data of commments @grnd-alt [#6119](https://github.com/nextcloud/deck/pull/6119)
+- feat: Implement reference resolving for cards that have a link in the title @juliusknorr [#6286](https://github.com/nextcloud/deck/pull/6286)
+
+### Other
+
+- Remove old project from README @edent [#6658](https://github.com/nextcloud/deck/pull/6658)
+- devcontainer(image): Fix package path @niclasheinz [#6653](https://github.com/nextcloud/deck/pull/6653)
+- remove deprecated nextcloud-vue-collections @grnd-alt [#6664](https://github.com/nextcloud/deck/pull/6664)
+- fix: set cypress ci server version to stable31 @grnd-alt [#6705](https://github.com/nextcloud/deck/pull/6705)
+
+## 1.15.0-beta.1
+### Fixed
+- fix: Catch not found card @juliusknorr [#6646](https://github.com/nextcloud/deck/pull/6646)
+- fix: Avoid failing on public dav URLs @juliusknorr [#6642](https://github.com/nextcloud/deck/pull/6642)
+- fix: Proper rich object formats @juliusknorr [#6641](https://github.com/nextcloud/deck/pull/6641)
+- fix(notifications): Notifier::prepare() threw \InvalidArgumentExcepti… @nickvergessen [#6623](https://github.com/nextcloud/deck/pull/6623)
+- fix: close modal after deleting card @ludij [#6617](https://github.com/nextcloud/deck/pull/6617)
+- fix: Use new query builder @juliusknorr [#6611](https://github.com/nextcloud/deck/pull/6611)
+- fix: new card input spacing @luka-nextcloud [#6574](https://github.com/nextcloud/deck/pull/6574)
+
+## 1.14.0-beta.1
 
 ### Fixed
 
-- fix: losing focus while editing title field @luka-nextcloud [#6140](https://github.com/nextcloud/deck/pull/6140)
-- Fix UI with the new compact design [#6258](https://github.com/nextcloud/deck/pull/6258)
-- Translation call fix [#6261](https://github.com/nextcloud/deck/pull/6261)
-- fix: 30 design issues [#6265](https://github.com/nextcloud/deck/pull/6265)
-- copy labels when moving cards between boards [#6289](https://github.com/nextcloud/deck/pull/6289)
-- Bug fix collection [#6307](https://github.com/nextcloud/deck/pull/6307)
 - fix: card details focus issue with screen reader @luka-nextcloud [#5858](https://github.com/nextcloud/deck/pull/5858)
 - Cleaning up unused indicies @mintsoft [#5612](https://github.com/nextcloud/deck/pull/5612)
 - Change import command's config default argument @JimMadge [#5722](https://github.com/nextcloud/deck/pull/5722)
@@ -94,17 +74,12 @@ All notable changes to this project will be documented in this file.
 - fix: remove redundant log @luka-nextcloud [#6115](https://github.com/nextcloud/deck/pull/6115)
 - fix: Adjust dependencies to fix filepicker @susnux [#5964](https://github.com/nextcloud/deck/pull/5964)
 - fix: Remove bindParam usage with simpler query @juliushaertl [#6065](https://github.com/nextcloud/deck/pull/6065)
-- add Order when cloning board @grnd-alt [#6117](https://github.com/nextcloud/deck/pull/6117)
-- use deleted_users for users that do not exist @grnd-alt [#6201](https://github.com/nextcloud/deck/pull/6201)
-- chore: Clean up permission service @juliushaertl [#6011](https://github.com/nextcloud/deck/pull/6011)
 
 ### Other
 
-- fix(files): fix appstore-build-publish.yml @JuliaKirschenheuter [#6142](https://github.com/nextcloud/deck/pull/6142)
-- tests: Add environment variable and document commands to run behat tests locally @juliushaertl [#6137](https://github.com/nextcloud/deck/pull/6137)
-- chore(CI): Adjust testing matrix for Nextcloud 30 on stable30 @nickvergessen [#6205](https://github.com/nextcloud/deck/pull/6205)
 - Adds link to Nextcloud Deck for iOS in README.md file @StCyr [#5886](https://github.com/nextcloud/deck/pull/5886)
 - choir(i18n): Change filter title @rakekniven [#5957](https://github.com/nextcloud/deck/pull/5957)
+- chore: Clean up permission service @juliushaertl [#6011](https://github.com/nextcloud/deck/pull/6011)
 - Update User_documentation_en.md @StCyr [#6029](https://github.com/nextcloud/deck/pull/6029)
 - chore: Move comments event handler to use proper event dispatcher @juliushaertl [#6008](https://github.com/nextcloud/deck/pull/6008)
 - Migrate REUSE to TOML format @AndyScherzinger [#6084](https://github.com/nextcloud/deck/pull/6084)
@@ -940,3 +915,4 @@ Android app team for helping to improve our REST API:
 - Assign labels
 - Markdown notes for each card
 - Archive cards
+

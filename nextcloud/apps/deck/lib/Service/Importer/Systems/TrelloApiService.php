@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -31,7 +32,7 @@ class TrelloApiService extends TrelloJsonService {
 		IURLGenerator $urlGenerator,
 		IL10N $l10n,
 		LoggerInterface $logger,
-		IClientService $httpClientService
+		IClientService $httpClientService,
 	) {
 		parent::__construct($userManager, $urlGenerator, $l10n);
 		$this->logger = $logger;

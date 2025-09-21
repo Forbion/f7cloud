@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -72,17 +73,17 @@ final class TransferOwnership extends Command {
 		try {
 			$board = $boardId ? $this->boardMapper->find($boardId) : null;
 		} catch (\Exception $e) {
-			$output->writeln("Could not find a board for the provided id.");
+			$output->writeln('Could not find a board for the provided id.');
 			return 1;
 		}
 
 		if ($boardId !== null && $board->getOwner() !== $owner) {
-			$output->writeln("$owner is not the owner of the board $boardId (" . $board->getTitle() . ")");
+			$output->writeln("$owner is not the owner of the board $boardId (" . $board->getTitle() . ')');
 			return 1;
 		}
 
 		if ($boardId) {
-			$output->writeln("Transfer board " . $board->getTitle() . " from ". $board->getOwner() ." to $newOwner");
+			$output->writeln('Transfer board ' . $board->getTitle() . ' from ' . $board->getOwner() . " to $newOwner");
 		} else {
 			$output->writeln("Transfer all boards from $owner to $newOwner");
 		}
@@ -94,12 +95,12 @@ final class TransferOwnership extends Command {
 
 		if ($boardId) {
 			$this->boardService->transferBoardOwnership($boardId, $newOwner, $remapAssignment);
-			$output->writeln("<info>Board " . $board->getTitle() . " from ". $board->getOwner() ." transferred to $newOwner completed</info>");
+			$output->writeln('<info>Board ' . $board->getTitle() . ' from ' . $board->getOwner() . " transferred to $newOwner completed</info>");
 			return 0;
 		}
 
 		foreach ($this->boardService->transferOwnership($owner, $newOwner, $remapAssignment) as $board) {
-			$output->writeln(" - " . $board->getTitle() . " transferred");
+			$output->writeln(' - ' . $board->getTitle() . ' transferred');
 		}
 		$output->writeln("<info>All boards from $owner to $newOwner transferred</info>");
 

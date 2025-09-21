@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -29,7 +30,7 @@ class ConfigService {
 
 	public function __construct(
 		IConfig $config,
-		IGroupManager $groupManager
+		IGroupManager $groupManager,
 	) {
 		$this->groupManager = $groupManager;
 		$this->config = $config;

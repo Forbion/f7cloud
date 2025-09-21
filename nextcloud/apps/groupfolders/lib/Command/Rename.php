@@ -16,7 +16,7 @@ class Rename extends FolderCommand {
 	protected function configure(): void {
 		$this
 			->setName('groupfolders:rename')
-			->setDescription('Rename group folder')
+			->setDescription('Rename Team folder')
 			->addArgument('folder_id', InputArgument::REQUIRED, 'Id of the folder to rename')
 			->addArgument('name', InputArgument::REQUIRED, 'New value name of the folder');
 		parent::configure();
@@ -24,10 +24,12 @@ class Rename extends FolderCommand {
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$folder = $this->getFolder($input, $output);
-		if ($folder === false) {
+		if ($folder === null) {
 			return -1;
 		}
+
 		$this->folderManager->renameFolder($folder['id'], $input->getArgument('name'));
+
 		return 0;
 	}
 }

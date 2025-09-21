@@ -15,7 +15,6 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Files\Events\Node\NodeRenamedEvent;
 use OCP\Files\Folder;
-use Psr\Log\LoggerInterface;
 
 /**
  * @template-implements IEventListener<NodeRenamedEvent>
@@ -23,28 +22,40 @@ use Psr\Log\LoggerInterface;
 class NodeRenamedListener implements IEventListener {
 	public function __construct(
 		private TrashManager $trashManager,
-		private LoggerInterface $logger,
 	) {
 	}
 
 	public function handle(Event $event): void {
-		$source = $event->getSource();
-		$target = $event->getTarget();
-		// Look at the parent because the node itself is not existing anymore
-		$sourceStorage = $source->getParent()->getStorage();
-		$targetStorage = $target->getStorage();
-
-		if (($target instanceof Folder) &&
-			$sourceStorage->instanceOfStorage(GroupFolderStorage::class) &&
-			$targetStorage->instanceOfStorage(GroupFolderStorage::class)) {
-			// Get internal path on parent to avoid NotFoundException
-			$sourcePath = $source->getParent()->getInternalPath();
-			if ($sourcePath !== '') {
-				$sourcePath .= '/';
-			}
-			$sourcePath .= $source->getName();
-			$targetPath = $target->getInternalPath();
-			$this->trashManager->updateTrashedChildren($sourceStorage->getFolderId(), $targetStorage->getFolderId(), $sourcePath, $targetPath);
+		if (!$event instanceof NodeRenamedEvent) {
+			return;
 		}
+
+		$target = $event->getTarget();
+		if (!$target instanceof Folder) {
+			return;
+		}
+
+		$targetStorage = $target->getStorage();
+		if (!$targetStorage->instanceOfStorage(GroupFolderStorage::class)) {
+			return;
+		}
+
+		$source = $event->getSource();
+		// Look at the parent because the node itself is not existing anymore
+		$sourceParent = $source->getParent();
+		$sourceParentStorage = $sourceParent->getStorage();
+		if (!$sourceParentStorage->instanceOfStorage(GroupFolderStorage::class)) {
+			return;
+		}
+
+		// Get internal path on parent to avoid NotFoundException
+		$sourceParentPath = $sourceParent->getInternalPath();
+		if ($sourceParentPath !== '') {
+			$sourceParentPath .= '/';
+		}
+
+		$sourceParentPath .= $source->getName();
+		$targetPath = $target->getInternalPath();
+		$this->trashManager->updateTrashedChildren($sourceParentStorage->getFolderId(), $targetStorage->getFolderId(), $sourceParentPath, $targetPath);
 	}
 }

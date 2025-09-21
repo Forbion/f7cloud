@@ -6,6 +6,7 @@ namespace OCA\Talk\Vendor\CuyZ\Valinor\Mapper;
 
 use OCA\Talk\Vendor\CuyZ\Valinor\Definition\ParameterDefinition;
 use OCA\Talk\Vendor\CuyZ\Valinor\Definition\Repository\FunctionDefinitionRepository;
+use OCA\Talk\Vendor\CuyZ\Valinor\Library\Settings;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Exception\TypeErrorDuringArgumentsMapping;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Builder\RootNodeBuilder;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Exception\UnresolvableShellType;
@@ -17,17 +18,12 @@ use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\StringValueType;
 /** @internal */
 final class TypeArgumentsMapper implements ArgumentsMapper
 {
-    private FunctionDefinitionRepository $functionDefinitionRepository;
+    public function __construct(
+        private FunctionDefinitionRepository $functionDefinitionRepository,
+        private RootNodeBuilder $nodeBuilder,
+        private Settings $settings,
+    ) {}
 
-    private RootNodeBuilder $nodeBuilder;
-
-    public function __construct(FunctionDefinitionRepository $functionDefinitionRepository, RootNodeBuilder $nodeBuilder)
-    {
-        $this->functionDefinitionRepository = $functionDefinitionRepository;
-        $this->nodeBuilder = $nodeBuilder;
-    }
-
-    /** @pure */
     public function mapArguments(callable $callable, mixed $source): array
     {
         $function = $this->functionDefinitionRepository->for($callable);
@@ -42,7 +38,7 @@ final class TypeArgumentsMapper implements ArgumentsMapper
         );
 
         $type = new ShapedArrayType(...$elements);
-        $shell = Shell::root($type, $source);
+        $shell = Shell::root($this->settings, $type, $source);
 
         try {
             $node = $this->nodeBuilder->build($shell);

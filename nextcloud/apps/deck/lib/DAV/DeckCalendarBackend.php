@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -32,7 +33,7 @@ class DeckCalendarBackend {
 
 	public function __construct(
 		BoardService $boardService, StackService $stackService, CardService $cardService, PermissionService $permissionService,
-		BoardMapper $boardMapper
+		BoardMapper $boardMapper,
 	) {
 		$this->boardService = $boardService;
 		$this->stackService = $stackService;

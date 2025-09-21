@@ -40,7 +40,7 @@ class PermissionService {
 		private IGroupManager $groupManager,
 		private IManager $shareManager,
 		private IConfig $config,
-		private ?string $userId
+		private ?string $userId,
 	) {
 		$this->boardCache = new CappedMemoryCache();
 		$this->permissionCache = new CappedMemoryCache();
@@ -147,7 +147,7 @@ class PermissionService {
 		try {
 			$board = $this->getBoard($boardId);
 			return $userId === $board->getOwner();
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 		}
 		return false;
 	}
@@ -209,8 +209,8 @@ class PermissionService {
 	 */
 	public function findUsers($boardId, $refresh = false) {
 		// cache users of a board so we don't query them for every cards
-		if (array_key_exists((string) $boardId, $this->users) && !$refresh) {
-			return $this->users[(string) $boardId];
+		if (array_key_exists((string)$boardId, $this->users) && !$refresh) {
+			return $this->users[(string)$boardId];
 		}
 
 		try {
@@ -273,8 +273,8 @@ class PermissionService {
 				}
 			}
 		}
-		$this->users[(string) $boardId] = $users;
-		return $this->users[(string) $boardId];
+		$this->users[(string)$boardId] = $users;
+		return $this->users[(string)$boardId];
 	}
 
 	public function canCreate() {

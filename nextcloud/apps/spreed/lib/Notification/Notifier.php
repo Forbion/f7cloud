@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Notification;
 
+use OCA\Circles\CirclesManager;
 use OCA\FederatedFileSharing\AddressHandler;
 use OCA\Talk\AppInfo\Application;
 use OCA\Talk\Chat\ChatManager;
@@ -28,6 +29,7 @@ use OCA\Talk\Room;
 use OCA\Talk\Service\AvatarService;
 use OCA\Talk\Service\ParticipantService;
 use OCA\Talk\Webinary;
+use OCP\App\IAppManager;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Comments\ICommentsManager;
@@ -47,6 +49,7 @@ use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
 use OCP\Notification\UnknownNotificationException;
 use OCP\RichObjectStrings\Definitions;
+use OCP\Server;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager as IShareManager;
 use OCP\Share\IShare;
@@ -58,12 +61,17 @@ class Notifier implements INotifier {
 	protected array $rooms = [];
 	/** @var Participant[][] */
 	protected array $participants = [];
+	/** @var array<string, string> */
+	protected array $circleNames = [];
+	/** @var array<string, string> */
+	protected array $circleLinks = [];
 	protected ICommentsManager $commentManager;
 
 	public function __construct(
 		protected IFactory $lFactory,
 		protected IURLGenerator $url,
 		protected Config $config,
+		protected IAppManager $appManager,
 		protected IUserManager $userManager,
 		protected IGroupManager $groupManager,
 		protected GuestManager $guestManager,
@@ -241,6 +249,10 @@ class Notifier implements INotifier {
 			->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'app-dark.svg')))
 			->setLink($this->url->linkToRouteAbsolute('spreed.Page.showCall', ['token' => $room->getToken()]));
 
+		if ($participant instanceof Participant && $this->notificationManager->isPreparingPushNotification()) {
+			$notification->setPriorityNotification($participant->getAttendee()->isImportant());
+		}
+
 		$subject = $notification->getSubject();
 		if ($subject === 'record_file_stored' || $subject === 'transcript_file_stored' || $subject === 'transcript_failed' || $subject === 'summary_file_stored' || $subject === 'summary_failed') {
 			return $this->parseStoredRecording($notification, $room, $participant, $l);
@@ -264,7 +276,7 @@ class Notifier implements INotifier {
 			}
 			return $this->parseCall($notification, $room, $l);
 		}
-		if ($subject === 'reply' || $subject === 'mention' || $subject === 'mention_direct' || $subject === 'mention_group' || $subject === 'mention_all' || $subject === 'chat' || $subject === 'reaction' || $subject === 'reminder') {
+		if ($subject === 'reply' || $subject === 'mention' || $subject === 'mention_direct' || $subject === 'mention_group' || $subject === 'mention_team' || $subject === 'mention_all' || $subject === 'chat' || $subject === 'reaction' || $subject === 'reminder') {
 			if ($participant instanceof Participant &&
 				$room->getLobbyState() !== Webinary::LOBBY_NONE &&
 				!($participant->getPermissions() & Attendee::PERMISSIONS_LOBBY_IGNORE)) {
@@ -514,7 +526,7 @@ class Notifier implements INotifier {
 			}
 
 			$message = $this->messageParser->createMessage($room, $participant, $comment, $l);
-			$this->messageParser->parseMessage($message);
+			$this->messageParser->parseMessage($message, true);
 
 			if (!$message->getVisibility()) {
 				throw new AlreadyProcessedException();
@@ -611,7 +623,7 @@ class Notifier implements INotifier {
 		}
 
 		$parsedMessage = str_replace($placeholders, $replacements, $message->getMessage());
-		if (!$this->notificationManager->isPreparingPushNotification()) {
+		if (!$this->notificationManager->isPreparingPushNotification() && !$participant->getAttendee()->isSensitive()) {
 			$notification->setParsedMessage($parsedMessage);
 			$notification->setRichMessage($message->getMessage(), $message->getMessageParameters());
 
@@ -624,7 +636,44 @@ class Notifier implements INotifier {
 			'call' => $richSubjectCall,
 		];
 
-		if ($this->notificationManager->isPreparingPushNotification()) {
+		if ($participant->getAttendee()->isSensitive()) {
+			// Prevent message preview and conversation name in sensitive conversations
+
+			if ($this->notificationManager->isPreparingPushNotification()) {
+				$translatedPrivateConversation = $l->t('Private conversation');
+
+				if ($notification->getSubject() === 'reaction') {
+					// TRANSLATORS Someone reacted in a private conversation
+					$subject = $translatedPrivateConversation . "\n" . $l->t('Someone reacted');
+				} elseif ($notification->getSubject() === 'chat') {
+					// TRANSLATORS You received a new message in a private conversation
+					$subject = $translatedPrivateConversation . "\n" . $l->t('New message');
+				} elseif ($notification->getSubject() === 'reminder') {
+					// TRANSLATORS Reminder for a message in a private conversation
+					$subject = $translatedPrivateConversation . "\n" . $l->t('Reminder');
+				} elseif (str_starts_with($notification->getSubject(), 'mention_')) {
+					// TRANSLATORS Someone mentioned you in a private conversation
+					$subject = $translatedPrivateConversation . "\n" . $l->t('Someone mentioned you');
+				} else {
+					// TRANSLATORS There's a notification in a private conversation
+					$subject = $translatedPrivateConversation . "\n" . $l->t('Notification');
+				}
+			} else {
+				if ($notification->getSubject() === 'reaction') {
+					$subject = $l->t('Someone reacted in a private conversation');
+				} elseif ($notification->getSubject() === 'chat') {
+					$subject = $l->t('You received a message in a private conversation');
+				} elseif ($notification->getSubject() === 'reminder') {
+					$subject = $l->t('Reminder in a private conversation');
+				} elseif (str_starts_with($notification->getSubject(), 'mention_')) {
+					$subject = $l->t('Someone mentioned you in a private conversation');
+				} else {
+					$subject = $l->t('Notification in a private conversation');
+				}
+			}
+
+			$richSubjectParameters = [];
+		} elseif ($this->notificationManager->isPreparingPushNotification()) {
 			$shortenMessage = $this->shortenJsonEncodedMultibyteSave($parsedMessage, 100);
 			if ($shortenMessage !== $parsedMessage) {
 				$shortenMessage .= '…';
@@ -782,6 +831,9 @@ class Notifier implements INotifier {
 				];
 
 				$subject = $l->t('{user} mentioned group {group} in conversation {call}');
+			} elseif ($notification->getSubject() === 'mention_team') {
+				$richSubjectParameters['team'] = $this->getCircle($subjectParameters['sourceId']);
+				$subject = $l->t('{user} mentioned team {team} in conversation {call}');
 			} elseif ($notification->getSubject() === 'mention_all') {
 				$subject = $l->t('{user} mentioned everyone in conversation {call}');
 			} else {
@@ -797,6 +849,9 @@ class Notifier implements INotifier {
 				];
 
 				$subject = $l->t('A deleted user mentioned group {group} in conversation {call}');
+			} elseif ($notification->getSubject() === 'mention_team') {
+				$richSubjectParameters['team'] = $this->getCircle($subjectParameters['sourceId']);
+				$subject = $l->t('A deleted user mentioned team {team} in conversation {call}');
 			} elseif ($notification->getSubject() === 'mention_all') {
 				$subject = $l->t('A deleted user mentioned everyone in conversation {call}');
 			} else {
@@ -814,6 +869,9 @@ class Notifier implements INotifier {
 					];
 
 					$subject = $l->t('{guest} (guest) mentioned group {group} in conversation {call}');
+				} elseif ($notification->getSubject() === 'mention_team') {
+					$richSubjectParameters['team'] = $this->getCircle($subjectParameters['sourceId']);
+					$subject = $l->t('{guest} (guest) mentioned team {team} in conversation {call}');
 				} elseif ($notification->getSubject() === 'mention_all') {
 					$subject = $l->t('{guest} (guest) mentioned everyone in conversation {call}');
 				} else {
@@ -829,6 +887,9 @@ class Notifier implements INotifier {
 					];
 
 					$subject = $l->t('A guest mentioned group {group} in conversation {call}');
+				} elseif ($notification->getSubject() === 'mention_team') {
+					$richSubjectParameters['team'] = $this->getCircle($subjectParameters['sourceId']);
+					$subject = $l->t('A guest mentioned team {team} in conversation {call}');
 				} elseif ($notification->getSubject() === 'mention_all') {
 					$subject = $l->t('A guest mentioned everyone in conversation {call}');
 				} else {
@@ -860,7 +921,7 @@ class Notifier implements INotifier {
 			$notification = $this->addActionButton($notification, 'chat_view', $l->t('View chat'), false);
 		}
 
-		if ($richSubjectParameters['user'] === null) {
+		if (array_key_exists('user', $richSubjectParameters) && $richSubjectParameters['user'] === null) {
 			unset($richSubjectParameters['user']);
 		}
 
@@ -943,33 +1004,7 @@ class Notifier implements INotifier {
 		}
 
 		$roomName = $room->getDisplayName($notification->getUser());
-		if ($room->getType() === Room::TYPE_ONE_TO_ONE || $room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
-			$subject = $l->t('{user} invited you to a private conversation');
-			if ($this->participantService->hasActiveSessionsInCall($room)) {
-				$notification = $this->addActionButton($notification, 'call_view', $l->t('Join call'), true, true);
-			} else {
-				$notification = $this->addActionButton($notification, 'chat_view', $l->t('View chat'), false);
-			}
-
-			$notification
-				->setParsedSubject(str_replace('{user}', $userDisplayName, $subject))
-				->setRichSubject(
-					$subject, [
-						'user' => [
-							'type' => 'user',
-							'id' => $uid,
-							'name' => $userDisplayName,
-						],
-						'call' => [
-							'type' => 'call',
-							'id' => (string)$room->getId(),
-							'name' => $roomName,
-							'call-type' => $this->getRoomType($room),
-							'icon-url' => $this->avatarService->getAvatarUrl($room),
-						],
-					]
-				);
-		} elseif (\in_array($room->getType(), [Room::TYPE_GROUP, Room::TYPE_PUBLIC], true)) {
+		if (\in_array($room->getType(), [Room::TYPE_GROUP, Room::TYPE_PUBLIC], true)) {
 			$subject = $l->t('{user} invited you to a group conversation: {call}');
 			if ($this->participantService->hasActiveSessionsInCall($room)) {
 				$notification = $this->addActionButton($notification, 'call_view', $l->t('Join call'), true, true);
@@ -1050,6 +1085,32 @@ class Notifier implements INotifier {
 			} else {
 				throw new AlreadyProcessedException();
 			}
+		} elseif ($room->getObjectId() === Room::OBJECT_ID_PHONE_INCOMING
+			&& in_array($room->getObjectType(), [Room::OBJECT_TYPE_PHONE_PERSIST, Room::OBJECT_TYPE_PHONE_TEMPORARY, Room::OBJECT_TYPE_PHONE_LEGACY], true)) {
+			if ($this->notificationManager->isPreparingPushNotification()
+				|| (!$room->isFederatedConversation() && $this->participantService->hasActiveSessionsInCall($room))
+				|| ($room->isFederatedConversation() && $room->getActiveSince())
+			) {
+				$notification = $this->addActionButton($notification, 'call_view', $l->t('Accept call'), true, true);
+				$subject = $l->t('Incoming phone call from {call}');
+			} else {
+				$notification = $this->addActionButton($notification, 'chat_view', $l->t('View chat'), false);
+				$subject = $l->t('You missed a phone call from {call}');
+			}
+
+			$notification
+				->setParsedSubject(str_replace('{call}', $roomName, $subject))
+				->setRichSubject(
+					$subject, [
+						'call' => [
+							'type' => 'call',
+							'id' => (string)$room->getId(),
+							'name' => $roomName,
+							'call-type' => $this->getRoomType($room),
+							'icon-url' => $this->avatarService->getAvatarUrl($room),
+						],
+					]
+				);
 		} elseif (\in_array($room->getType(), [Room::TYPE_GROUP, Room::TYPE_PUBLIC], true)) {
 			if ($this->notificationManager->isPreparingPushNotification()
 				|| (!$room->isFederatedConversation() && $this->participantService->hasActiveSessionsInCall($room))
@@ -1254,5 +1315,48 @@ class Notifier implements INotifier {
 		$notification->setParsedSubject($subject);
 
 		return $notification;
+	}
+
+	protected function getCircle(string $circleId): array {
+		if (!$this->appManager->isEnabledForUser('circles')) {
+			return [
+				'type' => 'highlight',
+				'id' => $circleId,
+				'name' => $circleId,
+			];
+		}
+
+		if (!isset($this->circleNames[$circleId])) {
+			$this->loadCircleDetails($circleId);
+		}
+
+		if (!isset($this->circleNames[$circleId])) {
+			return [
+				'type' => 'highlight',
+				'id' => $circleId,
+				'name' => $circleId,
+			];
+		}
+
+		return [
+			'type' => 'circle',
+			'id' => $circleId,
+			'name' => $this->circleNames[$circleId],
+			'link' => $this->circleLinks[$circleId],
+		];
+	}
+
+	protected function loadCircleDetails(string $circleId): void {
+		try {
+			$circlesManager = Server::get(CirclesManager::class);
+			$circlesManager->startSuperSession();
+			$circle = $circlesManager->getCircle($circleId);
+
+			$this->circleNames[$circleId] = $circle->getDisplayName();
+			$this->circleLinks[$circleId] = $circle->getUrl();
+		} catch (\Exception) {
+		} finally {
+			$circlesManager?->stopSession();
+		}
 	}
 }

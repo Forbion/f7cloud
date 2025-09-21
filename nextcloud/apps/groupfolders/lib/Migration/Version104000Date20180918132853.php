@@ -12,19 +12,16 @@ use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
-/**
- * Auto-generated migration step: Please modify to your needs!
- */
 class Version104000Date20180918132853 extends SimpleMigrationStep {
 	public function name(): string {
 		return 'Add group_folders_trash table';
 	}
 
 	public function description(): string {
-		return 'Adds table to store trashbin information for group folders';
+		return 'Adds table to store trashbin information for Team folders';
 	}
 
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 

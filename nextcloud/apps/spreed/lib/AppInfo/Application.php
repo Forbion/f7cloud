@@ -10,6 +10,8 @@ namespace OCA\Talk\AppInfo;
 
 use OCA\Circles\Events\AddingCircleMemberEvent;
 use OCA\Circles\Events\CircleDestroyedEvent;
+use OCA\Circles\Events\CircleEditedEvent;
+use OCA\Circles\Events\EditingCircleEvent;
 use OCA\Circles\Events\RemovingCircleMemberEvent;
 use OCA\Files\Event\LoadSidebar;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
@@ -59,8 +61,11 @@ use OCA\Talk\Events\GuestsCleanedUpEvent;
 use OCA\Talk\Events\LobbyModifiedEvent;
 use OCA\Talk\Events\MessageParseEvent;
 use OCA\Talk\Events\ParticipantModifiedEvent;
+use OCA\Talk\Events\ReactionAddedEvent;
+use OCA\Talk\Events\ReactionRemovedEvent;
 use OCA\Talk\Events\RoomCreatedEvent;
 use OCA\Talk\Events\RoomDeletedEvent;
+use OCA\Talk\Events\RoomExtendedEvent;
 use OCA\Talk\Events\RoomModifiedEvent;
 use OCA\Talk\Events\RoomSyncedEvent;
 use OCA\Talk\Events\SessionLeftRoomEvent;
@@ -77,9 +82,12 @@ use OCA\Talk\Federation\Proxy\TalkV1\Notifier\RoomModifiedListener as TalkV1Room
 use OCA\Talk\Files\Listener as FilesListener;
 use OCA\Talk\Files\TemplateLoader as FilesTemplateLoader;
 use OCA\Talk\Flow\RegisterOperationsListener;
+use OCA\Talk\Listener\AddMissingIndicesListener;
 use OCA\Talk\Listener\BeforeUserLoggedOutListener;
 use OCA\Talk\Listener\BotListener;
+use OCA\Talk\Listener\CalDavEventListener;
 use OCA\Talk\Listener\CircleDeletedListener;
+use OCA\Talk\Listener\CircleEditedListener;
 use OCA\Talk\Listener\CircleMembershipListener;
 use OCA\Talk\Listener\CSPListener;
 use OCA\Talk\Listener\DisplayNameListener;
@@ -88,6 +96,7 @@ use OCA\Talk\Listener\GroupDeletedListener;
 use OCA\Talk\Listener\GroupMembershipListener;
 use OCA\Talk\Listener\NoteToSelfListener;
 use OCA\Talk\Listener\RestrictStartingCalls as RestrictStartingCallsListener;
+use OCA\Talk\Listener\SampleConversationsListener;
 use OCA\Talk\Listener\UserDeletedListener;
 use OCA\Talk\Maps\MapsPluginLoader;
 use OCA\Talk\Middleware\CanUseTalkMiddleware;
@@ -123,10 +132,13 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\Calendar\Events\CalendarObjectCreatedEvent;
+use OCP\Calendar\Events\CalendarObjectUpdatedEvent;
 use OCP\Collaboration\AutoComplete\AutoCompleteFilterEvent;
 use OCP\Collaboration\Resources\IProviderManager;
 use OCP\Collaboration\Resources\LoadAdditionalScriptsEvent;
 use OCP\Config\BeforePreferenceSetEvent;
+use OCP\DB\Events\AddMissingIndicesEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Federation\ICloudFederationProvider;
 use OCP\Federation\ICloudFederationProviderManager;
@@ -193,12 +205,15 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(BotInstallEvent::class, BotListener::class);
 		$context->registerEventListener(BotUninstallEvent::class, BotListener::class);
 		$context->registerEventListener(ChatMessageSentEvent::class, BotListener::class);
+		$context->registerEventListener(ReactionAddedEvent::class, BotListener::class);
+		$context->registerEventListener(ReactionRemovedEvent::class, BotListener::class);
 		$context->registerEventListener(SystemMessageSentEvent::class, BotListener::class);
 
 		// Chat listeners
 		$context->registerEventListener(BeforeRoomsFetchEvent::class, ChangelogListener::class);
 		$context->registerEventListener(RoomDeletedEvent::class, ChatListener::class);
 		$context->registerEventListener(BeforeRoomsFetchEvent::class, NoteToSelfListener::class);
+		$context->registerEventListener(BeforeRoomsFetchEvent::class, SampleConversationsListener::class);
 		$context->registerEventListener(AttendeesAddedEvent::class, SystemMessageListener::class);
 		$context->registerEventListener(AttendeeRemovedEvent::class, SystemMessageListener::class);
 		$context->registerEventListener(AttendeesRemovedEvent::class, SystemMessageListener::class);
@@ -217,6 +232,10 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(MessageParseEvent::class, SystemMessage::class);
 		$context->registerEventListener(MessageParseEvent::class, SystemMessage::class, 9999);
 		$context->registerEventListener(MessageParseEvent::class, UserMention::class, -100);
+
+		// Calendar listeners
+		$context->registerEventListener(CalendarObjectCreatedEvent::class, CalDavEventListener::class);
+		$context->registerEventListener(CalendarObjectUpdatedEvent::class, CalDavEventListener::class);
 
 		// Files integration listeners
 		$context->registerEventListener(BeforeGuestJoinedRoomEvent::class, FilesListener::class);
@@ -252,6 +271,8 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(UserAddedEvent::class, GroupMembershipListener::class);
 		$context->registerEventListener(UserRemovedEvent::class, GroupMembershipListener::class);
 		$context->registerEventListener(CircleDestroyedEvent::class, CircleDeletedListener::class);
+		$context->registerEventListener(EditingCircleEvent::class, CircleEditedListener::class);
+		$context->registerEventListener(CircleEditedEvent::class, CircleEditedListener::class);
 		$context->registerEventListener(AddingCircleMemberEvent::class, CircleMembershipListener::class);
 		$context->registerEventListener(RemovingCircleMemberEvent::class, CircleMembershipListener::class);
 
@@ -301,6 +322,7 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(LobbyModifiedEvent::class, SignalingListener::class);
 		$context->registerEventListener(BeforeRoomSyncedEvent::class, SignalingListener::class);
 		$context->registerEventListener(RoomSyncedEvent::class, SignalingListener::class);
+		$context->registerEventListener(RoomExtendedEvent::class, SignalingListener::class);
 
 		$context->registerEventListener(ChatMessageSentEvent::class, SignalingListener::class);
 		$context->registerEventListener(SystemMessageSentEvent::class, SignalingListener::class);
@@ -329,6 +351,9 @@ class Application extends App implements IBootstrap {
 		$context->registerSearchProvider(ConversationSearch::class);
 		$context->registerSearchProvider(CurrentMessageSearch::class);
 		$context->registerSearchProvider(MessageSearch::class);
+
+		// Fix database issues
+		$context->registerEventListener(AddMissingIndicesEvent::class, AddMissingIndicesListener::class);
 
 		$context->registerDashboardWidget(TalkWidget::class);
 
@@ -382,7 +407,7 @@ class Application extends App implements IBootstrap {
 				'name' => $l->t('Talk'),
 				'href' => $urlGenerator->linkToRouteAbsolute('spreed.Page.index'),
 				'icon' => $urlGenerator->imagePath(self::APP_ID, 'app.svg'),
-				'order' => 3,
+				'order' => -5,
 				'type' => $user instanceof IUser && !$config->isDisabledForUser($user) ? 'link' : 'hidden',
 			];
 		});

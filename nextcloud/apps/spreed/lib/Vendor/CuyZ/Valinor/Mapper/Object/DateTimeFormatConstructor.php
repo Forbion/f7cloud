@@ -30,10 +30,11 @@ use DateTimeInterface;
  */
 final class DateTimeFormatConstructor
 {
-    /** @var non-empty-array<non-empty-string> */
+    /** @var non-empty-list<non-empty-string> */
     private array $formats;
 
     /**
+     * @no-named-arguments
      * @param non-empty-string $format
      * @param non-empty-string ...$formats
      */
@@ -44,10 +45,10 @@ final class DateTimeFormatConstructor
 
     /**
      * @param class-string<DateTime|DateTimeImmutable> $className
-     * @param non-empty-string|int $value
+     * @param non-empty-string|int|float $value
      */
     #[DynamicConstructor]
-    public function __invoke(string $className, string|int $value): DateTimeInterface
+    public function __invoke(string $className, string|int|float $value): DateTimeInterface
     {
         foreach ($this->formats as $format) {
             $date = $className::createFromFormat($format, (string)$value) ?: null;

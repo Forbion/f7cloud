@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -76,7 +77,7 @@ class AssignmentService {
 		ChangeHelper $changeHelper,
 		IEventDispatcher $eventDispatcher,
 		AssignmentServiceValidator $assignmentServiceValidator,
-		$userId
+		$userId,
 	) {
 		$this->assignmentServiceValidator = $assignmentServiceValidator;
 		$this->permissionService = $permissionService;
@@ -87,8 +88,6 @@ class AssignmentService {
 		$this->changeHelper = $changeHelper;
 		$this->activityManager = $activityManager;
 		$this->eventDispatcher = $eventDispatcher;
-
-		$this->assignmentServiceValidator->check(compact('userId'));
 		$this->currentUser = $userId;
 	}
 

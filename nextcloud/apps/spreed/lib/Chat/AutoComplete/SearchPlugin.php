@@ -71,6 +71,8 @@ class SearchPlugin implements ISearchPlugin {
 		$emailAttendees = [];
 		/** @var list<Attendee> $guestAttendees */
 		$guestAttendees = [];
+		/** @var array<string, string> $teamIds */
+		$teamIds = [];
 
 		if ($this->room->getType() === Room::TYPE_ONE_TO_ONE) {
 			// Add potential leavers of one-to-one rooms again.
@@ -92,6 +94,8 @@ class SearchPlugin implements ISearchPlugin {
 					$cloudIds[$attendee->getActorId()] = $attendee->getDisplayName();
 				} elseif ($attendee->getActorType() === Attendee::ACTOR_GROUPS) {
 					$groupIds[$attendee->getActorId()] = $attendee->getDisplayName();
+				} elseif ($attendee->getActorType() === Attendee::ACTOR_CIRCLES) {
+					$teamIds[$attendee->getActorId()] = $attendee->getDisplayName();
 				}
 			}
 		}
@@ -101,6 +105,7 @@ class SearchPlugin implements ISearchPlugin {
 		$this->searchGuests($search, $guestAttendees, $searchResult);
 		$this->searchEmails($search, $emailAttendees, $searchResult);
 		$this->searchFederatedUsers($search, $cloudIds, $searchResult);
+		$this->searchTeams($search, $teamIds, $searchResult);
 
 		return false;
 	}
@@ -116,11 +121,6 @@ class SearchPlugin implements ISearchPlugin {
 		$matches = $exactMatches = [];
 		foreach ($users as $userId => $displayName) {
 			$userId = (string)$userId;
-			if ($this->userId !== '' && $this->userId === $userId) {
-				// Do not suggest the current user
-				continue;
-			}
-
 			if ($searchResult->hasResult($type, $userId)) {
 				continue;
 			}
@@ -168,11 +168,6 @@ class SearchPlugin implements ISearchPlugin {
 
 		$matches = $exactMatches = [];
 		foreach ($cloudIds as $cloudId => $displayName) {
-			if ($this->federationAuthenticator->getCloudId() === $cloudId) {
-				// Do not suggest the current user
-				continue;
-			}
-
 			if ($searchResult->hasResult($type, $cloudId)) {
 				continue;
 			}
@@ -271,19 +266,8 @@ class SearchPlugin implements ISearchPlugin {
 		}
 
 		$search = strtolower($search);
-		$currentSessionHash = null;
-		if (!$this->userId) {
-			// Best effort: Might not work on guests that reloaded but not worth too much performance impact atm.
-			$currentSessionHash = sha1($this->talkSession->getSessionForRoom($this->room->getToken()));
-		}
-
 		$matches = $exactMatches = [];
 		foreach ($attendees as $attendee) {
-			if ($currentSessionHash === $attendee->getActorId()) {
-				// Do not suggest the current guest
-				continue;
-			}
-
 			$name = $attendee->getDisplayName() ?: $this->l->t('Guest');
 			if ($search === '') {
 				$matches[] = $this->createGuestResult($attendee->getActorId(), $name);
@@ -352,6 +336,58 @@ class SearchPlugin implements ISearchPlugin {
 		$searchResult->addResultSet($type, $matches, $exactMatches);
 	}
 
+	/**
+	 * @param string $search
+	 * @param array<string, Attendee> $attendees
+	 * @param ISearchResult $searchResult
+	 */
+	/**
+	 * @param array<string|int, string> $teams
+	 */
+	protected function searchTeams(string $search, array $teams, ISearchResult $searchResult): void {
+		$search = strtolower($search);
+
+		$type = new SearchResultType('teams');
+
+		$matches = $exactMatches = [];
+		foreach ($teams as $teamId => $displayName) {
+			if ($displayName === '') {
+				continue;
+			}
+
+			$teamId = (string)$teamId;
+			if ($searchResult->hasResult($type, $teamId)) {
+				continue;
+			}
+
+			if ($search === '') {
+				$matches[] = $this->createTeamResult($teamId, $displayName);
+				continue;
+			}
+
+			if (strtolower($teamId) === $search) {
+				$exactMatches[] = $this->createTeamResult($teamId, $displayName);
+				continue;
+			}
+
+			if (stripos($teamId, $search) !== false) {
+				$matches[] = $this->createTeamResult($teamId, $displayName);
+				continue;
+			}
+
+			if (strtolower($displayName) === $search) {
+				$exactMatches[] = $this->createTeamResult($teamId, $displayName);
+				continue;
+			}
+
+			if (stripos($displayName, $search) !== false) {
+				$matches[] = $this->createTeamResult($teamId, $displayName);
+			}
+		}
+
+		$searchResult->addResultSet($type, $matches, $exactMatches);
+	}
+
 	protected function createResult(string $type, string $uid, string $name): array {
 		if ($type === 'user' && $name === '') {
 			$name = $this->userManager->getDisplayName($uid) ?? $uid;
@@ -400,5 +436,15 @@ class SearchPlugin implements ISearchPlugin {
 		}
 
 		return $data;
+	}
+
+	protected function createTeamResult(string $actorId, string $name): array {
+		return [
+			'label' => $name,
+			'value' => [
+				'shareType' => 'team',
+				'shareWith' => 'team/' . $actorId,
+			],
+		];
 	}
 }

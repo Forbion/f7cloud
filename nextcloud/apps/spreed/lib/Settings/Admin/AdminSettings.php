@@ -25,6 +25,7 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\L10N\IFactory;
 use OCP\Settings\ISettings;
+use OCP\Support\Subscription\IRegistry;
 use OCP\Util;
 
 class AdminSettings implements ISettings {
@@ -38,6 +39,7 @@ class AdminSettings implements ISettings {
 		private ICacheFactory $memcacheFactory,
 		private IGroupManager $groupManager,
 		private MatterbridgeManager $bridgeManager,
+		private IRegistry $subscription,
 		IUserSession $userSession,
 		private IL10N $l10n,
 		private IFactory $l10nFactory,
@@ -126,6 +128,7 @@ class AdminSettings implements ISettings {
 	}
 
 	protected function initSignalingServers(): void {
+		$this->initialState->provideInitialState('has_valid_subscription', $this->subscription->delegateHasValidSubscription());
 		$this->initialState->provideInitialState('has_cache_configured', $this->memcacheFactory->isAvailable());
 		$this->initialState->provideInitialState('signaling_mode', $this->talkConfig->getSignalingMode(false));
 		$this->initialState->provideInitialState('signaling_servers', [
@@ -459,6 +462,9 @@ class AdminSettings implements ISettings {
 		$this->initialState->provideInitialState('sip_bridge_shared_secret', $this->talkConfig->getSIPSharedSecret());
 		$this->initialState->provideInitialState('sip_bridge_dialin_info', $this->talkConfig->getDialInInfo());
 		$this->initialState->provideInitialState('sip_bridge_dialout', $this->talkConfig->isSIPDialOutEnabled());
+		$this->initialState->provideInitialState('sip_bridge_dialout_anonymous', $this->appConfig->getAppValueBool('sip_bridge_dialout_anonymous'));
+		$this->initialState->provideInitialState('sip_bridge_dialout_number', $this->serverConfig->getAppValue('spreed', 'sip_bridge_dialout_number', ''));
+		$this->initialState->provideInitialState('sip_bridge_dialout_prefix', $this->serverConfig->getAppValue('spreed', 'sip_bridge_dialout_prefix', '+'));
 	}
 
 	protected function getGroupDetailsArray(array $gids, string $configKey): array {

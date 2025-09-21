@@ -33,7 +33,7 @@ use OCP\Http\Client\IClientService;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
-class RecordingController extends AEnvironmentAwareController {
+class RecordingController extends AEnvironmentAwareOCSController {
 	public function __construct(
 		string $appName,
 		IRequest $request,
@@ -56,7 +56,7 @@ class RecordingController extends AEnvironmentAwareController {
 	 *
 	 * @param int $serverId ID of the server
 	 * @psalm-param non-negative-int $serverId
-	 * @return DataResponse<Http::STATUS_OK, array{version: float}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>|DataResponse<Http::STATUS_INTERNAL_SERVER_ERROR, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{version: float}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, null, array{}>|DataResponse<Http::STATUS_INTERNAL_SERVER_ERROR, array{error: string}, array{}>
 	 *
 	 * 200: Welcome message returned
 	 * 404: Recording server not found or not configured
@@ -65,7 +65,7 @@ class RecordingController extends AEnvironmentAwareController {
 	public function getWelcomeMessage(int $serverId): DataResponse {
 		$recordingServers = $this->talkConfig->getRecordingServers();
 		if (empty($recordingServers) || !isset($recordingServers[$serverId])) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		$url = rtrim($recordingServers[$serverId]['server'], '/');
@@ -163,7 +163,7 @@ class RecordingController extends AEnvironmentAwareController {
 	/**
 	 * Update the recording status as a backend
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
 	 *
 	 * 200: Recording status updated successfully
 	 * 400: Updating recording status is not possible
@@ -208,7 +208,7 @@ class RecordingController extends AEnvironmentAwareController {
 	}
 
 	/**
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
 	 */
 	private function backendStarted(array $started): DataResponse {
 		$token = $started['token'];
@@ -255,11 +255,11 @@ class RecordingController extends AEnvironmentAwareController {
 
 		$this->roomService->setCallRecording($room, $status, $participant);
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
 	 */
 	private function backendStopped(array $stopped): DataResponse {
 		$token = $stopped['token'];
@@ -296,11 +296,11 @@ class RecordingController extends AEnvironmentAwareController {
 
 		$this->roomService->setCallRecording($room, Room::RECORDING_NONE, $participant);
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{type: string, error: array{code: string, message: string}}, array{}>
 	 */
 	private function backendFailed(array $failed): DataResponse {
 		$token = $failed['token'];
@@ -323,7 +323,7 @@ class RecordingController extends AEnvironmentAwareController {
 
 		$this->roomService->setCallRecording($room, Room::RECORDING_FAILED);
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -331,7 +331,7 @@ class RecordingController extends AEnvironmentAwareController {
 	 *
 	 * @param int $status Type of the recording
 	 * @psalm-param Room::RECORDING_* $status
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
 	 *
 	 * 200: Recording started successfully
 	 * 400: Starting recording is not possible
@@ -344,13 +344,13 @@ class RecordingController extends AEnvironmentAwareController {
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
 	 * Stop the recording
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
 	 *
 	 * 200: Recording stopped successfully
 	 * 400: Stopping recording is not possible
@@ -363,14 +363,14 @@ class RecordingController extends AEnvironmentAwareController {
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
 	 * Store the recording
 	 *
 	 * @param ?string $owner User that will own the recording file. `null` is actually not allowed and will always result in a "400 Bad Request". It's only allowed code-wise to handle requests where the post data exceeded the limits, so we can return a proper error instead of "500 Internal Server Error".
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{type: string, error: array{code: string, message: string}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED, array{type: string, error: array{code: string, message: string}}, array{}>
 	 *
 	 * 200: Recording stored successfully
 	 * 400: Storing recording is not possible
@@ -410,7 +410,7 @@ class RecordingController extends AEnvironmentAwareController {
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -418,7 +418,7 @@ class RecordingController extends AEnvironmentAwareController {
 	 *
 	 * @param int $timestamp Timestamp of the notification to be dismissed
 	 * @psalm-param non-negative-int $timestamp
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
 	 *
 	 * 200: Notification dismissed successfully
 	 * 400: Dismissing notification is not possible
@@ -436,7 +436,7 @@ class RecordingController extends AEnvironmentAwareController {
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -446,7 +446,7 @@ class RecordingController extends AEnvironmentAwareController {
 	 * @psalm-param non-negative-int $fileId
 	 * @param int $timestamp Timestamp of the notification to be dismissed
 	 * @psalm-param non-negative-int $timestamp
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
 	 *
 	 * 200: Recording shared to chat successfully
 	 * 400: Sharing recording to chat is not possible
@@ -464,6 +464,6 @@ class RecordingController extends AEnvironmentAwareController {
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 }

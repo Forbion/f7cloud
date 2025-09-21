@@ -25,52 +25,39 @@ class DelegationService {
 	 */
 	private const CLASS_API_ACCESS = DelegationController::class;
 
-	private AuthorizedGroupMapper $groupAuthorizationMapper;
-	private IGroupManager $groupManager;
-	private IUserSession $userSession;
-
 	public function __construct(
-		AuthorizedGroupMapper $groupAuthorizationMapper,
-		IGroupManager $groupManager,
-		IUserSession $userSession
+		private AuthorizedGroupMapper $groupAuthorizationMapper,
+		private IGroupManager $groupManager,
+		private IUserSession $userSession,
 	) {
-		$this->groupAuthorizationMapper = $groupAuthorizationMapper;
-		$this->groupManager = $groupManager;
-		$this->userSession = $userSession;
 	}
 
-	/**
-	 * @return bool true is admin of nextcloud otherwise false.
-	 */
 	public function isAdminNextcloud(): bool {
-		return $this->groupManager->isAdmin($this->userSession->getUser()->getUID());
+		$user = $this->userSession->getUser();
+		if ($user === null) {
+			return false;
+		}
+
+		return $this->groupManager->isAdmin($user->getUID());
 	}
 
-	/**
-	 * @return bool true if the user is a delegated admin
-	 */
 	public function isDelegatedAdmin(): bool {
 		return $this->getAccessLevel([
 			self::CLASS_NAME_ADMIN_DELEGATION,
 		]);
 	}
 
-	/**
-	 * @return bool true if the user has api access
-	 */
 	public function hasApiAccess(): bool {
 		if ($this->isAdminNextcloud()) {
 			return true;
 		}
+
 		return $this->getAccessLevel([
 			self::CLASS_API_ACCESS,
 			self::CLASS_NAME_ADMIN_DELEGATION,
 		]);
 	}
 
-	/**
-	 * @return bool true if the user has api access
-	 */
 	public function hasOnlyApiAccess(): bool {
 		return $this->getAccessLevel([
 			self::CLASS_API_ACCESS,
@@ -78,14 +65,20 @@ class DelegationService {
 	}
 
 	private function getAccessLevel(array $settingClasses): bool {
+		$user = $this->userSession->getUser();
+		if ($user === null) {
+			return false;
+		}
+
 		$authorized = false;
-		$authorizedClasses = $this->groupAuthorizationMapper->findAllClassesForUser($this->userSession->getUser());
+		$authorizedClasses = $this->groupAuthorizationMapper->findAllClassesForUser($user);
 		foreach ($settingClasses as $settingClass) {
 			$authorized = in_array($settingClass, $authorizedClasses, true);
 			if ($authorized) {
 				break;
 			}
 		}
+
 		return $authorized;
 	}
 }

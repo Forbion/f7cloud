@@ -17,8 +17,10 @@ use OCA\Talk\Chat\Notifier;
 use OCA\Talk\Chat\ReactionManager;
 use OCA\Talk\Exceptions\CannotReachRemoteException;
 use OCA\Talk\Exceptions\ChatSummaryException;
+use OCA\Talk\Exceptions\ParticipantNotFoundException;
 use OCA\Talk\Federation\Authenticator;
 use OCA\Talk\GuestManager;
+use OCA\Talk\Manager;
 use OCA\Talk\MatterbridgeManager;
 use OCA\Talk\Middleware\Attribute\FederationSupported;
 use OCA\Talk\Middleware\Attribute\RequireAuthenticatedParticipant;
@@ -32,6 +34,7 @@ use OCA\Talk\Model\Attachment;
 use OCA\Talk\Model\Attendee;
 use OCA\Talk\Model\Bot;
 use OCA\Talk\Model\Message;
+use OCA\Talk\Model\Reminder;
 use OCA\Talk\Model\Session;
 use OCA\Talk\Participant;
 use OCA\Talk\ResponseDefinitions;
@@ -64,6 +67,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUserManager;
 use OCP\RichObjectStrings\InvalidObjectExeption;
+use OCP\RichObjectStrings\IRichTextFormatter;
 use OCP\RichObjectStrings\IValidator;
 use OCP\Security\ITrustedDomainHelper;
 use OCP\Security\RateLimiting\IRateLimitExceededException;
@@ -82,9 +86,11 @@ use Psr\Log\LoggerInterface;
  * @psalm-import-type TalkChatMessage from ResponseDefinitions
  * @psalm-import-type TalkChatMessageWithParent from ResponseDefinitions
  * @psalm-import-type TalkChatReminder from ResponseDefinitions
+ * @psalm-import-type TalkChatReminderUpcoming from ResponseDefinitions
+ * @psalm-import-type TalkRichObjectParameter from ResponseDefinitions
  * @psalm-import-type TalkRoom from ResponseDefinitions
  */
-class ChatController extends AEnvironmentAwareController {
+class ChatController extends AEnvironmentAwareOCSController {
 	/** @var string[] */
 	protected array $guestNames;
 
@@ -95,6 +101,7 @@ class ChatController extends AEnvironmentAwareController {
 		private IUserManager $userManager,
 		private IAppManager $appManager,
 		private ChatManager $chatManager,
+		protected Manager $manager,
 		private RoomFormatter $roomFormatter,
 		private ReactionManager $reactionManager,
 		private ParticipantService $participantService,
@@ -119,6 +126,7 @@ class ChatController extends AEnvironmentAwareController {
 		protected Authenticator $federationAuthenticator,
 		protected ProxyCacheMessageService $pcmService,
 		protected Notifier $notifier,
+		protected IRichTextFormatter $richTextFormatter,
 		protected ITaskProcessingManager $taskProcessingManager,
 		protected IAppConfig $appConfig,
 		protected LoggerInterface $logger,
@@ -193,7 +201,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param int $replyTo Parent id which this message is a reply to
 	 * @psalm-param non-negative-int $replyTo
 	 * @param bool $silent If sent silent the chat message will not create any notifications
-	 * @return DataResponse<Http::STATUS_CREATED, ?TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND|Http::STATUS_REQUEST_ENTITY_TOO_LARGE|Http::STATUS_TOO_MANY_REQUESTS, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_CREATED, ?TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND|Http::STATUS_REQUEST_ENTITY_TOO_LARGE|Http::STATUS_TOO_MANY_REQUESTS, array{error: string}, array{}>
 	 *
 	 * 201: Message sent successfully
 	 * 400: Sending message is not possible
@@ -215,12 +223,12 @@ class ChatController extends AEnvironmentAwareController {
 		}
 
 		if (trim($message) === '') {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'message'], Http::STATUS_BAD_REQUEST);
 		}
 
 		[$actorType, $actorId] = $this->getActorInfo($actorDisplayName);
 		if (!$actorId) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'actor'], Http::STATUS_NOT_FOUND);
 		}
 
 		$parent = $parentMessage = null;
@@ -229,13 +237,13 @@ class ChatController extends AEnvironmentAwareController {
 				$parent = $this->chatManager->getParentComment($this->room, (string)$replyTo);
 			} catch (NotFoundException $e) {
 				// Someone is trying to reply cross-rooms or to a non-existing message
-				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+				return new DataResponse(['error' => 'reply-to'], Http::STATUS_BAD_REQUEST);
 			}
 
 			$parentMessage = $this->messageParser->createMessage($this->room, $this->participant, $parent, $this->l);
 			$this->messageParser->parseMessage($parentMessage);
 			if (!$parentMessage->isReplyable()) {
-				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+				return new DataResponse(['error' => 'reply-to'], Http::STATUS_BAD_REQUEST);
 			}
 		}
 
@@ -245,11 +253,11 @@ class ChatController extends AEnvironmentAwareController {
 		try {
 			$comment = $this->chatManager->sendMessage($this->room, $this->participant, $actorType, $actorId, $message, $creationDateTime, $parent, $referenceId, $silent);
 		} catch (MessageTooLongException) {
-			return new DataResponse([], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
+			return new DataResponse(['error' => 'message'], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
 		} catch (IRateLimitExceededException) {
-			return new DataResponse([], Http::STATUS_TOO_MANY_REQUESTS);
+			return new DataResponse(['error' => 'mentions'], Http::STATUS_TOO_MANY_REQUESTS);
 		} catch (\Exception $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'message'], Http::STATUS_BAD_REQUEST);
 		}
 
 		return $this->parseCommentToResponse($comment, $parentMessage);
@@ -266,7 +274,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param string $metaData Additional metadata
 	 * @param string $actorDisplayName Guest name
 	 * @param string $referenceId Reference ID
-	 * @return DataResponse<Http::STATUS_CREATED, ?TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND|Http::STATUS_REQUEST_ENTITY_TOO_LARGE, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_CREATED, ?TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND|Http::STATUS_REQUEST_ENTITY_TOO_LARGE, array{error: string}, array{}>
 	 *
 	 * 201: Object shared successfully
 	 * 400: Sharing object is not possible
@@ -281,11 +289,13 @@ class ChatController extends AEnvironmentAwareController {
 	public function shareObjectToChat(string $objectType, string $objectId, string $metaData = '', string $actorDisplayName = '', string $referenceId = ''): DataResponse {
 		[$actorType, $actorId] = $this->getActorInfo($actorDisplayName);
 		if (!$actorId) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'actor'], Http::STATUS_NOT_FOUND);
 		}
 
+		/** @var TalkRichObjectParameter $data */
 		$data = $metaData !== '' ? json_decode($metaData, true) : [];
 		if (!is_array($data)) {
+			/** @var TalkRichObjectParameter $data */
 			$data = [];
 		}
 		$data['type'] = $objectType;
@@ -293,18 +303,18 @@ class ChatController extends AEnvironmentAwareController {
 		$data['icon-url'] = $this->avatarService->getAvatarUrl($this->room);
 
 		if (isset($data['link']) && !$this->trustedDomainHelper->isTrustedUrl($data['link'])) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'link'], Http::STATUS_BAD_REQUEST);
 		}
 
 		try {
 			$this->richObjectValidator->validate('{object}', ['object' => $data]);
 		} catch (InvalidObjectExeption $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'object'], Http::STATUS_BAD_REQUEST);
 		}
 
 		if ($data['type'] === 'geo-location'
 			&& !preg_match(ChatManager::GEO_LOCATION_VALIDATOR, $data['id'])) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'object'], Http::STATUS_BAD_REQUEST);
 		}
 
 		$this->participantService->ensureOneToOneRoomIsFilled($this->room);
@@ -322,9 +332,9 @@ class ChatController extends AEnvironmentAwareController {
 		try {
 			$comment = $this->chatManager->addSystemMessage($this->room, $this->participant, $actorType, $actorId, $message, $creationDateTime, true, $referenceId);
 		} catch (MessageTooLongException $e) {
-			return new DataResponse([], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
+			return new DataResponse(['error' => 'message'], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
 		} catch (\Exception $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'message'], Http::STATUS_BAD_REQUEST);
 		}
 
 		return $this->parseCommentToResponse($comment);
@@ -373,7 +383,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param 0|1 $includeLastKnown Include the $lastKnownMessageId in the messages when 1 (default 0)
 	 * @param 0|1 $noStatusUpdate When the user status should not be automatically set to online set to 1 (default 0)
 	 * @param 0|1 $markNotificationsAsRead Set to 0 when notifications should not be marked as read (default 1)
-	 * @return DataResponse<Http::STATUS_OK, TalkChatMessageWithParent[], array{'X-Chat-Last-Common-Read'?: numeric-string, X-Chat-Last-Given?: numeric-string}>|DataResponse<Http::STATUS_NOT_MODIFIED, array<empty>, array<empty>>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkChatMessageWithParent>, array{'X-Chat-Last-Common-Read'?: numeric-string, X-Chat-Last-Given?: numeric-string}>|DataResponse<Http::STATUS_NOT_MODIFIED, null, array{}>
 	 *
 	 * 200: Messages returned
 	 * 304: No messages
@@ -471,14 +481,10 @@ class ChatController extends AEnvironmentAwareController {
 	 * Required capability: `chat-summary-api`
 	 *
 	 * @param positive-int $fromMessageId Offset from where on the summary should be generated
-	 * @return DataResponse<Http::STATUS_CREATED, array{taskId: int, nextOffset?: int}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'ai-no-provider'|'ai-error'}, array{}>|DataResponse<Http::STATUS_NO_CONTENT, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_CREATED, array{taskId: int, nextOffset?: int}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'ai-no-provider'|'ai-error'}, array{}>|DataResponse<Http::STATUS_NO_CONTENT, null, array{}>
 	 * @throws \InvalidArgumentException
 	 *
-	 * 201: Summary was scheduled, use the returned taskId to get the status
-	 *   information and output from the TaskProcessing API:
-	 *   https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-taskprocessing-api.html#fetch-a-task-by-id
-	 *   If the response data contains nextOffset, not all messages could be handled in a single request.
-	 *   After receiving the response a second summary should be requested with the provided nextOffset.
+	 * 201: Summary was scheduled, use the returned taskId to get the status information and output from the TaskProcessing API: [OCS TaskProcessing API](https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-taskprocessing-api.html#fetch-a-task-by-id). If the response data contains nextOffset, not all messages could be handled in a single request. After receiving the response a second summary should be requested with the provided nextOffset.
 	 * 204: No messages found to summarize
 	 * 400: No AI provider available or summarizing failed
 	 */
@@ -517,7 +523,7 @@ class ChatController extends AEnvironmentAwareController {
 		foreach ($comments as $comment) {
 			$nextOffset = (int)$comment->getId();
 			$message = $this->messageParser->createMessage($this->room, $this->participant, $comment, $this->l);
-			$this->messageParser->parseMessage($message);
+			$this->messageParser->parseMessage($message, true);
 
 			if (!$message->getVisibility()) {
 				continue;
@@ -534,7 +540,7 @@ class ChatController extends AEnvironmentAwareController {
 				continue;
 			}
 
-			$parsedMessage = $this->richToParsed(
+			$parsedMessage = $this->richTextFormatter->richToParsed(
 				$message->getMessage(),
 				$message->getMessageParameters(),
 			);
@@ -559,7 +565,7 @@ class ChatController extends AEnvironmentAwareController {
 		}
 
 		if (empty($messages)) {
-			return new DataResponse([], Http::STATUS_NO_CONTENT);
+			return new DataResponse(null, Http::STATUS_NO_CONTENT);
 		}
 
 		$task = new Task(
@@ -598,25 +604,7 @@ class ChatController extends AEnvironmentAwareController {
 	}
 
 	/**
-	 * Function is copied from Nextcloud 31 \OCP\RichObjectStrings\IRichTextFormatter::richToParsed
-	 * @deprecated
-	 */
-	protected function richToParsed(string $message, array $parameters): string {
-		$placeholders = [];
-		$replacements = [];
-		foreach ($parameters as $placeholder => $parameter) {
-			$placeholders[] = '{' . $placeholder . '}';
-			$replacements[] = match($parameter['type']) {
-				'user' => '@' . $parameter['name'],
-				'file' => $parameter['path'] ?? $parameter['name'],
-				default => $parameter['name'],
-			};
-		}
-		return str_replace($placeholders, $replacements, $message);
-	}
-
-	/**
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_MODIFIED, TalkChatMessageWithParent[], array{X-Chat-Last-Common-Read?: numeric-string, X-Chat-Last-Given?: numeric-string}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkChatMessageWithParent>, array{'X-Chat-Last-Common-Read'?: numeric-string, X-Chat-Last-Given?: numeric-string}>|DataResponse<Http::STATUS_NOT_MODIFIED, null, array{}>
 	 */
 	protected function prepareCommentsAsDataResponse(array $comments, int $lastCommonReadId = 0): DataResponse {
 		if (empty($comments)) {
@@ -631,7 +619,7 @@ class ChatController extends AEnvironmentAwareController {
 					return new DataResponse([], Http::STATUS_OK, $headers);
 				}
 			}
-			return new DataResponse([], Http::STATUS_NOT_MODIFIED);
+			return new DataResponse(null, Http::STATUS_NOT_MODIFIED);
 		}
 
 		$this->sharePreloader->preloadShares($comments);
@@ -752,7 +740,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param int $messageId The focused message which should be in the "middle" of the returned context
 	 * @psalm-param non-negative-int $messageId
 	 * @param int<1, 100> $limit Number of chat messages to receive in both directions (50 by default, 100 at most, might return 201 messages)
-	 * @return DataResponse<Http::STATUS_OK, TalkChatMessageWithParent[], array{'X-Chat-Last-Common-Read'?: numeric-string, X-Chat-Last-Given?: numeric-string}>|DataResponse<Http::STATUS_NOT_MODIFIED, array<empty>, array<empty>>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkChatMessageWithParent>, array{'X-Chat-Last-Common-Read'?: numeric-string, X-Chat-Last-Given?: numeric-string}>|DataResponse<Http::STATUS_NOT_MODIFIED, null, array{}>
 	 *
 	 * 200: Message context returned
 	 * 304: No messages
@@ -785,6 +773,12 @@ class ChatController extends AEnvironmentAwareController {
 		return $this->prepareCommentsAsDataResponse(array_merge($commentsHistory, $commentsFuture));
 	}
 
+	/**
+	 * @psalm-template T as list
+	 * @psalm-param T $messages
+	 * @param array $commentIdToIndex
+	 * @psalm-return T
+	 */
 	protected function loadSelfReactions(array $messages, array $commentIdToIndex): array {
 		// Get message ids with reactions
 		$messageIdsWithReactions = array_map(
@@ -812,7 +806,7 @@ class ChatController extends AEnvironmentAwareController {
 
 		// Inject the reactions self into the $messages array
 		foreach ($reactionsById as $messageId => $reactions) {
-			if (isset($commentIdToIndex[$messageId]) && isset($messages[$commentIdToIndex[$messageId]])) {
+			if (isset($commentIdToIndex[$messageId], $messages[$commentIdToIndex[$messageId]])) {
 				$messages[$commentIdToIndex[$messageId]]['reactionsSelf'] = $reactions;
 			}
 
@@ -826,6 +820,7 @@ class ChatController extends AEnvironmentAwareController {
 			}
 		}
 
+		/** @psalm-var T $messages */
 		return $messages;
 	}
 
@@ -834,7 +829,7 @@ class ChatController extends AEnvironmentAwareController {
 	 *
 	 * @param int $messageId ID of the message
 	 * @psalm-param non-negative-int $messageId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND|Http::STATUS_METHOD_NOT_ALLOWED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND|Http::STATUS_METHOD_NOT_ALLOWED, array{error: string}, array{}>
 	 *
 	 * 200: Message deleted successfully
 	 * 202: Message deleted successfully, but a bot or Matterbridge is configured, so the information can be replicated elsewhere
@@ -862,8 +857,8 @@ class ChatController extends AEnvironmentAwareController {
 
 		try {
 			$message = $this->chatManager->getComment($this->room, (string)$messageId);
-		} catch (NotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+		} catch (NotFoundException) {
+			return new DataResponse(['error' => 'message'], Http::STATUS_NOT_FOUND);
 		}
 
 		$attendee = $this->participant->getAttendee();
@@ -877,12 +872,12 @@ class ChatController extends AEnvironmentAwareController {
 				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE
 				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER)) {
 			// Actor is not a moderator or not the owner of the message
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'permission'], Http::STATUS_FORBIDDEN);
 		}
 
 		if ($message->getVerb() !== ChatManager::VERB_MESSAGE && $message->getVerb() !== ChatManager::VERB_OBJECT_SHARED) {
 			// System message (since the message is not parsed, it has type "system")
-			return new DataResponse([], Http::STATUS_METHOD_NOT_ALLOWED);
+			return new DataResponse(['error' => 'message'], Http::STATUS_METHOD_NOT_ALLOWED);
 		}
 
 		try {
@@ -892,8 +887,8 @@ class ChatController extends AEnvironmentAwareController {
 				$this->participant,
 				$this->timeFactory->getDateTime()
 			);
-		} catch (ShareNotFound $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+		} catch (ShareNotFound) {
+			return new DataResponse(['error' => 'message'], Http::STATUS_NOT_FOUND);
 		}
 
 		$systemMessage = $this->messageParser->createMessage($this->room, $this->participant, $systemMessageComment, $this->l);
@@ -925,7 +920,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param int $messageId ID of the message
 	 * @param string $message the message to send
 	 * @psalm-param non-negative-int $messageId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND|Http::STATUS_METHOD_NOT_ALLOWED|Http::STATUS_REQUEST_ENTITY_TOO_LARGE, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessageWithParent, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND|Http::STATUS_METHOD_NOT_ALLOWED|Http::STATUS_REQUEST_ENTITY_TOO_LARGE, array{error: string}, array{}>
 	 *
 	 * 200: Message edited successfully
 	 * 202: Message edited successfully, but a bot or Matterbridge is configured, so the information can be replicated to other services
@@ -956,7 +951,7 @@ class ChatController extends AEnvironmentAwareController {
 		try {
 			$comment = $this->chatManager->getComment($this->room, (string)$messageId);
 		} catch (NotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'message'], Http::STATUS_NOT_FOUND);
 		}
 
 		$attendee = $this->participant->getAttendee();
@@ -974,12 +969,12 @@ class ChatController extends AEnvironmentAwareController {
 				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE
 				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER)) {
 			// Actor is not a moderator or not the owner of the message
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'permission'], Http::STATUS_FORBIDDEN);
 		}
 
 		if ($comment->getVerb() !== ChatManager::VERB_MESSAGE && $comment->getVerb() !== ChatManager::VERB_OBJECT_SHARED) {
 			// System message (since the message is not parsed, it has type "system")
-			return new DataResponse([], Http::STATUS_METHOD_NOT_ALLOWED);
+			return new DataResponse(['error' => 'message'], Http::STATUS_METHOD_NOT_ALLOWED);
 		}
 
 		if ($this->room->getType() !== Room::TYPE_NOTE_TO_SELF) {
@@ -999,10 +994,10 @@ class ChatController extends AEnvironmentAwareController {
 				$message
 			);
 		} catch (MessageTooLongException) {
-			return new DataResponse([], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
+			return new DataResponse(['error' => 'message'], Http::STATUS_REQUEST_ENTITY_TOO_LARGE);
 		} catch (\InvalidArgumentException $e) {
 			if ($e->getMessage() === 'object_share') {
-				return new DataResponse([], Http::STATUS_METHOD_NOT_ALLOWED);
+				return new DataResponse(['error' => 'message'], Http::STATUS_METHOD_NOT_ALLOWED);
 			}
 			return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
 		}
@@ -1049,6 +1044,8 @@ class ChatController extends AEnvironmentAwareController {
 	#[UserRateLimit(limit: 60, period: 3600)]
 	public function setReminder(int $messageId, int $timestamp): DataResponse {
 		try {
+			// FIXME fail 400 when reminder is after expiration
+			// And system messages
 			$this->validateMessageExists($messageId, sync: true);
 		} catch (DoesNotExistException) {
 			return new DataResponse(['error' => 'message'], Http::STATUS_NOT_FOUND);
@@ -1129,6 +1126,94 @@ class ChatController extends AEnvironmentAwareController {
 	}
 
 	/**
+	 * Get all upcoming reminders
+	 *
+	 * Required capability: `upcoming-reminders`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, list<TalkChatReminderUpcoming>, array{}>
+	 *
+	 * 200: Reminders returned
+	 */
+	#[NoAdminRequired]
+	public function getUpcomingReminders(): DataResponse {
+		if ($this->userId === null) {
+			return new DataResponse([], Http::STATUS_OK);
+		}
+
+		$reminders = $this->reminderService->getUpcomingReminders($this->userId, Reminder::NUM_UPCOMING_REMINDERS);
+		if (empty($reminders)) {
+			return new DataResponse([], Http::STATUS_OK);
+		}
+
+		$tokens = array_unique(array_map(static fn (Reminder $reminder): string => $reminder->getToken(), $reminders));
+		$rooms = $this->manager->getRoomsForActor(Attendee::ACTOR_USERS, $this->userId, tokens: $tokens);
+		$roomMap = [];
+		foreach ($rooms as $room) {
+			if ($room->isFederatedConversation()) {
+				// FIXME Federated chats
+				continue;
+			}
+			$roomMap[$room->getToken()] = $room;
+		}
+
+		/** @var Reminder[] $reminders */
+		$reminders = array_filter($reminders, static fn (Reminder $reminder): bool => isset($roomMap[$reminder->getToken()]));
+		if (empty($reminders)) {
+			return new DataResponse([], Http::STATUS_OK);
+		}
+
+		$messageIds = array_map(static fn (Reminder $reminder): int => $reminder->getMessageId(), $reminders);
+		$comments = $this->chatManager->getMessagesById($messageIds);
+		$now = $this->timeFactory->getDateTime();
+
+		$resultData = [];
+		foreach ($reminders as $reminder) {
+			if (!isset($comments[$reminder->getMessageId()])) {
+				continue;
+			}
+			$comment = $comments[$reminder->getMessageId()];
+			$room = $roomMap[$reminder->getToken()];
+			try {
+				$participant = $this->participantService->getParticipant($room, $this->userId);
+			} catch (ParticipantNotFoundException) {
+				continue;
+			}
+
+			$message = $this->messageParser->createMessage($room, $participant, $comment, $this->l);
+			$this->messageParser->parseMessage($message);
+
+			$expireDate = $message->getExpirationDateTime();
+			if ($expireDate instanceof \DateTime && $expireDate < $now) {
+				continue;
+			}
+
+			if (!$message->getVisibility()) {
+				continue;
+			}
+
+			$data = $message->toArray($this->getResponseFormat());
+
+			if ($participant->getAttendee()->isSensitive()) {
+				$data['message'] = '';
+				$data['messageParameters'] = [];
+			}
+
+			$resultData[] = [
+				'reminderTimestamp' => $reminder->getDateTime()->getTimestamp(),
+				'roomToken' => $reminder->getToken(),
+				'messageId' => $reminder->getMessageId(),
+				'actorType' => $data['actorType'],
+				'actorId' => $data['actorId'],
+				'actorDisplayName' => $data['actorDisplayName'],
+				'message' => $data['message'],
+				'messageParameters' => $data['messageParameters'],
+			];
+		}
+
+		return new DataResponse($resultData, Http::STATUS_OK);
+	}
+
+	/**
 	 * @throws DoesNotExistException
 	 * @throws CannotReachRemoteException
 	 */
@@ -1154,10 +1239,10 @@ class ChatController extends AEnvironmentAwareController {
 	/**
 	 * Clear the chat history
 	 *
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessage, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_FORBIDDEN, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_ACCEPTED, TalkChatMessage, array{X-Chat-Last-Common-Read?: numeric-string}>|DataResponse<Http::STATUS_FORBIDDEN, null, array{}>
 	 *
 	 * 200: History cleared successfully
-	 * 202: History cleared successfully, but Matterbridge is configured, so the information can be replicated elsewhere
+	 * 202: History cleared successfully, but Federation or Matterbridge is configured, so the information can be replicated elsewhere
 	 * 403: Missing permissions to clear history
 	 */
 	#[NoAdminRequired]
@@ -1165,11 +1250,16 @@ class ChatController extends AEnvironmentAwareController {
 	#[RequireReadWriteConversation]
 	public function clearHistory(): DataResponse {
 		$attendee = $this->participant->getAttendee();
-		if (!$this->participant->hasModeratorPermissions(false)
-				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE
-				|| $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
-			// Actor is not a moderator or not the owner of the message
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+		if (!$this->participant->hasModeratorPermissions(false)) {
+			// Actor is not a moderator
+			return new DataResponse(null, Http::STATUS_FORBIDDEN);
+		}
+
+		if (!$this->appConfig->getAppValueBool('delete_one_to_one_conversations')
+				&& ($this->room->getType() === Room::TYPE_ONE_TO_ONE
+					|| $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER)) {
+			// Not allowed to purge one-to-one conversations
+			return new DataResponse(null, Http::STATUS_FORBIDDEN);
 		}
 
 		$systemMessageComment = $this->chatManager->clearHistory(
@@ -1306,7 +1396,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * Get objects that are shared in the room overview
 	 *
 	 * @param int<1, 20> $limit Maximum number of objects
-	 * @return DataResponse<Http::STATUS_OK, array<string, TalkChatMessage[]>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array<string, list<TalkChatMessage>>, array{}>
 	 *
 	 * 200: List of shared objects messages of each type returned
 	 */
@@ -1332,7 +1422,7 @@ class ChatController extends AEnvironmentAwareController {
 		// Get all attachments
 		foreach ($objectTypes as $objectType) {
 			$attachments = $this->attachmentService->getAttachmentsByType($this->room, $objectType, 0, $limit);
-			$messageIdsByType[$objectType] = array_map(static fn (Attachment $attachment): int => $attachment->getMessageId(), $attachments);
+			$messageIdsByType[$objectType] = array_map(static fn (Attachment $attachment): string => (string)$attachment->getMessageId(), $attachments);
 		}
 
 		$messages = $this->getMessagesForRoom(array_merge(...array_values($messageIdsByType)));
@@ -1359,7 +1449,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param int $lastKnownMessageId ID of the last known message
 	 * @psalm-param non-negative-int $lastKnownMessageId
 	 * @param int<1, 200> $limit Maximum number of objects
-	 * @return DataResponse<Http::STATUS_OK, TalkChatMessage[], array{X-Chat-Last-Given?: numeric-string}>
+	 * @return DataResponse<Http::STATUS_OK, array<string, TalkChatMessage>, array{X-Chat-Last-Given?: numeric-string}>
 	 *
 	 * 200: List of shared objects messages returned
 	 */
@@ -1373,7 +1463,6 @@ class ChatController extends AEnvironmentAwareController {
 		$attachments = $this->attachmentService->getAttachmentsByType($this->room, $objectType, $offset, $limit);
 		$messageIds = array_map(static fn (Attachment $attachment): int => $attachment->getMessageId(), $attachments);
 
-		/** @var TalkChatMessage[] $messages */
 		$messages = $this->getMessagesForRoom($messageIds);
 
 		$headers = [];
@@ -1386,7 +1475,7 @@ class ChatController extends AEnvironmentAwareController {
 	}
 
 	/**
-	 * @return TalkChatMessage[]
+	 * @return array<string, TalkChatMessage>
 	 */
 	protected function getMessagesForRoom(array $messageIds): array {
 		$comments = $this->chatManager->getMessagesForRoomById($this->room, $messageIds);
@@ -1409,7 +1498,7 @@ class ChatController extends AEnvironmentAwareController {
 				continue;
 			}
 
-			$messages[(int)$comment->getId()] = $message->toArray($this->getResponseFormat());
+			$messages[$comment->getId()] = $message->toArray($this->getResponseFormat());
 		}
 
 		return $messages;
@@ -1421,7 +1510,7 @@ class ChatController extends AEnvironmentAwareController {
 	 * @param string $search Text to search for
 	 * @param int $limit Maximum number of results
 	 * @param bool $includeStatus Include the user statuses
-	 * @return DataResponse<Http::STATUS_OK, TalkChatMentionSuggestion[], array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkChatMentionSuggestion>, array{}>
 	 *
 	 * 200: List of mention suggestions returned
 	 */
@@ -1450,10 +1539,13 @@ class ChatController extends AEnvironmentAwareController {
 		$results = array_merge_recursive($exactMatches, $results);
 
 		$this->autoCompleteManager->registerSorter(Sorter::class);
+		/** @psalm-suppress InvalidArgument */
 		$this->autoCompleteManager->runSorters(['talk_chat_participants'], $results, [
 			'itemType' => 'chat',
 			'itemId' => (string)$this->room->getId(),
 			'search' => $search,
+			'selfUserId' => $this->userId,
+			'selfCloudId' => $this->userId === null ? $this->federationAuthenticator->getCloudId() : null,
 		]);
 
 		$statuses = [];
@@ -1477,8 +1569,8 @@ class ChatController extends AEnvironmentAwareController {
 
 	/**
 	 * @param array $results
-	 * @param IUserStatus[] $statuses
-	 * @return TalkChatMentionSuggestion[]
+	 * @param array<string, IUserStatus> $statuses
+	 * @return list<TalkChatMentionSuggestion>
 	 */
 	protected function prepareResultArray(array $results, array $statuses): array {
 		$output = [];

@@ -33,6 +33,7 @@ final class ValueTransformersHandler
      */
     public function transform(mixed $value, array $attributes, array $transformers, callable $defaultTransformer): mixed
     {
+        /** @var array<mixed>|scalar|null */
         return call_user_func(
             $this->next($transformers, $value, $attributes, $defaultTransformer),
         );
@@ -118,8 +119,8 @@ final class ValueTransformersHandler
             throw new TransformerHasTooManyParameters($method);
         }
 
-        if ($parameters->count() > 1 && ! $parameters->at(1)->type instanceof CallableType) {
-            throw new TransformerHasInvalidCallableParameter($method, $parameters->at(1)->type);
+        if ($parameters->count() > 1 && ! $parameters->at(1)->nativeType instanceof CallableType) {
+            throw new TransformerHasInvalidCallableParameter($method, $parameters->at(1)->nativeType);
         }
     }
 }

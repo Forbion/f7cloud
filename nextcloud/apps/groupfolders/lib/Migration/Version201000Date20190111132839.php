@@ -12,19 +12,16 @@ use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
-/**
- * Auto-generated migration step: Please modify to your needs!
- */
 class Version201000Date20190111132839 extends SimpleMigrationStep {
 	public function name(): string {
 		return 'Add groupfolder_acl table';
 	}
 
 	public function description(): string {
-		return 'Adds table to store ACL information for group folders';
+		return 'Adds table to store ACL information for Team folders';
 	}
 
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 

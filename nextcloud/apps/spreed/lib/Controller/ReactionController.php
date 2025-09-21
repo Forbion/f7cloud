@@ -27,7 +27,7 @@ use OCP\IRequest;
 /**
  * @psalm-import-type TalkReaction from ResponseDefinitions
  */
-class ReactionController extends AEnvironmentAwareController {
+class ReactionController extends AEnvironmentAwareOCSController {
 
 	public function __construct(
 		string $appName,
@@ -43,7 +43,7 @@ class ReactionController extends AEnvironmentAwareController {
 	 * @param int $messageId ID of the message
 	 * @psalm-param non-negative-int $messageId
 	 * @param string $reaction Emoji to add
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, array<string, TalkReaction[]>|\stdClass, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, array<string, list<TalkReaction>>|\stdClass, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Reaction already existed
 	 * 201: Reaction added successfully
@@ -68,16 +68,17 @@ class ReactionController extends AEnvironmentAwareController {
 				$this->getRoom(),
 				$this->getParticipant()->getAttendee()->getActorType(),
 				$this->getParticipant()->getAttendee()->getActorId(),
+				$this->getParticipant()->getAttendee()->getDisplayName(),
 				$messageId,
 				$reaction
 			);
 			$status = Http::STATUS_CREATED;
 		} catch (NotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		} catch (ReactionAlreadyExistsException $e) {
 			$status = Http::STATUS_OK;
 		} catch (ReactionNotSupportedException|ReactionOutOfContextException|\Exception $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 		$reactions = $this->reactionManager->retrieveReactionMessages($this->getRoom(), $this->getParticipant(), $messageId);
 		return new DataResponse($this->formatReactions($reactions), $status);
@@ -89,7 +90,7 @@ class ReactionController extends AEnvironmentAwareController {
 	 * @param int $messageId ID of the message
 	 * @psalm-param non-negative-int $messageId
 	 * @param string $reaction Emoji to remove
-	 * @return DataResponse<Http::STATUS_OK, array<string, TalkReaction[]>|\stdClass, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array<string, list<TalkReaction>>|\stdClass, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Reaction deleted successfully
 	 * 400: Deleting reaction is not possible
@@ -113,14 +114,15 @@ class ReactionController extends AEnvironmentAwareController {
 				$this->getRoom(),
 				$this->getParticipant()->getAttendee()->getActorType(),
 				$this->getParticipant()->getAttendee()->getActorId(),
+				$this->getParticipant()->getAttendee()->getDisplayName(),
 				$messageId,
 				$reaction
 			);
 			$reactions = $this->reactionManager->retrieveReactionMessages($this->getRoom(), $this->getParticipant(), $messageId);
 		} catch (ReactionNotSupportedException|ReactionOutOfContextException|NotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		} catch (\Exception $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		return new DataResponse($this->formatReactions($reactions), Http::STATUS_OK);
@@ -132,7 +134,7 @@ class ReactionController extends AEnvironmentAwareController {
 	 * @param int $messageId ID of the message
 	 * @psalm-param non-negative-int $messageId
 	 * @param string|null $reaction Emoji to filter
-	 * @return DataResponse<Http::STATUS_OK, array<string, TalkReaction[]>|\stdClass, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array<string, list<TalkReaction>>|\stdClass, array{}>|DataResponse<Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Reactions returned
 	 * 404: Message or reaction not found
@@ -152,7 +154,7 @@ class ReactionController extends AEnvironmentAwareController {
 			// Verify that messageId is part of the room
 			$this->reactionManager->getCommentToReact($this->getRoom(), (string)$messageId);
 		} catch (ReactionNotSupportedException|ReactionOutOfContextException|NotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		$reactions = $this->reactionManager->retrieveReactionMessages($this->getRoom(), $this->getParticipant(), $messageId, $reaction);
@@ -161,8 +163,8 @@ class ReactionController extends AEnvironmentAwareController {
 	}
 
 	/**
-	 * @param array<string, TalkReaction[]> $reactions
-	 * @return array<string, TalkReaction[]>|\stdClass
+	 * @param array<string, list<TalkReaction>> $reactions
+	 * @return array<string, list<TalkReaction>>|\stdClass
 	 */
 	protected function formatReactions(array $reactions): array|\stdClass {
 		if ($this->getResponseFormat() === 'json' && empty($reactions)) {

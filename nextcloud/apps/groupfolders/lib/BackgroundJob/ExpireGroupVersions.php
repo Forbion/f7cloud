@@ -30,15 +30,14 @@ class ExpireGroupVersions extends TimedJob {
 		$this->setInterval(60 * 60);
 		// But don't run if still running
 		$this->setAllowParallelRuns(false);
-
-		$this->expireManager = $expireManager;
 	}
 
 	/**
+	 * @inheritDoc
 	 * Expiring groupfolder versions can be quite expensive.
 	 * We need to limit the amount of folders we expire per run.
 	 */
-	protected function run($argument) {
+	protected function run(mixed $argument): void {
 		$lastFolder = $this->appConfig->getValueInt(Application::APP_ID, 'cron_last_folder_index', 0);
 		$folders = $this->folderManager->getAllFolders();
 
@@ -64,9 +63,7 @@ class ExpireGroupVersions extends TimedJob {
 
 		// Determine the set of folders to process
 		$folderSet = array_slice($folders, $lastFolder, $toDo);
-		$folderIDs = array_map(function ($folder) {
-			return $folder['id'];
-		}, $folderSet);
+		$folderIDs = array_map(fn (array $folder): int => $folder['id'], $folderSet);
 
 		// Log and start the expiration process
 		$this->logger->debug('Expiring versions for ' . count($folderSet) . ' folders', ['app' => 'cron', 'folders' => $folderIDs]);

@@ -32,19 +32,19 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 		'share' => Constants::PERMISSION_SHARE,
 	];
 
-	private $userMapping;
-	private $fileId;
+	private int $permissions;
 
-	// for every permission type a rule can either allow, deny or inherit
-	// these 3 values are stored as 2 bitmaps, one that masks out all inherit values (1 -> set permission, 0 -> inherit)
-	// and one that specifies the permissions to set for non inherited values (1-> allow, 0 -> deny)
-	private $mask;
-	private $permissions;
-
-	public function __construct(IUserMapping $userMapping, int $fileId, int $mask, int $permissions) {
-		$this->userMapping = $userMapping;
-		$this->fileId = $fileId;
-		$this->mask = $mask;
+	/**
+	 * @param int $mask for every permission type a rule can either allow, deny or inherit
+	 *                  these 3 values are stored as 2 bitmaps, one that masks out all inherit values (1 -> set permission, 0 -> inherit)
+	 *                  and one that specifies the permissions to set for non inherited values (1-> allow, 0 -> deny)
+	 */
+	public function __construct(
+		private IUserMapping $userMapping,
+		private int $fileId,
+		private int $mask,
+		int $permissions,
+	) {
 		$this->permissions = $permissions & $mask;
 	}
 
@@ -68,9 +68,6 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 	 * Apply this rule to an existing permission set, returning the resulting permissions
 	 *
 	 * All permissions included in the current mask will overwrite the existing permissions
-	 *
-	 * @param int $permissions
-	 * @return int
 	 */
 	public function applyPermissions(int $permissions): int {
 		$invertedMask = ~$this->mask;
@@ -81,6 +78,7 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 
 		// a bitmask that has all allow bits set to 1 and all inherit and deny bits to 0
 		$allowMask = $this->mask & $this->permissions;
+
 		return $permissions | $allowMask;
 	}
 
@@ -116,8 +114,7 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 		$writer->write($data);
 	}
 
-	#[\ReturnTypeWillChange]
-	public function jsonSerialize() {
+	public function jsonSerialize(): array {
 		return [
 			'mapping' => [
 				'type' => $this->getUserMapping()->getType(),
@@ -144,19 +141,12 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 
 	/**
 	 * merge multiple rules that apply on the same file where allow overwrites deny
-	 *
-	 * @param array $rules
-	 * @return Rule
 	 */
 	public static function mergeRules(array $rules): Rule {
 		// or'ing the masks to get a new mask that masks all set permissions
-		$mask = array_reduce($rules, function (int $mask, Rule $rule) {
-			return $mask | $rule->getMask();
-		}, 0);
+		$mask = array_reduce($rules, fn (int $mask, Rule $rule): int => $mask | $rule->getMask(), 0);
 		// or'ing the permissions combines them with allow overwriting deny
-		$permissions = array_reduce($rules, function (int $permissions, Rule $rule) {
-			return $permissions | $rule->getPermissions();
-		}, 0);
+		$permissions = array_reduce($rules, fn (int $permissions, Rule $rule): int => $permissions | $rule->getPermissions(), 0);
 
 		return new Rule(
 			new UserMapping('dummy', ''),
@@ -170,9 +160,6 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 	 * apply a new rule on top of the existing
 	 *
 	 * All non-inherit fields of the new rule will overwrite the current permissions
-	 *
-	 * @param array $rules
-	 * @return void
 	 */
 	public function applyRule(Rule $rule): void {
 		$this->permissions = $rule->applyPermissions($this->permissions);
@@ -181,8 +168,6 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 
 	/**
 	 * Create a default, no-op rule
-	 *
-	 * @return Rule
 	 */
 	public static function defaultRule(): Rule {
 		return new Rule(
@@ -201,6 +186,7 @@ class Rule implements XmlSerializable, XmlDeserializable, \JsonSerializable {
 				$result[] = $type . $name;
 			}
 		}
+
 		return implode(', ', $result);
 	}
 

@@ -17,7 +17,6 @@ use OCA\Talk\Model\VoteMapper;
 use OCA\Talk\Participant;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\Comments\ICommentsManager;
-use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
@@ -34,51 +33,13 @@ class PollService {
 	 * @throws PollPropertyException
 	 */
 	public function createPoll(int $roomId, string $actorType, string $actorId, string $displayName, string $question, array $options, int $resultMode, int $maxVotes, bool $draft): Poll {
-		$question = trim($question);
-
-		if ($question === '' || strlen($question) > 32_000) {
-			throw new PollPropertyException(PollPropertyException::REASON_QUESTION);
-		}
-
-		try {
-			json_encode($options, JSON_THROW_ON_ERROR, 1);
-		} catch (\Exception) {
-			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
-		}
-
-		$validOptions = [];
-		foreach ($options as $option) {
-			if (!is_string($option)) {
-				throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
-			}
-
-			$option = trim($option);
-			if ($option !== '') {
-				$validOptions[] = $option;
-			}
-		}
-
-		if (count($validOptions) < 2) {
-			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
-		}
-
-		try {
-			$jsonOptions = json_encode($validOptions, JSON_THROW_ON_ERROR, 1);
-		} catch (\Exception) {
-			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
-		}
-
-		if (strlen($jsonOptions) > 60_000) {
-			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
-		}
-
 		$poll = new Poll();
 		$poll->setRoomId($roomId);
 		$poll->setActorType($actorType);
 		$poll->setActorId($actorId);
 		$poll->setDisplayName($displayName);
 		$poll->setQuestion($question);
-		$poll->setOptions($jsonOptions);
+		$poll->setOptions($options);
 		$poll->setVotes(json_encode([]));
 		$poll->setResultMode($resultMode);
 		$poll->setMaxVotes($maxVotes);
@@ -93,7 +54,7 @@ class PollService {
 
 	/**
 	 * @param int $roomId
-	 * @return Poll[]
+	 * @return list<Poll>
 	 */
 	public function getDraftsForRoom(int $roomId): array {
 		return $this->pollMapper->getDraftsByRoomId($roomId);
@@ -106,36 +67,43 @@ class PollService {
 	 * @throws DoesNotExistException
 	 */
 	public function getPoll(int $roomId, int $pollId): Poll {
-		$poll = $this->pollMapper->getByPollId($pollId);
-
-		if ($poll->getRoomId() !== $roomId) {
-			throw new DoesNotExistException('Room id mismatch');
-		}
-
-		return $poll;
+		return $this->pollMapper->getPollByRoomIdAndPollId($roomId, $pollId);
 	}
 
 	/**
 	 * @param Participant $participant
 	 * @param Poll $poll
 	 * @throws WrongPermissionsException
-	 * @throws Exception
 	 */
 	public function updatePoll(Participant $participant, Poll $poll): void {
 		if (!$participant->hasModeratorPermissions()
-		 && ($poll->getActorType() !== $participant->getAttendee()->getActorType()
-		 || $poll->getActorId() !== $participant->getAttendee()->getActorId())) {
+			&& ($poll->getActorType() !== $participant->getAttendee()->getActorType()
+				|| $poll->getActorId() !== $participant->getAttendee()->getActorId())) {
+			// Only moderators and the author of the poll can update it
+			throw new WrongPermissionsException();
+		}
+		$this->pollMapper->update($poll);
+	}
+
+	/**
+	 * @throws WrongPermissionsException
+	 */
+	public function closePoll(Participant $participant, Poll $poll): void {
+		if (!$participant->hasModeratorPermissions()
+			&& ($poll->getActorType() !== $participant->getAttendee()->getActorType()
+				|| $poll->getActorId() !== $participant->getAttendee()->getActorId())) {
 			// Only moderators and the author of the poll can update it
 			throw new WrongPermissionsException();
 		}
 
+		$poll->setStatus(Poll::STATUS_CLOSED);
 		$this->pollMapper->update($poll);
 	}
 
 	/**
 	 * @param Participant $participant
 	 * @param Poll $poll
-	 * @return Vote[]
+	 * @return list<Vote>
 	 */
 	public function getVotesForActor(Participant $participant, Poll $poll): array {
 		return $this->voteMapper->findByPollIdForActor(
@@ -147,7 +115,7 @@ class PollService {
 
 	/**
 	 * @param Poll $poll
-	 * @return Vote[]
+	 * @return list<Vote>
 	 */
 	public function getVotes(Poll $poll): array {
 		return $this->voteMapper->findByPollId($poll->getId());
@@ -157,7 +125,7 @@ class PollService {
 	 * @param Participant $participant
 	 * @param Poll $poll
 	 * @param int[] $optionIds Options the user voted for
-	 * @return Vote[]
+	 * @return list<Vote>
 	 * @throws \RuntimeException
 	 */
 	public function votePoll(Participant $participant, Poll $poll, array $optionIds): array {

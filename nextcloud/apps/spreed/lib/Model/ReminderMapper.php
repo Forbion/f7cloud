@@ -17,7 +17,7 @@ use OCP\IDBConnection;
 /**
  * @method Reminder mapRowToEntity(array $row)
  * @method Reminder findEntity(IQueryBuilder $query)
- * @method Reminder[] findEntities(IQueryBuilder $query)
+ * @method list<Reminder> findEntities(IQueryBuilder $query)
  * @template-extends QBMapper<Reminder>
  */
 class ReminderMapper extends QBMapper {
@@ -27,6 +27,17 @@ class ReminderMapper extends QBMapper {
 		IDBConnection $db,
 	) {
 		parent::__construct($db, 'talk_reminders', Reminder::class);
+	}
+
+	public function findForUser(string $userId, int $limit): array {
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->where($query->expr()->eq('user_id', $query->createNamedParameter($userId, IQueryBuilder::PARAM_STR)))
+			->orderBy('date_time', 'ASC')
+			->setMaxResults($limit);
+
+		return $this->findEntities($query);
 	}
 
 	/**
@@ -44,7 +55,7 @@ class ReminderMapper extends QBMapper {
 	}
 
 	/**
-	 * @return Reminder[]
+	 * @return list<Reminder>
 	 */
 	public function findRemindersToExecute(\DateTime $dateTime): array {
 		$query = $this->db->getQueryBuilder();

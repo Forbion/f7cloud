@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -97,7 +98,7 @@ class BoardReferenceProvider implements IReferenceProvider {
 			preg_match('/^' . preg_quote($startIndex, '/') . '(?:\/#!?)?\/board\/([0-9]+)$/', $url, $matches);
 		}
 		if ($matches && count($matches) > 1) {
-			return (int) $matches[1];
+			return (int)$matches[1];
 		}
 
 		return null;
@@ -106,7 +107,7 @@ class BoardReferenceProvider implements IReferenceProvider {
 	public function getCachePrefix(string $referenceId): string {
 		$boardId = $this->getBoardId($referenceId);
 		if ($boardId !== null) {
-			return (string) $boardId;
+			return (string)$boardId;
 		}
 
 		return $referenceId;

@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\Exception;
 
-use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\Argument;
-use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\ObjectBuilder;
-use OCA\Talk\Vendor\CuyZ\Valinor\Utility\PermissiveTypeFound;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\Type;
 use LogicException;
 
 /** @internal */
 final class PermissiveTypeNotAllowed extends LogicException
 {
-    public function __construct(ObjectBuilder $builder, Argument $argument, PermissiveTypeFound $original)
+    public function __construct(string $argumentSignature, Type $permissiveType)
     {
         parent::__construct(
-            "Error for `{$argument->name()}` in `{$builder->signature()}`: {$original->getMessage()}",
+            "The type of `$argumentSignature` contains `{$permissiveType->toString()}`, which is not " .
+            "allowed in strict mode. If really needed, the `allowPermissiveTypes` setting can be used.",
             1655389255,
-            $original
         );
     }
 }

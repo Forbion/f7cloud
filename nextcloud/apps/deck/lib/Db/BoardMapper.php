@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -31,7 +32,7 @@ class BoardMapper extends QBMapper implements IPermissionMapper {
 		private IUserManager $userManager,
 		private IGroupManager $groupManager,
 		private CirclesService $circlesService,
-		private LoggerInterface $logger
+		private LoggerInterface $logger,
 	) {
 		parent::__construct($db, 'deck_boards', Board::class);
 

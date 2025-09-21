@@ -37,7 +37,7 @@ class PropFindPlugin extends ServerPlugin {
 	}
 
 	public function initialize(Server $server): void {
-		$server->on('propFind', [$this, 'propFind']);
+		$server->on('propFind', $this->propFind(...));
 	}
 
 	public function propFind(PropFind $propFind, INode $node): void {
@@ -48,11 +48,12 @@ class PropFindPlugin extends ServerPlugin {
 		if ($node instanceof GroupFolderNode) {
 			$propFind->handle(
 				self::MOUNT_POINT_PROPERTYNAME,
+				/** @psalm-suppress PossiblyNullReference Null already checked above */
 				fn () => $this->userFolder->getRelativePath($node->getFileInfo()->getMountPoint()->getMountPoint())
 			);
 			$propFind->handle(
 				self::GROUP_FOLDER_ID_PROPERTYNAME,
-				fn () => $node->getFolderId()
+				fn (): int => $node->getFolderId()
 			);
 		}
 	}

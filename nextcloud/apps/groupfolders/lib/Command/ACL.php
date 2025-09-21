@@ -17,6 +17,7 @@ use OCA\GroupFolders\Mount\MountProvider;
 use OCP\Constants;
 use OCP\Files\IRootFolder;
 use OCP\IUserManager;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,28 +25,21 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ACL extends FolderCommand {
-	private RuleManager $ruleManager;
-	private ACLManagerFactory $aclManagerFactory;
-	private IUserManager $userManager;
-
 	public function __construct(
 		FolderManager $folderManager,
 		IRootFolder $rootFolder,
-		RuleManager $ruleManager,
+		private RuleManager $ruleManager,
 		MountProvider $mountProvider,
-		ACLManagerFactory $aclManagerFactory,
-		IUserManager $userManager
+		private ACLManagerFactory $aclManagerFactory,
+		private IUserManager $userManager,
 	) {
 		parent::__construct($folderManager, $rootFolder, $mountProvider);
-		$this->ruleManager = $ruleManager;
-		$this->aclManagerFactory = $aclManagerFactory;
-		$this->userManager = $userManager;
 	}
 
-	protected function configure() {
+	protected function configure(): void {
 		$this
 			->setName('groupfolders:permissions')
-			->setDescription('Configure advanced permissions for a configured group folder')
+			->setDescription('Configure advanced permissions for a configured Team folder')
 			->addArgument('folder_id', InputArgument::REQUIRED, 'Id of the folder to configure')
 			->addOption('enable', 'e', InputOption::VALUE_NONE, 'Enable advanced permissions for the folder')
 			->addOption('disable', 'd', InputOption::VALUE_NONE, 'Disable advanced permissions for the folder')
@@ -54,16 +48,18 @@ class ACL extends FolderCommand {
 			->addArgument('path', InputArgument::OPTIONAL, 'The path within the folder to set permissions for')
 			->addOption('user', 'u', InputOption::VALUE_REQUIRED, 'The user to configure the permissions for')
 			->addOption('group', 'g', InputOption::VALUE_REQUIRED, 'The group to configure the permissions for')
+			->addOption('team', 'c', InputOption::VALUE_REQUIRED, 'The circle/team to configure the permissions for')
 			->addOption('test', 't', InputOption::VALUE_NONE, 'Test the permissions for the set path')
 			->addArgument('permissions', InputArgument::IS_ARRAY + InputArgument::OPTIONAL, 'The permissions to set for the user or group as a white space separated list (ex: +read "-write"). Use "clear" to remove all permissions. Prepend the permission list with -- to allow parsing the - character.');
 		parent::configure();
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$folder = $this->getFolder($input, $output);
-		if ($folder === false) {
+		if ($folder === null) {
 			return -1;
 		}
+
 		if ($input->getOption('enable')) {
 			$this->folderManager->setFolderACL($folder['id'], true);
 		} elseif ($input->getOption('disable')) {
@@ -76,6 +72,7 @@ class ACL extends FolderCommand {
 					$output->writeln('<error>User not found: ' . $mappingId . '</error>');
 					return -1;
 				}
+
 				$jailPath = $this->mountProvider->getJailPath((int)$folder['id']);
 				$path = $input->getArgument('path');
 				$aclManager = $this->aclManagerFactory->getACLManager($user);
@@ -86,6 +83,7 @@ class ACL extends FolderCommand {
 				}
 				$permissionString = Rule::formatRulePermissions(Constants::PERMISSION_ALL, $permissions);
 				$output->writeln($permissionString);
+
 				return 0;
 			} else {
 				$output->writeln('<error>--user and <path> options needs to be set for permissions testing</error>');
@@ -98,16 +96,15 @@ class ACL extends FolderCommand {
 			!$input->getArgument('path') &&
 			!$input->getArgument('permissions') &&
 			!$input->getOption('user') &&
+			!$input->getOption('team') &&
 			!$input->getOption('group')
 		) {
 			$this->printPermissions($input, $output, $folder);
-		} elseif ($input->getOption('manage-add') && ($input->getOption('user') || $input->getOption('group'))) {
-			$mappingType = $input->getOption('user') ? 'user' : 'group';
-			$mappingId = $input->getOption('user') ? $input->getOption('user') : $input->getOption('group');
+		} elseif ($input->getOption('manage-add') && ($input->getOption('user') || $input->getOption('group') || $input->getOption('team'))) {
+			[$mappingType, $mappingId] = $this->convertMappingOptions($input);
 			$this->folderManager->setManageACL($folder['id'], $mappingType, $mappingId, true);
-		} elseif ($input->getOption('manage-remove') && ($input->getOption('user') || $input->getOption('group'))) {
-			$mappingType = $input->getOption('user') ? 'user' : 'group';
-			$mappingId = $input->getOption('user') ? $input->getOption('user') : $input->getOption('group');
+		} elseif ($input->getOption('manage-remove') && ($input->getOption('user') || $input->getOption('group') || $input->getOption('team'))) {
+			[$mappingType, $mappingId] = $this->convertMappingOptions($input);
 			$this->folderManager->setManageACL($folder['id'], $mappingType, $mappingId, false);
 		} elseif (!$input->getArgument('path')) {
 			$output->writeln('<error><path> argument has to be set when not using --enable or --disable</error>');
@@ -115,15 +112,14 @@ class ACL extends FolderCommand {
 		} elseif (!$input->getArgument('permissions')) {
 			$output->writeln('<error><permissions> argument has to be set when not using --enable or --disable</error>');
 			return -3;
-		} elseif ($input->getOption('user') && $input->getOption('group')) {
-			$output->writeln('<error>--user and --group can not be used at the same time</error>');
+		} elseif ((int)(bool)$input->getOption('user') + (int)(bool)$input->getOption('group') + (int)(bool)$input->getOption('team') > 1) {
+			$output->writeln('<error>--user, --team and --group can not be used at the same time</error>');
 			return -3;
-		} elseif (!$input->getOption('user') && !$input->getOption('group')) {
-			$output->writeln('<error>either --user or --group has to be used when not using --enable or --disable</error>');
+		} elseif (!$input->getOption('user') && !$input->getOption('group') && !$input->getOption('team')) {
+			$output->writeln('<error>either --user, --group or --team has to be used when not using --enable or --disable</error>');
 			return -3;
 		} else {
-			$mappingType = $input->getOption('user') ? 'user' : 'group';
-			$mappingId = $input->getOption('user') ? $input->getOption('user') : $input->getOption('group');
+			[$mappingType, $mappingId] = $this->convertMappingOptions($input);
 			$path = $input->getArgument('path');
 			$path = trim($path, '/');
 			$permissionStrings = $input->getArgument('permissions');
@@ -150,13 +146,16 @@ class ACL extends FolderCommand {
 					0,
 					0
 				));
+
 				return 0;
 			}
+
 			foreach ($permissionStrings as $permission) {
 				if ($permission[0] !== '+' && $permission[0] !== '-') {
 					$output->writeln('<error>incorrect format for permissions "' . $permission . '"</error>');
 					return -3;
 				}
+
 				$name = substr($permission, 1);
 				if (!isset(Rule::PERMISSIONS_MAP[$name])) {
 					$output->writeln('<error>incorrect format for permissions2 "' . $permission . '"</error>');
@@ -173,6 +172,7 @@ class ACL extends FolderCommand {
 				$permissions
 			));
 		}
+
 		return 0;
 	}
 
@@ -188,7 +188,7 @@ class ACL extends FolderCommand {
 		switch ($outputFormat) {
 			case parent::OUTPUT_FORMAT_JSON:
 			case parent::OUTPUT_FORMAT_JSON_PRETTY:
-				$paths = array_map(function ($rawPath) use ($jailPathLength) {
+				$paths = array_map(function (string $rawPath) use ($jailPathLength): string {
 					$path = substr($rawPath, $jailPathLength);
 					return $path ?: '/';
 				}, array_keys($rules));
@@ -198,24 +198,19 @@ class ACL extends FolderCommand {
 				$output->writeln(json_encode($items, $outputFormat === parent::OUTPUT_FORMAT_JSON_PRETTY ? JSON_PRETTY_PRINT : 0));
 				break;
 			default:
-				$items = array_map(function (array $rulesForPath, string $path) use ($jailPathLength) {
+				$items = array_map(function (array $rulesForPath, string $path) use ($jailPathLength): array {
 					/** @var Rule[] $rulesForPath */
-					$mappings = array_map(function (Rule $rule) {
-						return $rule->getUserMapping()->getType() . ': ' . $rule->getUserMapping()->getId();
-					}, $rulesForPath);
-					$permissions = array_map(function (Rule $rule) {
-						return $rule->formatPermissions();
-					}, $rulesForPath);
+					$mappings = array_map(fn (Rule $rule): string => $rule->getUserMapping()->getType() . ': ' . $rule->getUserMapping()->getId(), $rulesForPath);
+					$permissions = array_map(fn (Rule $rule): string => $rule->formatPermissions(), $rulesForPath);
 					$formattedPath = substr($path, $jailPathLength);
+
 					return [
 						'path' => $formattedPath ?: '/',
 						'mappings' => implode("\n", $mappings),
 						'permissions' => implode("\n", $permissions),
 					];
 				}, $rules, array_keys($rules));
-				usort($items, function ($a, $b) {
-					return $a['path'] <=> $b['path'];
-				});
+				usort($items, fn (array $a, array $b): int => $a['path'] <=> $b['path']);
 
 				$table = new Table($output);
 				$table->setHeaders(['Path', 'User/Group', 'Permissions']);
@@ -236,6 +231,21 @@ class ACL extends FolderCommand {
 				$result |= $permissionValue;
 			}
 		}
+
 		return [$mask, $result];
+	}
+
+	private function convertMappingOptions(InputInterface $input): array {
+		if ($input->getOption('user')) {
+			return ['user', $input->getOption('user')];
+		}
+		if ($input->getOption('group')) {
+			return ['group', $input->getOption('group')];
+		}
+		if ($input->getOption('team')) {
+			return ['circle', $input->getOption('team')];
+		}
+
+		throw new InvalidArgumentException('invalid mapping options');
 	}
 }

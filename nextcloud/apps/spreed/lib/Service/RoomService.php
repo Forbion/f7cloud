@@ -26,11 +26,13 @@ use OCA\Talk\Events\RoomDeletedEvent;
 use OCA\Talk\Events\RoomModifiedEvent;
 use OCA\Talk\Events\RoomPasswordVerifyEvent;
 use OCA\Talk\Events\RoomSyncedEvent;
+use OCA\Talk\Exceptions\InvalidRoomException;
 use OCA\Talk\Exceptions\RoomNotFoundException;
 use OCA\Talk\Exceptions\RoomProperty\AvatarException;
 use OCA\Talk\Exceptions\RoomProperty\BreakoutRoomModeException;
 use OCA\Talk\Exceptions\RoomProperty\BreakoutRoomStatusException;
 use OCA\Talk\Exceptions\RoomProperty\CallRecordingException;
+use OCA\Talk\Exceptions\RoomProperty\CreationException;
 use OCA\Talk\Exceptions\RoomProperty\DefaultPermissionsException;
 use OCA\Talk\Exceptions\RoomProperty\DescriptionException;
 use OCA\Talk\Exceptions\RoomProperty\ListableException;
@@ -52,15 +54,18 @@ use OCA\Talk\Room;
 use OCA\Talk\Webinary;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
+use OCP\Calendar\IManager;
 use OCP\Comments\IComment;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\HintException;
 use OCP\IDBConnection;
+use OCP\IL10N;
 use OCP\IUser;
 use OCP\Log\Audit\CriticalActionPerformedEvent;
 use OCP\Security\Events\ValidatePasswordPolicyEvent;
 use OCP\Security\IHasher;
+use OCP\Server;
 use OCP\Share\IManager as IShareManager;
 use Psr\Log\LoggerInterface;
 
@@ -79,7 +84,10 @@ class RoomService {
 		protected IHasher $hasher,
 		protected IEventDispatcher $dispatcher,
 		protected IJobList $jobList,
+		protected EmojiService $emojiService,
 		protected LoggerInterface $logger,
+		protected IL10N $l10n,
+		protected IManager $calendarManager,
 	) {
 	}
 
@@ -91,13 +99,13 @@ class RoomService {
 	 */
 	public function createOneToOneConversation(IUser $actor, IUser $targetUser): Room {
 		if ($actor->getUID() === $targetUser->getUID()) {
-			throw new InvalidArgumentException('invalid_invitee');
+			throw new InvalidArgumentException('invite');
 		}
 
 		try {
 			// If room exists: Reuse that one, otherwise create a new one.
 			$room = $this->manager->getOne2OneRoom($actor->getUID(), $targetUser->getUID());
-			$this->participantService->ensureOneToOneRoomIsFilled($room);
+			$this->participantService->ensureOneToOneRoomIsFilled($room, $actor->getUID());
 		} catch (RoomNotFoundException) {
 			if (!$this->shareManager->currentUserCanEnumerateTargetUser($actor, $targetUser)) {
 				throw new RoomNotFoundException();
@@ -114,12 +122,6 @@ class RoomService {
 					'displayName' => $actor->getDisplayName(),
 					'participantType' => Participant::OWNER,
 				],
-				[
-					'actorType' => Attendee::ACTOR_USERS,
-					'actorId' => $targetUser->getUID(),
-					'displayName' => $targetUser->getDisplayName(),
-					'participantType' => Participant::OWNER,
-				],
 			], $actor);
 		}
 
@@ -127,47 +129,180 @@ class RoomService {
 	}
 
 	/**
-	 * @param int $type
-	 * @param string $name
-	 * @param IUser|null $owner
-	 * @param string $objectType
-	 * @param string $objectId
 	 * @return Room
-	 * @throws InvalidArgumentException on too long or empty names
-	 * @throws InvalidArgumentException unsupported type
-	 * @throws InvalidArgumentException invalid object data
+	 * @throws CreationException
+	 * @throws PasswordException empty or invalid password
 	 */
-	public function createConversation(int $type, string $name, ?IUser $owner = null, string $objectType = '', string $objectId = ''): Room {
+	public function createConversation(
+		int $type,
+		string $name,
+		?IUser $owner = null,
+		string $objectType = '',
+		string $objectId = '',
+		string $password = '',
+		int $readOnly = Room::READ_WRITE,
+		int $listable = Room::LISTABLE_NONE,
+		int $messageExpiration = 0,
+		int $lobbyState = Webinary::LOBBY_NONE,
+		?int $lobbyTimer = null,
+		int $sipEnabled = Webinary::SIP_DISABLED,
+		int $permissions = Attendee::PERMISSIONS_DEFAULT,
+		int $recordingConsent = RecordingService::CONSENT_REQUIRED_NO,
+		int $mentionPermissions = Room::MENTION_PERMISSIONS_EVERYONE,
+		string $description = '',
+		?string $emoji = null,
+		?string $avatarColor = null,
+		bool $allowInternalTypes = true,
+	): Room {
 		$name = trim($name);
 		if ($name === '' || mb_strlen($name) > 255) {
-			throw new InvalidArgumentException('name');
+			throw new CreationException(CreationException::REASON_NAME);
 		}
 
-		if (!\in_array($type, [
+		$types = [
 			Room::TYPE_GROUP,
 			Room::TYPE_PUBLIC,
-			Room::TYPE_CHANGELOG,
-			Room::TYPE_NOTE_TO_SELF,
-		], true)) {
-			throw new InvalidArgumentException('type');
+		];
+		if ($allowInternalTypes) {
+			$types[] = Room::TYPE_CHANGELOG;
+			$types[] = Room::TYPE_NOTE_TO_SELF;
+		}
+		if (!\in_array($type, $types, true)) {
+			throw new CreationException(CreationException::REASON_TYPE);
 		}
 
 		$objectType = trim($objectType);
 		if (isset($objectType[64])) {
-			throw new InvalidArgumentException('object_type');
+			throw new CreationException(CreationException::REASON_OBJECT_TYPE);
 		}
 
 		$objectId = trim($objectId);
 		if (isset($objectId[64])) {
-			throw new InvalidArgumentException('object_id');
+			throw new CreationException(CreationException::REASON_OBJECT_ID);
+		}
+
+		$objectTypes = [
+			'',
+			// Kept to keep older clients working
+			Room::OBJECT_TYPE_PHONE_LEGACY,
+			Room::OBJECT_TYPE_PHONE_PERSIST,
+			Room::OBJECT_TYPE_PHONE_TEMPORARY,
+			Room::OBJECT_TYPE_EVENT,
+			Room::OBJECT_TYPE_EXTENDED_CONVERSATION,
+			Room::OBJECT_TYPE_INSTANT_MEETING,
+		];
+		if ($allowInternalTypes) {
+			$objectTypes[] = BreakoutRoom::PARENT_OBJECT_TYPE;
+			$objectTypes[] = Room::OBJECT_TYPE_EMAIL;
+			$objectTypes[] = Room::OBJECT_TYPE_FILE;
+			$objectTypes[] = Room::OBJECT_TYPE_NOTE_TO_SELF;
+			$objectTypes[] = Room::OBJECT_TYPE_SAMPLE;
+			$objectTypes[] = Room::OBJECT_TYPE_VIDEO_VERIFICATION;
+		}
+
+		if (!in_array($objectType, $objectTypes, true)) {
+			throw new CreationException(CreationException::REASON_OBJECT_TYPE);
 		}
 
 		if (($objectType !== '' && $objectId === '') ||
 			($objectType === '' && $objectId !== '')) {
-			throw new InvalidArgumentException('object');
+			throw new CreationException(CreationException::REASON_OBJECT);
 		}
 
-		$room = $this->manager->createRoom($type, $name, $objectType, $objectId);
+		if ($type === Room::TYPE_PUBLIC && $password === '' && $this->config->isPasswordEnforced()) {
+			throw new PasswordException(PasswordException::REASON_VALUE, $this->l10n->t('Password needs to be set'));
+		}
+
+		if (!in_array($readOnly, [Room::READ_WRITE, Room::READ_ONLY], true)) {
+			throw new CreationException(CreationException::REASON_READ_ONLY);
+		}
+
+		if (!in_array($listable, [Room::LISTABLE_NONE, Room::LISTABLE_USERS, Room::LISTABLE_ALL], true)) {
+			throw new CreationException(CreationException::REASON_LISTABLE);
+		}
+
+		if ($messageExpiration < 0) {
+			throw new CreationException(CreationException::REASON_MESSAGE_EXPIRATION);
+		}
+
+		if (!in_array($lobbyState, [Webinary::LOBBY_NONE, Webinary::LOBBY_NON_MODERATORS], true)) {
+			throw new CreationException(CreationException::REASON_LOBBY);
+		}
+
+		$lobbyTimerDateTime = null;
+		if ($lobbyState !== Webinary::LOBBY_NONE && $lobbyTimer !== null) {
+			if ($lobbyTimer < 0) {
+				throw new CreationException(CreationException::REASON_LOBBY_TIMER);
+			}
+
+			$lobbyTimerDateTime = $this->timeFactory->getDateTime('@' . $lobbyTimer);
+			$lobbyTimerDateTime->setTimezone(new \DateTimeZone('UTC'));
+		}
+
+		if (!in_array($sipEnabled, [Webinary::SIP_DISABLED, Webinary::SIP_ENABLED, Webinary::SIP_ENABLED_NO_PIN], true)) {
+			throw new CreationException(CreationException::REASON_SIP_ENABLED);
+		}
+
+		if ($permissions < Attendee::PERMISSIONS_DEFAULT || $permissions > Attendee::PERMISSIONS_MAX_CUSTOM) {
+			throw new CreationException(CreationException::REASON_PERMISSIONS);
+		} elseif ($permissions !== Attendee::PERMISSIONS_DEFAULT) {
+			$permissions |= Attendee::PERMISSIONS_CUSTOM;
+		}
+
+		if (!in_array($recordingConsent, [RecordingService::CONSENT_REQUIRED_NO, RecordingService::CONSENT_REQUIRED_YES], true)) {
+			throw new CreationException(CreationException::REASON_RECORDING_CONSENT);
+		}
+
+		if (!in_array($mentionPermissions, [Room::MENTION_PERMISSIONS_EVERYONE, Room::MENTION_PERMISSIONS_MODERATORS], true)) {
+			throw new CreationException(CreationException::REASON_MENTION_PERMISSIONS);
+		}
+		if (mb_strlen($description) > Room::DESCRIPTION_MAXIMUM_LENGTH) {
+			throw new CreationException(CreationException::REASON_DESCRIPTION);
+		}
+
+		if ($emoji !== null) {
+			if ($this->emojiService->getFirstCombinedEmoji($emoji) !== $emoji) {
+				throw new CreationException(CreationException::REASON_AVATAR);
+			}
+			if ($avatarColor !== null && !preg_match('/^[a-fA-F0-9]{6}$/', $avatarColor)) {
+				throw new CreationException(CreationException::REASON_AVATAR);
+			}
+		}
+
+		if ($type !== Room::TYPE_PUBLIC || $password === '') {
+			$passwordHash = '';
+		} else {
+			$event = new ValidatePasswordPolicyEvent($password);
+			try {
+				$this->dispatcher->dispatchTyped($event);
+			} catch (HintException $e) {
+				throw new PasswordException(PasswordException::REASON_VALUE, $e->getHint());
+			}
+			$passwordHash = $this->hasher->hash($password);
+		}
+
+		$room = $this->manager->createRoom(
+			$type,
+			$name,
+			$objectType,
+			$objectId,
+			$passwordHash,
+			$readOnly,
+			$listable,
+			$messageExpiration,
+			$lobbyState,
+			$lobbyTimerDateTime,
+			$sipEnabled,
+			$permissions,
+			$recordingConsent,
+			$mentionPermissions,
+			$description,
+		);
+
+		if ($emoji !== null) {
+			$avatarService = Server::get(AvatarService::class);
+			$avatarService->setAvatarFromEmoji($room, $emoji, $avatarColor);
+		}
 
 		if ($owner instanceof IUser) {
 			$this->participantService->addUsers($room, [[
@@ -177,8 +312,8 @@ class RoomService {
 				'participantType' => Participant::OWNER,
 			]], null);
 		}
-
 		return $room;
+
 	}
 
 	public function prepareConversationName(string $objectName): string {
@@ -394,7 +529,13 @@ class RoomService {
 			throw new LobbyException(LobbyException::REASON_TYPE);
 		}
 
-		if ($room->getObjectType() !== '' && $room->getObjectType() !== BreakoutRoom::PARENT_OBJECT_TYPE) {
+		if ($room->getObjectType() !== '' && !in_array($room->getObjectType(), [
+			BreakoutRoom::PARENT_OBJECT_TYPE,
+			Room::OBJECT_TYPE_EMAIL,
+			Room::OBJECT_TYPE_EVENT,
+			Room::OBJECT_TYPE_EXTENDED_CONVERSATION,
+			Room::OBJECT_TYPE_INSTANT_MEETING,
+		], true)) {
 			throw new LobbyException(LobbyException::REASON_OBJECT);
 		}
 
@@ -542,6 +683,44 @@ class RoomService {
 		}
 
 		$event = new RoomModifiedEvent($room, ARoomModifiedEvent::PROPERTY_TYPE, $newType, $oldType);
+		$this->dispatcher->dispatchTyped($event);
+	}
+
+	/**
+	 * @throws PasswordException|TypeException
+	 */
+	public function makePublicWithPassword(Room $room, string $password): void {
+		if ($room->getType() === Room::TYPE_PUBLIC) {
+			return;
+		}
+
+		if ($room->getType() !== Room::TYPE_GROUP) {
+			throw new TypeException(TypeException::REASON_TYPE);
+		}
+
+		if ($password === '') {
+			throw new PasswordException(PasswordException::REASON_VALUE, $this->l10n->t('Password needs to be set'));
+		}
+
+		$event = new ValidatePasswordPolicyEvent($password);
+		try {
+			$this->dispatcher->dispatchTyped($event);
+		} catch (HintException $e) {
+			throw new PasswordException(PasswordException::REASON_VALUE, $e->getHint());
+		}
+
+		$event = new BeforeRoomModifiedEvent($room, ARoomModifiedEvent::PROPERTY_TYPE, Room::TYPE_PUBLIC, $room->getType());
+		$this->dispatcher->dispatchTyped($event);
+		$event = new BeforeRoomModifiedEvent($room, ARoomModifiedEvent::PROPERTY_PASSWORD, $password);
+		$this->dispatcher->dispatchTyped($event);
+
+		$passwordHash = $this->hasher->hash($password);
+		$this->manager->setPublic($room->getId(), $passwordHash);
+		$room->setType(Room::TYPE_PUBLIC);
+
+		$event = new RoomModifiedEvent($room, ARoomModifiedEvent::PROPERTY_TYPE, Room::TYPE_PUBLIC, $room->getType());
+		$this->dispatcher->dispatchTyped($event);
+		$event = new RoomModifiedEvent($room, ARoomModifiedEvent::PROPERTY_PASSWORD, $password);
 		$this->dispatcher->dispatchTyped($event);
 	}
 
@@ -921,7 +1100,10 @@ class RoomService {
 		$this->dispatcher->dispatchTyped($event);
 	}
 
-	public function setActiveSince(Room $room, ?Participant $participant, \DateTime $since, int $callFlag, bool $silent): bool {
+	/**
+	 * @param list<string> $silentFor
+	 */
+	public function setActiveSince(Room $room, ?Participant $participant, \DateTime $since, int $callFlag, bool $silent, array $silentFor = []): bool {
 		$oldCallFlag = $room->getCallFlag();
 		$callFlag |= $oldCallFlag; // Merge the callFlags, so events and response are with the best values
 
@@ -938,6 +1120,8 @@ class RoomService {
 		} else {
 			if ($silent) {
 				$details[AParticipantModifiedEvent::DETAIL_IN_CALL_SILENT] = true;
+			} elseif (!empty($silentFor)) {
+				$details[AParticipantModifiedEvent::DETAIL_IN_CALL_SILENT_FOR] = $silentFor;
 			}
 			$event = new BeforeCallStartedEvent($room, $since, $callFlag, $details, $participant);
 			$this->dispatcher->dispatchTyped($event);
@@ -1213,5 +1397,121 @@ class RoomService {
 				['name' => $room->getName()],
 			));
 		}
+	}
+
+	/**
+	 * @return list<Room>
+	 */
+	public function getInactiveRooms(\DateTime $inactiveSince): array {
+		return $this->manager->getInactiveRooms($inactiveSince);
+	}
+
+	/**
+	 * @param Room $room
+	 * @param int $oldType
+	 * @param int $newType
+	 * @param bool $allowSwitchingOneToOne
+	 * @return void
+	 */
+	public function validateRoomTypeSwitch(Room $room, int $oldType, int $newType, bool $allowSwitchingOneToOne): void {
+		if (!$allowSwitchingOneToOne && $oldType === Room::TYPE_ONE_TO_ONE) {
+			throw new TypeException(TypeException::REASON_TYPE);
+		}
+
+		if ($oldType === Room::TYPE_ONE_TO_ONE_FORMER) {
+			throw new TypeException(TypeException::REASON_TYPE);
+		}
+
+		if ($oldType === Room::TYPE_NOTE_TO_SELF) {
+			throw new TypeException(TypeException::REASON_TYPE);
+		}
+
+		if (!in_array($newType, [Room::TYPE_GROUP, Room::TYPE_PUBLIC, Room::TYPE_ONE_TO_ONE_FORMER], true)) {
+			throw new TypeException(TypeException::REASON_VALUE);
+		}
+
+		if ($newType === Room::TYPE_ONE_TO_ONE_FORMER && $oldType !== Room::TYPE_ONE_TO_ONE) {
+			throw new TypeException(TypeException::REASON_VALUE);
+		}
+
+		if ($room->getBreakoutRoomMode() !== BreakoutRoom::MODE_NOT_CONFIGURED) {
+			throw new TypeException(TypeException::REASON_BREAKOUT_ROOM);
+		}
+
+		if ($room->getObjectType() === BreakoutRoom::PARENT_OBJECT_TYPE) {
+			throw new TypeException(TypeException::REASON_BREAKOUT_ROOM);
+		}
+	}
+
+	public function resetObject(Room $room): void {
+		$update = $this->db->getQueryBuilder();
+		$update->update('talk_rooms')
+			->set('object_type', $update->createNamedParameter('', IQueryBuilder::PARAM_STR))
+			->set('object_id', $update->createNamedParameter('', IQueryBuilder::PARAM_STR))
+			->where($update->expr()->eq('id', $update->createNamedParameter($room->getId(), IQueryBuilder::PARAM_INT)));
+		$update->executeStatement();
+
+		$room->setObjectId('');
+		$room->setObjectType('');
+	}
+
+	/**
+	 * @psalm-param Room::OBJECT_TYPE_* $objectType
+	 */
+	public function setObject(Room $room, string $objectType, string $objectId): void {
+		if (($objectId !== '' && $objectType === '') || ($objectId === '' && $objectType !== '')) {
+			throw new InvalidRoomException('Object ID and Object Type must both be empty or both have values');
+		}
+
+		$update = $this->db->getQueryBuilder();
+		$update->update('talk_rooms')
+			->set('object_id', $update->createNamedParameter($objectId, IQueryBuilder::PARAM_STR))
+			->set('object_type', $update->createNamedParameter($objectType, IQueryBuilder::PARAM_STR))
+			->where($update->expr()->eq('id', $update->createNamedParameter($room->getId(), IQueryBuilder::PARAM_INT)));
+		$update->executeStatement();
+
+		$room->setObjectId($objectId);
+		$room->setObjectType($objectType);
+	}
+
+	/**
+	 * @param string $url
+	 * @return string
+	 */
+	public function parseRoomTokenFromUrl(string $url): string {
+		// Check if room exists and check if user is part of room
+		$array = explode('/', $url);
+		$token = end($array);
+		// Cut off any excess characters from the room token
+		if (str_contains($token, '?')) {
+			$token = substr($token, 0, strpos($token, '?'));
+		}
+		if (str_contains($token, '#')) {
+			$token = substr($token, 0, strpos($token, '#'));
+		}
+
+		if (!$token) {
+			throw new RoomNotFoundException();
+		}
+		return $token;
+	}
+
+	public function hasExistingCalendarEvents(Room $room, string $userId, string $eventUid) : bool {
+		$calendars = $this->calendarManager->getCalendarsForPrincipal('principals/users/' . $userId);
+		if (!empty($calendars)) {
+			$searchProperties = ['LOCATION'];
+			foreach ($calendars as $calendar) {
+				$searchResult = $calendar->search($room->getToken(), $searchProperties, [], 2);
+				foreach ($searchResult as $result) {
+					foreach ($result['objects'] as $object) {
+						if ($object['UID'][0] !== $eventUid) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 }

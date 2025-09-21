@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -37,7 +38,7 @@ class TrelloJsonService extends ABoardImportService {
 	public function __construct(
 		IUserManager $userManager,
 		IURLGenerator $urlGenerator,
-		IL10N $l10n
+		IL10N $l10n,
 	) {
 		$this->userManager = $userManager;
 		$this->urlGenerator = $urlGenerator;
@@ -71,7 +72,7 @@ class TrelloJsonService extends ABoardImportService {
 			if (!is_string($nextcloudUid) && !is_numeric($nextcloudUid)) {
 				throw new \LogicException('User on setting uidRelation is invalid');
 			}
-			$nextcloudUid = (string) $nextcloudUid;
+			$nextcloudUid = (string)$nextcloudUid;
 			$this->getImportService()->getConfig('uidRelation')->$trelloUid = $this->userManager->get($nextcloudUid);
 			if (!$this->getImportService()->getConfig('uidRelation')->$trelloUid) {
 				throw new \LogicException('User on setting uidRelation not found: ' . $nextcloudUid);
@@ -116,7 +117,7 @@ class TrelloJsonService extends ABoardImportService {
 				$cardId = $this->cards[$trelloCard->id]->getId();
 				$comment = new Comment();
 				if (!empty($this->getImportService()->getConfig('uidRelation')->{$trelloComment->memberCreator->username})) {
-					$actor = $this->getImportService()->getConfig('uidRelation')->{$trelloComment->memberCreator->username}->getUID();
+					$actor = $this->getImportService()->getConfig('uidRelation')->{$trelloComment->memberCreator->username};
 				} else {
 					$actor = $this->getImportService()->getConfig('owner')->getUID();
 				}
@@ -141,7 +142,7 @@ class TrelloJsonService extends ABoardImportService {
 					$message = $this->l10n->t(
 						"This comment has more than %s characters.\n" .
 						"Added as an attachment to the card with name %s.\n" .
-						"Accessible on URL: %s.",
+						'Accessible on URL: %s.',
 						[
 							IComment::MAX_MESSAGE_LENGTH,
 							'comment_' . $commentId . '.md',
@@ -344,7 +345,7 @@ class TrelloJsonService extends ABoardImportService {
 
 	private function replaceUsernames(string $text): string {
 		foreach ($this->getImportService()->getConfig('uidRelation') as $trello => $nextcloud) {
-			$text = str_replace($trello, $nextcloud->getUID(), $text);
+			$text = str_replace($trello, $nextcloud, $text);
 		}
 		return $text;
 	}

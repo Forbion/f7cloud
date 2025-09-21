@@ -23,7 +23,7 @@ final class EnumType implements ClassType
 
     private string $pattern;
 
-    /** @var array<UnitEnum> */
+    /** @var non-empty-array<UnitEnum> */
     private array $cases;
 
     /**
@@ -32,7 +32,8 @@ final class EnumType implements ClassType
      */
     public function __construct(string $enumName, string $pattern, array $cases)
     {
-        $this->enumName = $enumName;
+        // @phpstan-ignore assign.propertyType (it is still an enum class-string)
+        $this->enumName = ltrim($enumName, '\\');
         $this->pattern = $pattern;
 
         if (empty($cases)) {
@@ -92,7 +93,7 @@ final class EnumType implements ClassType
 
     public function accepts(mixed $value): bool
     {
-        return $value instanceof $this->enumName;
+        return in_array($value, $this->cases, true);
     }
 
     public function matches(Type $other): bool
@@ -119,6 +120,9 @@ final class EnumType implements ClassType
             || $other instanceof MixedType;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function readableSignature(): string
     {
         return implode('|', array_keys($this->cases));

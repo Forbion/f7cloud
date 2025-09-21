@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -27,7 +28,7 @@ class DefaultBoardService {
 		BoardService $boardService,
 		StackService $stackService,
 		CardService $cardService,
-		IConfig $config
+		IConfig $config,
 	) {
 		$this->boardService = $boardService;
 		$this->stackService = $stackService;

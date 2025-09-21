@@ -14,28 +14,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ExpireGroupTrash extends ExpireGroupBase {
-	private TrashBackend $trashBackend;
-	private Expiration $expiration;
-
 	public function __construct(
-		TrashBackend $trashBackend,
-		Expiration $expiration
+		private TrashBackend $trashBackend,
+		private Expiration $expiration,
 	) {
 		parent::__construct();
-		$this->trashBackend = $trashBackend;
-		$this->expiration = $expiration;
 	}
 
-	protected function configure() {
+	protected function configure(): void {
 		$this
 			->setName('groupfolders:expire')
 			->setDescription('Trigger expiration of the trashbin for files stored in group folders');
 		parent::configure();
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		[$count, $size] = $this->trashBackend->expire($this->expiration);
 		$output->writeln("<info>Removed $count expired trashbin items</info>");
+
 		return 0;
 	}
 }

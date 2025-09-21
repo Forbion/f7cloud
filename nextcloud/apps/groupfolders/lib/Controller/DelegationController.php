@@ -14,11 +14,14 @@ use OCA\GroupFolders\Service\DelegationService;
 use OCA\Settings\Service\AuthorizedGroupService;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IRequest;
+use OCP\IUserSession;
 use OCP\Server;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -37,6 +40,7 @@ class DelegationController extends OCSController {
 		protected AuthorizedGroupService $authorizedGroupService,
 		protected ContainerInterface $container,
 		protected IAppManager $appManager,
+		protected IUserSession $userSession,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -44,12 +48,13 @@ class DelegationController extends OCSController {
 	/**
 	 * Returns the list of all groups
 	 *
-	 * @NoAdminRequired
-	 * @RequireGroupFolderAdmin
 	 * @return DataResponse<Http::STATUS_OK, list<GroupFoldersDelegationGroup>, array{}>
 	 *
 	 * 200: All groups returned
 	 */
+	#[RequireGroupFolderAdmin]
+	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/delegation/groups')]
 	public function getAllGroups(): DataResponse {
 		// Get all groups
 		$groups = $this->groupManager->search('');
@@ -69,12 +74,13 @@ class DelegationController extends OCSController {
 	/**
 	 * Returns the list of all visible circles
 	 *
-	 * @NoAdminRequired
-	 * @RequireGroupFolderAdmin
 	 * @return DataResponse<Http::STATUS_OK, list<GroupFoldersDelegationCircle>, array{}>
 	 *
 	 * 200: All circles returned
 	 */
+	#[RequireGroupFolderAdmin]
+	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/delegation/circles')]
 	public function getAllCircles(): DataResponse {
 		$circlesEnabled = $this->appManager->isEnabledForUser('circles');
 		if (!$circlesEnabled) {
@@ -83,14 +89,18 @@ class DelegationController extends OCSController {
 
 		try {
 			$circlesManager = Server::get(CirclesManager::class);
-		} catch (ContainerExceptionInterface $e) {
+		} catch (ContainerExceptionInterface) {
 			return new DataResponse([]);
 		}
 
-		// Only get circles available to current user (as a normal non-admin user):
-		// - publicly visible Circles,
-		// - Circles the viewer is member of
-		$circlesManager->startSession();
+		// As admin, get all circles,
+		// As non-admin, only returns circles current user is members of.
+		/** @psalm-suppress PossiblyNullReference current user cannot be null */
+		if ($this->groupManager->isAdmin($this->userSession->getUser()->getUID())) {
+			$circlesManager->startSuperSession();
+		} else {
+			$circlesManager->startSession();
+		}
 		$circles = $circlesManager->probeCircles();
 
 		// transform in a format suitable for the app
@@ -111,22 +121,26 @@ class DelegationController extends OCSController {
 	 *                          - OCA\GroupFolders\Settings\Admin : It's reference to fields in Admin Privileges.
 	 *                          - OCA\GroupFolders\Controller\DelegationController : It's just to specific the subadmins.
 	 *                          They can only manage groupfolders in which they are added in the Advanced Permissions (groups only)
-	 * @NoAdminRequired
-	 * @RequireGroupFolderAdmin
+	 *
 	 * @return DataResponse<Http::STATUS_OK, list<GroupFoldersDelegationGroup>, array{}>
 	 *
 	 * 200: Authorized groups returned
 	 */
-	public function getAuthorizedGroups(string $classname = ""): DataResponse {
+	#[RequireGroupFolderAdmin]
+	#[NoAdminRequired]
+	#[FrontpageRoute(verb: 'GET', url: '/delegation/authorized-groups')]
+	public function getAuthorizedGroups(string $classname = ''): DataResponse {
 		$data = [];
 		$authorizedGroups = $this->authorizedGroupService->findExistingGroupsForClass($classname);
 
 		foreach ($authorizedGroups as $authorizedGroup) {
 			$group = $this->groupManager->get($authorizedGroup->getGroupId());
-			$data[] = [
-				'gid' => $group->getGID(),
-				'displayName' => $group->getDisplayName(),
-			];
+			if ($group !== null) {
+				$data[] = [
+					'gid' => $group->getGID(),
+					'displayName' => $group->getDisplayName(),
+				];
+			}
 		}
 
 		return new DataResponse($data);

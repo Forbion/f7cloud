@@ -12,6 +12,7 @@ use OC\Files\Filesystem;
 use OCA\GroupFolders\Folder\FolderManager;
 use OCP\Files\IRootFolder;
 use OCP\IUser;
+use RuntimeException;
 use Sabre\DAV\Exception\Forbidden;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\ICollection;
@@ -28,10 +29,7 @@ class GroupFoldersHome implements ICollection {
 	) {
 	}
 
-	/**
-	 * @return never
-	 */
-	public function delete() {
+	public function delete(): never {
 		throw new Forbidden();
 	}
 
@@ -40,21 +38,15 @@ class GroupFoldersHome implements ICollection {
 		return $name;
 	}
 
-	/**
-	 * @return never
-	 */
-	public function setName($name) {
+	public function setName($name): never {
 		throw new Forbidden('Permission denied to rename this folder');
 	}
 
-	public function createFile($name, $data = null) {
+	public function createFile($name, $data = null): never {
 		throw new Forbidden('Not allowed to create files in this folder');
 	}
 
-	/**
-	 * @return never
-	 */
-	public function createDirectory($name) {
+	public function createDirectory($name): never {
 		throw new Forbidden('Permission denied to create folders in this folder');
 	}
 
@@ -62,12 +54,18 @@ class GroupFoldersHome implements ICollection {
 	 * @return ?InternalFolder
 	 */
 	private function getFolder(string $name): ?array {
-		$folders = $this->folderManager->getFoldersForUser($this->user, $this->rootFolder->getMountPoint()->getNumericStorageId());
+		$storageId = $this->rootFolder->getMountPoint()->getNumericStorageId();
+		if ($storageId === null) {
+			return null;
+		}
+
+		$folders = $this->folderManager->getFoldersForUser($this->user, $storageId);
 		foreach ($folders as $folder) {
 			if (basename($folder['mount_point']) === $name) {
 				return $folder;
 			}
 		}
+
 		return null;
 	}
 
@@ -75,12 +73,18 @@ class GroupFoldersHome implements ICollection {
 	 * @param InternalFolder $folder
 	 */
 	private function getDirectoryForFolder(array $folder): GroupFolderNode {
-		$userHome = "/" . $this->user->getUID() . "/files";
-		$node = $this->rootFolder->get($userHome . "/" . $folder['mount_point']);
-		return new GroupFolderNode(Filesystem::getView($userHome), $node, $folder['folder_id']);
+		$userHome = '/' . $this->user->getUID() . '/files';
+		$node = $this->rootFolder->get($userHome . '/' . $folder['mount_point']);
+
+		$view = Filesystem::getView();
+		if ($view === null) {
+			throw new RuntimeException('Unable to create view.');
+		}
+
+		return new GroupFolderNode($view, $node, $folder['folder_id']);
 	}
 
-	public function getChild($name) {
+	public function getChild($name): GroupFolderNode {
 		$folder = $this->getFolder($name);
 		if ($folder) {
 			return $this->getDirectoryForFolder($folder);
@@ -90,11 +94,16 @@ class GroupFoldersHome implements ICollection {
 	}
 
 	/**
-	 * @return (GroupFolderNode)[]
+	 * @return GroupFolderNode[]
 	 */
 	public function getChildren(): array {
-		$folders = $this->folderManager->getFoldersForUser($this->user, $this->rootFolder->getMountPoint()->getNumericStorageId());
-		return array_map([$this, 'getDirectoryForFolder'], $folders);
+		$storageId = $this->rootFolder->getMountPoint()->getNumericStorageId();
+		if ($storageId === null) {
+			return [];
+		}
+
+		$folders = $this->folderManager->getFoldersForUser($this->user, $storageId);
+		return array_map($this->getDirectoryForFolder(...), $folders);
 	}
 
 	public function childExists($name): bool {

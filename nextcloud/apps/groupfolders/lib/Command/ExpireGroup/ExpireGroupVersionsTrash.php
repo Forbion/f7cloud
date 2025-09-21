@@ -11,21 +11,18 @@ namespace OCA\GroupFolders\Command\ExpireGroup;
 use OCA\Files_Trashbin\Expiration;
 use OCA\GroupFolders\Trash\TrashBackend;
 use OCA\GroupFolders\Versions\GroupVersionsExpireManager;
+use OCP\EventDispatcher\IEventDispatcher;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ExpireGroupVersionsTrash extends ExpireGroupVersions {
-	private TrashBackend $trashBackend;
-	private Expiration $expiration;
-
 	public function __construct(
 		GroupVersionsExpireManager $expireManager,
-		TrashBackend $trashBackend,
-		Expiration $expiration
+		IEventDispatcher $eventDispatcher,
+		private TrashBackend $trashBackend,
+		private Expiration $expiration,
 	) {
-		parent::__construct($expireManager);
-		$this->trashBackend = $trashBackend;
-		$this->expiration = $expiration;
+		parent::__construct($expireManager, $eventDispatcher);
 	}
 
 	protected function configure(): void {

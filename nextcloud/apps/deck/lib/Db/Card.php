@@ -58,7 +58,7 @@ use Sabre\VObject\Component\VCalendar;
 class Card extends RelationalEntity {
 	public const TITLE_MAX_LENGTH = 255;
 
-	protected $title;
+	protected string $title = '';
 	protected $description;
 	protected $descriptionPrev;
 	protected $stackId;
@@ -165,7 +165,7 @@ class Card extends RelationalEntity {
 		$matchDate->setTime(0, 0);
 
 		$diff = $today->diff($matchDate);
-		return (int) $diff->format('%R%a'); // Extract days count in interval
+		return (int)$diff->format('%R%a'); // Extract days count in interval
 	}
 
 	public function getCalendarPrefix(): string {

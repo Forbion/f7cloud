@@ -9,8 +9,10 @@ declare(strict_types=1);
 namespace OCA\GroupFolders\Versions;
 
 use OC\Files\View;
-use OC\Hooks\BasicEmitter;
 use OC\User\User;
+use OCA\GroupFolders\Event\GroupVersionsExpireDeleteFileEvent;
+use OCA\GroupFolders\Event\GroupVersionsExpireDeleteVersionEvent;
+use OCA\GroupFolders\Event\GroupVersionsExpireEnterFolderEvent;
 use OCA\GroupFolders\Folder\FolderManager;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\EventDispatcher\IEventDispatcher;
@@ -20,38 +22,27 @@ use OCP\IUser;
 /**
  * @psalm-import-type InternalFolderOut from FolderManager
  */
-class GroupVersionsExpireManager extends BasicEmitter {
-	private $folderManager;
-	private $expireManager;
-	private $versionsBackend;
-	private $timeFactory;
-	private $dispatcher;
-
+class GroupVersionsExpireManager {
 	public function __construct(
-		FolderManager $folderManager,
-		ExpireManager $expireManager,
-		VersionsBackend $versionsBackend,
-		ITimeFactory $timeFactory,
-		IEventDispatcher $dispatcher
+		private FolderManager $folderManager,
+		private ExpireManager $expireManager,
+		private VersionsBackend $versionsBackend,
+		private ITimeFactory $timeFactory,
+		private IEventDispatcher $dispatcher,
 	) {
-		$this->folderManager = $folderManager;
-		$this->expireManager = $expireManager;
-		$this->versionsBackend = $versionsBackend;
-		$this->timeFactory = $timeFactory;
-		$this->dispatcher = $dispatcher;
 	}
 
 	public function expireAll(): void {
 		$folders = $this->folderManager->getAllFolders();
 		foreach ($folders as $folder) {
-			$this->emit(self::class, 'enterFolder', [$folder]);
+			$this->dispatcher->dispatchTyped(new GroupVersionsExpireEnterFolderEvent($folder));
 			$this->expireFolder($folder);
 		}
 	}
 
 	public function expireFolders(array $folders): void {
 		foreach ($folders as $folder) {
-			$this->emit(self::class, 'enterFolder', [$folder]);
+			$this->dispatcher->dispatchTyped(new GroupVersionsExpireEnterFolderEvent($folder));
 			$this->expireFolder($folder);
 		}
 	}
@@ -73,16 +64,17 @@ class GroupVersionsExpireManager extends BasicEmitter {
 					$view->unlink('/' . $fileId);
 					continue;
 				}
+
 				$versions = $this->versionsBackend->getVersionsForFile($dummyUser, $file);
 				$expireVersions = $this->expireManager->getExpiredVersion($versions, $this->timeFactory->getTime(), false);
 				foreach ($expireVersions as $version) {
 					/** @var GroupVersion $version */
-					$this->emit(self::class, 'deleteVersion', [$version]);
+					$this->dispatcher->dispatchTyped(new GroupVersionsExpireDeleteVersionEvent($version));
 					$view->unlink('/' . $fileId . '/' . $version->getVersionFile()->getName());
 				}
 			} else {
 				// source file no longer exists
-				$this->emit(self::class, 'deleteFile', [$fileId]);
+				$this->dispatcher->dispatchTyped(new GroupVersionsExpireDeleteFileEvent($fileId));
 				$this->versionsBackend->deleteAllVersionsForFile($folder['id'], $fileId);
 			}
 		}

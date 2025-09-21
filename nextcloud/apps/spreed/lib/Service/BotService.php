@@ -9,10 +9,15 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Service;
 
+use OCA\Talk\Chat\ChatManager;
 use OCA\Talk\Chat\MessageParser;
+use OCA\Talk\Chat\ReactionManager;
 use OCA\Talk\Events\BotDisabledEvent;
 use OCA\Talk\Events\BotEnabledEvent;
+use OCA\Talk\Events\BotInvokeEvent;
 use OCA\Talk\Events\ChatMessageSentEvent;
+use OCA\Talk\Events\ReactionAddedEvent;
+use OCA\Talk\Events\ReactionRemovedEvent;
 use OCA\Talk\Events\SystemMessageSentEvent;
 use OCA\Talk\Model\Attendee;
 use OCA\Talk\Model\Bot;
@@ -24,6 +29,8 @@ use OCA\Talk\Room;
 use OCA\Talk\TalkSession;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\Comments\IComment;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Http\Client\IClientService;
 use OCP\Http\Client\IResponse;
 use OCP\ICertificateManager;
@@ -34,9 +41,15 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\L10N\IFactory;
 use OCP\Security\ISecureRandom;
+use OCP\Server;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @psalm-import-type InvocationData from BotInvokeEvent
+ */
 class BotService {
+	private ActivityPubHelper $activityPubHelper;
+
 	public function __construct(
 		protected BotServerMapper $botServerMapper,
 		protected BotConversationMapper $botConversationMapper,
@@ -51,38 +64,24 @@ class BotService {
 		protected ITimeFactory $timeFactory,
 		protected LoggerInterface $logger,
 		protected ICertificateManager $certificateManager,
+		protected IEventDispatcher $dispatcher,
 	) {
+		$this->activityPubHelper = new ActivityPubHelper();
 	}
 
 	public function afterBotEnabled(BotEnabledEvent $event): void {
-		$this->sendAsyncRequest($event->getBotServer(), [
+		$this->invokeBots([$event->getBotServer()], $event->getRoom(), null, [
 			'type' => 'Join',
-			'actor' => [
-				'type' => 'Application',
-				'id' => Attendee::ACTOR_BOTS . '/' . Attendee::ACTOR_BOT_PREFIX . $event->getBotServer()->getUrlHash(),
-				'name' => $event->getBotServer()->getName(),
-			],
-			'object' => [
-				'type' => 'Collection',
-				'id' => $event->getRoom()->getToken(),
-				'name' => $event->getRoom()->getName(),
-			],
+			'actor' => $this->activityPubHelper->generateApplicationFromBot($event->getBotServer()),
+			'object' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
 		]);
 	}
 
 	public function afterBotDisabled(BotDisabledEvent $event): void {
-		$this->sendAsyncRequest($event->getBotServer(), [
+		$this->invokeBots([$event->getBotServer()], $event->getRoom(), null, [
 			'type' => 'Leave',
-			'actor' => [
-				'type' => 'Application',
-				'id' => Attendee::ACTOR_BOTS . '/' . Attendee::ACTOR_BOT_PREFIX . $event->getBotServer()->getUrlHash(),
-				'name' => $event->getBotServer()->getName(),
-			],
-			'object' => [
-				'type' => 'Collection',
-				'id' => $event->getRoom()->getToken(),
-				'name' => $event->getRoom()->getName(),
-			],
+			'actor' => $this->activityPubHelper->generateApplicationFromBot($event->getBotServer()),
+			'object' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
 		]);
 	}
 
@@ -93,9 +92,31 @@ class BotService {
 			return;
 		}
 
-		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_WEBHOOK);
+		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_WEBHOOK | Bot::FEATURE_EVENT);
 		if (empty($bots)) {
 			return;
+		}
+
+		$inReplyTo = null;
+		$parent = $event->getParent();
+		if ($parent instanceof IComment) {
+			$parentMessage = $messageParser->createMessage(
+				$event->getRoom(),
+				$event->getParticipant(),
+				$parent,
+				$this->l10nFactory->get('spreed', 'en', 'en')
+			);
+			$messageParser->parseMessage($parentMessage, true);
+			$parentMessageData = [
+				'message' => $parentMessage->getMessage(),
+				'parameters' => $parentMessage->getMessageParameters(),
+			];
+
+			$inReplyTo = [
+				'type' => 'Note',
+				'actor' => $this->activityPubHelper->generatePersonFromMessageActor($parentMessage),
+				'object' => $this->activityPubHelper->generateNote($parent, $parentMessageData, 'message'),
+			];
 		}
 
 		$message = $messageParser->createMessage(
@@ -104,36 +125,24 @@ class BotService {
 			$event->getComment(),
 			$this->l10nFactory->get('spreed', 'en', 'en')
 		);
-		$messageParser->parseMessage($message);
+		$messageParser->parseMessage($message, true);
 		$messageData = [
 			'message' => $message->getMessage(),
 			'parameters' => $message->getMessageParameters(),
 		];
 
-		$this->sendAsyncRequests($bots, [
+		$botServers = array_map(static fn (Bot $bot): BotServer => $bot->getBotServer(), $bots);
+
+		$this->invokeBots($botServers, $event->getRoom(), $event->getComment(), [
 			'type' => 'Create',
-			'actor' => [
-				'type' => 'Person',
-				'id' => $attendee->getActorType() . '/' . $attendee->getActorId(),
-				'name' => $attendee->getDisplayName(),
-			],
-			'object' => [
-				'type' => 'Note',
-				'id' => $event->getComment()->getId(),
-				'name' => 'message',
-				'content' => json_encode($messageData, JSON_THROW_ON_ERROR),
-				'mediaType' => 'text/markdown', // FIXME or text/plain when markdown is disabled
-			],
-			'target' => [
-				'type' => 'Collection',
-				'id' => $event->getRoom()->getToken(),
-				'name' => $event->getRoom()->getName(),
-			]
+			'actor' => $this->activityPubHelper->generatePersonFromAttendee($attendee),
+			'object' => $this->activityPubHelper->generateNote($event->getComment(), $messageData, 'message', $inReplyTo),
+			'target' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
 		]);
 	}
 
 	public function afterSystemMessageSent(SystemMessageSentEvent $event, MessageParser $messageParser): void {
-		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_WEBHOOK);
+		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_WEBHOOK | Bot::FEATURE_EVENT);
 		if (empty($bots)) {
 			return;
 		}
@@ -150,26 +159,142 @@ class BotService {
 			'parameters' => $message->getMessageParameters(),
 		];
 
-		$this->sendAsyncRequests($bots, [
+		$botServers = array_map(static fn (Bot $bot): BotServer => $bot->getBotServer(), $bots);
+
+		$this->invokeBots($botServers, $event->getRoom(), $event->getComment(), [
 			'type' => 'Activity',
-			'actor' => [
-				'type' => 'Person',
-				'id' => $message->getActorType() . '/' . $message->getActorId(),
-				'name' => $message->getActorDisplayName(),
-			],
-			'object' => [
-				'type' => 'Note',
-				'id' => $event->getComment()->getId(),
-				'name' => $message->getMessageRaw(),
-				'content' => json_encode($messageData),
-				'mediaType' => 'text/markdown',
-			],
-			'target' => [
-				'type' => 'Collection',
-				'id' => $event->getRoom()->getToken(),
-				'name' => $event->getRoom()->getName(),
-			]
+			'actor' => $this->activityPubHelper->generatePersonFromMessageActor($message),
+			'object' => $this->activityPubHelper->generateNote($event->getComment(), $messageData, $message->getMessageRaw()),
+			'target' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
 		]);
+	}
+
+	public function afterReactionAdded(ReactionAddedEvent $event, MessageParser $messageParser): void {
+		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_REACTION);
+		if (empty($bots)) {
+			return;
+		}
+
+		$message = $messageParser->createMessage(
+			$event->getRoom(),
+			null,
+			$event->getMessage(),
+			$this->l10nFactory->get('spreed', 'en', 'en')
+		);
+		$messageParser->parseMessage($message);
+		$messageData = [
+			'message' => $message->getMessage(),
+			'parameters' => $message->getMessageParameters(),
+		];
+
+		$botServers = array_map(static fn (Bot $bot): BotServer => $bot->getBotServer(), $bots);
+
+		$this->invokeBots($botServers, $event->getRoom(), $event->getMessage(), [
+			'type' => 'Like',
+			'actor' => $this->activityPubHelper->generatePersonFromMessageActor($message),
+			'object' => $this->activityPubHelper->generateNote($event->getMessage(), $messageData, $message->getMessageRaw()),
+			'target' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
+			'content' => $event->getReaction(),
+		]);
+	}
+
+	public function afterReactionRemoved(ReactionRemovedEvent $event, MessageParser $messageParser): void {
+		$bots = $this->getBotsForToken($event->getRoom()->getToken(), Bot::FEATURE_REACTION);
+		if (empty($bots)) {
+			return;
+		}
+
+		$message = $messageParser->createMessage(
+			$event->getRoom(),
+			null,
+			$event->getMessage(),
+			$this->l10nFactory->get('spreed', 'en', 'en')
+		);
+		$messageParser->parseMessage($message);
+		$messageData = [
+			'message' => $message->getMessage(),
+			'parameters' => $message->getMessageParameters(),
+		];
+
+		$botServers = array_map(static fn (Bot $bot): BotServer => $bot->getBotServer(), $bots);
+
+		$this->invokeBots($botServers, $event->getRoom(), $event->getMessage(), [
+			'type' => 'Undo',
+			'actor' => $this->activityPubHelper->generatePersonFromMessageActor($message),
+			'object' => [
+				'type' => 'Like',
+				'actor' => $this->activityPubHelper->generatePersonFromMessageActor($message),
+				'object' => $this->activityPubHelper->generateNote($event->getMessage(), $messageData, $message->getMessageRaw()),
+				'target' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
+				'content' => $event->getReaction(),
+			],
+			'target' => $this->activityPubHelper->generateCollectionFromRoom($event->getRoom()),
+		]);
+	}
+
+	/**
+	 * @param BotServer[] $bots
+	 * @param InvocationData $body
+	 */
+	protected function invokeBots(array $bots, Room $room, ?IComment $comment, array $body): void {
+		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
+
+		foreach ($bots as $bot) {
+			if ($bot->getFeatures() & Bot::FEATURE_EVENT) {
+				$event = new BotInvokeEvent($bot->getUrl(), $body);
+				$this->dispatcher->dispatchTyped($event);
+
+				if ($comment instanceof IComment) {
+					if (!empty($event->getReactions())) {
+						$reactionManager = Server::get(ReactionManager::class);
+						foreach ($event->getReactions() as $reaction) {
+							try {
+								$reactionManager->addReactionMessage(
+									$room,
+									Attendee::ACTOR_BOTS,
+									Attendee::ACTOR_BOT_PREFIX . $bot->getUrlHash(),
+									$bot->getName(),
+									(int)$comment->getId(),
+									$reaction
+								);
+							} catch (\Exception $e) {
+								$this->logger->error('Error while trying to react as a bot: ' . $e->getMessage(), ['exception' => $e]);
+							}
+						}
+					}
+					if (!empty($event->getAnswers())) {
+						$chatManager = Server::get(ChatManager::class);
+						foreach ($event->getAnswers() as $answer) {
+							$creationDateTime = $this->timeFactory->getDateTime('now', new \DateTimeZone('UTC'));
+							try {
+								$replyTo = null;
+								if ($answer['reply'] === true) {
+									$replyTo = $comment;
+								} elseif (is_int($answer['reply'])) {
+									$replyTo = $chatManager->getParentComment($room, (string)$answer['reply']);
+								}
+								$chatManager->sendMessage(
+									$room,
+									null,
+									Attendee::ACTOR_BOTS,
+									Attendee::ACTOR_BOT_PREFIX . $bot->getUrlHash(),
+									$answer['message'],
+									$creationDateTime,
+									$replyTo,
+									$answer['referenceId'],
+									$answer['silent'],
+									rateLimitGuestMentions: false
+								);
+							} catch (\Exception $e) {
+								$this->logger->error('Error while trying to answer as a bot: ' . $e->getMessage(), ['exception' => $e]);
+							}
+						}
+					}
+				}
+			} else {
+				$this->sendAsyncRequest($bot, $body, $jsonBody);
+			}
+		}
 	}
 
 	/**
@@ -203,7 +328,7 @@ class BotService {
 		$client = $this->clientService->newClient();
 		$promise = $client->postAsync($botServer->getUrl(), $data);
 
-		$promise->then(function (IResponse $response) use ($botServer) {
+		$promise->then(function (IResponse $response) use ($botServer): void {
 			if ($response->getStatusCode() !== Http::STATUS_OK && $response->getStatusCode() !== Http::STATUS_ACCEPTED) {
 				$this->logger->error('Bot responded with unexpected status code (Received: ' . $response->getStatusCode() . '), increasing error count');
 				$botServer->setErrorCount($botServer->getErrorCount() + 1);
@@ -211,25 +336,13 @@ class BotService {
 				$botServer->setLastErrorMessage('UnexpectedStatusCode: ' . $response->getStatusCode());
 				$this->botServerMapper->update($botServer);
 			}
-		}, function (\Exception $exception) use ($botServer) {
+		}, function (\Exception $exception) use ($botServer): void {
 			$this->logger->error('Bot error occurred, increasing error count', ['exception' => $exception]);
 			$botServer->setErrorCount($botServer->getErrorCount() + 1);
 			$botServer->setLastErrorDate($this->timeFactory->now());
 			$botServer->setLastErrorMessage(get_class($exception) . ': ' . $exception->getMessage());
 			$this->botServerMapper->update($botServer);
 		});
-	}
-
-	/**
-	 * @param Bot[] $bots
-	 * @param array $body
-	 */
-	protected function sendAsyncRequests(array $bots, array $body): void {
-		$jsonBody = json_encode($body, JSON_THROW_ON_ERROR);
-
-		foreach ($bots as $bot) {
-			$this->sendAsyncRequest($bot->getBotServer(), $body, $jsonBody);
-		}
 	}
 
 	/**
@@ -339,8 +452,7 @@ class BotService {
 			throw new \InvalidArgumentException('The provided secret is too short (min. 40 chars, max. 128 chars)');
 		}
 
-		$url = filter_var($url);
-		if (!$url || strlen($url) > 4000 || !(str_starts_with($url, 'http://') || str_starts_with($url, 'https://'))) {
+		if (!$url || strlen($url) > 4000 || !(str_starts_with($url, 'http://') || str_starts_with($url, 'https://') || str_starts_with($url, Bot::URL_APP_PREFIX))) {
 			throw new \InvalidArgumentException('The provided URL is not a valid URL');
 		}
 

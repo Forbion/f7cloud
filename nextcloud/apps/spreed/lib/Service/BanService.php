@@ -112,7 +112,7 @@ class BanService {
 		$ban->setInternalNote($internalNote);
 
 		//Remove the banned user from the room
-		if($bannedActorType !== 'ip') {
+		if ($bannedActorType !== 'ip') {
 			try {
 				$bannedParticipant = $this->participantService->getParticipantByActor($room, $bannedActorType, $bannedActorId);
 				$this->participantService->removeAttendee($room, $bannedParticipant, AAttendeeRemovedEvent::REASON_REMOVED);
@@ -224,7 +224,7 @@ class BanService {
 	/**
 	 * Retrieve all bans for a specific room.
 	 *
-	 * @return Ban[]
+	 * @return list<Ban>
 	 */
 	public function getBansForRoom(int $roomId): array {
 		return $this->banMapper->findByRoomId($roomId);

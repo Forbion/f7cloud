@@ -70,7 +70,7 @@ class Config {
 	public function getUserReadPrivacy(string $userId): int {
 		return match ((int)$this->config->getUserValue(
 			$userId,
-			'spreed', 'read_status_privacy',
+			'spreed', UserPreference::READ_STATUS_PRIVACY,
 			(string)Participant::PRIVACY_PUBLIC)) {
 			Participant::PRIVACY_PUBLIC => Participant::PRIVACY_PUBLIC,
 			default => Participant::PRIVACY_PRIVATE,
@@ -83,7 +83,7 @@ class Config {
 	public function getUserTypingPrivacy(string $userId): int {
 		return match ((int)$this->config->getUserValue(
 			$userId,
-			'spreed', 'typing_privacy',
+			'spreed', UserPreference::TYPING_PRIVACY,
 			(string)Participant::PRIVACY_PUBLIC)) {
 			Participant::PRIVACY_PUBLIC => Participant::PRIVACY_PUBLIC,
 			default => Participant::PRIVACY_PRIVATE,
@@ -233,7 +233,7 @@ class Config {
 		return $this->config->getUserValue(
 			$userId,
 			'spreed',
-			'recording_folder',
+			UserPreference::RECORDING_FOLDER,
 			$this->getAttachmentFolder($userId) . '/Recording'
 		);
 	}
@@ -284,7 +284,7 @@ class Config {
 
 	public function getAttachmentFolder(string $userId): string {
 		$defaultAttachmentFolder = $this->config->getAppValue('spreed', 'default_attachment_folder', '/Talk');
-		return $this->config->getUserValue($userId, 'spreed', 'attachment_folder', $defaultAttachmentFolder);
+		return $this->config->getUserValue($userId, 'spreed', UserPreference::ATTACHMENT_FOLDER, $defaultAttachmentFolder);
 	}
 
 	/**
@@ -582,6 +582,41 @@ class Config {
 		return $this->config->getAppValue('spreed', 'signaling_token_pubkey_' . strtolower($alg));
 	}
 
+	public function deriveSignalingTokenPublicKey(string $privateKey, string $alg): string {
+		// Clear any existing (unrelated) OpenSSL errors
+		while (openssl_error_string() !== false);
+
+		if (str_starts_with($alg, 'ES') || str_starts_with($alg, 'RS')) {
+			$opensslPrivateKey = openssl_pkey_get_private($privateKey);
+			$this->throwOnOpensslError();
+
+			$pubKey = openssl_pkey_get_details($opensslPrivateKey);
+			$this->throwOnOpensslError();
+
+			$public = $pubKey['key'];
+			if (!openssl_pkey_export($privateKey, $secret)) {
+				throw new \Exception('Could not export private key');
+			}
+		} elseif ($alg === 'EdDSA') {
+			$public = base64_encode(sodium_crypto_sign_publickey_from_secretkey($privateKey));
+		} else {
+			throw new \Exception('Unsupported algorithm ' . $alg);
+		}
+
+		return $public;
+	}
+
+	private function throwOnOpensslError() {
+		$errors = [];
+		while ($error = openssl_error_string()) {
+			$errors[] = $error;
+		}
+
+		if (!empty($errors)) {
+			throw new \Exception("OpenSSL error:\n" . implode("\n", $errors));
+		}
+	}
+
 	/**
 	 * @param IUser $user
 	 * @return array
@@ -698,5 +733,51 @@ class Config {
 			return $userSetting === 'yes';
 		}
 		return false;
+	}
+
+	/**
+	 * User setting for conversations list style
+	 *
+	 * @param ?string $userId
+	 * @return UserPreference::CONVERSATION_LIST_STYLE_*
+	 */
+	public function getConversationsListStyle(?string $userId): string {
+		if ($userId !== null) {
+			$userSetting = $this->config->getUserValue(
+				$userId,
+				'spreed',
+				UserPreference::CONVERSATIONS_LIST_STYLE,
+				UserPreference::CONVERSATION_LIST_STYLE_TWO_LINES
+			);
+
+			if (in_array($userSetting, [UserPreference::CONVERSATION_LIST_STYLE_TWO_LINES, UserPreference::CONVERSATION_LIST_STYLE_COMPACT], true)) {
+				return $userSetting;
+			}
+		}
+		return UserPreference::CONVERSATION_LIST_STYLE_TWO_LINES;
+	}
+
+	/**
+	 * User setting falling back to admin defined app config
+	 */
+	public function getInactiveLockTime(): int {
+		return $this->appConfig->getAppValueInt('inactivity_lock_after_days');
+	}
+
+	public function enableLobbyOnLockedRooms(): bool {
+		return $this->appConfig->getAppValueBool('inactivity_enable_lobby');
+	}
+
+	public function isPasswordEnforced(): bool {
+		return $this->appConfig->getAppValueBool('force_passwords');
+	}
+
+	public function isCallEndToEndEncryptionEnabled(): bool {
+		if ($this->getSignalingMode() !== self::SIGNALING_EXTERNAL) {
+			return false;
+		}
+
+		// TODO Default value will be set to true, once all mobile clients support it.
+		return $this->appConfig->getAppValueBool('call_end_to_end_encryption');
 	}
 }

@@ -8,31 +8,29 @@ declare(strict_types=1);
 
 namespace OCA\GroupFolders\ACL;
 
-use OC\Cache\CappedMemoryCache;
 use OCA\GroupFolders\ACL\UserMapping\IUserMappingManager;
 use OCA\GroupFolders\Trash\TrashManager;
+use OCP\Cache\CappedMemoryCache;
 use OCP\Constants;
 use OCP\Files\IRootFolder;
 use OCP\IUser;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
 class ACLManager {
 	private CappedMemoryCache $ruleCache;
-	/** @var callable */
-	private $rootFolderProvider;
 
 	public function __construct(
-		private RuleManager  $ruleManager,
+		private RuleManager $ruleManager,
 		private TrashManager $trashManager,
 		private IUserMappingManager $userMappingManager,
 		private LoggerInterface $logger,
-		private IUser        $user,
-		callable             $rootFolderProvider,
-		private ?int         $rootStorageId = null,
-		private bool         $inheritMergePerUser = false,
+		private IUser $user,
+		private \Closure $rootFolderProvider,
+		private ?int $rootStorageId = null,
+		private bool $inheritMergePerUser = false,
 	) {
 		$this->ruleCache = new CappedMemoryCache();
-		$this->rootFolderProvider = $rootFolderProvider;
 	}
 
 	private function getRootStorageId(): int {
@@ -57,13 +55,9 @@ class ACLManager {
 		// beware: adding new rules to the cache besides the cap
 		// might discard former cached entries, so we can't assume they'll stay
 		// cached, so we read everything out initially to be able to return it
-		$rules = array_combine($paths, array_map(function (string $path): ?array {
-			return $this->ruleCache->get($path);
-		}, $paths));
+		$rules = array_combine($paths, array_map(fn (string $path): ?array => $this->ruleCache->get($path), $paths));
 
-		$nonCachedPaths = array_filter($paths, function (string $path) use ($rules): bool {
-			return !isset($rules[$path]);
-		});
+		$nonCachedPaths = array_filter($paths, fn (string $path): bool => !isset($rules[$path]));
 
 		if (!empty($nonCachedPaths)) {
 			$newRules = $this->ruleManager->getRulesForFilesByPath($this->user, $this->getRootStorageId(), $nonCachedPaths);
@@ -71,6 +65,7 @@ class ACLManager {
 				if ($cache) {
 					$this->ruleCache->set($path, $rulesForPath);
 				}
+
 				$rules[$path] = $rulesForPath;
 			}
 		}
@@ -85,7 +80,6 @@ class ACLManager {
 	 *
 	 * This contains the $path itself and any parent folder
 	 *
-	 * @param string $path
 	 * @return string[]
 	 */
 	private function getRelevantPaths(string $path): array {
@@ -102,14 +96,19 @@ class ACLManager {
 			$groupFolderId = (int)$groupFolderId;
 			/* Remove the date part */
 			$separatorPos = strrpos($rootTrashedItemName, '.d');
+			if ($separatorPos === false) {
+				throw new RuntimeException('Invalid trash item name ' . $rootTrashedItemName);
+			}
 			$rootTrashedItemDate = (int)substr($rootTrashedItemName, $separatorPos + 2);
 			$rootTrashedItemName = substr($rootTrashedItemName, 0, $separatorPos);
 		}
+
 		while ($path !== '') {
 			$paths[] = $path;
 			$path = dirname($path);
 			if ($fromTrashbin && ($path === '__groupfolders/trash')) {
 				/* We are in trash and hit the root folder, continue looking for ACLs on parent folders in original location */
+				/** @psalm-suppress PossiblyUndefinedVariable Variables are defined above */
 				$trashItemRow = $this->trashManager->getTrashItemByFileName($groupFolderId, $rootTrashedItemName, $rootTrashedItemDate);
 				$fromTrashbin = false;
 				if ($trashItemRow) {
@@ -140,6 +139,7 @@ class ACLManager {
 		foreach ($paths as $path) {
 			$allPaths = array_unique(array_merge($allPaths, $this->getRelevantPaths($path)));
 		}
+
 		return $this->getRules($allPaths, $cache);
 	}
 
@@ -165,20 +165,18 @@ class ACLManager {
 	}
 
 	/**
-	 * @param string $path
 	 * @param array<string, Rule[]> $rules list of rules per path
-	 * @return int
 	 */
 	public function getPermissionsForPathFromRules(string $path, array $rules): int {
 		$path = ltrim($path, '/');
 		$relevantPaths = $this->getRelevantPaths($path);
 		$rules = array_intersect_key($rules, array_flip($relevantPaths));
+
 		return $this->calculatePermissionsForPath($rules);
 	}
 
 	/**
 	 * @param array<string, Rule[]> $rules list of rules per path, sorted parent first
-	 * @return int
 	 */
 	private function calculatePermissionsForPath(array $rules): int {
 		// given the following rules
@@ -215,6 +213,7 @@ class ACLManager {
 			}
 
 			$mergedRule = Rule::mergeRules($rulesPerMapping);
+
 			return $mergedRule->applyPermissions(Constants::PERMISSION_ALL);
 		} else {
 			// first combine all rules with the same path, then apply them on top of the current permissions
@@ -228,9 +227,6 @@ class ACLManager {
 
 	/**
 	 * Get the combined "lowest" permissions for an entire directory tree
-	 *
-	 * @param string $path
-	 * @return int
 	 */
 	public function getPermissionsForTree(string $path): int {
 		$path = ltrim($path, '/');

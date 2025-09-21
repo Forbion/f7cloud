@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -56,7 +57,7 @@ class StackService {
 		ChangeHelper $changeHelper,
 		LoggerInterface $logger,
 		IEventDispatcher $eventDispatcher,
-		StackServiceValidator $stackServiceValidator
+		StackServiceValidator $stackServiceValidator,
 	) {
 		$this->stackMapper = $stackMapper;
 		$this->boardMapper = $boardMapper;

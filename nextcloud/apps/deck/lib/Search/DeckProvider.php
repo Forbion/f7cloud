@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -27,7 +28,7 @@ class DeckProvider implements IProvider {
 	public function __construct(
 		SearchService $searchService,
 		IURLGenerator $urlGenerator,
-		IL10N $l10n
+		IL10N $l10n,
 	) {
 		$this->l10n = $l10n;
 		$this->searchService = $searchService;

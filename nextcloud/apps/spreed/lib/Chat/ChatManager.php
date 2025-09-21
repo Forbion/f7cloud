@@ -23,6 +23,7 @@ use OCA\Talk\Model\Attendee;
 use OCA\Talk\Model\Message;
 use OCA\Talk\Model\Poll;
 use OCA\Talk\Participant;
+use OCA\Talk\ResponseDefinitions;
 use OCA\Talk\Room;
 use OCA\Talk\Service\AttachmentService;
 use OCA\Talk\Service\ParticipantService;
@@ -59,6 +60,8 @@ use Psr\Log\LoggerInterface;
  *
  * When a message is saved the mentioned users are notified as needed, and
  * pending notifications are removed if the messages are deleted.
+ *
+ * @psalm-import-type TalkChatMentionSuggestion from ResponseDefinitions
  */
 class ChatManager {
 	public const MAX_CHAT_LENGTH = 32000;
@@ -272,6 +275,45 @@ class ChatManager {
 		$comment->setMessage($message, self::MAX_CHAT_LENGTH);
 		$comment->setCreationDateTime($this->timeFactory->getDateTime());
 		$comment->setVerb(self::VERB_MESSAGE); // Has to be 'comment', so it counts as unread message
+
+		$event = new BeforeSystemMessageSentEvent($chat, $comment);
+		$this->dispatcher->dispatchTyped($event);
+		try {
+			$this->commentsManager->save($comment);
+
+			// Update last_message
+			$this->roomService->setLastMessage($chat, $comment);
+			$this->unreadCountCache->clear($chat->getId() . '-');
+
+			$event = new SystemMessageSentEvent($chat, $comment);
+			$this->dispatcher->dispatchTyped($event);
+		} catch (NotFoundException $e) {
+		}
+		$this->cache->remove($chat->getToken());
+
+		return $comment;
+	}
+
+	/**
+	 * Post a new message to the given chat.
+	 *
+	 * @param Room $chat
+	 * @param string $message
+	 * @return IComment
+	 */
+	public function postSampleMessage(Room $chat, string $message, string $replyTo): IComment {
+		$comment = $this->commentsManager->create(Attendee::ACTOR_GUESTS, Attendee::ACTOR_ID_SAMPLE, 'chat', (string)$chat->getId());
+
+		if ($replyTo) {
+			$comment->setParentId($replyTo);
+		}
+		$comment->setMessage($message, self::MAX_CHAT_LENGTH);
+		$comment->setCreationDateTime($this->timeFactory->getDateTime());
+		$comment->setVerb(self::VERB_MESSAGE); // Has to be 'comment', so it counts as unread message
+		$metaData = [
+			Message::METADATA_CAN_MENTION_ALL => true,
+		];
+		$comment->setMetaData($metaData);
 
 		$event = new BeforeSystemMessageSentEvent($chat, $comment);
 		$this->dispatcher->dispatchTyped($event);
@@ -943,7 +985,7 @@ class ChatManager {
 	 * Get messages by ID
 	 *
 	 * @param int[] $commentIds
-	 * @return IComment[] Key is the message id
+	 * @return array<int, IComment> Key is the message id
 	 */
 	public function getMessagesById(array $commentIds): array {
 		return $this->commentsManager->getCommentsById(array_map('strval', $commentIds));
@@ -975,6 +1017,10 @@ class ChatManager {
 		return $this->commentsManager->searchForObjectsWithFilters($search, 'chat', $objectIds, $verbs, $since, $until, $actorType, $actorId, $offset, $limit);
 	}
 
+	/**
+	 * @param list<TalkChatMentionSuggestion> $results
+	 * @return list<TalkChatMentionSuggestion>
+	 */
 	public function addConversationNotify(array $results, string $search, Room $room, Participant $participant): array {
 		if ($room->getType() === Room::TYPE_ONE_TO_ONE) {
 			return $results;

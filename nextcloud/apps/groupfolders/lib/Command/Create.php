@@ -15,24 +15,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Create extends Base {
-	private FolderManager $folderManager;
-
-	public function __construct(FolderManager $folderManager) {
+	public function __construct(
+		private FolderManager $folderManager,
+	) {
 		parent::__construct();
-		$this->folderManager = $folderManager;
 	}
 
-	protected function configure() {
+	protected function configure(): void {
 		$this
 			->setName('groupfolders:create')
-			->setDescription('Create a new group folder')
+			->setDescription('Create a new Team folder')
 			->addArgument('name', InputArgument::REQUIRED, 'Name of the new folder');
 		parent::configure();
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$id = $this->folderManager->createFolder($input->getArgument('name'));
 		$output->writeln((string)$id);
+
 		return 0;
 	}
 }

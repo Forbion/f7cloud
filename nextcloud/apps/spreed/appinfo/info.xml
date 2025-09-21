@@ -18,7 +18,7 @@
 * 🌉 **Sync with other chat solutions** With [Matterbridge](https://github.com/42wim/matterbridge/) being integrated in Talk, you can easily sync a lot of other chat solutions to Nextcloud Talk and vice-versa.
 ]]></description>
 
-	<version>20.1.10</version>
+	<version>21.1.5</version>
 	<licence>agpl</licence>
 
 	<author>Anna Larch</author>
@@ -32,7 +32,6 @@
 	<author>Marcel Hibbe</author>
 	<author>Marcel Müller</author>
 	<author>Sowjanya Kota</author>
-	<author>Shankar Kalidindi</author>
 
 	<namespace>Talk</namespace>
 
@@ -46,6 +45,7 @@
 	<category>workflow</category>
 
 	<website>https://github.com/nextcloud/spreed</website>
+	<discussion>https://help.nextcloud.com/c/support/talk/52</discussion>
 	<bugs>https://github.com/nextcloud/spreed/issues</bugs>
 	<repository>https://github.com/nextcloud/spreed.git</repository>
 
@@ -56,7 +56,7 @@
 	<screenshot>https://raw.githubusercontent.com/nextcloud/spreed/main/docs/video-verfication.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="30" max-version="30" />
+		<nextcloud min-version="31" max-version="31" />
 	</dependencies>
 
 	<background-jobs>
@@ -64,7 +64,9 @@
 		<job>OCA\Talk\BackgroundJob\CheckHostedSignalingServer</job>
 		<job>OCA\Talk\BackgroundJob\CheckMatterbridges</job>
 		<job>OCA\Talk\BackgroundJob\ExpireChatMessages</job>
+		<job>OCA\Talk\BackgroundJob\ExpireObjectRooms</job>
 		<job>OCA\Talk\BackgroundJob\ExpireSignalingMessage</job>
+		<job>OCA\Talk\BackgroundJob\LockInactiveRooms</job>
 		<job>OCA\Talk\BackgroundJob\MaximumCallDuration</job>
 		<job>OCA\Talk\BackgroundJob\Reminder</job>
 		<job>OCA\Talk\BackgroundJob\RemoveEmptyRooms</job>
@@ -90,12 +92,22 @@
 		<command>OCA\Talk\Command\Bot\State</command>
 		<command>OCA\Talk\Command\Bot\Setup</command>
 		<command>OCA\Talk\Command\Bot\Uninstall</command>
+
 		<command>OCA\Talk\Command\Developer\AgeChatMessages</command>
 		<command>OCA\Talk\Command\Developer\UpdateDocs</command>
+
 		<command>OCA\Talk\Command\Monitor\Calls</command>
 		<command>OCA\Talk\Command\Monitor\HasActiveCalls</command>
 		<command>OCA\Talk\Command\Monitor\Room</command>
+
+		<command>OCA\Talk\Command\PhoneNumber\AddPhoneNumber</command>
+		<command>OCA\Talk\Command\PhoneNumber\FindPhoneNumber</command>
+		<command>OCA\Talk\Command\PhoneNumber\ImportPhoneNumbers</command>
+		<command>OCA\Talk\Command\PhoneNumber\RemoveUser</command>
+		<command>OCA\Talk\Command\PhoneNumber\RemovePhoneNumber</command>
+
 		<command>OCA\Talk\Command\Recording\Consent</command>
+
 		<command>OCA\Talk\Command\Room\Add</command>
 		<command>OCA\Talk\Command\Room\Create</command>
 		<command>OCA\Talk\Command\Room\Delete</command>
@@ -103,15 +115,20 @@
 		<command>OCA\Talk\Command\Room\Promote</command>
 		<command>OCA\Talk\Command\Room\Remove</command>
 		<command>OCA\Talk\Command\Room\Update</command>
+
 		<command>OCA\Talk\Command\Signaling\Add</command>
 		<command>OCA\Talk\Command\Signaling\Delete</command>
 		<command>OCA\Talk\Command\Signaling\ListCommand</command>
+		<command>OCA\Talk\Command\Signaling\VerifyKeys</command>
+
 		<command>OCA\Talk\Command\Stun\Add</command>
 		<command>OCA\Talk\Command\Stun\Delete</command>
 		<command>OCA\Talk\Command\Stun\ListCommand</command>
+
 		<command>OCA\Talk\Command\Turn\Add</command>
 		<command>OCA\Talk\Command\Turn\Delete</command>
 		<command>OCA\Talk\Command\Turn\ListCommand</command>
+
 		<command>OCA\Talk\Command\User\Remove</command>
 		<command>OCA\Talk\Command\User\TransferOwnership</command>
 	</commands>

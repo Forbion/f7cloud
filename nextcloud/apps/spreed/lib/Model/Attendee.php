@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\Talk\Model;
 
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
  * @method void setRoomId(int $roomId)
@@ -41,6 +42,10 @@ use OCP\AppFramework\Db\Entity;
  * @method void setPermissions(int $permissions)
  * @method void setArchived(bool $archived)
  * @method bool isArchived()
+ * @method void setImportant(bool $important)
+ * @method bool isImportant()
+ * @method void setSensitive(bool $important)
+ * @method bool isSensitive()
  * @internal
  * @method int getPermissions()
  * @method void setAccessToken(string $accessToken)
@@ -75,6 +80,7 @@ class Attendee extends Entity {
 	public const ACTOR_BOT_PREFIX = 'bot-';
 	public const ACTOR_ID_CLI = 'cli';
 	public const ACTOR_ID_SYSTEM = 'system';
+	public const ACTOR_ID_SAMPLE = 'sample';
 	public const ACTOR_ID_CHANGELOG = 'changelog';
 
 	public const PERMISSIONS_DEFAULT = 0;
@@ -111,6 +117,8 @@ class Attendee extends Entity {
 	protected int $notificationLevel = 0;
 	protected int $notificationCalls = 0;
 	protected bool $archived = false;
+	protected bool $important = false;
+	protected bool $sensitive = false;
 	protected int $lastJoinedCall = 0;
 	protected int $lastReadMessage = 0;
 	protected int $lastMentionMessage = 0;
@@ -127,30 +135,32 @@ class Attendee extends Entity {
 	protected int $lastAttendeeActivity = 0;
 
 	public function __construct() {
-		$this->addType('roomId', 'int');
-		$this->addType('actorType', 'string');
-		$this->addType('actorId', 'string');
-		$this->addType('displayName', 'string');
-		$this->addType('pin', 'string');
-		$this->addType('participantType', 'int');
-		$this->addType('favorite', 'bool');
-		$this->addType('archived', 'bool');
-		$this->addType('notificationLevel', 'int');
-		$this->addType('notificationCalls', 'int');
-		$this->addType('lastJoinedCall', 'int');
-		$this->addType('lastReadMessage', 'int');
-		$this->addType('lastMentionMessage', 'int');
-		$this->addType('lastMentionDirect', 'int');
-		$this->addType('readPrivacy', 'int');
-		$this->addType('permissions', 'int');
-		$this->addType('accessToken', 'string');
-		$this->addType('remoteId', 'string');
-		$this->addType('invitedCloudId', 'string');
-		$this->addType('phoneNumber', 'string');
-		$this->addType('callId', 'string');
-		$this->addType('state', 'int');
-		$this->addType('unreadMessages', 'int');
-		$this->addType('lastAttendeeActivity', 'int');
+		$this->addType('roomId', Types::BIGINT);
+		$this->addType('actorType', Types::STRING);
+		$this->addType('actorId', Types::STRING);
+		$this->addType('displayName', Types::STRING);
+		$this->addType('pin', Types::STRING);
+		$this->addType('participantType', Types::SMALLINT);
+		$this->addType('favorite', Types::BOOLEAN);
+		$this->addType('archived', Types::BOOLEAN);
+		$this->addType('important', Types::BOOLEAN);
+		$this->addType('sensitive', Types::BOOLEAN);
+		$this->addType('notificationLevel', Types::INTEGER);
+		$this->addType('notificationCalls', Types::INTEGER);
+		$this->addType('lastJoinedCall', Types::INTEGER);
+		$this->addType('lastReadMessage', Types::INTEGER);
+		$this->addType('lastMentionMessage', Types::INTEGER);
+		$this->addType('lastMentionDirect', Types::BIGINT);
+		$this->addType('readPrivacy', Types::SMALLINT);
+		$this->addType('permissions', Types::INTEGER);
+		$this->addType('accessToken', Types::STRING);
+		$this->addType('remoteId', Types::STRING);
+		$this->addType('invitedCloudId', Types::STRING);
+		$this->addType('phoneNumber', Types::STRING);
+		$this->addType('callId', Types::STRING);
+		$this->addType('state', Types::SMALLINT);
+		$this->addType('unreadMessages', Types::BIGINT);
+		$this->addType('lastAttendeeActivity', Types::BIGINT);
 	}
 
 	public function getDisplayName(): string {

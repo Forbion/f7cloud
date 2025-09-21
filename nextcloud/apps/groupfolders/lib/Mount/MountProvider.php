@@ -25,9 +25,7 @@ use OCP\Files\Storage\IStorage;
 use OCP\Files\Storage\IStorageFactory;
 use OCP\ICache;
 use OCP\IDBConnection;
-use OCP\IGroupManager;
 use OCP\IRequest;
-use OCP\ISession;
 use OCP\IUser;
 use OCP\IUserSession;
 
@@ -35,72 +33,35 @@ use OCP\IUserSession;
  * @psalm-import-type InternalFolder from FolderManager
  */
 class MountProvider implements IMountProvider {
-	/** @var IGroupManager */
-	private $groupProvider;
-
-	/** @var callable */
-	private $rootProvider;
-
-	/** @var Folder|null */
-	private $root = null;
-
-	/** @var FolderManager */
-	private $folderManager;
-
-	private $aclManagerFactory;
-
-	private $userSession;
-
-	private $request;
-
-	private $session;
-
-	private $mountProviderCollection;
-	private $connection;
-	private ICache $cache;
+	private ?Folder $root = null;
 	private ?int $rootStorageId = null;
-	private bool $allowRootShare;
-	private bool $enableEncryption;
 
 	public function __construct(
-		IGroupManager $groupProvider,
-		FolderManager $folderManager,
-		callable $rootProvider,
-		ACLManagerFactory $aclManagerFactory,
-		IUserSession $userSession,
-		IRequest $request,
-		ISession $session,
-		IMountProviderCollection $mountProviderCollection,
-		IDBConnection $connection,
-		ICache $cache,
-		bool $allowRootShare,
-		bool $enableEncryption
+		private FolderManager $folderManager,
+		private \Closure $rootProvider,
+		private ACLManagerFactory $aclManagerFactory,
+		private IUserSession $userSession,
+		private IRequest $request,
+		private IMountProviderCollection $mountProviderCollection,
+		private IDBConnection $connection,
+		private ICache $cache,
+		private bool $allowRootShare,
+		private bool $enableEncryption,
 	) {
-		$this->groupProvider = $groupProvider;
-		$this->folderManager = $folderManager;
-		$this->rootProvider = $rootProvider;
-		$this->aclManagerFactory = $aclManagerFactory;
-		$this->userSession = $userSession;
-		$this->request = $request;
-		$this->session = $session;
-		$this->mountProviderCollection = $mountProviderCollection;
-		$this->connection = $connection;
-		$this->cache = $cache;
-		$this->allowRootShare = $allowRootShare;
-		$this->enableEncryption = $enableEncryption;
 	}
 
 	private function getRootStorageId(): int {
 		if ($this->rootStorageId === null) {
-			$cached = $this->cache->get("root_storage_id");
+			$cached = $this->cache->get('root_storage_id');
 			if ($cached !== null) {
 				$this->rootStorageId = $cached;
 			} else {
 				$id = $this->getRootFolder()->getStorage()->getCache()->getNumericStorageId();
-				$this->cache->set("root_storage_id", $id);
+				$this->cache->set('root_storage_id', $id);
 				$this->rootStorageId = $id;
 			}
 		}
+
 		return $this->rootStorageId;
 	}
 
@@ -111,20 +72,14 @@ class MountProvider implements IMountProvider {
 		return $this->folderManager->getFoldersForUser($user, $this->getRootStorageId());
 	}
 
-	public function getMountsForUser(IUser $user, IStorageFactory $loader) {
+	public function getMountsForUser(IUser $user, IStorageFactory $loader): array {
 		$folders = $this->getFoldersForUser($user);
 
-		$mountPoints = array_map(function (array $folder) {
-			return 'files/' . $folder['mount_point'];
-		}, $folders);
+		$mountPoints = array_map(fn (array $folder): string => 'files/' . $folder['mount_point'], $folders);
 		$conflicts = $this->findConflictsForUser($user, $mountPoints);
 
-		$foldersWithAcl = array_filter($folders, function (array $folder) {
-			return $folder['acl'];
-		});
-		$aclRootPaths = array_map(function (array $folder) {
-			return $this->getJailPath($folder['folder_id']);
-		}, $foldersWithAcl);
+		$foldersWithAcl = array_filter($folders, fn (array $folder): bool => $folder['acl']);
+		$aclRootPaths = array_map(fn (array $folder): string => $this->getJailPath($folder['folder_id']), $foldersWithAcl);
 		$aclManager = $this->aclManagerFactory->getACLManager($user, $this->getRootStorageId());
 		$rootRules = $aclManager->getRelevantRulesForPath($aclRootPaths);
 
@@ -166,31 +121,32 @@ class MountProvider implements IMountProvider {
 		try {
 			// wopi requests are not logged in, instead we need to get the editor user from the access token
 			if (strpos($this->request->getRawPathInfo(), 'apps/richdocuments/wopi') && class_exists('OCA\Richdocuments\Db\WopiMapper')) {
-				$wopiMapper = \OC::$server->get('OCA\Richdocuments\Db\WopiMapper');
+				$wopiMapper = \OCP\Server::get('OCA\Richdocuments\Db\WopiMapper');
 				$token = $this->request->getParam('access_token');
 				if ($token) {
 					$wopi = $wopiMapper->getPathForToken($token);
 					return $wopi->getEditorUid();
 				}
 			}
-		} catch (\Exception $e) {
+		} catch (\Exception) {
 		}
 
 		$user = $this->userSession->getUser();
+
 		return $user ? $user->getUID() : null;
 	}
 
 	public function getMount(
-		int              $id,
-		string           $mountPoint,
-		int              $permissions,
-		int              $quota,
-		?ICacheEntry     $cacheEntry = null,
+		int $id,
+		string $mountPoint,
+		int $permissions,
+		int $quota,
+		?ICacheEntry $cacheEntry = null,
 		?IStorageFactory $loader = null,
-		bool             $acl = false,
-		?IUser           $user = null,
-		?ACLManager      $aclManager = null,
-		array            $rootRules = []
+		bool $acl = false,
+		?IUser $user = null,
+		?ACLManager $aclManager = null,
+		array $rootRules = [],
 	): ?IMountPoint {
 		if (!$cacheEntry) {
 			// trigger folder creation
@@ -198,7 +154,11 @@ class MountProvider implements IMountProvider {
 			if ($folder === null) {
 				return null;
 			}
+
 			$cacheEntry = $this->getRootFolder()->getStorage()->getCache()->get($folder->getId());
+			if ($cacheEntry === false) {
+				return null;
+			}
 		}
 
 		$storage = $this->getRootFolder()->getStorage();
@@ -244,11 +204,11 @@ class MountProvider implements IMountProvider {
 	}
 
 	public function getTrashMount(
-		int             $id,
-		string          $mountPoint,
-		int             $quota,
+		int $id,
+		string $mountPoint,
+		int $quota,
 		IStorageFactory $loader,
-		IUser           $user,
+		IUser $user,
 		?ICacheEntry $cacheEntry = null,
 	): IMountPoint {
 
@@ -270,11 +230,11 @@ class MountProvider implements IMountProvider {
 	}
 
 	public function getGroupFolderStorage(
-		int          $id,
-		IStorage     $rootStorage,
-		?IUser       $user,
-		string       $rootPath,
-		int          $quota,
+		int $id,
+		IStorage $rootStorage,
+		?IUser $user,
+		string $rootPath,
+		int $quota,
 		?ICacheEntry $rootCacheEntry,
 	): IStorage {
 		if ($this->enableEncryption) {
@@ -317,13 +277,14 @@ class MountProvider implements IMountProvider {
 			$rootProvider = $this->rootProvider;
 			$this->root = $rootProvider();
 		}
+
 		return $this->root;
 	}
 
 	public function getFolder(int $id, bool $create = true): ?Node {
 		try {
 			return $this->getRootFolder()->get((string)$id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			if ($create) {
 				return $this->getRootFolder()->newFolder((string)$id);
 			} else {

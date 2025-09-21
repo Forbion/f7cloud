@@ -15,12 +15,10 @@ use OCP\IUserSession;
  * @psalm-import-type GroupFoldersFolder from ResponseDefinitions
  */
 class FoldersFilter {
-	private IUserSession $userSession;
-	private IGroupManager $groupManager;
-
-	public function __construct(IUserSession $userSession, IGroupManager $groupManager) {
-		$this->userSession = $userSession;
-		$this->groupManager = $groupManager;
+	public function __construct(
+		private IUserSession $userSession,
+		private IGroupManager $groupManager,
+	) {
 	}
 
 	/**
@@ -29,6 +27,10 @@ class FoldersFilter {
 	 */
 	public function getForApiUser(array $folders): array {
 		$user = $this->userSession->getUser();
+		if ($user === null) {
+			return [];
+		}
+
 		return array_values(array_filter($folders, function (array $folder) use ($user): bool {
 			foreach ($folder['manage'] as $manager) {
 				if ($manager['type'] === 'group') {
@@ -39,6 +41,7 @@ class FoldersFilter {
 					return true;
 				}
 			}
+
 			return false;
 		}));
 	}

@@ -8,16 +8,23 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Controller;
 
+use OC\Authentication\Token\IProvider;
+use OC\Authentication\Token\IToken;
+use OCA\Circles\Model\Circle;
 use OCA\Talk\Capabilities;
 use OCA\Talk\Config;
 use OCA\Talk\Events\AAttendeeRemovedEvent;
 use OCA\Talk\Events\BeforeRoomsFetchEvent;
+use OCA\Talk\Events\RoomExtendedEvent;
 use OCA\Talk\Exceptions\CannotReachRemoteException;
+use OCA\Talk\Exceptions\FederationRestrictionException;
 use OCA\Talk\Exceptions\ForbiddenException;
 use OCA\Talk\Exceptions\GuestImportException;
 use OCA\Talk\Exceptions\InvalidPasswordException;
 use OCA\Talk\Exceptions\ParticipantNotFoundException;
+use OCA\Talk\Exceptions\ParticipantProperty\PermissionsException;
 use OCA\Talk\Exceptions\RoomNotFoundException;
+use OCA\Talk\Exceptions\RoomProperty\CreationException;
 use OCA\Talk\Exceptions\RoomProperty\DefaultPermissionsException;
 use OCA\Talk\Exceptions\RoomProperty\DescriptionException;
 use OCA\Talk\Exceptions\RoomProperty\ListableException;
@@ -53,34 +60,46 @@ use OCA\Talk\Room;
 use OCA\Talk\Service\BanService;
 use OCA\Talk\Service\BreakoutRoomService;
 use OCA\Talk\Service\ChecksumVerificationService;
+use OCA\Talk\Service\InvitationService;
 use OCA\Talk\Service\NoteToSelfService;
 use OCA\Talk\Service\ParticipantService;
+use OCA\Talk\Service\PhoneService;
 use OCA\Talk\Service\RecordingService;
 use OCA\Talk\Service\RoomFormatter;
 use OCA\Talk\Service\RoomService;
 use OCA\Talk\Service\SessionService;
+use OCA\Talk\Settings\UserPreference;
 use OCA\Talk\Share\Helper\Preloader;
 use OCA\Talk\TalkSession;
 use OCA\Talk\Webinary;
 use OCP\App\IAppManager;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\OpenAPI;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\Calendar\CalendarEventStatus;
+use OCP\Calendar\ICreateFromString;
+use OCP\Calendar\IManager as ICalendarManager;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Federation\ICloudIdManager;
+use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IPhoneNumberUtil;
 use OCP\IRequest;
+use OCP\ISession;
+use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Security\Bruteforce\IThrottler;
+use OCP\Security\ISecureRandom;
 use OCP\User\Events\UserLiveStatusEvent;
 use OCP\UserStatus\IManager as IUserStatusManager;
 use OCP\UserStatus\IUserStatus;
@@ -89,9 +108,11 @@ use Psr\Log\LoggerInterface;
 /**
  * @psalm-import-type TalkCapabilities from ResponseDefinitions
  * @psalm-import-type TalkParticipant from ResponseDefinitions
+ * @psalm-import-type TalkInvitationList from ResponseDefinitions
  * @psalm-import-type TalkRoom from ResponseDefinitions
+ * @psalm-import-type TalkRoomWithInvalidInvitations from ResponseDefinitions
  */
-class RoomController extends AEnvironmentAwareController {
+class RoomController extends AEnvironmentAwareOCSController {
 	protected array $commonReadMessages = [];
 
 	public function __construct(
@@ -106,26 +127,35 @@ class RoomController extends AEnvironmentAwareController {
 		protected RoomService $roomService,
 		protected BreakoutRoomService $breakoutRoomService,
 		protected NoteToSelfService $noteToSelfService,
+		protected InvitationService $invitationService,
 		protected ParticipantService $participantService,
 		protected SessionService $sessionService,
 		protected GuestManager $guestManager,
 		protected IUserStatusManager $statusManager,
+		protected ICalendarManager $calendarManager,
 		protected IEventDispatcher $dispatcher,
 		protected ITimeFactory $timeFactory,
 		protected ChecksumVerificationService $checksumVerificationService,
 		protected RoomFormatter $roomFormatter,
 		protected Preloader $sharePreloader,
 		protected IConfig $config,
+		protected IAppConfig $appConfig,
 		protected Config $talkConfig,
 		protected ICloudIdManager $cloudIdManager,
 		protected IPhoneNumberUtil $phoneNumberUtil,
+		protected PhoneService $phoneService,
 		protected IThrottler $throttler,
 		protected LoggerInterface $logger,
 		protected Authenticator $federationAuthenticator,
 		protected Capabilities $capabilities,
 		protected FederationManager $federationManager,
 		protected BanService $banService,
+		protected IURLGenerator $url,
 		protected IL10N $l,
+		protected IClientService $clientService,
+		protected IProvider $authTokenProvider,
+		protected ISession $serverSession,
+		protected ISecureRandom $random,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -169,6 +199,13 @@ class RoomController extends AEnvironmentAwareController {
 			$this->config->getAppValue('spreed', 'federation_allowed_groups', '[]'),
 		];
 
+		if ($this->userId !== null) {
+			$values[] = $this->appConfig->getAppValueInt('experiments_users');
+			$values[] = $this->config->getUserValue($this->userId, 'spreed', UserPreference::ATTACHMENT_FOLDER);
+		} else {
+			$values[] = $this->appConfig->getAppValueInt('experiments_guests');
+		}
+
 		return [
 			'X-Nextcloud-Talk-Hash' => sha1(implode('#', $values)),
 		];
@@ -182,7 +219,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * @param int $modifiedSince Filter rooms modified after a timestamp
 	 * @param bool $includeLastMessage Include the last message, clients should opt-out when only rendering a compact list
 	 * @psalm-param non-negative-int $modifiedSince
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom[], array{X-Nextcloud-Talk-Hash: string, X-Nextcloud-Talk-Modified-Before: numeric-string, X-Nextcloud-Talk-Federation-Invites?: numeric-string}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkRoom>, array{X-Nextcloud-Talk-Hash: string, X-Nextcloud-Talk-Modified-Before: numeric-string, X-Nextcloud-Talk-Federation-Invites?: numeric-string}>
 	 *
 	 * 200: Return list of rooms
 	 */
@@ -296,7 +333,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Get listed rooms with optional search term
 	 *
 	 * @param string $searchTerm search term
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom[], array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkRoom>, array{}>
 	 *
 	 * 200: Return list of matching rooms
 	 */
@@ -317,7 +354,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * All for moderators and in case of "free selection", or the assigned breakout room for other participants
 	 *
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom[], array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkRoom>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>
 	 *
 	 * 200: Breakout rooms returned
 	 * 400: Getting breakout rooms is not possible
@@ -458,7 +495,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{X-Nextcloud-Talk-Hash: string}>
 	 *
-	 *  200: Room returned successfully
+	 * 200: Room returned successfully
 	 */
 	#[NoAdminRequired]
 	public function getNoteToSelfConversation(): DataResponse {
@@ -513,77 +550,240 @@ class RoomController extends AEnvironmentAwareController {
 	/**
 	 * Create a room with a user, a group or a circle
 	 *
+	 * With the `conversation-creation-all` capability a lot of new options where
+	 * introduced.
+	 * Before that only `$roomType`, `$roomName`, `$objectType` and `$objectId`
+	 * were supported all the time, and `$password` with the
+	 * `conversation-creation-password` capability
+	 * In case the `$roomType` is {@see Room::TYPE_ONE_TO_ONE} only the `$invite`
+	 * or `$participants` parameter is supported.
+	 *
 	 * @param int $roomType Type of the room
 	 * @psalm-param Room::TYPE_* $roomType
-	 * @param string $invite User, group, … ID to invite
-	 * @param string $roomName Name of the room
-	 * @param 'groups'|'circles'|'' $source Source of the invite ID ('circles' to create a room with a circle, etc.)
-	 * @param string $objectType Type of the object
-	 * @param string $objectId ID of the object
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error?: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @param string $invite User, group, … ID to invite **Deprecated** Use the `$participants` array instead
+	 * @param string $roomName Name of the room, unless the legacy mode providing `$invite` and `$source` is used, the name must no longer be empty with the `conversation-creation-all` capability (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+	 * @param 'groups'|'circles'|'' $source Source of the invite ID ('circles' to create a room with a circle, etc.) **Deprecated** Use the `$participants` array instead
+	 * @param string $objectType Type of the object (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+	 * @param string $objectId ID of the object (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+	 * @param string $password The room password (only available with `conversation-creation-password` capability) (Ignored if `$roomType` is not {@see Room::TYPE_PUBLIC})
+	 * @param 0|1 $readOnly Read only state of the conversation (Default writable) (only available with `conversation-creation-all` capability)
+	 * @psalm-param Room::READ_* $readOnly
+	 * @param 0|1|2 $listable Scope where the conversation is listable (Default not listable for anyone) (only available with `conversation-creation-all` capability)
+	 * @psalm-param Room::LISTABLE_* $listable
+	 * @param int $messageExpiration Seconds after which messages will disappear, 0 disables expiration (Default 0) (only available with `conversation-creation-all` capability)
+	 * @psalm-param non-negative-int $messageExpiration
+	 * @param 0|1 $lobbyState Lobby state of the conversation (Default lobby is disabled) (only available with `conversation-creation-all` capability)
+	 * @psalm-param Webinary::LOBBY_* $lobbyState
+	 * @param int|null $lobbyTimer Timer when the lobby will be removed (Default null, will not be disabled automatically) (only available with `conversation-creation-all` capability)
+	 * @psalm-param non-negative-int|null $lobbyTimer
+	 * @param 0|1|2 $sipEnabled Whether SIP dial-in shall be enabled (only available with `conversation-creation-all` capability)
+	 * @psalm-param Webinary::SIP_* $sipEnabled
+	 * @param int<0, 255> $permissions Default permissions for participants (only available with `conversation-creation-all` capability)
+	 * @psalm-param int-mask-of<Attendee::PERMISSIONS_*> $permissions
+	 * @param 0|1 $recordingConsent Whether participants need to agree to a recording before joining a call (only available with `conversation-creation-all` capability)
+	 * @psalm-param RecordingService::CONSENT_REQUIRED_NO|RecordingService::CONSENT_REQUIRED_YES $recordingConsent
+	 * @param 0|1 $mentionPermissions Who can mention at-all in the chat (only available with `conversation-creation-all` capability)
+	 * @psalm-param Room::MENTION_PERMISSIONS_* $mentionPermissions
+	 * @param string $description Description for the conversation (limited to 2.000 characters) (only available with `conversation-creation-all` capability)
+	 * @param ?non-empty-string $emoji Emoji for the avatar of the conversation (only available with `conversation-creation-all` capability)
+	 * @param ?non-empty-string $avatarColor Background color of the avatar (Only considered when an emoji was provided) (only available with `conversation-creation-all` capability)
+	 * @param array<string, list<string>> $participants List of participants to add grouped by type (only available with `conversation-creation-all` capability)
+	 * @psalm-param TalkInvitationList $participants
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_ACCEPTED, TalkRoomWithInvalidInvitations, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{error: 'avatar'|'description'|'invite'|'listable'|'lobby'|'lobby-timer'|'mention-permissions'|'message-expiration'|'name'|'object'|'object-id'|'object-type'|'password'|'permissions'|'read-only'|'recording-consent'|'sip-enabled'|'type', message?: string}, array{}>
 	 *
 	 * 200: Room already existed
 	 * 201: Room created successfully
-	 * 400: Room type invalid
+	 * 202: Room created successfully but not all participants could be added
+	 * 400: Room type invalid or missing or invalid password
 	 * 403: Missing permissions to create room
 	 * 404: User, group or other target to invite was not found
 	 */
 	#[NoAdminRequired]
-	public function createRoom(int $roomType, string $invite = '', string $roomName = '', string $source = '', string $objectType = '', string $objectId = ''): DataResponse {
-		if ($roomType !== Room::TYPE_ONE_TO_ONE) {
-			/** @var IUser $user */
-			$user = $this->userManager->get($this->userId);
+	public function createRoom(
+		int $roomType = Room::TYPE_GROUP,
+		string $invite = '', /* @deprecated */
+		string $roomName = '',
+		string $source = '', /* @deprecated */
+		string $objectType = '',
+		string $objectId = '',
+		string $password = '',
+		int $readOnly = Room::READ_WRITE,
+		int $listable = Room::LISTABLE_NONE,
+		int $messageExpiration = 0,
+		int $lobbyState = Webinary::LOBBY_NONE,
+		?int $lobbyTimer = null,
+		int $sipEnabled = Webinary::SIP_DISABLED,
+		int $permissions = Attendee::PERMISSIONS_DEFAULT,
+		int $recordingConsent = RecordingService::CONSENT_REQUIRED_NO,
+		int $mentionPermissions = Room::MENTION_PERMISSIONS_EVERYONE,
+		string $description = '',
+		?string $emoji = null,
+		?string $avatarColor = null,
+		array $participants = [],
+	): DataResponse {
+		if ($roomType === Room::TYPE_ONE_TO_ONE) {
+			if ($invite === ''
+				&& isset($participants['users'][0])
+				&& is_string($participants['users'][0])) {
+				$invite = $participants['users'][0];
+			}
 
-			if ($this->talkConfig->isNotAllowedToCreateConversations($user)) {
-				return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return $this->createOneToOneRoom($invite);
+		}
+
+		/** @var IUser $user */
+		$user = $this->userManager->get($this->userId);
+
+		/** @var ?Room $oldRoom */
+		$oldRoom = null;
+		if ($objectType === Room::OBJECT_TYPE_EXTENDED_CONVERSATION && $objectId !== '') {
+			try {
+				$oldRoom = $this->manager->getRoomForUserByToken($objectId, $this->userId);
+				// Don't allow to extend unjoined public conversations
+				$this->participantService->getParticipant($oldRoom, $this->userId, false);
+			} catch (RoomNotFoundException|ParticipantNotFoundException) {
+				return new DataResponse(['error' => CreationException::REASON_OBJECT], Http::STATUS_BAD_REQUEST);
+			}
+
+			if ($oldRoom->getType() !== Room::TYPE_ONE_TO_ONE) {
+				// If we ever allow more types, only moderators should be able to perform the action
+				return new DataResponse(['error' => CreationException::REASON_OBJECT], Http::STATUS_BAD_REQUEST);
 			}
 		}
 
-		switch ($roomType) {
-			case Room::TYPE_ONE_TO_ONE:
-				return $this->createOneToOneRoom($invite);
-			case Room::TYPE_GROUP:
-				if ($invite === '') {
-					return $this->createEmptyRoom($roomName, false, $objectType, $objectId);
-				}
-				if ($source === 'circles') {
-					return $this->createCircleRoom($invite);
-				}
-				return $this->createGroupRoom($invite);
-			case Room::TYPE_PUBLIC:
-				return $this->createEmptyRoom($roomName, true, $objectType, $objectId);
+		if ($this->talkConfig->isNotAllowedToCreateConversations($user)) {
+			return new DataResponse(['error' => 'permissions'], Http::STATUS_FORBIDDEN);
 		}
 
-		return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		if ($invite !== '') {
+			// Legacy fallback for creating a conversation directly with a group or team
+			if ($source === 'circles') {
+				$sourceV2 = 'teams';
+			} else {
+				$sourceV2 = 'groups';
+			}
+			if (!isset($participants[$sourceV2])) {
+				$participants[$sourceV2] = [];
+			}
+			$participants[$sourceV2][] = $invite;
+			$participants[$sourceV2] = array_values(array_unique($participants[$sourceV2]));
+		}
+
+		if ($roomName === '') {
+			// Legacy fallback for creating a conversation without a name
+			$roomName = $this->roomService->prepareConversationName($invite ?: '---');
+			if ($source === 'circles') {
+				try {
+					$circle = $this->participantService->getCircle($invite, $this->userId);
+					$roomName = $this->roomService->prepareConversationName($circle->getName());
+				} catch (\Exception) {
+				}
+			} else {
+				$targetGroup = $this->groupManager->get($invite);
+				if ($targetGroup instanceof IGroup) {
+					$roomName = $this->roomService->prepareConversationName($targetGroup->getDisplayName());
+				}
+			}
+		}
+
+		if ($roomType !== Room::TYPE_PUBLIC) {
+			// Force empty password for non-public conversations
+			$password = '';
+		}
+
+		$invitationList = $this->invitationService->validateInvitations($participants, $user);
+		if ($invitationList->hasInvalidInvitations() && !$invitationList->hasValidInvitations()) {
+			// FIXME add the list of failed invitations?
+			return new DataResponse(['error' => 'invite'], Http::STATUS_NOT_FOUND);
+		}
+
+		if (!empty($invitationList->getEmails())) {
+			$roomType = Room::TYPE_PUBLIC;
+		}
+
+		if (in_array($objectType, [
+			Room::OBJECT_TYPE_PHONE_PERSIST,
+			Room::OBJECT_TYPE_PHONE_TEMPORARY,
+			Room::OBJECT_TYPE_PHONE_LEGACY,
+		], true)) {
+			$objectId = Room::OBJECT_ID_PHONE_OUTGOING;
+		}
+
+		try {
+			$room = $this->roomService->createConversation(
+				$roomType,
+				$roomName,
+				$user,
+				$objectType,
+				$objectId,
+				$password,
+				$readOnly,
+				$listable,
+				$messageExpiration,
+				$lobbyState,
+				$lobbyTimer,
+				$sipEnabled,
+				$permissions,
+				$recordingConsent,
+				$mentionPermissions,
+				$description,
+				$emoji,
+				$avatarColor,
+				allowInternalTypes: false,
+			);
+		} catch (CreationException $e) {
+			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
+		} catch (PasswordException $e) {
+			return new DataResponse(['error' => 'password', 'message' => $e->getHint()], Http::STATUS_BAD_REQUEST);
+		}
+
+		if ($invitationList->hasValidInvitations()) {
+			$this->participantService->addInvitationList($room, $invitationList, $user);
+		}
+
+		if ($objectType === Room::OBJECT_TYPE_EXTENDED_CONVERSATION) {
+			$event = new RoomExtendedEvent($oldRoom, $room);
+			$this->dispatcher->dispatchTyped($event);
+		}
+
+		if (!$invitationList->hasInvalidInvitations()) {
+			return new DataResponse($this->formatRoom($room, $this->participantService->getParticipant($room, $this->userId, false)), Http::STATUS_CREATED);
+		}
+
+		$data = $this->formatRoom($room, $this->participantService->getParticipant($room, $this->userId, false));
+		$data['invalidParticipants'] = $invitationList->getInvalidList();
+
+		return new DataResponse($data, Http::STATUS_ACCEPTED);
 	}
 
 	/**
 	 * Initiates a one-to-one video call from the current user to the recipient
 	 *
 	 * @param string $targetUserId ID of the user
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{error: 'invite'}, array{}>
 	 */
 	#[NoAdminRequired]
 	protected function createOneToOneRoom(string $targetUserId): DataResponse {
 		$currentUser = $this->userManager->get($this->userId);
 		if (!$currentUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			// Should never happen, basically an internal server error so we reuse another error
+			return new DataResponse(['error' => 'invite'], Http::STATUS_NOT_FOUND);
 		}
 
 		if ($targetUserId === MatterbridgeManager::BRIDGE_BOT_USERID) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'invite'], Http::STATUS_NOT_FOUND);
 		}
 
 		$targetUser = $this->userManager->get($targetUserId);
 		if (!$targetUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'invite'], Http::STATUS_NOT_FOUND);
 		}
 
 		try {
 			// We are only doing this manually here to be able to return different status codes
 			// Actually createOneToOneConversation also checks it.
 			$room = $this->manager->getOne2OneRoom($currentUser->getUID(), $targetUser->getUID());
-			$this->participantService->ensureOneToOneRoomIsFilled($room);
+			$this->participantService->ensureOneToOneRoomIsFilled($room, $currentUser->getUID());
 			return new DataResponse(
 				$this->formatRoom($room, $this->participantService->getParticipant($room, $currentUser->getUID(), false)),
 				Http::STATUS_OK
@@ -599,144 +799,16 @@ class RoomController extends AEnvironmentAwareController {
 			);
 		} catch (\InvalidArgumentException $e) {
 			// Same current and target user
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'invite'], Http::STATUS_FORBIDDEN);
 		} catch (RoomNotFoundException $e) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'invite'], Http::STATUS_FORBIDDEN);
 		}
-	}
-
-	/**
-	 * Initiates a group video call from the selected group
-	 *
-	 * @param string $targetGroupName
-	 * @return DataResponse<Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>
-	 */
-	#[NoAdminRequired]
-	protected function createGroupRoom(string $targetGroupName): DataResponse {
-		$currentUser = $this->userManager->get($this->userId);
-		if (!$currentUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		$targetGroup = $this->groupManager->get($targetGroupName);
-		if (!$targetGroup instanceof IGroup) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		// Create the room
-		$name = $this->roomService->prepareConversationName($targetGroup->getDisplayName());
-		$room = $this->roomService->createConversation(Room::TYPE_GROUP, $name, $currentUser);
-		$this->participantService->addGroup($room, $targetGroup);
-
-		return new DataResponse($this->formatRoom($room, $this->participantService->getParticipant($room, $currentUser->getUID(), false)), Http::STATUS_CREATED);
-	}
-
-	/**
-	 * Initiates a group video call from the selected circle
-	 *
-	 * @param string $targetCircleId
-	 * @return DataResponse<Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error?: string}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>
-	 */
-	#[NoAdminRequired]
-	protected function createCircleRoom(string $targetCircleId): DataResponse {
-		if (!$this->appManager->isEnabledForUser('circles')) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
-		}
-
-		$currentUser = $this->userManager->get($this->userId);
-		if (!$currentUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		try {
-			$circle = $this->participantService->getCircle($targetCircleId, $this->userId);
-		} catch (\Exception $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		// Create the room
-		$name = $this->roomService->prepareConversationName($circle->getName());
-		$room = $this->roomService->createConversation(Room::TYPE_GROUP, $name, $currentUser);
-		$this->participantService->addCircle($room, $circle);
-
-		return new DataResponse($this->formatRoom($room, $this->participantService->getParticipant($room, $currentUser->getUID(), false)), Http::STATUS_CREATED);
-	}
-
-	/**
-	 * @return DataResponse<Http::STATUS_CREATED, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error?: string}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>
-	 */
-	#[NoAdminRequired]
-	protected function createEmptyRoom(string $roomName, bool $public = true, string $objectType = '', string $objectId = ''): DataResponse {
-		$currentUser = $this->userManager->get($this->userId);
-		if (!$currentUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		$roomType = $public ? Room::TYPE_PUBLIC : Room::TYPE_GROUP;
-		/** @var Room|null $parentRoom */
-		$parentRoom = null;
-
-		if ($objectType === BreakoutRoom::PARENT_OBJECT_TYPE) {
-			try {
-				$parentRoom = $this->manager->getRoomForUserByToken($objectId, $this->userId);
-				$parentRoomParticipant = $this->participantService->getParticipant($parentRoom, $this->userId);
-
-				if (!$parentRoomParticipant->hasModeratorPermissions()) {
-					return new DataResponse(['error' => 'permissions'], Http::STATUS_BAD_REQUEST);
-				}
-				if ($parentRoom->getBreakoutRoomMode() === BreakoutRoom::MODE_NOT_CONFIGURED) {
-					return new DataResponse(['error' => 'mode'], Http::STATUS_BAD_REQUEST);
-				}
-
-				// Overwriting the type with the parent type.
-				$roomType = $parentRoom->getType();
-			} catch (RoomNotFoundException $e) {
-				return new DataResponse(['error' => 'room'], Http::STATUS_BAD_REQUEST);
-			} catch (ParticipantNotFoundException $e) {
-				return new DataResponse(['error' => 'permissions'], Http::STATUS_BAD_REQUEST);
-			}
-		} elseif ($objectType === Room::OBJECT_TYPE_PHONE) {
-			// Ignoring any user input on this one
-			$objectId = $objectType;
-		} elseif ($objectType === Room::OBJECT_TYPE_EVENT) {
-			// Allow event rooms in future versions without breaking in older talk versions that the same calendar version supports
-			$objectType = '';
-			$objectId = '';
-		} elseif ($objectType !== '') {
-			return new DataResponse(['error' => 'object'], Http::STATUS_BAD_REQUEST);
-		}
-
-		// Create the room
-		try {
-			$room = $this->roomService->createConversation($roomType, $roomName, $currentUser, $objectType, $objectId);
-		} catch (\InvalidArgumentException $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
-		}
-
-		$currentParticipant = $this->participantService->getParticipant($room, $currentUser->getUID(), false);
-		if ($objectType === BreakoutRoom::PARENT_OBJECT_TYPE) {
-			// Enforce the lobby state when breakout rooms are disabled
-			if ($parentRoom instanceof Room && $parentRoom->getBreakoutRoomStatus() === BreakoutRoom::STATUS_STOPPED) {
-				$this->roomService->setLobby($room, Webinary::LOBBY_NON_MODERATORS, null, false, false);
-			}
-
-			$participants = $this->participantService->getParticipantsForRoom($parentRoom);
-			$moderators = array_filter($participants, static function (Participant $participant) use ($currentParticipant) {
-				return $participant->hasModeratorPermissions()
-					&& $participant->getAttendee()->getId() !== $currentParticipant->getAttendee()->getId();
-			});
-			if (!empty($moderators)) {
-				$this->breakoutRoomService->addModeratorsToBreakoutRooms([$room], $moderators);
-			}
-		}
-
-		return new DataResponse($this->formatRoom($room, $currentParticipant), Http::STATUS_CREATED);
 	}
 
 	/**
 	 * Add a room to the favorites
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
 	 *
 	 * 200: Successfully added room to favorites
 	 */
@@ -745,13 +817,13 @@ class RoomController extends AEnvironmentAwareController {
 	#[RequireLoggedInParticipant]
 	public function addToFavorites(): DataResponse {
 		$this->participantService->updateFavoriteStatus($this->participant, true);
-		return new DataResponse([]);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Remove a room from the favorites
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
 	 *
 	 * 200: Successfully removed room from favorites
 	 */
@@ -760,7 +832,7 @@ class RoomController extends AEnvironmentAwareController {
 	#[RequireLoggedInParticipant]
 	public function removeFromFavorites(): DataResponse {
 		$this->participantService->updateFavoriteStatus($this->participant, false);
-		return new DataResponse([]);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -768,7 +840,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $level New level
 	 * @psalm-param Participant::NOTIFY_* $level
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'level'}, array{}>
 	 *
 	 * 200: Notification level updated successfully
 	 * 400: Updating notification level is not possible
@@ -779,11 +851,11 @@ class RoomController extends AEnvironmentAwareController {
 	public function setNotificationLevel(int $level): DataResponse {
 		try {
 			$this->participantService->updateNotificationLevel($this->participant, $level);
-		} catch (\InvalidArgumentException $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		} catch (\InvalidArgumentException) {
+			return new DataResponse(['error' => 'level'], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -791,7 +863,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $level New level
 	 * @psalm-param Participant::NOTIFY_CALLS_* $level
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'level'}, array{}>
 	 *
 	 * 200: Call notification level updated successfully
 	 * 400: Updating call notification level is not possible
@@ -802,18 +874,18 @@ class RoomController extends AEnvironmentAwareController {
 	public function setNotificationCalls(int $level): DataResponse {
 		try {
 			$this->participantService->updateNotificationCalls($this->participant, $level);
-		} catch (\InvalidArgumentException $e) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		} catch (\InvalidArgumentException) {
+			return new DataResponse(['error' => 'level'], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Rename a room
 	 *
 	 * @param string $roomName New name
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'event'|'type'|'value'}, array{}>
 	 *
 	 * 200: Room renamed successfully
 	 * 400: Renaming room is not possible
@@ -821,19 +893,23 @@ class RoomController extends AEnvironmentAwareController {
 	#[PublicPage]
 	#[RequireModeratorParticipant]
 	public function renameRoom(string $roomName): DataResponse {
+		if ($this->room->getObjectType() === Room::OBJECT_TYPE_EVENT) {
+			return new DataResponse(['error' => Room::OBJECT_TYPE_EVENT], Http::STATUS_BAD_REQUEST);
+		}
+
 		try {
 			$this->roomService->setName($this->room, $roomName, validateType: true);
 		} catch (NameException $e) {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Update the description of a room
 	 *
-	 * @param string $description New description
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'type'|'value'}, array{}>
+	 * @param string $description New description for the conversation (limited to 2.000 characters, was 500 before Talk 21)
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'event'|'type'|'value'}, array{}>
 	 *
 	 * 200: Description updated successfully
 	 * 400: Updating description is not possible
@@ -841,19 +917,23 @@ class RoomController extends AEnvironmentAwareController {
 	#[PublicPage]
 	#[RequireModeratorParticipant]
 	public function setDescription(string $description): DataResponse {
+		if ($this->room->getObjectType() === Room::OBJECT_TYPE_EVENT) {
+			return new DataResponse(['error' => Room::OBJECT_TYPE_EVENT], Http::STATUS_BAD_REQUEST);
+		}
+
 		try {
 			$this->roomService->setDescription($this->room, $description);
 		} catch (DescriptionException $e) {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Delete a room
 	 *
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST, null, array{}>
 	 *
 	 * 200: Room successfully deleted
 	 * 400: Deleting room is not possible
@@ -861,13 +941,38 @@ class RoomController extends AEnvironmentAwareController {
 	#[PublicPage]
 	#[RequireModeratorParticipant]
 	public function deleteRoom(): DataResponse {
-		if ($this->room->getType() === Room::TYPE_ONE_TO_ONE || $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		if (!$this->appConfig->getAppValueBool('delete_one_to_one_conversations')
+			&& in_array($this->room->getType(), [Room::TYPE_ONE_TO_ONE, Room::TYPE_ONE_TO_ONE_FORMER], true)) {
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		$this->roomService->deleteRoom($this->room);
 
-		return new DataResponse([]);
+		return new DataResponse(null);
+	}
+
+	/**
+	 * Unbind a room from its object to prevent automatic retention
+	 *
+	 * Required capability: `unbind-conversation`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'object-type'}, array{}>
+	 *
+	 * 200: Room successfully unbound
+	 * 400: Unbinding room is not possible
+	 */
+	#[PublicPage]
+	#[RequireModeratorParticipant]
+	public function unbindRoomFromObject(): DataResponse {
+		if ($this->room->getObjectType() === Room::OBJECT_TYPE_EVENT || $this->room->getObjectType() === Room::OBJECT_TYPE_INSTANT_MEETING) {
+			$this->roomService->resetObject($this->room);
+		} elseif ($this->room->getObjectType() === Room::OBJECT_TYPE_PHONE_TEMPORARY) {
+			$this->roomService->setObject($this->room, Room::OBJECT_TYPE_PHONE_PERSIST, $this->room->getObjectId());
+		} else {
+			return new DataResponse(['error' => 'object-type'], Http::STATUS_BAD_REQUEST);
+		}
+
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -875,7 +980,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Get a list of participants for a room
 	 *
 	 * @param bool $includeStatus Include the user statuses
-	 * @return DataResponse<Http::STATUS_OK, TalkParticipant[], array{X-Nextcloud-Has-User-Statuses?: bool}>|DataResponse<Http::STATUS_FORBIDDEN, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkParticipant>, array{X-Nextcloud-Has-User-Statuses?: bool}>|DataResponse<Http::STATUS_FORBIDDEN, null, array{}>
 	 *
 	 * 200: Participants returned
 	 * 403: Missing permissions for getting participants
@@ -928,7 +1033,7 @@ class RoomController extends AEnvironmentAwareController {
 		}
 
 		if ($this->participant->getAttendee()->getParticipantType() === Participant::GUEST) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(null, Http::STATUS_FORBIDDEN);
 		}
 
 		$participants = $this->participantService->getSessionsAndParticipantsForRoom($this->room);
@@ -940,7 +1045,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Get the breakout room participants for a room
 	 *
 	 * @param bool $includeStatus Include the user statuses
-	 * @return DataResponse<Http::STATUS_OK, TalkParticipant[], array{X-Nextcloud-Has-User-Statuses?: bool}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkParticipant>, array{X-Nextcloud-Has-User-Statuses?: bool}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN, null, array{}>
 	 *
 	 * 200: Breakout room participants returned
 	 * 400: Getting breakout room participants is not possible
@@ -951,7 +1056,7 @@ class RoomController extends AEnvironmentAwareController {
 	#[RequireParticipant]
 	public function getBreakoutRoomParticipants(bool $includeStatus = false): DataResponse {
 		if ($this->participant->getAttendee()->getParticipantType() === Participant::GUEST) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(null, Http::STATUS_FORBIDDEN);
 		}
 
 		try {
@@ -1142,8 +1247,8 @@ class RoomController extends AEnvironmentAwareController {
 	 * Add a participant to a room
 	 *
 	 * @param string $newParticipant New participant
-	 * @param 'users'|'groups'|'circles'|'emails'|'federated_users'|'phones' $source Source of the participant
-	 * @return DataResponse<Http::STATUS_OK, array{type: int}|array<empty>, array{}>|DataResponse<Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error?: string}, array{}>
+	 * @param 'users'|'groups'|'circles'|'emails'|'federated_users'|'phones'|'teams' $source Source of the participant
+	 * @return DataResponse<Http::STATUS_OK, array{type?: int}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, array{error: 'ban'|'cloud-id'|'federation'|'moderator'|'new-participant'|'outgoing'|'reach-remote'|'room-type'|'sip'|'source'|'trusted-servers'}, array{}>
 	 *
 	 * 200: Participant successfully added
 	 * 400: Adding participant is not possible, e.g. when the user is banned (check error attribute of response for detail key)
@@ -1157,7 +1262,7 @@ class RoomController extends AEnvironmentAwareController {
 			|| $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER
 			|| $this->room->getType() === Room::TYPE_NOTE_TO_SELF
 			|| $this->room->getObjectType() === Room::OBJECT_TYPE_VIDEO_VERIFICATION) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'room-type'], Http::STATUS_BAD_REQUEST);
 		}
 
 		if ($source !== 'users' && $this->room->getObjectType() === BreakoutRoom::PARENT_OBJECT_TYPE) {
@@ -1185,12 +1290,12 @@ class RoomController extends AEnvironmentAwareController {
 
 		if ($source === 'users') {
 			if ($newParticipant === MatterbridgeManager::BRIDGE_BOT_USERID) {
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+				return new DataResponse(['error' => 'new-participant'], Http::STATUS_NOT_FOUND);
 			}
 
 			$newUser = $this->userManager->get($newParticipant);
 			if (!$newUser instanceof IUser) {
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+				return new DataResponse(['error' => 'new-participant'], Http::STATUS_NOT_FOUND);
 			}
 
 			//Check if the user is banned
@@ -1206,19 +1311,19 @@ class RoomController extends AEnvironmentAwareController {
 		} elseif ($source === 'groups') {
 			$group = $this->groupManager->get($newParticipant);
 			if (!$group instanceof IGroup) {
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+				return new DataResponse(['error' => 'new-participant'], Http::STATUS_NOT_FOUND);
 			}
 
 			$this->participantService->addGroup($this->room, $group, $participants);
-		} elseif ($source === 'circles') {
+		} elseif ($source === 'circles' || $source === 'teams') {
 			if (!$this->appManager->isEnabledForUser('circles')) {
-				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+				return new DataResponse(['error' => 'new-participant'], Http::STATUS_BAD_REQUEST);
 			}
 
 			try {
 				$circle = $this->participantService->getCircle($newParticipant, $this->userId);
-			} catch (\Exception $e) {
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+			} catch (\Exception) {
+				return new DataResponse(['error' => 'new-participant'], Http::STATUS_NOT_FOUND);
 			}
 
 			$this->participantService->addCircle($this->room, $circle, $participants);
@@ -1242,7 +1347,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse($data);
 		} elseif ($source === 'federated_users') {
 			if (!$this->talkConfig->isFederationEnabled()) {
-				return new DataResponse([], Http::STATUS_NOT_IMPLEMENTED);
+				return new DataResponse(['error' => 'federation'], Http::STATUS_NOT_IMPLEMENTED);
 			}
 			try {
 				$newUser = $this->cloudIdManager->resolveCloudId($newParticipant);
@@ -1250,12 +1355,12 @@ class RoomController extends AEnvironmentAwareController {
 				$this->logger->error($e->getMessage(), [
 					'exception' => $e,
 				]);
-				return new DataResponse(['error' => 'cloudId'], Http::STATUS_BAD_REQUEST);
+				return new DataResponse(['error' => 'cloud-id'], Http::STATUS_BAD_REQUEST);
 			}
 			try {
 				$this->federationManager->isAllowedToInvite($addedBy, $newUser);
-			} catch (\InvalidArgumentException $e) {
-				return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
+			} catch (FederationRestrictionException $e) {
+				return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 			}
 
 			$participantsToAdd[] = [
@@ -1270,7 +1375,7 @@ class RoomController extends AEnvironmentAwareController {
 				|| !$this->talkConfig->canUserDialOutSIP($addedBy)
 				|| preg_match(Room::SIP_INCOMPATIBLE_REGEX, $this->room->getToken())
 				|| ($this->room->getType() !== Room::TYPE_GROUP && $this->room->getType() !== Room::TYPE_PUBLIC)) {
-				return new DataResponse([], Http::STATUS_NOT_IMPLEMENTED);
+				return new DataResponse(['error' => 'sip'], Http::STATUS_NOT_IMPLEMENTED);
 			}
 
 			$phoneRegion = $this->config->getSystemValueString('default_phone_region');
@@ -1291,7 +1396,7 @@ class RoomController extends AEnvironmentAwareController {
 			];
 		} else {
 			$this->logger->error('Trying to add participant from unsupported source ' . $source);
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'source'], Http::STATUS_BAD_REQUEST);
 		}
 
 		// attempt adding the listed users to the room
@@ -1330,7 +1435,9 @@ class RoomController extends AEnvironmentAwareController {
 			try {
 				$this->breakoutRoomService->removeAttendeeFromBreakoutRoom($parentRoom, Attendee::ACTOR_USERS, $newParticipant);
 			} catch (\InvalidArgumentException $e) {
-				return new DataResponse(['error' => $e->getMessage()], Http::STATUS_BAD_REQUEST);
+				/** @var 'moderator' $error */
+				$error = $e->getMessage();
+				return new DataResponse(['error' => $error], Http::STATUS_BAD_REQUEST);
 			}
 		}
 
@@ -1338,7 +1445,7 @@ class RoomController extends AEnvironmentAwareController {
 		try {
 			$this->participantService->addUsers($this->room, $participantsToAdd, $addedBy);
 		} catch (CannotReachRemoteException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'reach-remote'], Http::STATUS_NOT_FOUND);
 		}
 
 		return new DataResponse([]);
@@ -1347,7 +1454,7 @@ class RoomController extends AEnvironmentAwareController {
 	/**
 	 * Remove the current user from a room
 	 *
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array{error: 'last-moderator'|'participant'}, array{}>
 	 *
 	 * 200: Participant removed successfully
 	 * 400: Removing participant is not possible
@@ -1361,7 +1468,7 @@ class RoomController extends AEnvironmentAwareController {
 	}
 
 	/**
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array{error: 'last-moderator'|'participant'}, array{}>
 	 */
 	protected function removeSelfFromRoomLogic(Room $room, Participant $participant): DataResponse {
 		if ($room->isFederatedConversation()) {
@@ -1372,12 +1479,12 @@ class RoomController extends AEnvironmentAwareController {
 			if ($participant->hasModeratorPermissions(false)
 				&& $this->participantService->getNumberOfUsers($room) > 1
 				&& $this->participantService->getNumberOfModerators($room) === 1) {
-				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+				return new DataResponse(['error' => 'last-moderator'], Http::STATUS_BAD_REQUEST);
 			}
 		}
 
 		if ($room->getType() !== Room::TYPE_CHANGELOG &&
-			$room->getObjectType() !== 'file' &&
+			$room->getObjectType() !== Room::OBJECT_TYPE_FILE &&
 			$this->participantService->getNumberOfUsers($room) === 1 &&
 			\in_array($participant->getAttendee()->getParticipantType(), [
 				Participant::USER,
@@ -1385,17 +1492,23 @@ class RoomController extends AEnvironmentAwareController {
 				Participant::OWNER,
 			], true)) {
 			$this->roomService->deleteRoom($room);
-			return new DataResponse();
+			return new DataResponse(null);
+		}
+
+		if ($this->appConfig->getAppValueBool('delete_one_to_one_conversations')
+			&& in_array($this->room->getType(), [Room::TYPE_ONE_TO_ONE, Room::TYPE_ONE_TO_ONE_FORMER], true)) {
+			$this->roomService->deleteRoom($room);
+			return new DataResponse(null);
 		}
 
 		$currentUser = $this->userManager->get($this->userId);
 		if (!$currentUser instanceof IUser) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'participant'], Http::STATUS_NOT_FOUND);
 		}
 
 		$this->participantService->removeUser($room, $currentUser, AAttendeeRemovedEvent::REASON_LEFT);
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -1403,7 +1516,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $attendeeId ID of the attendee
 	 * @psalm-param non-negative-int $attendeeId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{error: 'last-moderator'|'owner'|'participant'|'room-type'}, array{}>
 	 *
 	 * 200: Attendee removed successfully
 	 * 400: Removing attendee is not possible
@@ -1416,16 +1529,16 @@ class RoomController extends AEnvironmentAwareController {
 		try {
 			$targetParticipant = $this->participantService->getParticipantByAttendeeId($this->room, $attendeeId);
 		} catch (ParticipantNotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'participant'], Http::STATUS_NOT_FOUND);
 		}
 
 		if ($targetParticipant->getAttendee()->getActorType() === Attendee::ACTOR_USERS
 			&& $targetParticipant->getAttendee()->getActorId() === MatterbridgeManager::BRIDGE_BOT_USERID) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'participant'], Http::STATUS_NOT_FOUND);
 		}
 
 		if ($this->room->getType() === Room::TYPE_ONE_TO_ONE || $this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(['error' => 'room-type'], Http::STATUS_BAD_REQUEST);
 		}
 
 		if ($this->participant->getAttendee()->getId() === $targetParticipant->getAttendee()->getId()) {
@@ -1433,37 +1546,50 @@ class RoomController extends AEnvironmentAwareController {
 		}
 
 		if ($targetParticipant->getAttendee()->getParticipantType() === Participant::OWNER) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'owner'], Http::STATUS_FORBIDDEN);
 		}
 
 		$this->participantService->removeAttendee($this->room, $targetParticipant, AAttendeeRemovedEvent::REASON_REMOVED);
-		return new DataResponse([]);
+		return new DataResponse(null);
 	}
 
 	/**
 	 * Allowed guests to join conversation
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
+	 * Required capability: `conversation-creation-password` for `string $password` parameter
+	 *
+	 * @param string $password New password (only available with `conversation-creation-password` capability)
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'|'password', message?: string}, array{}>
 	 *
 	 * 200: Allowed guests successfully
 	 * 400: Allowing guests is not possible
 	 */
 	#[NoAdminRequired]
 	#[RequireLoggedInModeratorParticipant]
-	public function makePublic(): DataResponse {
+	public function makePublic(string $password = ''): DataResponse {
+		if ($this->talkConfig->isPasswordEnforced() && $password === '') {
+			return new DataResponse(['error' => 'password', 'message' => $this->l->t('Password needs to be set')], Http::STATUS_BAD_REQUEST);
+		}
+
 		try {
-			$this->roomService->setType($this->room, Room::TYPE_PUBLIC);
+			if ($password !== '') {
+				$this->roomService->makePublicWithPassword($this->room, $password);
+			} else {
+				$this->roomService->setType($this->room, Room::TYPE_PUBLIC);
+			}
+		} catch (PasswordException $e) {
+			return new DataResponse(['error' => 'password', 'message' => $e->getHint()], Http::STATUS_BAD_REQUEST);
 		} catch (TypeException $e) {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Disallowed guests to join conversation
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
 	 *
 	 * 200: Room unpublished Disallowing guests successfully
 	 * 400: Disallowing guests is not possible
@@ -1477,7 +1603,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -1485,7 +1611,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param 0|1 $state New read-only state
 	 * @psalm-param Room::READ_* $state
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'type'|'value'}, array{}>
 	 *
 	 * 200: Read-only state updated successfully
 	 * 400: Updating read-only state is not possible
@@ -1508,7 +1634,7 @@ class RoomController extends AEnvironmentAwareController {
 			}
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -1516,7 +1642,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param 0|1|2 $scope Scope where the room is listable
 	 * @psalm-param Room::LISTABLE_* $scope
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
 	 *
 	 * 200: Made room listable successfully
 	 * 400: Making room listable is not possible
@@ -1530,7 +1656,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -1559,7 +1685,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Set a password for a room
 	 *
 	 * @param string $password New password
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value', message?: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value', message?: string}, array{}>
 	 *
 	 * 200: Password set successfully
 	 * 400: Setting password is not possible
@@ -1577,13 +1703,13 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse($data, Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
 	 * Archive a conversation
 	 *
-	 *  Required capability: `archived-conversations-v2`
+	 * Required capability: `archived-conversations-v2`
 	 *
 	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
 	 *
@@ -1615,12 +1741,80 @@ class RoomController extends AEnvironmentAwareController {
 	}
 
 	/**
+	 * Mark a conversation as important (still sending notifications while on DND)
+	 *
+	 * Required capability: `important-conversations`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
+	 *
+	 * 200: Conversation was marked as important
+	 */
+	#[NoAdminRequired]
+	#[FederationSupported]
+	#[RequireLoggedInParticipant]
+	public function markConversationAsImportant(): DataResponse {
+		$this->participantService->markConversationAsImportant($this->participant);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
+	}
+
+	/**
+	 * Mark a conversation as unimportant (no longer sending notifications while on DND)
+	 *
+	 * Required capability: `important-conversations`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
+	 *
+	 * 200: Conversation was marked as unimportant
+	 */
+	#[NoAdminRequired]
+	#[FederationSupported]
+	#[RequireLoggedInParticipant]
+	public function markConversationAsUnimportant(): DataResponse {
+		$this->participantService->markConversationAsUnimportant($this->participant);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
+	}
+
+	/**
+	 * Mark a conversation as sensitive (no last message is visible / no push preview is shown)
+	 *
+	 * Required capability: `sensitive-conversations`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
+	 *
+	 * 200: Conversation was marked as sensitive
+	 */
+	#[NoAdminRequired]
+	#[FederationSupported]
+	#[RequireLoggedInParticipant]
+	public function markConversationAsSensitive(): DataResponse {
+		$this->participantService->markConversationAsSensitive($this->participant);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
+	}
+
+	/**
+	 * Mark a conversation as insensitive (last message is visible / push preview is shown)
+	 *
+	 * Required capability: `sensitive-conversations`
+	 *
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>
+	 *
+	 * 200: Conversation was marked as insensitive
+	 */
+	#[NoAdminRequired]
+	#[FederationSupported]
+	#[RequireLoggedInParticipant]
+	public function markConversationAsInsensitive(): DataResponse {
+		$this->participantService->markConversationAsInsensitive($this->participant);
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
+	}
+
+	/**
 	 * Join a room
 	 *
 	 * @param string $token Token of the room
 	 * @param string $password Password of the room
 	 * @param bool $force Create a new session if necessary
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{X-Nextcloud-Talk-Proxy-Hash?: string}>|DataResponse<Http::STATUS_FORBIDDEN, array{error: 'ban'|'password'}, array<empty>>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array<empty>>|DataResponse<Http::STATUS_CONFLICT, array{sessionId: string, inCall: int, lastPing: int}, array<empty>>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{X-Nextcloud-Talk-Proxy-Hash?: string}>|DataResponse<Http::STATUS_FORBIDDEN, array{error: 'ban'|'password'}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, null, array{}>|DataResponse<Http::STATUS_CONFLICT, array{sessionId: string, inCall: int, lastPing: int}, array{}>
 	 *
 	 * 200: Room joined successfully
 	 * 403: Joining room is not allowed
@@ -1636,7 +1830,7 @@ class RoomController extends AEnvironmentAwareController {
 			// The participant is just joining, so enforce to not load any session
 			$room = $this->manager->getRoomForUserByToken($token, $this->userId, null);
 		} catch (RoomNotFoundException $e) {
-			$response = new DataResponse([], Http::STATUS_NOT_FOUND);
+			$response = new DataResponse(null, Http::STATUS_NOT_FOUND);
 			$response->throttle(['token' => $token, 'action' => 'talkRoomToken']);
 			return $response;
 		}
@@ -1721,7 +1915,7 @@ class RoomController extends AEnvironmentAwareController {
 			$response->throttle(['token' => $token, 'action' => 'talkRoomPassword']);
 			return $response;
 		} catch (UnauthorizedException $e) {
-			$response = new DataResponse([], Http::STATUS_NOT_FOUND);
+			$response = new DataResponse(null, Http::STATUS_NOT_FOUND);
 			$response->throttle(['token' => $token, 'action' => 'talkRoomToken']);
 			return $response;
 		}
@@ -1746,7 +1940,7 @@ class RoomController extends AEnvironmentAwareController {
 
 			if ($response->getStatus() === Http::STATUS_NOT_FOUND) {
 				$this->participantService->removeAttendee($room, $participant, AAttendeeRemovedEvent::REASON_REMOVED);
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+				return new DataResponse(null, Http::STATUS_NOT_FOUND);
 			}
 
 			/** @var TalkRoom $data */
@@ -1759,11 +1953,24 @@ class RoomController extends AEnvironmentAwareController {
 			}
 		}
 
-		return new DataResponse($this->formatRoom($room, $participant), Http::STATUS_OK, $headers);
+		$userStatuses = null;
+		if ($this->userId !== null
+			&& $this->appManager->isEnabledForUser('user_status')
+			&& $room->getType() === Room::TYPE_ONE_TO_ONE) {
+			$actorIds = json_decode($room->getName(), true) ?? [];
+			if (is_array($actorIds)) {
+				$actorIds = array_filter($actorIds, fn ($actorId) => $actorId !== $this->userId);
+				if (!empty($actorIds)) {
+					$userStatuses = $this->statusManager->getUserStatuses($actorIds);
+				}
+			}
+		}
+
+		return new DataResponse($this->formatRoom($room, $participant, $userStatuses), Http::STATUS_OK, $headers);
 	}
 
 	/**
-	 * Join room on the host server using the session id of the federated user.
+	 * Join room on the host server using the session id of the federated user
 	 *
 	 * The session id can be null only for requests from Talk < 20.
 	 *
@@ -1819,7 +2026,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Verify a dial-in PIN (SIP bridge)
 	 *
 	 * @param numeric-string $pin PIN the participant used to dial-in
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, null, array{}>
 	 *
 	 * 200: Participant returned
 	 * 401: SIP request invalid
@@ -1831,29 +2038,92 @@ class RoomController extends AEnvironmentAwareController {
 	#[OpenAPI(scope: 'backend-sipbridge')]
 	#[RequireRoom]
 	public function verifyDialInPin(string $pin): DataResponse {
+		if (!$this->talkConfig->isSIPConfigured()) {
+			return new DataResponse(null, Http::STATUS_NOT_IMPLEMENTED);
+		}
+
 		try {
 			if (!$this->validateSIPBridgeRequest($this->room->getToken())) {
-				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 				$response->throttle(['action' => 'talkSipBridgeSecret']);
 				return $response;
 			}
 		} catch (UnauthorizedException) {
-			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'talkSipBridgeSecret']);
 			return $response;
-		}
-
-		if (!$this->talkConfig->isSIPConfigured()) {
-			return new DataResponse([], Http::STATUS_NOT_IMPLEMENTED);
 		}
 
 		try {
 			$participant = $this->participantService->getParticipantByPin($this->room, $pin);
 		} catch (ParticipantNotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		return new DataResponse($this->formatRoom($this->room, $participant, skipLastMessage: true));
+	}
+
+	/**
+	 * Direct dial-in (SIP bridge)
+	 *
+	 * Required capability: `sip-direct-dialin`
+	 *
+	 * @param string $phoneNumber Phone number that is called
+	 * @param string $caller Phone number of the person calling in
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_INTERNAL_SERVER_ERROR|Http::STATUS_NOT_IMPLEMENTED, null, array{}>
+	 *
+	 * 200: Call conversation created
+	 * 401: SIP request invalid
+	 * 404: Number is not assigned to any user
+	 * 500: Error occurred while creating conversation
+	 * 501: SIP dial-in is not configured
+	 */
+	#[PublicPage]
+	#[BruteForceProtection(action: 'talkSipBridgeSecret')]
+	#[OpenAPI(scope: 'backend-sipbridge')]
+	public function directDialIn(string $phoneNumber, string $caller): DataResponse {
+		if (!$this->talkConfig->isSIPConfigured()) {
+			return new DataResponse(null, Http::STATUS_NOT_IMPLEMENTED);
+		}
+
+		try {
+			if (!$this->validateSIPBridgeRequest($phoneNumber)) {
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
+				$response->throttle(['action' => 'talkSipBridgeSecret']);
+				return $response;
+			}
+		} catch (UnauthorizedException) {
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
+			$response->throttle(['action' => 'talkSipBridgeSecret']);
+			return $response;
+		}
+
+		try {
+			$entity = $this->phoneService->getAccountToCallForPhoneNumber($phoneNumber);
+		} catch (DoesNotExistException) {
+			$this->logger->info('No account found for direct dial-in with number: ' . $phoneNumber);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
+		}
+
+		$caller = trim($caller);
+		// TODO: Use later and get name from addressbook? $cleanedCaller = $this->phoneNumberUtil->convertToStandardFormat($caller);
+		$user = $this->userManager->get($entity->getActorId());
+		try {
+			$room = $this->roomService->createConversation(
+				Room::TYPE_GROUP,
+				$caller,
+				$user,
+				Room::OBJECT_TYPE_PHONE_TEMPORARY,
+				Room::OBJECT_ID_PHONE_INCOMING,
+				sipEnabled: Webinary::SIP_ENABLED_NO_PIN,
+			);
+		} catch (CreationException|PasswordException $e) {
+			$this->logger->error('Error occurred while creating SIP direct dial-in conversation', ['exception' => $e]);
+			return new DataResponse(null, Http::STATUS_INTERNAL_SERVER_ERROR);
+		}
+
+		$participant = $this->participantService->joinRoomAsNewGuest($this->roomService, $room, '', true, displayName: $caller);
+		return new DataResponse($this->formatRoom($room, $participant));
 	}
 
 	/**
@@ -1861,47 +2131,47 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param string $number E164 formatted phone number
 	 * @param array{actorId?: string, actorType?: string, attendeeId?: int} $options Additional details to verify the validity of the request
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, null, array{}>
 	 *
-	 *  200: Participant created successfully
-	 *  400: Phone number and details could not be confirmed
-	 *  401: SIP request invalid
-	 *  404: Phone number is not invited as a participant
-	 *  501: SIP dial-out is not configured
+	 * 200: Participant created successfully
+	 * 400: Phone number and details could not be confirmed
+	 * 401: SIP request invalid
+	 * 404: Phone number is not invited as a participant
+	 * 501: SIP dial-out is not configured
 	 */
 	#[PublicPage]
 	#[BruteForceProtection(action: 'talkSipBridgeSecret')]
 	#[OpenAPI(scope: 'backend-sipbridge')]
 	#[RequireRoom]
 	public function verifyDialOutNumber(string $number, array $options = []): DataResponse {
+		if (!$this->talkConfig->isSIPConfigured() || !$this->talkConfig->isSIPDialOutEnabled()) {
+			return new DataResponse(null, Http::STATUS_NOT_IMPLEMENTED);
+		}
+
 		try {
 			if (!$this->validateSIPBridgeRequest($this->room->getToken())) {
-				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 				$response->throttle(['action' => 'talkSipBridgeSecret']);
 				return $response;
 			}
 		} catch (UnauthorizedException) {
-			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'talkSipBridgeSecret']);
 			return $response;
 		}
 
-		if (!$this->talkConfig->isSIPConfigured() || !$this->talkConfig->isSIPDialOutEnabled()) {
-			return new DataResponse([], Http::STATUS_NOT_IMPLEMENTED);
-		}
-
 		if (!isset($options['actorId'], $options['actorType']) || $options['actorType'] !== Attendee::ACTOR_PHONES) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		try {
 			$participant = $this->participantService->getParticipantByActor($this->room, Attendee::ACTOR_PHONES, $options['actorId']);
 		} catch (ParticipantNotFoundException) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		if ($participant->getAttendee()->getPhoneNumber() !== $number) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		return new DataResponse($this->formatRoom($this->room, $participant, skipLastMessage: true));
@@ -1910,7 +2180,7 @@ class RoomController extends AEnvironmentAwareController {
 	/**
 	 * Create a guest by their dial-in
 	 *
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED, null, array{}>
 	 *
 	 * 200: Participant created successfully
 	 * 400: SIP not enabled
@@ -1923,18 +2193,18 @@ class RoomController extends AEnvironmentAwareController {
 	public function createGuestByDialIn(): DataResponse {
 		try {
 			if (!$this->validateSIPBridgeRequest($this->room->getToken())) {
-				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 				$response->throttle(['action' => 'talkSipBridgeSecret']);
 				return $response;
 			}
 		} catch (UnauthorizedException $e) {
-			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'talkSipBridgeSecret']);
 			return $response;
 		}
 
 		if ($this->room->getSIPEnabled() !== Webinary::SIP_ENABLED_NO_PIN) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		$participant = $this->participantService->joinRoomAsNewGuest($this->roomService, $this->room, '', true);
@@ -1947,7 +2217,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param string $callId The call ID provided by the SIP bridge earlier to uniquely identify the call to terminate
 	 * @param array{actorId?: string, actorType?: string, attendeeId?: int} $options Additional details to verify the validity of the request
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND|Http::STATUS_NOT_IMPLEMENTED, null, array{}>
 	 *
 	 * 200: Call ID reset
 	 * 400: Call ID mismatch or attendeeId not found in $options
@@ -1960,35 +2230,35 @@ class RoomController extends AEnvironmentAwareController {
 	#[OpenAPI(scope: 'backend-sipbridge')]
 	#[RequireRoom]
 	public function rejectedDialOutRequest(string $callId, array $options = []): DataResponse {
+		if (!$this->talkConfig->isSIPConfigured() || !$this->talkConfig->isSIPDialOutEnabled()) {
+			return new DataResponse(null, Http::STATUS_NOT_IMPLEMENTED);
+		}
+
 		try {
 			if (!$this->validateSIPBridgeRequest($this->room->getToken())) {
-				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 				$response->throttle(['action' => 'talkSipBridgeSecret']);
 				return $response;
 			}
 		} catch (UnauthorizedException $e) {
-			$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+			$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 			$response->throttle(['action' => 'talkSipBridgeSecret']);
 			return $response;
 		}
 
 		if (empty($options['attendeeId'])) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
-		}
-
-		if (!$this->talkConfig->isSIPConfigured() || !$this->talkConfig->isSIPDialOutEnabled()) {
-			return new DataResponse([], Http::STATUS_NOT_IMPLEMENTED);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		try {
 			$this->participantService->resetDialOutRequest($this->room, $options['attendeeId'], $callId);
 		} catch (ParticipantNotFoundException) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		} catch (\InvalidArgumentException) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse([], Http::STATUS_OK);
+		return new DataResponse(null);
 	}
 
 	/**
@@ -1996,7 +2266,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param 0|1 $state of the room
 	 * @psalm-param Session::STATE_* $state
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Session state set successfully
 	 * 400: The provided new state was invalid
@@ -2007,13 +2277,13 @@ class RoomController extends AEnvironmentAwareController {
 	#[RequireParticipant]
 	public function setSessionState(int $state): DataResponse {
 		if (!$this->participant->getSession() instanceof Session) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		try {
 			$this->sessionService->updateSessionState($this->participant->getSession(), $state);
 		} catch (\InvalidArgumentException) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		return new DataResponse($this->formatRoom($this->room, $this->participant));
@@ -2023,7 +2293,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * Leave a room
 	 *
 	 * @param string $token Token of the room
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>
 	 *
 	 * 200: Successfully left the room
 	 */
@@ -2046,15 +2316,15 @@ class RoomController extends AEnvironmentAwareController {
 		} catch (RoomNotFoundException|ParticipantNotFoundException) {
 		}
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
-	 * Leave room on the host server using the session id of the federated user.
+	 * Leave room on the host server using the session id of the federated user
 	 *
 	 * @param string $token Token of the room
 	 * @param string $sessionId Federated session id to leave with
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_NOT_FOUND, null, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Successfully left the room
 	 * 404: Room not found (non-federation request)
@@ -2095,7 +2365,7 @@ class RoomController extends AEnvironmentAwareController {
 		} catch (RoomNotFoundException|ParticipantNotFoundException) {
 		}
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -2103,7 +2373,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $attendeeId ID of the attendee
 	 * @psalm-param non-negative-int $attendeeId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Attendee promoted to moderator successfully
 	 * 400: Promoting attendee to moderator is not possible
@@ -2121,7 +2391,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $attendeeId ID of the attendee
 	 * @psalm-param non-negative-int $attendeeId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Attendee demoted from moderator successfully
 	 * 400: Demoting attendee from moderator is not possible
@@ -2141,35 +2411,35 @@ class RoomController extends AEnvironmentAwareController {
 	 * @param int $attendeeId
 	 * @psalm-param non-negative-int $attendeeId
 	 * @param bool $promote Shall the attendee be promoted or demoted
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, null, array{}>
 	 */
 	protected function changeParticipantType(int $attendeeId, bool $promote): DataResponse {
 		try {
 			$targetParticipant = $this->participantService->getParticipantByAttendeeId($this->room, $attendeeId);
 		} catch (ParticipantNotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		$attendee = $targetParticipant->getAttendee();
 
 		if ($attendee->getActorType() === Attendee::ACTOR_USERS
 			&& $attendee->getActorId() === MatterbridgeManager::BRIDGE_BOT_USERID) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
 
 		// Prevent users/moderators modifying themselves
 		if ($attendee->getActorType() === $this->participant->getAttendee()->getActorType()) {
 			if ($attendee->getActorId() === $this->participant->getAttendee()->getActorId()) {
-				return new DataResponse([], Http::STATUS_FORBIDDEN);
+				return new DataResponse(null, Http::STATUS_FORBIDDEN);
 			}
 		} elseif ($attendee->getActorType() === Attendee::ACTOR_GROUPS) {
 			// Can not promote/demote groups
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		if ($promote === $targetParticipant->hasModeratorPermissions()) {
 			// Prevent concurrent changes
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		if ($attendee->getParticipantType() === Participant::USER
@@ -2182,12 +2452,12 @@ class RoomController extends AEnvironmentAwareController {
 		} elseif ($attendee->getParticipantType() === Participant::GUEST_MODERATOR) {
 			$newType = Participant::GUEST;
 		} else {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+			return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 		}
 
 		$this->participantService->updateParticipantType($this->room, $targetParticipant, $newType);
 
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -2225,7 +2495,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * @param 'set'|'remove'|'add' $method Method of updating permissions ('set', 'remove', 'add')
 	 * @param int<0, 255> $permissions New permissions
 	 * @psalm-param int-mask-of<Attendee::PERMISSIONS_*> $permissions
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<TalkParticipant>, array{X-Nextcloud-Has-User-Statuses?: true}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{error: 'participant'|'method'|'moderator'|'room-type'|'type'|'value'}, array{}>
 	 *
 	 * 200: Permissions updated successfully
 	 * 400: Updating permissions is not possible
@@ -2238,20 +2508,19 @@ class RoomController extends AEnvironmentAwareController {
 		try {
 			$targetParticipant = $this->participantService->getParticipantByAttendeeId($this->room, $attendeeId);
 		} catch (ParticipantNotFoundException $e) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
+			return new DataResponse(['error' => 'participant'], Http::STATUS_NOT_FOUND);
 		}
 
 		try {
-			$result = $this->participantService->updatePermissions($this->room, $targetParticipant, $method, $permissions);
-		} catch (ForbiddenException $e) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			$this->participantService->updatePermissions($this->room, $targetParticipant, $method, $permissions);
+		} catch (PermissionsException $e) {
+			if ($e->getReason() === PermissionsException::REASON_MODERATOR) {
+				return new DataResponse(['error' => $e->getReason()], Http::STATUS_FORBIDDEN);
+			}
+			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		if (!$result) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
-		}
-
-		return new DataResponse();
+		return $this->formatParticipantList([$targetParticipant], true);
 	}
 
 	/**
@@ -2261,7 +2530,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * @psalm-param Attendee::PERMISSIONS_MODIFY_* $method
 	 * @param int<0, 255> $permissions New permissions
 	 * @psalm-param int-mask-of<Attendee::PERMISSIONS_*> $permissions
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, null, array{}>
 	 * @deprecated Call permissions have been removed
 	 *
 	 * 200: Permissions updated successfully
@@ -2270,17 +2539,13 @@ class RoomController extends AEnvironmentAwareController {
 	#[PublicPage]
 	#[RequireModeratorParticipant]
 	public function setAllAttendeesPermissions(string $method, int $permissions): DataResponse {
-		if (!$this->roomService->setPermissions($this->room, 'call', $method, $permissions, false)) {
-			return new DataResponse([], Http::STATUS_BAD_REQUEST);
-		}
-
-		return new DataResponse($this->formatRoom($this->room, $this->participant));
+		return new DataResponse(null, Http::STATUS_BAD_REQUEST);
 	}
 
 	/**
 	 * Update the lobby state for a room
 	 *
-	 * @param int $state New state
+	 * @param 0|1 $state New state
 	 * @psalm-param Webinary::LOBBY_* $state
 	 * @param int|null $timer Timer when the lobby will be removed
 	 * @psalm-param non-negative-int|null $timer
@@ -2332,7 +2597,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param 0|1|2 $state New state
 	 * @psalm-param Webinary::SIP_* $state
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_FORBIDDEN|Http::STATUS_PRECONDITION_FAILED, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'token'|'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_FORBIDDEN|Http::STATUS_PRECONDITION_FAILED, array{error: 'config'}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'token'|'type'|'value'}, array{}>
 	 *
 	 * 200: SIP enabled state updated successfully
 	 * 400: Updating SIP enabled state is not possible
@@ -2345,15 +2610,15 @@ class RoomController extends AEnvironmentAwareController {
 	public function setSIPEnabled(int $state): DataResponse {
 		$user = $this->userManager->get($this->userId);
 		if (!$user instanceof IUser) {
-			return new DataResponse([], Http::STATUS_UNAUTHORIZED);
+			return new DataResponse(['error' => 'config'], Http::STATUS_UNAUTHORIZED);
 		}
 
 		if (!$this->talkConfig->canUserEnableSIP($user)) {
-			return new DataResponse([], Http::STATUS_FORBIDDEN);
+			return new DataResponse(['error' => 'config'], Http::STATUS_FORBIDDEN);
 		}
 
 		if (!$this->talkConfig->isSIPConfigured()) {
-			return new DataResponse([], Http::STATUS_PRECONDITION_FAILED);
+			return new DataResponse(['error' => 'config'], Http::STATUS_PRECONDITION_FAILED);
 		}
 
 		try {
@@ -2371,7 +2636,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * @param int $recordingConsent New consent setting for the conversation
 	 *                              (Only {@see RecordingService::CONSENT_REQUIRED_NO} and {@see RecordingService::CONSENT_REQUIRED_YES} are allowed here.)
 	 * @psalm-param RecordingService::CONSENT_REQUIRED_NO|RecordingService::CONSENT_REQUIRED_YES $recordingConsent
-	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'call'|'value'}, array{}>|DataResponse<Http::STATUS_PRECONDITION_FAILED, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'call'|'value'}, array{}>|DataResponse<Http::STATUS_PRECONDITION_FAILED, array{error: 'config'}, array{}>
 	 *
 	 * 200: Recording consent requirement set successfully
 	 * 400: Setting recording consent requirement is not possible
@@ -2381,7 +2646,7 @@ class RoomController extends AEnvironmentAwareController {
 	#[RequireLoggedInModeratorParticipant]
 	public function setRecordingConsent(int $recordingConsent): DataResponse {
 		if (!$this->talkConfig->isRecordingEnabled()) {
-			return new DataResponse([], Http::STATUS_PRECONDITION_FAILED);
+			return new DataResponse(['error' => 'config'], Http::STATUS_PRECONDITION_FAILED);
 		}
 
 		try {
@@ -2398,7 +2663,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int|null $attendeeId ID of the attendee
 	 * @psalm-param non-negative-int|null $attendeeId
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Invitation resent successfully
 	 * 404: Attendee not found
@@ -2414,7 +2679,7 @@ class RoomController extends AEnvironmentAwareController {
 			try {
 				$participants[] = $this->participantService->getParticipantByAttendeeId($this->room, $attendeeId);
 			} catch (ParticipantNotFoundException $e) {
-				return new DataResponse([], Http::STATUS_NOT_FOUND);
+				return new DataResponse(null, Http::STATUS_NOT_FOUND);
 			}
 		} else {
 			$participants = $this->participantService->getParticipantsByActorType($this->room, Attendee::ACTOR_EMAILS);
@@ -2427,7 +2692,7 @@ class RoomController extends AEnvironmentAwareController {
 				$this->guestManager->sendEmailInvitation($this->room, $participant);
 			}
 		}
-		return new DataResponse();
+		return new DataResponse(null);
 	}
 
 	/**
@@ -2435,7 +2700,7 @@ class RoomController extends AEnvironmentAwareController {
 	 *
 	 * @param int $seconds New time
 	 * @psalm-param non-negative-int $seconds
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkRoom, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'breakout-room'|'type'|'value'}, array{}>
 	 *
 	 * 200: Message expiration time updated successfully
 	 * 400: Updating message expiration time is not possible
@@ -2449,7 +2714,7 @@ class RoomController extends AEnvironmentAwareController {
 			return new DataResponse(['error' => $e->getReason()], Http::STATUS_BAD_REQUEST);
 		}
 
-		return new DataResponse();
+		return new DataResponse($this->formatRoom($this->room, $this->participant));
 	}
 
 	/**
@@ -2500,7 +2765,7 @@ class RoomController extends AEnvironmentAwareController {
 	 * See "Capability handling in federated conversations" in https://github.com/nextcloud/spreed/issues/10680
 	 * to learn which capabilities should be considered from the local server or from the remote server.
 	 *
-	 * @return DataResponse<Http::STATUS_OK, TalkCapabilities|array<empty>, array{X-Nextcloud-Talk-Hash?: string, X-Nextcloud-Talk-Proxy-Hash?: string}>
+	 * @return DataResponse<Http::STATUS_OK, TalkCapabilities|\stdClass, array{X-Nextcloud-Talk-Hash?: string, X-Nextcloud-Talk-Proxy-Hash?: string}>
 	 *
 	 * 200: Get capabilities successfully
 	 */
@@ -2535,16 +2800,179 @@ class RoomController extends AEnvironmentAwareController {
 			if (isset($data['config']['call']['blur-virtual-background'])) {
 				$data['config']['call']['blur-virtual-background'] = $this->talkConfig->getBlurVirtualBackground($this->userId);
 			}
+			if (isset($data['config']['conversations']['list-style'])) {
+				$data['config']['conversations']['list-style'] = $this->talkConfig->getConversationsListStyle($this->userId);
+			}
 
 			if ($response->getHeaders()['X-Nextcloud-Talk-Hash']) {
 				$headers['X-Nextcloud-Talk-Proxy-Hash'] = $response->getHeaders()['X-Nextcloud-Talk-Hash'];
 			}
+
+			/** @var TalkCapabilities|\stdClass $data */
+			$data = !empty($data) ? $data : new \stdClass();
 		} else {
 			$capabilities = $this->capabilities->getCapabilities();
-			$data = $capabilities['spreed'] ?? [];
+			$data = $capabilities['spreed'] ?? new \stdClass();
 			$headers['X-Nextcloud-Talk-Hash'] = sha1(json_encode($capabilities));
 		}
 
 		return new DataResponse($data, Http::STATUS_OK, $headers);
+	}
+
+	/**
+	 * Schedule a meeting for a conversation
+	 *
+	 * Required capability: `schedule-meeting`
+	 *
+	 * @param string $calendarUri Last part of the calendar URI as seen by the participant e.g. 'personal' or 'company_shared_by_other_user'
+	 * @param int $start Unix timestamp when the meeting starts
+	 * @param ?list<int> $attendeeIds List of attendee ids to invite, if null everyone will be invited, if empty array only the actor will receive the event
+	 * @param ?int $end Unix timestamp when the meeting ends, falls back to 60 minutes after start
+	 * @param ?string $title Title or summary of the event, falling back to the conversation name if none is given
+	 * @param ?string $description Description of the event, falling back to the conversation description if none is given
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: 'calendar'|'conversation'|'email'|'end'|'start'}, array{}>
+	 *
+	 * 200: Meeting scheduled
+	 * 400: Meeting could not be created successfully
+	 */
+	#[NoAdminRequired]
+	#[RequireLoggedInModeratorParticipant]
+	public function scheduleMeeting(string $calendarUri, int $start, ?array $attendeeIds = null, ?int $end = null, ?string $title = null, ?string $description = null): DataResponse {
+		if ($this->room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
+			return new DataResponse(['error' => 'conversation'], Http::STATUS_BAD_REQUEST);
+		}
+
+		$eventBuilder = $this->calendarManager->createEventBuilder();
+		$principalUri = 'principals/users/' . $this->userId;
+		$calendars = $this->calendarManager->getCalendarsForPrincipal($principalUri, [$calendarUri]);
+
+		if (empty($calendars)) {
+			return new DataResponse(['error' => 'calendar'], Http::STATUS_BAD_REQUEST);
+		}
+
+		/** @var ICreateFromString $calendar */
+		$calendar = array_pop($calendars);
+
+		$user = $this->userManager->get($this->userId);
+		if (!$user instanceof IUser || $user->getEMailAddress() === null) {
+			return new DataResponse(['error' => 'email'], Http::STATUS_BAD_REQUEST);
+		}
+
+		$startDate = $this->timeFactory->getDateTime('@' . $start);
+		if ($start < $this->timeFactory->getTime()) {
+			return new DataResponse(['error' => 'start'], Http::STATUS_BAD_REQUEST);
+		}
+
+		if ($end !== null) {
+			$endDate = $this->timeFactory->getDateTime('@' . $end);
+			if ($start >= $end) {
+				return new DataResponse(['error' => 'end'], Http::STATUS_BAD_REQUEST);
+			}
+		} else {
+			$endDate = clone $startDate;
+			$endDate->add(new \DateInterval('PT1H'));
+		}
+
+		$eventBuilder->setLocation(
+			$this->url->linkToRouteAbsolute(
+				'spreed.Page.showCall',
+				['token' => $this->room->getToken()]
+			)
+		);
+		$eventBuilder->setSummary($title ?: $this->room->getDisplayName($this->userId));
+		$eventBuilder->setDescription($description ?: $this->room->getDescription());
+		$eventBuilder->setOrganizer($user->getEMailAddress(), $user->getDisplayName() ?: $this->userId);
+		$eventBuilder->setStartDate($startDate);
+		$eventBuilder->setEndDate($endDate);
+		if (method_exists($eventBuilder, 'setStatus')) {
+			$eventBuilder->setStatus(CalendarEventStatus::CONFIRMED);
+		}
+
+		if ($this->room->getType() === Room::TYPE_ONE_TO_ONE) {
+			$this->participantService->ensureOneToOneRoomIsFilled($this->room);
+		}
+
+		$userAttendees = $this->participantService->getParticipantsByActorType($this->room, Attendee::ACTOR_USERS);
+		foreach ($userAttendees as $userAttendee) {
+			if ($attendeeIds !== null && !in_array($userAttendee->getAttendee()->getId(), $attendeeIds, true)) {
+				continue;
+			}
+
+			$targetUser = $this->userManager->get($userAttendee->getAttendee()->getActorId());
+			if (!$targetUser instanceof IUser) {
+				continue;
+			}
+			if ($targetUser->getEMailAddress() === null) {
+				continue;
+			}
+			// Do not add the organizer as an attendee
+			if ($targetUser->getEMailAddress() === $user->getEMailAddress()) {
+				continue;
+			}
+
+			$eventBuilder->addAttendee(
+				$targetUser->getEMailAddress(),
+				$targetUser->getDisplayName(),
+			);
+		}
+
+		$emailGuests = $this->participantService->getParticipantsByActorType($this->room, Attendee::ACTOR_EMAILS);
+		foreach ($emailGuests as $emailGuest) {
+			if ($attendeeIds !== null && !in_array($emailGuest->getAttendee()->getId(), $attendeeIds, true)) {
+				continue;
+			}
+
+			$eventBuilder->addAttendee(
+				$emailGuest->getAttendee()->getInvitedCloudId(),
+				$emailGuest->getAttendee()->getDisplayName(),
+			);
+		}
+
+		$ics = $eventBuilder->toIcs();
+		$name = $this->room->getToken() . '-' . $this->timeFactory->getTime() . '.ics';
+		$calendarUri = $this->url->getBaseUrl() . '/remote.php/dav/calendars/' . $user->getUID() . '/' . $calendar->getUri() . '/' . $name;
+
+		try {
+			$loginname = $this->serverSession->get('loginname');
+			$token = $this->random->generate(72, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS);
+
+			$this->authTokenProvider->generateToken(
+				$token,
+				$user->getUID(),
+				$loginname,
+				null,
+				'Nextcloud Spreed Calendar Integration',
+				IToken::TEMPORARY_TOKEN,
+				IToken::DO_NOT_REMEMBER
+			);
+		} catch (\Exception $e) {
+			$this->logger->error('Failed to get calendar to schedule a meeting', ['exception' => $e]);
+			return new DataResponse(['error' => 'calendar'], Http::STATUS_BAD_REQUEST);
+		}
+
+		$client = $this->clientService->newClient();
+		$options = [
+			'headers' => [
+				'Content-Type' => 'text/html; charset=UTF-8',
+			],
+			'nextcloud' => [
+				'allow_local_address' => true,
+			],
+			'body' => $ics,
+			'verify' => false,
+			'auth' => [$loginname, $token],
+		];
+
+		try {
+			$client->put($calendarUri, $options);
+		} catch (\Exception $e) {
+			$this->logger->error('Failed to get calendar to schedule a meeting', ['exception' => $e]);
+			return new DataResponse(['error' => 'calendar'], Http::STATUS_BAD_REQUEST);
+		} finally {
+			$this->authTokenProvider->invalidateToken($token);
+		}
+
+
+		return new DataResponse(null, Http::STATUS_OK);
 	}
 }

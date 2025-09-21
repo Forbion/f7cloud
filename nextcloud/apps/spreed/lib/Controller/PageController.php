@@ -262,7 +262,7 @@ class PageController extends Controller {
 		]);
 
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedConnectDomain('*');
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
 		$csp->addAllowedMediaDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain("'self'");
@@ -270,9 +270,13 @@ class PageController extends Controller {
 		$csp->addAllowedChildSrcDomain("'self'");
 		$csp->addAllowedScriptDomain('blob:');
 		$csp->addAllowedScriptDomain("'self'");
+		$csp->addAllowedScriptDomain("'wasm-unsafe-eval'");
 		$csp->addAllowedConnectDomain('blob:');
 		$csp->addAllowedConnectDomain("'self'");
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		foreach ($this->talkConfig->getAllServerUrlsForCSP() as $server) {
+			$csp->addAllowedConnectDomain($server);
+		}
+
 		$response->setContentSecurityPolicy($csp);
 		if ($throttle) {
 			// Logged-in user tried to access a chat they can not access
@@ -324,7 +328,7 @@ class PageController extends Controller {
 
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedConnectDomain('*');
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
 		$csp->addAllowedMediaDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain("'self'");
@@ -332,9 +336,12 @@ class PageController extends Controller {
 		$csp->addAllowedChildSrcDomain("'self'");
 		$csp->addAllowedScriptDomain('blob:');
 		$csp->addAllowedScriptDomain("'self'");
+		$csp->addAllowedScriptDomain("'wasm-unsafe-eval'");
 		$csp->addAllowedConnectDomain('blob:');
 		$csp->addAllowedConnectDomain("'self'");
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		foreach ($this->talkConfig->getAllServerUrlsForCSP() as $server) {
+			$csp->addAllowedConnectDomain($server);
+		}
 		$response->setContentSecurityPolicy($csp);
 
 		return $response;
@@ -410,7 +417,7 @@ class PageController extends Controller {
 
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedConnectDomain('*');
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
 		$csp->addAllowedMediaDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain("'self'");
@@ -418,9 +425,12 @@ class PageController extends Controller {
 		$csp->addAllowedChildSrcDomain("'self'");
 		$csp->addAllowedScriptDomain('blob:');
 		$csp->addAllowedScriptDomain("'self'");
+		$csp->addAllowedScriptDomain("'wasm-unsafe-eval'");
 		$csp->addAllowedConnectDomain('blob:');
 		$csp->addAllowedConnectDomain("'self'");
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		foreach ($this->talkConfig->getAllServerUrlsForCSP() as $server) {
+			$csp->addAllowedConnectDomain($server);
+		}
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}
@@ -467,7 +477,7 @@ class PageController extends Controller {
 
 		$response->setFooterVisible(false);
 		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedConnectDomain('*');
+		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
 		$csp->addAllowedMediaDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain('blob:');
 		$csp->addAllowedWorkerSrcDomain("'self'");
@@ -475,9 +485,12 @@ class PageController extends Controller {
 		$csp->addAllowedChildSrcDomain("'self'");
 		$csp->addAllowedScriptDomain('blob:');
 		$csp->addAllowedScriptDomain("'self'");
+		$csp->addAllowedScriptDomain("'wasm-unsafe-eval'");
 		$csp->addAllowedConnectDomain('blob:');
 		$csp->addAllowedConnectDomain("'self'");
-		$csp->addAllowedImageDomain('https://*.tile.openstreetmap.org');
+		foreach ($this->talkConfig->getAllServerUrlsForCSP() as $server) {
+			$csp->addAllowedConnectDomain($server);
+		}
 		$response->setContentSecurityPolicy($csp);
 		return $response;
 	}

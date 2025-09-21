@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -24,7 +25,7 @@ class StackMapper extends DeckMapper implements IPermissionMapper {
 	public function __construct(
 		IDBConnection $db,
 		CardMapper $cardMapper,
-		ICacheFactory $cacheFactory
+		ICacheFactory $cacheFactory,
 	) {
 		parent::__construct($db, 'deck_stacks', Stack::class);
 		$this->cardMapper = $cardMapper;

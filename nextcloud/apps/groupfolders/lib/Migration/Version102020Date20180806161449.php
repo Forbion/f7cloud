@@ -13,14 +13,7 @@ use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 class Version102020Date20180806161449 extends SimpleMigrationStep {
-	/**
-	 * @param IOutput $output
-	 * @param \Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-	 * @param array $options
-	 * @return null|ISchemaWrapper
-	 * @since 13.0.0
-	 */
-	public function changeSchema(IOutput $output, \Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, \Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
@@ -73,6 +66,7 @@ class Version102020Date20180806161449 extends SimpleMigrationStep {
 			$table->addIndex(['group_id'], 'group_folder_value');
 			$table->addUniqueIndex(['folder_id', 'group_id'], 'groups_folder_group');
 		}
+
 		return $schema;
 	}
 }

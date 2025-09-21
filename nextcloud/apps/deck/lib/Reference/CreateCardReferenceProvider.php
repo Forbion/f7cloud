@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -17,7 +18,8 @@ class CreateCardReferenceProvider extends ADiscoverableReferenceProvider {
 	public function __construct(
 		private IL10N $l10n,
 		private IURLGenerator $urlGenerator,
-		private ?string $userId) {
+		private ?string $userId,
+	) {
 	}
 
 	/**

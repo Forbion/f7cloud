@@ -6,17 +6,33 @@ namespace OCA\Talk\Vendor\CuyZ\Valinor\Utility;
 
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\Argument;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\Arguments;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\BooleanType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\CompositeType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\FixedType;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\FloatType;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\IntegerType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\ObjectType;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\StringType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Type;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\EnumType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\MixedType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\UndefinedObjectType;
 
 /** @internal */
 final class TypeHelper
 {
+    /**
+     * Sorting the scalar types by priority: int, float, string, bool.
+     */
+    public static function typePriority(Type $type): int
+    {
+        return match (true) {
+            $type instanceof IntegerType => 4,
+            $type instanceof FloatType => 3,
+            $type instanceof StringType => 2,
+            $type instanceof BooleanType => 1,
+            default => 0,
+        };
+    }
+
     public static function dump(Type $type, bool $surround = true): string
     {
         if ($type instanceof EnumType) {
@@ -51,7 +67,7 @@ final class TypeHelper
 
                 return $argument->isRequired() ? "$name: $signature" : "$name?: $signature";
             },
-            [...$arguments]
+            [...$arguments],
         );
 
         return '`array{' . implode(', ', $parameters) . '}`';
@@ -68,31 +84,5 @@ final class TypeHelper
         }
 
         return $type instanceof ObjectType;
-    }
-
-    public static function checkPermissiveType(Type $type): void
-    {
-        if ($permissiveType = self::findPermissiveType($type)) {
-            throw new PermissiveTypeFound($type, $permissiveType);
-        }
-    }
-
-    private static function findPermissiveType(Type $type): ?Type
-    {
-        if ($type instanceof CompositeType) {
-            foreach ($type->traverse() as $subType) {
-                $permissiveType = self::findPermissiveType($subType);
-
-                if ($permissiveType) {
-                    return $permissiveType;
-                }
-            }
-        }
-
-        if ($type instanceof MixedType || $type instanceof UndefinedObjectType) {
-            return $type;
-        }
-
-        return null;
     }
 }

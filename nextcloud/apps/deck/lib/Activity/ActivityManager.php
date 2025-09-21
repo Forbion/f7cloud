@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -100,7 +101,7 @@ class ActivityManager {
 		StackMapper $stackMapper,
 		AclMapper $aclMapper,
 		IFactory $l10nFactory,
-		?string $userId
+		?string $userId,
 	) {
 		$this->manager = $manager;
 		$this->permissionService = $permissionsService;
@@ -484,7 +485,7 @@ class ActivityManager {
 					$objectId = $entity->getObjectId();
 					break;
 				default:
-					throw new InvalidArgumentException('No entity relation present for '. $className . ' to ' . $objectType);
+					throw new InvalidArgumentException('No entity relation present for ' . $className . ' to ' . $objectType);
 			}
 			return $this->cardMapper->find($objectId);
 		}
@@ -499,11 +500,11 @@ class ActivityManager {
 					$objectId = $entity->getBoardId();
 					break;
 				default:
-					throw new InvalidArgumentException('No entity relation present for '. $className . ' to ' . $objectType);
+					throw new InvalidArgumentException('No entity relation present for ' . $className . ' to ' . $objectType);
 			}
 			return $this->boardMapper->find($objectId);
 		}
-		throw new InvalidArgumentException('No entity relation present for '. $className . ' to ' . $objectType);
+		throw new InvalidArgumentException('No entity relation present for ' . $className . ' to ' . $objectType);
 	}
 
 	private function findDetailsForStack($stackId) {

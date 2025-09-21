@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -70,7 +71,7 @@ class BoardImportService {
 		private CardMapper $cardMapper,
 		private ICommentsManager $commentsManager,
 		private IEventDispatcher $eventDispatcher,
-		private LoggerInterface $logger
+		private LoggerInterface $logger,
 	) {
 		$this->board = new Board();
 		$this->disableCommentsEvents();
@@ -364,7 +365,7 @@ class BoardImportService {
 					$this->getImportSystem()->updateCardAssignment($cardId, (string)$assignment->getId(), $assignment);
 					$this->addOutput('Assignment ' . $assignment->getParticipant() . ' added');
 				} catch (NotFoundException $e) {
-					$this->addError('No origin or mapping found for card "' . $cardId . '" and ' . $assignment->getTypeString() .' assignment "' . $assignment->getParticipant(), $e);
+					$this->addError('No origin or mapping found for card "' . $cardId . '" and ' . $assignment->getTypeString() . ' assignment "' . $assignment->getParticipant(), $e);
 				}
 			}
 		}
@@ -404,7 +405,7 @@ class BoardImportService {
 	 * @return void
 	 */
 	public function setConfig(string $configName, $value): void {
-		if (empty((array) $this->config)) {
+		if (empty((array)$this->config)) {
 			$this->setConfigInstance(new \stdClass);
 		}
 		$this->config->$configName = $value;

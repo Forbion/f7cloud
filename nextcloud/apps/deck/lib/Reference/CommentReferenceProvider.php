@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -73,7 +74,7 @@ class CommentReferenceProvider implements IReferenceProvider {
 				try {
 					$card = $this->cardService->find($cardId)->jsonSerialize();
 					$board = $this->boardService->find($boardId)->jsonSerialize();
-					$stack = $this->stackService->find((int) $card['stackId'])->jsonSerialize();
+					$stack = $this->stackService->find((int)$card['stackId'])->jsonSerialize();
 				} catch (NoPermissionException $e) {
 					// Skip throwing if user has no permissions
 					return null;
@@ -162,9 +163,9 @@ class CommentReferenceProvider implements IReferenceProvider {
 		}
 		if ($matches && count($matches) > 3) {
 			return [
-				(int) $matches[1],
-				(int) $matches[2],
-				(int) $matches[3],
+				(int)$matches[1],
+				(int)$matches[2],
+				(int)$matches[3],
 			];
 		}
 

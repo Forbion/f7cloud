@@ -8,61 +8,45 @@
 namespace OCA\GroupFolders;
 
 use Exception;
+use OCA\GroupFolders\Attribute\RequireGroupFolderAdmin;
 use OCA\GroupFolders\Service\DelegationService;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Middleware;
-use OCP\AppFramework\Utility\IControllerMethodReflector;
 use OCP\IRequest;
+use ReflectionMethod;
 
 class AuthorizedAdminSettingMiddleware extends Middleware {
-	private DelegationService $delegatedService;
-	private IControllerMethodReflector $reflector;
-	private IRequest $request;
-
 	public function __construct(
-		DelegationService $delegatedService,
-		IControllerMethodReflector $reflector,
-		IRequest $request
+		private DelegationService $delegatedService,
+		private IRequest $request,
 	) {
-		$this->delegatedService = $delegatedService;
-		$this->reflector = $reflector;
-		$this->request = $request;
 	}
 
 	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \OCP\AppFramework\Middleware::beforeController()
-	 *
 	 * Throws an error when the user is not allowed to use the app's APIs
-	 *
 	 */
-	public function beforeController($controller, $methodName) {
-		if ($this->reflector->hasAnnotation('RequireGroupFolderAdmin')) {
-			if (!$this->delegatedService->hasApiAccess()) {
-				throw new Exception('Logged in user must be an admin, a sub admin or gotten special right to access this setting');
-			}
+	public function beforeController(Controller $controller, string $methodName): void {
+		$method = new ReflectionMethod($controller, $methodName);
+		if ($method->getAttributes(RequireGroupFolderAdmin::class) !== [] && !$this->delegatedService->hasApiAccess()) {
+			throw new Exception('Logged in user must be an admin, a sub admin or gotten special right to access this setting');
 		}
 	}
 
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \OCP\AppFramework\Middleware::afterException()
-	 *
-	 */
-	public function afterException($controller, $methodName, \Exception $exception): Response {
+	public function afterException(Controller $controller, string $methodName, Exception $exception): Response {
+		/** @var Http::STATUS_* $code */
+		$code = $exception->getCode();
+
 		if (stripos($this->request->getHeader('Accept'), 'html') === false) {
-			$response = new JSONResponse(
+			return new JSONResponse(
 				['message' => $exception->getMessage()],
-				(int)$exception->getCode()
+				$code
 			);
-		} else {
-			$response = new TemplateResponse('core', '403', ['message' => $exception->getMessage()], 'guest');
-			$response->setStatus((int)$exception->getCode());
 		}
-		return $response;
+
+		return new TemplateResponse('core', '403', ['message' => $exception->getMessage()], 'guest', $code);
 	}
 }

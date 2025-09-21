@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -15,7 +16,7 @@ class Filter implements \OCP\Activity\IFilter {
 
 	public function __construct(
 		IL10N $l10n,
-		IURLGenerator $urlGenerator
+		IURLGenerator $urlGenerator,
 	) {
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
@@ -39,8 +40,8 @@ class Filter implements \OCP\Activity\IFilter {
 
 	/**
 	 * @return int whether the filter should be rather on the top or bottom of
-	 * the admin section. The filters are arranged in ascending order of the
-	 * priority values. It is required to return a value between 0 and 100.
+	 *             the admin section. The filters are arranged in ascending order of the
+	 *             priority values. It is required to return a value between 0 and 100.
 	 * @since 11.0.0
 	 */
 	public function getPriority(): int {

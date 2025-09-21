@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BoardImport extends Command {
 	public function __construct(
-		private BoardImportCommandService $boardImportCommandService
+		private BoardImportCommandService $boardImportCommandService,
 	) {
 		parent::__construct();
 	}

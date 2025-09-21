@@ -21,32 +21,40 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @psalm-import-type InternalFolderOut from FolderManager
  */
 abstract class FolderCommand extends Base {
-	protected FolderManager $folderManager;
-	protected IRootFolder $rootFolder;
-	protected MountProvider $mountProvider;
 
-	public function __construct(FolderManager $folderManager, IRootFolder $rootFolder, MountProvider $mountProvider) {
+	public function __construct(
+		protected FolderManager $folderManager,
+		protected IRootFolder $rootFolder,
+		protected MountProvider $mountProvider,
+	) {
 		parent::__construct();
-		$this->folderManager = $folderManager;
-		$this->rootFolder = $rootFolder;
-		$this->mountProvider = $mountProvider;
 	}
 
 	/**
-	 * @return InternalFolderOut|false
+	 * @return ?InternalFolderOut
 	 */
-	protected function getFolder(InputInterface $input, OutputInterface $output) {
+	protected function getFolder(InputInterface $input, OutputInterface $output): ?array {
 		$folderId = (int)$input->getArgument('folder_id');
 		if ((string)$folderId !== $input->getArgument('folder_id')) {
 			// Protect against removing folderId === 0 when typing a string (e.g. folder name instead of folder id)
 			$output->writeln('<error>Folder id argument is not an integer. Got ' . $input->getArgument('folder_id') . '</error>');
-			return false;
+
+			return null;
 		}
-		$folder = $this->folderManager->getFolder($folderId, $this->rootFolder->getMountPoint()->getNumericStorageId());
-		if ($folder === false) {
+
+		$rootStorageId = $this->rootFolder->getMountPoint()->getNumericStorageId();
+		if ($rootStorageId === null) {
+			$output->writeln('<error>Root storage id not found</error>');
+			return  null;
+		}
+
+
+		$folder = $this->folderManager->getFolder($folderId, $rootStorageId);
+		if ($folder === null) {
 			$output->writeln('<error>Folder not found: ' . $folderId . '</error>');
-			return false;
+			return null;
 		}
+
 		return $folder;
 	}
 }

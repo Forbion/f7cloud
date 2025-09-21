@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Library;
 
+use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\Constructor;
+use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Object\DynamicConstructor;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Message\ErrorMessage;
+use OCA\Talk\Vendor\CuyZ\Valinor\Normalizer\AsTransformer;
 use DateTimeImmutable;
 use DateTimeInterface;
 use OCA\Talk\Vendor\Psr\SimpleCache\CacheInterface;
 use Throwable;
+
+use function array_keys;
 
 /** @internal */
 final class Settings
@@ -18,6 +23,7 @@ final class Settings
         'Y-m-d\\TH:i:sP', // RFC 3339
         'Y-m-d\\TH:i:s.uP', // RFC 3339 with microseconds
         'U', // Unix Timestamp
+        'U.u', // Unix Timestamp with microseconds
     ];
 
     /** @var array<class-string|interface-string, callable> */
@@ -35,7 +41,7 @@ final class Settings
     /** @var CacheInterface<mixed> */
     public CacheInterface $cache;
 
-    /** @var non-empty-array<non-empty-string> */
+    /** @var non-empty-list<non-empty-string> */
     public array $supportedDateFormats = self::DEFAULT_SUPPORTED_DATETIME_FORMATS;
 
     public bool $enableFlexibleCasting = false;
@@ -57,6 +63,19 @@ final class Settings
     {
         $this->inferredMapping[DateTimeInterface::class] = static fn () => DateTimeImmutable::class;
         $this->exceptionFilter = fn (Throwable $exception) => throw $exception;
+    }
+
+    /**
+     * @return non-empty-list<class-string>
+     */
+    public function allowedAttributes(): array
+    {
+        return [
+            AsTransformer::class,
+            Constructor::class,
+            DynamicConstructor::class,
+            ...array_keys($this->transformerAttributes),
+        ];
     }
 
     /**

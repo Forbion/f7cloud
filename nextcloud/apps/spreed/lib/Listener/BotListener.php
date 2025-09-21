@@ -15,6 +15,8 @@ use OCA\Talk\Events\BotEnabledEvent;
 use OCA\Talk\Events\BotInstallEvent;
 use OCA\Talk\Events\BotUninstallEvent;
 use OCA\Talk\Events\ChatMessageSentEvent;
+use OCA\Talk\Events\ReactionAddedEvent;
+use OCA\Talk\Events\ReactionRemovedEvent;
 use OCA\Talk\Events\SystemMessageSentEvent;
 use OCA\Talk\Model\Bot;
 use OCA\Talk\Model\BotConversationMapper;
@@ -65,6 +67,14 @@ class BotListener implements IEventListener {
 			$this->botService->afterChatMessageSent($event, $messageParser);
 			return;
 		}
+		if ($event instanceof ReactionAddedEvent) {
+			$this->botService->afterReactionAdded($event, $messageParser);
+			return;
+		}
+		if ($event instanceof ReactionRemovedEvent) {
+			$this->botService->afterReactionRemoved($event, $messageParser);
+			return;
+		}
 		if ($event instanceof SystemMessageSentEvent) {
 			$this->botService->afterSystemMessageSent($event, $messageParser);
 		}
@@ -93,6 +103,11 @@ class BotListener implements IEventListener {
 			} catch (DoesNotExistException) {
 			}
 
+			$features = $event->getFeatures();
+			if (str_starts_with($event->getUrl(), Bot::URL_APP_PREFIX)) {
+				$features &= ~Bot::FEATURE_WEBHOOK;
+			}
+
 			$bot = new BotServer();
 			$bot->setName($event->getName());
 			$bot->setDescription($event->getDescription());
@@ -100,7 +115,7 @@ class BotListener implements IEventListener {
 			$bot->setUrl($event->getUrl());
 			$bot->setUrlHash(sha1($event->getUrl()));
 			$bot->setState(Bot::STATE_ENABLED);
-			$bot->setFeatures($event->getFeatures());
+			$bot->setFeatures($features);
 			$this->botServerMapper->insert($bot);
 		}
 	}

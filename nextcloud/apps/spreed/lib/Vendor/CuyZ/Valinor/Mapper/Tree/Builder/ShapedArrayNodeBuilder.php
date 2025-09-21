@@ -5,20 +5,17 @@ declare(strict_types=1);
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Builder;
 
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Exception\SourceMustBeIterable;
-use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Exception\UnexpectedShapedArrayKeys;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Shell;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\ShapedArrayType;
 
 use function array_key_exists;
 use function assert;
-use function count;
 use function is_array;
+use function is_iterable;
 
 /** @internal */
 final class ShapedArrayNodeBuilder implements NodeBuilder
 {
-    public function __construct(private bool $allowSuperfluousKeys) {}
-
     public function build(Shell $shell, RootNodeBuilder $rootBuilder): TreeNode
     {
         $type = $shell->type();
@@ -26,8 +23,8 @@ final class ShapedArrayNodeBuilder implements NodeBuilder
 
         assert($type instanceof ShapedArrayType);
 
-        if (! is_array($value)) {
-            throw new SourceMustBeIterable($value, $type);
+        if (! is_iterable($value)) {
+            return TreeNode::error($shell, new SourceMustBeIterable($value, $type));
         }
 
         $children = $this->children($type, $shell, $rootBuilder);
@@ -35,10 +32,7 @@ final class ShapedArrayNodeBuilder implements NodeBuilder
         $array = $this->buildArray($children);
 
         $node = TreeNode::branch($shell, $array, $children);
-
-        if (! $this->allowSuperfluousKeys && count($value) > count($children)) {
-            $node = $node->withMessage(new UnexpectedShapedArrayKeys($value, $children));
-        }
+        $node = $node->checkUnexpectedKeys();
 
         return $node;
     }
@@ -48,10 +42,14 @@ final class ShapedArrayNodeBuilder implements NodeBuilder
      */
     private function children(ShapedArrayType $type, Shell $shell, RootNodeBuilder $rootBuilder): array
     {
-        /** @var array<mixed> $value */
+        /** @var iterable<mixed> $value */
         $value = $shell->value();
         $elements = $type->elements();
         $children = [];
+
+        if (! is_array($value)) {
+            $value = iterator_to_array($value);
+        }
 
         foreach ($elements as $element) {
             $key = $element->key()->value();

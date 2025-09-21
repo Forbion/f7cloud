@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Factory\Specifications;
 
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Factory\TypeParserFactory;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Lexer\Token\ObjectToken;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Lexer\Token\TraversingToken;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\TypeParser;
 
 /** @internal */
 final class ClassContextSpecification implements TypeParserSpecification
@@ -24,10 +22,5 @@ final class ClassContextSpecification implements TypeParserSpecification
         }
 
         return $token;
-    }
-
-    public function manipulateParser(TypeParser $parser, TypeParserFactory $typeParserFactory): TypeParser
-    {
-        return $parser;
     }
 }

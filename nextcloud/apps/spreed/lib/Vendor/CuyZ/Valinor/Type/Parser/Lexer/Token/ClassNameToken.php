@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Lexer\Token;
 
+use OCA\Talk\Vendor\CuyZ\Valinor\Definition\Repository\Reflection\TypeResolver\ClassTemplatesResolver;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Constant\ClassConstantCaseNotFound;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Constant\MissingClassConstantCase;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Constant\MissingSpecificClassConstantCase;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Generic\CannotAssignGeneric;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Generic\GenericClosingBracketMissing;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Generic\GenericCommaMissing;
@@ -17,12 +17,10 @@ use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\Factory\ValueTypeFactory;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\InterfaceType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\NativeClassType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\UnionType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Utility\Reflection\DocParser;
 use OCA\Talk\Vendor\CuyZ\Valinor\Utility\Reflection\Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
 
-use function array_keys;
 use function array_map;
 use function array_shift;
 use function array_values;
@@ -51,16 +49,14 @@ final class ClassNameToken implements TraversingToken
             return $constant;
         }
 
-        if ($this->reflection->isInterface()) {
-            return new InterfaceType($this->reflection->name);
-        }
-
-        $reflection = Reflection::class($this->reflection->name);
-
-        $templates = array_keys(DocParser::classTemplates($reflection));
+        $templates = (new ClassTemplatesResolver())->resolveTemplateNamesFrom($this->reflection->name);
 
         $generics = $this->generics($stream, $this->reflection->name, $templates);
         $generics = $this->assignGenerics($this->reflection->name, $templates, $generics);
+
+        if ($this->reflection->isInterface()) {
+            return new InterfaceType($this->reflection->name, $generics);
+        }
 
         return new NativeClassType($this->reflection->name, $generics);
     }
@@ -83,10 +79,6 @@ final class ClassNameToken implements TraversingToken
         }
 
         $symbol = $stream->forward()->symbol();
-
-        if ($symbol === '*') {
-            throw new MissingSpecificClassConstantCase($this->reflection->name);
-        }
 
         $cases = [];
 

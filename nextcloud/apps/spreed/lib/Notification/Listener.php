@@ -73,6 +73,10 @@ class Listener implements IEventListener {
 	 * @param Attendee[] $attendees
 	 */
 	protected function generateInvitation(Room $room, array $attendees): void {
+		if ($room->getType() === Room::TYPE_ONE_TO_ONE) {
+			return;
+		}
+
 		if ($room->getObjectType() === Room::OBJECT_TYPE_FILE) {
 			return;
 		}
@@ -134,6 +138,12 @@ class Listener implements IEventListener {
 	 * Room invitation: "{actor} invited you to {call}"
 	 */
 	protected function markInvitationRead(Room $room, IUser $user): void {
+		if ($room->getType() === Room::TYPE_ONE_TO_ONE
+			|| $room->getType() === Room::TYPE_ONE_TO_ONE_FORMER) {
+			// No notifications for one-to-one, save a query
+			return;
+		}
+
 		$notification = $this->notificationManager->createNotification();
 		try {
 			$notification->setApp(Application::APP_ID)
@@ -212,7 +222,7 @@ class Listener implements IEventListener {
 		}
 
 		if ($this->shouldSendCallNotification || $event->getRoom()->isFederatedConversation()) {
-			$this->sendCallNotifications($event->getRoom());
+			$this->sendCallNotifications($event->getRoom(), $event->getDetailList(AParticipantModifiedEvent::DETAIL_IN_CALL_SILENT_FOR));
 		}
 	}
 
@@ -243,9 +253,9 @@ class Listener implements IEventListener {
 	/**
 	 * Call notification: "{user} wants to talk with you"
 	 *
-	 * @param Room $room
+	 * @param list<string> $silentFor
 	 */
-	protected function sendCallNotifications(Room $room): void {
+	protected function sendCallNotifications(Room $room, array $silentFor = []): void {
 		$actor = $this->userSession->getUser();
 		$actorId = $actor instanceof IUser ? $actor->getUID() :'';
 
@@ -274,11 +284,19 @@ class Listener implements IEventListener {
 		}
 
 		$this->preparedCallNotifications = [];
-		$userIds = $this->participantsService->getParticipantUserIdsForCallNotifications($room);
+		$users = $this->participantsService->getParticipantUsersForCallNotifications($room);
+
+		if (!empty($silentFor)) {
+			// Remove users for which the call should be silent
+			foreach ($silentFor as $userId) {
+				unset($users[$userId]);
+			}
+		}
+
 		// Room name depends on the notification user for one-to-one,
 		// so we avoid pre-parsing it there. Also, it comes with some base load,
 		// so we only do it for "big enough" calls.
-		$preparseNotificationForPush = count($userIds) > 10;
+		$preparseNotificationForPush = count($users) > 10;
 		if ($preparseNotificationForPush) {
 			$fallbackLang = $this->serverConfig->getSystemValue('force_language', null);
 			if (is_string($fallbackLang)) {
@@ -287,13 +305,14 @@ class Listener implements IEventListener {
 			} else {
 				$fallbackLang = $this->serverConfig->getSystemValueString('default_language', 'en');
 				/** @psalm-var array<string, string> $userLanguages */
-				$userLanguages = $this->serverConfig->getUserValueForUsers('core', 'lang', $userIds);
+				$userLanguages = $this->serverConfig->getUserValueForUsers('core', 'lang', array_map('strval', array_keys($users)));
 			}
 		}
 
 		$this->connection->beginTransaction();
 		try {
-			foreach ($userIds as $userId) {
+			foreach ($users as $userId => $isImportant) {
+				$userId = (string)$userId;
 				if ($actorId === $userId) {
 					continue;
 				}
@@ -316,6 +335,7 @@ class Listener implements IEventListener {
 
 				try {
 					$userNotification->setUser($userId);
+					$userNotification->setPriorityNotification($isImportant);
 					$this->notificationManager->notify($userNotification);
 				} catch (\InvalidArgumentException $e) {
 					$this->logger->error($e->getMessage(), ['exception' => $e]);
@@ -348,7 +368,8 @@ class Listener implements IEventListener {
 			$notification->setSubject('call', [
 				'callee' => $actor?->getActorId(),
 			])
-				->setDateTime($dateTime);
+				->setDateTime($dateTime)
+				->setPriorityNotification($target->isImportant());
 			$this->notificationManager->notify($notification);
 		} catch (\InvalidArgumentException $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);

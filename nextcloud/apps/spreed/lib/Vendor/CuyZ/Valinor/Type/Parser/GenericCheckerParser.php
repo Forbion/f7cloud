@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser;
 
+use OCA\Talk\Vendor\CuyZ\Valinor\Definition\Repository\Reflection\TypeResolver\ClassTemplatesResolver;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\CompositeTraversableType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\GenericType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\IntegerType;
@@ -11,14 +12,10 @@ use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Generic\AssignedGenericNo
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Generic\InvalidAssignedGeneric;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\InvalidType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Exception\Template\InvalidClassTemplate;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Factory\Specifications\AliasSpecification;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Factory\Specifications\ClassContextSpecification;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Parser\Factory\TypeParserFactory;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\StringType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Type;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\ArrayKeyType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Utility\Reflection\DocParser;
-use OCA\Talk\Vendor\CuyZ\Valinor\Utility\Reflection\Reflection;
 
 use function array_keys;
 
@@ -51,8 +48,7 @@ final class GenericCheckerParser implements TypeParser
             return;
         }
 
-        $reflection = Reflection::class($type->className());
-        $templates = DocParser::classTemplates($reflection);
+        $templates = (new ClassTemplatesResolver())->resolveTemplatesFrom($type->className());
 
         if ($templates === []) {
             return;
@@ -60,14 +56,11 @@ final class GenericCheckerParser implements TypeParser
 
         $generics = $type->generics();
 
-        $parser = $this->typeParserFactory->get(
-            new ClassContextSpecification($reflection->name),
-            new AliasSpecification($reflection),
-        );
+        $parser = $this->typeParserFactory->buildAdvancedTypeParserForClass($type);
 
         foreach ($templates as $templateName => $template) {
             if (! isset($generics[$templateName])) {
-                throw new AssignedGenericNotFound($reflection->name, ...array_keys($templates));
+                throw new AssignedGenericNotFound($type->className(), ...array_keys($templates));
             }
 
             array_shift($templates);
@@ -82,7 +75,7 @@ final class GenericCheckerParser implements TypeParser
             try {
                 $templateType = $parser->parse($template);
             } catch (InvalidType $invalidType) {
-                throw new InvalidClassTemplate($reflection->name, $templateName, $invalidType);
+                throw new InvalidClassTemplate($type->className(), $templateName, $invalidType);
             }
 
             if ($templateType instanceof ArrayKeyType && $genericType instanceof StringType) {

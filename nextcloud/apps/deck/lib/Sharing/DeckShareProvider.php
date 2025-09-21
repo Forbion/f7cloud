@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -69,7 +70,7 @@ class DeckShareProvider implements \OCP\Share\IShareProvider {
 		IL10N $l,
 		ITimeFactory $timeFactory,
 		IMimeTypeLoader $mimeTypeLoader,
-		?string $userId
+		?string $userId,
 	) {
 		$this->dbConnection = $connection;
 		$this->shareManager = $shareManager;
@@ -110,7 +111,7 @@ class DeckShareProvider implements \OCP\Share\IShareProvider {
 		try {
 			$board = $this->boardMapper->find($boardId);
 			$valid = $valid && !$board->getArchived();
-		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
 			$valid = false;
 		}
 
@@ -174,7 +175,7 @@ class DeckShareProvider implements \OCP\Share\IShareProvider {
 		string $target,
 		int $permissions,
 		string $token,
-		?\DateTime $expirationDate
+		?\DateTime $expirationDate,
 	): int {
 		$qb = $this->dbConnection->getQueryBuilder();
 		$qb->insert('share')
@@ -968,8 +969,8 @@ class DeckShareProvider implements \OCP\Share\IShareProvider {
 	protected function filterSharesOfUser(array $shares): array {
 		// Deck shares when the user has a share exception
 		foreach ($shares as $id => $share) {
-			$type = (int) $share['share_type'];
-			$permissions = (int) $share['permissions'];
+			$type = (int)$share['share_type'];
+			$permissions = (int)$share['permissions'];
 
 			if ($type === self::SHARE_TYPE_DECK_USER) {
 				unset($shares[$share['parent']]);

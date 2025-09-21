@@ -14,14 +14,11 @@ use OCP\IUser;
 use OCP\IUserSession;
 
 class Capabilities implements ICapability {
-	private IUserSession $userSession;
-	private FolderManager $folderManager;
-	private IAppManager $appManager;
-
-	public function __construct(IUserSession $userSession, FolderManager $folderManager, IAppManager $appManager) {
-		$this->userSession = $userSession;
-		$this->folderManager = $folderManager;
-		$this->appManager = $appManager;
+	public function __construct(
+		private IUserSession $userSession,
+		private FolderManager $folderManager,
+		private IAppManager $appManager,
+	) {
 	}
 
 	/**
@@ -37,6 +34,7 @@ class Capabilities implements ICapability {
 		if (!$user) {
 			return [];
 		}
+
 		return [
 			Application::APP_ID => [
 				'appVersion' => $this->appManager->getAppVersion(Application::APP_ID),

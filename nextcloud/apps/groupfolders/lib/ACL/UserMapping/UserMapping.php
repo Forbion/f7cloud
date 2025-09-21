@@ -22,7 +22,6 @@ class UserMapping implements IUserMapping {
 		$this->displayName = $displayName ?? $id;
 	}
 
-	/** @return 'user'|'group'|'dummy'|'circle' */
 	public function getType(): string {
 		return $this->type;
 	}

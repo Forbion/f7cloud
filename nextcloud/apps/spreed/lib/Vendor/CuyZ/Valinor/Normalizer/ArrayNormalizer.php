@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Normalizer;
 
+use OCA\Talk\Vendor\CuyZ\Valinor\Normalizer\Transformer\EmptyObject;
 use OCA\Talk\Vendor\CuyZ\Valinor\Normalizer\Transformer\RecursiveTransformer;
 
 use function array_map;
@@ -38,6 +39,8 @@ final class ArrayNormalizer implements Normalizer
             }
 
             $value = array_map($this->normalizeIterator(...), $value);
+        } elseif ($value instanceof EmptyObject) {
+            return [];
         }
 
         return $value;

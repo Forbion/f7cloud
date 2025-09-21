@@ -9,18 +9,18 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Model;
 
+use OCA\Talk\Exceptions\PollPropertyException;
 use OCA\Talk\ResponseDefinitions;
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
  * @psalm-method int<1, max> getId()
  * @method void setRoomId(int $roomId)
  * @method int getRoomId()
  * @psalm-method int<1, max> getRoomId()
- * @method void setQuestion(string $question)
  * @method string getQuestion()
  * @psalm-method non-empty-string getQuestion()
- * @method void setOptions(string $options)
  * @method string getOptions()
  * @method void setVotes(string $votes)
  * @method string getVotes()
@@ -70,17 +70,17 @@ class Poll extends Entity {
 	protected int $maxVotes = self::MAX_VOTES_UNLIMITED;
 
 	public function __construct() {
-		$this->addType('roomId', 'int');
-		$this->addType('question', 'string');
-		$this->addType('options', 'string');
-		$this->addType('votes', 'string');
-		$this->addType('numVoters', 'int');
-		$this->addType('actorType', 'string');
-		$this->addType('actorId', 'string');
-		$this->addType('displayName', 'string');
-		$this->addType('status', 'int');
-		$this->addType('resultMode', 'int');
-		$this->addType('maxVotes', 'int');
+		$this->addType('roomId', Types::BIGINT);
+		$this->addType('question', Types::TEXT);
+		$this->addType('options', Types::TEXT);
+		$this->addType('votes', Types::TEXT);
+		$this->addType('numVoters', Types::BIGINT);
+		$this->addType('actorType', Types::STRING);
+		$this->addType('actorId', Types::STRING);
+		$this->addType('displayName', Types::STRING);
+		$this->addType('status', Types::SMALLINT);
+		$this->addType('resultMode', Types::SMALLINT);
+		$this->addType('maxVotes', Types::INTEGER);
 	}
 
 	/**
@@ -119,5 +119,58 @@ class Poll extends Entity {
 			'resultMode' => $this->getResultMode(),
 			'maxVotes' => $this->getMaxVotes(),
 		];
+	}
+
+	public function isDraft(): bool {
+		return $this->getStatus() === self::STATUS_DRAFT;
+	}
+
+	/**
+	 * @param array $options
+	 * @return void
+	 * @throws PollPropertyException
+	 */
+	public function setOptions(array $options): void {
+		try {
+			$jsonOptions = json_encode($options, JSON_THROW_ON_ERROR, 1);
+		} catch (\Exception) {
+			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
+		}
+
+		$validOptions = [];
+		foreach ($options as $option) {
+			if (!is_string($option)) {
+				throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
+			}
+
+			$option = trim($option);
+			if ($option !== '') {
+				$validOptions[] = $option;
+			}
+		}
+
+		if (count($validOptions) < 2) {
+			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
+		}
+
+		if (strlen($jsonOptions) > 60_000) {
+			throw new PollPropertyException(PollPropertyException::REASON_OPTIONS);
+		}
+
+		$this->setter('options', [$jsonOptions]);
+	}
+
+	/**
+	 * @param string $question
+	 * @return void
+	 * @throws PollPropertyException
+	 */
+	public function setQuestion(string $question): void {
+		$question = trim($question);
+		if ($question === '' || strlen($question) > 32_000) {
+			throw new PollPropertyException(PollPropertyException::REASON_QUESTION);
+		}
+
+		$this->setter('question', [$question]);
 	}
 }

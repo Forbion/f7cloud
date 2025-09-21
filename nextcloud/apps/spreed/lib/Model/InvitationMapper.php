@@ -23,7 +23,7 @@ use SensitiveParameter;
  *
  * @method Invitation mapRowToEntity(array $row)
  * @method Invitation findEntity(IQueryBuilder $query)
- * @method Invitation[] findEntities(IQueryBuilder $query)
+ * @method list<Invitation> findEntities(IQueryBuilder $query)
  * @template-extends QBMapper<Invitation>
  */
 class InvitationMapper extends QBMapper {
@@ -40,6 +40,25 @@ class InvitationMapper extends QBMapper {
 		$qb->select('*')
 			->from($this->getTableName())
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($id)));
+
+		return $this->findEntity($qb);
+	}
+
+	/**
+	 * @throws DoesNotExistException
+	 * @internal Does not check user relation
+	 */
+	public function getByRemoteServerAndAccessToken(
+		string $remoteServerUrl,
+		#[SensitiveParameter]
+		string $accessToken,
+	): Invitation {
+		$qb = $this->db->getQueryBuilder();
+
+		$qb->select('*')
+			->from($this->getTableName())
+			->where($qb->expr()->eq('remote_server_url', $qb->createNamedParameter($remoteServerUrl)))
+			->andWhere($qb->expr()->eq('access_token', $qb->createNamedParameter($accessToken)));
 
 		return $this->findEntity($qb);
 	}
@@ -66,7 +85,7 @@ class InvitationMapper extends QBMapper {
 
 	/**
 	 * @param IUser $user
-	 * @return Invitation[]
+	 * @return list<Invitation>
 	 */
 	public function getInvitationsForUser(IUser $user): array {
 		$qb = $this->db->getQueryBuilder();

@@ -12,16 +12,19 @@ use OC\Files\ObjectStore\ObjectStoreStorage;
 use OC\Files\Storage\Wrapper\Quota;
 use OCP\Files\Cache\ICache;
 use OCP\Files\Cache\ICacheEntry;
+use OCP\Files\Cache\IScanner;
+use OCP\Files\Storage\IConstructableStorage;
+use OCP\Files\Storage\IStorage;
 use OCP\IUser;
 use OCP\IUserSession;
 
-class GroupFolderStorage extends Quota {
+class GroupFolderStorage extends Quota implements IConstructableStorage {
 	private int $folderId;
 	private ?ICacheEntry $rootEntry;
 	private IUserSession $userSession;
 	private ?IUser $mountOwner;
 	/** @var ICache|null */
-	public $cache = null;
+	public $cache;
 
 	public function __construct($parameters) {
 		parent::__construct($parameters);
@@ -35,10 +38,7 @@ class GroupFolderStorage extends Quota {
 		return $this->folderId;
 	}
 
-	/**
-	 * @psalm-suppress FalsableReturnStatement Return type of getOwner is not clear even in server
-	 */
-	public function getOwner($path) {
+	public function getOwner(string $path): string|false {
 		if ($this->mountOwner !== null) {
 			return $this->mountOwner->getUID();
 		}
@@ -55,10 +55,14 @@ class GroupFolderStorage extends Quota {
 		return $this->mountOwner;
 	}
 
-	public function getCache($path = '', $storage = null) {
+	/**
+	 * @inheritDoc
+	 */
+	public function getCache(string $path = '', ?IStorage $storage = null): ICache {
 		if ($this->cache) {
 			return $this->cache;
 		}
+
 		if (!$storage) {
 			$storage = $this;
 		}
@@ -72,16 +76,23 @@ class GroupFolderStorage extends Quota {
 		return $this->cache;
 	}
 
-	public function getScanner($path = '', $storage = null) {
+	/**
+	 * @inheritDoc
+	 * @param string $path
+	 * @param ?IStorage $storage
+	 */
+	public function getScanner($path = '', $storage = null): IScanner {
 		/** @var \OC\Files\Storage\Wrapper\Wrapper $storage */
 		if (!$storage) {
 			$storage = $this;
 		}
+
 		if ($storage->instanceOfStorage(ObjectStoreStorage::class)) {
 			$storage->scanner = new ObjectStoreScanner($storage);
 		} elseif (!isset($storage->scanner)) {
 			$storage->scanner = new Scanner($storage);
 		}
+
 		return $storage->scanner;
 	}
 

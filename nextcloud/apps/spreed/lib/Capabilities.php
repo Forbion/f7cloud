@@ -20,6 +20,7 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\TaskProcessing\IManager as ITaskProcessingManager;
 use OCP\TaskProcessing\TaskTypes\TextToTextSummary;
+use OCP\TaskProcessing\TaskTypes\TextToTextTranslate;
 use OCP\Translation\ITranslationManager;
 use OCP\Util;
 
@@ -109,13 +110,25 @@ class Capabilities implements IPublicCapability {
 		'talk-polls-drafts',
 		'download-call-participants',
 		'email-csv-import',
+		'conversation-creation-password',
 		'call-notification-state-api',
+		'schedule-meeting',
+		'edit-draft-poll',
+		'conversation-creation-all',
+		'important-conversations',
+		'unbind-conversation',
+		'sip-direct-dialin',
+		'dashboard-event-rooms',
+		'mutual-calendar-events',
+		'upcoming-reminders',
+		'sensitive-conversations',
 	];
 
 	public const CONDITIONAL_FEATURES = [
 		'message-expiration',
 		'reactions',
 		'chat-summary-api',
+		'call-end-to-end-encryption',
 	];
 
 	public const LOCAL_FEATURES = [
@@ -131,6 +144,14 @@ class Capabilities implements IPublicCapability {
 		'archived-conversations-v2',
 		'chat-summary-api',
 		'call-notification-state-api',
+		'schedule-meeting',
+		'conversation-creation-all',
+		'important-conversations',
+		'sip-direct-dialin',
+		'dashboard-event-rooms',
+		'mutual-calendar-events',
+		'upcoming-reminders',
+		'sensitive-conversations',
 	];
 
 	public const LOCAL_CONFIGS = [
@@ -140,6 +161,7 @@ class Capabilities implements IPublicCapability {
 		],
 		'call' => [
 			'predefined-backgrounds',
+			'predefined-backgrounds-v2',
 			'can-upload-background',
 			'start-without-media',
 			'blur-virtual-background',
@@ -147,11 +169,14 @@ class Capabilities implements IPublicCapability {
 		'chat' => [
 			'read-privacy',
 			'has-translation-providers',
+			'has-translation-task-providers',
 			'typing-privacy',
 			'summary-threshold',
 		],
 		'conversations' => [
 			'can-create',
+			'list-style',
+			'description-length',
 		],
 		'federation' => [
 			'enabled',
@@ -165,6 +190,9 @@ class Capabilities implements IPublicCapability {
 		'signaling' => [
 			'session-ping-limit',
 			'hello-v2-token-key',
+		],
+		'experiments' => [
+			'enabled',
 		],
 	];
 
@@ -186,8 +214,8 @@ class Capabilities implements IPublicCapability {
 
 	/**
 	 * @return array{
-	 *      spreed: TalkCapabilities,
-	 * }|array<empty>
+	 *      spreed?: TalkCapabilities,
+	 * }
 	 */
 	public function getCapabilities(): array {
 		$user = $this->userSession->getUser();
@@ -210,6 +238,7 @@ class Capabilities implements IPublicCapability {
 					'recording-consent' => $this->talkConfig->recordingConsentRequired(),
 					'supported-reactions' => ['❤️', '🎉', '👏', '👋', '👍', '👎', '🔥', '😂', '🤩', '🤔', '😲', '😥'],
 					// 'predefined-backgrounds' => list<string>,
+					// 'predefined-backgrounds-v2' => list<string>,
 					'can-upload-background' => false,
 					'sip-enabled' => $this->talkConfig->isSIPConfigured(),
 					'sip-dialout-enabled' => $this->talkConfig->isSIPDialOutEnabled(),
@@ -217,16 +246,24 @@ class Capabilities implements IPublicCapability {
 					'start-without-media' => $this->talkConfig->getCallsStartWithoutMedia($user?->getUID()),
 					'max-duration' => $this->appConfig->getAppValueInt('max_call_duration'),
 					'blur-virtual-background' => $this->talkConfig->getBlurVirtualBackground($user?->getUID()),
+					'end-to-end-encryption' => $this->talkConfig->isCallEndToEndEncryptionEnabled(),
 				],
 				'chat' => [
 					'max-length' => ChatManager::MAX_CHAT_LENGTH,
 					'read-privacy' => Participant::PRIVACY_PUBLIC,
 					'has-translation-providers' => $this->translationManager->hasProviders(),
+					'has-translation-task-providers' => false,
 					'typing-privacy' => Participant::PRIVACY_PUBLIC,
-					'summary-threshold' => 100,
+					'summary-threshold' => max(1, $this->appConfig->getAppValueInt('summary_threshold', 100)),
 				],
 				'conversations' => [
-					'can-create' => $user instanceof IUser && !$this->talkConfig->isNotAllowedToCreateConversations($user)
+					'can-create' => $user instanceof IUser && !$this->talkConfig->isNotAllowedToCreateConversations($user),
+					'force-passwords' => $this->talkConfig->isPasswordEnforced(),
+					'list-style' => $this->talkConfig->getConversationsListStyle($user?->getUID()),
+					'description-length' => Room::DESCRIPTION_MAXIMUM_LENGTH,
+					'retention-event' => max(0, $this->appConfig->getAppValueInt('retention_event_rooms', 28)),
+					'retention-phone' => max(0, $this->appConfig->getAppValueInt('retention_phone_rooms', 7)),
+					'retention-instant-meetings' => max(0, $this->appConfig->getAppValueInt('retention_instant_meetings', 1)),
 				],
 				'federation' => [
 					'enabled' => false,
@@ -240,6 +277,9 @@ class Capabilities implements IPublicCapability {
 				'signaling' => [
 					'session-ping-limit' => max(0, (int)$this->serverConfig->getAppValue('spreed', 'session-ping-limit', '200')),
 					// 'hello-v2-token-key' => string,
+				],
+				'experiments' => [
+					'enabled' => max(0, $this->appConfig->getAppValueInt($user instanceof IUser ? 'experiments_users' : 'experiments_guests')),
 				],
 			],
 			'config-local' => self::LOCAL_CONFIGS,
@@ -275,21 +315,72 @@ class Capabilities implements IPublicCapability {
 			$capabilities['config']['signaling']['hello-v2-token-key'] = $pubKey;
 		}
 
-		/** @var ?string[] $predefinedBackgrounds */
+		$includeBrandedBackgrounds = $user instanceof IUser || $this->appConfig->getAppValueBool('backgrounds_branded_for_guests');
+		$includeDefaultBackgrounds = !$user instanceof IUser || $this->appConfig->getAppValueBool('backgrounds_default_for_users', true);
+
+		$predefinedBackgrounds = [];
+		$defaultBackgrounds = $this->getBackgroundsFromDirectory(__DIR__ . '/../img/backgrounds', '_default');
+		if ($includeBrandedBackgrounds) {
+			$predefinedBackgrounds = $this->getBackgroundsFromDirectory(\OC::$SERVERROOT . '/themes/talk-backgrounds', '_branded');
+			$predefinedBackgrounds = array_map(static fn ($fileName) => '/themes/talk-backgrounds/' . $fileName, $predefinedBackgrounds);
+		}
+
+		if ($includeDefaultBackgrounds) {
+			$spreedWebPath = $this->appManager->getAppWebPath('spreed');
+			$prefixedDefaultBackgrounds = array_map(static fn ($fileName) => $spreedWebPath . '/img/backgrounds/' . $fileName, $defaultBackgrounds);
+			$predefinedBackgrounds = array_merge($predefinedBackgrounds, $prefixedDefaultBackgrounds);
+		}
+
+		$capabilities['config']['call']['predefined-backgrounds'] = $defaultBackgrounds;
+		$capabilities['config']['call']['predefined-backgrounds-v2'] = array_values($predefinedBackgrounds);
+
+		if ($user instanceof IUser) {
+			$userAllowedToUpload = $this->appConfig->getAppValueBool('backgrounds_upload_users', true);
+			if ($userAllowedToUpload) {
+				$quota = $user->getQuota();
+				if ($quota !== 'none') {
+					$quota = Util::computerFileSize($quota);
+				}
+				$capabilities['config']['call']['can-upload-background'] = $quota === 'none' || $quota > 0;
+			}
+			$capabilities['config']['call']['can-enable-sip'] = $this->talkConfig->canUserEnableSIP($user);
+		}
+
+		$supportedTaskTypes = $this->taskProcessingManager->getAvailableTaskTypes();
+		if (isset($supportedTaskTypes[TextToTextSummary::ID])) {
+			$capabilities['features'][] = 'chat-summary-api';
+		}
+		if (isset($supportedTaskTypes[TextToTextTranslate::ID])) {
+			$capabilities['config']['chat']['has-translation-task-providers'] = true;
+		}
+
+		if ($this->talkConfig->getSignalingMode() === Config::SIGNALING_EXTERNAL) {
+			$capabilities['features'][] = 'call-end-to-end-encryption';
+		}
+
+		return [
+			'spreed' => $capabilities,
+		];
+	}
+
+	/**
+	 * @return list<string>
+	 */
+	protected function getBackgroundsFromDirectory(string $directory, string $cacheSuffix): array {
+		$cacheKey = 'predefined_backgrounds' . $cacheSuffix;
+
+		/** @var ?list<string> $predefinedBackgrounds */
 		$predefinedBackgrounds = null;
-		$cachedPredefinedBackgrounds = $this->talkCache->get('predefined_backgrounds');
+		$cachedPredefinedBackgrounds = $this->talkCache->get($cacheKey);
 		if ($cachedPredefinedBackgrounds !== null) {
 			// Try using cached value
-			/** @var string[]|null $predefinedBackgrounds */
+			/** @var list<string>|null $predefinedBackgrounds */
 			$predefinedBackgrounds = json_decode($cachedPredefinedBackgrounds, true);
 		}
 
 		if (!is_array($predefinedBackgrounds)) {
-			// Cache was empty or invalid, regenerate
-			/** @var string[] $predefinedBackgrounds */
-			$predefinedBackgrounds = [];
-			if (file_exists(__DIR__ . '/../img/backgrounds')) {
-				$directoryIterator = new \DirectoryIterator(__DIR__ . '/../img/backgrounds');
+			if (file_exists($directory) && is_dir($directory)) {
+				$directoryIterator = new \DirectoryIterator($directory);
 				foreach ($directoryIterator as $file) {
 					if (!$file->isFile()) {
 						continue;
@@ -305,26 +396,9 @@ class Capabilities implements IPublicCapability {
 				sort($predefinedBackgrounds);
 			}
 
-			$this->talkCache->set('predefined_backgrounds', json_encode($predefinedBackgrounds), 300);
+			$this->talkCache->set($cacheKey, json_encode($predefinedBackgrounds), 300);
 		}
 
-		$capabilities['config']['call']['predefined-backgrounds'] = $predefinedBackgrounds;
-		if ($user instanceof IUser) {
-			$quota = $user->getQuota();
-			if ($quota !== 'none') {
-				$quota = Util::computerFileSize($quota);
-			}
-			$capabilities['config']['call']['can-upload-background'] = $quota === 'none' || $quota > 0;
-			$capabilities['config']['call']['can-enable-sip'] = $this->talkConfig->canUserEnableSIP($user);
-		}
-
-		$supportedTaskTypes = $this->taskProcessingManager->getAvailableTaskTypes();
-		if (isset($supportedTaskTypes[TextToTextSummary::ID])) {
-			$capabilities['features'][] = 'chat-summary-api';
-		}
-
-		return [
-			'spreed' => $capabilities,
-		];
+		return $predefinedBackgrounds ?? [];
 	}
 }

@@ -9,17 +9,19 @@ namespace OCA\GroupFolders;
 
 use OCA\GroupFolders\Mount\GroupFolderStorage;
 use OCP\EventDispatcher\IEventDispatcher;
-use OCP\Files\Cache\CacheInsertEvent;
-use OCP\Files\Cache\CacheUpdateEvent;
+use OCP\Files\Cache\CacheEntryInsertedEvent;
+use OCP\Files\Cache\CacheEntryUpdatedEvent;
 use OCP\Files\Cache\ICacheEvent;
 
 class CacheListener {
-	public function __construct(private IEventDispatcher $eventDispatcher) {
+	public function __construct(
+		private IEventDispatcher $eventDispatcher,
+	) {
 	}
 
 	public function listen(): void {
-		$this->eventDispatcher->addListener(CacheInsertEvent::class, [$this, 'onCacheEvent'], 99999);
-		$this->eventDispatcher->addListener(CacheUpdateEvent::class, [$this, 'onCacheEvent'], 99999);
+		$this->eventDispatcher->addListener(CacheEntryInsertedEvent::class, $this->onCacheEvent(...), 99999);
+		$this->eventDispatcher->addListener(CacheEntryUpdatedEvent::class, $this->onCacheEvent(...), 99999);
 	}
 
 	public function onCacheEvent(ICacheEvent $event): void {

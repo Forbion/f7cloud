@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -52,10 +53,10 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService {
 		IPreview $preview,
 		IMimeTypeDetector $mimeTypeDetector,
 		PermissionService $permissionService,
-		CardMapper  $cardMapper,
+		CardMapper $cardMapper,
 		LoggerInterface $logger,
 		IDBConnection $connection,
-		?string $userId
+		?string $userId,
 	) {
 		$this->request = $request;
 		$this->l10n = $l10n;

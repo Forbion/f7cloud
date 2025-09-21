@@ -12,11 +12,9 @@ use OCP\Files\FileInfo;
 use OCP\IUser;
 
 class GroupTrashItem extends TrashItem {
-	private string $internalOriginalLocation;
-
 	public function __construct(
 		ITrashBackend $backend,
-		string $originalLocation,
+		private string $internalOriginalLocation,
 		int $deletedTime,
 		string $trashPath,
 		FileInfo $fileInfo,
@@ -24,8 +22,7 @@ class GroupTrashItem extends TrashItem {
 		private string $mountPoint,
 		?IUser $deletedBy,
 	) {
-		$this->internalOriginalLocation = $originalLocation;
-		parent::__construct($backend, $this->mountPoint . '/' . $originalLocation, $deletedTime, $trashPath, $fileInfo, $user, $deletedBy);
+		parent::__construct($backend, $this->mountPoint . '/' . $this->internalOriginalLocation, $deletedTime, $trashPath, $fileInfo, $user, $deletedBy);
 	}
 
 	public function getInternalOriginalLocation(): string {
@@ -49,9 +46,10 @@ class GroupTrashItem extends TrashItem {
 		return $this->getDeletedTime();
 	}
 
-	public function getInternalPath() {
+	public function getInternalPath(): string {
 		// trashbin expects the path without the deletion timestamp
 		$path = parent::getInternalPath();
+
 		return rtrim($path, '.d' . $this->getDeletedTime());
 	}
 }

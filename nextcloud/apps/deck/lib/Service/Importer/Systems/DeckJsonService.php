@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -51,7 +52,7 @@ class DeckJsonService extends ABoardImportService {
 			if (!is_string($nextcloudUid) && !is_numeric($nextcloudUid)) {
 				throw new \LogicException('User on setting uidRelation is invalid');
 			}
-			$nextcloudUid = (string) $nextcloudUid;
+			$nextcloudUid = (string)$nextcloudUid;
 			$this->getImportService()->getConfig('uidRelation')->$exportUid = $this->userManager->get($nextcloudUid);
 			if (!$this->getImportService()->getConfig('uidRelation')->$exportUid) {
 				throw new \LogicException('User on setting uidRelation not found: ' . $nextcloudUid);
@@ -106,7 +107,7 @@ class DeckJsonService extends ABoardImportService {
 	public function getComments(): array {
 		$comments = [];
 		foreach ($this->tmpCards as $sourceCard) {
-			if (!property_exists($sourceCard, "comments")) {
+			if (!property_exists($sourceCard, 'comments')) {
 				continue;
 			}
 			$commentsOriginal = $sourceCard->comments;

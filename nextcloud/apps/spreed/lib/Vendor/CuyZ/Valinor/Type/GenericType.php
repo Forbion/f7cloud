@@ -3,7 +3,7 @@
 namespace OCA\Talk\Vendor\CuyZ\Valinor\Type;
 
 /** @internal */
-interface GenericType extends CompositeType
+interface GenericType extends ObjectType, CompositeType
 {
     /**
      * @return class-string

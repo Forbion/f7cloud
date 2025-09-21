@@ -20,6 +20,7 @@ use OCA\Talk\Room;
 use OCA\Talk\Webinary;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Comments\IComment;
 use OCP\IConfig;
@@ -36,6 +37,7 @@ use OCP\UserStatus\IUserStatus;
 class RoomFormatter {
 	public function __construct(
 		protected Config $talkConfig,
+		protected IAppConfig $appConfig,
 		protected AvatarService $avatarService,
 		protected ParticipantService $participantService,
 		protected ChatManager $chatManager,
@@ -121,7 +123,6 @@ class RoomFormatter {
 			'lobbyTimer' => 0,
 			'lastPing' => 0,
 			'sessionId' => '0',
-			'lastMessage' => [],
 			'sipEnabled' => Webinary::SIP_DISABLED,
 			'actorType' => '',
 			'actorId' => '',
@@ -144,6 +145,8 @@ class RoomFormatter {
 			'recordingConsent' => $this->talkConfig->recordingConsentRequired() === RecordingService::CONSENT_REQUIRED_OPTIONAL ? $room->getRecordingConsent() : $this->talkConfig->recordingConsentRequired(),
 			'mentionPermissions' => Room::MENTION_PERMISSIONS_EVERYONE,
 			'isArchived' => false,
+			'isImportant' => false,
+			'isSensitive' => false,
 		];
 
 		if ($room->isFederatedConversation()) {
@@ -228,6 +231,8 @@ class RoomFormatter {
 			'breakoutRoomStatus' => $room->getBreakoutRoomStatus(),
 			'mentionPermissions' => $room->getMentionPermissions(),
 			'isArchived' => $attendee->isArchived(),
+			'isImportant' => $attendee->isImportant(),
+			'isSensitive' => $attendee->isSensitive(),
 		]);
 
 		if ($room->isFederatedConversation()) {
@@ -313,6 +318,13 @@ class RoomFormatter {
 					&& $room->getType() !== Room::TYPE_ONE_TO_ONE_FORMER
 					&& $currentParticipant->hasModeratorPermissions(false);
 				$roomData['canLeaveConversation'] = $room->getType() !== Room::TYPE_NOTE_TO_SELF;
+
+				if ($this->appConfig->getAppValueBool('delete_one_to_one_conversations')
+					&& in_array($room->getType(), [Room::TYPE_ONE_TO_ONE, Room::TYPE_ONE_TO_ONE_FORMER], true)) {
+					$roomData['canDeleteConversation'] = true;
+					$roomData['canLeaveConversation'] = false;
+				}
+
 				$roomData['canEnableSIP'] =
 					$this->talkConfig->isSIPConfigured()
 					&& !preg_match(Room::SIP_INCOMPATIBLE_REGEX, $room->getToken())
@@ -381,15 +393,18 @@ class RoomFormatter {
 			}
 		}
 
-		$roomData['lastMessage'] = [];
+		$skipLastMessage = $skipLastMessage || $attendee->isSensitive();
 		$lastMessage = $skipLastMessage ? null : $room->getLastMessage();
 		if (!$room->isFederatedConversation() && $lastMessage instanceof IComment) {
-			$roomData['lastMessage'] = $this->formatLastMessage(
+			$lastMessageData = $this->formatLastMessage(
 				$responseFormat,
 				$room,
 				$currentParticipant,
 				$lastMessage,
 			);
+			if ($lastMessageData !== null) {
+				$roomData['lastMessage'] = $lastMessageData;
+			}
 		} elseif ($room->isFederatedConversation()) {
 			$roomData['lastCommonReadMessage'] = 0;
 			try {
@@ -424,25 +439,25 @@ class RoomFormatter {
 	}
 
 	/**
-	 * @return TalkRoomLastMessage|array<empty>
+	 * @return TalkRoomLastMessage|null
 	 */
 	public function formatLastMessage(
 		string $responseFormat,
 		Room $room,
 		Participant $participant,
 		IComment $lastMessage,
-	): array {
+	): ?array {
 		$message = $this->messageParser->createMessage($room, $participant, $lastMessage, $this->l10n);
-		$this->messageParser->parseMessage($message);
+		$this->messageParser->parseMessage($message, true);
 
 		if (!$message->getVisibility()) {
-			return [];
+			return null;
 		}
 
 		$now = $this->timeFactory->getDateTime();
 		$expireDate = $message->getComment()->getExpireDate();
 		if ($expireDate instanceof \DateTime && $expireDate < $now) {
-			return [];
+			return null;
 		}
 
 		return $message->toArray($responseFormat);

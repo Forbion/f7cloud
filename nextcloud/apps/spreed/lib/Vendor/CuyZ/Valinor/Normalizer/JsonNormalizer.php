@@ -14,6 +14,7 @@ use function get_debug_type;
 use function is_resource;
 use function stream_get_contents;
 
+use const JSON_FORCE_OBJECT;
 use const JSON_HEX_AMP;
 use const JSON_HEX_APOS;
 use const JSON_HEX_QUOT;
@@ -34,18 +35,20 @@ use const JSON_UNESCAPED_UNICODE;
  */
 final class JsonNormalizer implements Normalizer
 {
-    private const ACCEPTABLE_JSON_OPTIONS = JSON_HEX_QUOT
-    | JSON_HEX_TAG
-    | JSON_HEX_AMP
-    | JSON_HEX_APOS
-    | JSON_INVALID_UTF8_IGNORE
-    | JSON_INVALID_UTF8_SUBSTITUTE
-    | JSON_NUMERIC_CHECK
-    | JSON_PRESERVE_ZERO_FRACTION
-    | JSON_UNESCAPED_LINE_TERMINATORS
-    | JSON_UNESCAPED_SLASHES
-    | JSON_UNESCAPED_UNICODE
-    | JSON_THROW_ON_ERROR;
+    private const ACCEPTABLE_JSON_OPTIONS = JSON_FORCE_OBJECT
+        | JSON_HEX_QUOT
+        | JSON_HEX_TAG
+        | JSON_HEX_AMP
+        | JSON_HEX_APOS
+        | JSON_INVALID_UTF8_IGNORE
+        | JSON_INVALID_UTF8_SUBSTITUTE
+        | JSON_NUMERIC_CHECK
+        | JSON_PRETTY_PRINT
+        | JSON_PRESERVE_ZERO_FRACTION
+        | JSON_UNESCAPED_LINE_TERMINATORS
+        | JSON_UNESCAPED_SLASHES
+        | JSON_UNESCAPED_UNICODE
+        | JSON_THROW_ON_ERROR;
 
     private RecursiveTransformer $transformer;
 
@@ -149,7 +152,6 @@ final class JsonNormalizer implements Normalizer
     public function streamTo(mixed $resource): StreamNormalizer
     {
         // This check is there to help people that do not use static analyzers.
-        // @phpstan-ignore-next-line
         if (! is_resource($resource)) {
             throw new RuntimeException('Expected a valid resource, got ' . get_debug_type($resource));
         }

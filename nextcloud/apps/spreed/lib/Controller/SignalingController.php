@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace OCA\Talk\Controller;
 
-use GuzzleHttp\Exception\ConnectException;
 use OCA\Talk\Config;
 use OCA\Talk\Events\BeforeSignalingResponseSentEvent;
 use OCA\Talk\Exceptions\ForbiddenException;
@@ -22,7 +21,6 @@ use OCA\Talk\Participant;
 use OCA\Talk\ResponseDefinitions;
 use OCA\Talk\Room;
 use OCA\Talk\Service\BanService;
-use OCA\Talk\Service\CertificateService;
 use OCA\Talk\Service\ParticipantService;
 use OCA\Talk\Service\RoomService;
 use OCA\Talk\Service\SessionService;
@@ -45,6 +43,7 @@ use OCP\IUserManager;
 use Psr\Log\LoggerInterface;
 
 /**
+ * @psalm-import-type TalkSignalingFederationSettings from ResponseDefinitions
  * @psalm-import-type TalkSignalingSession from ResponseDefinitions
  * @psalm-import-type TalkSignalingSettings from ResponseDefinitions
  */
@@ -59,7 +58,6 @@ class SignalingController extends OCSController {
 		private \OCA\Talk\Signaling\Manager $signalingManager,
 		private TalkSession $session,
 		private Manager $manager,
-		private CertificateService $certificateService,
 		private ParticipantService $participantService,
 		private RoomService $roomService,
 		private SessionService $sessionService,
@@ -108,7 +106,7 @@ class SignalingController extends OCSController {
 	 * Get the signaling settings
 	 *
 	 * @param string $token Token of the room
-	 * @return DataResponse<Http::STATUS_OK, TalkSignalingSettings, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND, array<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, TalkSignalingSettings, array{}>|DataResponse<Http::STATUS_UNAUTHORIZED|Http::STATUS_NOT_FOUND, null, array{}>
 	 *
 	 * 200: Signaling settings returned
 	 * 401: Recording request invalid
@@ -124,7 +122,7 @@ class SignalingController extends OCSController {
 
 		if (!empty($this->request->getHeader('Talk-Recording-Random')) || !empty($this->request->getHeader('Talk-Recording-Checksum'))) {
 			if (!$this->validateRecordingBackendRequest('')) {
-				$response = new DataResponse([], Http::STATUS_UNAUTHORIZED);
+				$response = new DataResponse(null, Http::STATUS_UNAUTHORIZED);
 				$response->throttle(['action' => 'talkRecordingSecret']);
 				return $response;
 			}
@@ -159,7 +157,7 @@ class SignalingController extends OCSController {
 				$room = null;
 			}
 		} catch (RoomNotFoundException|ParticipantNotFoundException) {
-			$response = new DataResponse([], Http::STATUS_NOT_FOUND);
+			$response = new DataResponse(null, Http::STATUS_NOT_FOUND);
 			$response->throttle(['token' => $token, 'action' => $action]);
 			return $response;
 		}
@@ -233,15 +231,18 @@ class SignalingController extends OCSController {
 		return new DataResponse($data);
 	}
 
-	private function getFederationSettings(?Room $room): array {
+	/**
+	 * @psalm-return ?TalkSignalingFederationSettings
+	 */
+	private function getFederationSettings(?Room $room): ?array {
 		if ($room === null || !$room->isFederatedConversation()) {
-			return [];
+			return null;
 		}
 
 		try {
 			$participant = $this->participantService->getParticipant($room, $this->userId);
 		} catch (ParticipantNotFoundException $e) {
-			return [];
+			return null;
 		}
 
 		/** @var \OCA\Talk\Federation\Proxy\TalkV1\Controller\SignalingController $proxy */
@@ -249,7 +250,7 @@ class SignalingController extends OCSController {
 		$response = $proxy->getSettings($room, $participant);
 
 		if ($response->getStatus() === Http::STATUS_NOT_FOUND) {
-			return [];
+			return null;
 		}
 
 		/** @var TalkSignalingSettings $data */
@@ -273,96 +274,19 @@ class SignalingController extends OCSController {
 	 *
 	 * @param int $serverId ID of the signaling server
 	 * @psalm-param non-negative-int $serverId
-	 * @return DataResponse<Http::STATUS_OK, array<string, mixed>, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array<empty>, array{}>|DataResponse<Http::STATUS_INTERNAL_SERVER_ERROR, array{error: string, version?: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{version: string, warning?: string, features?: non-empty-list<string>}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, null, array{}>|DataResponse<Http::STATUS_INTERNAL_SERVER_ERROR, array{error: string, version?: string}, array{}>
 	 *
 	 * 200: Welcome message returned
 	 * 404: Signaling server not found
 	 */
 	#[OpenAPI(scope: OpenAPI::SCOPE_ADMINISTRATION, tags: ['settings'])]
 	public function getWelcomeMessage(int $serverId): DataResponse {
-		$signalingServers = $this->talkConfig->getSignalingServers();
-		if (empty($signalingServers) || !isset($signalingServers[$serverId])) {
-			return new DataResponse([], Http::STATUS_NOT_FOUND);
-		}
-
-		$url = rtrim($signalingServers[$serverId]['server'], '/');
-		$url = strtolower($url);
-
-		if (str_starts_with($url, 'wss://')) {
-			$url = 'https://' . substr($url, 6);
-		}
-
-		if (str_starts_with($url, 'ws://')) {
-			$url = 'http://' . substr($url, 5);
-		}
-
-		$verifyServer = (bool)$signalingServers[$serverId]['verify'];
-
-		if ($verifyServer && str_contains($url, 'https://')) {
-			$expiration = $this->certificateService->getCertificateExpirationInDays($url);
-
-			if ($expiration < 0) {
-				return new DataResponse(['error' => 'CERTIFICATE_EXPIRED'], Http::STATUS_INTERNAL_SERVER_ERROR);
-			}
-		}
-
-		$client = $this->clientService->newClient();
 		try {
-			$timeBefore = $this->timeFactory->getTime();
-			$response = $client->get($url . '/api/v1/welcome', [
-				'verify' => $verifyServer,
-				'nextcloud' => [
-					'allow_local_address' => true,
-				],
-			]);
-			$timeAfter = $this->timeFactory->getTime();
-
-			$body = $response->getBody();
-			$data = json_decode($body, true);
-
-			if (!is_array($data)) {
-				return new DataResponse([
-					'error' => 'JSON_INVALID',
-				], Http::STATUS_INTERNAL_SERVER_ERROR);
-			}
-
-			if (!isset($data['version'])) {
-				return new DataResponse([
-					'error' => 'UPDATE_REQUIRED',
-					'version' => '',
-				], Http::STATUS_INTERNAL_SERVER_ERROR);
-			}
-
-			if (!$this->signalingManager->isCompatibleSignalingServer($response)) {
-				return new DataResponse([
-					'error' => 'UPDATE_REQUIRED',
-					'version' => $data['version'] ?? '',
-				], Http::STATUS_INTERNAL_SERVER_ERROR);
-			}
-
-			$responseTime = $this->timeFactory->getDateTime($response->getHeader('date'))->getTimestamp();
-			if (($timeBefore - Config::ALLOWED_BACKEND_TIMEOFFSET) > $responseTime
-				|| ($timeAfter + Config::ALLOWED_BACKEND_TIMEOFFSET) < $responseTime) {
-				return new DataResponse([
-					'error' => 'TIME_OUT_OF_SYNC',
-				], Http::STATUS_INTERNAL_SERVER_ERROR);
-			}
-
-			$missingFeatures = $this->signalingManager->getSignalingServerMissingFeatures($response);
-			if (!empty($missingFeatures)) {
-				return new DataResponse([
-					'warning' => 'UPDATE_OPTIONAL',
-					'features' => $missingFeatures,
-					'version' => $data['version'] ?? '',
-				]);
-			}
-
-			return new DataResponse($data);
-		} catch (ConnectException $e) {
-			return new DataResponse(['error' => 'CAN_NOT_CONNECT'], Http::STATUS_INTERNAL_SERVER_ERROR);
-		} catch (\Exception $e) {
-			return new DataResponse(['error' => (string)$e->getCode()], Http::STATUS_INTERNAL_SERVER_ERROR);
+			$testResult = $this->signalingManager->checkServerCompatibility($serverId);
+		} catch (\OutOfBoundsException) {
+			return new DataResponse(null, Http::STATUS_NOT_FOUND);
 		}
+		return new DataResponse($testResult['data'], $testResult['status']);
 	}
 
 	/**
@@ -370,7 +294,7 @@ class SignalingController extends OCSController {
 	 *
 	 * @param string $token Token of the room
 	 * @param string $messages JSON encoded messages
-	 * @return DataResponse<Http::STATUS_OK, array<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, string, array{}>
+	 * @return DataResponse<Http::STATUS_OK, null, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, string, array{}>
 	 *
 	 * 200: Signaling message sent successfully
 	 * 400: Sending signaling message is not possible
@@ -430,7 +354,7 @@ class SignalingController extends OCSController {
 			}
 		}
 
-		return new DataResponse($response);
+		return new DataResponse(null);
 	}
 
 	/**
@@ -515,7 +439,7 @@ class SignalingController extends OCSController {
 	 * Get signaling messages
 	 *
 	 * @param string $token Token of the room
-	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND|Http::STATUS_CONFLICT, list<array{type: string, data: TalkSignalingSession[]|string}>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, string, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND|Http::STATUS_CONFLICT, list<array{type: string, data: list<TalkSignalingSession>|string}>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, string, array{}>
 	 *
 	 * 200: Signaling messages returned
 	 * 400: Getting signaling messages is not possible
@@ -618,7 +542,7 @@ class SignalingController extends OCSController {
 	/**
 	 * @param Room $room
 	 * @param int $pingTimestamp
-	 * @return TalkSignalingSession[]
+	 * @return list<TalkSignalingSession>
 	 */
 	protected function getUsersInRoom(Room $room, int $pingTimestamp): array {
 		$usersInRoom = [];
@@ -720,7 +644,7 @@ class SignalingController extends OCSController {
 	 * See sections "Backend validation" in
 	 * https://nextcloud-spreed-signaling.readthedocs.io/en/latest/standalone-signaling-api-v1/#backend-requests
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{type: string, error?: array{code: string, message: string}, auth?: array{version: string, userid?: string, user?: array<string, mixed>}, room?: array{version: string, roomid?: string, properties?: array<string, mixed>, permissions?: string[], session?: array<string, mixed>}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{type: string, error?: array{code: string, message: string}, auth?: array{version: string, userid?: string, user?: array<string, mixed>}, room?: array{version: string, roomid?: string, properties?: array<string, mixed>, permissions?: list<string>, session?: array<string, mixed>}}, array{}>
 	 *
 	 * 200: Always, sorry about that
 	 */
@@ -818,7 +742,7 @@ class SignalingController extends OCSController {
 	}
 
 	/**
-	 * @return DataResponse<Http::STATUS_OK, array{type: string, error?: array{code: string, message: string}, room?: array{version: string, roomid: string, properties: array<string, mixed>, permissions: string[], session?: array<string, mixed>}}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{type: string, error?: array{code: string, message: string}, room?: array{version: string, roomid: string, properties: array<string, mixed>, permissions: list<string>, session?: array<string, mixed>}}, array{}>
 	 */
 	private function backendRoom(array $roomRequest): DataResponse {
 		$token = $roomRequest['roomid']; // It's actually the room token

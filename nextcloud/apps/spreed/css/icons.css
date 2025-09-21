@@ -46,6 +46,18 @@
 	background-image: url(../img/icon-phone-white.svg);
 }
 
+.app-talk .icon-event,
+.modal-mask .icon-event,
+.v-popper__popper .icon-event,
+.talk-sidebar-callview .icon-event,
+#talk-panel .icon-event,
+#talk-sidebar .icon-event,
+#call-container .icon-event,
+.talkChatTab .icon-event {
+	background-image: url(../img/icon-event-white.svg);
+}
+
+
 .app-talk .icon-password,
 .modal-mask .icon-password,
 .v-popper__popper .icon-password,
@@ -106,12 +118,15 @@
  * "forced-white" needs to be included in the class name as the Avatar does
  * not accept several classes. */
 .user-bubble__avatar .icon-group-forced-white.avatar-class-icon,
+.user-bubble__avatar .icon-team-forced-white.avatar-class-icon,
 .user-bubble__avatar .icon-user-forced-white.avatar-class-icon,
 .user-bubble__avatar .icon-mail-forced-white.avatar-class-icon,
 .autocomplete-result .icon-group-forced-white.autocomplete-result__icon--,
+.autocomplete-result .icon-team-forced-white.autocomplete-result__icon--,
 .autocomplete-result .icon-user-forced-white.autocomplete-result__icon--,
 .autocomplete-result .icon-mail-forced-white.autocomplete-result__icon--,
 .mention-bubble .icon-group-forced-white.mention-bubble__icon--,
+.mention-bubble .icon-team-forced-white.mention-bubble__icon--,
 .mention-bubble .icon-user-forced-white.mention-bubble__icon--,
 .mention-bubble .icon-mail-forced-white.mention-bubble__icon-- {
 	background-color: #6B6B6B;
@@ -120,12 +135,15 @@
 /* System default: dark theme */
 @media (prefers-color-scheme: dark) {
 	body[data-theme-default] .user-bubble__avatar .icon-group-forced-white.avatar-class-icon,
+	body[data-theme-default] .user-bubble__avatar .icon-team-forced-white.avatar-class-icon,
 	body[data-theme-default] .user-bubble__avatar .icon-user-forced-white.avatar-class-icon,
 	body[data-theme-default] .user-bubble__avatar .icon-mail-forced-white.avatar-class-icon,
 	body[data-theme-default] .autocomplete-result .icon-group-forced-white.autocomplete-result__icon--,
+	body[data-theme-default] .autocomplete-result .icon-team-forced-white.autocomplete-result__icon--,
 	body[data-theme-default] .autocomplete-result .icon-user-forced-white.autocomplete-result__icon--,
 	body[data-theme-default] .autocomplete-result .icon-mail-forced-white.autocomplete-result__icon--,
 	body[data-theme-default] .mention-bubble .icon-group-forced-white.mention-bubble__icon--,
+	body[data-theme-default] .mention-bubble .icon-team-forced-white.mention-bubble__icon--,
 	body[data-theme-default] .mention-bubble .icon-user-forced-white.mention-bubble__icon--,
 	body[data-theme-default] .mention-bubble .icon-mail-forced-white.mention-bubble__icon-- {
 		background-color: #3B3B3B;
@@ -134,27 +152,38 @@
 
 /* Manually set dark theme */
 body[data-theme-dark] .user-bubble__avatar .icon-group-forced-white.avatar-class-icon,
+body[data-theme-dark] .user-bubble__avatar .icon-team-forced-white.avatar-class-icon,
 body[data-theme-dark] .user-bubble__avatar .icon-user-forced-white.avatar-class-icon,
 body[data-theme-dark] .user-bubble__avatar .icon-mail-forced-white.avatar-class-icon,
 body[data-theme-dark] .autocomplete-result .icon-group-forced-white.autocomplete-result__icon--,
+body[data-theme-dark] .autocomplete-result .icon-team-forced-white.autocomplete-result__icon--,
 body[data-theme-dark] .autocomplete-result .icon-user-forced-white.autocomplete-result__icon--,
 body[data-theme-dark] .autocomplete-result .icon-mail-forced-white.autocomplete-result__icon--,
 body[data-theme-dark] .mention-bubble .icon-group-forced-white.mention-bubble__icon--,
+body[data-theme-dark] .mention-bubble .icon-team-forced-white.mention-bubble__icon--,
 body[data-theme-dark] .mention-bubble .icon-user-forced-white.mention-bubble__icon--,
 body[data-theme-dark] .mention-bubble .icon-mail-forced-white.mention-bubble__icon-- {
 	background-color: #3B3B3B;
 }
 
+/* Invert the icon direction */
+body[dir="rtl"] .bidirectional-icon {
+	transform: scaleX(-1);
+}
+
 .user-bubble__avatar .icon-group-forced-white.avatar-class-icon,
+.user-bubble__avatar .icon-team-forced-white.avatar-class-icon,
 .user-bubble__avatar .icon-user-forced-white.avatar-class-icon,
 .user-bubble__avatar .icon-mail-forced-white.avatar-class-icon,
 .mention-bubble .icon-group-forced-white.mention-bubble__icon--,
+.mention-bubble .icon-team-forced-white.mention-bubble__icon--,
 .mention-bubble .icon-user-forced-white.mention-bubble__icon--,
 .mention-bubble .icon-mail-forced-white.mention-bubble__icon-- {
 	background-size: 75%;
 }
 
 .autocomplete-result .icon-group-forced-white.autocomplete-result__icon--,
+.autocomplete-result .icon-team-forced-white.autocomplete-result__icon--,
 .autocomplete-result .icon-user-forced-white.autocomplete-result__icon--,
 .autocomplete-result .icon-mail-forced-white.autocomplete-result__icon-- {
 	background-size: 50% !important;
@@ -176,6 +205,12 @@ body[data-theme-dark] .mention-bubble .icon-mail-forced-white.mention-bubble__ic
 .autocomplete-result .icon-group-forced-white.autocomplete-result__icon--,
 .mention-bubble .icon-group-forced-white.mention-bubble__icon-- {
 	background-image: url(../img/icon-contacts-white.svg);
+}
+
+.user-bubble__avatar .icon-team-forced-white,
+.autocomplete-result .icon-team-forced-white.autocomplete-result__icon--,
+.mention-bubble .icon-team-forced-white.mention-bubble__icon-- {
+	background-image: url(../img/icon-team-white.svg);
 }
 
 /* Needed to use white color also in dark mode. */

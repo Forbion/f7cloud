@@ -8,36 +8,38 @@ use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Exception\CannotResolveTypeFromUnio
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Exception\TooManyResolvedTypesFromUnion;
 use OCA\Talk\Vendor\CuyZ\Valinor\Mapper\Tree\Shell;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\ClassType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\FloatType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\IntegerType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\ScalarType;
-use OCA\Talk\Vendor\CuyZ\Valinor\Type\StringType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\InterfaceType;
+use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\NullType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\ShapedArrayType;
 use OCA\Talk\Vendor\CuyZ\Valinor\Type\Types\UnionType;
+use OCA\Talk\Vendor\CuyZ\Valinor\Utility\TypeHelper;
 
 use function count;
 use function krsort;
 use function reset;
+use function usort;
 
 /** @internal */
 final class UnionNodeBuilder implements NodeBuilder
 {
-    public function __construct(private NodeBuilder $delegate) {}
-
     public function build(Shell $shell, RootNodeBuilder $rootBuilder): TreeNode
     {
         $type = $shell->type();
 
-        if (! $type instanceof UnionType) {
-            return $this->delegate->build($shell, $rootBuilder);
-        }
+        assert($type instanceof UnionType);
 
         $structs = [];
         $scalars = [];
         $all = [];
 
         foreach ($type->types() as $subType) {
+            // @infection-ignore-all / This is a performance optimisation, so we
+            // cannot easily test this behavior.
+            if ($subType instanceof NullType && $shell->value() === null) {
+                return TreeNode::leaf($shell, null);
+            }
+
             $node = $rootBuilder->build($shell->withType($subType));
 
             if (! $node->isValid()) {
@@ -54,11 +56,16 @@ final class UnionNodeBuilder implements NodeBuilder
         }
 
         if ($all === []) {
-            throw new CannotResolveTypeFromUnion($shell->value(), $type);
+            return TreeNode::error($shell, new CannotResolveTypeFromUnion($shell->value(), $type));
         }
 
         if (count($all) === 1) {
             return $all[0];
+        }
+
+        // If there is only one scalar and one struct, the scalar has priority.
+        if (count($scalars) === 1 && count($structs) === 1) {
+            return $scalars[0];
         }
 
         if ($structs !== []) {
@@ -80,31 +87,14 @@ final class UnionNodeBuilder implements NodeBuilder
                 return $first[0];
             }
         } elseif ($scalars !== []) {
-            // Sorting the scalar types by priority: int, float, string, bool.
-            $sorted = [];
+            usort(
+                $scalars,
+                fn (TreeNode $a, TreeNode $b): int => TypeHelper::typePriority($b->type()) <=> TypeHelper::typePriority($a->type()),
+            );
 
-            foreach ($scalars as $node) {
-                if ($node->type() instanceof IntegerType) {
-                    $sorted[IntegerType::class] = $node;
-                } elseif ($node->type() instanceof FloatType) {
-                    $sorted[FloatType::class] = $node;
-                } elseif ($node->type() instanceof StringType) {
-                    $sorted[StringType::class] = $node;
-                }
-            }
-
-            if (isset($sorted[IntegerType::class])) {
-                return $sorted[IntegerType::class];
-            } elseif (isset($sorted[FloatType::class])) {
-                return $sorted[FloatType::class];
-            } elseif (isset($sorted[StringType::class])) {
-                return $sorted[StringType::class];
-            }
-
-            // @infection-ignore-all / We know this is a boolean, so we don't need to mutate the index
             return $scalars[0];
         }
 
-        throw new TooManyResolvedTypesFromUnion($type);
+        return TreeNode::error($shell, new TooManyResolvedTypesFromUnion($type));
     }
 }
