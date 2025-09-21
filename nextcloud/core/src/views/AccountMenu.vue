@@ -24,6 +24,7 @@
 				:href="profileEntry.href"
 				:active="profileEntry.active" />
 			<AccountMenuEntry v-for="entry in otherEntries"
+        v-if="entry.id !== 'help' && entry.id !== 'admin_settings' && entry.id !== 'core_apps'"
 				:id="entry.id"
 				:key="entry.id"
 				:name="entry.name"

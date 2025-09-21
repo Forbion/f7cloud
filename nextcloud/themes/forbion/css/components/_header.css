@@ -344,7 +344,7 @@
     top: 65px !important;
     right: 5%;
 
-    & .list-item__wrapper[data-v-a3ec46a7]:first-of-type {
+    & .list-item__wrapper.account-menu-entry:first-of-type {
         display: none;
     }
 }
