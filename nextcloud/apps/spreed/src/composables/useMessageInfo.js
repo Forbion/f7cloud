@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { t } from '@nextcloud/l10n'
 import { computed, ref } from 'vue'
-import { ATTENDEE, CONVERSATION, MESSAGE } from '../constants.ts'
-import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
-import { useGuestNameStore } from '../stores/guestName.js'
-import { ONE_DAY_IN_MS, ONE_HOUR_IN_MS } from '../utils/formattedTime.ts'
-import { getDisplayNameWithFallback } from '../utils/getDisplayName.ts'
+
+import { t } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
 import { useConversationInfo } from './useConversationInfo.ts'
 import { useStore } from './useStore.js'
+import { ATTENDEE, CONVERSATION } from '../constants.js'
+import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
+import { useGuestNameStore } from '../stores/guestName.js'
+import { getDisplayNameWithFallback } from '../utils/getDisplayName.ts'
 
 /**
  * Check whether the user can edit the message or not
@@ -37,7 +39,6 @@ export function useMessageInfo(message = ref({})) {
 			isConversationReadOnly: computed(() => false),
 			isFileShareWithoutCaption: computed(() => false),
 			isFileShare: computed(() => false),
-			hideDownloadOption: computed(() => true),
 			remoteServer: computed(() => ''),
 			lastEditor: computed(() => ''),
 			actorDisplayName: computed(() => ''),
@@ -51,14 +52,18 @@ export function useMessageInfo(message = ref({})) {
 		isConversationModifiable,
 	} = useConversationInfo({ item: conversation })
 
-	const isObjectShare = computed(() => Object.keys(Object(message.value.messageParameters)).some((key) => key.startsWith('object')))
+	const isObjectShare = computed(() => Object.keys(Object(message.value.messageParameters)).some(key => key.startsWith('object')))
 
-	const isCurrentUserOwnMessage = computed(() => message.value.actorId === currentActorId
-		&& message.value.actorType === currentActorType)
-	const isBotInOneToOne = computed(() => message.value.actorId.startsWith(ATTENDEE.BOT_PREFIX)
+	const isCurrentUserOwnMessage = computed(() =>
+		message.value.actorId === currentActorId
+		&& message.value.actorType === currentActorType
+	)
+	const isBotInOneToOne = computed(() =>
+		message.value.actorId.startsWith(ATTENDEE.BOT_PREFIX)
 		&& message.value.actorType === ATTENDEE.ACTOR_TYPE.BOTS
 		&& (conversation.value.type === CONVERSATION.TYPE.ONE_TO_ONE
-			|| conversation.value.type === CONVERSATION.TYPE.ONE_TO_ONE_FORMER))
+			|| conversation.value.type === CONVERSATION.TYPE.ONE_TO_ONE_FORMER)
+	)
 
 	const isEditable = computed(() => {
 		if (!hasTalkFeature(message.value.token, 'edit-messages') || !isConversationModifiable.value || isObjectShare.value || message.value.systemMessage
@@ -70,17 +75,16 @@ export function useMessageInfo(message = ref({})) {
 			return true
 		}
 
-		return (Date.now() - message.value.timestamp * 1000 < ONE_DAY_IN_MS)
+		return (moment(message.value.timestamp * 1000).add(1, 'd')) > moment()
 	})
 
-	const isFileShare = computed(() => Object.keys(Object(message.value.messageParameters)).some((key) => key.startsWith('file')))
-
-	const hideDownloadOption = computed(() => Object.values(Object(message.value.messageParameters)).some((value) => value.type === 'file' && value['hide-download'] === 'yes'))
+	const isFileShare = computed(() => Object.keys(Object(message.value.messageParameters)).some(key => key.startsWith('file')))
 
 	const isFileShareWithoutCaption = computed(() => message.value.message === '{file}' && isFileShare.value)
 
-	const isDeleteable = computed(() => (hasTalkFeature(message.value.token, 'delete-messages-unlimited') || (Date.now() - message.value.timestamp * 1000 < 6 * ONE_HOUR_IN_MS))
-		&& [MESSAGE.TYPE.COMMENT, MESSAGE.TYPE.VOICE_MESSAGE, MESSAGE.TYPE.RECORD_AUDIO, MESSAGE.TYPE.RECORD_VIDEO].includes(message.value.messageType)
+	const isDeleteable = computed(() =>
+		(hasTalkFeature(message.value.token, 'delete-messages-unlimited') || (moment(message.value.timestamp * 1000).add(6, 'h')) > moment())
+		&& ['comment', 'voice-message', 'record-audio', 'record-video'].includes(message.value.messageType)
 		&& (isCurrentUserOwnMessage.value || (!isOneToOneConversation.value && store.getters.isModerator))
 		&& isConversationModifiable.value)
 
@@ -130,7 +134,6 @@ export function useMessageInfo(message = ref({})) {
 		isConversationReadOnly,
 		isFileShareWithoutCaption,
 		isFileShare,
-		hideDownloadOption,
 		remoteServer,
 		lastEditor,
 		actorDisplayName,

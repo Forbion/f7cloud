@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import FilesSidebarCallView from './views/FilesSidebarCallView.js'
-
 import './init.js'
+import FilesSidebarCallView from './views/FilesSidebarCallView.js'
 
 const isEnabled = function(fileInfo) {
 	if (fileInfo && !fileInfo.isDirectory()) {

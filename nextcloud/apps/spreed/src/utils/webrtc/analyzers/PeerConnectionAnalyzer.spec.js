@@ -94,6 +94,7 @@ function newRTCStatsReport(stats) {
 }
 
 describe('PeerConnectionAnalyzer', () => {
+
 	let peerConnectionAnalyzer
 	let changeConnectionQualityAudioHandler
 	let changeConnectionQualityVideoHandler
@@ -120,6 +121,7 @@ describe('PeerConnectionAnalyzer', () => {
 	})
 
 	describe('analyze sender connection', () => {
+
 		let logStatsMock
 
 		let expectLogStatsToHaveBeenCalled
@@ -1569,30 +1571,30 @@ describe('PeerConnectionAnalyzer', () => {
 				peerConnection.getStats
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 50, timestamp: 10000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 100, timestamp: 11000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 100, timestamp: 11000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 100, timestamp: 11000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 150, timestamp: 11950 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 150, timestamp: 11950, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 150, timestamp: 11950, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 200, timestamp: 13020 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 200, timestamp: 13020, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 200, timestamp: 13020, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 250, timestamp: 14010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// A sixth report is needed for the initial calculation due
 					// to the first stats report being used as the base to
 					// calculate relative values of cumulative stats.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 300, timestamp: 14985 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// When the packets do not increase the analysis is kept
 					// on hold until more stat reports are received, as it
@@ -1600,7 +1602,7 @@ describe('PeerConnectionAnalyzer', () => {
 					// transmitted or the stats temporarily stalled.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 350, timestamp: 16010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 
 				peerConnectionAnalyzer.setPeerConnection(peerConnection, PEER_DIRECTION.SENDER)
@@ -1644,34 +1646,34 @@ describe('PeerConnectionAnalyzer', () => {
 				peerConnection.getStats
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 50, timestamp: 10000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 100, timestamp: 11000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 90, timestamp: 10800, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 90, timestamp: 10800, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 150, timestamp: 11950 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 130, timestamp: 11600, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 130, timestamp: 11600, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 200, timestamp: 13020 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 170, timestamp: 12400, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 170, timestamp: 12400, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 250, timestamp: 14010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 210, timestamp: 13200, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 210, timestamp: 13200, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// A sixth report is needed for the initial calculation due
 					// to the first stats report being used as the base to
 					// calculate relative values of cumulative stats.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 300, timestamp: 14985 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 350, timestamp: 16010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// When the packets do not increase the analysis is kept
 					// on hold until more stat reports are received, as it
@@ -1679,7 +1681,7 @@ describe('PeerConnectionAnalyzer', () => {
 					// transmitted or the stats temporarily stalled.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 400, timestamp: 17000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 
 				peerConnectionAnalyzer.setPeerConnection(peerConnection, PEER_DIRECTION.SENDER)
@@ -1732,34 +1734,34 @@ describe('PeerConnectionAnalyzer', () => {
 				peerConnection.getStats
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 50, timestamp: 10000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 100, timestamp: 11000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 90, timestamp: 10800, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 90, timestamp: 10800, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 150, timestamp: 11950 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 130, timestamp: 11600, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 130, timestamp: 11600, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 200, timestamp: 13020 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 170, timestamp: 12400, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 170, timestamp: 12400, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 250, timestamp: 14010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 210, timestamp: 13200, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 210, timestamp: 13200, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// A sixth report is needed for the initial calculation due
 					// to the first stats report being used as the base to
 					// calculate relative values of cumulative stats.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 300, timestamp: 14985 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 350, timestamp: 16010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 300, timestamp: 14985, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// When the packets do not increase the analysis is kept
 					// on hold until more stat reports are received, as it
@@ -1767,7 +1769,7 @@ describe('PeerConnectionAnalyzer', () => {
 					// transmitted or the stats temporarily stalled.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 400, timestamp: 17000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 400, timestamp: 17000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 400, timestamp: 17000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 
 				peerConnectionAnalyzer.setPeerConnection(peerConnection, PEER_DIRECTION.SENDER)
@@ -1820,30 +1822,30 @@ describe('PeerConnectionAnalyzer', () => {
 				peerConnection.getStats
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 50, timestamp: 10000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 50, timestamp: 10000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 100, timestamp: 11000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 100, timestamp: 11000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 100, timestamp: 11000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 150, timestamp: 11950 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 150, timestamp: 11950, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 150, timestamp: 11950, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 200, timestamp: 13020 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 200, timestamp: 13020, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 200, timestamp: 13020, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 250, timestamp: 14010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// A sixth report is needed for the initial calculation due
 					// to the first stats report being used as the base to
 					// calculate relative values of cumulative stats.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 300, timestamp: 14985 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 250, timestamp: 14010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					// When the packets do not increase the analysis is kept
 					// on hold until more stat reports are received, as it
@@ -1851,23 +1853,23 @@ describe('PeerConnectionAnalyzer', () => {
 					// transmitted or the stats temporarily stalled.
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 350, timestamp: 16010 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 400, timestamp: 17000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 350, timestamp: 16010, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 450, timestamp: 17990 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 450, timestamp: 17990, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 450, timestamp: 17990, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 500, timestamp: 19005 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 450, timestamp: 17990, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 450, timestamp: 17990, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 					.mockResolvedValueOnce(newRTCStatsReport([
 						{ type: 'outbound-rtp', kind, packetsSent: 550, timestamp: 20000 },
-						{ type: 'remote-inbound-rtp', kind, packetsReceived: 550, timestamp: 20000, packetsLost: 0, roundTripTime: 0.1 },
+						{ type: 'remote-inbound-rtp', kind, packetsReceived: 550, timestamp: 20000, packetsLost: 0, roundTripTime: 0.1 }
 					]))
 
 				peerConnectionAnalyzer.setPeerConnection(peerConnection, PEER_DIRECTION.SENDER)
@@ -3591,6 +3593,7 @@ describe('PeerConnectionAnalyzer', () => {
 		})
 
 		describe('distribute staged stats', () => {
+
 			const expectRelativeStagedStats = (kind, index, expectedPackets, expectedPacketsLost, expectedTimestamps, expectedRoundTripTime) => {
 				expect(peerConnectionAnalyzer._stagedPackets[kind][index]).toBe(expectedPackets)
 				expect(peerConnectionAnalyzer._stagedPacketsLost[kind][index]).toBe(expectedPacketsLost)
@@ -3761,6 +3764,7 @@ describe('PeerConnectionAnalyzer', () => {
 	})
 
 	describe('log stats', () => {
+
 		let consoleDebugMock
 
 		beforeEach(() => {
@@ -3824,6 +3828,7 @@ describe('PeerConnectionAnalyzer', () => {
 		})
 
 		describe('log RTC stats', () => {
+
 			beforeEach(() => {
 				peerConnection._setIceConnectionState('connected')
 				peerConnection._setConnectionState('connected')

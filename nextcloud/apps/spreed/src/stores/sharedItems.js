@@ -5,7 +5,8 @@
 
 import { defineStore } from 'pinia'
 import Vue from 'vue'
-import { getSharedItems, getSharedItemsOverview } from '../services/sharedItemsService.js'
+
+import { getSharedItemsOverview, getSharedItems } from '../services/sharedItemsService.js'
 import { getItemTypeFromMessage } from '../utils/getItemTypeFromMessage.ts'
 
 /**
@@ -121,7 +122,7 @@ export const useSharedItemsStore = defineStore('sharedItems', {
 		addSharedItemsFromMessages(token, type, messages) {
 			this.checkForExistence(token, type)
 
-			messages.forEach((message) => {
+			messages.forEach(message => {
 				if (!this.sharedItemsPool[token][type][message.id]) {
 					Vue.set(this.sharedItemsPool[token][type], message.id, message)
 				}

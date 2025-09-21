@@ -3,13 +3,18 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { t } from '@nextcloud/l10n'
 import { defineStore } from 'pinia'
 import Vue from 'vue'
+
+import { t } from '@nextcloud/l10n'
+import { generateUrl, getBaseUrl } from '@nextcloud/router'
+
 import BrowserStorage from '../services/BrowserStorage.js'
+import { getUpcomingEvents } from '../services/conversationsService.js'
+import { getUserAbsence } from '../services/coreService.ts'
 import { EventBus } from '../services/EventBus.ts'
 import { summarizeChat } from '../services/messagesService.ts'
-import { parseMentions, parseSpecialSymbols } from '../utils/textParse.ts'
+import { parseSpecialSymbols, parseMentions } from '../utils/textParse.ts'
 
 /**
  * @typedef {string} Token
@@ -17,6 +22,7 @@ import { parseMentions, parseSpecialSymbols } from '../utils/textParse.ts'
 
 /**
  * @typedef {object} State
+ * @property {{[key: Token]: object}} absence - The absence status per conversation.
  * @property {{[key: Token]: number}} parentToReply - The parent message id to reply per conversation.
  * @property {{[key: Token]: string}} chatInput -The input value per conversation.
  */
@@ -29,7 +35,9 @@ import { parseMentions, parseSpecialSymbols } from '../utils/textParse.ts'
  */
 export const useChatExtrasStore = defineStore('chatExtras', {
 	state: () => ({
+		absence: {},
 		parentToReply: {},
+		upcomingEvents: {},
 		chatInput: {},
 		messageIdToEdit: {},
 		chatEditInput: {},
@@ -53,6 +61,10 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 			return state.messageIdToEdit[token]
 		},
 
+		getNextEvent: (state) => (token) => {
+			return state.upcomingEvents[token]?.[0]
+		},
+
 		getChatSummaryTaskQueue: (state) => (token) => {
 			return Object.values(Object(state.chatSummary[token]))
 		},
@@ -62,7 +74,7 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 		},
 
 		getChatSummary: (state) => (token) => {
-			return Object.values(Object(state.chatSummary[token])).map((task) => task.summary).join('\n\n')
+			return Object.values(Object(state.chatSummary[token])).map(task => task.summary).join('\n\n')
 				|| t('spreed', 'Error occurred during a summary generation')
 		},
 	},
@@ -79,6 +91,50 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 				this.restoreChatInput(token)
 			}
 			return this.chatInput[token] ?? ''
+		},
+
+		/**
+		 * Fetch an absence status for user and save to store
+		 *
+		 * @param {object} payload action payload
+		 * @param {string} payload.token The conversation token
+		 * @param {string} payload.userId The id of user
+		 *
+		 */
+		async getUserAbsence({ token, userId }) {
+			try {
+				const response = await getUserAbsence(userId)
+				Vue.set(this.absence, token, response.data.ocs.data)
+				return this.absence[token]
+			} catch (error) {
+				if (error?.response?.status === 404) {
+					Vue.set(this.absence, token, null)
+					return null
+				}
+				console.error(error)
+			}
+		},
+
+		async getUpcomingEvents(token) {
+			const location = generateUrl('call/{token}', { token }, { baseURL: getBaseUrl() })
+			try {
+				const response = await getUpcomingEvents(location)
+				Vue.set(this.upcomingEvents, token, response.data.ocs.data.events)
+			} catch (error) {
+				console.error(error)
+			}
+		},
+
+		/**
+		 * Drop an absence status from the store
+		 *
+		 * @param {string} token The conversation token
+		 *
+		 */
+		removeUserAbsence(token) {
+			if (this.absence[token]) {
+				Vue.delete(this.absence, token)
+			}
 		},
 
 		/**
@@ -177,7 +233,7 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 
 		initiateEditingMessage({ token, id, message, messageParameters }) {
 			this.setMessageIdToEdit(token, id)
-			const isFileShareOnly = Object.keys(Object(messageParameters)).some((key) => key.startsWith('file'))
+			const isFileShareOnly = Object.keys(Object(messageParameters)).some(key => key.startsWith('file'))
 				&& message === '{file}'
 			if (isFileShareOnly) {
 				this.setChatEditInput({ token, text: '' })
@@ -185,7 +241,7 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 				this.setChatEditInput({
 					token,
 					text: message,
-					parameters: messageParameters,
+					parameters: messageParameters
 				})
 			}
 			EventBus.emit('editing-message')
@@ -199,6 +255,7 @@ export const useChatExtrasStore = defineStore('chatExtras', {
 		 */
 		purgeChatExtras(token) {
 			this.removeParentIdToReply(token)
+			this.removeUserAbsence(token)
 			this.removeChatInput(token)
 		},
 

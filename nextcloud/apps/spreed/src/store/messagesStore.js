@@ -1,38 +1,39 @@
-import { showError } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 /**
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import cloneDeep from 'lodash/cloneDeep.js'
 import Vue from 'vue'
+
+import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
 import {
 	ATTENDEE,
 	CHAT,
 	CONVERSATION,
 	MESSAGE,
-} from '../constants.ts'
+} from '../constants.js'
 import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
-import { fetchNoteToSelfConversation } from '../services/conversationsService.ts'
+import { fetchNoteToSelfConversation } from '../services/conversationsService.js'
 import { EventBus } from '../services/EventBus.ts'
 import {
 	deleteMessage,
 	editMessage,
+	updateLastReadMessage,
 	fetchMessages,
+	lookForNewMessages,
 	getMessageContext,
-	pollNewMessages,
 	postNewMessage,
 	postRichObjectToConversation,
-	updateLastReadMessage,
 } from '../services/messagesService.ts'
-import { useCallViewStore } from '../stores/callView.ts'
+import { useCallViewStore } from '../stores/callView.js'
 import { useGuestNameStore } from '../stores/guestName.js'
 import { usePollsStore } from '../stores/polls.ts'
 import { useReactionsStore } from '../stores/reactions.js'
 import { useSharedItemsStore } from '../stores/sharedItems.js'
 import CancelableRequest from '../utils/cancelableRequest.js'
 import { debugTimer } from '../utils/debugTimer.ts'
-import { convertToUnix } from '../utils/formattedTime.ts'
 
 /**
  * Returns whether the given message contains a mention to self, directly
@@ -123,11 +124,11 @@ const state = {
 	 */
 	cancelGetMessageContext: null,
 	/**
-	 * Stores the cancel function returned by `cancelablePollNewMessages`,
+	 * Stores the cancel function returned by `cancelableLookForNewMessages`,
 	 * which allows to cancel the previous long polling request for new
 	 * messages before making another one.
 	 */
-	cancelPollNewMessages: {},
+	cancelLookForNewMessages: {},
 	/**
 	 * Array of temporary message id to cancel function for the "postNewMessage" action
 	 */
@@ -138,7 +139,7 @@ const getters = {
 	/**
 	 * Returns whether more messages can be loaded, which means that the current
 	 * message list doesn't yet contain all future messages.
-	 * If false, the next call to "pollNewMessages" will be blocking/long-polling.
+	 * If false, the next call to "lookForNewMessages" will be blocking/long-polling.
 	 *
 	 * @param {object} state the state object.
 	 * @param {object} getters the getters object.
@@ -150,7 +151,7 @@ const getters = {
 			return false
 		}
 
-		return getters.getLastKnownMessageId(token) < conversation.lastMessage?.id
+		return getters.getLastKnownMessageId(token) < conversation.lastMessage.id
 	},
 
 	isMessagesListPopulated: (state) => (token) => {
@@ -181,7 +182,7 @@ const getters = {
 			return []
 		}
 
-		return Object.values(state.messages[token]).filter((message) => {
+		return Object.values(state.messages[token]).filter(message => {
 			return message.referenceId === referenceId
 				&& ('' + message.id).startsWith('temp-')
 		})
@@ -217,7 +218,7 @@ const getters = {
 			return null
 		}
 
-		return getters.messagesList(token).find((message) => {
+		return getters.messagesList(token).find(message => {
 			return message.id >= readMessageId
 				&& !String(message.id).startsWith('temp-')
 				&& message.systemMessage !== 'reaction'
@@ -234,7 +235,7 @@ const getters = {
 			return null
 		}
 
-		return getters.messagesList(token).findLast((message) => {
+		return getters.messagesList(token).findLast(message => {
 			return message.id < readMessageId
 				&& isMessageVisible(message.id)
 				&& !String(message.id).startsWith('temp-')
@@ -262,11 +263,11 @@ const mutations = {
 		state.cancelGetMessageContext = cancelFunction
 	},
 
-	setCancelPollNewMessages(state, { requestId, cancelFunction }) {
+	setCancelLookForNewMessages(state, { requestId, cancelFunction }) {
 		if (cancelFunction) {
-			Vue.set(state.cancelPollNewMessages, requestId, cancelFunction)
+			Vue.set(state.cancelLookForNewMessages, requestId, cancelFunction)
 		} else {
-			Vue.delete(state.cancelPollNewMessages, requestId)
+			Vue.delete(state.cancelLookForNewMessages, requestId)
 		}
 	},
 
@@ -326,7 +327,7 @@ const mutations = {
 		if (!state.messages[token][id]) {
 			return
 		}
-		Vue.set(state.messages[token][id], 'messageType', MESSAGE.TYPE.COMMENT_DELETED)
+		Vue.set(state.messages[token][id], 'messageType', 'comment_deleted')
 		Vue.set(state.messages[token][id], 'message', placeholder)
 	},
 	/**
@@ -470,7 +471,7 @@ const mutations = {
 		}
 
 		if (message.reactionsSelf?.includes(reaction)) {
-			Vue.set(message, 'reactionsSelf', message.reactionsSelf.filter((item) => item !== reaction))
+			Vue.set(message, 'reactionsSelf', message.reactionsSelf.filter(item => item !== reaction))
 		}
 	},
 
@@ -479,7 +480,7 @@ const mutations = {
 			return
 		}
 
-		const timestamp = convertToUnix(Date.now())
+		const timestamp = (new Date()) / 1000
 		const messageIds = Object.keys(state.messages[token])
 		messageIds.forEach((messageId) => {
 			if (state.messages[token][messageId].expirationTimestamp
@@ -489,41 +490,25 @@ const mutations = {
 		})
 	},
 
-	easeMessageList(state, { token, lastReadMessage }) {
+	easeMessageList(state, { token }) {
 		if (!state.messages[token]) {
 			return
 		}
 
-		const messageIds = Object.keys(state.messages[token]).sort((a, b) => b - a)
+		const messageIds = Object.keys(state.messages[token])
 		if (messageIds.length < 300) {
 			return
 		}
 
-		// If lastReadMessage is rendered, keep it and +- 100 messages, otherwise only newest 200 messages
-		const lastReadMessageIndex = messageIds.findIndex((id) => +id === lastReadMessage)
-
-		const messagesToRemove = lastReadMessageIndex !== -1
-			? messageIds.slice(lastReadMessageIndex + 99)
-			: messageIds.slice(199)
+		const messagesToRemove = messageIds.sort((a, b) => b - a).slice(199)
 		const newFirstKnown = messagesToRemove.shift()
 
-		const newMessagesToRemove = (lastReadMessageIndex !== -1 && lastReadMessageIndex > 100)
-			? messageIds.slice(0, lastReadMessageIndex - 99)
-			: []
-		const newLastKnown = newMessagesToRemove.pop()
-
 		messagesToRemove.forEach((messageId) => {
-			Vue.delete(state.messages[token], messageId)
-		})
-		newMessagesToRemove.forEach((messageId) => {
 			Vue.delete(state.messages[token], messageId)
 		})
 
 		if (state.firstKnown[token] && messagesToRemove.includes(state.firstKnown[token].toString())) {
 			Vue.set(state.firstKnown, token, +newFirstKnown)
-		}
-		if (state.lastKnown[token] && newMessagesToRemove.includes(state.lastKnown[token].toString())) {
-			Vue.set(state.lastKnown, token, +newLastKnown)
 		}
 	},
 }
@@ -544,10 +529,10 @@ const actions = {
 		const sharedItemsStore = useSharedItemsStore()
 
 		if (message.systemMessage === 'message_deleted'
-			|| message.systemMessage === 'reaction'
-			|| message.systemMessage === 'reaction_deleted'
-			|| message.systemMessage === 'reaction_revoked'
-			|| message.systemMessage === 'message_edited') {
+				|| message.systemMessage === 'reaction'
+				|| message.systemMessage === 'reaction_deleted'
+				|| message.systemMessage === 'reaction_revoked'
+				|| message.systemMessage === 'message_edited') {
 			if (!message.parent) {
 				return
 			}
@@ -568,13 +553,13 @@ const actions = {
 
 			if (message.systemMessage === 'message_edited' || message.systemMessage === 'message_deleted') {
 				// update conversation lastMessage, if it was edited or deleted
-				if (message.parent.id === context.getters.conversation(token).lastMessage?.id) {
+				if (message.parent.id === context.getters.conversation(token).lastMessage.id) {
 					context.dispatch('updateConversationLastMessage', { token, lastMessage: message.parent })
 				}
 				// Check existing messages for having a deleted / edited message as parent, and update them
 				context.getters.messagesList(token)
-					.filter((storedMessage) => storedMessage.parent?.id === message.parent.id && JSON.stringify(storedMessage.parent) !== JSON.stringify(message.parent))
-					.forEach((storedMessage) => {
+					.filter(storedMessage => storedMessage.parent?.id === message.parent.id && JSON.stringify(storedMessage.parent) !== JSON.stringify(message.parent))
+					.forEach(storedMessage => {
 						context.commit('addMessage', { token, message: Object.assign({}, storedMessage, { parent: message.parent }) })
 					})
 			}
@@ -585,27 +570,9 @@ const actions = {
 
 		if (message.referenceId) {
 			const tempMessages = context.getters.getTemporaryReferences(token, message.referenceId)
-			if (tempMessages.length > 0) {
-				// Replacing temporary placeholder message with server response (text message / file share)
-				const conversation = context.getters.conversation(token)
-				const isOwnMessage = message.actorId === context.getters.getActorId()
-					&& message.actorType === context.getters.getActorType()
-
-				// update lastMessage and lastReadMessage (no await to make it async)
-				// do it conditionally because there could have been more messages appearing concurrently
-				if (conversation?.lastMessage && isOwnMessage && message.id > conversation.lastMessage.id) {
-					context.dispatch('updateConversationLastMessage', { token, lastMessage: message })
-				}
-
-				if (conversation?.lastReadMessage && isOwnMessage && message.id > conversation.lastReadMessage) {
-					context.dispatch('updateLastReadMessage', { token, id: message.id, updateVisually: true })
-				}
-
-				// If successful, deletes the temporary message from the store
-				tempMessages.forEach((tempMessage) => {
-					context.dispatch('removeTemporaryMessageFromStore', { token, id: tempMessage.id })
-				})
-			}
+			tempMessages.forEach(tempMessage => {
+				context.commit('deleteMessage', { token, id: tempMessage.id })
+			})
 		}
 
 		if (message.systemMessage === 'poll_voted') {
@@ -636,14 +603,14 @@ const actions = {
 
 		context.commit('addMessage', { token, message })
 
-		if (message.messageParameters && [MESSAGE.TYPE.COMMENT, MESSAGE.TYPE.VOICE_MESSAGE, MESSAGE.TYPE.RECORD_AUDIO, MESSAGE.TYPE.RECORD_VIDEO].includes(message.messageType)) {
+		if (message.messageParameters && ['comment', 'voice-message', 'record-audio', 'record-video'].includes(message.messageType)) {
 			if (message.messageParameters?.object || message.messageParameters?.file) {
 				// Handle voice messages, shares with single file, polls, deck cards, e.t.c
 				sharedItemsStore.addSharedItemFromMessage(token, message)
 				if (message.messageParameters?.object?.type === 'talk-poll') {
 					EventBus.emit('talk:poll-added', { token, message })
 				}
-			} else if (Object.keys(message.messageParameters).some((key) => key.startsWith('file'))) {
+			} else if (Object.keys(message.messageParameters).some(key => key.startsWith('file'))) {
 				// Handle shares with multiple files
 			}
 		}
@@ -874,16 +841,8 @@ const actions = {
 	 * @param {string} data.lastKnownMessageId last known message id;
 	 * @param {number} data.minimumVisible Minimum number of chat messages we want to load
 	 * @param {boolean} data.includeLastKnown whether to include the last known message in the response;
-	 * @param {number} [data.lookIntoFuture=0] direction of message fetch
 	 */
-	async fetchMessages(context, {
-		token,
-		lastKnownMessageId,
-		includeLastKnown,
-		requestOptions,
-		minimumVisible,
-		lookIntoFuture = CHAT.FETCH_OLD,
-	}) {
+	async fetchMessages(context, { token, lastKnownMessageId, includeLastKnown, requestOptions, minimumVisible }) {
 		minimumVisible = (typeof minimumVisible === 'undefined') ? CHAT.MINIMUM_VISIBLE : minimumVisible
 
 		context.dispatch('cancelFetchMessages')
@@ -897,7 +856,6 @@ const actions = {
 			token,
 			lastKnownMessageId,
 			includeLastKnown,
-			lookIntoFuture,
 			limit: CHAT.FETCH_LIMIT,
 		}, requestOptions)
 
@@ -912,7 +870,7 @@ const actions = {
 		}
 
 		// Process each messages and adds it to the store
-		response.data.ocs.data.forEach((message) => {
+		response.data.ocs.data.forEach(message => {
 			if (message.actorType === ATTENDEE.ACTOR_TYPE.GUESTS) {
 				// update guest display names cache
 				const guestNameStore = useGuestNameStore()
@@ -931,12 +889,10 @@ const actions = {
 		})
 
 		if (response.headers['x-chat-last-given']) {
-			const id = parseInt(response.headers['x-chat-last-given'], 10)
-			if (lookIntoFuture === CHAT.FETCH_NEW) {
-				context.dispatch('setLastKnownMessageId', { token, id })
-			} else {
-				context.dispatch('setFirstKnownMessageId', { token, id })
-			}
+			context.dispatch('setFirstKnownMessageId', {
+				token,
+				id: parseInt(response.headers['x-chat-last-given'], 10),
+			})
 		}
 
 		// For guests we also need to set the last known message id
@@ -954,16 +910,12 @@ const actions = {
 
 		if (minimumVisible > 0) {
 			debugTimer.tick(`${token} | fetch history`, 'first chunk')
-			const lastKnownMessageId = lookIntoFuture === CHAT.FETCH_NEW
-				? context.getters.getLastKnownMessageId(token)
-				: context.getters.getFirstKnownMessageId(token)
 			// There are not yet enough visible messages loaded, so fetch another chunk.
 			// This can happen when a lot of reactions or poll votings happen
 			return await context.dispatch('fetchMessages', {
 				token,
-				lastKnownMessageId,
+				lastKnownMessageId: context.getters.getFirstKnownMessageId(token),
 				includeLastKnown,
-				lookIntoFuture,
 				minimumVisible,
 			})
 		}
@@ -1010,7 +962,7 @@ const actions = {
 		}
 
 		// Process each messages and adds it to the store
-		response.data.ocs.data.forEach((message) => {
+		response.data.ocs.data.forEach(message => {
 			if (message.actorType === ATTENDEE.ACTOR_TYPE.GUESTS) {
 				// update guest display names cache
 				const guestNameStore = useGuestNameStore()
@@ -1055,7 +1007,6 @@ const actions = {
 				token,
 				lastKnownMessageId: context.getters.getFirstKnownMessageId(token),
 				includeLastKnown: false,
-				lookIntoFuture: CHAT.FETCH_OLD,
 				minimumVisible: minimumVisible * 2,
 			})
 		}
@@ -1106,8 +1057,8 @@ const actions = {
 	 * @param {object} data.requestOptions request options;
 	 * @param {number} data.lastKnownMessageId The id of the last message in the store.
 	 */
-	async pollNewMessages(context, { token, lastKnownMessageId, requestId, requestOptions }) {
-		context.dispatch('cancelPollNewMessages', { requestId })
+	async lookForNewMessages(context, { token, lastKnownMessageId, requestId, requestOptions }) {
+		context.dispatch('cancelLookForNewMessages', { requestId })
 
 		if (!lastKnownMessageId) {
 			// if param is null | undefined, it won't be included in the request query
@@ -1116,17 +1067,17 @@ const actions = {
 		}
 
 		// Get a new cancelable request function and cancel function pair
-		const { request, cancel } = CancelableRequest(pollNewMessages)
+		const { request, cancel } = CancelableRequest(lookForNewMessages)
 
 		// Assign the new cancel function to our data value
-		context.commit('setCancelPollNewMessages', { cancelFunction: cancel, requestId })
+		context.commit('setCancelLookForNewMessages', { cancelFunction: cancel, requestId })
 
 		const response = await request({
 			token,
 			lastKnownMessageId,
 			limit: CHAT.FETCH_LIMIT,
 		}, requestOptions)
-		context.commit('setCancelPollNewMessages', { requestId })
+		context.commit('setCancelLookForNewMessages', { requestId })
 
 		if ('x-chat-last-common-read' in response.headers) {
 			const lastCommonReadMessage = parseInt(response.headers['x-chat-last-common-read'], 10)
@@ -1143,7 +1094,7 @@ const actions = {
 		let hasNewMention = conversation.unreadMention
 		let lastMessage = null
 		// Process each messages and adds it to the store
-		response.data.ocs.data.forEach((message) => {
+		response.data.ocs.data.forEach(message => {
 			if (message.actorType === ATTENDEE.ACTOR_TYPE.GUESTS) {
 				// update guest display names cache,
 				// force in case the display name has changed since
@@ -1169,7 +1120,7 @@ const actions = {
 
 			// Overwrite the conversation.hasCall property so people can join
 			// after seeing the message in the chat.
-			if (conversation?.lastMessage && message.id > conversation.lastMessage.id) {
+			if (conversation && conversation.lastMessage && message.id > conversation.lastMessage.id) {
 				if (['call_started', 'call_ended', 'call_ended_everyone', 'call_missed'].includes(message.systemMessage)) {
 					context.dispatch('overwriteHasCallByChat', {
 						token,
@@ -1183,11 +1134,6 @@ const actions = {
 						&& message.actorType === context.getters.getActorType())) {
 					const callViewStore = useCallViewStore()
 					callViewStore.setCallHasJustEnded(message.timestamp)
-
-					context.dispatch('leaveCall', {
-						token,
-						participantIdentifier: context.getters.getParticipantIdentifier(),
-					})
 				}
 			}
 
@@ -1206,7 +1152,7 @@ const actions = {
 			id: parseInt(response.headers['x-chat-last-given'], 10),
 		})
 
-		if (conversation?.lastMessage && lastMessage.id > conversation.lastMessage.id) {
+		if (conversation && conversation.lastMessage && lastMessage.id > conversation.lastMessage.id) {
 			context.dispatch('updateConversationLastMessage', {
 				token,
 				lastMessage,
@@ -1229,16 +1175,16 @@ const actions = {
 	},
 
 	/**
-	 * Cancels a previously running "pollNewMessages" action if applicable.
+	 * Cancels a previously running "lookForNewMessages" action if applicable.
 	 *
 	 * @param {object} context default store context;
 	 * @param {string} requestId request id
 	 * @return {boolean} true if a request got cancelled, false otherwise
 	 */
-	cancelPollNewMessages(context, { requestId }) {
-		if (context.state.cancelPollNewMessages[requestId]) {
-			context.state.cancelPollNewMessages[requestId]('canceled')
-			context.commit('setCancelPollNewMessages', { requestId })
+	cancelLookForNewMessages(context, { requestId }) {
+		if (context.state.cancelLookForNewMessages[requestId]) {
+			context.state.cancelLookForNewMessages[requestId]('canceled')
+			context.commit('setCancelLookForNewMessages', { requestId })
 			return true
 		}
 		return false
@@ -1281,9 +1227,31 @@ const actions = {
 				})
 			}
 
-			// Own message might have been added already by polling, which is more up-to-date (e.g. reactions)
-			if (!context.state.messages[token]?.[response.data.ocs.data.id]) {
-				context.dispatch('processMessage', { token, message: response.data.ocs.data })
+			// If successful, deletes the temporary message from the store
+			context.dispatch('removeTemporaryMessageFromStore', { token, id: temporaryMessage.id })
+
+			const message = response.data.ocs.data
+			// And adds the complete version of the message received
+			// by the server
+			context.dispatch('processMessage', { token, message })
+
+			const conversation = context.getters.conversation(token)
+
+			// update lastMessage and lastReadMessage
+			// do it conditionally because there could have been more messages appearing concurrently
+			if (conversation && conversation.lastMessage && message.id > conversation.lastMessage.id) {
+				context.dispatch('updateConversationLastMessage', {
+					token,
+					lastMessage: message,
+				})
+			}
+			if (conversation && message.id > conversation.lastReadMessage) {
+				// no await to make it async
+				context.dispatch('updateLastReadMessage', {
+					token,
+					id: message.id,
+					updateVisually: true,
+				})
 			}
 
 			return response
@@ -1294,7 +1262,7 @@ const actions = {
 			context.commit('setCancelPostNewMessage', { messageId: temporaryMessage.id, cancelFunction: null })
 
 			let statusCode = null
-			console.error('error while submitting message %s', error)
+			console.error(`error while submitting message ${error}`, error)
 			if (error.isAxiosError) {
 				statusCode = error?.response?.status
 			}
@@ -1359,7 +1327,7 @@ const actions = {
 
 		// when there is no token provided, the message will be forwarded to the Note to self conversation
 		if (!targetToken) {
-			let noteToSelf = context.getters.conversationsList.find((conversation) => conversation.type === CONVERSATION.TYPE.NOTE_TO_SELF)
+			let noteToSelf = context.getters.conversationsList.find(conversation => conversation.type === CONVERSATION.TYPE.NOTE_TO_SELF)
 			// If Note to self doesn't exist, it will be regenerated
 			if (!noteToSelf) {
 				const response = await fetchNoteToSelfConversation()
@@ -1399,6 +1367,7 @@ const actions = {
 		}
 
 		return await postNewMessage(message, { silent: false })
+
 	},
 
 	async removeExpiredMessages(context, { token }) {
@@ -1406,13 +1375,12 @@ const actions = {
 	},
 
 	async easeMessageList(context, { token }) {
-		const lastReadMessage = context.getters.conversation(token)?.lastReadMessage
-		context.commit('easeMessageList', { token, lastReadMessage })
+		context.commit('easeMessageList', { token })
 	},
 
 	loadedMessagesOfConversation(context, { token }) {
 		context.commit('loadedMessagesOfConversation', { token })
-	},
+	}
 }
 
 export default { state, mutations, getters, actions }

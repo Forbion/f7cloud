@@ -35,10 +35,13 @@
 
 <script>
 
-import { t } from '@nextcloud/l10n'
 import Vue from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import { BOT } from '../../constants.ts'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
+import { BOT } from '../../constants.js'
 import { useBotsStore } from '../../stores/bots.ts'
 
 export default {
@@ -85,7 +88,7 @@ export default {
 	},
 
 	async created() {
-		(await this.botsStore.loadConversationBots(this.token)).forEach((id) => {
+		(await this.botsStore.loadConversationBots(this.token)).forEach(id => {
 			Vue.set(this.isLoading, id, false)
 		})
 	},
@@ -155,7 +158,7 @@ export default {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			margin-inline-start: auto;
+			margin-left: auto;
 		}
 
 		&-button {

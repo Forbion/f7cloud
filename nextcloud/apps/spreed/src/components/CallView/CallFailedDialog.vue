@@ -4,13 +4,18 @@
 -->
 
 <script setup lang="ts">
-import { t } from '@nextcloud/l10n'
 import { computed } from 'vue'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcModal from '@nextcloud/vue/components/NcModal'
+
 import IconAlertOctagon from 'vue-material-design-icons/AlertOctagon.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+
 import { useStore } from '../../composables/useStore.js'
-import { messagePleaseTryToReload } from '../../utils/talkDesktopUtils.ts'
+
+const store = useStore()
 
 const props = defineProps({
 	token: {
@@ -19,14 +24,12 @@ const props = defineProps({
 	},
 })
 
-const store = useStore()
-
 const STATUS_ERRORS = {
 	400: t('spreed', 'Recording consent is required'),
 	403: t('spreed', 'This conversation is read-only'),
 	404: t('spreed', 'Conversation not found or not joined'),
 	412: t('spreed', "Lobby is still active and you're not a moderator"),
-} as const
+}
 const connectionFailed = computed(() => store.getters.connectionFailed(props.token))
 const connectionFailedDialogId = `connection-failed-${props.token}`
 const message = computed(() => {
@@ -34,15 +37,15 @@ const message = computed(() => {
 		return ''
 	}
 
-	const statusCode: keyof typeof STATUS_ERRORS | undefined = connectionFailed.value.meta?.statuscode
-	if (statusCode && STATUS_ERRORS[statusCode]) {
+	const statusCode = connectionFailed.value?.meta?.statuscode
+	if (STATUS_ERRORS[statusCode]) {
 		return STATUS_ERRORS[statusCode]
 	}
 	if (connectionFailed.value?.data?.error) {
 		return connectionFailed.value.data.error
 	}
 
-	return messagePleaseTryToReload
+	return t('spreed', 'Please try to reload the page')
 })
 
 /**

@@ -2,17 +2,8 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { AxiosError } from '@nextcloud/axios'
-import type { AutocompleteResult } from './core.ts'
-import type {
-	components as componentsAdmin,
-	operations as operationsAdmin,
-} from './openapi/openapi-administration.ts'
-import type {
-	components as componentsFed,
-	operations as operationsFed,
-} from './openapi/openapi-federation.ts'
-import type { components, operations } from './openapi/openapi.ts'
+import type { AutocompleteResult } from './openapi/core'
+import type { components, operations } from './openapi/openapi-full.ts'
 
 // General
 type ApiResponse<T> = Promise<{ data: T }>
@@ -28,204 +19,73 @@ type ApiResponseUnwrapped<T> = Promise<{
 	}
 }>
 
-export type ApiErrorResponse<T = null> = AxiosError<{
-	ocs: {
-		meta: components['schemas']['OCSMeta']
-		data: T
-	}
-}>
-
-type SpreedCapabilities = components['schemas']['Capabilities']
-
-// From https://github.com/nextcloud/password_policy/blob/master/lib/Capabilities.php
-type PasswordPolicyCapabilities = {
-	minLength: number
-	enforceNonCommonPassword: boolean
-	enforceNumericCharacters: boolean
-	enforceSpecialCharacters: boolean
-	enforceUpperLowerCase: boolean
-	api: {
-		generate: string
-		validate: string
-	}
-}
-
 // Capabilities
 export type Capabilities = {
-	spreed: SpreedCapabilities
-	password_policy?: PasswordPolicyCapabilities
+	[key: string]: Record<string, unknown>,
+	spreed: components['schemas']['Capabilities'],
 }
-
 export type getCapabilitiesResponse = ApiResponse<operations['room-get-capabilities']['responses'][200]['content']['application/json']>
-
-// Initial state
-export type InitialState = {
-	spreed: {
-		has_cache_configured: boolean
-		has_valid_subscription: boolean
-		signaling_mode: string
-		signaling_servers: {
-			hideWarning: boolean
-			secret: string
-			servers: { server: string, verify: boolean }[]
-		}
-	}
-}
 
 // Notifications
 type NotificationAction = {
-	label: string
-	link: string
-	type: 'WEB' | 'POST' | 'DELETE' | string
-	primary: boolean
+	label: string,
+	link: string,
+	type: 'WEB' | 'POST' | 'DELETE' | string,
+	primary: boolean,
 }
 
 type RichObjectParameter = components['schemas']['RichObjectParameter']
-type RichObject<T extends keyof RichObjectParameter = 'id' | 'name' | 'type'> = Pick<RichObjectParameter, 'id' | 'name' | 'type' | T>
+type RichObject<T extends keyof RichObjectParameter = 'id'|'name'|'type'> = Pick<RichObjectParameter, 'id'|'name'|'type'|T>
 export type Notification<T = Record<string, RichObject & Record<string, unknown>>> = {
-	notificationId: number
-	app: string
-	user: string
-	datetime: string
-	objectType: string
-	objectId: string
-	subject: string
-	message: string
-	link: string
-	subjectRich: string
-	subjectRichParameters: T
-	messageRich: string
-	messageRichParameters: T
-	icon: string
-	shouldNotify: true
-	actions: NotificationAction[]
-}
-
-// Signaling
-export type SignalingSettings = components['schemas']['SignalingSettings']
-
-export type InternalSignalingSession = components['schemas']['SignalingSession']
-
-// Based on https://github.com/strukturag/nextcloud-spreed-signaling/blob/master/api_signaling.go:
-// EventServerMessage - room - Join
-export type StandaloneSignalingJoinSession = {
-	userid: string
-	user?:
-		| { displayname: string }
-		| { callid: string, number: string, type: string } // Phone number
-	sessionid: string // Standalone signaling id
-	roomsessionid?: string // Nextcloud id
-	features?: string[]
-	federated?: boolean
-}
-
-// EventServerMessage - room - Leave
-export type StandaloneSignalingLeaveSession = string // Standalone signaling id
-
-// EventServerMessage - participants - Update
-export type StandaloneSignalingUpdateSession = {
-	inCall: number
-	lastPing: number
-	sessionId: string // Standalone signaling id
-	nextcloudSessionId?: string // Nextcloud id
-	participantPermissions?: number
-	participantType?: number
-	userId?: string
-	// Since Talk v20, treat as optional
-	actorId?: string
-	actorType?: string
-	displayName?: string
-	// Internal participant (Recording server, phone number)
-	features?: string[]
-	internal?: boolean
-	// Phone number only
-	virtual?: boolean
+	notificationId: number,
+	app: string,
+	user: string,
+	datetime: string,
+	objectType: string,
+	objectId: string,
+	subject: string,
+	message: string,
+	link: string,
+	subjectRich: string,
+	subjectRichParameters: T,
+	messageRich: string,
+	messageRichParameters: T,
+	icon: string,
+	shouldNotify: true,
+	actions: NotificationAction[],
 }
 
 // Conversations
-export type Conversation = components['schemas']['Room'] & {
-	// internal parameter up to mock a conversation object
-	isDummyConversation?: true
-}
-
-export type getAllConversationsParams = operations['room-get-rooms']['parameters']['query']
-export type getAllConversationsResponse = ApiResponse<operations['room-get-rooms']['responses'][200]['content']['application/json']>
-export type getSingleConversationResponse = ApiResponse<operations['room-get-single-room']['responses'][200]['content']['application/json']>
-export type getNoteToSelfConversationResponse = ApiResponse<operations['room-get-note-to-self-conversation']['responses'][200]['content']['application/json']>
-export type getListedConversationsParams = operations['room-get-listed-rooms']['parameters']['query']
-export type getListedConversationsResponse = ApiResponse<operations['room-get-listed-rooms']['responses'][200]['content']['application/json']>
-
-export type createConversationParams = Required<operations['room-create-room']>['requestBody']['content']['application/json']
-export type createConversationResponse = ApiResponse<operations['room-create-room']['responses'][200]['content']['application/json']>
-export type legacyCreateConversationParams = Pick<createConversationParams, 'roomType' | 'roomName' | 'password' | 'objectType' | 'objectId' | 'invite' | 'source'>
-export type deleteConversationResponse = ApiResponse<operations['room-delete-room']['responses'][200]['content']['application/json']>
-export type unbindConversationFromObjectResponse = ApiResponse<operations['room-unbind-room-from-object']['responses'][200]['content']['application/json']>
-
-export type setConversationNameParams = Required<operations['room-rename-room']>['requestBody']['content']['application/json']
-export type setConversationNameResponse = ApiResponse<operations['room-rename-room']['responses'][200]['content']['application/json']>
-export type setConversationPasswordParams = Required<operations['room-set-password']>['requestBody']['content']['application/json']
-export type setConversationPasswordResponse = ApiResponse<operations['room-set-password']['responses'][200]['content']['application/json']>
-export type setConversationDescriptionParams = Required<operations['room-set-description']>['requestBody']['content']['application/json']
-export type setConversationDescriptionResponse = ApiResponse<operations['room-set-description']['responses'][200]['content']['application/json']>
-export type addConversationToFavoritesResponse = ApiResponse<operations['room-add-to-favorites']['responses'][200]['content']['application/json']>
-export type removeConversationFromFavoritesResponse = ApiResponse<operations['room-remove-from-favorites']['responses'][200]['content']['application/json']>
-export type archiveConversationResponse = ApiResponse<operations['room-archive-conversation']['responses'][200]['content']['application/json']>
-export type unarchiveConversationResponse = ApiResponse<operations['room-unarchive-conversation']['responses'][200]['content']['application/json']>
-export type setConversationNotifyLevelParams = Required<operations['room-set-notification-level']>['requestBody']['content']['application/json']
-export type setConversationNotifyLevelResponse = ApiResponse<operations['room-set-notification-level']['responses'][200]['content']['application/json']>
-export type setConversationNotifyCallsParams = Required<operations['room-set-notification-calls']>['requestBody']['content']['application/json']
-export type setConversationNotifyCallsResponse = ApiResponse<operations['room-set-notification-calls']['responses'][200]['content']['application/json']>
-export type makeConversationPublicParams = Required<operations['room-make-public']>['requestBody']['content']['application/json']
-export type makeConversationPublicResponse = ApiResponse<operations['room-make-public']['responses'][200]['content']['application/json']>
-export type makeConversationPrivateResponse = ApiResponse<operations['room-make-private']['responses'][200]['content']['application/json']>
-export type setConversationSipParams = Required<operations['room-setsip-enabled']>['requestBody']['content']['application/json']
-export type setConversationSipResponse = ApiResponse<operations['room-setsip-enabled']['responses'][200]['content']['application/json']>
-export type setConversationLobbyParams = Required<operations['room-set-lobby']>['requestBody']['content']['application/json']
-export type setConversationLobbyResponse = ApiResponse<operations['room-set-lobby']['responses'][200]['content']['application/json']>
-export type setConversationRecordingParams = Required<operations['room-set-recording-consent']>['requestBody']['content']['application/json']
-export type setConversationRecordingResponse = ApiResponse<operations['room-set-recording-consent']['responses'][200]['content']['application/json']>
-export type setConversationReadonlyParams = Required<operations['room-set-read-only']>['requestBody']['content']['application/json']
-export type setConversationReadonlyResponse = ApiResponse<operations['room-set-read-only']['responses'][200]['content']['application/json']>
-export type setConversationListableParams = Required<operations['room-set-listable']>['requestBody']['content']['application/json']
-export type setConversationListableResponse = ApiResponse<operations['room-set-listable']['responses'][200]['content']['application/json']>
-export type setConversationMentionsPermissionsParams = Required<operations['room-set-mention-permissions']>['requestBody']['content']['application/json']
-export type setConversationMentionsPermissionsResponse = ApiResponse<operations['room-set-mention-permissions']['responses'][200]['content']['application/json']>
-export type setConversationPermissionsParams = Required<operations['room-set-permissions']>['requestBody']['content']['application/json']
-export type setConversationPermissionsResponse = ApiResponse<operations['room-set-permissions']['responses'][200]['content']['application/json']>
-export type setConversationMessageExpirationParams = Required<operations['room-set-message-expiration']>['requestBody']['content']['application/json']
-export type setConversationMessageExpirationResponse = ApiResponse<operations['room-set-message-expiration']['responses'][200]['content']['application/json']>
-export type markConversationAsImportantResponse = ApiResponse<operations['room-mark-conversation-as-important']['responses'][200]['content']['application/json']>
-export type markConversationAsUnimportantResponse = ApiResponse<operations['room-mark-conversation-as-unimportant']['responses'][200]['content']['application/json']>
-export type markConversationAsSensitiveResponse = ApiResponse<operations['room-mark-conversation-as-sensitive']['responses'][200]['content']['application/json']>
-export type markConversationAsInsensitiveResponse = ApiResponse<operations['room-mark-conversation-as-insensitive']['responses'][200]['content']['application/json']>
+export type Conversation = components['schemas']['Room']
+export type ConversationLastMessage = components['schemas']['RoomLastMessage']
 
 export type JoinRoomFullResponse = {
-	headers: ApiResponseHeaders<operations['room-join-room']['responses']['200']>
+	headers: ApiResponseHeaders<operations['room-join-room']['responses']['200']>,
 	data: operations['room-join-room']['responses']['200']['content']['application/json']
 }
 
 // Participants
 export type ParticipantStatus = {
-	status?: string | null
-	message?: string | null
-	icon?: string | null
-	clearAt?: number | null
+	status?: string | null,
+	message?: string | null,
+	icon?: string | null,
+	clearAt?: number | null,
 }
 export type Participant = components['schemas']['Participant']
 export type ParticipantSearchResult = AutocompleteResult & {
-	status: ParticipantStatus | ''
+	status: ParticipantStatus | '',
 }
 
 export type importEmailsParams = Required<operations['room-import-emails-as-participants']>['requestBody']['content']['application/json']
 export type importEmailsResponse = ApiResponse<operations['room-import-emails-as-participants']['responses'][200]['content']['application/json']>
 
 // Chats
-export type Mention = RichObject<'server' | 'call-type' | 'icon-url'> & { 'mention-id'?: string }
-export type File = RichObject<'size' | 'path' | 'link' | 'mimetype' | 'preview-available'> & {
-	etag: string
-	permissions: string
-	width: string
-	height: string
+export type Mention = RichObject<'server'|'call-type'|'icon-url'>
+export type File = RichObject<'size'|'path'|'link'|'mimetype'|'preview-available'> & {
+	'etag': string,
+	'permissions': string,
+	'width': string,
+	'height': string,
 }
 export type ChatMessage = components['schemas']['ChatMessageWithParent']
 export type receiveMessagesParams = operations['chat-receive-messages']['parameters']['query']
@@ -246,8 +106,6 @@ export type markUnreadResponse = ApiResponse<operations['chat-mark-unread']['res
 export type summarizeChatParams = operations['chat-summarize-chat']['requestBody']['content']['application/json']
 export type summarizeChatResponse = ApiResponse<operations['chat-summarize-chat']['responses'][201]['content']['application/json']>
 export type SummarizeChatTask = operations['chat-summarize-chat']['responses'][201]['content']['application/json']['ocs']['data']
-export type upcomingRemindersResponse = ApiResponse<operations['chat-get-upcoming-reminders']['responses'][200]['content']['application/json']>
-export type UpcomingReminder = components['schemas']['ChatReminderUpcoming']
 
 // Avatars
 export type setFileAvatarResponse = ApiResponse<operations['avatar-upload-avatar']['responses'][200]['content']['application/json']>
@@ -263,35 +121,27 @@ export type banActorParams = operations['ban-ban-actor']['requestBody']['content
 export type banActorResponse = ApiResponse<operations['ban-ban-actor']['responses'][200]['content']['application/json']>
 export type unbanActorResponse = ApiResponse<operations['ban-unban-actor']['responses'][200]['content']['application/json']>
 
-// Talk Dashboard
-export type DashboardEventRoom = components['schemas']['DashboardEvent']
-export type getDashboardEventRoomsResponse = ApiResponse<operations['calendar_integration-get-dashboard-events']['responses'][200]['content']['application/json']>
-
 // Bots
 export type Bot = components['schemas']['Bot']
-export type BotWithDetails = componentsAdmin['schemas']['BotWithDetails']
+export type BotWithDetails = components['schemas']['BotWithDetails']
 
 export type getBotsResponse = ApiResponse<operations['bot-list-bots']['responses'][200]['content']['application/json']>
-export type getBotsAdminResponse = ApiResponse<operationsAdmin['bot-admin-list-bots']['responses'][200]['content']['application/json']>
+export type getBotsAdminResponse = ApiResponse<operations['bot-admin-list-bots']['responses'][200]['content']['application/json']>
 export type enableBotResponse = ApiResponse<operations['bot-enable-bot']['responses'][201]['content']['application/json']>
 export type disableBotResponse = ApiResponse<operations['bot-disable-bot']['responses'][200]['content']['application/json']>
 
-// Certificate
-export type certificateExpirationParams = operationsAdmin['certificate-get-certificate-expiration']['parameters']['query']
-export type certificateExpirationResponse = ApiResponse<operationsAdmin['certificate-get-certificate-expiration']['responses'][200]['content']['application/json']>
-
 // Federations
-export type FederationInvite = componentsFed['schemas']['FederationInvite']
+export type FederationInvite = components['schemas']['FederationInvite']
 type FederationInviteRichParameters = {
-	user1: RichObject<'server'>
-	roomName: RichObject
-	remoteServer: RichObject
+	user1: RichObject<'server'>,
+	roomName: RichObject,
+	remoteServer: RichObject,
 }
 export type NotificationInvite = Notification<FederationInviteRichParameters>
 
-export type getSharesResponse = ApiResponse<operationsFed['federation-get-shares']['responses'][200]['content']['application/json']>
-export type acceptShareResponse = ApiResponse<operationsFed['federation-accept-share']['responses'][200]['content']['application/json']>
-export type rejectShareResponse = ApiResponse<operationsFed['federation-reject-share']['responses'][200]['content']['application/json']>
+export type getSharesResponse = ApiResponse<operations['federation-get-shares']['responses'][200]['content']['application/json']>
+export type acceptShareResponse = ApiResponse<operations['federation-accept-share']['responses'][200]['content']['application/json']>
+export type rejectShareResponse = ApiResponse<operations['federation-reject-share']['responses'][200]['content']['application/json']>
 
 // Reactions
 export type getReactionsResponse = ApiResponse<operations['reaction-get-reactions']['responses'][200]['content']['application/json']>
@@ -302,7 +152,7 @@ export type deleteReactionResponse = ApiResponse<operations['reaction-delete']['
 
 // Breakout rooms
 export type BreakoutRoom = components['schemas']['Room'] & {
-	objectType: 'room'
+	objectType: 'room',
 }
 
 export type configureBreakoutRoomsParams = operations['breakout_room-configure-breakout-rooms']['requestBody']['content']['application/json']
@@ -329,15 +179,11 @@ export type getPollResponse = ApiResponse<operations['poll-show-poll']['response
 export type getPollDraftsResponse = ApiResponse<operations['poll-get-all-draft-polls']['responses'][200]['content']['application/json']>
 export type createPollParams = operations['poll-create-poll']['requestBody']['content']['application/json']
 export type createPollResponse = ApiResponse<operations['poll-create-poll']['responses'][201]['content']['application/json']>
-export type updatePollDraftParams = operations['poll-update-draft-poll']['requestBody']['content']['application/json']
-export type updatePollDraftResponse = ApiResponse<operations['poll-update-draft-poll']['responses'][200]['content']['application/json']>
 export type createPollDraftResponse = ApiResponse<operations['poll-create-poll']['responses'][200]['content']['application/json']>
 export type votePollParams = Required<operations['poll-vote-poll']>['requestBody']['content']['application/json']
 export type votePollResponse = ApiResponse<operations['poll-vote-poll']['responses'][200]['content']['application/json']>
 export type closePollResponse = ApiResponse<operations['poll-close-poll']['responses'][200]['content']['application/json']>
 export type deletePollDraftResponse = ApiResponse<operations['poll-close-poll']['responses'][202]['content']['application/json']>
-
-export type requiredPollParams = Omit<createPollParams, 'draft'>
 
 // Mentions
 export type ChatMention = components['schemas']['ChatMentionSuggestion']
@@ -347,93 +193,9 @@ export type getMentionsResponse = ApiResponse<operations['chat-mentions']['respo
 // AI Summary
 export type {
 	TaskProcessingResponse,
-} from './core.ts'
+} from './openapi/core'
 
-// Teams (circles)
-export type TeamProbe = {
-	id: string
-	name: string
-	displayName: string
-	sanitizedName: string
-	source: number
-	population: number
-	config: number
-	description: string
-	url: string
-	creation: number
-	initiator: null
-}
-export type getTeamsProbeResponse = ApiResponseUnwrapped<TeamProbe[]>
-
-// Groupware | DAV API
+// Out of office response
 export type {
-	DavCalendar,
-	DavCalendarHome,
-	DavPrincipal,
 	OutOfOfficeResponse,
-	OutOfOfficeResult,
-	UpcomingEvent,
-	UpcomingEventsResponse,
-} from './core.ts'
-
-export type DashboardEvent = components['schemas']['DashboardEvent']
-
-export type scheduleMeetingParams = Required<operations['room-schedule-meeting']>['requestBody']['content']['application/json']
-export type scheduleMeetingResponse = ApiResponse<operations['room-schedule-meeting']['responses'][200]['content']['application/json']>
-export type getMutualEventsResponse = ApiResponse<operations['calendar_integration-get-mutual-events']['responses'][200]['content']['application/json']>
-
-export type EventTimeRange = {
-	start: number | null
-	end: number | null
-}
-
-// User profile / preferences response
-export type {
-	UserPreferencesParams,
-	UserPreferencesResponse,
-	UserProfileData,
-	UserProfileResponse,
-} from './core.ts'
-
-// Settings
-export type setSipSettingsParams = Required<operationsAdmin['settings-setsip-settings']>['requestBody']['content']['application/json']
-export type setSipSettingsResponse = ApiResponse<operationsAdmin['settings-setsip-settings']['responses'][200]['content']['application/json']>
-export type setUserSettingsParams = Required<operations['settings-set-user-setting']>['requestBody']['content']['application/json']
-export type setUserSettingsResponse = ApiResponse<operations['settings-set-user-setting']['responses'][200]['content']['application/json']>
-
-// Payload for NcSelect with `user-select`
-export type UserFilterObject = {
-	id: string
-	displayName: string
-	isNoUser: boolean
-	user: string
-	disableMenu: boolean
-	showUserStatus: boolean
-}
-
-// Autocomplete API
-export type {
-	AutocompleteParams,
-	AutocompleteResponse,
-	AutocompleteResult,
-} from './core.ts'
-
-// Unified Search API
-export type {
-	SearchMessagePayload,
-	UnifiedSearchResponse,
-	UnifiedSearchResultEntry,
-} from './core.ts'
-
-// Files API
-export type {
-	createFileFromTemplateParams,
-	createFileFromTemplateResponse,
-	getFileTemplatesListResponse,
-} from './core.ts'
-
-// Files sharing API
-export type {
-	createFileShareParams,
-	createFileShareResponse,
-} from './core.ts'
+} from './openapi/core'

@@ -1,5 +1,3 @@
-import { showError } from '@nextcloud/dialogs'
-import { getUploader } from '@nextcloud/upload'
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -9,12 +7,18 @@ import mockConsole from 'jest-mock-console'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
-import { getDavClient } from '../services/DavClient.js'
-import { shareFile } from '../services/filesSharingServices.ts'
-import { setAttachmentFolder } from '../services/settingsService.ts'
-import { findUniquePath } from '../utils/fileUpload.js'
-import fileUploadStore from './fileUploadStore.js'
+
+import { showError } from '@nextcloud/dialogs'
+import { getUploader } from '@nextcloud/upload'
+
+// eslint-disable-next-line no-unused-vars -- required for testing
 import storeConfig from './storeConfig.js'
+// eslint-disable-next-line import/order -- required for testing
+import fileUploadStore from './fileUploadStore.js'
+import { getDavClient } from '../services/DavClient.js'
+import { shareFile } from '../services/filesSharingServices.js'
+import { setAttachmentFolder } from '../services/settingsService.js'
+import { findUniquePath } from '../utils/fileUpload.js'
 
 jest.mock('../services/DavClient', () => ({
 	getDavClient: jest.fn(),
@@ -163,12 +167,7 @@ describe('fileUploadStore', () => {
 			expect(uploadMock).toHaveBeenCalledWith(uniqueFileName, file)
 
 			expect(shareFile).toHaveBeenCalledTimes(1)
-			expect(shareFile).toHaveBeenCalledWith({
-				path: uniqueFileName,
-				shareWith: 'XXTOKENXX',
-				referenceId,
-				talkMetaData: '{"caption":"text-caption","silent":true}',
-			})
+			expect(shareFile).toHaveBeenCalledWith(uniqueFileName, 'XXTOKENXX', referenceId, '{"caption":"text-caption","silent":true}')
 
 			expect(mockedActions.addTemporaryMessage).toHaveBeenCalledTimes(1)
 			expect(store.getters.currentUploadId).not.toBeDefined()
@@ -212,21 +211,11 @@ describe('fileUploadStore', () => {
 				expect(findUniquePath).toHaveBeenNthCalledWith(+index + 1, client, '/files/current-user', '/Talk/' + files[index].name, undefined)
 				expect(uploadMock).toHaveBeenNthCalledWith(+index + 1, `/Talk/${files[index].name}uniq`, files[index])
 			}
-			const referenceIds = store.getters.getUploadsArray('upload-id1').map((entry) => entry[1].temporaryMessage.referenceId)
+			const referenceIds = store.getters.getUploadsArray('upload-id1').map(entry => entry[1].temporaryMessage.referenceId)
 
 			expect(shareFile).toHaveBeenCalledTimes(2)
-			expect(shareFile).toHaveBeenNthCalledWith(1, {
-				path: '/Talk/' + files[0].name + 'uniq',
-				shareWith: 'XXTOKENXX',
-				referenceId: referenceIds[0],
-				talkMetaData: '{}',
-			})
-			expect(shareFile).toHaveBeenNthCalledWith(2, {
-				path: '/Talk/' + files[1].name + 'uniq',
-				shareWith: 'XXTOKENXX',
-				referenceId: referenceIds[1],
-				talkMetaData: '{"caption":"text-caption"}',
-			})
+			expect(shareFile).toHaveBeenNthCalledWith(1, '/Talk/' + files[0].name + 'uniq', 'XXTOKENXX', referenceIds[0], '{}')
+			expect(shareFile).toHaveBeenNthCalledWith(2, '/Talk/' + files[1].name + 'uniq', 'XXTOKENXX', referenceIds[1], '{"caption":"text-caption"}')
 
 			expect(mockedActions.addTemporaryMessage).toHaveBeenCalledTimes(2)
 			expect(store.getters.currentUploadId).not.toBeDefined()
@@ -266,7 +255,7 @@ describe('fileUploadStore', () => {
 				token: 'XXTOKENXX',
 				id: store.getters.getUploadsArray('upload-id1')[0][1].temporaryMessage.id,
 				uploadId: 'upload-id1',
-				reason: 'failed-upload',
+				reason: 'failed-upload'
 			})
 			expect(showError).toHaveBeenCalled()
 			expect(console.error).toHaveBeenCalled()
@@ -307,7 +296,7 @@ describe('fileUploadStore', () => {
 				token: 'XXTOKENXX',
 				id: store.getters.getUploadsArray('upload-id1')[0][1].temporaryMessage.id,
 				uploadId: 'upload-id1',
-				reason: 'failed-share',
+				reason: 'failed-share'
 			})
 			expect(showError).toHaveBeenCalled()
 			expect(console.error).toHaveBeenCalled()
@@ -335,7 +324,7 @@ describe('fileUploadStore', () => {
 				files,
 			})
 
-			const fileIds = store.getters.getUploadsArray('upload-id1').map((entry) => entry[1].temporaryMessage.id)
+			const fileIds = store.getters.getUploadsArray('upload-id1').map(entry => entry[1].temporaryMessage.id)
 			await store.dispatch('removeFileFromSelection', fileIds[1])
 
 			const uploads = store.getters.getInitialisedUploads('upload-id1')

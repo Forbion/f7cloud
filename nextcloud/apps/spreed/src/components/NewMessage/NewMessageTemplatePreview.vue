@@ -65,37 +65,30 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		checked: {
 			type: Boolean,
 			default: false,
 		},
-
 		fileid: {
 			type: [String, Number],
 			required: true,
 		},
-
 		filename: {
 			type: String,
 			required: true,
 		},
-
 		previewUrl: {
 			type: String,
 			default: null,
 		},
-
 		hasPreview: {
 			type: Boolean,
 			default: true,
 		},
-
 		mime: {
 			type: String,
 			required: true,
 		},
-
 		ratio: {
 			type: Number,
 			default: null,
@@ -149,7 +142,6 @@ export default {
 		onCheck() {
 			this.$emit('check', this.fileid)
 		},
-
 		onFailure() {
 			this.failedPreview = true
 		},
@@ -223,7 +215,7 @@ export default {
 	&__title {
 		overflow: hidden;
 		// also count preview border
-		max-width: calc(var(--width) + 2 * 2px);
+		max-width: calc(var(--width) + 2*2px);
 		padding: var(--margin);
 		white-space: nowrap;
 		text-overflow: ellipsis;

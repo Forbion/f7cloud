@@ -17,9 +17,7 @@
 				:trailing-button-label="cancelSearchLabel"
 				@trailing-button-click="abortSearch"
 				@input="handleInput">
-				<template #icon>
-					<Magnify :size="16" />
-				</template>
+				<Magnify :size="16" />
 				<template #trailing-button-icon>
 					<Close :size="20" />
 				</template>
@@ -52,30 +50,33 @@
 			:contacts-loading="contactsLoading"
 			:no-results="noResults"
 			scrollable
-			:show-search-hints="!onlyUsers"
-			:token="token"
-			:only-users="onlyUsers"
+			show-search-hints
 			@click="updateSelectedParticipants"
 			@click-search-hint="focusInput" />
 	</div>
 </template>
 
 <script>
-import { showError } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 import { vIntersectionObserver as IntersectionObserver } from '@vueuse/components'
 import debounce from 'debounce'
 import { ref } from 'vue'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
 import Close from 'vue-material-design-icons/Close.vue'
 import Magnify from 'vue-material-design-icons/Magnify.vue'
+
+import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import ParticipantsSearchResults from '../RightSidebar/Participants/ParticipantsSearchResults.vue'
 import SelectPhoneNumber from '../SelectPhoneNumber.vue'
 import ContactSelectionBubble from '../UIShared/ContactSelectionBubble.vue'
 import DialpadPanel from '../UIShared/DialpadPanel.vue'
 import TransitionWrapper from '../UIShared/TransitionWrapper.vue'
+
 import { useArrowNavigation } from '../../composables/useArrowNavigation.js'
-import { SHARE } from '../../constants.ts'
+import { SHARE } from '../../constants.js'
 import { autocompleteQuery } from '../../services/coreService.ts'
 import CancelableRequest from '../../utils/cancelableRequest.js'
 
@@ -99,9 +100,9 @@ export default {
 	},
 
 	props: {
-		token: {
+		conversationName: {
 			type: String,
-			default: '',
+			required: true,
 		},
 
 		selectedParticipants: {
@@ -112,11 +113,6 @@ export default {
 		canModerateSipDialOut: {
 			type: Boolean,
 			default: false,
-		},
-
-		onlyUsers: {
-			type: Boolean,
-			required: false,
 		},
 	},
 
@@ -159,13 +155,11 @@ export default {
 		isSearching() {
 			return this.searchText !== ''
 		},
-
 		textFieldLabel() {
 			return this.canModerateSipDialOut
 				? t('spreed', 'Search participants or phone numbers')
 				: t('spreed', 'Search participants')
 		},
-
 		cancelSearchLabel() {
 			return t('spreed', 'Cancel search')
 		},
@@ -217,7 +211,7 @@ export default {
 
 				const response = await request({
 					searchText: this.searchText,
-					token: this.token || 'new',
+					token: 'new',
 					forceTypes: [SHARE.TYPE.EMAIL], // email guests are allowed directly after conversation creation
 				})
 
@@ -254,13 +248,13 @@ export default {
 		},
 
 		updateSelectedParticipants(participant) {
-			const isSelected = this.selectedParticipants.some((selected) => {
+			const isSelected = this.selectedParticipants.some(selected => {
 				return selected.id === participant.id && selected.source === participant.source
 			})
 			const payload = isSelected
-				? this.selectedParticipants.filter((selected) => {
-						return selected.id !== participant.id || selected.source !== participant.source
-					})
+				? this.selectedParticipants.filter(selected => {
+					return selected.id !== participant.id || selected.source !== participant.source
+				})
 				: [...this.selectedParticipants, participant]
 
 			this.$emit('update:selected-participants', payload)
@@ -272,7 +266,7 @@ export default {
 			}
 
 			this.updateSelectedParticipants(this.participantPhoneItem)
-		},
+		}
 	},
 }
 </script>
@@ -305,10 +299,9 @@ export default {
 	gap: var(--default-grid-baseline);
 	border-bottom: 1px solid var(--color-background-darker);
 	padding: var(--default-grid-baseline) 0;
-	min-height: min-content;
 	max-height: 97px;
-	flex-shrink: 0;
 	overflow-y: auto;
+	flex: 1 0 auto;
 	align-content: flex-start;
 }
 </style>

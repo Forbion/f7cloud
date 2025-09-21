@@ -6,8 +6,10 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
+
 import MessagesGroup from './MessagesGroup.vue'
-import { ATTENDEE, MESSAGE } from '../../../constants.ts'
+
+import { ATTENDEE } from '../../../constants.js'
 import storeConfig from '../../../store/storeConfig.js'
 import { useGuestNameStore } from '../../../stores/guestName.js'
 
@@ -49,7 +51,7 @@ describe('MessagesGroup.vue', () => {
 			actorDisplayName: payload.actorDisplayName,
 			actorType: payload.actorType,
 			message: 'first',
-			messageType: MESSAGE.TYPE.COMMENT,
+			messageType: 'comment',
 			messageParameters: {},
 			systemMessage: '',
 			timestamp: 100,
@@ -61,7 +63,7 @@ describe('MessagesGroup.vue', () => {
 			actorDisplayName: payload.actorDisplayName,
 			actorType: payload.actorType,
 			message: 'second',
-			messageType: MESSAGE.TYPE.COMMENT,
+			messageType: 'comment',
 			messageParameters: {},
 			systemMessage: '',
 			timestamp: 200,
@@ -75,7 +77,7 @@ describe('MessagesGroup.vue', () => {
 				actorDisplayName: payload.actorDisplayName,
 				actorType: payload.actorType,
 				message: 'third',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				messageParameters: {},
 				systemMessage: '',
 				timestamp: 0, // temporary

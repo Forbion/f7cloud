@@ -4,7 +4,7 @@
 -->
 
 <template>
-	<section v-if="!hasSignalingServers || trialAccount.length !== 0"
+	<section v-if="showForm"
 		id="hosted_signaling_server"
 		class="hosted-signaling section">
 		<h2>
@@ -121,12 +121,14 @@
 <script>
 import axios from '@nextcloud/axios'
 import { loadState } from '@nextcloud/initial-state'
-import { n, t } from '@nextcloud/l10n'
+import { t, n } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
 import { generateOcsUrl } from '@nextcloud/router'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import { EventBus } from '../../services/EventBus.ts'
 
 export default {
@@ -136,13 +138,6 @@ export default {
 		NcButton,
 		NcSelect,
 		NcTextField,
-	},
-
-	props: {
-		hasSignalingServers: {
-			type: Boolean,
-			required: true,
-		},
 	},
 
 	data() {
@@ -169,34 +164,30 @@ export default {
 				&& this.hostedHPBLanguage !== ''
 				&& this.hostedHPBCountry !== ''
 		},
-
 		disclaimerHint() {
 			return t('spreed', 'By clicking the button above the information in the form is sent to the servers of Struktur AG. You can find further information at {linkstart}spreed.eu{linkend}.')
 				.replace('{linkstart}', '<a target="_blank" rel="noreferrer nofollow" class="external" href="https://www.spreed.eu/nextcloud-talk-high-performance-backend/">')
 				.replace('{linkend}', ' ↗</a>')
 		},
-
 		translatedStatus() {
 			switch (this.trialAccount.status) {
-				case 'pending':
-					return t('spreed', 'Pending')
-				case 'error':
-					return t('spreed', 'Error')
-				case 'blocked':
-					return t('spreed', 'Blocked')
-				case 'active':
-					return t('spreed', 'Active')
-				case 'expired':
-					return t('spreed', 'Expired')
+			case 'pending':
+				return t('spreed', 'Pending')
+			case 'error':
+				return t('spreed', 'Error')
+			case 'blocked':
+				return t('spreed', 'Blocked')
+			case 'active':
+				return t('spreed', 'Active')
+			case 'expired':
+				return t('spreed', 'Expired')
 			}
 
 			return ''
 		},
-
 		expiryDate() {
 			return moment(this.trialAccount.expires).format('L')
 		},
-
 		createdDate() {
 			return moment(this.trialAccount.created).format('L')
 		},
@@ -216,8 +207,16 @@ export default {
 		// list of {code: "France", name: "France"}
 		this.countries = languagesAndCountries.countries
 
-		this.hostedHPBLanguage = this.languages.find((language) => language.code === state.language) ?? this.languages[0]
-		this.hostedHPBCountry = this.countries.find((country) => country.code === state.country) ?? this.countries[0]
+		this.hostedHPBLanguage = this.languages.find(language => language.code === state.language) ?? this.languages[0]
+		this.hostedHPBCountry = this.countries.find(country => country.code === state.country) ?? this.countries[0]
+
+		const signaling = loadState('spreed', 'signaling_servers')
+		this.updateSignalingServers(signaling.servers)
+		EventBus.on('signaling-servers-updated', this.updateSignalingServers)
+	},
+
+	beforeDestroy() {
+		EventBus.off('signaling-servers-updated', this.updateSignalingServers)
 	},
 
 	methods: {
@@ -256,6 +255,10 @@ export default {
 			} finally {
 				this.loading = false
 			}
+		},
+
+		updateSignalingServers(servers) {
+			this.showForm = this.trialAccount.length !== 0 || servers.length === 0
 		},
 	},
 }

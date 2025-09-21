@@ -19,7 +19,7 @@
 						<IconCheck v-if="editing" :size="20" />
 						<IconPencil v-else :size="20" />
 					</template>
-					{{ editing ? t('spreed', 'Save') : t('spreed', 'Edit') }}
+					{{ editing ? t('spreed', 'Save'): t('spreed', 'Edit') }}
 				</NcActionButton>
 				<NcActionLink :href="type.infoTarget" target="_blank" close-after-click>
 					<template #icon>
@@ -72,14 +72,16 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActionLink from '@nextcloud/vue/components/NcActionLink'
-import NcActions from '@nextcloud/vue/components/NcActions'
 import IconCheck from 'vue-material-design-icons/Check.vue'
 import IconDelete from 'vue-material-design-icons/Delete.vue'
 import IconInformation from 'vue-material-design-icons/Information.vue'
 import IconPencil from 'vue-material-design-icons/Pencil.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 
 export default {
 	name: 'BridgePart',
@@ -98,27 +100,22 @@ export default {
 			type: Number,
 			required: true,
 		},
-
 		part: {
 			type: Object,
 			required: true,
 		},
-
 		type: {
 			type: Object,
 			required: true,
 		},
-
 		container: {
 			type: String,
 			required: true,
 		},
-
 		editing: {
 			type: Boolean,
 			default: false,
 		},
-
 		editable: {
 			type: Boolean,
 			default: true,
@@ -203,13 +200,13 @@ export default {
 input {
 	background-size: 16px;
 	background-position: 14px;
-	padding-inline-start: var(--default-clickable-area);
+	padding-left: var(--default-clickable-area);
 	width: 100%;
 	text-overflow: ellipsis;
 	&[type=checkbox] {
 		width: unset;
-		margin-inline-start: 15px;
-		margin-inline-end: 10px;
+		margin-left: 15px;
+		margin-right: 10px;
 	}
 }
 

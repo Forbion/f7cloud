@@ -10,76 +10,87 @@
 			'top-bar--in-call': isInCall,
 			'top-bar--authorised': getUserId,
 		}">
-		<ConversationIcon :key="conversation.token"
-			class="conversation-icon"
-			:offline="isOffline"
-			:item="conversation"
-			:size="AVATAR.SIZE.DEFAULT"
-			:disable-menu="false"
-			show-user-online-status
-			:hide-favorite="false"
-			:hide-call="false" />
-
+    <div class="top-bar-outer">
+      <ConversationIcon :key="conversation.token"
+        class="conversation-icon"
+        :offline="isPeerInactive"
+        :item="conversation"
+        :size="AVATAR.SIZE.DEFAULT"
+        :disable-menu="false"
+        show-user-online-status
+        :hide-favorite="false"
+        :hide-call="false" />
+      <!-- conversation header -->
+      <a role="button"
+         class="conversation-header"
+         @click="openConversationSettings">
+        <div class="conversation-header__text"
+             :class="{'conversation-header__text--offline': isPeerInactive}">
+          <p class="title">
+            {{ conversation.displayName }}
+          </p>
+          <p v-if="showUserStatusAsDescription"
+             class="description"
+             :class="{'description__in-chat' : !isInCall }">
+            {{ statusMessage }}
+          </p>
+          <NcPopover v-if="conversation.description"
+                     :focus-trap="false"
+                     :delay="500"
+                     :boundary="boundaryElement"
+                     :popper-triggers="['hover']"
+                     :triggers="['hover']">
+            <template #trigger="{ attrs }">
+              <p v-bind="attrs"
+                 class="description"
+                 :class="{'description__in-chat' : !isInCall }">
+                {{ conversation.description }}
+              </p>
+            </template>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div class="description__popover" v-html="renderedDescription" />
+          </NcPopover>
+        </div>
+      </a>
+    </div>
+<!--    <div class="top-bar-outer-white-block"></div>-->
 		<div class="top-bar__wrapper" :data-theme-dark="isInCall">
-			<!-- conversation header -->
-			<a role="button"
-				class="conversation-header"
-				@click="openConversationSettings">
-				<div class="conversation-header__text"
-					:class="{ 'conversation-header__text--offline': isOffline }">
-					<p class="title">
-						{{ conversation.displayName }}
-					</p>
-					<p v-if="showUserStatusAsDescription"
-						class="description"
-						:class="{ 'description__in-chat': !isInCall }">
-						{{ statusMessage }}
-					</p>
-					<NcPopover v-if="conversation.description"
-						:focus-trap="false"
-						:delay="500"
-						:boundary="boundaryElement"
-						:popper-triggers="['hover']"
-						:triggers="['hover']">
-						<template #trigger="{ attrs }">
-							<p v-bind="attrs"
-								class="description"
-								:class="{ 'description__in-chat': !isInCall }">
-								{{ conversation.description }}
-							</p>
-						</template>
-						<NcRichText class="description__popover"
-							:text="conversation.description"
-							use-extended-markdown />
-					</NcPopover>
-				</div>
-			</a>
+
 
 			<TasksCounter v-if="conversation.type === CONVERSATION.TYPE.NOTE_TO_SELF" />
 
-			<!-- Upcoming meetings -->
-			<CalendarEventsDialog v-if="showCalendarEvents" :token="token" />
+			<!-- Upcoming event -->
+			<a v-if="showUpcomingEvent"
+				class="upcoming-event"
+				:href="nextEvent.calendarAppUrl"
+				:title="t('spreed', 'Open Calendar')"
+				target="_blank">
+				<div class="icon">
+					<IconCalendarBlank :size="20" />
+				</div>
+				<div class="event-info">
+					<p class="event-info__header">
+						{{ t('spreed', 'Next call') }}
+					</p>
+					<p> {{ eventInfo }} </p>
+				</div>
+			</a>
 
 			<!-- Call time -->
 			<CallTime v-if="isInCall"
 				:start="conversation.callStartTime" />
 
 			<!-- Participants counter -->
-			<NcButton v-if="isInCall && isModeratorOrUser"
+			<NcButton v-if="isInCall && !isOneToOneConversation && isModeratorOrUser"
 				:title="participantsInCallAriaLabel"
 				:aria-label="participantsInCallAriaLabel"
 				type="tertiary"
 				@click="openSidebar('participants')">
 				<template #icon>
-					<IconAccountMultiplePlus v-if="canExtendOneToOneConversation" :size="20" />
-					<IconAccountMultiple v-else :size="20" />
+					<IconAccountMultiple :size="20" />
 				</template>
-				<template v-if="!canExtendOneToOneConversation" #default>
-					{{ participantsInCall }}
-				</template>
+				{{ participantsInCall }}
 			</NcButton>
-			<ExtendOneToOneDialog v-else-if="!isSidebar && canExtendOneToOneConversation"
-				:token="token" />
 
 			<!-- Reactions menu -->
 			<ReactionMenu v-if="isInCall && hasReactionSupport"
@@ -101,7 +112,7 @@
 				:model="localMediaModel"
 				@open-breakout-rooms-editor="showBreakoutRoomsEditor = true" />
 
-			<CallButton shrink-on-mobile :hide-text="isSidebar" :is-screensharing="!!localMediaModel.attributes.localScreen" />
+			<CallButton shrink-on-mobile :hide-text="isSidebar" :is-screensharing="!!localMediaModel.attributes.localScreen" class="test"/>
 
 			<!-- Breakout rooms editor -->
 			<BreakoutRoomsEditor v-if="showBreakoutRoomsEditor"
@@ -112,33 +123,34 @@
 </template>
 
 <script>
-import { emit } from '@nextcloud/event-bus'
-import { n, t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcPopover from '@nextcloud/vue/components/NcPopover'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
 import IconAccountMultiple from 'vue-material-design-icons/AccountMultiple.vue'
-import IconAccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.vue'
-import BreakoutRoomsEditor from '../BreakoutRoomsEditor/BreakoutRoomsEditor.vue'
-import CalendarEventsDialog from '../CalendarEventsDialog.vue'
-import ConversationIcon from '../ConversationIcon.vue'
-import ExtendOneToOneDialog from '../ExtendOneToOneDialog.vue'
+import IconCalendarBlank from 'vue-material-design-icons/CalendarBlank.vue'
+
+import { emit } from '@nextcloud/event-bus'
+import { t, n } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcPopover from '@nextcloud/vue/dist/Components/NcPopover.js'
+import { useIsMobile } from '@nextcloud/vue/dist/Composables/useIsMobile.js'
+import richEditor from '@nextcloud/vue/dist/Mixins/richEditor.js'
+
 import CallButton from './CallButton.vue'
 import CallTime from './CallTime.vue'
 import ReactionMenu from './ReactionMenu.vue'
 import TasksCounter from './TasksCounter.vue'
 import TopBarMediaControls from './TopBarMediaControls.vue'
 import TopBarMenu from './TopBarMenu.vue'
+import BreakoutRoomsEditor from '../BreakoutRoomsEditor/BreakoutRoomsEditor.vue'
+import ConversationIcon from '../ConversationIcon.vue'
+
 import { useGetParticipants } from '../../composables/useGetParticipants.js'
-import { AVATAR, CONVERSATION } from '../../constants.ts'
-import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
-import { useGroupwareStore } from '../../stores/groupware.ts'
-import { useSidebarStore } from '../../stores/sidebar.ts'
+import { AVATAR, CONVERSATION } from '../../constants.js'
+import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
+import { useChatExtrasStore } from '../../stores/chatExtras.js'
+import { useSidebarStore } from '../../stores/sidebar.js'
 import { getStatusMessage } from '../../utils/userStatus.ts'
 import { localCallParticipantModel, localMediaModel } from '../../utils/webrtc/index.js'
-
-const canStartConversations = getTalkConfig('local', 'conversations', 'can-create')
-const supportConversationCreationAll = hasTalkFeature('local', 'conversation-creation-all')
 
 export default {
 	name: 'TopBar',
@@ -146,22 +158,21 @@ export default {
 	components: {
 		// Components
 		BreakoutRoomsEditor,
-		CalendarEventsDialog,
 		CallButton,
 		CallTime,
 		ConversationIcon,
-		ExtendOneToOneDialog,
 		TopBarMediaControls,
 		NcButton,
 		NcPopover,
-		NcRichText,
 		TopBarMenu,
 		TasksCounter,
 		ReactionMenu,
 		// Icons
 		IconAccountMultiple,
-		IconAccountMultiplePlus,
+		IconCalendarBlank,
 	},
+
+	mixins: [richEditor],
 
 	props: {
 		isInCall: {
@@ -185,8 +196,9 @@ export default {
 			AVATAR,
 			localCallParticipantModel,
 			localMediaModel,
-			groupwareStore: useGroupwareStore(),
+			chatExtrasStore: useChatExtrasStore(),
 			sidebarStore: useSidebarStore(),
+			isMobile: useIsMobile(),
 			CONVERSATION,
 		}
 	},
@@ -202,11 +214,6 @@ export default {
 		isOneToOneConversation() {
 			return this.conversation.type === CONVERSATION.TYPE.ONE_TO_ONE
 				|| this.conversation.type === CONVERSATION.TYPE.ONE_TO_ONE_FORMER
-		},
-
-		canExtendOneToOneConversation() {
-			return canStartConversations && supportConversationCreationAll && this.isOneToOneConversation
-				&& this.conversation.type !== CONVERSATION.TYPE.ONE_TO_ONE_FORMER
 		},
 
 		isModeratorOrUser() {
@@ -229,6 +236,10 @@ export default {
 			return getStatusMessage(this.conversation)
 		},
 
+		renderedDescription() {
+			return this.renderContent(this.conversation.description)
+		},
+
 		/**
 		 * Current actor id
 		 */
@@ -237,19 +248,26 @@ export default {
 		},
 
 		/**
-		 * Online status of the peer (second attendee) in one to one conversation.
+		 * Online status of the peer in one to one conversation.
 		 */
-		isOffline() {
+		isPeerInactive() {
+			// Only compute this in one-to-one conversations
 			if (!this.isOneToOneConversation) {
-				return false
+				return undefined
 			}
 
-			const peer = this.$store.getters.participantsList(this.token)
-				.find((participant) => participant.actorId !== this.actorId)
+			// Get the 1 to 1 peer
+			let peer
+			const participants = this.$store.getters.participantsList(this.token)
+			for (const participant of participants) {
+				if (participant.actorId !== this.actorId) {
+					peer = participant
+				}
+			}
 
-			// If second attendee is not currently in the room,
-			// or not invited yet to the room, show as offline
-			return !peer || peer.sessionIds.length === 0
+			if (peer) {
+				return !peer.sessionIds.length
+			} else return false
 		},
 
 		participantsInCall() {
@@ -257,9 +275,6 @@ export default {
 		},
 
 		participantsInCallAriaLabel() {
-			if (this.canExtendOneToOneConversation) {
-				return t('spreed', 'Add participants to this call')
-			}
 			return n('spreed', '%n participant in call', '%n participants in call', this.$store.getters.participantsInCall(this.token))
 		},
 
@@ -271,10 +286,26 @@ export default {
 			return this.isInCall && this.supportedReactions?.length > 0
 		},
 
-		showCalendarEvents() {
-			return this.getUserId && !this.isInCall && !this.isSidebar
+		nextEvent() {
+			return this.chatExtrasStore.getNextEvent(this.token)
+		},
+
+		eventInfo() {
+			if (!this.nextEvent) {
+				return null
+			}
+
+			// If timestamp is in the past, show "now"
+			if (this.nextEvent.start <= moment().unix()) {
+				return t('spreed', 'Now')
+			}
+
+			return moment(this.nextEvent.start * 1000).calendar()
+		},
+
+		showUpcomingEvent() {
+			return this.nextEvent && !this.isInCall && !this.isSidebar && !this.isMobile
 				&& this.conversation.type !== CONVERSATION.TYPE.NOTE_TO_SELF
-				&& this.conversation.type !== CONVERSATION.TYPE.CHANGELOG
 		},
 
 		getUserId() {
@@ -290,8 +321,8 @@ export default {
 					// Do not fetch upcoming events for guests (401 unauthorzied) or in sidebar
 					return
 				}
-				this.groupwareStore.getUpcomingEvents(value)
-			},
+				this.chatExtrasStore.getUpcomingEvents(value)
+			}
 		},
 	},
 
@@ -318,10 +349,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/markdown';
-
 .top-bar {
 	--border-width: 1px;
+
 	display: flex;
 	flex-wrap: wrap;
 	gap: 3px;
@@ -337,29 +367,29 @@ export default {
 	border-bottom: var(--border-width) solid var(--color-border);
 
 	&--in-call {
-		inset-inline: 0;
+		right: 0;
 		border: none;
 		position: absolute;
 		top: 0;
+		left: 0;
 		background-color: transparent;
 	}
 
 	.talk-sidebar-callview & {
-		margin-inline-end: var(--default-clickable-area);
-		align-items: flex-start;
+		margin-right: var(--default-clickable-area);
 	}
 
 	&--sidebar {
 		padding: calc(2 * var(--default-grid-baseline));
 
 		.conversation-icon {
-			margin-inline-start: 0;
+			margin-left: 0;
 		}
 	}
 
-	&--authorised:not(.top-bar--sidebar) {
+	&--authorised {
 		.conversation-icon {
-			margin-inline-start: calc(var(--default-clickable-area) + var(--default-grid-baseline));
+			margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline));
 		}
 	}
 }
@@ -386,7 +416,7 @@ export default {
 		display: flex;
 		flex-direction:column;
 		flex-grow: 1;
-		margin-inline-start: 8px;
+		margin-left: 8px;
 		justify-content: center;
 		width: 100%;
 		overflow: hidden;
@@ -412,16 +442,34 @@ export default {
 }
 
 .description__popover {
-	padding: calc(var(--default-grid-baseline) * 2);
+	padding: var(--default-grid-baseline);
 	width: fit-content;
 	max-width: 50em;
-
-	:deep(> div) {
-		@include markdown;
-	}
 }
 
 .icon {
 	display: flex;
 }
+
+.upcoming-event {
+	display: flex;
+	flex-direction: row;
+	gap: calc(var(--default-grid-baseline) * 2);
+	padding: 0 calc(var(--default-grid-baseline) * 2);
+	background-color: rgba(var(--color-info-rgb), 0.1);
+	height: 100%;
+	border-radius: var(--border-radius);
+}
+
+.event-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	line-height: 20px;
+
+	&__header {
+		font-weight: 500;
+	}
+}
+
 </style>

@@ -241,46 +241,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/dashboard/events": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get up to 10 rooms that have events in the next 7 days sorted by their start timestamp ascending
-         * @description Required capability: `dashboard-event-rooms`
-         */
-        get: operations["calendar_integration-get-dashboard-events"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/mutual-events": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get up to 3 events in the next 7 days sorted by their start timestamp ascending
-         * @description Required capability: `mutual-calendar-events`
-         */
-        get: operations["calendar_integration-get-mutual-events"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/apps/spreed/api/{apiVersion}/call/{token}": {
         parameters: {
             query?: never;
@@ -349,11 +309,11 @@ export type paths = {
             cookie?: never;
         };
         get?: never;
-        /** Update the in-call flags on the host server using the session id of the federated user */
+        /** Update the in-call flags on the host server using the session id of the federated user. */
         put: operations["call-update-federated-call-flags"];
-        /** Join call on the host server using the session id of the federated user */
+        /** Join call on the host server using the session id of the federated user. */
         post: operations["call-join-federated-call"];
-        /** Leave a call on the host server using the session id of the federated user */
+        /** Leave a call on the host server using the session id of the federated user. */
         delete: operations["call-leave-federated-call"];
         options?: never;
         head?: never;
@@ -495,26 +455,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/chat/upcoming-reminders": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get all upcoming reminders
-         * @description Required capability: `upcoming-reminders`
-         */
-        get: operations["chat-get-upcoming-reminders"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/apps/spreed/api/{apiVersion}/chat/{token}/read": {
         parameters: {
             query?: never;
@@ -599,7 +539,7 @@ export type paths = {
          * Get the token of the room associated to the given file id
          * @description This is the counterpart of self::getRoomByShareToken() for file ids instead of share tokens, although both return the same room token if the given file id and share token refer to the same file.
          *     If there is no room associated to the given file id a new room is created; the new room is a public room associated with a "file" object with the given file id. Unlike normal rooms in which the owner is the user that created the room these are special rooms without owner (although self joined users with direct access to the file become persistent participants automatically when they join until they explicitly leave or no longer have access to the file).
-         *     In any case, to create or even get the token of the room, the file must be shared and the user must be the owner of a public share of the file (like a link share, for example) or have direct access to that file; an error is returned otherwise. A user has direct access to a file if they have access to it (or to an ancestor) through a user, group, circle or room share (but not through a link share, for example), or if they are the owner of such a file.
+         *     In any case, to create or even get the token of the room, the file must be shared and the user must be the owner of a public share of the file (like a link share, for example) or have direct access to that file; an error is returned otherwise. A user has direct access to a file if she has access to it (or to an ancestor) through a user, group, circle or room share (but not through a link share, for example), or if she is the owner of such a file.
          */
         get: operations["files_integration-get-room-by-file-id"];
         put?: never;
@@ -697,26 +637,6 @@ export type paths = {
         put?: never;
         /** Create a poll */
         post: operations["poll-create-poll"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/poll/{token}/draft/{pollId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Modify a draft poll
-         * @description Required capability: `edit-draft-poll`
-         */
-        post: operations["poll-update-draft-poll"];
         delete?: never;
         options?: never;
         head?: never;
@@ -864,10 +784,7 @@ export type paths = {
         /** Get all currently existent rooms which the user has joined */
         get: operations["room-get-rooms"];
         put?: never;
-        /**
-         * Create a room with a user, a group or a circle
-         * @description With the `conversation-creation-all` capability a lot of new options where introduced. Before that only `$roomType`, `$roomName`, `$objectType` and `$objectId` were supported all the time, and `$password` with the `conversation-creation-password` capability In case the `$roomType` is {@see Room::TYPE_ONE_TO_ONE} only the `$invite` or `$participants` parameter is supported.
-         */
+        /** Create a room with a user, a group or a circle */
         post: operations["room-create-room"];
         delete?: never;
         options?: never;
@@ -951,26 +868,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/object": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Unbind a room from its object to prevent automatic retention
-         * @description Required capability: `unbind-conversation`
-         */
-        delete: operations["room-unbind-room-from-object"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/public": {
         parameters: {
             query?: never;
@@ -980,10 +877,7 @@ export type paths = {
         };
         get?: never;
         put?: never;
-        /**
-         * Allowed guests to join conversation
-         * @description Required capability: `conversation-creation-password` for `string $password` parameter
-         */
+        /** Allowed guests to join conversation */
         post: operations["room-make-public"];
         /** Disallowed guests to join conversation */
         delete: operations["room-make-private"];
@@ -1271,54 +1165,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/important": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Mark a conversation as important (still sending notifications while on DND)
-         * @description Required capability: `important-conversations`
-         */
-        post: operations["room-mark-conversation-as-important"];
-        /**
-         * Mark a conversation as unimportant (no longer sending notifications while on DND)
-         * @description Required capability: `important-conversations`
-         */
-        delete: operations["room-mark-conversation-as-unimportant"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/sensitive": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Mark a conversation as sensitive (no last message is visible / no push preview is shown)
-         * @description Required capability: `sensitive-conversations`
-         */
-        post: operations["room-mark-conversation-as-sensitive"];
-        /**
-         * Mark a conversation as insensitive (last message is visible / push preview is shown)
-         * @description Required capability: `sensitive-conversations`
-         */
-        delete: operations["room-mark-conversation-as-insensitive"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/notify": {
         parameters: {
             query?: never;
@@ -1503,26 +1349,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/spreed/api/{apiVersion}/room/{token}/meeting": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Schedule a meeting for a conversation
-         * @description Required capability: `schedule-meeting`
-         */
-        post: operations["room-schedule-meeting"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/apps/spreed/api/{apiVersion}/settings/user": {
         parameters: {
             query?: never;
@@ -1657,10 +1483,7 @@ export type components = {
                     /** Format: int64 */
                     "recording-consent": number;
                     "supported-reactions": string[];
-                    /** @description List of file names relative to the spreed/img/backgrounds/ web path, e.g. `2_home.jpg` */
                     "predefined-backgrounds": string[];
-                    /** @description List of file paths relative to the server web root with leading slash, e.g. `/apps/spreed/img/backgrounds/2_home.jpg` */
-                    "predefined-backgrounds-v2": string[];
                     "can-upload-background": boolean;
                     "sip-enabled": boolean;
                     "sip-dialout-enabled": boolean;
@@ -1669,7 +1492,6 @@ export type components = {
                     /** Format: int64 */
                     "max-duration": number;
                     "blur-virtual-background": boolean;
-                    "end-to-end-encryption": boolean;
                 };
                 chat: {
                     /** Format: int64 */
@@ -1677,7 +1499,6 @@ export type components = {
                     /** Format: int64 */
                     "read-privacy": number;
                     "has-translation-providers": boolean;
-                    "has-translation-task-providers": boolean;
                     /** Format: int64 */
                     "typing-privacy": number;
                     /** Format: int64 */
@@ -1685,17 +1506,6 @@ export type components = {
                 };
                 conversations: {
                     "can-create": boolean;
-                    "force-passwords": boolean;
-                    /** @enum {string} */
-                    "list-style": "two-lines" | "compact";
-                    /** Format: int64 */
-                    "description-length": number;
-                    /** Format: int64 */
-                    "retention-event": number;
-                    /** Format: int64 */
-                    "retention-phone": number;
-                    /** Format: int64 */
-                    "retention-instant-meetings": number;
                 };
                 federation: {
                     enabled: boolean;
@@ -1711,10 +1521,6 @@ export type components = {
                     /** Format: int64 */
                     "session-ping-limit": number;
                     "hello-v2-token-key"?: string;
-                };
-                experiments: {
-                    /** Format: int64 */
-                    enabled: number;
                 };
             };
             "config-local": {
@@ -1768,76 +1574,11 @@ export type components = {
             token: string;
             userId: string;
         };
-        ChatReminderUpcoming: {
-            actorDisplayName: string;
-            actorId: string;
-            actorType: string;
-            message: string;
-            /** Format: int64 */
-            messageId: number;
-            messageParameters: {
-                [key: string]: components["schemas"]["RichObjectParameter"];
-            };
-            /** Format: int64 */
-            reminderTimestamp: number;
-            roomToken: string;
-        };
-        DashboardEvent: {
-            calendars: components["schemas"]["DashboardEventCalendar"][];
-            eventName: string;
-            eventDescription: string | null;
-            eventAttachments: {
-                [key: string]: components["schemas"]["DashboardEventAttachment"];
-            };
-            eventLink: string;
-            /** Format: int64 */
-            start: number;
-            /** Format: int64 */
-            end: number;
-            roomToken: string;
-            roomAvatarVersion: string;
-            roomName: string;
-            roomDisplayName: string;
-            /** Format: int64 */
-            roomType: number;
-            /** Format: int64 */
-            roomActiveSince: number | null;
-            /** Format: int64 */
-            invited: number | null;
-            /** Format: int64 */
-            accepted: number | null;
-            /** Format: int64 */
-            tentative: number | null;
-            /** Format: int64 */
-            declined: number | null;
-        };
-        DashboardEventAttachment: {
-            calendars: string[];
-            fmttype: string;
-            filename: string;
-            /** Format: int64 */
-            fileid: number;
-            preview: boolean;
-            previewLink: string | null;
-        };
-        DashboardEventCalendar: {
-            principalUri: string;
-            calendarName: string;
-            calendarColor: string | null;
-        };
         DeletedChatMessage: {
             /** Format: int64 */
             id: number;
             /** @enum {boolean} */
             deleted: true;
-        };
-        InvitationList: {
-            users?: string[];
-            federated_users?: string[];
-            groups?: string[];
-            emails?: string[];
-            phones?: string[];
-            teams?: string[];
         };
         Matterbridge: {
             enabled: boolean;
@@ -1926,8 +1667,8 @@ export type components = {
             optionId: number;
         };
         PublicCapabilities: {
-            spreed?: components["schemas"]["Capabilities"];
-        };
+            spreed: components["schemas"]["Capabilities"];
+        } | unknown[];
         Reaction: {
             actorDisplayName: string;
             actorId: string;
@@ -1970,214 +1711,97 @@ export type components = {
             blurhash?: string;
         };
         Room: {
-            /** @description The unique identifier for the given actor type */
             actorId: string;
-            /** @description The cloud id of the invited user */
             invitedActorId?: string;
-            /** @description Actor type of the current user (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#attendee-types)) */
             actorType: string;
-            /**
-             * Format: int64
-             * @description Unique attendee id
-             */
+            /** Format: int64 */
             attendeeId: number;
-            /**
-             * Format: int64
-             * @description Dedicated permissions for the current participant, if not `Custom` this are not the resulting permissions (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#attendee-permissions))
-             */
+            /** Format: int64 */
             attendeePermissions: number;
-            /** @description Unique dial-in authentication code for this user, when the conversation has SIP enabled (see `sipEnabled` attribute) */
             attendeePin: string | null;
-            /** @description Version of conversation avatar used to easier expiration of the avatar in case a moderator updates it, since the avatar endpoint should be cached for 24 hours. (only available with `avatar` capability) */
             avatarVersion: string;
-            /**
-             * Format: int64
-             * @description Breakout room configuration mode (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#breakout-room-modes)) (only available with `breakout-rooms-v1` capability)
-             */
+            /** Format: int64 */
             breakoutRoomMode: number;
-            /**
-             * Format: int64
-             * @description Breakout room status (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#breakout-room-status)) (only available with `breakout-rooms-v1` capability)
-             */
+            /** Format: int64 */
             breakoutRoomStatus: number;
-            /**
-             * Format: int64
-             * @description Combined flag of all participants in the current call (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#participant-in-call-flag), only available with `conversation-call-flags` capability)
-             */
+            /** Format: int64 */
             callFlag: number;
-            /**
-             * Format: int64
-             * @description Call permissions, if not `Custom` this are not the resulting permissions, if set they will reset after the end of the call (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#attendee-permissions))
-             */
+            /** Format: int64 */
             callPermissions: number;
             /** Format: int64 */
             callRecording: number;
             /** Format: int64 */
             callStartTime: number;
-            /** @description Flag if the user can delete the conversation for everyone (not possible without moderator permissions or in one-to-one conversations) */
             canDeleteConversation: boolean;
-            /** @description Whether the given user can enable SIP for this conversation. Note that when the token is not-numeric only, SIP can not be enabled even if the user is permitted and a moderator of the conversation */
             canEnableSIP: boolean;
-            /** @description Flag if the user can leave the conversation (not possible for the last user with moderator permissions) */
             canLeaveConversation: boolean;
-            /** @description Flag if the user can start a new call in this conversation (joining is always possible) (only available with `start-call-flag` capability) */
             canStartCall: boolean;
-            /**
-             * Format: int64
-             * @description Default permissions for new participants (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#attendee-permissions))
-             */
+            /** Format: int64 */
             defaultPermissions: number;
-            /** @description Description of the conversation (can also be empty) (only available with `room-description` capability) */
             description: string;
-            /** @description `name` if non-empty, otherwise it falls back to a list of participants */
             displayName: string;
-            /** @description Flag if the conversation has an active call */
             hasCall: boolean;
-            /** @description Flag if the conversation has a password */
             hasPassword: boolean;
-            /**
-             * Format: int64
-             * @description Numeric identifier of the conversation
-             */
+            /** Format: int64 */
             id: number;
-            /** @description Flag if the conversation has a custom avatar (only available with `avatar` capability) */
             isCustomAvatar: boolean;
-            /** @description Flag if the conversation is favorited by the user */
             isFavorite: boolean;
-            /**
-             * Format: int64
-             * @description Timestamp of the last activity in the conversation, in seconds and UTC time zone
-             */
+            /** Format: int64 */
             lastActivity: number;
-            /**
-             * Format: int64
-             * @description ID of the last message read by every user that has read privacy set to public in a room. When the user themself has it set to private the value is `0` (only available with `chat-read-status` capability)
-             */
+            /** Format: int64 */
             lastCommonReadMessage: number;
-            /** @description Last message in a conversation if available, otherwise empty. **Note:** Even when given the message will not contain the `parent` or `reactionsSelf` attribute due to performance reasons */
-            lastMessage?: components["schemas"]["RoomLastMessage"];
-            /**
-             * Format: int64
-             * @description Timestamp of the user's session making the request
-             */
+            lastMessage: components["schemas"]["RoomLastMessage"] | unknown[];
+            /** Format: int64 */
             lastPing: number;
-            /**
-             * Format: int64
-             * @description ID of the last read message in a room (only available with `chat-read-marker` capability)
-             */
+            /** Format: int64 */
             lastReadMessage: number;
-            /**
-             * Format: int64
-             * @description Listable scope for the room (only available with `listable-rooms` capability)
-             */
+            /** Format: int64 */
             listable: number;
-            /**
-             * Format: int64
-             * @description Webinar lobby restriction (0-1), if the participant is a moderator they can always join the conversation (only available with `webinary-lobby` capability) (See [Webinar lobby states](https://nextcloud-talk.readthedocs.io/en/latest/constants#webinar-lobby-states))
-             */
+            /** Format: int64 */
             lobbyState: number;
-            /**
-             * Format: int64
-             * @description Timestamp when the lobby will be automatically disabled (only available with `webinary-lobby` capability)
-             */
+            /** Format: int64 */
             lobbyTimer: number;
             /** Format: int64 */
             mentionPermissions: number;
             /** Format: int64 */
             messageExpiration: number;
-            /** @description Name of the conversation (can also be empty) */
             name: string;
             /** Format: int64 */
             notificationCalls: number;
-            /**
-             * Format: int64
-             * @description The notification level for the user (See [Participant notification levels](https://nextcloud-talk.readthedocs.io/en/latest/constants#participant-notification-levels))
-             */
+            /** Format: int64 */
             notificationLevel: number;
-            /** @description See [Object types](https://nextcloud-talk.readthedocs.io/en/latest/constants#object-types) documentation for explanation */
             objectId: string;
-            /** @description The type of object that the conversation is associated with (See [Object types](https://nextcloud-talk.readthedocs.io/en/latest/constants#object-types)) */
             objectType: string;
-            /**
-             * Format: int64
-             * @description "In call" flags of the user's session making the request (only available with `in-call-flags` capability)
-             */
+            /** Format: int64 */
             participantFlags: number;
-            /**
-             * Format: int64
-             * @description Permissions level of the current user
-             */
+            /** Format: int64 */
             participantType: number;
-            /**
-             * Format: int64
-             * @description Combined final permissions for the current participant, permissions are picked in order of attendee then call then default and the first which is `Custom` will apply (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#attendee-permissions))
-             */
+            /** Format: int64 */
             permissions: number;
-            /**
-             * Format: int64
-             * @description Read-only state for the current user (only available with `read-only-rooms` capability)
-             */
+            /** Format: int64 */
             readOnly: number;
-            /**
-             * Format: int64
-             * @description Whether recording consent is required before joining a call (Only 0 and 1 will be returned, see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#recording-consent-required)) (only available with `recording-consent` capability)
-             */
+            /** Format: int64 */
             recordingConsent: number;
             remoteServer?: string;
             remoteToken?: string;
-            /** @description `'0'` if not connected, otherwise an up to 512 character long string that is the identifier of the user's session making the request. Should only be used to pre-check if the user joined already with this session, but this might be outdated by the time of usage, so better check via [Get list of participants in a conversation](https://nextcloud-talk.readthedocs.io/en/latest/participant/#get-list-of-participants-in-a-conversation) */
             sessionId: string;
-            /**
-             * Format: int64
-             * @description SIP enable status (see [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants#sip-states))
-             */
+            /** Format: int64 */
             sipEnabled: number;
-            /** @description Optional: Only available for one-to-one conversations, when `includeStatus=true` is set and the user has a status */
             status?: string;
-            /**
-             * Format: int64
-             * @description Optional: Only available for one-to-one conversations, when `includeStatus=true` is set and the user has a status, can still be null even with a status
-             */
+            /** Format: int64 */
             statusClearAt?: number | null;
-            /** @description Optional: Only available for one-to-one conversations, when `includeStatus=true` is set and the user has a status, can still be null even with a status */
             statusIcon?: string | null;
-            /** @description Optional: Only available for one-to-one conversations, when `includeStatus=true` is set and the user has a status, can still be null even with a status */
             statusMessage?: string | null;
-            /** @description Token identifier of the conversation which is used for further interaction */
             token: string;
-            /**
-             * Format: int64
-             * @description See list of conversation types in the [constants list](https://nextcloud-talk.readthedocs.io/en/latest/constants/#conversation-types)
-             */
+            /** Format: int64 */
             type: number;
-            /** @description Flag if the user was mentioned since their last visit */
             unreadMention: boolean;
-            /** @description Flag if the user was mentioned directly (ignoring `@all` mentions) since their last visit (only available with `direct-mention-flag` capability) */
             unreadMentionDirect: boolean;
-            /**
-             * Format: int64
-             * @description Number of unread chat messages in the conversation (only available with `chat-v2` capability)
-             */
+            /** Format: int64 */
             unreadMessages: number;
-            /** @description Flag if the conversation is archived by the user (only available with `archived-conversations-v2` capability) */
             isArchived: boolean;
-            /** @description Required capability: `important-conversations` */
-            isImportant: boolean;
-            /** @description Required capability: `sensitive-conversations` */
-            isSensitive: boolean;
         };
         RoomLastMessage: components["schemas"]["ChatMessage"] | components["schemas"]["ChatProxyMessage"];
-        RoomWithInvalidInvitations: components["schemas"]["Room"] & {
-            invalidParticipants: components["schemas"]["InvitationList"];
-        };
-        SignalingFederationSettings: {
-            server: string;
-            nextcloudServer: string;
-            helloAuthParams: {
-                token: string;
-            };
-            roomId: string;
-        };
         SignalingSession: {
             actorId: string;
             actorType: string;
@@ -2193,7 +1817,14 @@ export type components = {
             userId: string;
         };
         SignalingSettings: {
-            federation: components["schemas"]["SignalingFederationSettings"];
+            federation: {
+                server: string;
+                nextcloudServer: string;
+                helloAuthParams: {
+                    token: string;
+                };
+                roomId: string;
+            } | unknown[];
             helloAuthParams: {
                 "1.0": {
                     userid: string | null;
@@ -3153,81 +2784,6 @@ export interface operations {
             };
         };
     };
-    "calendar_integration-get-dashboard-events": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A list of dashboard entries or an empty array */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["DashboardEvent"][];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "calendar_integration-get-mutual-events": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A list of dashboard entries or an empty array */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["DashboardEvent"][];
-                        };
-                    };
-                };
-            };
-            /** @description Room is not a 1 to 1 room, room is invalid, or user is not participant */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
-                        };
-                    };
-                };
-            };
-        };
-    };
     "call-get-peers-for-call": {
         parameters: {
             query?: never;
@@ -3355,15 +2911,13 @@ export interface operations {
                      */
                     silent?: boolean;
                     /**
-                     * @description When the user ticked a checkbox and agreed with being recorded (Only needed when the `config => call => recording-consent` capability is set to {@see RecordingService::CONSENT_REQUIRED_YES} or the capability is {@see RecordingService::CONSENT_REQUIRED_OPTIONAL} and the conversation `recordingConsent` value is {@see RecordingService::CONSENT_REQUIRED_YES} )
+                     * @description When the user ticked a checkbox and agreed with being recorded
+                     *                                   (Only needed when the `config => call => recording-consent` capability is set to {@see RecordingService::CONSENT_REQUIRED_YES}
+                     *                                   or the capability is {@see RecordingService::CONSENT_REQUIRED_OPTIONAL}
+                     *                                   and the conversation `recordingConsent` value is {@see RecordingService::CONSENT_REQUIRED_YES} )
                      * @default false
                      */
                     recordingConsent?: boolean;
-                    /**
-                     * @description Send no call notification for previous participants
-                     * @default []
-                     */
-                    silentFor?: string[];
                 };
             };
         };
@@ -3392,7 +2946,7 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
-                                error: string;
+                                error?: string;
                             };
                         };
                     };
@@ -3704,7 +3258,7 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
-                                error: string;
+                                error?: string;
                             };
                         };
                     };
@@ -3863,7 +3417,10 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
+                            data: {
+                                error?: string;
+                                message?: string;
+                            };
                         };
                     };
                 };
@@ -3877,7 +3434,10 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
+                            data: {
+                                error?: string;
+                                message?: string;
+                            };
                         };
                     };
                 };
@@ -3891,7 +3451,10 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
+                            data: {
+                                error?: string;
+                                message?: string;
+                            };
                         };
                     };
                 };
@@ -3906,7 +3469,7 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
-                                error: string;
+                                error?: string;
                                 message?: string;
                             };
                         };
@@ -4041,9 +3604,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4057,9 +3618,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4073,9 +3632,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4089,9 +3646,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4128,7 +3683,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description History cleared successfully, but Federation or Matterbridge is configured, so the information can be replicated elsewhere */
+            /** @description History cleared successfully, but Matterbridge is configured, so the information can be replicated elsewhere */
             202: {
                 headers: {
                     "X-Chat-Last-Common-Read"?: string;
@@ -4184,7 +3739,7 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Summary was scheduled, use the returned taskId to get the status information and output from the TaskProcessing API: [OCS TaskProcessing API](https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-taskprocessing-api.html#fetch-a-task-by-id). If the response data contains nextOffset, not all messages could be handled in a single request. After receiving the response a second summary should be requested with the provided nextOffset. */
+            /** @description Summary was scheduled, use the returned taskId to get the status information and output from the TaskProcessing API: https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-taskprocessing-api.html#fetch-a-task-by-id If the response data contains nextOffset, not all messages could be handled in a single request. After receiving the response a second summary should be requested with the provided nextOffset. */
             201: {
                 headers: {
                     [name: string]: unknown;
@@ -4316,9 +3871,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4332,9 +3885,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4348,9 +3899,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4364,9 +3913,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4429,9 +3976,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4445,9 +3990,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4461,9 +4004,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4477,9 +4018,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4690,36 +4229,6 @@ export interface operations {
             };
         };
     };
-    "chat-get-upcoming-reminders": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v1";
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Reminders returned */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["ChatReminderUpcoming"][];
-                        };
-                    };
-                };
-            };
-        };
-    };
     "chat-set-read-marker": {
         parameters: {
             query?: never;
@@ -4864,9 +4373,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                [key: string]: components["schemas"]["ChatMessage"];
-                            };
+                            data: components["schemas"]["ChatMessage"][];
                         };
                     };
                 };
@@ -4936,9 +4443,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4952,9 +4457,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -4968,9 +4471,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5452,111 +4953,7 @@ export interface operations {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
                                 /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "poll-update-draft-poll": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v1";
-                token: string;
-                /** @description The poll id */
-                pollId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    /** @description Question of the poll */
-                    question: string;
-                    /** @description Options of the poll */
-                    options: string[];
-                    /**
-                     * Format: int64
-                     * @description Mode how the results will be shown
-                     * @enum {integer}
-                     */
-                    resultMode: 0 | 1;
-                    /**
-                     * Format: int64
-                     * @description Number of maximum votes per voter
-                     */
-                    maxVotes: number;
-                };
-            };
-        };
-        responses: {
-            /** @description Draft modified successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["PollDraft"];
-                        };
-                    };
-                };
-            };
-            /** @description Modifying poll is not possible */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
-                        };
-                    };
-                };
-            };
-            /** @description No permission to modify this poll */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
-                        };
-                    };
-                };
-            };
-            /** @description No draft poll exists */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
+                                error: "draft" | "options" | "question" | "room";
                             };
                         };
                     };
@@ -5663,9 +5060,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5722,9 +5117,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5738,9 +5131,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                error: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5801,10 +5192,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5818,10 +5206,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -5835,10 +5220,20 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "draft" | "options" | "poll" | "question" | "room";
-                            };
+                            data: unknown;
+                        };
+                    };
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ocs: {
+                            meta: components["schemas"]["OCSMeta"];
+                            data: unknown;
                         };
                     };
                 };
@@ -6383,101 +5778,30 @@ export interface operations {
                      */
                     roomType: number;
                     /**
-                     * @description User, group, … ID to invite **Deprecated** Use the `$participants` array instead
+                     * @description User, group, … ID to invite
                      * @default
                      */
                     invite?: string;
                     /**
-                     * @description Name of the room, unless the legacy mode providing `$invite` and `$source` is used, the name must no longer be empty with the `conversation-creation-all` capability (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+                     * @description Name of the room
                      * @default
                      */
                     roomName?: string;
                     /**
-                     * @description Source of the invite ID ('circles' to create a room with a circle, etc.) **Deprecated** Use the `$participants` array instead
+                     * @description Source of the invite ID ('circles' to create a room with a circle, etc.)
                      * @default
                      */
                     source?: string;
                     /**
-                     * @description Type of the object (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+                     * @description Type of the object
                      * @default
                      */
                     objectType?: string;
                     /**
-                     * @description ID of the object (Ignored if `$roomType` is {@see Room::TYPE_ONE_TO_ONE})
+                     * @description ID of the object
                      * @default
                      */
                     objectId?: string;
-                    /**
-                     * @description The room password (only available with `conversation-creation-password` capability) (Ignored if `$roomType` is not {@see Room::TYPE_PUBLIC})
-                     * @default
-                     */
-                    password?: string;
-                    /**
-                     * Format: int64
-                     * @description Read only state of the conversation (Default writable) (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    readOnly: 0 | 1;
-                    /**
-                     * Format: int64
-                     * @description Scope where the conversation is listable (Default not listable for anyone) (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    listable: 0 | 1 | 2;
-                    /**
-                     * Format: int64
-                     * @description Seconds after which messages will disappear, 0 disables expiration (Default 0) (only available with `conversation-creation-all` capability)
-                     * @default 0
-                     */
-                    messageExpiration?: number;
-                    /**
-                     * Format: int64
-                     * @description Lobby state of the conversation (Default lobby is disabled) (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    lobbyState: 0 | 1;
-                    /**
-                     * Format: int64
-                     * @description Timer when the lobby will be removed (Default null, will not be disabled automatically) (only available with `conversation-creation-all` capability)
-                     */
-                    lobbyTimer?: number | null;
-                    /**
-                     * Format: int64
-                     * @description Whether SIP dial-in shall be enabled (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    sipEnabled: 0 | 1 | 2;
-                    /**
-                     * Format: int64
-                     * @description Default permissions for participants (only available with `conversation-creation-all` capability)
-                     */
-                    permissions: number;
-                    /**
-                     * Format: int64
-                     * @description Whether participants need to agree to a recording before joining a call (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    recordingConsent: 0 | 1;
-                    /**
-                     * Format: int64
-                     * @description Who can mention at-all in the chat (only available with `conversation-creation-all` capability)
-                     * @enum {integer}
-                     */
-                    mentionPermissions: 0 | 1;
-                    /**
-                     * @description Description for the conversation (limited to 2.000 characters) (only available with `conversation-creation-all` capability)
-                     * @default
-                     */
-                    description?: string;
-                    /** @description Emoji for the avatar of the conversation (only available with `conversation-creation-all` capability) */
-                    emoji?: string | null;
-                    /** @description Background color of the avatar (Only considered when an emoji was provided) (only available with `conversation-creation-all` capability) */
-                    avatarColor?: string | null;
-                    /**
-                     * @description List of participants to add grouped by type (only available with `conversation-creation-all` capability)
-                     * @default []
-                     */
-                    participants?: components["schemas"]["InvitationList"];
                 };
             };
         };
@@ -6510,21 +5834,7 @@ export interface operations {
                     };
                 };
             };
-            /** @description Room created successfully but not all participants could be added */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["RoomWithInvalidInvitations"];
-                        };
-                    };
-                };
-            };
-            /** @description Room type invalid or missing or invalid password */
+            /** @description Room type invalid */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -6534,9 +5844,7 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
-                                /** @enum {string} */
-                                error: "avatar" | "description" | "invite" | "listable" | "lobby" | "lobby-timer" | "mention-permissions" | "message-expiration" | "name" | "object" | "object-id" | "object-type" | "password" | "permissions" | "read-only" | "recording-consent" | "sip-enabled" | "type";
-                                message?: string;
+                                error?: string;
                             };
                         };
                     };
@@ -6551,11 +5859,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "avatar" | "description" | "invite" | "listable" | "lobby" | "lobby-timer" | "mention-permissions" | "message-expiration" | "name" | "object" | "object-id" | "object-type" | "password" | "permissions" | "read-only" | "recording-consent" | "sip-enabled" | "type";
-                                message?: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -6569,11 +5873,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "avatar" | "description" | "invite" | "listable" | "lobby" | "lobby-timer" | "mention-permissions" | "message-expiration" | "name" | "object" | "object-id" | "object-type" | "password" | "permissions" | "read-only" | "recording-consent" | "sip-enabled" | "type";
-                                message?: string;
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -6736,7 +6036,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -6752,7 +6052,7 @@ export interface operations {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
                                 /** @enum {string} */
-                                error: "event" | "type" | "value";
+                                error: "type" | "value";
                             };
                         };
                     };
@@ -6852,7 +6152,7 @@ export interface operations {
             };
         };
     };
-    "room-unbind-room-from-object": {
+    "room-make-public": {
         parameters: {
             query?: never;
             header: {
@@ -6867,64 +6167,6 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Room successfully unbound */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
-                        };
-                    };
-                };
-            };
-            /** @description Unbinding room is not possible */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "object-type";
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-make-public": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": {
-                    /**
-                     * @description New password (only available with `conversation-creation-password` capability)
-                     * @default
-                     */
-                    password?: string;
-                };
-            };
-        };
-        responses: {
             /** @description Allowed guests successfully */
             200: {
                 headers: {
@@ -6934,7 +6176,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -6950,8 +6192,7 @@ export interface operations {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
                                 /** @enum {string} */
-                                error: "breakout-room" | "type" | "value" | "password";
-                                message?: string;
+                                error: "breakout-room" | "type" | "value";
                             };
                         };
                     };
@@ -6983,7 +6224,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -7023,7 +6264,7 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    /** @description New description for the conversation (limited to 2.000 characters, was 500 before Talk 21) */
+                    /** @description New description */
                     description: string;
                 };
             };
@@ -7038,7 +6279,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -7054,7 +6295,7 @@ export interface operations {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
                                 /** @enum {string} */
-                                error: "event" | "type" | "value";
+                                error: "type" | "value";
                             };
                         };
                     };
@@ -7097,7 +6338,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -7156,7 +6397,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -7211,7 +6452,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -7368,7 +6609,7 @@ export interface operations {
                      * @default users
                      * @enum {string}
                      */
-                    source?: "users" | "groups" | "circles" | "emails" | "federated_users" | "phones" | "teams";
+                    source?: "users" | "groups" | "circles" | "emails" | "federated_users" | "phones";
                 };
             };
         };
@@ -7384,8 +6625,8 @@ export interface operations {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
                                 /** Format: int64 */
-                                type?: number;
-                            };
+                                type: number;
+                            } | unknown[];
                         };
                     };
                 };
@@ -7400,8 +6641,7 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: {
-                                /** @enum {string} */
-                                error: "ban" | "cloud-id" | "federation" | "moderator" | "new-participant" | "outgoing" | "reach-remote" | "room-type" | "sip" | "source" | "trusted-servers";
+                                error?: string;
                             };
                         };
                     };
@@ -7416,10 +6656,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "ban" | "cloud-id" | "federation" | "moderator" | "new-participant" | "outgoing" | "reach-remote" | "room-type" | "sip" | "source" | "trusted-servers";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7433,10 +6670,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "ban" | "cloud-id" | "federation" | "moderator" | "new-participant" | "outgoing" | "reach-remote" | "room-type" | "sip" | "source" | "trusted-servers";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7546,10 +6780,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "last-moderator" | "participant";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7563,10 +6794,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "last-moderator" | "participant";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7614,10 +6842,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "last-moderator" | "owner" | "participant" | "room-type";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7631,10 +6856,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "last-moderator" | "owner" | "participant" | "room-type";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7648,10 +6870,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "last-moderator" | "owner" | "participant" | "room-type";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7696,14 +6915,13 @@ export interface operations {
             /** @description Permissions updated successfully */
             200: {
                 headers: {
-                    "X-Nextcloud-Has-User-Statuses"?: true;
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Participant"][];
+                            data: unknown;
                         };
                     };
                 };
@@ -7717,10 +6935,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "participant" | "method" | "moderator" | "room-type" | "type" | "value";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7734,10 +6949,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "participant" | "method" | "moderator" | "room-type" | "type" | "value";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -7751,10 +6963,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "participant" | "method" | "moderator" | "room-type" | "type" | "value";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8260,7 +7469,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -8291,131 +7500,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-mark-conversation-as-important": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Conversation was marked as important */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-mark-conversation-as-unimportant": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Conversation was marked as unimportant */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-mark-conversation-as-sensitive": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Conversation was marked as sensitive */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-mark-conversation-as-insensitive": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Conversation was marked as insensitive */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -8456,7 +7541,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -8470,10 +7555,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "level";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8514,7 +7596,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -8528,10 +7610,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "level";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8557,9 +7636,8 @@ export interface operations {
                     /**
                      * Format: int64
                      * @description New state
-                     * @enum {integer}
                      */
-                    state: 0 | 1;
+                    state: number;
                     /**
                      * Format: int64
                      * @description Timer when the lobby will be removed
@@ -8668,10 +7746,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "config";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8685,10 +7760,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "config";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8702,10 +7774,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "config";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8730,7 +7799,8 @@ export interface operations {
                 "application/json": {
                     /**
                      * Format: int64
-                     * @description New consent setting for the conversation (Only {@see RecordingService::CONSENT_REQUIRED_NO} and {@see RecordingService::CONSENT_REQUIRED_YES} are allowed here.)
+                     * @description New consent setting for the conversation
+                     *                                  (Only {@see RecordingService::CONSENT_REQUIRED_NO} and {@see RecordingService::CONSENT_REQUIRED_YES} are allowed here.)
                      */
                     recordingConsent: number;
                 };
@@ -8777,10 +7847,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "config";
-                            };
+                            data: unknown;
                         };
                     };
                 };
@@ -8821,7 +7888,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Room"];
+                            data: unknown;
                         };
                     };
                 };
@@ -8871,9 +7938,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Capabilities"] | {
-                                [key: string]: unknown;
-                            };
+                            data: components["schemas"]["Capabilities"] | unknown[];
                         };
                     };
                 };
@@ -9072,77 +8137,6 @@ export interface operations {
                                 invalidLines?: number[];
                                 /** Format: int64 */
                                 type?: number;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "room-schedule-meeting": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                apiVersion: "v4";
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    /** @description Last part of the calendar URI as seen by the participant e.g. 'personal' or 'company_shared_by_other_user' */
-                    calendarUri: string;
-                    /**
-                     * Format: int64
-                     * @description Unix timestamp when the meeting starts
-                     */
-                    start: number;
-                    /** @description List of attendee ids to invite, if null everyone will be invited, if empty array only the actor will receive the event */
-                    attendeeIds?: number[] | null;
-                    /**
-                     * Format: int64
-                     * @description Unix timestamp when the meeting ends, falls back to 60 minutes after start
-                     */
-                    end?: number | null;
-                    /** @description Title or summary of the event, falling back to the conversation name if none is given */
-                    title?: string | null;
-                    /** @description Description of the event, falling back to the conversation description if none is given */
-                    description?: string | null;
-                };
-            };
-        };
-        responses: {
-            /** @description Meeting scheduled */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
-                        };
-                    };
-                };
-            };
-            /** @description Meeting could not be created successfully */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "calendar" | "conversation" | "email" | "end" | "start";
                             };
                         };
                     };
@@ -9482,10 +8476,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                /** @enum {string} */
-                                error: "avatar";
-                            };
+                            data: unknown;
                         };
                     };
                 };

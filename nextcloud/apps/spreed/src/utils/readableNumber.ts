@@ -4,31 +4,16 @@
  */
 
 /**
- * Splits a string into chunks of a given size
- * Samples:
- * stringChop('Hello World', 3) => ['Hel', 'lo ', 'Wor', 'ld']
- * stringChop('Hello World', 5) => ['Hello', ' Worl', 'd']
+ * Copied from https://www.w3resource.com/javascript-exercises/javascript-string-exercise-17.php
  *
  * @param str The string to chop
  * @param size Size of the chunks
- * @param fromRight Whether to parse chunks from right side (e.g. a thousand delimiter)
  */
-function stringChop(str: string, size: number, fromRight = false): string[] {
+function stringChop(str: string, size: number): string[] {
 	if (size <= 0) {
 		return [str]
 	}
-	const chunks: string[] = []
-	if (fromRight) {
-		for (let i = str.length; i > 0; i -= size) {
-			chunks.unshift(str.slice(Math.max(0, i - size), i))
-		}
-	} else {
-		for (let i = 0; i < str.length; i += size) {
-			chunks.push(str.slice(i, i + size))
-		}
-	}
-
-	return chunks
+	return str.match(new RegExp('.{1,' + size + '}', 'g')) ?? [str]
 }
 
 /**
@@ -40,10 +25,9 @@ function stringChop(str: string, size: number, fromRight = false): string[] {
  * 9432670284 => 943 267 0284
  *
  * @param number The number to make readable
- * @param fromRight Whether to parse chunks from right side (e.g. a thousand delimiter)
  */
-function readableNumber(number: string | number, fromRight = false): string {
-	const chunks = stringChop(number.toString(), 3, fromRight)
+function readableNumber(number: string | number): string {
+	const chunks = stringChop(number.toString(), 3)
 
 	const lastChunk = chunks.pop()
 	const shouldConcatLastChunk = !lastChunk?.length || lastChunk.length <= 1

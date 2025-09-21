@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Capabilities } from '../types/index.ts'
+import type { Capabilities } from '../types'
 
 export const mockedCapabilities: Capabilities = {
 	spreed: {
@@ -84,27 +84,11 @@ export const mockedCapabilities: Capabilities = {
 			'chat-reference-id',
 			'mention-permissions',
 			'edit-messages-note-to-self',
-			'archived-conversations-v2',
+			'archived-conversations',
 			'talk-polls-drafts',
+			'archived-conversations-v2',
 			'download-call-participants',
 			'email-csv-import',
-			'conversation-creation-password',
-			'call-notification-state-api',
-			'schedule-meeting',
-			'edit-draft-poll',
-			'conversation-creation-all',
-			'important-conversations',
-			'unbind-conversation',
-			'sip-direct-dialin',
-			'dashboard-event-rooms',
-			'mutual-calendar-events',
-			'upcoming-reminders',
-			'sensitive-conversations',
-			// Conditional features
-			'message-expiration',
-			'reactions',
-			'chat-summary-api',
-			'call-end-to-end-encryption',
 		],
 		'features-local': [
 			'favorites',
@@ -116,17 +100,9 @@ export const mockedCapabilities: Capabilities = {
 			'avatar',
 			'remind-me-later',
 			'note-to-self',
+			'archived-conversations',
 			'archived-conversations-v2',
 			'chat-summary-api',
-			'call-notification-state-api',
-			'schedule-meeting',
-			'conversation-creation-all',
-			'important-conversations',
-			'sip-direct-dialin',
-			'dashboard-event-rooms',
-			'mutual-calendar-events',
-			'upcoming-reminders',
-			'sensitive-conversations',
 		],
 		config: {
 			attachments: {
@@ -139,8 +115,7 @@ export const mockedCapabilities: Capabilities = {
 				recording: true,
 				'recording-consent': 0,
 				'supported-reactions': ['❤️', '🎉', '👏', '👍', '👎', '😂', '🤩', '🤔', '😲', '😥'],
-				'predefined-backgrounds': ['1_office.jpg', '2_home.jpg', '3_abstract.jpg'],
-				'predefined-backgrounds-v2': ['/apps/spreed/img/backgrounds/1_office.jpg', '/apps/spreed/img/backgrounds/2_home.jpg', '/apps/spreed/img/backgrounds/3_abstract.jpg'],
+				'predefined-backgrounds': ['1_office', '2_home', '3_abstract'],
 				'can-upload-background': true,
 				'sip-enabled': true,
 				'sip-dialout-enabled': true,
@@ -148,24 +123,16 @@ export const mockedCapabilities: Capabilities = {
 				'start-without-media': false,
 				'max-duration': 0,
 				'blur-virtual-background': false,
-				'end-to-end-encryption': false,
 			},
 			chat: {
 				'max-length': 32000,
 				'read-privacy': 0,
 				'has-translation-providers': true,
-				'has-translation-task-providers': true,
 				'typing-privacy': 0,
 				'summary-threshold': 100,
 			},
 			conversations: {
 				'can-create': true,
-				'force-passwords': false,
-				'list-style': 'two-lines',
-				'description-length': 2000,
-				'retention-event': 28,
-				'retention-phone': 7,
-				'retention-instant-meetings': 1,
 			},
 			federation: {
 				enabled: false,
@@ -178,10 +145,6 @@ export const mockedCapabilities: Capabilities = {
 			},
 			signaling: {
 				'session-ping-limit': 200,
-				'hello-v2-token-key': '123',
-			},
-			experiments: {
-				enabled: 0,
 			},
 		},
 		'config-local': {
@@ -191,7 +154,6 @@ export const mockedCapabilities: Capabilities = {
 			],
 			call: [
 				'predefined-backgrounds',
-				'predefined-backgrounds-v2',
 				'can-upload-background',
 				'start-without-media',
 				'blur-virtual-background',
@@ -199,34 +161,20 @@ export const mockedCapabilities: Capabilities = {
 			chat: [
 				'read-privacy',
 				'has-translation-providers',
-				'has-translation-task-providers',
 				'typing-privacy',
 				'summary-threshold',
 			],
 			conversations: [
 				'can-create',
-				'list-style',
-				'description-length',
 			],
-			federation: [
-				'enabled',
-				'incoming-enabled',
-				'outgoing-enabled',
-				'only-trusted-servers',
-			],
+			federation: [],
 			previews: [
 				'max-gif-size',
 			],
-			signaling: [
-				'session-ping-limit',
-				'hello-v2-token-key',
-			],
-			experiments: [
-				'enabled',
-			],
+			signaling: [],
 		},
 		version: '20.0.0-dev.0',
-	},
+	}
 }
 
 export const mockedRemotes = {

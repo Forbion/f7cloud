@@ -298,23 +298,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/apps/files_sharing/api/v1/token": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a unique share token */
-        get: operations["shareapi-generate-token"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
@@ -350,7 +333,6 @@ export type components = {
                     send_mail?: boolean;
                     upload?: boolean;
                     upload_files_drop?: boolean;
-                    custom_tokens?: boolean;
                 };
                 user: {
                     send_mail: boolean;
@@ -468,7 +450,6 @@ export type components = {
              * @enum {integer}
              */
             hide_download: 0 | 1;
-            is_trusted_server?: boolean;
             "is-mount-root": boolean;
             id: string;
             /** Format: int64 */
@@ -539,6 +520,8 @@ export type components = {
             }[];
         };
         Sharee: {
+            /** Format: int64 */
+            count: number | null;
             label: string;
         };
         ShareeCircle: components["schemas"]["Sharee"] & {
@@ -552,9 +535,6 @@ export type components = {
             name: string;
             type: string;
             shareWithDisplayNameUnique: string;
-            value: components["schemas"]["ShareeValue"];
-        };
-        ShareeGroup: components["schemas"]["Sharee"] & {
             value: components["schemas"]["ShareeValue"];
         };
         ShareeLookup: components["schemas"]["Sharee"] & {
@@ -589,9 +569,6 @@ export type components = {
                 server: string;
             };
         };
-        ShareeRoom: components["schemas"]["Sharee"] & {
-            value: components["schemas"]["ShareeValue"];
-        };
         ShareeUser: components["schemas"]["Sharee"] & {
             subline: string;
             icon: string;
@@ -613,13 +590,13 @@ export type components = {
         ShareesRecommendedResult: {
             exact: {
                 emails: components["schemas"]["ShareeEmail"][];
-                groups: components["schemas"]["ShareeGroup"][];
+                groups: components["schemas"]["Sharee"][];
                 remote_groups: components["schemas"]["ShareeRemoteGroup"][];
                 remotes: components["schemas"]["ShareeRemote"][];
                 users: components["schemas"]["ShareeUser"][];
             };
             emails: components["schemas"]["ShareeEmail"][];
-            groups: components["schemas"]["ShareeGroup"][];
+            groups: components["schemas"]["Sharee"][];
             remote_groups: components["schemas"]["ShareeRemoteGroup"][];
             remotes: components["schemas"]["ShareeRemote"][];
             users: components["schemas"]["ShareeUser"][];
@@ -628,19 +605,19 @@ export type components = {
             exact: {
                 circles: components["schemas"]["ShareeCircle"][];
                 emails: components["schemas"]["ShareeEmail"][];
-                groups: components["schemas"]["ShareeGroup"][];
+                groups: components["schemas"]["Sharee"][];
                 remote_groups: components["schemas"]["ShareeRemoteGroup"][];
                 remotes: components["schemas"]["ShareeRemote"][];
-                rooms: components["schemas"]["ShareeRoom"][];
+                rooms: components["schemas"]["Sharee"][];
                 users: components["schemas"]["ShareeUser"][];
             };
             circles: components["schemas"]["ShareeCircle"][];
             emails: components["schemas"]["ShareeEmail"][];
-            groups: components["schemas"]["ShareeGroup"][];
+            groups: components["schemas"]["Sharee"][];
             lookup: components["schemas"]["ShareeLookup"][];
             remote_groups: components["schemas"]["ShareeRemoteGroup"][];
             remotes: components["schemas"]["ShareeRemote"][];
-            rooms: components["schemas"]["ShareeRoom"][];
+            rooms: components["schemas"]["Sharee"][];
             users: components["schemas"]["ShareeUser"][];
             lookupEnabled: boolean;
         };
@@ -714,8 +691,6 @@ export interface operations {
                 y?: number;
                 /** @description Whether to not crop the preview */
                 a?: 0 | 1;
-                /** @description Whether to fallback to the mime icon if no preview is available */
-                mimeFallback?: 0 | 1;
             };
             header?: never;
             path: {
@@ -734,14 +709,6 @@ export interface operations {
                 content: {
                     "*/*": string;
                 };
-            };
-            /** @description Redirect to the mime icon url if mimeFallback is true */
-            303: {
-                headers: {
-                    Location?: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description Getting preview is not possible */
             400: {
@@ -920,7 +887,8 @@ export interface operations {
                     password?: string;
                     /** @description Send the password for the share over Talk */
                     sendPasswordByTalk?: string | null;
-                    /** @description The expiry date of the share in the user's timezone at 00:00. If $expireDate is not supplied or set to `null`, the system default will be used. */
+                    /** @description The expiry date of the share in the user's timezone at 00:00.
+                     *                                If $expireDate is not supplied or set to `null`, the system default will be used. */
                     expireDate?: string | null;
                     /**
                      * @description Note for the share
@@ -1109,7 +1077,7 @@ export interface operations {
                     "application/json": {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["Share"][];
+                            data: components["schemas"]["Share"];
                         };
                     };
                 };
@@ -1167,10 +1135,10 @@ export interface operations {
                     hideDownload?: string | null;
                     /** @description New additional attributes */
                     attributes?: string | null;
-                    /** @description if the share should be send by mail. Considering the share already exists, no mail will be send after the share is updated. You will have to use the sendMail action to send the mail. */
+                    /** @description if the share should be send by mail.
+                     *                                  Considering the share already exists, no mail will be send after the share is updated.
+                     *                                  You will have to use the sendMail action to send the mail. */
                     sendMail?: string | null;
-                    /** @description New token */
-                    token?: string | null;
                 };
             };
         };
@@ -1840,36 +1808,6 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: unknown;
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "shareapi-generate-token": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Token generated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                token: string;
-                            };
                         };
                     };
                 };

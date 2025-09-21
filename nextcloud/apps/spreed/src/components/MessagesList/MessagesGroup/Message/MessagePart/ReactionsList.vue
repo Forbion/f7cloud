@@ -12,7 +12,7 @@
 				<div class="reactions-list__navigation">
 					<NcButton v-for="reaction in reactionsMenu"
 						:key="reaction"
-						:class="{ active: reactionFilter === reaction, 'all-reactions__button': reaction === '♡' }"
+						:class="{'active' : reactionFilter === reaction, 'all-reactions__button': reaction === '♡'}"
 						type="tertiary"
 						@click="handleTabClick(reaction)">
 						<HeartOutlineIcon v-if="reaction === '♡'" :size="15" />
@@ -45,13 +45,17 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import HeartOutlineIcon from 'vue-material-design-icons/HeartOutline.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import AvatarWrapper from '../../../../AvatarWrapper/AvatarWrapper.vue'
-import { ATTENDEE, AVATAR } from '../../../../../constants.ts'
+
+import { ATTENDEE, AVATAR } from '../../../../../constants.js'
 import { useGuestNameStore } from '../../../../../stores/guestName.js'
 import { getDisplayNameWithFallback } from '../../../../../utils/getDisplayName.ts'
 
@@ -106,7 +110,7 @@ export default {
 
 			Object.entries(this.detailedReactions).forEach(([reaction, actors]) => {
 				modifiedDetailedReactions[reaction] = []
-				actors.forEach((actor) => {
+				actors.forEach(actor => {
 					const key = `${actor.actorId}-${actor.actorType}`
 					const actorDisplayName = this.getDisplayNameForReaction(actor)
 					const actorDisplayNameWithFallback = getDisplayNameWithFallback(actorDisplayName, actor.actorType)
@@ -125,7 +129,7 @@ export default {
 							actorDisplayNameWithFallback,
 							actorId: actor.actorId,
 							actorType: actor.actorType,
-							reaction: [reaction],
+							reaction: [reaction]
 						}
 					}
 				})
@@ -159,7 +163,6 @@ export default {
 	},
 }
 </script>
-
 <style lang="scss" scoped>
 .reactions__modal {
 	min-height: 450px;
@@ -205,7 +208,7 @@ export default {
 	}
 
 	&__emojis {
-		margin-inline-start: auto;
+		margin-left: auto;
 		max-width: 180px;
 		direction: rtl;
 		display: -webkit-box;

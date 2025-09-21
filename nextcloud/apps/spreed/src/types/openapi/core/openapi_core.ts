@@ -238,8 +238,7 @@ export type paths = {
             path?: never;
             cookie?: never;
         };
-        /** Get profile fields for another user */
-        get: operations["profile_api-get-profile-fields"];
+        get?: never;
         /**
          * Update the visibility of a parameter
          * @description This endpoint requires password confirmation
@@ -944,23 +943,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/index.php/core/mimeicon": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a preview by mime */
-        get: operations["preview-get-mime-icon-url"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/index.php/core/references/preview/{referenceId}": {
         parameters: {
             query?: never;
@@ -1110,29 +1092,6 @@ export type components = {
             thumb: string | null;
             link: string;
         };
-        ProfileAction: {
-            id: string;
-            icon: string;
-            title: string;
-            target: string | null;
-        };
-        ProfileData: components["schemas"]["ProfileFields"] & {
-            timezone: string;
-            /** Format: int64 */
-            timezoneOffset: number;
-        };
-        ProfileFields: {
-            userId: string;
-            address?: string | null;
-            biography?: string | null;
-            displayname?: string | null;
-            headline?: string | null;
-            isUserAvatarVisible?: boolean;
-            organisation?: string | null;
-            pronouns?: string | null;
-            role?: string | null;
-            actions: components["schemas"]["ProfileAction"][];
-        };
         PublicCapabilities: {
             bruteforce: {
                 /** Format: int64 */
@@ -1143,7 +1102,7 @@ export type components = {
         Reference: {
             richObjectType: string;
             richObject: {
-                [key: string]: Record<string, never> | null;
+                [key: string]: Record<string, never>;
             };
             openGraphObject: components["schemas"]["OpenGraphObject"];
             accessible: boolean;
@@ -1159,7 +1118,7 @@ export type components = {
         Resource: {
             richObjectType: string;
             richObject: {
-                [key: string]: Record<string, never> | null;
+                [key: string]: Record<string, never>;
             };
             openGraphObject: components["schemas"]["OpenGraphObject"];
             accessible: boolean;
@@ -1200,58 +1159,36 @@ export type components = {
             completionExpectedAt: number | null;
             /** Format: double */
             progress: number | null;
-            /** Format: int64 */
-            scheduledAt: number | null;
-            /** Format: int64 */
-            startedAt: number | null;
-            /** Format: int64 */
-            endedAt: number | null;
         };
         TaskProcessingTaskType: {
             name: string;
             description: string;
-            inputShape: {
-                [key: string]: components["schemas"]["TaskProcessingShape"];
-            };
+            inputShape: components["schemas"]["TaskProcessingShape"][];
             inputShapeEnumValues: {
-                [key: string]: {
-                    name: string;
-                    value: string;
-                }[];
-            };
+                name: string;
+                value: string;
+            }[][];
             inputShapeDefaults: {
                 [key: string]: number | string;
             };
-            optionalInputShape: {
-                [key: string]: components["schemas"]["TaskProcessingShape"];
-            };
+            optionalInputShape: components["schemas"]["TaskProcessingShape"][];
             optionalInputShapeEnumValues: {
-                [key: string]: {
-                    name: string;
-                    value: string;
-                }[];
-            };
+                name: string;
+                value: string;
+            }[][];
             optionalInputShapeDefaults: {
                 [key: string]: number | string;
             };
-            outputShape: {
-                [key: string]: components["schemas"]["TaskProcessingShape"];
-            };
+            outputShape: components["schemas"]["TaskProcessingShape"][];
             outputShapeEnumValues: {
-                [key: string]: {
-                    name: string;
-                    value: string;
-                }[];
-            };
-            optionalOutputShape: {
-                [key: string]: components["schemas"]["TaskProcessingShape"];
-            };
+                name: string;
+                value: string;
+            }[][];
+            optionalOutputShape: components["schemas"]["TaskProcessingShape"][];
             optionalOutputShapeEnumValues: {
-                [key: string]: {
-                    name: string;
-                    value: string;
-                }[];
-            };
+                name: string;
+                value: string;
+            }[][];
         };
         Team: {
             id: string;
@@ -2149,65 +2086,6 @@ export interface operations {
                                     [key: string]: Record<string, never>;
                                 };
                             };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "profile_api-get-profile-fields": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path: {
-                /** @description ID of the user */
-                targetUserId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Profile data returned successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: components["schemas"]["ProfileData"];
-                        };
-                    };
-                };
-            };
-            /** @description Profile is disabled */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
-                        };
-                    };
-                };
-            };
-            /** @description Account not found or disabled */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: unknown;
                         };
                     };
                 };
@@ -4639,28 +4517,6 @@ export interface operations {
                 content: {
                     "application/json": unknown;
                 };
-            };
-        };
-    };
-    "preview-get-mime-icon-url": {
-        parameters: {
-            query?: {
-                /** @description Mime type */
-                mime?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The mime icon url */
-            303: {
-                headers: {
-                    Location?: string;
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };

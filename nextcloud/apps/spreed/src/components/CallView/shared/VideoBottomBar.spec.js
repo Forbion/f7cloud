@@ -1,5 +1,3 @@
-import { emit } from '@nextcloud/event-bus'
-import { t } from '@nextcloud/l10n'
 /**
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -8,15 +6,22 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex, { Store } from 'vuex'
-import NcButton from '@nextcloud/vue/components/NcButton'
+
 import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import HandBackLeft from 'vue-material-design-icons/HandBackLeft.vue'
 import VideoIcon from 'vue-material-design-icons/Video.vue'
 import VideoOff from 'vue-material-design-icons/VideoOff.vue'
+
+import { emit } from '@nextcloud/event-bus'
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import VideoBottomBar from './VideoBottomBar.vue'
-import { CONVERSATION, PARTICIPANT } from '../../../constants.ts'
+
+import { CONVERSATION, PARTICIPANT } from '../../../constants.js'
 import storeConfig from '../../../store/storeConfig.js'
-import { useCallViewStore } from '../../../stores/callView.ts'
+import { useCallViewStore } from '../../../stores/callView.js'
 import { findNcButton } from '../../../test-helpers.js'
 import { ConnectionState } from '../../../utils/webrtc/models/CallParticipantModel.js'
 
@@ -148,7 +153,7 @@ describe('VideoBottomBar.vue', () => {
 				await wrapper.setProps(cloneDeep(componentProps))
 
 				const indicators = wrapper.findAllComponents(NcButton)
-				indicators.wrappers.forEach((indicator) => {
+				indicators.wrappers.forEach(indicator => {
 					expect(indicator.isVisible()).toBeFalsy()
 				})
 			})
@@ -212,7 +217,7 @@ describe('VideoBottomBar.vue', () => {
 					expect(raiseHandIndicator.exists()).toBeTruthy()
 
 					const indicators = wrapper.findAllComponents(NcButton)
-					indicators.wrappers.forEach((indicator) => {
+					indicators.wrappers.forEach(indicator => {
 						expect(indicator.isVisible()).toBeTruthy()
 					})
 				})
@@ -233,7 +238,7 @@ describe('VideoBottomBar.vue', () => {
 					expect(raiseHandIndicator.exists()).toBeFalsy()
 
 					const indicators = wrapper.findAllComponents(NcButton)
-					indicators.wrappers.forEach((indicator) => {
+					indicators.wrappers.forEach(indicator => {
 						expect(indicator.isVisible()).toBeFalsy()
 					})
 				})

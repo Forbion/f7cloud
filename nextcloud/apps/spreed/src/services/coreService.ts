@@ -3,35 +3,25 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type {
-	AutocompleteParams,
-	AutocompleteResponse,
-	SearchMessagePayload,
-	TaskProcessingResponse,
-	UnifiedSearchResponse,
-	UserProfileResponse,
-} from '../types/index.ts'
-
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
-import { SHARE } from '../constants.ts'
+
 import { getTalkConfig, hasTalkFeature } from './CapabilitiesManager.ts'
+import { SHARE } from '../constants.js'
+import type {
+	OutOfOfficeResponse,
+	TaskProcessingResponse,
+} from '../types'
 
 const canInviteToFederation = hasTalkFeature('local', 'federation-v1')
 	&& getTalkConfig('local', 'federation', 'enabled')
 	&& getTalkConfig('local', 'federation', 'outgoing-enabled')
 
-// Only explicit share types are allowed to use in autocompleteQuery
-type ShareType = typeof SHARE.TYPE.USER
-	| typeof SHARE.TYPE.GROUP
-	| typeof SHARE.TYPE.EMAIL
-	| typeof SHARE.TYPE.REMOTE
-	| typeof SHARE.TYPE.CIRCLE
 type SearchPayload = {
 	searchText: string
 	token?: string | 'new'
 	onlyUsers?: boolean
-	forceTypes?: ShareType[]
+	forceTypes?: typeof SHARE.TYPE[keyof typeof SHARE.TYPE][]
 }
 
 /**
@@ -44,21 +34,16 @@ type SearchPayload = {
  * @param [payload.forceTypes] Whether to force some types to be included in query
  * @param options options
  */
-const autocompleteQuery = async function({
-	searchText,
-	token = 'new',
-	onlyUsers = false,
-	forceTypes = [],
-}: SearchPayload, options: object): AutocompleteResponse {
-	const shareTypes: ShareType[] = onlyUsers
-		? [SHARE.TYPE.USER]
+const autocompleteQuery = async function({ searchText, token = 'new', onlyUsers = false, forceTypes = [] }: SearchPayload, options: object) {
+	const shareTypes = onlyUsers
+		? [SHARE.TYPE.USER].concat(forceTypes)
 		: [
-				SHARE.TYPE.USER,
-				SHARE.TYPE.GROUP,
-				SHARE.TYPE.CIRCLE,
-				...(token !== 'new' ? [SHARE.TYPE.EMAIL] : []),
-				...(canInviteToFederation ? [SHARE.TYPE.REMOTE] : []),
-			]
+			SHARE.TYPE.USER,
+			SHARE.TYPE.GROUP,
+			SHARE.TYPE.CIRCLE,
+			token !== 'new' ? SHARE.TYPE.EMAIL : null,
+			canInviteToFederation ? SHARE.TYPE.REMOTE : null,
+		].filter(type => type !== null).concat(forceTypes)
 
 	return axios.get(generateOcsUrl('core/autocomplete/get'), {
 		...options,
@@ -66,13 +51,9 @@ const autocompleteQuery = async function({
 			search: searchText,
 			itemType: 'call',
 			itemId: token,
-			shareTypes: shareTypes.concat(forceTypes),
-		} as AutocompleteParams,
+			shareTypes,
+		},
 	})
-}
-
-const getUserProfile = async function(userId: string, options?: object): UserProfileResponse {
-	return axios.get(generateOcsUrl('profile/{userId}', { userId }), options)
 }
 
 const getTaskById = async function(id: number, options?: object): TaskProcessingResponse {
@@ -83,17 +64,18 @@ const deleteTaskById = async function(id: number, options?: object): Promise<nul
 	return axios.delete(generateOcsUrl('taskprocessing/task/{id}', { id }), options)
 }
 
-const searchMessages = async function(params: SearchMessagePayload, options: object): UnifiedSearchResponse {
-	return axios.get(generateOcsUrl('search/providers/talk-message-current/search'), {
-		...options,
-		params,
-	})
+/**
+ * Get absence information for a user (in a given 1-1 conversation).
+ *
+ * @param userId user id
+ */
+const getUserAbsence = async (userId: string): OutOfOfficeResponse => {
+	return axios.get(generateOcsUrl('/apps/dav/api/v1/outOfOffice/{userId}/now', { userId }))
 }
 
 export {
 	autocompleteQuery,
-	deleteTaskById,
 	getTaskById,
-	getUserProfile,
-	searchMessages,
+	deleteTaskById,
+	getUserAbsence,
 }

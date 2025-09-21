@@ -11,46 +11,47 @@
 			<router-view />
 		</NcAppContent>
 		<RightSidebar :is-in-call="isInCall" />
+    <ChatView v-if="isInCall" />
 		<MediaSettings :recording-consent-given.sync="recordingConsentGiven" />
 		<SettingsDialog />
 		<ConversationSettingsDialog />
-		<PollManager />
 	</NcContent>
 </template>
 
 <script>
+import debounce from 'debounce'
+import { provide } from 'vue'
+
 import { getCurrentUser } from '@nextcloud/auth'
-import { showError } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { t } from '@nextcloud/l10n'
 import { generateUrl } from '@nextcloud/router'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
-import { spawnDialog } from '@nextcloud/vue/functions/dialog'
-import debounce from 'debounce'
-import { provide } from 'vue'
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcContent from '@nextcloud/vue/components/NcContent'
+
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import { useHotKey } from '@nextcloud/vue/dist/Composables/useHotKey.js'
+import { useIsMobile } from '@nextcloud/vue/dist/Composables/useIsMobile.js'
+
 import ConversationSettingsDialog from './components/ConversationSettings/ConversationSettingsDialog.vue'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar.vue'
 import MediaSettings from './components/MediaSettings/MediaSettings.vue'
-import PollManager from './components/PollViewer/PollManager.vue'
 import RightSidebar from './components/RightSidebar/RightSidebar.vue'
 import SettingsDialog from './components/SettingsDialog/SettingsDialog.vue'
-import ConfirmDialog from './components/UIShared/ConfirmDialog.vue'
+import ChatView from './components/ChatView.vue'
+
 import { useActiveSession } from './composables/useActiveSession.js'
 import { useDocumentTitle } from './composables/useDocumentTitle.ts'
 import { useHashCheck } from './composables/useHashCheck.js'
 import { useIsInCall } from './composables/useIsInCall.js'
-import { useSessionIssueHandler } from './composables/useSessionIssueHandler.ts'
-import { CONVERSATION, PARTICIPANT } from './constants.ts'
-import Router from './router/router.ts'
+import { useSessionIssueHandler } from './composables/useSessionIssueHandler.js'
+import { CONVERSATION, PARTICIPANT } from './constants.js'
+import Router from './router/router.js'
 import BrowserStorage from './services/BrowserStorage.js'
 import { EventBus } from './services/EventBus.ts'
 import { leaveConversationSync } from './services/participantsService.js'
-import { useCallViewStore } from './stores/callView.ts'
+import { useCallViewStore } from './stores/callView.js'
 import { useFederationStore } from './stores/federation.ts'
-import { useSidebarStore } from './stores/sidebar.ts'
+import { useSidebarStore } from './stores/sidebar.js'
 import { checkBrowser } from './utils/browserCheck.ts'
 import { signalingKill } from './utils/webrtc/index.js'
 
@@ -61,10 +62,10 @@ export default {
 		NcContent,
 		LeftSidebar,
 		RightSidebar,
+    ChatView,
 		SettingsDialog,
 		ConversationSettingsDialog,
 		MediaSettings,
-		PollManager,
 	},
 
 	setup() {
@@ -94,34 +95,6 @@ export default {
 	},
 
 	computed: {
-		unreadCountsMap() {
-			return this.$store.getters.conversationsList.reduce((acc, conversation) => {
-				if (conversation.isArchived) {
-					// Do not consider archived conversations in counting
-					return acc
-				}
-
-				if (conversation.unreadMessages > 0) {
-					acc.conversations++
-					acc.messages += conversation.unreadMessages
-				}
-
-				if (conversation.unreadMention) {
-					acc.mentions++
-				}
-
-				if (conversation.unreadMentionDirect) {
-					acc.mentionsDirect++
-				}
-				return acc
-			}, {
-				conversations: 0,
-				messages: 0,
-				mentions: 0,
-				mentionsDirect: 0,
-			})
-		},
-
 		getUserId() {
 			return this.$store.getters.getUserId()
 		},
@@ -151,12 +124,23 @@ export default {
 		currentConversation() {
 			return this.$store.getters.conversation(this.token)
 		},
+
+		/**
+		 * Computes whether the current conversation is one to one
+		 *
+		 * @return {boolean} The result
+		 */
+		isOneToOne() {
+			return this.currentConversation?.type === CONVERSATION.TYPE.ONE_TO_ONE
+				|| this.currentConversation?.type === CONVERSATION.TYPE.ONE_TO_ONE_FORMER
+		},
 	},
 
 	watch: {
 		token(newValue, oldValue) {
 			const shouldShowSidebar = BrowserStorage.getItem('sidebarOpen') !== 'false'
-			if (!shouldShowSidebar || this.isMobile) {
+			// Collapse the sidebar if it's a one to one conversation
+			if (this.isOneToOne || !shouldShowSidebar || this.isMobile) {
 				this.sidebarStore.hideSidebar({ cache: false })
 			} else if (shouldShowSidebar) {
 				this.sidebarStore.showSidebar({ cache: false })
@@ -177,15 +161,7 @@ export default {
 				} else {
 					toggle?.removeAttribute('data-theme-dark')
 				}
-			},
-		},
-
-		unreadCountsMap: {
-			deep: true,
-			immediate: true,
-			handler(value) {
-				emit('talk:unread:updated', value)
-			},
+			}
 		},
 	},
 
@@ -208,9 +184,6 @@ export default {
 	created() {
 		window.addEventListener('beforeunload', this.preventUnload)
 		useHotKey('f', this.handleAppSearch, { ctrl: true, stop: true, prevent: true })
-		if (getCurrentUser()) {
-			useHotKey('Escape', this.openRoot, { stop: true, prevent: true })
-		}
 	},
 
 	beforeDestroy() {
@@ -244,6 +217,10 @@ export default {
 			this.$store.dispatch('joinConversation', { token: this.$route.params.token })
 		}
 
+		window.addEventListener('resize', this.onResize)
+
+		this.onResize()
+
 		window.addEventListener('unload', () => {
 			console.info('Navigating away, leaving conversation')
 			if (this.token) {
@@ -256,7 +233,7 @@ export default {
 			}
 		})
 
-		EventBus.on('switch-to-conversation', async (params) => {
+		EventBus.on('switch-to-conversation', (params) => {
 			if (this.isInCall) {
 				this.callViewStore.setForceCallView(true)
 
@@ -266,17 +243,6 @@ export default {
 				const virtualBackgroundType = BrowserStorage.getItem('virtualBackgroundType_' + this.token)
 				const virtualBackgroundBlurStrength = BrowserStorage.getItem('virtualBackgroundBlurStrength_' + this.token)
 				const virtualBackgroundUrl = BrowserStorage.getItem('virtualBackgroundUrl_' + this.token)
-
-				// Fetch conversation object, if it's not known yet to the client
-				if (!this.$store.getters.conversation(params.token)) {
-					await this.fetchSingleConversation(params.token)
-				}
-
-				const conversation = this.$store.getters.conversation(this.token)
-				const previousParticipants = []
-				if (conversation.type === CONVERSATION.TYPE.ONE_TO_ONE) {
-					previousParticipants.push(conversation.name)
-				}
 
 				EventBus.once('joined-conversation', async ({ token }) => {
 					if (params.token !== token) {
@@ -324,22 +290,13 @@ export default {
 						flags |= PARTICIPANT.CALL_FLAG.WITH_VIDEO
 					}
 
-					const payload = {
+					await this.$store.dispatch('joinCall', {
 						token: params.token,
 						participantIdentifier: this.$store.getters.getParticipantIdentifier(),
 						flags,
 						silent: true,
 						recordingConsent: this.recordingConsentGiven,
-					}
-
-					if (conversation.objectType === CONVERSATION.OBJECT_TYPE.EXTENDED) {
-						payload.silent = false
-						if (previousParticipants.length) {
-							payload.silentFor = previousParticipants
-						}
-					}
-
-					await this.$store.dispatch('joinCall', payload)
+					})
 
 					this.callViewStore.setForceCallView(false)
 				})
@@ -355,8 +312,9 @@ export default {
 					console.info('Conversations received, but the current conversation is not in the list, trying to get potential public conversation manually')
 					this.refreshCurrentConversation()
 				} else {
-					console.info('Conversation received, but the current conversation is not in the list. Redirecting to /apps/spreed/not-found')
+					console.info('Conversation received, but the current conversation is not in the list. Redirecting to not found page')
 					this.$router.push({ name: 'notfound', params: { skipLeaveWarning: true } })
+					this.$store.dispatch('updateToken', '')
 				}
 			}
 		})
@@ -378,42 +336,19 @@ export default {
 			}
 		})
 
-		const beforeRouteChangeListener = async (to, from, next) => {
+		const beforeRouteChangeListener = (to, from, next) => {
 			if (this.isNextcloudTalkHashDirty) {
 				// Nextcloud Talk configuration changed, reload the page when changing configuration
 				window.location = generateUrl('call/' + to.params.token)
 				return
 			}
 
-			if (from.name === 'conversation' && from.params.token !== to.params.token) {
-				this.$store.dispatch('leaveConversation', { token: from.params.token })
-			}
-
 			/**
 			 * This runs whenever the new route is a conversation.
 			 */
-			if (to.name === 'conversation' && from.params.token !== to.params.token) {
-				// Fetch conversation object, if it's not known yet to the client
-				if (!this.$store.getters.conversation(to.params.token)) {
-					const result = await this.fetchSingleConversation(to.params.token)
-					if (!result) {
-						// If the conversation is not found, block further navigation,
-						// it is handled in the fetchSingleConversation method
-						return
-					}
-				}
-				this.$store.dispatch('joinConversation', { token: to.params.token })
-			}
-
-			next()
-		}
-
-		this.$router.afterEach((to, from) => {
-			/**
-			 * Update current token in the token store
-			 */
-			if (from.params.token !== to.params.token) {
-				this.$store.dispatch('updateToken', to.params.token ?? '')
+			if (to.name === 'conversation') {
+				// Update current token in the token store
+				this.$store.dispatch('updateToken', to.params.token)
 			}
 
 			/**
@@ -421,7 +356,9 @@ export default {
 			 * carries the from and to objects as payload
 			 */
 			EventBus.emit('route-change', { from, to })
-		})
+
+			next()
+		}
 
 		/**
 		 * Global before guard, this is called whenever a navigation is triggered.
@@ -434,31 +371,31 @@ export default {
 				// Safe to navigate
 				beforeRouteChangeListener(to, from, next)
 			} else {
-				spawnDialog(ConfirmDialog, {
-					name: t('spreed', 'Leave call'),
-					message: t('spreed', 'Navigating away from the page will leave the call in {conversation}', {
+				OC.dialogs.confirmDestructive(
+					t('spreed', 'Navigating away from the page will leave the call in {conversation}', {
 						conversation: this.currentConversation?.displayName ?? '',
 					}),
-					buttons: [
-						{
-							label: t('spreed', 'Stay in call'),
-						},
-						{
-							label: t('spreed', 'Leave call'),
-							type: 'primary',
-							callback: () => {
-								beforeRouteChangeListener(to, from, next)
-							},
-						},
-					],
-				})
+					t('spreed', 'Leave call'),
+					{
+						type: OC.dialogs.YES_NO_BUTTONS,
+						confirm: t('spreed', 'Leave call'),
+						confirmClasses: 'error',
+						cancel: t('spreed', 'Stay in call'),
+					},
+					(decision) => {
+						if (!decision) {
+							return
+						}
+
+						beforeRouteChangeListener(to, from, next)
+					}
+				)
 			}
 		})
 
 		if (getCurrentUser()) {
 			console.debug('Setting current user')
 			this.$store.dispatch('setCurrentUser', getCurrentUser())
-			this.$store.dispatch('getCurrentUserTeams')
 		} else {
 			console.debug('Can not set current user because it\'s a guest')
 		}
@@ -501,55 +438,55 @@ export default {
 			}
 
 			switch (event.action.type) {
-				case 'WEB': {
-					const load = event.action.url.split('/call/').pop()
-					if (!load) {
-						return
-					}
+			case 'WEB': {
+				const load = event.action.url.split('/call/').pop()
+				if (!load) {
+					return
+				}
 
-					const [token, hash] = load.split('#')
-					this.$router.push({
-						name: 'conversation',
-						hash: hash ? `#${hash}` : '',
-						params: {
-							token,
-						},
-					})
+				const [token, hash] = load.split('#')
+				this.$router.push({
+					name: 'conversation',
+					hash: hash ? `#${hash}` : '',
+					params: {
+						token,
+					},
+				})
 
-					event.cancelAction = true
-					break
-				}
-				case 'POST': {
+				event.cancelAction = true
+				break
+			}
+			case 'POST': {
 				// Federation invitation handling
-					if (event.notification.objectType === 'remote_talk_share') {
-						try {
-							event.cancelAction = true
-							this.federationStore.addInvitationFromNotification(event.notification)
-							const conversation = await this.federationStore.acceptShare(event.notification.objectId)
-							if (conversation.token) {
-								this.$store.dispatch('addConversation', conversation)
-								this.$router.push({ name: 'conversation', params: { token: conversation.token } })
-							}
-						} catch (error) {
-							console.error(error)
+				if (event.notification.objectType === 'remote_talk_share') {
+					try {
+						event.cancelAction = true
+						this.federationStore.addInvitationFromNotification(event.notification)
+						const conversation = await this.federationStore.acceptShare(event.notification.objectId)
+						if (conversation.token) {
+							this.$store.dispatch('addConversation', conversation)
+							this.$router.push({ name: 'conversation', params: { token: conversation.token } })
 						}
+					} catch (error) {
+						console.error(error)
 					}
-					break
 				}
-				case 'DELETE': {
+				break
+			}
+			case 'DELETE': {
 				// Federation invitation handling
-					if (event.notification.objectType === 'remote_talk_share') {
-						try {
-							event.cancelAction = true
-							this.federationStore.addInvitationFromNotification(event.notification)
-							await this.federationStore.rejectShare(event.notification.objectId)
-						} catch (error) {
-							console.error(error)
-						}
+				if (event.notification.objectType === 'remote_talk_share') {
+					try {
+						event.cancelAction = true
+						this.federationStore.addInvitationFromNotification(event.notification)
+						await this.federationStore.rejectShare(event.notification.objectId)
+					} catch (error) {
+						console.error(error)
 					}
-					break
 				}
-				default: break
+				break
+			}
+			default: break
 			}
 		},
 
@@ -566,29 +503,29 @@ export default {
 			}
 
 			switch (event.notification.objectType) {
-				case 'chat': {
-					if (event.notification.subjectRichParameters?.reaction) {
+			case 'chat': {
+				if (event.notification.subjectRichParameters?.reaction) {
 					// Ignore reaction notifications in case of one-to-one and always-notify
-						return
-					}
+					return
+				}
 
-					this.$store.dispatch('updateConversationLastMessageFromNotification', {
-						notification: event.notification,
-					})
-					break
-				}
-				case 'call': {
-					this.$store.dispatch('updateCallStateFromNotification', {
-						notification: event.notification,
-					})
-					break
-				}
-				// Federation invitation handling
-				case 'remote_talk_share': {
-					this.federationStore.addInvitationFromNotification(event.notification)
-					break
-				}
-				default: break
+				this.$store.dispatch('updateConversationLastMessageFromNotification', {
+					notification: event.notification,
+				})
+				break
+			}
+			case 'call': {
+				this.$store.dispatch('updateCallStateFromNotification', {
+					notification: event.notification,
+				})
+				break
+			}
+			// Federation invitation handling
+			case 'remote_talk_share': {
+				this.federationStore.addInvitationFromNotification(event.notification)
+				break
+			}
+			default: break
 			}
 		},
 
@@ -606,6 +543,10 @@ export default {
 			this.fetchSingleConversation(this.token)
 		},
 
+		onResize() {
+			this.windowHeight = window.innerHeight - document.getElementById('header').clientHeight
+		},
+
 		preventUnload(event) {
 			if (!this.warnLeaving && !this.isSendingMessages) {
 				return
@@ -619,13 +560,13 @@ export default {
 				return
 			}
 			this.isRefreshingCurrentConversation = true
-			let isSuccessfullyFetched = false
+
 			try {
 				/**
 				 * Fetches a single conversation
 				 */
 				await this.$store.dispatch('fetchConversation', { token })
-				isSuccessfullyFetched = true
+
 				/**
 				 * Emits a global event that is used in App.vue to update the page title once the
 				 * ( if the current route is a conversation and once the conversations are received)
@@ -634,22 +575,13 @@ export default {
 					singleConversation: true,
 				})
 			} catch (exception) {
-				if (exception.response?.status === 404) {
-					console.info('Conversation received, but the current conversation is not in the list. Redirecting to /apps/spreed/not-found')
-					this.$router.push({ name: 'notfound', params: { skipLeaveWarning: true } })
-				} else if (exception.response?.status === 403) {
-					console.info('Attendee/IP address is no longer authorized to participate (banned). Redirecting to /apps/spreed/forbidden')
-					this.$router.push({ name: 'forbidden', params: { skipLeaveWarning: true } })
-				} else {
-					console.error('Error getting room data', exception)
-					showError(t('spreed', 'Error occurred when getting the conversation information'))
-				}
+				console.info('Conversation received, but the current conversation is not in the list. Redirecting to /apps/spreed')
+				this.$router.push({ name: 'notfound', params: { skipLeaveWarning: true } })
+				this.$store.dispatch('updateToken', '')
 			} finally {
 				this.isRefreshingCurrentConversation = false
 			}
-			return isSuccessfullyFetched
 		},
-
 		// Upon pressing Ctrl+F, focus SearchBox native input in the LeftSidebar
 		handleAppSearch() {
 			emit('toggle-navigation', {
@@ -690,13 +622,7 @@ export default {
 
 			// Breakout to breakout
 			return oldConversation.objectType === CONVERSATION.OBJECT_TYPE.BREAKOUT_ROOM && newConversation.objectType === CONVERSATION.OBJECT_TYPE.BREAKOUT_ROOM
-		},
-
-		openRoot() {
-			if (this.$route.name !== 'root' && !this.isInCall) {
-				this.$router.push({ name: 'root' })
-			}
-		},
+		}
 	},
 }
 </script>

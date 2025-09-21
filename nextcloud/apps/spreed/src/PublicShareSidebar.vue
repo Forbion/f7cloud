@@ -22,11 +22,9 @@
 			<template v-else>
 				<TopBar v-if="isInCall" is-in-call is-sidebar />
 				<CallView v-if="isInCall" :token="token" is-sidebar />
-				<InternalSignalingHint />
 				<CallButton v-if="!isInCall" class="call-button" />
 				<CallFailedDialog v-if="connectionFailed" :token="token" />
 				<ChatView is-sidebar />
-				<PollManager />
 				<PollViewer />
 				<MediaSettings :recording-consent-given.sync="recordingConsentGiven" />
 			</template>
@@ -38,21 +36,22 @@
 import { showError } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import CallFailedDialog from './components/CallView/CallFailedDialog.vue'
 import CallView from './components/CallView/CallView.vue'
 import ChatView from './components/ChatView.vue'
 import MediaSettings from './components/MediaSettings/MediaSettings.vue'
-import PollManager from './components/PollViewer/PollManager.vue'
 import PollViewer from './components/PollViewer/PollViewer.vue'
-import InternalSignalingHint from './components/RightSidebar/InternalSignalingHint.vue'
 import CallButton from './components/TopBar/CallButton.vue'
 import TopBar from './components/TopBar/TopBar.vue'
 import TransitionWrapper from './components/UIShared/TransitionWrapper.vue'
+
 import { useHashCheck } from './composables/useHashCheck.js'
 import { useIsInCall } from './composables/useIsInCall.js'
-import { useSessionIssueHandler } from './composables/useSessionIssueHandler.ts'
+import { useSessionIssueHandler } from './composables/useSessionIssueHandler.js'
 import { EventBus } from './services/EventBus.ts'
 import { getPublicShareConversationData } from './services/filesIntegrationServices.js'
 import {
@@ -65,7 +64,6 @@ export default {
 	name: 'PublicShareSidebar',
 
 	components: {
-		InternalSignalingHint,
 		CallButton,
 		CallFailedDialog,
 		CallView,
@@ -73,7 +71,6 @@ export default {
 		MediaSettings,
 		NcButton,
 		NcLoadingIcon,
-		PollManager,
 		PollViewer,
 		TopBar,
 		TransitionWrapper,
@@ -266,14 +263,6 @@ export default {
 body .modal-wrapper * {
 	box-sizing: border-box;
 }
-
-footer {
-	transition: width var(--animation-quick);
-}
-
-#content-vue:has(#talk-sidebar) ~ footer {
-	width: calc(100% - 2 * var(--body-container-margin) - clamp(300px, 27vw, 500px));
-}
 </style>
 
 <style lang="scss" scoped>
@@ -281,10 +270,12 @@ footer {
 #talk-sidebar {
 	position: relative;
 	flex-shrink: 0;
-	width: clamp(300px, 27vw, 500px);
+	width: 27vw;
+	min-width: 300px;
+	max-width: 500px;
 
 	background: var(--color-main-background);
-	border-inline-start: 1px solid var(--color-border);
+	border-left: 1px solid var(--color-border);
 
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -299,6 +290,19 @@ footer {
 	/* Remove default margin-top as it is unneeded when showing only the empty
 	 * content in a flex sidebar. */
 	margin-top: 0;
+}
+
+#talk-sidebar .emptycontent button .icon {
+	/* Override rules set for the main icon of an empty content area when an
+	 * icon is shown in a button. */
+	background-size: unset;
+	width: unset;
+	height: unset;
+	margin: unset;
+
+	/* Frame the loading icon on the right border of the button. */
+	top: -3px;
+	right: -5px;
 }
 
 #talk-sidebar .call-button {

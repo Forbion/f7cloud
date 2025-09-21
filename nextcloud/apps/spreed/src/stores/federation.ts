@@ -3,21 +3,21 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Conversation, FederationInvite, NotificationInvite } from '../types/index.ts'
+import { defineStore } from 'pinia'
+import Vue from 'vue'
 
 import { showError } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
 import { getBaseUrl } from '@nextcloud/router'
-import { defineStore } from 'pinia'
-import Vue from 'vue'
-import { FEDERATION } from '../constants.ts'
-import { setRemoteCapabilitiesIfEmpty } from '../services/CapabilitiesManager.ts'
-import { acceptShare, getShares, rejectShare } from '../services/federationService.ts'
+
+import { FEDERATION } from '../constants.js'
+import { getShares, acceptShare, rejectShare } from '../services/federationService.ts'
+import type { Conversation, FederationInvite, NotificationInvite } from '../types'
 
 type State = {
-	pendingShares: Record<string, FederationInvite & { loading?: 'accept' | 'reject' }>
-	acceptedShares: Record<string, FederationInvite>
-	pendingSharesCount: number
+	pendingShares: Record<string, FederationInvite & { loading?: 'accept' | 'reject' }>,
+	acceptedShares: Record<string, FederationInvite>,
+	pendingSharesCount: number,
 }
 export const useFederationStore = defineStore('federation', {
 	state: (): State => ({
@@ -35,7 +35,7 @@ export const useFederationStore = defineStore('federation', {
 				const response = await getShares()
 				const acceptedShares: State['acceptedShares'] = {}
 				const pendingShares: State['pendingShares'] = {}
-				response.data.ocs.data.forEach((item) => {
+				response.data.ocs.data.forEach(item => {
 					if (item.state === FEDERATION.STATE.ACCEPTED) {
 						acceptedShares[item.id] = item
 					} else {
@@ -109,7 +109,6 @@ export const useFederationStore = defineStore('federation', {
 			try {
 				Vue.set(this.pendingShares[id], 'loading', 'accept')
 				const response = await acceptShare(id)
-				await setRemoteCapabilitiesIfEmpty(response)
 				this.markInvitationAccepted(id, response.data.ocs.data)
 				this.updatePendingSharesCount(Object.keys(this.pendingShares).length)
 				return response.data.ocs.data
@@ -154,7 +153,7 @@ export const useFederationStore = defineStore('federation', {
 		 *
 		 * @param value amount of pending shares
 		 */
-		updatePendingSharesCount(value?: string | number) {
+		updatePendingSharesCount(value?: string|number) {
 			Vue.set(this, 'pendingSharesCount', value ? +value : 0)
 		},
 	},

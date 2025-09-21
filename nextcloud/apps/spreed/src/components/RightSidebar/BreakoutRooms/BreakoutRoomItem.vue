@@ -60,18 +60,22 @@
 </template>
 
 <script>
-import { showSuccess, showWarning } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcButton from '@nextcloud/vue/components/NcButton'
 import DotsCircle from 'vue-material-design-icons/DotsCircle.vue'
 import HandBackLeft from 'vue-material-design-icons/HandBackLeft.vue'
 import MenuDown from 'vue-material-design-icons/MenuDown.vue'
 import MenuRight from 'vue-material-design-icons/MenuRight.vue'
 import Send from 'vue-material-design-icons/Send.vue'
+
+import { showSuccess, showWarning } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import SendMessageDialog from '../../BreakoutRoomsEditor/SendMessageDialog.vue'
-import { CONVERSATION, PARTICIPANT } from '../../../constants.ts'
+
+import { CONVERSATION, PARTICIPANT } from '../../../constants.js'
 import { EventBus } from '../../../services/EventBus.ts'
 import { useBreakoutRoomsStore } from '../../../stores/breakoutRooms.ts'
 
@@ -242,7 +246,7 @@ export default {
 
 <style lang="scss" scoped>
 .breakout-room-item {
-	margin-top: calc(var(--default-grid-baseline) * 5);
+	margin-top: calc(var(--default-grid-baseline)*5);
 	font-weight: bold;
 
 	&__wrapper {

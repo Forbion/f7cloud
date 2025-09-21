@@ -33,8 +33,10 @@
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import { CONVERSATION } from '../../constants.ts'
+
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
+import { CONVERSATION } from '../../constants.js'
 
 export default {
 	name: 'ListableSettings',
@@ -79,15 +81,15 @@ export default {
 
 		summaryLabel() {
 			switch (this.listable) {
-				case CONVERSATION.LISTABLE.ALL:
-					return t('spreed', 'This conversation is open to both registered users and users created with the Guests app')
-				case CONVERSATION.LISTABLE.USERS:
-					return t('spreed', 'This conversation is open to registered users')
-				case CONVERSATION.LISTABLE.NONE:
-				default:
-					return t('spreed', 'This conversation is limited to the current participants')
+			case CONVERSATION.LISTABLE.ALL:
+				return t('spreed', 'This conversation is open to both registered users and users created with the Guests app')
+			case CONVERSATION.LISTABLE.USERS:
+				return t('spreed', 'This conversation is open to registered users')
+			case CONVERSATION.LISTABLE.NONE:
+			default:
+				return t('spreed', 'This conversation is limited to the current participants')
 			}
-		},
+		}
 	},
 
 	watch: {

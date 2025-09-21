@@ -4,8 +4,9 @@
  */
 
 import { ref } from 'vue'
-import EmitterMixin from '../EmitterMixin.js'
+
 import CallParticipantsAudioPlayer from './CallParticipantsAudioPlayer.js'
+import EmitterMixin from '../EmitterMixin.js'
 
 /**
  * Stub of CallParticipantModel with just the attributes and methods used by
@@ -56,6 +57,7 @@ function MediaStreamMock(id) {
 }
 
 describe('CallParticipantsAudioPlayer', () => {
+
 	let callParticipantCollection
 	let callParticipantsAudioPlayer
 

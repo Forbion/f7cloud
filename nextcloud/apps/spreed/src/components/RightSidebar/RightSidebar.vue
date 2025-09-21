@@ -5,7 +5,6 @@
 
 <template>
 	<NcAppSidebar v-if="isSidebarAvailable"
-		ref="sidebar"
 		:open="opened"
 		:name="conversation.displayName"
 		:title="conversation.displayName"
@@ -18,161 +17,124 @@
 		@closed="handleClosed">
 		<!-- Use a custom icon when sidebar is used for chat messages during the call -->
 		<template v-if="isInCall" #toggle-icon>
-			<IconMessageText :size="20" />
+			<MessageText :size="20" />
 			<span v-if="unreadMessagesCounter > 0" class="chat-button-unread-marker" />
 		</template>
-		<template #info>
-			<RightSidebarContent ref="sidebarContent"
-				:is-user="!!getUserId"
-				:mode="CONTENT_MODES[contentModeIndex]"
-				:state="showSearchMessagesTab ? 'search' : 'default'"
-				@update:mode="handleUpdateMode"
-				@update:search="handleShowSearch" />
-		</template>
 		<template #description>
-			<InternalSignalingHint />
 			<LobbyStatus v-if="canFullModerate && hasLobbyEnabled" :token="token" />
 		</template>
-		<NcAppSidebarTab v-if="showSearchMessagesTab"
-			id="search-messages"
-			key="search-messages"
-			:order="0"
-			:name="t('spreed', 'Search messages')">
-			<SearchMessagesTab :is-active="activeTab === 'search-messages'"
-				@close="handleShowSearch(false)" />
+		<NcAppSidebarTab v-if="showParticipantsTab"
+			id="participants"
+			key="participants"
+			ref="participantsTab"
+			:order="2"
+			:name="participantsText">
+			<template #icon>
+				<AccountMultiple :size="20" />
+			</template>
+			<ParticipantsTab :is-active="activeTab === 'participants'"
+				:can-search="canSearchParticipants"
+				:can-add="canAddParticipants" />
 		</NcAppSidebarTab>
-		<template v-else>
-			<NcAppSidebarTab v-if="isInCall"
-				id="chat"
-				key="chat"
-				:order="1"
-				:name="t('spreed', 'Chat')">
-				<template #icon>
-					<IconMessage :size="20" />
-				</template>
-				<ChatView :is-visible="opened" is-sidebar />
-			</NcAppSidebarTab>
-			<NcAppSidebarTab v-if="showParticipantsTab"
-				id="participants"
-				key="participants"
-				ref="participantsTab"
-				:order="2"
-				:name="participantsText">
-				<template #icon>
-					<IconAccountMultiple :size="20" />
-				</template>
-				<ParticipantsTab :is-active="activeTab === 'participants'"
-					:can-search="canSearchParticipants"
-					:can-add="canAddParticipants" />
-			</NcAppSidebarTab>
-			<NcAppSidebarTab v-if="showBreakoutRoomsTab"
-				id="breakout-rooms"
-				key="breakout-rooms"
-				ref="breakout-rooms"
-				:order="3"
-				:name="breakoutRoomsText">
-				<template #icon>
-					<IconDotsCircle :size="20" />
-				</template>
-				<BreakoutRoomsTab :main-token="mainConversationToken"
-					:main-conversation="mainConversation"
-					:is-active="activeTab === 'breakout-rooms'" />
-			</NcAppSidebarTab>
-			<NcAppSidebarTab v-if="showDetailsTab"
-				id="details-tab"
-				key="details-tab"
-				:order="4"
-				:name="t('spreed', 'Details')">
-				<template #icon>
-					<IconInformationOutline :size="20" />
-				</template>
-				<SetGuestUsername v-if="!getUserId" />
-				<SipSettings v-if="showSIPSettings" :conversation="conversation" />
-				<div v-if="!getUserId" id="app-settings">
-					<div id="app-settings-header">
-						<NcButton type="tertiary" @click="showSettings">
-							<template #icon>
-								<IconCog :size="20" />
-							</template>
-							{{ t('spreed', 'Settings') }}
-						</NcButton>
-					</div>
+		<NcAppSidebarTab v-if="showBreakoutRoomsTab"
+			id="breakout-rooms"
+			key="breakout-rooms"
+			ref="breakout-rooms"
+			:order="3"
+			:name="breakoutRoomsText">
+			<template #icon>
+				<DotsCircle :size="20" />
+			</template>
+			<BreakoutRoomsTab :main-token="mainConversationToken"
+				:main-conversation="mainConversation"
+				:is-active="activeTab === 'breakout-rooms'" />
+		</NcAppSidebarTab>
+		<NcAppSidebarTab v-if="showDetailsTab"
+			id="details-tab"
+			key="details-tab"
+			:order="4"
+			:name="t('spreed', 'Details')">
+			<template #icon>
+				<InformationOutline :size="20" />
+			</template>
+			<SetGuestUsername v-if="!getUserId" />
+			<SipSettings v-if="showSIPSettings"
+				:meeting-id="conversation.token"
+				:attendee-pin="conversation.attendeePin" />
+			<div v-if="!getUserId" id="app-settings">
+				<div id="app-settings-header">
+					<NcButton type="tertiary" @click="showSettings">
+						<template #icon>
+							<CogIcon :size="20" />
+						</template>
+						{{ t('spreed', 'Settings') }}
+					</NcButton>
 				</div>
-			</NcAppSidebarTab>
-			<NcAppSidebarTab v-if="showSharedItemsTab"
-				id="shared-items"
-				key="shared-items"
-				ref="sharedItemsTab"
-				:order="5"
-				:name="t('spreed', 'Shared items')">
-				<template #icon>
-					<IconFolderMultipleImage :size="20" />
-				</template>
-				<SharedItemsTab :active="activeTab === 'shared-items'" />
-			</NcAppSidebarTab>
-		</template>
+			</div>
+		</NcAppSidebarTab>
+		<NcAppSidebarTab v-if="showSharedItemsTab"
+			id="shared-items"
+			key="shared-items"
+			ref="sharedItemsTab"
+			:order="5"
+			:name="t('spreed', 'Shared items')">
+			<template #icon>
+				<FolderMultipleImage :size="20" />
+			</template>
+			<SharedItemsTab :active="activeTab === 'shared-items'" />
+		</NcAppSidebarTab>
 	</NcAppSidebar>
 </template>
 
 <script>
+import AccountMultiple from 'vue-material-design-icons/AccountMultiple.vue'
+import CogIcon from 'vue-material-design-icons/Cog.vue'
+import DotsCircle from 'vue-material-design-icons/DotsCircle.vue'
+import FolderMultipleImage from 'vue-material-design-icons/FolderMultipleImage.vue'
+import InformationOutline from 'vue-material-design-icons/InformationOutline.vue'
+import Message from 'vue-material-design-icons/Message.vue'
+import MessageText from 'vue-material-design-icons/MessageText.vue'
+
 import { showMessage } from '@nextcloud/dialogs'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { t } from '@nextcloud/l10n'
-import { useEventListener } from '@vueuse/core'
-import { ref } from 'vue'
-import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
-import NcAppSidebarTab from '@nextcloud/vue/components/NcAppSidebarTab'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import IconAccountMultiple from 'vue-material-design-icons/AccountMultiple.vue'
-import IconCog from 'vue-material-design-icons/Cog.vue'
-import IconDotsCircle from 'vue-material-design-icons/DotsCircle.vue'
-import IconFolderMultipleImage from 'vue-material-design-icons/FolderMultipleImage.vue'
-import IconInformationOutline from 'vue-material-design-icons/InformationOutline.vue'
-import IconMessage from 'vue-material-design-icons/Message.vue'
-import IconMessageText from 'vue-material-design-icons/MessageText.vue'
-import ChatView from '../ChatView.vue'
-import SetGuestUsername from '../SetGuestUsername.vue'
+
+import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
+import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import BreakoutRoomsTab from './BreakoutRooms/BreakoutRoomsTab.vue'
-import InternalSignalingHint from './InternalSignalingHint.vue'
 import LobbyStatus from './LobbyStatus.vue'
 import ParticipantsTab from './Participants/ParticipantsTab.vue'
-import RightSidebarContent from './RightSidebarContent.vue'
-import SearchMessagesTab from './SearchMessages/SearchMessagesTab.vue'
 import SharedItemsTab from './SharedItems/SharedItemsTab.vue'
 import SipSettings from './SipSettings.vue'
-import { CONVERSATION, PARTICIPANT, WEBINAR } from '../../constants.ts'
-import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
-import { useSidebarStore } from '../../stores/sidebar.ts'
+import SetGuestUsername from '../SetGuestUsername.vue'
 
-const canStartConversations = getTalkConfig('local', 'conversations', 'can-create')
-const supportConversationCreationAll = hasTalkFeature('local', 'conversation-creation-all')
-
-const CONTENT_MODES = ['compact', 'preview', 'full']
+import { CONVERSATION, WEBINAR, PARTICIPANT } from '../../constants.js'
+import BrowserStorage from '../../services/BrowserStorage.js'
+import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
+import { useSidebarStore } from '../../stores/sidebar.js'
 
 export default {
 	name: 'RightSidebar',
 	components: {
 		BreakoutRoomsTab,
-		ChatView,
-		InternalSignalingHint,
 		LobbyStatus,
 		NcAppSidebar,
 		NcAppSidebarTab,
 		NcButton,
 		ParticipantsTab,
-		RightSidebarContent,
-		SearchMessagesTab,
 		SetGuestUsername,
 		SharedItemsTab,
 		SipSettings,
 		// Icons
-		IconAccountMultiple,
-		IconCog,
-		IconDotsCircle,
-		IconFolderMultipleImage,
-		IconInformationOutline,
-		IconMessage,
-		IconMessageText,
+		AccountMultiple,
+		CogIcon,
+		DotsCircle,
+		FolderMultipleImage,
+		InformationOutline,
+		Message,
+		MessageText,
 	},
 
 	props: {
@@ -183,57 +145,8 @@ export default {
 	},
 
 	setup() {
-		const sidebar = ref(null)
-		const sidebarContent = ref(null)
-		const contentModeIndex = ref(0)
-
-		let throttleTimeout = null
-		const throttleHandleWheelEvent = (event) => {
-			if (!throttleTimeout) {
-				handleWheelEvent(event)
-			}
-			clearTimeout(throttleTimeout)
-			throttleTimeout = null
-			throttleTimeout = setTimeout(() => {
-				clearTimeout(throttleTimeout)
-				throttleTimeout = null
-			}, 100 /* delay after last fired event */)
-		}
-
-		useEventListener(sidebar, 'wheel', throttleHandleWheelEvent, { capture: true })
-
-		/**
-		 * Listen to wheel event on sidebar to switch between header info appearances
-		 * @param {Event} event Wheel event
-		 */
-		function handleWheelEvent(event) {
-			// [1]: scrolling up; [-1]: scrolling down
-			const direction = event.deltaY < 0 ? 1 : -1
-
-			if (!CONTENT_MODES[contentModeIndex.value + direction]) {
-				// Already at the edge state
-				return
-			}
-
-			if (direction === -1) {
-				// Shrink before scrolling other content (block following scroll events)
-				event.preventDefault()
-			} else {
-				if (!sidebarContent.value?.$el?.contains(event.target)) {
-					// Expand only if event happens within the RightSidebarContent component
-					return
-				}
-			}
-
-			contentModeIndex.value += direction
-		}
-
 		return {
-			CONTENT_MODES,
-			contentModeIndex,
-			sidebar,
-			sidebarContent,
-			sidebarStore: useSidebarStore(),
+			sidebarStore: useSidebarStore()
 		}
 	},
 
@@ -242,7 +155,6 @@ export default {
 			activeTab: 'participants',
 			contactsLoading: false,
 			unreadNotificationHandle: null,
-			showSearchMessagesTab: false,
 		}
 	},
 
@@ -250,15 +162,12 @@ export default {
 		isSidebarAvailable() {
 			return this.token && !this.isInLobby
 		},
-
 		show() {
 			return this.sidebarStore.show
 		},
-
 		opened() {
 			return this.isSidebarAvailable && this.show
 		},
-
 		token() {
 			return this.$store.getters.getToken()
 		},
@@ -287,14 +196,16 @@ export default {
 		},
 
 		canSearchParticipants() {
-			return this.conversation.type === CONVERSATION.TYPE.GROUP
-				|| (this.conversation.type === CONVERSATION.TYPE.PUBLIC && this.conversation.objectType !== CONVERSATION.OBJECT_TYPE.VIDEO_VERIFICATION)
-				|| (this.conversation.type === CONVERSATION.TYPE.ONE_TO_ONE && canStartConversations && supportConversationCreationAll)
+			return (this.conversation.type === CONVERSATION.TYPE.GROUP
+				|| (this.conversation.type === CONVERSATION.TYPE.PUBLIC && this.conversation.objectType !== CONVERSATION.OBJECT_TYPE.VIDEO_VERIFICATION))
+		},
+
+		participantType() {
+			return this.conversation.participantType
 		},
 
 		canFullModerate() {
-			return this.conversation.participantType === PARTICIPANT.TYPE.OWNER
-				|| this.conversation.participantType === PARTICIPANT.TYPE.MODERATOR
+			return this.participantType === PARTICIPANT.TYPE.OWNER || this.participantType === PARTICIPANT.TYPE.MODERATOR
 		},
 
 		isModeratorOrUser() {
@@ -357,7 +268,6 @@ export default {
 		unreadMessagesCounter() {
 			return this.conversation.unreadMessages
 		},
-
 		hasUnreadMentions() {
 			return this.conversation.unreadMention
 		},
@@ -366,7 +276,7 @@ export default {
 			return {
 				'data-theme-dark': true,
 				'aria-label': t('spreed', 'Open chat'),
-				title: t('spreed', 'Open chat'),
+				title: t('spreed', 'Open chat')
 			}
 		},
 	},
@@ -441,20 +351,13 @@ export default {
 			}
 		},
 
-		token: {
-			handler() {
-				if (this.$refs.participantsTab) {
-					this.$refs.participantsTab.$el.scrollTop = 0
-				}
+		token() {
+			if (this.$refs.participantsTab) {
+				this.$refs.participantsTab.$el.scrollTop = 0
+			}
 
-				// Discard notification if the conversation changes or closed
-				this.notifyUnreadMessages(null)
-
-				// FIXME collapse for group conversations until we show anything useful there
-				this.contentModeIndex = this.isOneToOne ? 1 : 0
-			},
-
-			immediate: true,
+			// Discard notification if the conversation changes or closed
+			this.notifyUnreadMessages(null)
 		},
 
 		isModeratorOrUser(newValue) {
@@ -468,6 +371,7 @@ export default {
 				this.activeTab = 'chat'
 			}
 		},
+
 	},
 
 	mounted() {
@@ -497,23 +401,6 @@ export default {
 			this.activeTab = active
 		},
 
-		handleUpdateMode(mode) {
-			const newModeIndex = CONTENT_MODES.findIndex((m) => m === mode)
-			if (newModeIndex !== -1) {
-				this.contentModeIndex = newModeIndex
-			}
-		},
-
-		handleShowSearch(value) {
-			this.showSearchMessagesTab = value
-			// FIXME upstream: NcAppSidebar should emit update:active
-			if (value) {
-				this.activeTab = 'search-messages'
-			} else {
-				this.activeTab = this.isInCall ? 'chat' : 'participants'
-			}
-		},
-
 		showSettings() {
 			emit('show-settings', {})
 		},
@@ -541,7 +428,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// Override NcAppSidebar styles
+
+/* Override style set in server for "#app-sidebar" to match the style set in
+ * nextcloud-vue for ".app-sidebar". */
+#app-sidebar {
+	display: flex;
+}
+
 :deep(.app-sidebar-header__description) {
 	flex-direction: column;
 }
@@ -564,27 +457,16 @@ export default {
 	}
 }
 
-:deep(.app-sidebar-tabs__content) {
-	/* Allow to shrink tabs content in favor of header information */
-	min-height: inherit !important;
-}
-
 .app-sidebar-tabs__content #tab-chat {
 	/* Remove padding to maximize the space for the chat view. */
 	padding: 0;
 	height: 100%;
 }
 
-.app-sidebar-tabs__content #tab-participants {
-	/* Remove padding to maximize the space for the participants list. */
-	padding: var(--default-grid-baseline) 0;
-	height: 100%;
-}
-
 .chat-button-unread-marker {
 	position: absolute;
 	top: 4px;
-	inset-inline-end: 4px;
+	right: 4px;
 	width: 8px;
 	height: 8px;
 	border-radius: 8px;

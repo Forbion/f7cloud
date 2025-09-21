@@ -33,8 +33,9 @@
 
 <script>
 import { showError, showSuccess } from '@nextcloud/dialogs'
-import { n, t } from '@nextcloud/l10n'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
+import { t, n } from '@nextcloud/l10n'
+
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 export default {
 	name: 'ExpirationSettings',
@@ -76,7 +77,7 @@ export default {
 		expirationOptions() {
 			const expirationOptions = [...this.defaultExpirationOptions]
 
-			if (!expirationOptions.some((option) => option.id === this.conversation.messageExpiration)) {
+			if (!expirationOptions.some(option => option.id === this.conversation.messageExpiration)) {
 				expirationOptions.push({ id: this.conversation.messageExpiration, label: t('spreed', 'Custom expiration time') })
 			}
 
@@ -89,10 +90,9 @@ export default {
 					return option.id === this.conversation.messageExpiration
 				}) ?? this.expirationOptions.at(-1)
 			},
-
 			set(value) {
 				this.changeExpiration(value)
-			},
+			}
 		},
 	},
 
@@ -121,3 +121,6 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

@@ -45,7 +45,7 @@
 
 		<NcActionButton v-if="canCreatePoll"
 			close-after-click
-			@click="showPollEditor">
+			@click="$emit('toggle-poll-editor')">
 			<template #icon>
 				<PollIcon :size="20" />
 			</template>
@@ -63,15 +63,18 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 import Folder from 'vue-material-design-icons/Folder.vue'
 import Plus from 'vue-material-design-icons/Plus.vue'
 import PollIcon from 'vue-material-design-icons/Poll.vue'
 import SlashForwardBox from 'vue-material-design-icons/SlashForwardBox.vue'
 import Upload from 'vue-material-design-icons/Upload.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcIconSvgWrapper from '@nextcloud/vue/dist/Components/NcIconSvgWrapper.js'
+
 import { EventBus } from '../../services/EventBus.ts'
 
 export default {
@@ -116,7 +119,7 @@ export default {
 		},
 	},
 
-	emits: ['update-new-file-dialog', 'open-file-upload', 'handle-file-share'],
+	emits: ['update-new-file-dialog', 'toggle-poll-editor', 'open-file-upload', 'handle-file-share'],
 
 	computed: {
 		fileTemplateOptions() {
@@ -135,10 +138,6 @@ export default {
 
 		showSmartPicker() {
 			EventBus.emit('smart-picker-open')
-		},
-
-		showPollEditor() {
-			EventBus.emit('poll-editor-open', { id: null, fromDrafts: false })
 		},
 	},
 }

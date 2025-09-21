@@ -7,15 +7,14 @@
 	<!-- size and remain refer to the amount and initial height of the items that
 	are outside of the viewport -->
 	<div ref="scroller"
+		:key="token"
 		class="scroller messages-list__scroller"
-		:class="{
-			'scroller--chatScrolledToBottom': isChatScrolledToBottom,
-			'scroller--isScrolling': isScrolling,
-		}"
+		:class="{'scroller--chatScrolledToBottom': isChatScrolledToBottom,
+			'scroller--isScrolling': isScrolling}"
 		@scroll="onScroll"
 		@scrollend="endScroll">
 		<TransitionWrapper name="fade">
-			<div ref="scrollerLoader" class="scroller__loading">
+			<div class="scroller__loading">
 				<NcLoadingIcon v-if="displayMessagesLoader" class="scroller__loading-element" :size="32" />
 			</div>
 		</TransitionWrapper>
@@ -58,30 +57,33 @@
 </template>
 
 <script>
-import Axios from '@nextcloud/axios'
-import { subscribe, unsubscribe } from '@nextcloud/event-bus'
-import { n, t } from '@nextcloud/l10n'
-import moment from '@nextcloud/moment'
 import debounce from 'debounce'
 import uniqueId from 'lodash/uniqueId.js'
 import { computed } from 'vue'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+
 import Message from 'vue-material-design-icons/Message.vue'
-import LoadingPlaceholder from '../UIShared/LoadingPlaceholder.vue'
-import TransitionWrapper from '../UIShared/TransitionWrapper.vue'
+
+import Axios from '@nextcloud/axios'
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import { t, n } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import MessagesGroup from './MessagesGroup/MessagesGroup.vue'
 import MessagesSystemGroup from './MessagesGroup/MessagesSystemGroup.vue'
+import LoadingPlaceholder from '../UIShared/LoadingPlaceholder.vue'
+import TransitionWrapper from '../UIShared/TransitionWrapper.vue'
+
 import { useDocumentVisibility } from '../../composables/useDocumentVisibility.ts'
 import { useIsInCall } from '../../composables/useIsInCall.js'
-import { ATTENDEE, CHAT, CONVERSATION, MESSAGE } from '../../constants.ts'
+import { ATTENDEE, CHAT, CONVERSATION, MESSAGE } from '../../constants.js'
 import { EventBus } from '../../services/EventBus.ts'
 import { useChatExtrasStore } from '../../stores/chatExtras.js'
 import { debugTimer } from '../../utils/debugTimer.ts'
-import { convertToUnix, ONE_DAY_IN_MS } from '../../utils/formattedTime.ts'
 
 const SCROLL_TOLERANCE = 10
-const LOAD_HISTORY_THRESHOLD = 800
 
 export default {
 	name: 'MessagesList',
@@ -90,7 +92,7 @@ export default {
 		Message,
 		NcEmptyContent,
 		NcLoadingIcon,
-		TransitionWrapper,
+		TransitionWrapper
 	},
 
 	provide() {
@@ -251,13 +253,13 @@ export default {
 		},
 
 		currentDay() {
-			return convertToUnix(new Date().setHours(0, 0, 0, 0))
+			return moment().startOf('day').unix()
 		},
 
 		isChatBeginningReached() {
-			return this.stopFetchingOldMessages || (this.messagesList?.[0]?.messageType === MESSAGE.TYPE.SYSTEM
+			return this.stopFetchingOldMessages || (this.messagesList?.[0]?.messageType === 'system'
 				&& ['conversation_created', 'history_cleared'].includes(this.messagesList[0].systemMessage))
-		},
+		}
 	},
 
 	watch: {
@@ -266,12 +268,11 @@ export default {
 				this.onWindowFocus()
 			}
 		},
-
 		chatIdentifier: {
 			immediate: true,
 			handler(newValue, oldValue) {
 				if (oldValue) {
-					this.$store.dispatch('cancelPollNewMessages', { requestId: oldValue })
+					this.$store.dispatch('cancelLookForNewMessages', { requestId: oldValue })
 				}
 				this.handleStartGettingMessagesPreconditions(this.token)
 
@@ -299,13 +300,11 @@ export default {
 				// scroll to bottom if needed
 				this.scrollToBottom({ smooth: false })
 
-				this.$nextTick(() => {
-					this.checkChatNotScrollable()
-
-					if (this.conversation?.type === CONVERSATION.TYPE.NOTE_TO_SELF) {
+				if (this.conversation?.type === CONVERSATION.TYPE.NOTE_TO_SELF) {
+					this.$nextTick(() => {
 						this.updateTasksCount()
-					}
-				})
+					})
+				}
 			},
 		},
 
@@ -321,7 +320,8 @@ export default {
 				this.$nextTick(() => {
 					this.checkSticky()
 					// setting wheel event for non-scrollable chat
-					if (!this.isChatBeginningReached && this.checkChatNotScrollable()) {
+					const isScrollable = this.$refs.scroller.scrollHeight > this.$refs.scroller.clientHeight
+					if (!this.isChatBeginningReached && !isScrollable) {
 						this.$refs.scroller.addEventListener('wheel', this.handleWheelEvent, { passive: true })
 					}
 				})
@@ -336,12 +336,10 @@ export default {
 		EventBus.on('scroll-chat-to-bottom', this.scrollToBottom)
 		EventBus.on('focus-message', this.focusMessage)
 		EventBus.on('route-change', this.onRouteChange)
+		EventBus.on('message-height-changed', this.onMessageHeightChanged)
 		subscribe('networkOffline', this.handleNetworkOffline)
 		subscribe('networkOnline', this.handleNetworkOnline)
 		window.addEventListener('focus', this.onWindowFocus)
-
-		this.resizeObserver = new ResizeObserver(this.updateSize)
-		this.resizeObserver.observe(this.$refs.scroller)
 
 		/**
 		 * Every 30 seconds we remove expired messages from the store
@@ -359,15 +357,12 @@ export default {
 		EventBus.off('scroll-chat-to-bottom', this.scrollToBottom)
 		EventBus.off('focus-message', this.focusMessage)
 		EventBus.off('route-change', this.onRouteChange)
-		this.$store.dispatch('cancelPollNewMessages', { requestId: this.chatIdentifier })
+		EventBus.off('message-height-changed', this.onMessageHeightChanged)
+		this.$store.dispatch('cancelLookForNewMessages', { requestId: this.chatIdentifier })
 		this.destroying = true
 
 		unsubscribe('networkOffline', this.handleNetworkOffline)
 		unsubscribe('networkOnline', this.handleNetworkOnline)
-
-		if (this.resizeObserver) {
-			this.resizeObserver.disconnect()
-		}
 
 		if (this.expirationInterval) {
 			clearInterval(this.expirationInterval)
@@ -378,16 +373,6 @@ export default {
 	methods: {
 		t,
 		n,
-		updateSize() {
-			if (this.isChatScrolledToBottom) {
-				this.$refs.scroller.scrollTo({
-					top: this.$refs.scroller.scrollHeight,
-				})
-			} else {
-				this.checkChatNotScrollable()
-			}
-		},
-
 		prepareMessagesGroups(messages) {
 			let prevGroupMap = null
 			const groupsByDate = {}
@@ -401,7 +386,7 @@ export default {
 						// This is a temporary message, the timestamp is today
 						dateTimestamp = this.currentDay
 					} else {
-						dateTimestamp = convertToUnix(new Date(message.timestamp * 1000).setHours(0, 0, 0, 0))
+						dateTimestamp = moment(message.timestamp * 1000).startOf('day').unix()
 					}
 
 					if (!this.dateSeparatorLabels[dateTimestamp]) {
@@ -444,7 +429,7 @@ export default {
 		softUpdateByDateGroups(oldDateGroups, newDateGroups) {
 			const dateTimestamps = new Set([...Object.keys(oldDateGroups), ...Object.keys(newDateGroups)])
 
-			dateTimestamps.forEach((dateTimestamp) => {
+			dateTimestamps.forEach(dateTimestamp => {
 				if (newDateGroups[dateTimestamp]) {
 					if (oldDateGroups[dateTimestamp]) {
 						// the group by date has changed, we update its content (groups by author)
@@ -463,7 +448,7 @@ export default {
 		softUpdateAuthorGroups(oldGroups, newGroups, dateTimestamp) {
 			const groupIds = new Set([...Object.keys(oldGroups), ...Object.keys(newGroups)])
 
-			groupIds.forEach((id) => {
+			groupIds.forEach(id => {
 				if (oldGroups[id] && !newGroups[id]) {
 					// group no longer exists, remove
 					this.$delete(this.messagesGroupedByDateByAuthor[dateTimestamp], id)
@@ -523,8 +508,7 @@ export default {
 			}
 
 			if (message1.actorType === ATTENDEE.ACTOR_TYPE.BOTS // Don't group messages of bots
-				&& message1.actorId !== ATTENDEE.CHANGELOG_BOT_ID // Apart from the changelog bot
-				&& message1.actorId !== ATTENDEE.SAMPLE_BOT_ID) { // Apart from the sample message
+				&& message1.actorId !== ATTENDEE.CHANGELOG_BOT_ID) { // Apart from the changelog bot
 				return false
 			}
 
@@ -538,60 +522,74 @@ export default {
 
 			if (!message1IsSystem // System messages are grouped independently of author
 				&& ((message1.actorType !== message2.actorType // Otherwise the type and id need to match
-					|| message1.actorId !== message2.actorId)
-				|| (message1.actorType === ATTENDEE.ACTOR_TYPE.BRIDGED // Or, if the message is bridged, display names also need to match
-					&& message1.actorDisplayName !== message2.actorDisplayName))) {
+						|| message1.actorId !== message2.actorId)
+					|| (message1.actorType === ATTENDEE.ACTOR_TYPE.BRIDGED // Or, if the message is bridged, display names also need to match
+						&& message1.actorDisplayName !== message2.actorDisplayName))) {
 				return false
 			}
 
-			const date1 = this.getDateOfMessage(message1)
-			const date2 = this.getDateOfMessage(message2)
-
-			if (date1.getFullYear() !== date2.getFullYear() || date1.getMonth() !== date2.getMonth() || date1.getDate() !== date2.getDate()) {
+			if (this.messagesHaveDifferentDate(message1, message2)) {
 				// Not posted on the same day
 				return false
 			}
 
 			// Only group messages within a short period of time (5 minutes), so unrelated messages are not grouped together
-			return Math.abs(date1 - date2) < 300000
+			return this.getDateOfMessage(message1).diff(this.getDateOfMessage(message2)) < 300 * 1000
 		},
 
-		getRelativePrefix(diffDays) {
+		/**
+		 * Check if 2 messages are from the same date
+		 *
+		 * @param {object} message1 The new message
+		 * @param {string} message1.id The ID of the new message
+		 * @param {number} message1.timestamp Timestamp of the new message
+		 * @param {null|object} message2 The previous message
+		 * @param {string} message2.id The ID of the second message
+		 * @param {number} message2.timestamp Timestamp of the second message
+		 * @return {boolean} Boolean if the messages have the same date
+		 */
+		messagesHaveDifferentDate(message1, message2) {
+			return !message2 // There is no previous message
+				|| this.getDateOfMessage(message1).format('YYYY-MM-DD') !== this.getDateOfMessage(message2).format('YYYY-MM-DD')
+		},
+
+		getRelativePrefix(date, diffDays) {
 			switch (diffDays) {
-				case 0:
-					return t('spreed', 'Today')
-				case 1:
-					return t('spreed', 'Yesterday')
-				case 7:
-					return t('spreed', 'A week ago')
-				default:
-					return n('spreed', '%n day ago', '%n days ago', diffDays)
+			case 0:
+				return t('spreed', 'Today')
+			case 1:
+				return t('spreed', 'Yesterday')
+			case 7:
+				return t('spreed', 'A week ago')
+			default:
+				return n('spreed', '%n day ago', '%n days ago', diffDays)
 			}
 		},
 
 		/**
 		 * Generate the date header between the messages
 		 *
-		 * @param {number} dateTimestamp The day and year timestamp (in UNIX format)
+		 * @param {number} dateTimestamp The day and year timestamp
 		 * @return {string} Translated string of "<Today>, <November 11th, 2019>", "<3 days ago>, <November 8th, 2019>"
 		 */
 		generateDateSeparator(dateTimestamp) {
-			const startOfDay = new Date(dateTimestamp * 1000).setHours(0, 0, 0, 0)
-			const diffDays = Math.floor((Date.now() - startOfDay) / ONE_DAY_IN_MS)
+			const date = moment.unix(dateTimestamp).startOf('day')
+			const diffDays = moment().startOf('day').diff(date, 'days')
 			// Relative date is only shown up to a week ago (inclusive)
 			if (diffDays <= 7) {
 				// TRANSLATORS: <Today>, <March 18th, 2024>
 				return t('spreed', '{relativeDate}, {absoluteDate}', {
-					relativeDate: this.getRelativePrefix(diffDays),
+					relativeDate: this.getRelativePrefix(date, diffDays),
 					// 'LL' formats a localized date including day of month, month
 					// name and year
-					absoluteDate: moment(startOfDay).format('LL'),
+					absoluteDate: date.format('LL'),
 				}, undefined, {
 					escape: false, // French "Today" has a ' in it
 				})
 			} else {
-				return moment(startOfDay).format('LL')
+				return date.format('LL')
 			}
+
 		},
 
 		/**
@@ -599,14 +597,14 @@ export default {
 		 *
 		 * @param {object} message The message object
 		 * @param {string} message.id The ID of the message
-		 * @param {number} message.timestamp Timestamp of the message (in UNIX format)
-		 * @return {object} Date object
+		 * @param {number} message.timestamp Timestamp of the message
+		 * @return {object} MomentJS object
 		 */
 		getDateOfMessage(message) {
 			if (message.id.toString().startsWith('temp-')) {
-				return new Date()
+				return moment()
 			}
-			return new Date(message.timestamp * 1000)
+			return moment.unix(message.timestamp)
 		},
 
 		getMessageIdFromHash(hash = undefined) {
@@ -622,7 +620,7 @@ export default {
 			let isFocused = null
 			if (focusMessageId) {
 				// scroll to message in URL anchor
-				this.focusMessage(focusMessageId, false)
+				this.focusMessage(focusMessageId)
 				return
 			}
 
@@ -693,11 +691,27 @@ export default {
 
 				this.isInitialisingMessages = false
 
-				// Once the history is received, starts looking for new messages.
-				await this.pollNewMessages(token)
+				// get new messages
+				await this.lookForNewMessages(token)
+
 			} else {
-				this.$store.dispatch('cancelPollNewMessages', { requestId: this.chatIdentifier })
+				this.$store.dispatch('cancelLookForNewMessages', { requestId: this.chatIdentifier })
 			}
+		},
+
+		/**
+		 * Fetches the messages of a conversation given the conversation token. Triggers
+		 * a long-polling request for new messages.
+		 * @param token token of conversation where a method was called
+		 */
+		async lookForNewMessages(token) {
+			// Once the history is received, starts looking for new messages.
+			if (this._isBeingDestroyed || this._isDestroyed) {
+				console.debug('Prevent getting new messages on a destroyed MessagesList')
+				return
+			}
+
+			await this.getNewMessages(token)
 		},
 
 		async getMessageContext(token, messageId) {
@@ -767,13 +781,12 @@ export default {
 		},
 
 		/**
-		 * Fetches the messages of a conversation given the conversation token.
-		 * Creates a long polling request for new messages.
+		 * Creates a long polling request for a new message.
+		 *
 		 * @param token token of conversation where a method was called
 		 */
-		async pollNewMessages(token) {
+		async getNewMessages(token) {
 			if (this.destroying) {
-				console.debug('Prevent polling new messages on MessagesList being destroyed')
 				return
 			}
 			// Check that the token has not changed
@@ -786,7 +799,7 @@ export default {
 				debugTimer.start(`${token} | long polling`)
 				// TODO: move polling logic to the store and also cancel timers on cancel
 				this.pollingErrorTimeout = 1
-				await this.$store.dispatch('pollNewMessages', {
+				await this.$store.dispatch('lookForNewMessages', {
 					token,
 					lastKnownMessageId: this.$store.getters.getLastKnownMessageId(token),
 					requestId: this.chatIdentifier,
@@ -805,7 +818,7 @@ export default {
 					// This is not an error, so reset error timeout and poll again
 					this.pollingErrorTimeout = 1
 					setTimeout(() => {
-						this.pollNewMessages(token)
+						this.getNewMessages(token)
 					}, 500)
 					return
 				}
@@ -819,13 +832,13 @@ export default {
 				console.debug('Error happened while getting chat messages. Trying again in ', this.pollingErrorTimeout, exception)
 
 				setTimeout(() => {
-					this.pollNewMessages(token)
+					this.getNewMessages(token)
 				}, this.pollingErrorTimeout * 1000)
 				return
 			}
 
 			setTimeout(() => {
-				this.pollNewMessages(token)
+				this.getNewMessages(token)
 			}, 500)
 		},
 
@@ -892,22 +905,19 @@ export default {
 			}
 
 			const { scrollHeight, scrollTop, clientHeight } = this.$refs.scroller
-			const scrollOffsetFromTop = scrollHeight - scrollTop
-			const scrollOffsetFromBottom = Math.abs(scrollOffsetFromTop - clientHeight)
+			const scrollOffset = scrollHeight - scrollTop
 
 			// For chats that are scrolled to bottom and not fitted in one screen
-			if (scrollOffsetFromBottom < SCROLL_TOLERANCE && !this.hasMoreMessagesToLoad && scrollTop > 0) {
+			if (Math.abs(scrollOffset - clientHeight) < SCROLL_TOLERANCE && !this.hasMoreMessagesToLoad && scrollTop > 0) {
 				this.setChatScrolledToBottom(true)
 				this.displayMessagesLoader = false
 				this.debounceUpdateReadMarkerPosition()
 				return
 			}
 
-			if (scrollOffsetFromBottom >= SCROLL_TOLERANCE) {
-				this.setChatScrolledToBottom(false)
-			}
+			this.setChatScrolledToBottom(false)
 
-			if ((scrollHeight > clientHeight && scrollTop < LOAD_HISTORY_THRESHOLD && this.isScrolling === 'up')
+			if ((scrollHeight > clientHeight && scrollTop < 800 && this.isScrolling === 'up')
 				|| skipHeightCheck) {
 				if (this.loadingOldMessages || this.isChatBeginningReached) {
 					// already loading, don't do it twice
@@ -1111,14 +1121,6 @@ export default {
 					newTop = this.$refs.scroller.scrollHeight
 					this.setChatScrolledToBottom(true)
 				}
-
-				if (options?.smooth && this.$refs.scroller.scrollTop < newTop - 1.5 * window.innerHeight) {
-					// Imitate scrolling the whole distance to the element
-					this.$refs.scroller.scrollTo({
-						top: newTop - 1.5 * window.innerHeight,
-						behavior: 'instant',
-					})
-				}
 				this.$refs.scroller.scrollTo({
 					top: newTop,
 					behavior: options?.smooth ? 'smooth' : 'auto',
@@ -1155,25 +1157,10 @@ export default {
 
 			// TODO: doesn't work if chat is hidden. Need to store
 			// delayed 'shouldScroll' and call after chat is visible
-			// FIXME: because scrollToBottom is also triggered and it is wrapped in $nextTick
-			// We need to trigger this at the same time (nextTick) to avoid focusing and then scrolling to bottom
-			this.$nextTick(() => {
-				if (smooth) {
-					const newTop = scrollElement.getBoundingClientRect().top - this.$refs.scrollerLoader.getBoundingClientRect().top
-					if (this.$refs.scroller.scrollTop > newTop) {
-						// Imitate scrolling the whole distance to the element
-						// If this goes to scrollTop < LOAD_HISTORY_THRESHOLD, might initiate loading of old messages
-						this.$refs.scroller.scrollTo({
-							top: Math.max(LOAD_HISTORY_THRESHOLD, newTop),
-							behavior: 'instant',
-						})
-					}
-				}
-				scrollElement.scrollIntoView({
-					behavior: smooth ? 'smooth' : 'auto',
-					block: 'center',
-					inline: 'nearest',
-				})
+			scrollElement.scrollIntoView({
+				behavior: smooth ? 'smooth' : 'auto',
+				block: 'center',
+				inline: 'nearest',
 			})
 
 			if (this.$refs.scroller && !smooth) {
@@ -1181,7 +1168,10 @@ export default {
 				this.$refs.scroller.scrollTop += this.$refs.scroller.offsetHeight / 4
 			}
 
-			this.checkChatNotScrollable()
+			if (this.$refs.scroller && this.$refs.scroller.clientHeight === this.$refs.scroller.scrollHeight) {
+				// chat is not scrollable
+				this.setChatScrolledToBottom(true)
+			}
 
 			if (highlightAnimation && scrollElement === element) {
 				// element is visible, highlight it
@@ -1208,7 +1198,6 @@ export default {
 			}
 			return '0'
 		},
-
 		/**
 		 * gets the first message's id.
 		 *
@@ -1220,22 +1209,25 @@ export default {
 
 		handleNetworkOffline() {
 			console.debug('Canceling message request as we are offline')
-			this.$store.dispatch('cancelPollNewMessages', { requestId: this.chatIdentifier })
+			if (this.cancelLookForNewMessages) {
+				this.$store.dispatch('cancelLookForNewMessages', { requestId: this.chatIdentifier })
+			}
 		},
 
 		handleNetworkOnline() {
 			console.debug('Restarting polling of new chat messages')
-			this.pollNewMessages(this.token)
+			this.getNewMessages(this.token)
 		},
 
 		async onRouteChange({ from, to }) {
 			if (from.name === 'conversation' && to.name === 'conversation'
 				&& from.params.token === to.params.token
 				&& from.hash !== to.hash) {
+
 				// the hash changed, need to focus/highlight another message
 				if (to.hash && to.hash.startsWith('#message_')) {
 					const focusedId = this.getMessageIdFromHash(to.hash)
-					if (this.messagesList.find((m) => m.id === focusedId)) {
+					if (this.messagesList.find(m => m.id === focusedId)) {
 						// need some delay (next tick is too short) to be able to run
 						// after the browser's native "scroll to anchor" from
 						// the hash
@@ -1279,7 +1271,7 @@ export default {
 			setTimeout(() => {
 				this.refreshReadMarkerPosition()
 				// Regenerate relative date separators
-				Object.keys(this.dateSeparatorLabels).forEach((dateTimestamp) => {
+				Object.keys(this.dateSeparatorLabels).forEach(dateTimestamp => {
 					this.$set(this.dateSeparatorLabels, dateTimestamp, this.generateDateSeparator(dateTimestamp))
 				})
 			}, 2)
@@ -1289,6 +1281,11 @@ export default {
 			return group.isSystemMessagesGroup ? MessagesSystemGroup : MessagesGroup
 		},
 
+		onMessageHeightChanged({ heightDiff }) {
+			// scroll down by the height difference
+			this.$refs.scroller.scrollTop += heightDiff
+		},
+
 		updateTasksCount() {
 			if (!this.$refs.scroller) {
 				return
@@ -1296,18 +1293,6 @@ export default {
 			const tasksDoneCount = this.$refs.scroller.querySelectorAll('.checkbox-content__icon--checked')?.length
 			const tasksCount = this.$refs.scroller.querySelectorAll('.task-list-item')?.length
 			this.chatExtrasStore.setTasksCounters({ tasksCount, tasksDoneCount })
-		},
-
-		checkChatNotScrollable() {
-			const isNotScrollable = this.$refs.scroller
-				? this.$refs.scroller.clientHeight === this.$refs.scroller.scrollHeight
-				: false
-
-			if (isNotScrollable && !this.isChatScrolledToBottom) {
-				this.setChatScrolledToBottom(true)
-			}
-
-			return isNotScrollable
 		},
 
 		handleWheelEvent(event) {
@@ -1320,7 +1305,6 @@ export default {
 					return
 				}
 
-				this.isScrolling = 'up'
 				this.debounceHandleScroll({ skipHeightCheck: true })
 			}
 		},
@@ -1341,7 +1325,7 @@ export default {
 	transition: $transition;
 
 	&--chatScrolledToBottom {
-		border-block-end-color: transparent;
+		border-bottom-color: transparent;
 	}
 
 	&__content {
@@ -1358,7 +1342,7 @@ export default {
 		&-element {
 			position: absolute;
 			top: 0;
-			inset-inline-start: calc(2 * var(--default-grid-baseline));
+			left: calc(2 * var(--default-grid-baseline));
 		}
 	}
 }
@@ -1383,7 +1367,7 @@ export default {
 		display: grid;
 		grid-template-columns: minmax(0, $messages-text-max-width) $messages-info-width;
 		z-index: 2;
-		margin-inline-start: calc($messages-avatar-width);
+		margin-left: calc($messages-avatar-width);
 		margin-bottom: 5px;
 		padding-inline: var(--default-grid-baseline);
 		pointer-events: none;

@@ -86,13 +86,15 @@
 </template>
 
 <script>
+import debounce from 'debounce'
+
 import axios from '@nextcloud/axios'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
-import debounce from 'debounce'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 const startCallOptions = [
 	{ value: 0, label: t('spreed', 'Everyone') },
@@ -129,10 +131,10 @@ export default {
 
 	mounted() {
 		this.loading = true
-		this.allowedGroups = loadState('spreed', 'allowed_groups', []).sort(function(a, b) {
+		this.allowedGroups = loadState('spreed', 'allowed_groups').sort(function(a, b) {
 			return a.displayname.localeCompare(b.displayname)
 		})
-		this.canStartConversations = loadState('spreed', 'start_conversations', []).sort(function(a, b) {
+		this.canStartConversations = loadState('spreed', 'start_conversations').sort(function(a, b) {
 			return a.displayname.localeCompare(b.displayname)
 		})
 		this.startCalls = startCallOptions[parseInt(loadState('spreed', 'start_calls'))]
@@ -140,8 +142,12 @@ export default {
 		// Make a unique list with the groups we know from allowedGroups and canStartConversations
 		// Unique checking is done by turning the group objects (with id and name)
 		// into json strings and afterwards back again
-		const mergedGroups = Array.from(new Set(this.allowedGroups.concat(this.canStartConversations)
-			.map((g) => JSON.stringify(g)))).map((g) => JSON.parse(g))
+		const mergedGroups = Array.from(
+			new Set(
+				this.allowedGroups.concat(this.canStartConversations)
+					.map(g => JSON.stringify(g)),
+			),
+		).map(g => JSON.parse(g))
 
 		this.groups = mergedGroups.sort(function(a, b) {
 			return a.displayname.localeCompare(b.displayname)
@@ -181,7 +187,7 @@ export default {
 			this.loadingGroups = true
 			this.saveLabelAllowedGroups = t('spreed', 'Saving …')
 
-			const groups = this.allowedGroups.map((group) => {
+			const groups = this.allowedGroups.map(group => {
 				return group.id
 			})
 
@@ -202,7 +208,7 @@ export default {
 			this.loadingGroups = true
 			this.saveLabelStartConversations = t('spreed', 'Saving …')
 
-			const groups = this.canStartConversations.map((group) => {
+			const groups = this.canStartConversations.map(group => {
 				return group.id
 			})
 

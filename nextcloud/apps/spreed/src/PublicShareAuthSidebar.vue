@@ -13,9 +13,7 @@
 			<template v-else>
 				<TopBar is-in-call is-sidebar />
 				<CallView :token="token" is-sidebar />
-				<InternalSignalingHint />
 				<ChatView is-sidebar />
-				<PollManager />
 				<PollViewer />
 				<MediaSettings :recording-consent-given.sync="recordingConsentGiven" />
 			</template>
@@ -28,20 +26,20 @@ import { getCurrentUser, getGuestNickname } from '@nextcloud/auth'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
+
 import CallView from './components/CallView/CallView.vue'
 import ChatView from './components/ChatView.vue'
 import MediaSettings from './components/MediaSettings/MediaSettings.vue'
-import PollManager from './components/PollViewer/PollManager.vue'
 import PollViewer from './components/PollViewer/PollViewer.vue'
-import InternalSignalingHint from './components/RightSidebar/InternalSignalingHint.vue'
 import TopBar from './components/TopBar/TopBar.vue'
 import TransitionWrapper from './components/UIShared/TransitionWrapper.vue'
+
 import { useHashCheck } from './composables/useHashCheck.js'
-import { useSessionIssueHandler } from './composables/useSessionIssueHandler.ts'
+import { useSessionIssueHandler } from './composables/useSessionIssueHandler.js'
 import { EventBus } from './services/EventBus.ts'
 import {
 	leaveConversationSync,
-	setGuestUserName,
+	setGuestUserName
 } from './services/participantsService.js'
 import { signalingKill } from './utils/webrtc/index.js'
 
@@ -50,11 +48,9 @@ export default {
 	name: 'PublicShareAuthSidebar',
 
 	components: {
-		InternalSignalingHint,
 		CallView,
 		ChatView,
 		MediaSettings,
-		PollManager,
 		PollViewer,
 		TopBar,
 		TransitionWrapper,
@@ -72,7 +68,7 @@ export default {
 		return {
 			fetchCurrentConversationIntervalId: null,
 			isWaitingToClose: false,
-			recordingConsentGiven: false,
+			recordingConsentGiven: false
 		}
 	},
 
@@ -96,7 +92,6 @@ export default {
 				this.joinConversation()
 			}
 		},
-
 		conversation(conversation) {
 			if (!conversation) {
 				this.isWaitingToClose = true
@@ -204,7 +199,7 @@ export default {
 			// by the guest name addition event.
 			emit('talk:media-settings:show', 'video-verification')
 			unsubscribe('talk:guest-name:added', this.showGuestMediaSettings)
-		},
+		}
 	},
 }
 </script>
@@ -234,7 +229,7 @@ body .modal-wrapper * {
 	height: 100%;
 
 	background: var(--color-main-background);
-	border-inline-start: 1px solid var(--color-border);
+	border-left: 1px solid var(--color-border);
 
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -245,7 +240,7 @@ body .modal-wrapper * {
 	justify-content: center;
 
 	/* Unset conflicting rules from guest.css for the sidebar. */
-	text-align: start;
+	text-align: left;
 
 	& > .emptycontent {
 		/* Remove default margin-top as it is unneeded when showing only the empty

@@ -11,16 +11,14 @@
 		:data-next-message-id="nextMessageId"
 		:data-previous-message-id="previousMessageId"
 		class="message"
-		:class="{ 'message--hovered': showMessageButtonsBar }"
+		:class="{'message--hovered': showMessageButtonsBar}"
 		tabindex="0"
 		@animationend="clearHighlightedClass"
 		@mouseover="handleMouseover"
 		@mouseleave="handleMouseleave">
-		<div :class="{
-				'normal-message-body': !isSystemMessage && !isDeletedMessage,
-				system: isSystemMessage,
-				'combined-system': isCombinedSystemMessage,
-			}"
+		<div :class="{'normal-message-body': !isSystemMessage && !isDeletedMessage,
+			'system' : isSystemMessage,
+			'combined-system': isCombinedSystemMessage}"
 			class="message-body">
 			<MessageBody :rich-parameters="richParameters"
 				:is-deleting="isDeleting"
@@ -85,11 +83,9 @@
 			<div class="message-unread-marker__wrapper">
 				<span class="message-unread-marker__text">{{ t('spreed', 'Unread messages') }}</span>
 				<NcButton v-if="shouldShowSummaryOption"
-					:disabled="loading"
 					@click="generateSummary">
 					<template #icon>
-						<NcLoadingIcon v-if="loading" />
-						<IconCreation v-else />
+						<IconCreation />
 					</template>
 					{{ t('spreed', 'Generate summary') }}
 				</NcButton>
@@ -99,14 +95,17 @@
 </template>
 
 <script>
-import { showError, showSuccess, showWarning, TOAST_DEFAULT_TIMEOUT } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 import { vIntersectionObserver as IntersectionObserver } from '@vueuse/components'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+
 import IconCreation from 'vue-material-design-icons/Creation.vue'
 import IconUnfoldLess from 'vue-material-design-icons/UnfoldLessHorizontal.vue'
 import IconUnfoldMore from 'vue-material-design-icons/UnfoldMoreHorizontal.vue'
+
+import { showError, showSuccess, showWarning, TOAST_DEFAULT_TIMEOUT } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import MessageButtonsBar from './MessageButtonsBar/MessageButtonsBar.vue'
 import MessageForwarder from './MessageButtonsBar/MessageForwarder.vue'
 import MessageTranslateDialog from './MessageButtonsBar/MessageTranslateDialog.vue'
@@ -119,7 +118,8 @@ import Mention from './MessagePart/Mention.vue'
 import MessageBody from './MessagePart/MessageBody.vue'
 import Poll from './MessagePart/Poll.vue'
 import Reactions from './MessagePart/Reactions.vue'
-import { CONVERSATION, MENTION, MESSAGE, PARTICIPANT } from '../../../../constants.ts'
+
+import { CONVERSATION, MENTION, PARTICIPANT } from '../../../../constants.js'
 import { getTalkConfig, hasTalkFeature } from '../../../../services/CapabilitiesManager.ts'
 import { EventBus } from '../../../../services/EventBus.ts'
 import { useChatExtrasStore } from '../../../../stores/chatExtras.js'
@@ -140,7 +140,6 @@ export default {
 		MessageForwarder,
 		MessageTranslateDialog,
 		NcButton,
-		NcLoadingIcon,
 		Reactions,
 	},
 
@@ -153,7 +152,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-
 		/**
 		 * Specifies if the message is a combined system message.
 		 */
@@ -161,7 +159,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		/**
 		 * Specifies whether the combined system message is collapsed.
 		 */
@@ -169,7 +166,6 @@ export default {
 			type: Boolean,
 			default: undefined,
 		},
-
 		/**
 		 * Specifies if the message is inside a collapsed group.
 		 */
@@ -177,17 +173,14 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		lastCollapsedMessageId: {
 			type: [String, Number],
 			default: 0,
 		},
-
 		previousMessageId: {
 			type: [String, Number],
 			default: 0,
 		},
-
 		nextMessageId: {
 			type: [String, Number],
 			default: 0,
@@ -209,7 +202,6 @@ export default {
 
 	data() {
 		return {
-			loading: false,
 			isHovered: false,
 			isDeleting: false,
 			// whether the message was seen, only used if this was marked as last read message
@@ -263,7 +255,7 @@ export default {
 		},
 
 		isDeletedMessage() {
-			return this.message.messageType === MESSAGE.TYPE.COMMENT_DELETED
+			return this.message.messageType === 'comment_deleted'
 		},
 
 		conversation() {
@@ -291,7 +283,7 @@ export default {
 				const mimetype = this.message.messageParameters[p].mimetype
 				const itemType = getItemTypeFromMessage({
 					messageParameters: this.message.messageParameters,
-					messageType: this.message.messageType,
+					messageType: this.message.messageType
 				})
 				if (Object.values(MENTION.TYPE).includes(type)) {
 					richParameters[p] = {
@@ -371,8 +363,8 @@ export default {
 		canReact() {
 			return this.conversation.readOnly !== CONVERSATION.STATE.READ_ONLY
 				&& (this.conversation.permissions & PARTICIPANT.PERMISSIONS.CHAT) !== 0
-				&& this.message.messageType !== MESSAGE.TYPE.COMMAND
-				&& this.message.messageType !== MESSAGE.TYPE.COMMENT_DELETED
+				&& this.message.messageType !== 'command'
+				&& this.message.messageType !== 'comment_deleted'
 		},
 	},
 
@@ -452,16 +444,13 @@ export default {
 		toggleCombinedSystemMessage() {
 			this.$emit('toggle-combined-system-message')
 		},
-
 		toggleFollowUpEmojiPicker() {
 			this.isFollowUpEmojiPickerOpen = !this.isFollowUpEmojiPickerOpen
 		},
 
 		async generateSummary() {
-			this.loading = true
 			await this.chatExtrasStore.requestChatSummary(this.message.token, this.message.id)
-			this.loading = false
-		},
+		}
 	},
 }
 </script>
@@ -487,7 +476,7 @@ export default {
 	&__scroll {
 		position: absolute;
 		top: 0;
-		inset-inline-end: 0;
+		right: 0;
 		width: fit-content;
 		height: 100%;
 		padding: 8px 8px 0 0;
@@ -540,7 +529,7 @@ export default {
 
 .message-buttons-bar {
 	display: flex;
-	inset-inline-end: 14px;
+	right: 14px;
 	top: 0;
 	position: sticky;
 	background-color: var(--color-main-background);
@@ -548,5 +537,9 @@ export default {
 	box-shadow: 0 0 4px 0 var(--color-box-shadow);
 	height: var(--default-clickable-area);
 	z-index: 1;
+
+	& h6 {
+		margin-left: auto;
+	}
 }
 </style>

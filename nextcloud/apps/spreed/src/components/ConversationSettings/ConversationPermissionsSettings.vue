@@ -57,7 +57,6 @@
 
 			<!-- Edit advanced permissions -->
 			<NcButton v-show="showEditButton"
-				class="edit-button"
 				type="tertiary"
 				:aria-label="t('spreed', 'Edit permissions')"
 				@click="showPermissionsEditor = true">
@@ -77,14 +76,18 @@
 </template>
 
 <script>
+import Pencil from 'vue-material-design-icons/Pencil.vue'
+
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import Pencil from 'vue-material-design-icons/Pencil.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+
 import PermissionEditor from '../PermissionsEditor/PermissionsEditor.vue'
-import { PARTICIPANT } from '../../constants.ts'
+
+import { PARTICIPANT } from '../../constants.js'
 
 const PERMISSIONS = PARTICIPANT.PERMISSIONS
 
@@ -160,14 +163,14 @@ export default {
 
 			// Compute the permissions value
 			switch (value) {
-				case 'all':
-					permissions = PERMISSIONS.MAX_DEFAULT
-					break
-				case 'restricted':
-					permissions = PERMISSIONS.CALL_JOIN
-					break
-				default:
-					permissions = value
+			case 'all':
+				permissions = PERMISSIONS.MAX_DEFAULT
+				break
+			case 'restricted':
+				permissions = PERMISSIONS.CALL_JOIN
+				break
+			default:
+				permissions = value
 			}
 
 			this.loading = true
@@ -201,15 +204,15 @@ export default {
 		 */
 		getPermissionRadioValue(value) {
 			switch (value) {
-				case PERMISSIONS.MAX_DEFAULT:
-				case PERMISSIONS.MAX_CUSTOM:
-					return 'all'
-				case PERMISSIONS.CALL_JOIN:
-				case PERMISSIONS.CALL_JOIN | PERMISSIONS.CUSTOM:
-					return 'restricted'
+			case PERMISSIONS.MAX_DEFAULT:
+			case PERMISSIONS.MAX_CUSTOM:
+				return 'all'
+			case PERMISSIONS.CALL_JOIN:
+			case PERMISSIONS.CALL_JOIN | PERMISSIONS.CUSTOM:
+				return 'restricted'
 
-				default:
-					return 'advanced'
+			default:
+				return 'advanced'
 			}
 		},
 
@@ -245,12 +248,13 @@ export default {
 		&--advanced {
 			display: flex;
 			justify-content: flex-start;
+
+			// Edit button
+			button {
+				margin-left: 16px;
+			}
 		}
 	}
-}
-
-.edit-button {
-	margin-inline-start: 16px;
 }
 
 .conversation-permissions-editor__hint {

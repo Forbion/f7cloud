@@ -3,36 +3,28 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { computed, ref, watch } from 'vue'
 import type { Route } from 'vue-router'
-import type { Conversation } from '../types/index.ts'
 
 import { t } from '@nextcloud/l10n'
-import { computed, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router/composables'
-import { EventBus } from '../services/EventBus.ts'
-import { hasCall, hasUnreadMentions } from '../utils/conversation.ts'
+
 import { useDocumentVisibility } from './useDocumentVisibility.ts'
 import { useStore } from './useStore.js'
-
-type LastMessageMap = {
-	[token: string]: {
-		lastMessageId: number
-		unreadMessages: number
-	}
-}
+import Router from '../router/router.js'
+import { EventBus } from '../services/EventBus.ts'
+import type { Conversation } from '../types'
+import { hasUnreadMentions, hasCall } from '../utils/conversation.js'
 
 /**
  * Composable to check whether the page is visible.
  */
 export function useDocumentTitle() {
 	const store = useStore()
-	const router = useRouter()
-	const route = useRoute()
 	const isDocumentVisible = useDocumentVisibility()
 
 	const defaultPageTitle = ref<string>(getDefaultPageTitle())
 	const showAsterisk = ref(false)
-	const savedLastMessageMap = ref<LastMessageMap>({})
+	const savedLastMessageMap = ref<Record<string, number>>({})
 
 	const conversationList = computed(() => store.getters.conversationsList)
 	const actorId = computed(() => store.getters.getActorId())
@@ -50,15 +42,14 @@ export function useDocumentTitle() {
 		 * - a conversation is newly added to lastMessageMap
 		 * - a conversation has a different last message id then previously
 		 */
-		const shouldShowAsterisk = Object.keys(newLastMessageMap).some((token) => {
+		const shouldShowAsterisk = Object.keys(newLastMessageMap).some(token => {
 			return savedLastMessageMap.value[token] === undefined // Conversation is new
-				|| (savedLastMessageMap.value[token].lastMessageId !== newLastMessageMap[token].lastMessageId // Last message changed
-					&& savedLastMessageMap.value[token].unreadMessages !== newLastMessageMap[token].unreadMessages // Unread messages changed
-					&& newLastMessageMap[token].lastMessageId !== -1) // And it is not under one of the exceptions (see getLastMessageMap())
+				|| (savedLastMessageMap.value[token] !== newLastMessageMap[token] // Last message changed
+					&& newLastMessageMap[token] !== -1) // And it is not from the current user nor archived
 		})
 		if (shouldShowAsterisk) {
 			showAsterisk.value = true
-			setPageTitleFromRoute(route)
+			setPageTitleFromRoute(Router.currentRoute)
 		}
 	})
 
@@ -66,7 +57,7 @@ export function useDocumentTitle() {
 		if (isDocumentVisible.value) {
 			// Remove asterisk for unread chat messages
 			showAsterisk.value = false
-			setPageTitleFromRoute(route)
+			setPageTitleFromRoute(Router.currentRoute)
 		} else {
 			// Copy the last message map to the saved version,
 			// this will be our reference to check if any chat got a new
@@ -79,32 +70,29 @@ export function useDocumentTitle() {
 	 * Adjust the page title to the conversation name once conversationsList is loaded
 	 */
 	EventBus.once('conversations-received', () => {
-		setPageTitleFromRoute(route)
+		setPageTitleFromRoute(Router.currentRoute)
 	})
 
 	/**
 	 * Change the page title after the route was changed
 	 */
-	router.afterEach((to) => setPageTitleFromRoute(to))
+	Router.afterEach((to) => setPageTitleFromRoute(to))
 
 	/**
 	 * Get a list for all last message ids
 	 *
 	 * @param conversationList array of conversations
 	 */
-	function getLastMessageMap(conversationList: Conversation[]): LastMessageMap {
+	function getLastMessageMap(conversationList: Conversation[]): Record<string, number> {
 		if (conversationList.length === 0) {
 			return {}
 		}
 
-		return conversationList.reduce((acc: LastMessageMap, conversation: Conversation) => {
-			const { token, lastMessage, isArchived, unreadMessages } = conversation
+		return conversationList.reduce((acc: Record<string, number>, conversation: Conversation) => {
+			const { token, lastMessage, isArchived } = conversation
 			// Default to 0 for messages without valid lastMessage
-			acc[token] = {
-				lastMessageId: 0,
-				unreadMessages: 0,
-			}
 			if (!lastMessage || Array.isArray(lastMessage)) {
+				acc[token] = 0
 				return acc
 			}
 
@@ -116,14 +104,13 @@ export function useDocumentTitle() {
 				// so to skip the asterisk for these messages
 				// Can't use 0 though because hidden commands result in 0,
 				// and they would hide other previously posted new messages
-				acc[token].lastMessageId = -1
+				acc[token] = -1
 			} else {
 				// @ts-expect-error: Property 'id' does not exist on type ChatProxyMessage
 				const lastMessageId = lastMessage.id ?? 0
 				const lastKnownMessageId = store.getters.getLastKnownMessageId(token) ?? 0
-				acc[token].lastMessageId = Math.max(lastMessageId, lastKnownMessageId)
+				acc[token] = Math.max(lastMessageId, lastKnownMessageId)
 			}
-			acc[token].unreadMessages = unreadMessages
 			return acc
 		}, {})
 	}
@@ -134,14 +121,14 @@ export function useDocumentTitle() {
 	 */
 	function setPageTitleFromRoute(route: Route) {
 		switch (route.name) {
-			case 'conversation':
-				setPageTitle(store.getters.conversation(route.params.token)?.displayName ?? '')
-				break
-			case 'duplicatesession':
-				setPageTitle(t('spreed', 'Duplicate session'))
-				break
-			default:
-				setPageTitle('')
+		case 'conversation':
+			setPageTitle(store.getters.conversation(route.params.token)?.displayName ?? '')
+			break
+		case 'duplicatesession':
+			setPageTitle(t('spreed', 'Duplicate session'))
+			break
+		default:
+			setPageTitle('')
 		}
 	}
 

@@ -46,6 +46,9 @@
 				:loading="isNotConnected"
 				disable-menu
 				disable-tooltip />
+        <span class="username">
+          {{displayName}}
+        </span>
 		</div>
 
 		<div class="bottom-bar">
@@ -60,16 +63,21 @@
 </template>
 
 <script>
+import { inject, ref } from 'vue'
+
+import AccountOff from 'vue-material-design-icons/AccountOff.vue'
+
 import { showError, showInfo, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import { inject, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import AccountOff from 'vue-material-design-icons/AccountOff.vue'
-import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import VideoBackground from './VideoBackground.vue'
-import { AVATAR } from '../../../constants.ts'
-import { useCallViewStore } from '../../../stores/callView.ts'
+import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
+import { AVATAR } from '../../../constants.js'
+import { useCallViewStore } from '../../../stores/callView.js'
 import attachMediaStream from '../../../utils/attachmediastream.js'
 import { ConnectionState } from '../../../utils/webrtc/models/CallParticipantModel.js'
 import { placeholderImage } from '../Grid/gridPlaceholders.ts'
@@ -91,57 +99,46 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		localMediaModel: {
 			type: Object,
 			required: true,
 		},
-
 		localCallParticipantModel: {
 			type: Object,
 			required: true,
 		},
-
 		isGrid: {
 			type: Boolean,
 			default: false,
 		},
-
 		isStripe: {
 			type: Boolean,
 			default: false,
 		},
-
 		fitVideo: {
 			type: Boolean,
 			default: false,
 		},
-
 		isSidebar: {
 			type: Boolean,
 			default: false,
 		},
-
 		showControls: {
 			type: Boolean,
 			default: true,
 		},
-
 		unSelectable: {
 			type: Boolean,
 			default: false,
 		},
-
 		isBig: {
 			type: Boolean,
 			default: false,
 		},
-
 		isSmall: {
 			type: Boolean,
 			default: false,
 		},
-
 		isPresenterOverlay: {
 			type: Boolean,
 			default: false,
@@ -427,7 +424,7 @@ export default {
 .video-loading {
 	position: absolute;
 	top: 0;
-	inset-inline-end: 0;
+	right: 0;
 	height: 100%;
 	width: 100%;
 }
@@ -456,7 +453,7 @@ export default {
 	height: 100%;
 	width: 100%;
 	top: 0;
-	inset-inline-start: 0;
+	left: 0;
 	border-radius: var(--border-radius-element, calc(var(--default-clickable-area) / 2));
 }
 
@@ -513,7 +510,7 @@ export default {
 .presenter-icon__hide {
 	position: absolute;
 	color: white;
-	inset-inline-start: calc(50% - var(--default-clickable-area) / 2);
+	left: calc(50% - var(--default-clickable-area) / 2);
 	top: calc(100% - var(--default-grid-baseline) - var(--default-clickable-area));
 	opacity: 0.7;
 	background-color: rgba(0, 0, 0, 0.5);

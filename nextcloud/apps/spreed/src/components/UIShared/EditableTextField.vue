@@ -15,7 +15,7 @@
 			ref="richContenteditable"
 			v-model="text"
 			dir="auto"
-			:auto-complete="() => {}"
+			:auto-complete="()=>{}"
 			:maxlength="maxLength"
 			:multiline="multiline"
 			:contenteditable="!loading"
@@ -44,7 +44,7 @@
 					tabindex="0"
 					:title="countDownWarningText"
 					:aria-label="countDownWarningText">
-					<span class="counter__numeric">{{ charactersCountDown }}</span>
+					<span>{{ charactersCountDown }}</span>
 				</div>
 			</template>
 			<NcButton v-if="!editing && editable"
@@ -62,13 +62,16 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcRichContenteditable from '@nextcloud/vue/components/NcRichContenteditable'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
 import IconCheck from 'vue-material-design-icons/Check.vue'
 import IconClose from 'vue-material-design-icons/Close.vue'
 import IconPencil from 'vue-material-design-icons/Pencil.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcRichContenteditable from '@nextcloud/vue/dist/Components/NcRichContenteditable.js'
+import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
+
 import { parseSpecialSymbols } from '../../utils/textParse.ts'
 
 export default {
@@ -247,7 +250,7 @@ export default {
 	align-items: flex-end;
 
 	&__edit {
-		margin-inline-start: var(--default-clickable-area);
+		margin-left: var(--default-clickable-area);
 	}
 
 	&__output {
@@ -270,7 +273,7 @@ export default {
 .spinner {
 	width: var(--default-clickable-area);
 	height: var(--default-clickable-area);
-	margin-inline-start: var(--default-clickable-area);
+	margin-left: var(--default-clickable-area);
 	flex-shrink: 0;
 }
 
@@ -281,13 +284,9 @@ export default {
 	border-radius: var(--border-radius-pill);
 	position: absolute;
 	top: 0;
-	inset-inline-end: 0;
+	right: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	&__numeric {
-		direction: ltr;
-	}
 }
 </style>

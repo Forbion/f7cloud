@@ -10,7 +10,7 @@ import { getCurrentInstance } from 'vue'
  *
  * @see https://vuex.vuejs.org/guide/composition-api.html
  * @todo remove after the migration to Vue 3
- * @return {import('vuex').Store<import('../store/storeConfig.js').default>}
+ * @return {import('../store/storeConfig').Store<import('../store/storeConfig.js').default>}
  */
 export function useStore() {
 	return getCurrentInstance().proxy.$root.$options.store

@@ -3,35 +3,36 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type {
-	BreakoutRoom,
-	broadcastChatMessageParams,
-	configureBreakoutRoomsParams,
-	Conversation,
-	Participant,
-	reorganizeAttendeesParams,
-	switchToBreakoutRoomParams,
-} from '../types/index.ts'
+import { defineStore } from 'pinia'
+import Vue from 'vue'
 
 import { showError } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import { defineStore } from 'pinia'
-import Vue from 'vue'
+
+import { useSidebarStore } from './sidebar.js'
 import {
-	broadcastMessageToBreakoutRooms,
 	configureBreakoutRooms,
 	deleteBreakoutRooms,
-	dismissRequestAssistance,
-	fetchBreakoutRoomsParticipants,
 	getBreakoutRooms,
-	reorganizeAttendees,
-	requestAssistance,
 	startBreakoutRooms,
 	stopBreakoutRooms,
+	broadcastMessageToBreakoutRooms,
+	fetchBreakoutRoomsParticipants,
+	requestAssistance,
+	dismissRequestAssistance,
+	reorganizeAttendees,
 	switchToBreakoutRoom,
 } from '../services/breakoutRoomsService.ts'
-import store from '../store/index.js'
-import { useSidebarStore } from './sidebar.ts'
+import store from '../store'
+import type {
+	Conversation,
+	Participant,
+	BreakoutRoom,
+	broadcastChatMessageParams,
+	configureBreakoutRoomsParams,
+	reorganizeAttendeesParams,
+	switchToBreakoutRoomParams,
+} from '../types'
 
 type Payload<T> = T & { token: string }
 type State = {
@@ -136,6 +137,7 @@ export const useBreakoutRoomsStore = defineStore('breakoutRooms', {
 
 				// Get the participants of the breakout rooms
 				await this.fetchBreakoutRoomsParticipants(token)
+
 			} catch (error) {
 				console.error(error)
 				showError(t('spreed', 'An error occurred while re-ordering the attendees'))
@@ -292,5 +294,5 @@ export const useBreakoutRoomsStore = defineStore('breakoutRooms', {
 				showError(t('spreed', 'An error occurred while joining breakout room'))
 			}
 		},
-	},
+	}
 })

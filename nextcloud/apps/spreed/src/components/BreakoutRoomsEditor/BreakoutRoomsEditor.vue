@@ -4,11 +4,11 @@
 -->
 
 <template>
-	<NcModal :class="{ 'modal-mask__participants-step': isEditingParticipants }"
+	<NcModal :class="{'modal-mask__participants-step': isEditingParticipants}"
 		:label-id="dialogHeaderId"
 		v-on="$listeners">
 		<div class="breakout-rooms-editor"
-			:class="{ 'breakout-rooms-editor__participants-step': isEditingParticipants }">
+			:class="{'breakout-rooms-editor__participants-step': isEditingParticipants}">
 			<h2 :id="dialogHeaderId" class="nc-dialog-alike-header">
 				{{ modalTitle }}
 			</h2>
@@ -75,13 +75,17 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
 import { ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcInputField from '@nextcloud/vue/components/NcInputField'
-import NcModal from '@nextcloud/vue/components/NcModal'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+
 import BreakoutRoomsParticipantsEditor from './BreakoutRoomsParticipantsEditor.vue'
+
 import { useId } from '../../composables/useId.ts'
 import { useBreakoutRoomsStore } from '../../stores/breakoutRooms.ts'
 
@@ -165,13 +169,13 @@ export default {
 
 	&__number-input {
 		display: block;
-		margin-bottom: calc(var(--default-grid-baseline) * 4);
+		margin-bottom: calc(var(--default-grid-baseline)*4);
 	}
 
 	&__caption {
 		font-weight: bold;
 		display: block;
-		margin: calc(var(--default-grid-baseline) * 3) 0 calc(var(--default-grid-baseline) * 2) 0;
+		margin: calc(var(--default-grid-baseline)*3) 0 calc(var(--default-grid-baseline)*2) 0;
 	}
 
 	&__error-hint {

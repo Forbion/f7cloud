@@ -29,6 +29,7 @@ import TrackSinkSource from './TrackSinkSource.js'
  *        --------------------
  */
 export default class BlackVideoEnforcer extends TrackSinkSource {
+
 	constructor() {
 		super()
 
@@ -140,7 +141,7 @@ export default class BlackVideoEnforcer extends TrackSinkSource {
 		clearInterval(this._renderInterval)
 		this._renderInterval = null
 
-		this._outputStream.getTracks().forEach((track) => {
+		this._outputStream.getTracks().forEach(track => {
 			this._disableRemoveTrackWhenEnded(track)
 
 			track.stop()
@@ -148,4 +149,5 @@ export default class BlackVideoEnforcer extends TrackSinkSource {
 
 		this._outputStream = null
 	}
+
 }

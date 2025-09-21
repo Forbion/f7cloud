@@ -6,18 +6,16 @@
 <template>
 	<NcDialog class="drafts"
 		:name="t('spreed', 'Poll drafts')"
-		:container="container"
 		size="normal"
 		close-on-click-outside
 		v-on="$listeners"
 		@update:open="emit('close')">
 		<EmptyView v-if="!pollDrafts.length"
 			class="drafts__empty"
-			:name="pollDraftsLoaded ? t('spreed', 'No poll drafts') : t('spreed', 'Loading …')"
-			:description="pollDraftsLoaded ? t('spreed', 'There is no poll drafts yet saved for this conversation') : ''">
+			:name="t('spreed', 'No poll drafts')"
+			:description="t('spreed', 'There is no poll drafts yet saved for this conversation')">
 			<template #icon>
-				<IconPoll v-if="pollDraftsLoaded" />
-				<NcLoadingIcon v-else />
+				<IconPoll />
 			</template>
 		</EmptyView>
 		<div v-else class="drafts__wrapper">
@@ -29,8 +27,8 @@
 				draft
 				@click="openPollEditor" />
 		</div>
-		<template v-if="!props.editorOpened" #actions>
-			<NcButton @click="openPollEditor({ id: null, action: 'fill' })">
+		<template v-if="props.showCreateButton" #actions>
+			<NcButton @click="openPollEditor(null)">
 				{{ t('spreed', 'Create new poll') }}
 			</NcButton>
 		</template>
@@ -38,24 +36,27 @@
 </template>
 
 <script setup lang="ts">
-import { t } from '@nextcloud/l10n'
 import { computed } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+
 import IconPoll from 'vue-material-design-icons/Poll.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+
 import EmptyView from '../EmptyView.vue'
 import Poll from '../MessagesList/MessagesGroup/Message/MessagePart/Poll.vue'
+
 import { EventBus } from '../../services/EventBus.ts'
 import { usePollsStore } from '../../stores/polls.ts'
 
 const props = defineProps<{
-	token: string
-	editorOpened?: boolean
-	container?: string
+	token: string,
+	showCreateButton?: boolean,
 }>()
 const emit = defineEmits<{
-	(event: 'close'): void
+	(event: 'close'): void,
 }>()
 
 const pollsStore = usePollsStore()
@@ -64,16 +65,13 @@ const pollsStore = usePollsStore()
  */
 pollsStore.getPollDrafts(props.token)
 const pollDrafts = computed(() => pollsStore.getDrafts(props.token))
-const pollDraftsLoaded = computed(() => pollsStore.draftsLoaded(props.token))
 
 /**
  * Opens poll editor pre-filled from the draft
- * @param payload method payload
- * @param payload.id poll draft ID
- * @param payload.action required action ('fill' from draft or 'edit' draft)
+ * @param id poll draft ID
  */
-function openPollEditor({ id, action }: { id: number | null, action?: string }) {
-	EventBus.emit('poll-editor-open', { id, fromDrafts: !props.editorOpened, action, selector: props.container })
+function openPollEditor(id: number) {
+	EventBus.emit('poll-editor-open', id)
 }
 </script>
 

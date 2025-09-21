@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import EmitterMixin from '../../EmitterMixin.js'
 import TrackSink from './TrackSink.js'
+import EmitterMixin from '../../EmitterMixin.js'
 
 /**
  * Sink node to add one or more tracks to a single stream.
@@ -34,6 +34,7 @@ import TrackSink from './TrackSink.js'
  *        ---------------
  */
 export default class TrackToStream extends TrackSink {
+
 	constructor() {
 		super()
 		this._superEmitterMixin()
@@ -96,6 +97,7 @@ export default class TrackToStream extends TrackSink {
 
 		this._trigger('trackEnabled', [this.getInputTrack(trackId), enabled])
 	}
+
 }
 
 EmitterMixin.apply(TrackToStream.prototype)

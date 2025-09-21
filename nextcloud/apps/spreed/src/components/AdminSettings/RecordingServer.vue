@@ -50,15 +50,18 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
 import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import IconCheck from 'vue-material-design-icons/Check.vue'
 import IconDelete from 'vue-material-design-icons/Delete.vue'
 import IconReload from 'vue-material-design-icons/Reload.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import { getWelcomeMessage } from '../../services/recordingService.js'
 
 export default {
@@ -81,19 +84,16 @@ export default {
 			default: '',
 			required: true,
 		},
-
 		verify: {
 			type: Boolean,
 			default: false,
 			required: true,
 		},
-
 		index: {
 			type: Number,
 			default: -1,
 			required: true,
 		},
-
 		loading: {
 			type: Boolean,
 			default: false,
@@ -127,10 +127,9 @@ export default {
 			get() {
 				return this.server
 			},
-
 			set(value) {
 				this.$emit('update:server', value)
-			},
+			}
 		},
 	},
 
@@ -153,7 +152,6 @@ export default {
 		removeServer() {
 			this.$emit('remove-server', this.index)
 		},
-
 		updateVerify(checked) {
 			this.$emit('update:verify', checked)
 		},

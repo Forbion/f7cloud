@@ -9,49 +9,20 @@
 		:name="item.displayName"
 		:title="item.displayName"
 		:data-nav-id="`conversation_${item.token}`"
-		class="conversation"
-		:class="{
-			'conversation--active': isActive,
-			'conversation--compact': compact,
-			'conversation--compact__read': compact && !item.unreadMessages,
-		}"
+		:class="['conversation', { 'conversation--active': isActive }]"
 		:actions-aria-label="t('spreed', 'Conversation actions')"
 		:to="to"
 		:bold="!!item.unreadMessages"
 		:counter-number="item.unreadMessages"
 		:counter-type="counterType"
 		force-menu
-		:compact="compact"
 		@click="onClick">
 		<template #icon>
-			<ConversationIcon :item="item"
-				:hide-favorite="compact"
-				:hide-call="compact"
-				:hide-user-status="item.type !== CONVERSATION.TYPE.ONE_TO_ONE && compact"
-				:show-user-online-status="compact"
-				:size="compact ? AVATAR.SIZE.COMPACT : AVATAR.SIZE.DEFAULT" />
+			<ConversationIcon :item="item" :hide-favorite="false" :hide-call="false" />
 		</template>
-		<template #name>
-			<template v-if="compact && iconType">
-				<component :is="iconType.component" :size="15" :fill-color="iconType.color" />
-				<span class="hidden-visually">{{ iconType.text }}</span>
-			</template>
-			<span class="text"> {{ item.displayName }} </span>
-		</template>
-		<template v-if="!compact && !item.isSensitive" #subname>
-			<span class="conversation__subname" :title="conversationInformation.title">
-				<span v-if="conversationInformation.actor"
-					class="conversation__subname-actor">
-					{{ conversationInformation.actor }}
-				</span>
-				<component :is="conversationInformation.icon"
-					v-if="conversationInformation.icon"
-					class="conversation__subname-icon"
-					:size="16" />
-				<span class="conversation__subname-message">
-					{{ conversationInformation.message }}
-				</span>
-			</span>
+		<template #subname>
+			<!-- eslint-disable-next-line vue/no-v-html -->
+			<span v-html="conversationInformation" />
 		</template>
 		<template v-if="!isSearchResult" #actions>
 			<template v-if="submenu === null">
@@ -132,7 +103,7 @@
 				<NcActionButton :aria-label="t('spreed', 'Back')"
 					@click.stop="submenu = null">
 					<template #icon>
-						<IconArrowLeft class="bidirectional-icon" :size="16" />
+						<IconArrowLeft :size="16" />
 					</template>
 					{{ t('spreed', 'Back') }}
 				</NcActionButton>
@@ -163,38 +134,13 @@
 						{{ t('spreed', 'Notify about calls') }}
 					</NcActionButton>
 				</template>
-
-				<template v-if="supportImportantConversations || supportSensitiveConversations">
-					<NcActionSeparator />
-
-					<NcActionButton v-if="supportImportantConversations"
-						type="checkbox"
-						:description="labelImportantHint"
-						:model-value="item.isImportant"
-						@click="toggleImportant(!item.isImportant)">
-						<template #icon>
-							<IconMessageAlert :size="16" />
-						</template>
-						{{ t('spreed', 'Important conversation') }}
-					</NcActionButton>
-					<NcActionButton v-if="supportSensitiveConversations"
-						type="checkbox"
-						:description="t('spreed', 'Hide message text')"
-						:model-value="item.isSensitive"
-						@click="toggleSensitive(!item.isSensitive)">
-						<template #icon>
-							<IconShieldLock :size="16" />
-						</template>
-						{{ t('spreed', 'Sensitive conversation') }}
-					</NcActionButton>
-				</template>
 			</template>
 		</template>
 
 		<template v-else-if="item.token" #actions>
 			<NcActionButton key="join-conversation" close-after-click @click="onActionClick">
 				<template #icon>
-					<IconArrowRight class="bidirectional-icon" :size="16" />
+					<IconArrowRight :size="16" />
 				</template>
 				{{ t('spreed', 'Join conversation') }}
 			</NcActionButton>
@@ -232,7 +178,7 @@
 			</NcDialog>
 			<NcDialog v-if="isDeleteDialogOpen"
 				:open.sync="isDeleteDialogOpen"
-				:name="t('spreed', 'Delete conversation')"
+				:name="t('spreed','Delete conversation')"
 				:message="dialogDeleteMessage">
 				<template #actions>
 					<NcButton type="tertiary" @click="isDeleteDialogOpen = false">
@@ -249,16 +195,9 @@
 
 <script>
 
-import { showError } from '@nextcloud/dialogs'
-import { emit } from '@nextcloud/event-bus'
-import { t } from '@nextcloud/l10n'
-import { ref, toRefs } from 'vue'
+import { toRefs, ref } from 'vue'
 import { isNavigationFailure, NavigationFailureType } from 'vue-router'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcListItem from '@nextcloud/vue/components/NcListItem'
+
 import IconAccount from 'vue-material-design-icons/Account.vue'
 import IconArchive from 'vue-material-design-icons/Archive.vue'
 import IconArchiveOff from 'vue-material-design-icons/ArchiveOff.vue'
@@ -271,22 +210,29 @@ import IconDelete from 'vue-material-design-icons/Delete.vue'
 import IconExitToApp from 'vue-material-design-icons/ExitToApp.vue'
 import IconEye from 'vue-material-design-icons/Eye.vue'
 import IconEyeOff from 'vue-material-design-icons/EyeOff.vue'
-import IconMessageAlert from 'vue-material-design-icons/MessageAlert.vue'
 import IconPhoneRing from 'vue-material-design-icons/PhoneRing.vue'
-import IconShieldLock from 'vue-material-design-icons/ShieldLock.vue'
 import IconStar from 'vue-material-design-icons/Star.vue'
-import IconVideo from 'vue-material-design-icons/Video.vue'
 import IconVolumeHigh from 'vue-material-design-icons/VolumeHigh.vue'
 import IconVolumeOff from 'vue-material-design-icons/VolumeOff.vue'
+
+import { showError } from '@nextcloud/dialogs'
+import { emit } from '@nextcloud/event-bus'
+import { t } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js'
+
 import ConversationIcon from './../../ConversationIcon.vue'
+
 import { useConversationInfo } from '../../../composables/useConversationInfo.ts'
-import { AVATAR, CONVERSATION, PARTICIPANT } from '../../../constants.ts'
+import { PARTICIPANT } from '../../../constants.js'
 import { hasTalkFeature } from '../../../services/CapabilitiesManager.ts'
 import { copyConversationLinkToClipboard } from '../../../utils/handleUrl.ts'
 
 const supportsArchive = hasTalkFeature('local', 'archived-conversations-v2')
-const supportImportantConversations = hasTalkFeature('local', 'important-conversations')
-const supportSensitiveConversations = hasTalkFeature('local', 'sensitive-conversations')
 
 const notificationLevels = [
 	{ value: PARTICIPANT.NOTIFY.ALWAYS, label: t('spreed', 'All messages') },
@@ -311,13 +257,10 @@ export default {
 		IconExitToApp,
 		IconEye,
 		IconEyeOff,
-		IconMessageAlert,
 		IconPhoneRing,
-		IconShieldLock,
 		IconStar,
 		IconVolumeHigh,
 		IconVolumeOff,
-		IconVideo,
 		NcActionButton,
 		NcActionSeparator,
 		NcButton,
@@ -330,7 +273,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		item: {
 			type: Object,
 			default() {
@@ -344,20 +286,13 @@ export default {
 					type: 0,
 					displayName: '',
 					isFavorite: false,
+					lastMessage: {},
 					notificationLevel: PARTICIPANT.NOTIFY.DEFAULT,
 					notificationCalls: PARTICIPANT.NOTIFY_CALLS.ON,
 					canDeleteConversation: false,
 					canLeaveConversation: false,
-					hasCall: false,
-					isImportant: false,
-					isSensitive: false,
 				}
 			},
-		},
-
-		compact: {
-			type: Boolean,
-			default: false,
 		},
 	},
 
@@ -371,17 +306,13 @@ export default {
 		const { counterType, conversationInformation } = useConversationInfo({ item, isSearchResult })
 
 		return {
-			AVATAR,
 			supportsArchive,
-			supportImportantConversations,
-			supportSensitiveConversations,
 			submenu,
 			isLeaveDialogOpen,
 			isDeleteDialogOpen,
 			counterType,
 			conversationInformation,
 			notificationLevels,
-			CONVERSATION,
 		}
 	},
 
@@ -402,10 +333,6 @@ export default {
 			return this.item.isArchived
 				? t('spreed', 'Unarchive conversation')
 				: t('spreed', 'Archive conversation')
-		},
-
-		labelImportantHint() {
-			return t('spreed', 'Ignore "Do not disturb"')
 		},
 
 		dialogLeaveMessage() {
@@ -443,23 +370,6 @@ export default {
 		showCallNotificationSettings() {
 			return !this.item.remoteServer || hasTalkFeature(this.item.token, 'federation-v2')
 		},
-
-		iconType() {
-			if (this.item.hasCall) {
-				return {
-					component: 'IconVideo',
-					color: '#E9322D',
-					text: t('spreed', 'Call in progress'),
-				}
-			} else if (this.item.isFavorite) {
-				return {
-					component: 'IconStar',
-					color: '#FFCC00',
-					text: t('spreed', 'Favorite'),
-				}
-			}
-			return null
-		},
 	},
 
 	methods: {
@@ -487,6 +397,7 @@ export default {
 			try {
 				this.isDeleteDialogOpen = false
 				if (this.isActive) {
+					await this.$store.dispatch('leaveConversation', { token: this.item.token })
 					await this.$router.push({ name: 'root' })
 						.catch((failure) => !isNavigationFailure(failure, NavigationFailureType.duplicated) && Promise.reject(failure))
 				}
@@ -504,6 +415,7 @@ export default {
 			try {
 				this.isLeaveDialogOpen = false
 				if (this.isActive) {
+					await this.$store.dispatch('leaveConversation', { token: this.item.token })
 					await this.$router.push({ name: 'root' })
 						.catch((failure) => !isNavigationFailure(failure, NavigationFailureType.duplicated) && Promise.reject(failure))
 				}
@@ -528,13 +440,13 @@ export default {
 
 		notificationLevelIcon(value) {
 			switch (value) {
-				case PARTICIPANT.NOTIFY.ALWAYS:
-					return IconVolumeHigh
-				case PARTICIPANT.NOTIFY.MENTION:
-					return IconAccount
-				case PARTICIPANT.NOTIFY.NEVER:
-				default:
-					return IconVolumeOff
+			case PARTICIPANT.NOTIFY.ALWAYS:
+				return IconVolumeHigh
+			case PARTICIPANT.NOTIFY.MENTION:
+				return IconAccount
+			case PARTICIPANT.NOTIFY.NEVER:
+			default:
+				return IconVolumeOff
 			}
 		},
 
@@ -562,24 +474,6 @@ export default {
 			})
 		},
 
-		/**
-		 * Toggle the important flag for the conversation
-		 *
-		 * @param {boolean} isImportant The important flag to set.
-		 */
-		async toggleImportant(isImportant) {
-			await this.$store.dispatch('toggleImportant', { token: this.item.token, isImportant })
-		},
-
-		/**
-		 * Toggle the sensitive flag for the conversation
-		 *
-		 * @param {boolean} isSensitive The sensitive flag to set.
-		 */
-		async toggleSensitive(isSensitive) {
-			await this.$store.dispatch('toggleSensitive', { token: this.item.token, isSensitive })
-		},
-
 		onClick() {
 			// add as temporary item that will refresh after the joining process is complete
 			if (this.isSearchResult) {
@@ -592,7 +486,7 @@ export default {
 			this.onClick()
 			// NcActionButton is not a RouterLink, so we should route user manually
 			this.$router.push(this.to)
-				.catch((err) => console.debug(`Error while pushing the new conversation's route: ${err}`))
+				.catch(err => console.debug(`Error while pushing the new conversation's route: ${err}`))
 		},
 	},
 }
@@ -623,47 +517,6 @@ export default {
 			border-color: var(--color-primary-element-hover);
 		}
 	}
-
-	&--compact {
-		padding-block: 2px !important; // Overwrite list-item 4px padding
-		&:deep(.list-item-content__name) {
-			display: flex;
-			gap: calc(var(--default-grid-baseline) / 2);
-		}
-		&__read {
-			&:deep(.list-item-content__name) {
-				font-weight: 400;
-			}
-		}
-
-	}
-
-	&__subname {
-		display: flex;
-		gap: var(--default-grid-baseline);
-
-		&-actor {
-			flex: 0 1 auto;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-		&-icon {
-			flex-shrink: 0;
-		}
-		&-message {
-			flex: 1 1 0;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-	}
-}
-
-.text {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 
 :deep(.dialog) {

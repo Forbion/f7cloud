@@ -23,8 +23,10 @@
 import axios from '@nextcloud/axios'
 import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import { CONVERSATION, FLOW, PARTICIPANT } from '../constants.ts'
+
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+
+import { FLOW, CONVERSATION, PARTICIPANT } from '../constants.js'
 import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
 
 const supportFederationV1 = hasTalkFeature('local', 'federation-v1')
@@ -37,7 +39,6 @@ export default {
 			default: '',
 			type: String,
 		},
-
 		// keep "value" for backwards compatibility, up to NC 31
 		value: {
 			default: JSON.stringify({ m: '0', t: '' }),
@@ -63,41 +64,36 @@ export default {
 					text: t('spreed', 'Mention everyone'),
 				},
 			],
-
 			roomOptions: [],
 		}
 	},
-
 	computed: {
 		currentRoom() {
 			if (this.modelValue === '' && this.value === '') {
 				return ''
 			}
 			const selectedRoom = JSON.parse(this.modelValue || this.value).t
-			const newValue = this.roomOptions.find((option) => option.token === selectedRoom)
+			const newValue = this.roomOptions.find(option => option.token === selectedRoom)
 			if (typeof newValue === 'undefined') {
 				return ''
 			}
 			return newValue
 		},
-
 		currentMode() {
 			if (this.modelValue === '' && this.value === '') {
 				return this.modeOptions[0]
 			}
 			const selectedMode = JSON.parse(this.modelValue || this.value).m
-			const newValue = this.modeOptions.find((option) => option.id === selectedMode)
+			const newValue = this.modeOptions.find(option => option.id === selectedMode)
 			if (typeof newValue === 'undefined') {
 				return this.modeOptions[0]
 			}
 			return newValue
 		},
 	},
-
 	beforeMount() {
 		this.fetchRooms()
 	},
-
 	methods: {
 		t,
 		fetchRooms() {
@@ -109,14 +105,13 @@ export default {
 				})
 			})
 		},
-
 		emitEvents(mode, token) {
 			if (mode === null || token === null) {
 				return
 			}
 			this.$emit('input', JSON.stringify({ m: mode, t: token }))
 			this.$emit('update:model-value', JSON.stringify({ m: mode, t: token }))
-		},
+		}
 	},
 }
 

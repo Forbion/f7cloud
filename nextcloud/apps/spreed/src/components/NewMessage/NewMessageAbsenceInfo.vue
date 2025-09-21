@@ -19,10 +19,10 @@
 		<p v-if="userAbsencePeriod">{{ userAbsencePeriod }}</p>
 		<div v-if="userAbsence.replacementUserId" class="absence-reminder__replacement">
 			<!-- TRANSLATORS An acting person during the period of absence of the main contact -->
-			<p>{{ t('spreed', 'Replacement:') }}</p>
+			<p>{{ t('spreed','Replacement:') }}</p>
 			<NcUserBubble :key="isDarkTheme ? 'dark' : 'light'"
 				class="absence-reminder__replacement__bubble"
-				:title="t('spreed', 'Open conversation')"
+				:title="t('spreed','Open conversation')"
 				:display-name="userAbsence.replacementUserDisplayName"
 				:user="userAbsence.replacementUserId"
 				@click="openConversationWithReplacementUser" />
@@ -30,28 +30,29 @@
 		<NcButton v-if="userAbsenceMessage && isTextMoreThanOneLine"
 			class="absence-reminder__button"
 			type="tertiary"
-			:title="!collapsed ? t('spreed', 'Collapse') : t('spreed', 'Expand')"
-			:aria-label="!collapsed ? t('spreed', 'Collapse') : t('spreed', 'Expand')"
 			@click="toggleCollapsed">
 			<template #icon>
-				<ChevronUp class="icon" :class="{ 'icon--reverted': !collapsed }" :size="20" />
+				<ChevronUp class="icon" :class="{'icon--reverted': !collapsed}" :size="20" />
 			</template>
 		</NcButton>
-		<p ref="absenceMessage" class="absence-reminder__message" :class="{ 'absence-reminder__message--collapsed': collapsed }">{{ userAbsenceMessage }}</p>
+		<p ref="absenceMessage" class="absence-reminder__message" :class="{'absence-reminder__message--collapsed': collapsed}">{{ userAbsenceMessage }}</p>
 	</NcNoteCard>
 </template>
 
 <script>
-import { getCurrentUser } from '@nextcloud/auth'
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
+
 import { t } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
-import { useIsDarkTheme } from '@nextcloud/vue/composables/useIsDarkTheme'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
-import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import NcUserBubble from '@nextcloud/vue/dist/Components/NcUserBubble.js'
+import { useIsDarkTheme } from '@nextcloud/vue/dist/Composables/useIsDarkTheme.js'
+
 import AvatarWrapper from '../AvatarWrapper/AvatarWrapper.vue'
-import { AVATAR } from '../../constants.ts'
+
+import { AVATAR } from '../../constants.js'
 
 export default {
 	name: 'NewMessageAbsenceInfo',
@@ -100,7 +101,7 @@ export default {
 		userAbsenceCaption() {
 			return t('spreed', '{user} is out of office and might not respond.', { user: this.displayName }, undefined, {
 				escape: false,
-				sanitize: false,
+				sanitize: false
 			})
 		},
 
@@ -113,8 +114,8 @@ export default {
 				return ''
 			}
 			return t('spreed', 'Absence period: {startDate} - {endDate}', {
-				startDate: moment(this.userAbsence.startDate * 1000).format('ll'),
-				endDate: moment(this.userAbsence.endDate * 1000).format('ll'),
+				startDate: moment.unix(this.userAbsence.startDate).format('ll'),
+				endDate: moment.unix(this.userAbsence.endDate).format('ll'),
 			})
 		},
 	},
@@ -145,22 +146,12 @@ export default {
 		},
 
 		async openConversationWithReplacementUser() {
-			if (this.userAbsence.replacementUserId === getCurrentUser().uid) {
-				// Don't open a chat with one-self
-				return
-			}
-
-			if (this.userAbsence.replacementUserId === this.userAbsence.userId) {
-				// Don't recursively go to the current chat
-				return
-			}
-
 			this.$router.push({
 				name: 'root',
 				query: {
 					callUser: this.userAbsence.replacementUserId,
-				},
-			}).catch((err) => console.debug(`Error while pushing the new conversation's route: ${err}`))
+				}
+			}).catch(err => console.debug(`Error while pushing the new conversation's route: ${err}`))
 		},
 	},
 }
@@ -176,8 +167,8 @@ export default {
 
 	&__caption {
 		font-weight: bold;
-		margin-block: var(--default-grid-baseline);
-		margin-inline: 0 var(--default-clickable-area);
+		margin: var(--default-grid-baseline) var(--default-clickable-area);
+		margin-left: 0;
 	}
 
 	&__replacement {
@@ -206,7 +197,7 @@ export default {
 	&__button {
 		position: absolute !important;
 		top: 4px;
-		inset-inline-end: 20px;
+		right: 20px;
 
 		& .icon {
 			transition: $transition;

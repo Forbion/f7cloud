@@ -41,6 +41,7 @@
  * needed, inheriters check its enabled state when an input track is set.
  */
 export default (function() {
+
 	/**
 	 * Mixin constructor.
 	 *
@@ -68,7 +69,7 @@ export default (function() {
 			throw new Error('Invalid input track id: ' + inputTrackId)
 		}
 
-		const connectedTrackSource = this._connectedTrackSources.find((connected) => connected.inputTrackId === inputTrackId)
+		const connectedTrackSource = this._connectedTrackSources.find(connected => connected.inputTrackId === inputTrackId)
 		if (connectedTrackSource) {
 			if (connectedTrackSource.trackSource !== trackSource || connectedTrackSource.outputTrackId !== outputTrackId) {
 				throw new Error('Input track id is already connected to another source: ', inputTrackId, connectedTrackSource.trackSource, connectedTrackSource.outputTrackId)
@@ -98,7 +99,8 @@ export default (function() {
 	 *        source
 	 */
 	function disconnectTrackSource(inputTrackId, trackSource, outputTrackId = 'default') {
-		const connectedTrackSourceIndex = this._connectedTrackSources.findIndex((connected) => connected.trackSource === trackSource
+		const connectedTrackSourceIndex = this._connectedTrackSources.findIndex(connected =>
+			connected.trackSource === trackSource
 			&& connected.outputTrackId === outputTrackId
 			&& connected.inputTrackId === inputTrackId)
 		if (connectedTrackSourceIndex === -1) {
@@ -145,7 +147,7 @@ export default (function() {
 			throw new Error('Invalid track id: ' + trackId)
 		}
 
-		const connectedTrackSource = this._connectedTrackSources.find((connected) => connected.inputTrackId === trackId)
+		const connectedTrackSource = this._connectedTrackSources.find(connected => connected.inputTrackId === trackId)
 		if (connectedTrackSource) {
 			throw new Error('Connected input track slot can not be removed: ' + trackId)
 		}
@@ -160,7 +162,7 @@ export default (function() {
 	 * @param {MediaStreamTrack|null} track the track set in the source
 	 */
 	function _handleOutputTrackSet(trackSource, outputTrackId, track) {
-		this._connectedTrackSources.forEach((connected) => {
+		this._connectedTrackSources.forEach(connected => {
 			if (connected.trackSource === trackSource && connected.outputTrackId === outputTrackId) {
 				this._setInputTrack(connected.inputTrackId, track)
 			}
@@ -175,7 +177,7 @@ export default (function() {
 	 * @param {boolean} enabled whether the track was enabled or disabled
 	 */
 	function _handleOutputTrackEnabled(trackSource, outputTrackId, enabled) {
-		this._connectedTrackSources.forEach((connected) => {
+		this._connectedTrackSources.forEach(connected => {
 			if (connected.trackSource === trackSource && connected.outputTrackId === outputTrackId) {
 				this._setInputTrackEnabled(connected.inputTrackId, enabled)
 			}

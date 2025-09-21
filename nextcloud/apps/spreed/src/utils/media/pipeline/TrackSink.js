@@ -17,9 +17,11 @@ import TrackSinkMixin from './TrackSinkMixin.js'
  *        -----------
  */
 export default class TrackSink {
+
 	constructor() {
 		this._superTrackSinkMixin()
 	}
+
 }
 
 TrackSinkMixin.apply(TrackSink.prototype)

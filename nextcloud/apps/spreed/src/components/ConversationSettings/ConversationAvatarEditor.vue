@@ -8,9 +8,8 @@
 		<div class="avatar__container">
 			<div v-if="!showCropper" class="avatar__preview">
 				<div v-if="emojiAvatar"
-					class="avatar__preview-emoji"
-					:class="themeClass"
-					:style="{ 'background-color': backgroundColor }">
+					:class="['avatar__preview-emoji', themeClass]"
+					:style="{'background-color': backgroundColor}">
 					{{ emojiAvatar }}
 				</div>
 				<ConversationIcon v-else-if="!loading"
@@ -106,23 +105,29 @@
 </template>
 
 <script>
-import { showError } from '@nextcloud/dialogs'
-import { FilePickerVue } from '@nextcloud/dialogs/filepicker.js'
-import { t } from '@nextcloud/l10n'
-import { generateUrl } from '@nextcloud/router'
-import { useIsDarkTheme } from '@nextcloud/vue/composables/useIsDarkTheme'
 import VueCropper from 'vue-cropperjs'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcColorPicker from '@nextcloud/vue/components/NcColorPicker'
-import NcEmojiPicker from '@nextcloud/vue/components/NcEmojiPicker'
+
 import Delete from 'vue-material-design-icons/Delete.vue'
 import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 import Folder from 'vue-material-design-icons/Folder.vue'
 import Palette from 'vue-material-design-icons/Palette.vue'
 import Upload from 'vue-material-design-icons/Upload.vue'
-import ConversationIcon from '../ConversationIcon.vue'
-import { AVATAR } from '../../constants.ts'
 
+import { showError } from '@nextcloud/dialogs'
+import { FilePickerVue } from '@nextcloud/dialogs/filepicker.js'
+import { t } from '@nextcloud/l10n'
+import { generateUrl } from '@nextcloud/router'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker.js'
+import NcEmojiPicker from '@nextcloud/vue/dist/Components/NcEmojiPicker.js'
+import { useIsDarkTheme } from '@nextcloud/vue/dist/Composables/useIsDarkTheme.js'
+
+import ConversationIcon from '../ConversationIcon.vue'
+
+import { AVATAR } from '../../constants.js'
+
+// eslint-disable-next-line n/no-extraneous-import
 import 'cropperjs/dist/cropper.css'
 
 const validMimeTypes = ['image/png', 'image/jpeg']
@@ -150,7 +155,6 @@ export default {
 			type: Object,
 			required: true,
 		},
-
 		/**
 		 * Shows or hides the editing buttons.
 		 */
@@ -158,7 +162,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		/**
 		 * Force component to emit signals and be used from parent components
 		 */
@@ -169,8 +172,6 @@ export default {
 	},
 
 	emits: ['avatar-edited'],
-
-	expose: ['saveAvatar'],
 
 	setup() {
 		const isDarkTheme = useIsDarkTheme()
@@ -196,8 +197,7 @@ export default {
 				minContainerWidth: 300,
 				minContainerHeight: 300,
 			},
-
-			backgroundColor: '',
+			backgroundColor: '#70B62B',
 			emojiAvatar: '',
 		}
 	},
@@ -234,13 +234,14 @@ export default {
 				this.$emit('avatar-edited', value)
 			}
 		},
-
 		emojiAvatar(value) {
 			if (this.controlled) {
 				this.$emit('avatar-edited', !!value)
 			}
 		},
 	},
+
+	expose: ['saveAvatar'],
 
 	methods: {
 		t,
@@ -311,31 +312,26 @@ export default {
 				color: this.backgroundColor ? this.backgroundColor.slice(1) : null,
 			})
 			this.emojiAvatar = ''
-			this.backgroundColor = ''
+			this.backgroundColor = '#70B62B'
 		},
 
-		async getPictureFormData() {
+		async savePictureAvatar() {
+			this.showCropper = false
 			const canvasData = this.$refs.cropper.getCroppedCanvas()
 			const scaleFactor = canvasData.width > 512 ? 512 / canvasData.width : 1
 
 			const blob = await new Promise((resolve, reject) => {
 				this.$refs.cropper.scale(scaleFactor, scaleFactor).getCroppedCanvas()
-					.toBlob((blob) => blob === null
+					.toBlob(blob => blob === null
 						? reject(new Error(t('spreed', 'Error cropping conversation picture')))
 						: resolve(blob))
 			})
 			const formData = new FormData()
 			formData.append('file', blob)
-			return formData
-		},
-
-		async savePictureAvatar() {
-			this.showCropper = false
-			const file = await this.getPictureFormData()
 
 			await this.$store.dispatch('setConversationAvatarAction', {
 				token: this.conversation.token,
-				file,
+				file: formData,
 			})
 		},
 
@@ -356,7 +352,7 @@ export default {
 			this.showCropper = false
 			this.loading = false
 			this.emojiAvatar = ''
-			this.backgroundColor = ''
+			this.backgroundColor = '#70B62B'
 		},
 	},
 }
@@ -404,12 +400,12 @@ section {
 			height: 100%;
 			padding-bottom: 6px;
 			border-radius: 100%;
-			background-color: var(--color-text-maxcontrast);
+			background-color: #70B62B;
 			font-size: 575%;
 			line-height: 100%;
 
 			&--dark {
-				background-color: #3B3B3B;
+				background-color: #70B62B;
 			}
 		}
 	}

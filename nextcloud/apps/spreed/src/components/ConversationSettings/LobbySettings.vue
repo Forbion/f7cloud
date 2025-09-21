@@ -63,43 +63,34 @@
 				:token="token"
 				container=".import-email-participants"
 				@close="isImportEmailsDialogOpen = false" />
-
-			<template v-if="canCreatePollDrafts">
-				<h4 class="app-settings-section__subtitle">
-					{{ t('spreed', 'Poll drafts') }}
-				</h4>
-				<NcButton @click="openPollDraftHandler">
-					<template #icon>
-						<IconPoll :size="20" />
-					</template>
-					{{ t('spreed', 'Browse poll drafts') }}
-				</NcButton>
-			</template>
 		</div>
 	</div>
 </template>
 
 <script>
+import IconFileUpload from 'vue-material-design-icons/FileUpload.vue'
+
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcDateTimePicker from '@nextcloud/vue/components/NcDateTimePicker'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import IconFileUpload from 'vue-material-design-icons/FileUpload.vue'
-import IconPoll from 'vue-material-design-icons/Poll.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+
 import ImportEmailsDialog from '../ImportEmailsDialog.vue'
-import { WEBINAR } from '../../constants.ts'
+
+import { WEBINAR } from '../../constants.js'
 import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
-import { EventBus } from '../../services/EventBus.ts'
-import { convertToUnix, futureRelativeTime, ONE_DAY_IN_MS } from '../../utils/formattedTime.ts'
+import { futureRelativeTime } from '../../utils/formattedTime.ts'
+
+const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000
 
 export default {
 	name: 'LobbySettings',
 
 	components: {
 		IconFileUpload,
-		IconPoll,
 		ImportEmailsDialog,
 		NcButton,
 		NcCheckboxRadioSwitch,
@@ -163,10 +154,9 @@ export default {
 				// millisecond based.
 				return this.conversation.lobbyTimer * 1000
 			},
-
 			set(value) {
 				this.saveLobbyTimer(value)
-			},
+			}
 		},
 
 		dateTimePickerAttrs() {
@@ -196,20 +186,32 @@ export default {
 		getRelativeTime() {
 			return futureRelativeTime(this.lobbyTimer)
 		},
-
-		canCreatePollDrafts() {
-			return hasTalkFeature(this.token, 'talk-polls-drafts')
-		},
 	},
 
 	methods: {
 		t,
 		async toggleLobby() {
+			const newLobbyState = this.conversation.lobbyState !== WEBINAR.LOBBY.NON_MODERATORS
 			this.isLobbyStateLoading = true
-			await this.$store.dispatch('toggleLobby', {
-				token: this.token,
-				enableLobby: this.conversation.lobbyState !== WEBINAR.LOBBY.NON_MODERATORS,
-			})
+			try {
+				await this.$store.dispatch('toggleLobby', {
+					token: this.token,
+					enableLobby: newLobbyState,
+				})
+				if (newLobbyState) {
+					showSuccess(t('spreed', 'You restricted the conversation to moderators'))
+				} else {
+					showSuccess(t('spreed', 'You opened the conversation to everyone'))
+				}
+			} catch (e) {
+				if (newLobbyState) {
+					console.error('Error occurred when restricting the conversation to moderator', e)
+					showError(t('spreed', 'Error occurred when restricting the conversation to moderator'))
+				} else {
+					console.error('Error occurred when opening the conversation to everyone', e)
+					showError(t('spreed', 'Error occurred when opening the conversation to everyone'))
+				}
+			}
 			this.isLobbyStateLoading = false
 		},
 
@@ -219,7 +221,7 @@ export default {
 			try {
 				await this.$store.dispatch('setLobbyTimer', {
 					token: this.token,
-					timestamp: timestamp ? convertToUnix(timestamp) : 0,
+					timestamp: timestamp ? (timestamp / 1000) : 0,
 				})
 				showSuccess(t('spreed', 'Start time has been updated'))
 			} catch (e) {
@@ -228,10 +230,6 @@ export default {
 			}
 
 			this.isLobbyTimerLoading = false
-		},
-
-		openPollDraftHandler() {
-			EventBus.emit('poll-drafts-open', { selector: '#settings-section_meeting' })
 		},
 	},
 }

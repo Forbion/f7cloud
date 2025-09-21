@@ -4,11 +4,11 @@
 -->
 
 <template>
-	<div class="video-background" :style="{ 'background-color': backgroundColor }" />
+	<div class="video-background" :style="{'background-color': backgroundColor }" />
 </template>
 
 <script>
-import usernameToColor from '@nextcloud/vue/functions/usernameToColor'
+import usernameToColor from '@nextcloud/vue/dist/Functions/usernameToColor.js'
 
 export default {
 	name: 'VideoBackground',
@@ -18,7 +18,6 @@ export default {
 			type: String,
 			default: null,
 		},
-
 		user: {
 			type: String,
 			default: '',
@@ -43,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .video-background {
 	position: absolute;
-	inset-inline-start: 0;
+	left: 0;
 	top: 0;
 	height: 100%;
 	width: 100%;
@@ -55,7 +54,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		top: 0;
-		inset-inline-start: 0;
+		left: 0;
 	}
 }
 </style>

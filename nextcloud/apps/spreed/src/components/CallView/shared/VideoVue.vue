@@ -47,7 +47,7 @@
 		</TransitionWrapper>
 		<TransitionWrapper name="fade">
 			<div v-if="showBackgroundAndAvatar"
-				key="backgroundAvatar"
+				:key="'backgroundAvatar'"
 				class="avatar-container">
 				<VideoBackground :display-name="displayName" :user="participantUserId" />
 				<AvatarWrapper :id="participantUserId"
@@ -62,7 +62,7 @@
 		</TransitionWrapper>
 		<TransitionWrapper name="fade">
 			<div v-if="showPlaceholderForPromoted"
-				key="placeholderForPromoted"
+				:key="'placeholderForPromoted'"
 				class="placeholder-for-promoted">
 				<AccountCircle v-if="isPromoted || isSelected" fill-color="#FFFFFF" :size="64" />
 			</div>
@@ -82,21 +82,26 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
 import Hex from 'crypto-js/enc-hex.js'
 import SHA1 from 'crypto-js/sha1.js'
 import { inject, ref } from 'vue'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+
 import AccountCircle from 'vue-material-design-icons/AccountCircle.vue'
 import AccountOff from 'vue-material-design-icons/AccountOff.vue'
-import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
-import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import Screen from './Screen.vue'
 import VideoBackground from './VideoBackground.vue'
 import VideoBottomBar from './VideoBottomBar.vue'
-import { ATTENDEE, AVATAR } from '../../../constants.ts'
+import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
+
+import { ATTENDEE, AVATAR } from '../../../constants.js'
 import { EventBus } from '../../../services/EventBus.ts'
-import { useCallViewStore } from '../../../stores/callView.ts'
+import { useCallViewStore } from '../../../stores/callView.js'
 import { useGuestNameStore } from '../../../stores/guestName.js'
 import attachMediaStream from '../../../utils/attachmediastream.js'
 import { getDisplayNameWithFallback } from '../../../utils/getDisplayName.ts'
@@ -124,65 +129,53 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		placeholderForPromoted: {
 			type: Boolean,
 			default: false,
 		},
-
 		model: {
 			type: Object,
 			required: true,
 		},
-
 		sharedData: {
 			type: Object,
 			required: true,
 		},
-
 		showVideoOverlay: {
 			type: Boolean,
 			default: true,
 		},
-
 		isGrid: {
 			type: Boolean,
 			default: false,
 		},
-
 		fitVideo: {
 			type: Boolean,
 			default: false,
 		},
-
 		isPresenterOverlay: {
 			type: Boolean,
 			default: false,
 		},
-
 		isBig: {
 			type: Boolean,
 			default: false,
 		},
-
 		// True if this video component is used in the promoted view's video stripe
 		isStripe: {
 			type: Boolean,
 			default: false,
 		},
-
 		// The current promoted participant
 		isPromoted: {
 			type: Boolean,
 			default: false,
 		},
-
 		// Is the current selected participant
 		isSelected: {
 			type: Boolean,
 			default: false,
 		},
-
 		// True when this component is used as main video in the sidebar
 		isSidebar: {
 			type: Boolean,
@@ -324,13 +317,13 @@ export default {
 				'video-container-grid': this.isGrid,
 				'video-container-big': this.isBig,
 				'one-to-one': this.isOneToOne,
-				'presenter-overlay': this.isPresenterOverlay,
+				'presenter-overlay': this.isPresenterOverlay
 			}
 		},
 
 		videoWrapperClass() {
 			return {
-				'presenter-overlay': this.isPresenterOverlay,
+				'presenter-overlay': this.isPresenterOverlay
 			}
 		},
 
@@ -507,6 +500,7 @@ export default {
 				} else {
 					return this.hasVideo
 				}
+
 			}
 		},
 
@@ -522,6 +516,7 @@ export default {
 			} else {
 				return false
 			}
+
 		},
 
 		showBackgroundAndAvatar() {
@@ -583,6 +578,7 @@ export default {
 	methods: {
 		t,
 		_setStream(stream) {
+
 			if (!stream) {
 				// Do not clear the srcObject of the video element, just leave
 				// the previous stream as a frozen image.
@@ -625,7 +621,7 @@ export default {
 
 		handleHoverEvent(value) {
 			this.$emit('force-promote-video', value ? this.model : null)
-		},
+		}
 	},
 
 }
@@ -696,7 +692,7 @@ export default {
 	& > .dev-mode-video--presenter {
 		position: absolute;
 		top: 0;
-		inset-inline-start: 0;
+		left: 0;
 		height: 100%;
 		width: 100%;
 		object-fit: cover;
@@ -707,7 +703,7 @@ export default {
 .video-loading {
 	position: absolute;
 	top: 0;
-	inset-inline-end: 0;
+	right: 0;
 	height: 100%;
 	width: 100%;
 }
@@ -745,7 +741,7 @@ export default {
 	height: 100%;
 	width: 100%;
 	top: 0;
-	inset-inline-start: 0;
+	left: 0;
 	border-radius: var(--border-radius-element, calc(var(--default-clickable-area) / 2));
 }
 
@@ -768,7 +764,7 @@ export default {
 .presenter-icon__hide {
 	position: absolute;
 	color: white;
-	inset-inline-start: calc(50% - var(--default-clickable-area) / 2);
+	left: calc(50% - var(--default-clickable-area) / 2);
 	top: calc(100% - var(--default-grid-baseline) - var(--default-clickable-area));
 	opacity: 0.7;
 	background-color: rgba(0, 0, 0, 0.5);

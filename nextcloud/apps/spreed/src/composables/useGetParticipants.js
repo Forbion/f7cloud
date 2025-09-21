@@ -1,26 +1,24 @@
-import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { CONFIG, CONVERSATION } from '../constants.ts'
-import { getTalkConfig } from '../services/CapabilitiesManager.ts'
-import { EventBus } from '../services/EventBus.ts'
-import { useSessionStore } from '../stores/session.ts'
+import { ref, nextTick, computed, watch, onBeforeUnmount, onMounted } from 'vue'
+
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+
 import { useDocumentVisibility } from './useDocumentVisibility.ts'
 import { useIsInCall } from './useIsInCall.js'
 import { useStore } from './useStore.js'
-
-const experimentalUpdateParticipants = (getTalkConfig('local', 'experiments', 'enabled') ?? 0) & CONFIG.EXPERIMENTAL.UPDATE_PARTICIPANTS
+import { CONVERSATION } from '../constants.js'
+import { EventBus } from '../services/EventBus.ts'
 
 /**
  * @param {import('vue').Ref} isActive whether the participants tab is active
  * @param {boolean} isTopBar whether the component is the top bar
  */
 export function useGetParticipants(isActive = ref(true), isTopBar = true) {
+
 	// Encapsulation
-	const sessionStore = useSessionStore()
 	const store = useStore()
 	const token = computed(() => store.getters.getToken())
 	const conversation = computed(() => store.getters.conversation(token.value))
@@ -32,7 +30,6 @@ export function useGetParticipants(isActive = ref(true), isTopBar = true) {
 	let pendingChanges = true
 	let throttleFastUpdateTimeout = null
 	let throttleSlowUpdateTimeout = null
-	let throttleLongUpdateTimeout = null
 
 	/**
 	 * Initialise the get participants listeners
@@ -40,56 +37,26 @@ export function useGetParticipants(isActive = ref(true), isTopBar = true) {
 	 */
 	function initialiseGetParticipants() {
 		EventBus.on('joined-conversation', onJoinedConversation)
-		if (experimentalUpdateParticipants) {
-			EventBus.on('signaling-users-in-room', handleUsersUpdated)
-			EventBus.on('signaling-users-joined', handleUsersUpdated)
-			EventBus.on('signaling-users-changed', handleUsersUpdated)
-			EventBus.on('signaling-users-left', handleUsersLeft)
-			EventBus.on('signaling-all-users-changed-in-call-to-disconnected', handleUsersDisconnected)
-			EventBus.on('signaling-participant-list-updated', throttleUpdateParticipants)
-		} else {
-			// FIXME this works only temporary until signaling is fixed to be only on the calls
-			// Then we have to search for another solution. Maybe the room list which we update
-			// periodically gets a hash of all online sessions?
-			EventBus.on('signaling-participant-list-changed', throttleUpdateParticipants)
-		}
+
+		// FIXME this works only temporary until signaling is fixed to be only on the calls
+		// Then we have to search for another solution. Maybe the room list which we update
+		// periodically gets a hash of all online sessions?
+		EventBus.on('signaling-participant-list-changed', throttleUpdateParticipants)
 		subscribe('guest-promoted', onJoinedConversation)
 	}
 
-	const handleUsersUpdated = async ([users]) => {
-		if (sessionStore.updateSessions(token.value, users)) {
-			throttleUpdateParticipants()
-		} else {
-			throttleLongUpdate()
-		}
-	}
-
-	const handleUsersLeft = ([sessionIds]) => {
-		sessionStore.updateSessionsLeft(token.value, sessionIds)
-		throttleLongUpdate()
-	}
-	const handleUsersDisconnected = () => {
-		sessionStore.updateParticipantsDisconnectedFromStandaloneSignaling(token.value)
-		throttleLongUpdate()
-	}
 	/**
 	 * Stop the get participants listeners
 	 *
 	 */
 	function stopGetParticipants() {
 		EventBus.off('joined-conversation', onJoinedConversation)
-		EventBus.off('signaling-users-in-room', handleUsersUpdated)
-		EventBus.off('signaling-users-joined', handleUsersUpdated)
-		EventBus.off('signaling-users-changed', handleUsersUpdated)
-		EventBus.off('signaling-users-left', handleUsersLeft)
-		EventBus.off('signaling-all-users-changed-in-call-to-disconnected', handleUsersDisconnected)
-		EventBus.off('signaling-participant-list-updated', throttleUpdateParticipants)
 		EventBus.off('signaling-participant-list-changed', throttleUpdateParticipants)
 		unsubscribe('guest-promoted', onJoinedConversation)
 	}
 
 	const onJoinedConversation = () => {
-		if (isOneToOneConversation.value || experimentalUpdateParticipants) {
+		if (isOneToOneConversation.value) {
 			cancelableGetParticipants()
 		} else {
 			nextTick(() => throttleUpdateParticipants())
@@ -108,7 +75,7 @@ export function useGetParticipants(isActive = ref(true), isTopBar = true) {
 		} else {
 			throttleSlowUpdate()
 		}
-		pendingChanges = false
+	    pendingChanges = false
 	}
 
 	const cancelableGetParticipants = async () => {
@@ -119,36 +86,34 @@ export function useGetParticipants(isActive = ref(true), isTopBar = true) {
 		}
 
 		fetchingParticipants = true
-		cancelPendingUpdates()
+
+		// Cancel the parallel request queue to not fetch twice
+		clearTimeout(throttleFastUpdateTimeout)
+		throttleFastUpdateTimeout = null
+		clearTimeout(throttleSlowUpdateTimeout)
+		throttleSlowUpdateTimeout = null
 
 		await store.dispatch('fetchParticipants', { token: token.value })
 		fetchingParticipants = false
 	}
 
 	const throttleFastUpdate = () => {
-		if (!fetchingParticipants && !throttleFastUpdateTimeout) {
-			throttleFastUpdateTimeout = setTimeout(cancelableGetParticipants, 3_000)
+		if (throttleFastUpdateTimeout) {
+			return
 		}
+		throttleFastUpdateTimeout = setTimeout(cancelableGetParticipants, 3_000)
 	}
 	const throttleSlowUpdate = () => {
-		if (!fetchingParticipants && !throttleSlowUpdateTimeout) {
-			throttleSlowUpdateTimeout = setTimeout(cancelableGetParticipants, 15_000)
+		if (throttleSlowUpdateTimeout) {
+			return
 		}
-	}
-	const throttleLongUpdate = () => {
-		if (!fetchingParticipants && !throttleLongUpdateTimeout) {
-			throttleLongUpdateTimeout = setTimeout(cancelableGetParticipants, 60_000)
-		}
+		throttleSlowUpdateTimeout = setTimeout(cancelableGetParticipants, 15_000)
 	}
 
 	onMounted(() => {
 		if (isTopBar) {
 			initialiseGetParticipants()
 		}
-	})
-
-	watch(token, () => {
-		cancelPendingUpdates()
 	})
 
 	watch(isActive, (newValue) => {
@@ -158,24 +123,10 @@ export function useGetParticipants(isActive = ref(true), isTopBar = true) {
 	})
 
 	onBeforeUnmount(() => {
-		cancelPendingUpdates()
 		if (isTopBar) {
 			stopGetParticipants()
 		}
 	})
-
-	/**
-	 * Cancel scheduled participant list updates
-	 * Applies to all parallel queues to not fetch twice
-	 */
-	function cancelPendingUpdates() {
-		clearTimeout(throttleFastUpdateTimeout)
-		throttleFastUpdateTimeout = null
-		clearTimeout(throttleSlowUpdateTimeout)
-		throttleSlowUpdateTimeout = null
-		clearTimeout(throttleLongUpdateTimeout)
-		throttleLongUpdateTimeout = null
-	}
 
 	return {
 		cancelableGetParticipants,

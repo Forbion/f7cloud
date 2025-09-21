@@ -26,10 +26,13 @@
 </template>
 
 <script>
-import { n, t } from '@nextcloud/l10n'
 import escapeHtml from 'escape-html'
+
+import { t, n } from '@nextcloud/l10n'
+
 import AvatarWrapper from '../AvatarWrapper/AvatarWrapper.vue'
-import { AVATAR } from '../../constants.ts'
+
+import { AVATAR } from '../../constants.js'
 import { useGuestNameStore } from '../../stores/guestName.js'
 
 export default {
@@ -90,18 +93,23 @@ export default {
 			const [user1, user2, user3] = this.prepareNamesList()
 
 			if (this.typingParticipants.length === 1) {
-				return t('spreed', '{user1} is typing …', { user1 }, undefined, { escape: false })
+				return t('spreed', '{user1} is typing …',
+					{ user1 }, undefined, { escape: false })
 			}
 
 			if (this.typingParticipants.length === 2) {
-				return t('spreed', '{user1} and {user2} are typing …', { user1, user2 }, undefined, { escape: false })
+				return t('spreed', '{user1} and {user2} are typing …',
+					{ user1, user2 }, undefined, { escape: false })
 			}
 
 			if (this.typingParticipants.length === 3) {
-				return t('spreed', '{user1}, {user2} and {user3} are typing …', { user1, user2, user3 }, undefined, { escape: false })
+				return t('spreed', '{user1}, {user2} and {user3} are typing …',
+					{ user1, user2, user3 }, undefined, { escape: false })
 			}
 
-			return n('spreed', '{user1}, {user2}, {user3} and %n other are typing …', '{user1}, {user2}, {user3} and %n others are typing …', this.hiddenParticipantsCount, { user1, user2, user3 }, { escape: false })
+			return n('spreed', '{user1}, {user2}, {user3} and %n other are typing …',
+				'{user1}, {user2}, {user3} and %n others are typing …',
+				this.hiddenParticipantsCount, { user1, user2, user3 }, { escape: false })
 		},
 	},
 
@@ -110,8 +118,8 @@ export default {
 		n,
 		prepareNamesList() {
 			return this.visibleParticipants.reverse()
-				.map((participant) => this.getParticipantName(participant))
-				.map((name) => name ? `<strong>${escapeHtml(name)}</strong>` : undefined)
+				.map(participant => this.getParticipantName(participant))
+				.map(name => name ? `<strong>${escapeHtml(name)}</strong>` : undefined)
 		},
 
 		// TODO implement model from signaling here
@@ -131,7 +139,7 @@ export default {
 
 .indicator {
 	width: 100%;
-	padding-inline-end: 12px;
+	padding-right: 12px;
 	margin-bottom: 4px;
 
 	&__wrapper {
@@ -151,12 +159,12 @@ export default {
 		flex-direction: row-reverse;
 		flex-shrink: 0;
 		width: 52px;
-		padding-inline-start: 8px;
+		padding-left: 8px;
 	}
 
 	&__main {
 		width: 100%;
-		padding-inline-start: 8px;
+		padding-left: 8px;
 	}
 }
 </style>

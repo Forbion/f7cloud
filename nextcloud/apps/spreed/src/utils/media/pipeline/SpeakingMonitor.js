@@ -4,8 +4,9 @@
  */
 
 import hark from 'hark'
-import EmitterMixin from '../../EmitterMixin.js'
+
 import TrackSink from './TrackSink.js'
+import EmitterMixin from '../../EmitterMixin.js'
 
 /**
  * Sink node to detect sound in its input track and emit "speaking" events.
@@ -35,6 +36,7 @@ import TrackSink from './TrackSink.js'
  *        -----------------
  */
 export default class SpeakingMonitor extends TrackSink {
+
 	constructor() {
 		super()
 		this._superEmitterMixin()
@@ -129,6 +131,7 @@ export default class SpeakingMonitor extends TrackSink {
 			this._trigger('speakingWhileMuted')
 		}
 	}
+
 }
 
 EmitterMixin.apply(SpeakingMonitor.prototype)

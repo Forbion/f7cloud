@@ -1,3 +1,10 @@
+/**
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+
 import type {
 	broadcastChatMessageParams,
 	broadcastChatMessageResponse,
@@ -14,14 +21,7 @@ import type {
 	stopBreakoutRoomsResponse,
 	switchToBreakoutRoomParams,
 	switchToBreakoutRoomResponse,
-} from '../types/index.ts'
-
-/**
- * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
- * SPDX-License-Identifier: AGPL-3.0-or-later
- */
-import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
+} from '../types'
 
 /**
  * Create breakout rooms for a given conversation
@@ -135,15 +135,15 @@ const switchToBreakoutRoom = async function(token: string, target: string): swit
 }
 
 export {
-	broadcastMessageToBreakoutRooms,
 	configureBreakoutRooms,
-	deleteBreakoutRooms,
-	dismissRequestAssistance,
-	fetchBreakoutRoomsParticipants,
-	getBreakoutRooms,
 	reorganizeAttendees,
-	requestAssistance,
+	deleteBreakoutRooms,
+	getBreakoutRooms,
 	startBreakoutRooms,
 	stopBreakoutRooms,
+	broadcastMessageToBreakoutRooms,
+	fetchBreakoutRoomsParticipants,
+	requestAssistance,
+	dismissRequestAssistance,
 	switchToBreakoutRoom,
 }

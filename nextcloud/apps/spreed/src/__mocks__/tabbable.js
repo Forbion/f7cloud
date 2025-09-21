@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 // https://github.com/focus-trap/tabbable#testing-in-jsdom
-const lib = jest.requireActual('tabbable')
+const lib = jest.requireActual('./tabbable')
 
 const tabbable = {
 	...lib,

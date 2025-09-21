@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { DeepReadonly, Ref } from 'vue'
-
 import { createSharedComposable } from '@vueuse/core'
-import { onBeforeMount, onBeforeUnmount, readonly, ref } from 'vue'
+import { readonly, ref, onBeforeMount, onBeforeUnmount } from 'vue'
+import type { Ref, DeepReadonly } from 'vue'
 
 /**
  * Composable to check whether the page is visible.

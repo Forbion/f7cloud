@@ -2,7 +2,6 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { readableNumber } from './readableNumber.ts'
 
 const timersPool: Record<string, number> = {}
 
@@ -11,8 +10,9 @@ const getReadable = (time: number) => {
 		return '--.-- ms'
 	}
 	try {
-		const [int, float] = time.toFixed(2).split('.')
-		return `${readableNumber(int, true)}.${float} ms`
+		let [int, float] = time.toFixed(2).split('.')
+		int = int.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+		return `${int}.${float} ms`
 	} catch (e) {
 		console.error(e)
 		return '--.-- ms'

@@ -7,11 +7,14 @@ import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import { computed } from 'vue'
 import Vuex, { Store } from 'vuex'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import MessageButtonsBar from './../MessageButtonsBar/MessageButtonsBar.vue'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
+import MessageButtonsBar from './MessageButtonsBar.vue'
+
 import * as useMessageInfoModule from '../../../../../composables/useMessageInfo.js'
-import { ATTENDEE, CONVERSATION, MESSAGE, PARTICIPANT } from '../../../../../constants.ts'
+import { CONVERSATION, ATTENDEE, PARTICIPANT } from '../../../../../constants.js'
 import storeConfig from '../../../../../store/storeConfig.js'
 import { useIntegrationsStore } from '../../../../../stores/integrations.js'
 import { findNcActionButton, findNcButton } from '../../../../../test-helpers.js'
@@ -68,7 +71,7 @@ describe('MessageButtonsBar.vue', () => {
 				timestamp: new Date('2020-05-07 09:23:00').getTime() / 1000,
 				token: TOKEN,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 			},
 			isActionMenuOpen: false,
 			isEmojiPickerOpen: false,
@@ -234,7 +237,7 @@ describe('MessageButtonsBar.vue', () => {
 			test('hides private reply action for own messages', async () => {
 				useMessageInfoSpy.mockReturnValue({
 					isCurrentUserOwnMessage: computed(() => true),
-				})
+			   })
 				// using default message props which have the
 				// actor id set to the current user
 				testPrivateReplyActionVisible(false)
@@ -264,8 +267,9 @@ describe('MessageButtonsBar.vue', () => {
 		describe('delete action', () => {
 			test('emits delete event', async () => {
 				// need to mock the date to be within 6h
-				jest.useFakeTimers().setSystemTime(new Date('2020-05-07T10:00:00'))
-
+				const mockDate = new Date('2020-05-07 10:00:00')
+				jest.spyOn(global.Date, 'now')
+					.mockImplementation(() => mockDate)
 				useMessageInfoSpy.mockReturnValue({
 					isDeleteable: computed(() => true),
 				})
@@ -285,8 +289,6 @@ describe('MessageButtonsBar.vue', () => {
 				await actionButton.find('button').trigger('click')
 
 				expect(wrapper.emitted().delete).toBeTruthy()
-
-				jest.useRealTimers()
 			})
 
 			/**
@@ -401,7 +403,7 @@ describe('MessageButtonsBar.vue', () => {
 				{ label: 'second action', icon: 'some-icon2', callback: handler2 },
 			]
 			const integrationsStore = useIntegrationsStore()
-			actionsGetterMock.forEach((action) => integrationsStore.addMessageAction(action))
+			actionsGetterMock.forEach(action => integrationsStore.addMessageAction(action))
 			testStoreConfig.modules.messagesStore.getters.message = jest.fn(() => () => messageProps)
 			store = new Store(testStoreConfig)
 			const wrapper = shallowMount(MessageButtonsBar, {
@@ -422,7 +424,7 @@ describe('MessageButtonsBar.vue', () => {
 				apiVersion: 'v3',
 				message: messageProps.message,
 				metadata: conversationProps,
-			})
+			},)
 
 			const actionButton2 = findNcActionButton(wrapper, 'second action')
 			expect(actionButton2.exists()).toBeTruthy()

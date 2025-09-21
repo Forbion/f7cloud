@@ -1,23 +1,27 @@
-import { showError } from '@nextcloud/dialogs'
 /**
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import { cloneDeep } from 'lodash'
-import { createPinia, setActivePinia } from 'pinia'
+import { setActivePinia, createPinia } from 'pinia'
 import Vuex from 'vuex'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmojiPicker from '@nextcloud/vue/components/NcEmojiPicker'
-import NcPopover from '@nextcloud/vue/components/NcPopover'
+
+import { showError } from '@nextcloud/dialogs'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmojiPicker from '@nextcloud/vue/dist/Components/NcEmojiPicker.js'
+import NcPopover from '@nextcloud/vue/dist/Components/NcPopover.js'
+
 import Reactions from './Reactions.vue'
-import { ATTENDEE } from '../../../../../constants.ts'
+
+import { ATTENDEE } from '../../../../../constants.js'
 import {
 	addReactionToMessage,
-	getReactionsDetails,
 	removeReactionFromMessage,
+	getReactionsDetails,
 } from '../../../../../services/reactionsService.ts'
-import vuexStore from '../../../../../store/index.js'
+import vuexStore from '../../../../../store'
 import storeConfig from '../../../../../store/storeConfig.js'
 import { useReactionsStore } from '../../../../../stores/reactions.js'
 import { generateOCSResponse } from '../../../../../test-helpers.js'
@@ -47,6 +51,7 @@ describe('Reactions.vue', () => {
 	let message
 
 	beforeEach(() => {
+
 		setActivePinia(createPinia())
 		reactionsStore = useReactionsStore()
 		localVue = createLocalVue()
@@ -64,7 +69,7 @@ describe('Reactions.vue', () => {
 			reactions: { '🎄': 2, '🔥': 2, '🔒': 2 },
 			reactionsSelf: ['🔥'],
 			timestamp: 1703668230,
-			token,
+			token
 		}
 		messageMock = jest.fn().mockReturnValue(message)
 		testStoreConfig.modules.messagesStore.getters.message = () => messageMock
@@ -82,22 +87,22 @@ describe('Reactions.vue', () => {
 		reactionsStored = {
 			'🎄': [
 				{ actorDisplayName: 'user1', actorId: 'actorId1', actorType: 'users' },
-				{ actorDisplayName: 'user2', actorId: 'actorId2', actorType: 'guests' },
+				{ actorDisplayName: 'user2', actorId: 'actorId2', actorType: 'guests' }
 			],
 			'🔥': [
 				{ actorDisplayName: 'user3', actorId: 'admin', actorType: 'users' },
-				{ actorDisplayName: 'user4', actorId: 'actorId4', actorType: 'users' },
+				{ actorDisplayName: 'user4', actorId: 'actorId4', actorType: 'users' }
 			],
 			'🔒': [
 				{ actorDisplayName: 'user3', actorId: 'actorId3', actorType: 'users' },
-				{ actorDisplayName: 'user4', actorId: 'actorId4', actorType: 'users' },
+				{ actorDisplayName: 'user4', actorId: 'actorId4', actorType: 'users' }
 			],
 		}
 
 		reactionsStore.updateReactions({
 			token,
 			messageId,
-			reactionsDetails: reactionsStored,
+			reactionsDetails: reactionsStored
 		})
 
 		reactionsProps = {
@@ -105,6 +110,7 @@ describe('Reactions.vue', () => {
 			canReact: true,
 			id: messageId,
 		}
+
 	})
 
 	afterEach(() => {
@@ -133,6 +139,7 @@ describe('Reactions.vue', () => {
 			// Assert dropdown contains "You" when you have reacted
 			const summary = wrapper.vm.getReactionSummary('🔥')
 			expect(summary).toContain('You')
+
 		})
 
 		test('shows reaction buttons with count but without emoji picker when no react permission', () => {
@@ -172,7 +179,7 @@ describe('Reactions.vue', () => {
 				reactions: {},
 				reactionsSelf: [],
 				timestamp: 1703668230,
-				token,
+				token
 			})
 			testStoreConfig.modules.messagesStore.getters.message = () => messageMock
 			store = new Vuex.Store(testStoreConfig)
@@ -251,7 +258,7 @@ describe('Reactions.vue', () => {
 
 			const removedReaction = {
 				...reactionsStored,
-				'🔥': [...reactionsStored['🔥'].filter((obj) => obj.actorId !== 'admin')], // remove the current user
+				'🔥': [...reactionsStored['🔥'].filter(obj => obj.actorId !== 'admin')] // remove the current user
 			}
 			const responseRemoved = generateOCSResponse({ payload: removedReaction })
 			removeReactionFromMessage.mockResolvedValue(responseRemoved)
@@ -273,6 +280,7 @@ describe('Reactions.vue', () => {
 				selectedEmoji: '🔥',
 			})
 		})
+
 	})
 	describe('reactions fetching', () => {
 		test('fetches reactions details when they are not available', async () => {
@@ -303,5 +311,6 @@ describe('Reactions.vue', () => {
 			// Assert
 			expect(reactionsStore.fetchReactions).toHaveBeenCalled()
 		})
+
 	})
 })

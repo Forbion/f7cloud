@@ -8,7 +8,10 @@
 		<Portal>
 			<!-- Add .app-talk to use Talk icon classes outside of #content-vue -->
 			<div class="viewer-overlay app-talk"
-				:style="computedStyle">
+				:style="{
+					right: position.right + 'px',
+					bottom: position.bottom + 'px'
+				}">
 				<div class="viewer-overlay__collapse"
 					:class="{ collapsed: isCollapsed }">
 					<NcButton type="secondary"
@@ -97,19 +100,24 @@
 
 <script>
 import { Portal } from '@linusborg/vue-simple-portal'
-import { isRTL, t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
+
 import ArrowExpand from 'vue-material-design-icons/ArrowExpand.vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
-import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import EmptyCallView from './EmptyCallView.vue'
 import LocalAudioControlButton from './LocalAudioControlButton.vue'
 import LocalVideo from './LocalVideo.vue'
 import LocalVideoControlButton from './LocalVideoControlButton.vue'
 import Screen from './Screen.vue'
 import VideoVue from './VideoVue.vue'
-import { useCallViewStore } from '../../../stores/callView.ts'
+import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
+
+import { useCallViewStore } from '../../../stores/callView.js'
 import { localCallParticipantModel, localMediaModel } from '../../../utils/webrtc/index.js'
 
 export default {
@@ -164,14 +172,14 @@ export default {
 		localSharedData: {
 			type: Object,
 			required: true,
-			default: () => {},
+			default: () => {}
 		},
 
 		screens: {
 			type: Array,
 			required: false,
 			default: () => [],
-		},
+		}
 	},
 
 	setup() {
@@ -186,7 +194,6 @@ export default {
 			observer: null,
 			position: {
 				right: 0,
-				left: 0,
 				bottom: 0,
 			},
 		}
@@ -203,13 +210,6 @@ export default {
 
 		showLocalScreen() {
 			return this.hasLocalScreen && this.screens[0] === localCallParticipantModel.attributes.peerId
-		},
-
-		computedStyle() {
-			return {
-				[isRTL() ? 'left' : 'right']: this.position[isRTL() ? 'left' : 'right'] + 'px',
-				bottom: this.position.bottom + 'px',
-			}
 		},
 	},
 
@@ -233,12 +233,8 @@ export default {
 		},
 
 		updatePosition() {
-			const { left, right, bottom } = this.$refs.ghost.getBoundingClientRect()
-			if (isRTL()) {
-				this.position.left = left
-			} else {
-				this.position.right = window.innerWidth - right
-			}
+			const { right, bottom } = this.$refs.ghost.getBoundingClientRect()
+			this.position.right = window.innerWidth - right
 			this.position.bottom = window.innerHeight - bottom
 		},
 	},
@@ -249,7 +245,8 @@ export default {
 .viewer-overlay-ghost {
 	position: absolute;
 	bottom: 8px;
-	inset-inline: 0 8px;
+	right: 8px;
+	left: 0;
 }
 
 .viewer-overlay {
@@ -272,7 +269,7 @@ export default {
 .viewer-overlay__collapse {
 	position: absolute;
 	top: 8px;
-	inset-inline-end: 8px;
+	right: 8px;
 	z-index: 100;
 }
 
@@ -288,7 +285,7 @@ export default {
 .video-overlay__top-bar {
 	position: absolute;
 	top: 8px;
-	inset-inline-start: 8px;
+	left: 8px;
 	z-index: 100;
 }
 
@@ -311,13 +308,13 @@ export default {
 	max-height: calc(var(--max-width) * var(--aspect-ratio));
 	/* Note: because of transition it always has position absolute on animation */
 	bottom: 0;
-	inset-inline-end: 0;
+	right: 0;
 }
 
 .viewer-overlay__local-video {
 	position: absolute;
 	bottom: 8px;
-	inset-inline-end: 8px;
+	right: 8px;
 	width: 25%;
 	height: 25%;
 	overflow: hidden;

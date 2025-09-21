@@ -4,14 +4,14 @@
  */
 // @flow
 
-import { VIRTUAL_BACKGROUND } from '../../../../constants.ts'
 import WebWorker from './JitsiStreamBackgroundEffect.worker.js'
 import {
 	CLEAR_TIMEOUT,
-	SET_TIMEOUT,
 	TIMEOUT_TICK,
+	SET_TIMEOUT,
 	timerWorkerScript,
 } from './TimerWorker.js'
+import { VIRTUAL_BACKGROUND } from '../../../../constants.js'
 
 /**
  * Represents a modified MediaStream that adds effects to video background.
@@ -19,6 +19,7 @@ import {
  * video stream.
  */
 export default class JitsiStreamBackgroundEffect {
+
 	// _model: Object;
 	// _options: Object;
 	// _stream: Object;
@@ -97,25 +98,25 @@ export default class JitsiStreamBackgroundEffect {
 
 	_startFx(e) {
 		switch (e.data.message) {
-			case 'inferenceRun':
-				if (e.data.frameId === this._lastFrameId + 1) {
-					this._lastFrameId = e.data.frameId
+		case 'inferenceRun':
+			if (e.data.frameId === this._lastFrameId + 1) {
+				this._lastFrameId = e.data.frameId
 
-					this.runInference(e.data.segmentationResult)
-					this.runPostProcessing()
-				}
-				break
-			case 'loaded':
-				this._loaded = true
-				this._loadPromiseResolve()
-				break
-			case 'loadFailed':
-				this._loadFailed = true
-				this._loadPromiseReject()
-				break
-			default:
-				console.error('_startFx: Something went wrong.')
-				break
+				this.runInference(e.data.segmentationResult)
+				this.runPostProcessing()
+			}
+			break
+		case 'loaded':
+			this._loaded = true
+			this._loadPromiseResolve()
+			break
+		case 'loadFailed':
+			this._loadFailed = true
+			this._loadPromiseReject()
+			break
+		default:
+			console.error('_startFx: Something went wrong.')
+			break
 		}
 	}
 
@@ -219,6 +220,7 @@ export default class JitsiStreamBackgroundEffect {
 	 * @return {void}
 	 */
 	runPostProcessing() {
+
 		const height = this._inputVideoElement.videoHeight
 		const width = this._inputVideoElement.videoWidth
 		const { backgroundType } = this._options.virtualBackground
@@ -244,7 +246,7 @@ export default class JitsiStreamBackgroundEffect {
 			0,
 			0,
 			this._inputVideoElement.videoWidth,
-			this._inputVideoElement.videoHeight,
+			this._inputVideoElement.videoHeight
 		)
 		this._outputCanvasCtx.globalCompositeOperation = 'source-in'
 		this._outputCanvasCtx.filter = 'none'
@@ -258,7 +260,7 @@ export default class JitsiStreamBackgroundEffect {
 		this._outputCanvasCtx.globalCompositeOperation = 'destination-over'
 		if (backgroundType === VIRTUAL_BACKGROUND.BACKGROUND_TYPE.IMAGE
 			|| backgroundType === VIRTUAL_BACKGROUND.BACKGROUND_TYPE.VIDEO
-			|| backgroundType === VIRTUAL_BACKGROUND.BACKGROUND_TYPE.VIDEO_STREAM) {
+            || backgroundType === VIRTUAL_BACKGROUND.BACKGROUND_TYPE.VIDEO_STREAM) {
 			let source
 			let sourceWidthOriginal
 			let sourceHeightOriginal
@@ -287,7 +289,7 @@ export default class JitsiStreamBackgroundEffect {
 				0,
 				0,
 				destinationWidth,
-				destinationHeight,
+				destinationHeight
 			)
 		} else {
 			this._outputCanvasCtx.filter = `blur(${backgroundBlurValue}px)`
@@ -392,14 +394,14 @@ export default class JitsiStreamBackgroundEffect {
 			0,
 			0,
 			this._options.width,
-			this._options.height,
+			this._options.height
 		)
 
 		const imageData = this._segmentationMaskCtx.getImageData(
 			0,
 			0,
 			this._options.width,
-			this._options.height,
+			this._options.height
 		)
 
 		this._model.postMessage({ message: 'resizeSource', imageData, frameId: this._frameId })
@@ -430,7 +432,7 @@ export default class JitsiStreamBackgroundEffect {
 		this._maskFrameTimerWorker.onmessage = this._onMaskFrameTimer
 		const firstVideoTrack = this._stream.getVideoTracks()[0]
 		const { height, frameRate, width }
-			= firstVideoTrack.getSettings ? firstVideoTrack.getSettings() : firstVideoTrack.getConstraints()
+            = firstVideoTrack.getSettings ? firstVideoTrack.getSettings() : firstVideoTrack.getConstraints()
 
 		this._frameRate = parseInt(frameRate, 10)
 
@@ -469,11 +471,11 @@ export default class JitsiStreamBackgroundEffect {
 	updateInputStream() {
 		const firstVideoTrack = this._stream.getVideoTracks()[0]
 		const { frameRate }
-			= firstVideoTrack.getSettings ? firstVideoTrack.getSettings() : firstVideoTrack.getConstraints()
+            = firstVideoTrack.getSettings ? firstVideoTrack.getSettings() : firstVideoTrack.getConstraints()
 
 		this._frameRate = parseInt(frameRate, 10)
 
-		this._outputStream.getVideoTracks()[0].applyConstraints({ frameRate: this._frameRate }).catch((error) => {
+		this._outputStream.getVideoTracks()[0].applyConstraints({ frameRate: this._frameRate }).catch(error => {
 			console.error('Frame rate could not be adjusted in background effect', error)
 		})
 
@@ -500,4 +502,5 @@ export default class JitsiStreamBackgroundEffect {
 			this._virtualVideo.pause()
 		}
 	}
+
 }

@@ -5,12 +5,13 @@
 
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
-import { PARTICIPANT } from '../constants.ts'
+
+import { PARTICIPANT } from '../constants.js'
 import {
 	signalingJoinCall,
 	signalingLeaveCall,
 	signalingSendCallMessage,
-} from '../utils/webrtc/index.js'
+} from '../utils/webrtc'
 
 /**
  * Join a call as participant
@@ -27,12 +28,11 @@ import {
  * @param {number} flags The available PARTICIPANT.CALL_FLAG for this participants
  * @param {boolean} silent Whether the call should trigger a notifications and
  * sound for other participants or not
- * @param {boolean} recordingConsent Whether the participant gave their consent to be recorded
- * @param {Array<string>} silentFor List of participants that should not receive a notification about the call
+ * @param {boolean} recordingConsent Whether the participant gave his consent to be recorded
  * @return {Promise<number>} The actual flags based on the available media
  */
-const joinCall = async function(token, flags, silent, recordingConsent, silentFor) {
-	return signalingJoinCall(token, flags, silent, recordingConsent, silentFor)
+const joinCall = async function(token, flags, silent, recordingConsent) {
+	return signalingJoinCall(token, flags, silent, recordingConsent)
 }
 
 /**
@@ -129,13 +129,13 @@ const callSIPSendCallMessage = async function(sessionId, data) {
 }
 
 export {
-	callSIPDialOut,
-	callSIPHangupPhone,
-	callSIPHoldPhone,
-	callSIPMutePhone,
-	callSIPSendDTMF,
-	callSIPUnmutePhone,
-	fetchPeers,
 	joinCall,
 	leaveCall,
+	fetchPeers,
+	callSIPDialOut,
+	callSIPHangupPhone,
+	callSIPMutePhone,
+	callSIPUnmutePhone,
+	callSIPHoldPhone,
+	callSIPSendDTMF,
 }

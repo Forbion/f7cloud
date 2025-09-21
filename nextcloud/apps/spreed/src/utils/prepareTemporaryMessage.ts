@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { ChatMessage, File } from '../types/index.ts'
-
 import Hex from 'crypto-js/enc-hex.js'
 import SHA256 from 'crypto-js/sha256.js'
-import { MESSAGE } from '../constants.ts'
+
 import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
+import type { ChatMessage, File } from '../types'
 
 export type PrepareTemporaryMessagePayload = Pick<ChatMessage,
 	| 'message'
@@ -17,12 +16,12 @@ export type PrepareTemporaryMessagePayload = Pick<ChatMessage,
 	| 'actorType'
 	| 'actorDisplayName'
 > & {
-	uploadId: string
-	index: number
-	file: File & { newName?: string }
-	localUrl: string
-	messageType?: typeof MESSAGE.TYPE['VOICE_MESSAGE' | 'COMMENT']
-	parent: Omit<ChatMessage, 'parent'>
+	uploadId: string,
+	index: number,
+	file: File & { newName?: string },
+	localUrl: string,
+	messageType?: 'voice-message' | 'comment',
+	parent: Omit<ChatMessage, 'parent'>,
 }
 
 /**
@@ -49,7 +48,7 @@ export function prepareTemporaryMessage({
 	index,
 	file,
 	localUrl,
-	messageType = MESSAGE.TYPE.COMMENT,
+	messageType = 'comment',
 	actorId,
 	actorType,
 	actorDisplayName,

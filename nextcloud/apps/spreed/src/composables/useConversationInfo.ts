@@ -3,28 +3,23 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { toRef } from '@vueuse/core'
+import escapeHtml from 'escape-html'
+import { computed, ref } from 'vue'
 import type { ComputedRef, Ref } from 'vue'
-import type { ChatMessage, Conversation } from '../types/index.ts'
 
 import { t } from '@nextcloud/l10n'
-import moment from '@nextcloud/moment'
-import { toRef } from '@vueuse/core'
-import { computed, ref } from 'vue'
-import { ATTENDEE, CONVERSATION, MESSAGE, PARTICIPANT } from '../constants.ts'
-import { getEventTimeRange } from '../utils/conversation.ts'
-import { futureRelativeTime, ONE_DAY_IN_MS } from '../utils/formattedTime.ts'
+
+import { ATTENDEE, CONVERSATION, PARTICIPANT } from '../constants.js'
+import type { Conversation, ConversationLastMessage } from '../types'
 import { getMessageIcon } from '../utils/getMessageIcon.ts'
-import { useStore } from './useStore.js'
 
 type Payload = {
-	item: Ref<Conversation> | ComputedRef<Conversation>
-	isSearchResult: Ref<boolean | null>
-	exposeMessagesRef: Ref<boolean | null>
-	exposeDescriptionRef: Ref<boolean | null>
+	item: Ref<Conversation> | ComputedRef<Conversation>,
+	isSearchResult: Ref<boolean | null>,
+	exposeMessagesRef: Ref<boolean | null>,
+	exposeDescriptionRef: Ref<boolean | null>,
 }
-
-const TITLE_MAX_LENGTH = 1000
-
 /**
  * Reusable properties for Conversation... items
  * @param payload - function payload
@@ -61,14 +56,14 @@ export function useConversationInfo({
 	 * If not an object, can be either '[]' (before 21.0.0) or 'undefined' (21.0.0+)
 	 */
 	const hasLastMessage = computed(() => {
-		return !!item.value?.lastMessage && !!Object.keys(Object(item.value?.lastMessage)).length
+		return !!Object.keys(Object(item.value?.lastMessage)).length
 	})
 
 	/**
 	 * The last message of the conversation.
 	 * To be used only if 'hasLastMessage' is true.
 	 */
-	const lastMessage = toRef(() => item.value.lastMessage!)
+	const lastMessage = toRef(() => item.value.lastMessage! as ConversationLastMessage)
 
 	/**
 	 * Simplified version of the last chat message.
@@ -81,11 +76,11 @@ export function useConversationInfo({
 		}
 
 		const params = lastMessage.value.messageParameters
-		let subtitle = lastMessage.value.message.trim()
+		let subtitle = (getMessageIcon(lastMessage.value) + ' ' + escapeHtml(lastMessage.value.message)).trim()
 
 		// We don't really use rich objects in the subtitle, instead we fall back to the name of the item
 		Object.keys(params).forEach((parameterKey) => {
-			subtitle = subtitle.replaceAll('{' + parameterKey + '}', params[parameterKey].name)
+			subtitle = subtitle.replaceAll('{' + parameterKey + '}', escapeHtml(params[parameterKey].name))
 		})
 
 		return subtitle
@@ -105,106 +100,48 @@ export function useConversationInfo({
 			return t('spreed', 'Guest')
 		}
 
-		return author
+		return escapeHtml(author)
 	})
 
 	const conversationInformation = computed(() => {
 		// temporary item while joining, only for Conversation component
 		if (isSearchResult.value === false && !item.value.actorId) {
-			return {
-				actor: null,
-				icon: null,
-				message: t('spreed', 'Joining conversation …'),
-				title: t('spreed', 'Joining conversation …'),
-			}
-		}
-
-		// This is for event conversations where no messages from participants are shown
-		const startTime = getEventTimeRange(item.value).start
-		if (item.value.objectType === CONVERSATION.OBJECT_TYPE.EVENT
-			&& startTime && startTime > Date.now()) {
-			// Check if there is a message to display
-			const store = useStore()
-			const hasHumanMessage = item.value.unreadMessages !== 0 || store.getters.messagesList(item.value.token).some((message: ChatMessage) => {
-				return message.systemMessage === '' && message.messageType !== MESSAGE.TYPE.COMMENT_DELETED
-			})
-
-			if (!hasHumanMessage && startTime - Date.now() < ONE_DAY_IN_MS) {
-				return {
-					actor: null,
-					icon: null,
-					message: futureRelativeTime(startTime),
-					title: futureRelativeTime(startTime),
-				}
-			} else if (!hasHumanMessage) {
-				return {
-					actor: null,
-					icon: null,
-					message: moment(startTime).calendar(),
-					title: moment(startTime).calendar(),
-				}
-			}
+			return t('spreed', 'Joining conversation …')
 		}
 
 		if (!exposeMessages) {
-			return {
-				actor: null,
-				icon: null,
-				message: exposeDescription ? item.value?.description : '',
-				title: exposeDescription ? item.value?.description : null,
-			}
+			return exposeDescription ? item.value?.description : ''
 		} else if (!hasLastMessage.value) {
-			return {
-				actor: null,
-				icon: null,
-				message: t('spreed', 'No messages'),
-				title: t('spreed', 'No messages'),
-			}
+			return t('spreed', 'No messages')
 		}
 
 		if (shortLastChatMessageAuthor.value === '') {
-			return {
-				actor: null,
-				icon: getMessageIcon(lastMessage.value),
-				message: simpleLastChatMessage.value,
-				title: simpleLastChatMessage.value.slice(0, TITLE_MAX_LENGTH),
-			}
+			return simpleLastChatMessage.value
 		}
 
 		if (lastMessage.value.actorId === item.value.actorId
 			&& lastMessage.value.actorType === item.value.actorType) {
-			return {
-				// TRANSLATORS Prefix for messages shown in navigation list
-				actor: t('spreed', 'You:'),
-				icon: getMessageIcon(lastMessage.value),
-				message: simpleLastChatMessage.value,
-				title: t('spreed', 'You: {lastMessage}', {
-					lastMessage: simpleLastChatMessage.value,
-				}, { escape: false, sanitize: false }).slice(0, TITLE_MAX_LENGTH),
-			}
+			return t('spreed', 'You: {lastMessage}', {
+				lastMessage: simpleLastChatMessage.value,
+			}, undefined, {
+				escape: false,
+				sanitize: false,
+			})
 		}
 
 		if ([CONVERSATION.TYPE.ONE_TO_ONE,
 			CONVERSATION.TYPE.ONE_TO_ONE_FORMER,
 			CONVERSATION.TYPE.CHANGELOG].includes(item.value.type)) {
-			return {
-				actor: null,
-				icon: getMessageIcon(lastMessage.value),
-				message: simpleLastChatMessage.value,
-				title: simpleLastChatMessage.value.slice(0, TITLE_MAX_LENGTH),
-			}
+			return simpleLastChatMessage.value
 		}
 
-		return {
-			// TRANSLATORS Actor name prefixing for messages shown in navigation list
-			actor: t('spreed', '{actor}:', { actor: shortLastChatMessageAuthor.value }, { escape: false, sanitize: false }),
-			icon: getMessageIcon(lastMessage.value),
-			message: simpleLastChatMessage.value,
-			title: t('spreed', '{actor}: {lastMessage}', {
-				actor: shortLastChatMessageAuthor.value,
-				lastMessage: simpleLastChatMessage.value,
-			}, { escape: false, sanitize: false }).slice(0, TITLE_MAX_LENGTH),
-		}
+		return t('spreed', '{actor}: {lastMessage}', {
+			actor: shortLastChatMessageAuthor.value,
+			lastMessage: simpleLastChatMessage.value,
+		}, undefined, {
+			escape: false,
+			sanitize: false,
+		})
 	})
 
 	const isOneToOneConversation = computed(() => {
@@ -215,7 +152,8 @@ export function useConversationInfo({
 		return item.value.readOnly === CONVERSATION.STATE.READ_ONLY
 	})
 
-	const isConversationModifiable = computed(() => !isConversationReadOnly.value
+	const isConversationModifiable = computed(() =>
+		!isConversationReadOnly.value
 		&& item.value.participantType !== PARTICIPANT.TYPE.GUEST
 		&& item.value.participantType !== PARTICIPANT.TYPE.GUEST_MODERATOR)
 

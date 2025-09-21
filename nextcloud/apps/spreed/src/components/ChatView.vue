@@ -9,24 +9,26 @@
 		@dragleave.prevent="handleDragLeave"
 		@drop.prevent="handleDropFiles">
 		<GuestWelcomeWindow v-if="isGuestWithoutDisplayName" :token="token" />
-		<div class="messages-list-dragover-wrapper">
-			<TransitionWrapper name="slide-up" mode="out-in">
-				<NcEmptyContent v-show="isDraggingOver"
-					:name="dropHintText"
-					class="dragover">
-					<template #icon>
-						<IconTrayArrowUp v-if="!isGuest && !isReadOnly" />
-						<IconAccount v-else-if="isGuest" />
-						<IconAlertOctagon v-else-if="isReadOnly" />
-					</template>
-				</NcEmptyContent>
-			</TransitionWrapper>
-			<MessagesList role="region"
-				:aria-label="t('spreed', 'Conversation messages')"
-				:token="token"
-				:is-chat-scrolled-to-bottom.sync="isChatScrolledToBottom"
-				:is-visible="isVisible" />
-		</div>
+		<TransitionWrapper name="slide-up" mode="out-in">
+			<div v-show="isDraggingOver"
+				class="dragover">
+				<div class="drop-hint">
+					<div class="drop-hint__icon"
+						:class="{
+							'icon-upload' : !isGuest && !isReadOnly,
+							'icon-user' : isGuest,
+							'icon-error' : isReadOnly}" />
+					<h2 class="drop-hint__text">
+						{{ dropHintText }}
+					</h2>
+				</div>
+			</div>
+		</TransitionWrapper>
+		<MessagesList role="region"
+			:aria-label="t('spreed', 'Conversation messages')"
+			:token="token"
+			:is-chat-scrolled-to-bottom.sync="isChatScrolledToBottom"
+			:is-visible="isVisible" />
 
 		<div class="scroll-to-bottom">
 			<TransitionWrapper name="fade">
@@ -37,7 +39,7 @@
 					class="scroll-to-bottom__button"
 					@click="scrollToBottom">
 					<template #icon>
-						<IconChevronDoubleDown :size="20" />
+						<ChevronDoubleDown :size="20" />
 					</template>
 				</NcButton>
 			</TransitionWrapper>
@@ -55,20 +57,19 @@
 </template>
 
 <script>
+import ChevronDoubleDown from 'vue-material-design-icons/ChevronDoubleDown.vue'
+
 import { t } from '@nextcloud/l10n'
-import { provide } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import IconAccount from 'vue-material-design-icons/Account.vue'
-import IconAlertOctagon from 'vue-material-design-icons/AlertOctagon.vue'
-import IconChevronDoubleDown from 'vue-material-design-icons/ChevronDoubleDown.vue'
-import IconTrayArrowUp from 'vue-material-design-icons/TrayArrowUp.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import GuestWelcomeWindow from './GuestWelcomeWindow.vue'
 import MessagesList from './MessagesList/MessagesList.vue'
 import NewMessage from './NewMessage/NewMessage.vue'
 import NewMessageUploadEditor from './NewMessage/NewMessageUploadEditor.vue'
 import TransitionWrapper from './UIShared/TransitionWrapper.vue'
-import { CONVERSATION, PARTICIPANT } from '../constants.ts'
+
+import { CONVERSATION, PARTICIPANT } from '../constants.js'
 import { getTalkConfig } from '../services/CapabilitiesManager.ts'
 import { EventBus } from '../services/EventBus.ts'
 import { useChatExtrasStore } from '../stores/chatExtras.js'
@@ -79,17 +80,12 @@ export default {
 
 	components: {
 		NcButton,
-		NcEmptyContent,
+		ChevronDoubleDown,
 		MessagesList,
 		NewMessage,
 		NewMessageUploadEditor,
 		TransitionWrapper,
 		GuestWelcomeWindow,
-		// icons
-		IconAccount,
-		IconAlertOctagon,
-		IconChevronDoubleDown,
-		IconTrayArrowUp,
 	},
 
 	props: {
@@ -104,8 +100,7 @@ export default {
 		},
 	},
 
-	setup(props) {
-		provide('chatView:isSidebar', props.isSidebar)
+	setup() {
 		return {
 			chatExtrasStore: useChatExtrasStore(),
 		}
@@ -148,7 +143,6 @@ export default {
 				return t('spreed', 'Drop your files to upload')
 			}
 		},
-
 		isReadOnly() {
 			if (this.conversation) {
 				return this.conversation.readOnly === CONVERSATION.STATE.READ_ONLY
@@ -205,7 +199,6 @@ export default {
 		},
 
 		scrollToBottom() {
-			this.$router.replace({ hash: '' })
 			EventBus.emit('scroll-chat-to-bottom', { smooth: false, force: true })
 		},
 	},
@@ -223,16 +216,12 @@ export default {
 	min-height: 0;
 }
 
-.messages-list-dragover-wrapper {
-	position: relative;
-	flex: 1 0;
-	display: flex;
-	min-height: 0;
-}
-
 .dragover {
 	position: absolute;
-	inset: 5%;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
 	background: var(--color-primary-element-light);
 	z-index: 11;
 	display: flex;
@@ -242,6 +231,15 @@ export default {
 	pointer-events: none;
 }
 
+.drop-hint {
+	margin: auto;
+	&__icon {
+		background-size: 48px;
+		height: 48px;
+		margin-bottom: 16px;
+	}
+}
+
 .scroll-to-bottom {
 	position: relative;
 	height: 0;
@@ -249,7 +247,7 @@ export default {
 	&__button {
 		position: absolute !important;
 		bottom: 8px;
-		inset-inline-end: 24px;
+		right: 24px;
 		z-index: 2;
 	}
 }

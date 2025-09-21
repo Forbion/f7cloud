@@ -14,13 +14,12 @@
 				{{ t('spreed', 'You are currently waiting in the lobby') }}
 			</p>
 
-			<p v-if="lobbyTimer"
+			<p v-if="countdown"
 				class="lobby__countdown">
-				{{ message }}
-				<span v-if="relativeDate"
-					class="lobby__countdown relative-timestamp"
+				{{ message }} -
+				<span class="lobby__countdown relative-timestamp"
 					:title="startTime">
-					- {{ relativeDate }}
+					{{ relativeDate }}
 				</span>
 			</p>
 
@@ -36,13 +35,17 @@
 </template>
 
 <script>
+import RoomService from 'vue-material-design-icons/RoomService.vue'
+
 import { t } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
-import RoomService from 'vue-material-design-icons/RoomService.vue'
+
+import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
+
 import GuestWelcomeWindow from './GuestWelcomeWindow.vue'
 import SetGuestUsername from './SetGuestUsername.vue'
-import { futureRelativeTime, ONE_DAY_IN_MS } from '../utils/formattedTime.ts'
+
+import { futureRelativeTime } from '../utils/formattedTime.ts'
 
 export default {
 
@@ -69,23 +72,24 @@ export default {
 			return this.conversation ? this.conversation.displayName : ''
 		},
 
-		lobbyTimer() {
-			return this.conversation.lobbyTimer * 1000
+		countdown() {
+			return this.conversation.lobbyTimer
 		},
 
 		relativeDate() {
-			if (Math.abs(Date.now() - this.lobbyTimer) > ONE_DAY_IN_MS) {
-				// No relative time
-				return ''
-			}
-			if (Math.abs(Date.now() - this.lobbyTimer) < 45000) {
+			const diff = moment().diff(this.timerInMoment)
+			if (diff > -45000 && diff < 45000) {
 				return t('spreed', 'The meeting will start soon')
 			}
-			return futureRelativeTime(this.lobbyTimer)
+			return futureRelativeTime(this.timerInMoment.valueOf())
+		},
+
+		timerInMoment() {
+			return moment.unix(this.countdown)
 		},
 
 		startTime() {
-			return moment(this.lobbyTimer).format('LLL')
+			return this.timerInMoment.format('LLL')
 		},
 
 		message() {

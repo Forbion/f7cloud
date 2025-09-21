@@ -4,6 +4,7 @@
  */
 
 import Vue from 'vue'
+
 import AdminSettings from './views/AdminSettings.vue'
 
 import '@nextcloud/dialogs/style.css'
@@ -14,5 +15,5 @@ Vue.prototype.OCP = OCP
 
 export default new Vue({
 	el: '#admin_settings',
-	render: (h) => h(AdminSettings),
+	render: h => h(AdminSettings),
 })

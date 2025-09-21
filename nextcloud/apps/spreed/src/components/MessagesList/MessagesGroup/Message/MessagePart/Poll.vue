@@ -6,30 +6,23 @@
 <template>
 	<!-- Poll card -->
 	<div v-if="draft" class="poll-card" @click="openDraft">
-		<span class="poll-card__header poll-card__header--draft">
-			<IconPoll class="poll-card__header-icon" :size="20" />
-			<span class="poll-card__header-name">{{ name }}</span>
-			<NcButton v-if="canEditPollDraft"
-				type="tertiary"
-				:title="t('spreed', 'Edit poll draft')"
-				:aria-label="t('spreed', 'Edit poll draft')"
-				@click.stop="editDraft">
-				<template #icon>
-					<IconPencil :size="20" />
-				</template>
-			</NcButton>
-			<NcButton type="tertiary"
-				:title="t('spreed', 'Delete poll draft')"
-				:aria-label="t('spreed', 'Delete poll draft')"
-				@click.stop="deleteDraft">
-				<template #icon>
-					<IconDelete :size="20" />
-				</template>
-			</NcButton>
+		<span class="poll-card__header">
+			<IconPoll :size="20" />
+			<span>{{ name }}</span>
 		</span>
 		<span class="poll-card__footer">
 			{{ pollFooterText }}
 		</span>
+
+		<NcButton class="poll-card__delete-draft"
+			type="tertiary"
+			:title="t('spreed', 'Delete poll draft')"
+			:aria-label="t('spreed', 'Delete poll draft')"
+			@click.stop="deleteDraft">
+			<template #icon>
+				<IconDelete :size="20" />
+			</template>
+		</NcButton>
 	</div>
 	<a v-else-if="!showAsButton"
 		v-intersection-observer="getPollData"
@@ -38,8 +31,8 @@
 		role="button"
 		@click="openPoll">
 		<span class="poll-card__header">
-			<IconPoll class="poll-card__header-icon" :size="20" />
-			<span class="poll-card__header-name">{{ name }}</span>
+			<IconPoll :size="20" />
+			<span>{{ name }}</span>
 		</span>
 		<span class="poll-card__footer">
 			{{ pollFooterText }}
@@ -56,14 +49,16 @@
 </template>
 
 <script>
-import { n, t } from '@nextcloud/l10n'
 import { vIntersectionObserver as IntersectionObserver } from '@vueuse/components'
-import NcButton from '@nextcloud/vue/components/NcButton'
+
 import IconDelete from 'vue-material-design-icons/Delete.vue'
-import IconPencil from 'vue-material-design-icons/Pencil.vue'
 import IconPoll from 'vue-material-design-icons/Poll.vue'
-import { POLL } from '../../../../../constants.ts'
-import { hasTalkFeature } from '../../../../../services/CapabilitiesManager.ts'
+
+import { t, n } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
+import { POLL } from '../../../../../constants.js'
 import { usePollsStore } from '../../../../../stores/polls.ts'
 
 export default {
@@ -72,7 +67,6 @@ export default {
 	components: {
 		NcButton,
 		IconDelete,
-		IconPencil,
 		IconPoll,
 	},
 
@@ -135,10 +129,6 @@ export default {
 					: t('spreed', 'Poll')
 			}
 		},
-
-		canEditPollDraft() {
-			return this.draft && hasTalkFeature(this.token, 'edit-draft-poll')
-		},
 	},
 
 	methods: {
@@ -154,11 +144,7 @@ export default {
 		},
 
 		openDraft() {
-			this.$emit('click', { id: this.id, action: 'fill' })
-		},
-
-		editDraft() {
-			this.$emit('click', { id: this.id, action: 'edit' })
+			this.$emit('click', this.id)
 		},
 
 		deleteDraft() {
@@ -200,23 +186,14 @@ export default {
 	&__header {
 		display: flex;
 		align-items: flex-start;
-		gap: calc(2 * var(--default-grid-baseline));
+		gap: 8px;
 		margin-bottom: 16px;
 		font-weight: bold;
 		white-space: normal;
 		word-wrap: anywhere;
+		margin-right: var(--default-clickable-area);
 
-		&--draft {
-			gap: var(--default-grid-baseline);
-		}
-
-		&-name {
-			margin-inline-end: auto;
-			align-self: center;
-		}
-
-		&-icon {
-			height: var(--default-clickable-area);
+		:deep(.material-design-icon) {
 			margin-bottom: auto;
 		}
 	}
@@ -224,6 +201,12 @@ export default {
 	&__footer {
 		color: var(--color-text-maxcontrast);
 		white-space: normal;
+	}
+
+	& &__delete-draft {
+		position: absolute;
+		top: var(--default-grid-baseline);
+		right: var(--default-grid-baseline);
 	}
 }
 

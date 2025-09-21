@@ -4,7 +4,8 @@
  */
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
-import { shareFile } from './filesSharingServices.ts'
+
+import { shareFile } from './filesSharingServices.js'
 
 jest.mock('@nextcloud/axios', () => ({
 	post: jest.fn(),
@@ -17,11 +18,7 @@ describe('filesSharingServices', () => {
 	})
 
 	test('shareFile calls the sharing API endpoint', () => {
-		shareFile({
-			path: 'path/to/file',
-			shareWith: 'XXTOKENXX',
-			referenceId: 'the-reference-id',
-		})
+		shareFile('path/to/file', 'XXTOKENXX', 'the-reference-id')
 
 		expect(axios.post).toHaveBeenCalledWith(
 			generateOcsUrl('apps/files_sharing/api/v1/shares'),
@@ -30,7 +27,7 @@ describe('filesSharingServices', () => {
 				shareWith: 'XXTOKENXX',
 				path: 'path/to/file',
 				referenceId: 'the-reference-id',
-			},
+			}
 		)
 	})
 })

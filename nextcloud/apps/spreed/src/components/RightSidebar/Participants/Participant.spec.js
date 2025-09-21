@@ -7,21 +7,25 @@ import flushPromises from 'flush-promises'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActionText from '@nextcloud/vue/components/NcActionText'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcInputField from '@nextcloud/vue/components/NcInputField'
-import NcListItem from '@nextcloud/vue/components/NcListItem'
-import NcTextArea from '@nextcloud/vue/components/NcTextArea'
+
 import HandBackLeft from 'vue-material-design-icons/HandBackLeft.vue'
 import Microphone from 'vue-material-design-icons/Microphone.vue'
 import Phone from 'vue-material-design-icons/Phone.vue'
 import VideoIcon from 'vue-material-design-icons/Video.vue'
-import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionText from '@nextcloud/vue/dist/Components/NcActionText.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js'
+import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js'
+import NcTextArea from '@nextcloud/vue/dist/Components/NcTextArea.js'
+
 import Participant from './Participant.vue'
-import { ATTENDEE, PARTICIPANT, WEBINAR } from '../../../constants.ts'
+import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
+import { ATTENDEE, PARTICIPANT, WEBINAR } from '../../../constants.js'
 import storeConfig from '../../../store/storeConfig.js'
 import { findNcActionButton, findNcButton } from '../../../test-helpers.js'
 
@@ -62,12 +66,8 @@ describe('Participant.vue', () => {
 		}
 
 		const conversationGetterMock = jest.fn().mockReturnValue(conversation)
-		const actorIdMock = jest.fn().mockReturnValue('user-actor-id')
-		const actorTypeMock = jest.fn().mockReturnValue(ATTENDEE.ACTOR_TYPE.USERS)
 
 		testStoreConfig = cloneDeep(storeConfig)
-		testStoreConfig.modules.actorStore.getters.getActorId = () => () => actorIdMock()
-		testStoreConfig.modules.actorStore.getters.getActorType = () => () => actorTypeMock()
 		testStoreConfig.modules.tokenStore.getters.getToken = () => () => 'current-token'
 		testStoreConfig.modules.conversationsStore.getters.conversation = () => conversationGetterMock
 		store = new Vuex.Store(testStoreConfig)
@@ -199,8 +199,7 @@ describe('Participant.vue', () => {
 			['Alice', 'guest-id', ATTENDEE.ACTOR_TYPE.GUESTS, PARTICIPANT.TYPE.GUEST_MODERATOR, /^Alice\s+\(moderator\)\s+\(guest\)$/],
 		]
 
-		it.each(testCases)(
-			'renders name and badges for participant \'%s\' - \'%s\' - \'%s\' - \'%d\'',
+		it.each(testCases)('renders name and badges for participant \'%s\' - \'%s\' - \'%s\' - \'%d\'',
 			(displayName, actorId, actorType, participantType, regexp) => {
 				checkUserNameRendered({
 					...participant,
@@ -209,11 +208,9 @@ describe('Participant.vue', () => {
 					participantType,
 					displayName,
 				}, regexp)
-			},
-		)
+			})
 
-		it.each(testLobbyCases)(
-			'renders name and badges for participant \'%s\' - \'%s\' - \'%s\' - \'%d\' with lobby enabled',
+		it.each(testLobbyCases)('renders name and badges for participant \'%s\' - \'%s\' - \'%s\' - \'%d\' with lobby enabled',
 			(displayName, actorId, actorType, participantType, regexp) => {
 				conversation.lobbyState = WEBINAR.LOBBY.NON_MODERATORS
 				checkUserNameRendered({
@@ -223,8 +220,7 @@ describe('Participant.vue', () => {
 					participantType,
 					displayName,
 				}, regexp)
-			},
-		)
+			})
 	})
 
 	describe('user status', () => {
@@ -253,8 +249,7 @@ describe('Participant.vue', () => {
 			['away', '🌧️', '', '🌧️ Away'],
 		]
 
-		it.each(testCases)(
-			'renders status for participant \'%s\', \'%s\', \'%s\' - \'%s\'',
+		it.each(testCases)('renders status for participant \'%s\', \'%s\', \'%s\' - \'%s\'',
 			(status, statusIcon, statusMessage, result) => {
 				checkUserSubnameRendered({
 					...participant,
@@ -262,8 +257,7 @@ describe('Participant.vue', () => {
 					statusIcon,
 					statusMessage,
 				}, result)
-			},
-		)
+			})
 
 		it('renders email as status for email guest', async () => {
 			participant.actorType = ATTENDEE.ACTOR_TYPE.EMAILS
@@ -287,7 +281,7 @@ describe('Participant.vue', () => {
 			if (icon) {
 				expect(wrapper.findComponent(icon).exists()).toBeTruthy()
 			} else {
-				components.forEach((component) => {
+				components.forEach(component => {
 					expect(wrapper.findComponent(component).exists()).toBeFalsy()
 				})
 			}
@@ -407,17 +401,17 @@ describe('Participant.vue', () => {
 
 			test('does not allow demoting self', async () => {
 				conversation.participantType = PARTICIPANT.TYPE.MODERATOR
+				conversation.sessionId = 'current-session-id'
 				participant.participantType = PARTICIPANT.TYPE.MODERATOR
-				participant.actorId = 'user-actor-id'
-				participant.actorType = ATTENDEE.ACTOR_TYPE.USERS
+				participant.sessionIds = ['current-session-id', 'another-session-id']
 				await testCannotDemote()
 			})
 
 			test('does not allow demoting self as guest', async () => {
 				conversation.participantType = PARTICIPANT.TYPE.GUEST_MODERATOR
+				conversation.sessionId = 'current-session-id'
 				participant.participantType = PARTICIPANT.TYPE.GUEST_MODERATOR
-				participant.actorId = 'user-actor-id'
-				participant.actorType = ATTENDEE.ACTOR_TYPE.USERS
+				participant.sessionIds = ['current-session-id']
 				await testCannotDemote()
 			})
 
@@ -632,7 +626,7 @@ describe('Participant.vue', () => {
 					token: 'current-token',
 					attendeeId: 'alice-attendee-id',
 					banParticipant: true,
-					internalNote,
+					internalNote
 				})
 			}
 
@@ -691,17 +685,17 @@ describe('Participant.vue', () => {
 
 			test('does not allow removing self', async () => {
 				conversation.participantType = PARTICIPANT.TYPE.MODERATOR
+				conversation.sessionId = 'current-session-id'
 				participant.participantType = PARTICIPANT.TYPE.MODERATOR
-				participant.actorId = 'user-actor-id'
-				participant.actorType = ATTENDEE.ACTOR_TYPE.USERS
+				participant.sessionIds = ['current-session-id']
 				await testCannotRemove()
 			})
 
 			test('does not allow removing self as guest', async () => {
 				conversation.participantType = PARTICIPANT.TYPE.GUEST_MODERATOR
+				conversation.sessionId = 'current-session-id'
 				participant.participantType = PARTICIPANT.TYPE.GUEST_MODERATOR
-				participant.actorId = 'user-actor-id'
-				participant.actorType = ATTENDEE.ACTOR_TYPE.USERS
+				participant.sessionIds = ['current-session-id']
 				await testCannotRemove()
 			})
 

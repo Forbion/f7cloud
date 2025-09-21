@@ -74,30 +74,34 @@
 </template>
 
 <script>
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import NcAppNavigationCaption from '@nextcloud/vue/components/NcAppNavigationCaption'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCollectionList from '@nextcloud/vue/components/NcCollectionList'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcRelatedResourcesPanel from '@nextcloud/vue/components/NcRelatedResourcesPanel'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
 import FolderMultipleImage from 'vue-material-design-icons/FolderMultipleImage.vue'
 import IconPoll from 'vue-material-design-icons/Poll.vue'
-import LoadingComponent from '../../LoadingComponent.vue'
+
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+
+import NcAppNavigationCaption from '@nextcloud/vue/dist/Components/NcAppNavigationCaption.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCollectionList from '@nextcloud/vue/dist/Components/NcCollectionList.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcRelatedResourcesPanel from '@nextcloud/vue/dist/Components/NcRelatedResourcesPanel.js'
+
 import SharedItems from './SharedItems.vue'
 import SharedItemsBrowser from './SharedItemsBrowser.vue'
-import { CONVERSATION } from '../../../constants.ts'
-import { hasTalkFeature } from '../../../services/CapabilitiesManager.ts'
-import { EventBus } from '../../../services/EventBus.ts'
-import { useSharedItemsStore } from '../../../stores/sharedItems.js'
-import { useSidebarStore } from '../../../stores/sidebar.ts'
+import LoadingComponent from '../../LoadingComponent.vue'
+
 import {
 	sharedItemButtonTitle,
 	sharedItemsOrder,
 	sharedItemsWithPreviewLimit,
 	sharedItemTitle,
 } from './sharedItemsConstants.js'
+import { CONVERSATION } from '../../../constants.js'
+import { hasTalkFeature } from '../../../services/CapabilitiesManager.ts'
+import { EventBus } from '../../../services/EventBus.ts'
+import { useSharedItemsStore } from '../../../stores/sharedItems.js'
+import { useSidebarStore } from '../../../stores/sidebar.js'
 
 export default {
 
@@ -190,7 +194,7 @@ export default {
 				if (this.token && this.active && this.isSidebarOpen) {
 					this.sharedItemsStore.getSharedItemsOverview(this.token)
 				}
-			},
+			}
 		},
 	},
 
@@ -210,8 +214,8 @@ export default {
 		},
 
 		openPollDraftHandler() {
-			EventBus.emit('poll-drafts-open', {})
-		},
+			EventBus.emit('poll-drafts-open')
+		}
 	},
 }
 </script>

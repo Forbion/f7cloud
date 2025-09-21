@@ -1,4 +1,3 @@
-import { showError } from '@nextcloud/dialogs'
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -8,30 +7,32 @@ import flushPromises from 'flush-promises'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
+
+import { showError } from '@nextcloud/dialogs'
+
+import storeConfig from './storeConfig.js'
+// eslint-disable-next-line import/order -- required for testing
+import messagesStore from './messagesStore.js'
 import {
-	ATTENDEE,
-	CHAT,
-	MESSAGE,
-} from '../constants.ts'
+	ATTENDEE, CHAT,
+} from '../constants.js'
 import {
 	fetchNoteToSelfConversation,
-} from '../services/conversationsService.ts'
+} from '../services/conversationsService.js'
 import {
 	deleteMessage,
 	editMessage,
+	updateLastReadMessage,
 	fetchMessages,
 	getMessageContext,
-	pollNewMessages,
+	lookForNewMessages,
 	postNewMessage,
 	postRichObjectToConversation,
-	updateLastReadMessage,
 } from '../services/messagesService.ts'
 import { useGuestNameStore } from '../stores/guestName.js'
 import { useReactionsStore } from '../stores/reactions.js'
 import { generateOCSErrorResponse, generateOCSResponse } from '../test-helpers.js'
 import CancelableRequest from '../utils/cancelableRequest.js'
-import messagesStore from './messagesStore.js'
-import storeConfig from './storeConfig.js'
 
 jest.mock('../services/messagesService', () => ({
 	deleteMessage: jest.fn(),
@@ -39,7 +40,7 @@ jest.mock('../services/messagesService', () => ({
 	updateLastReadMessage: jest.fn(),
 	fetchMessages: jest.fn(),
 	getMessageContext: jest.fn(),
-	pollNewMessages: jest.fn(),
+	lookForNewMessages: jest.fn(),
 	postNewMessage: jest.fn(),
 	postRichObjectToConversation: jest.fn(),
 }))
@@ -61,7 +62,7 @@ jest.mock('@nextcloud/capabilities', () => ({
 			'features-local': [],
 			'config-local': { chat: [] },
 		},
-	})),
+	}))
 }))
 
 describe('messagesStore', () => {
@@ -163,7 +164,7 @@ describe('messagesStore', () => {
 				},
 			}]
 
-			messages.forEach((message) => {
+			messages.forEach(message => {
 				store.dispatch('processMessage', { token: TOKEN, message })
 			})
 
@@ -179,7 +180,7 @@ describe('messagesStore', () => {
 				id: 2,
 				token: TOKEN,
 				parent: parentMessage,
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 			}
 
 			store.dispatch('processMessage', { token: TOKEN, message: message1 })
@@ -202,37 +203,6 @@ describe('messagesStore', () => {
 
 			store.dispatch('processMessage', { token: TOKEN, message: message1 })
 			expect(store.getters.messagesList(TOKEN)).toStrictEqual([message1])
-		})
-
-		test('updates last read message when replacing matching temporary message', () => {
-			conversationMock.mockReturnValueOnce({
-				token: TOKEN,
-				lastReadMessage: 100,
-				lastMessage: {
-					id: 123,
-				},
-			})
-			const response = generateOCSResponse({ payload: conversation })
-			updateLastReadMessage.mockResolvedValueOnce(response)
-
-			const temporaryMessage = {
-				id: 'temp-1',
-				referenceId: 'reference-1',
-				token: TOKEN,
-			}
-			store.dispatch('addTemporaryMessage', { token: TOKEN, message: temporaryMessage })
-
-			const message1 = {
-				id: 123,
-				token: TOKEN,
-				actorId: 'actor-id-1',
-				actorType: ATTENDEE.ACTOR_TYPE.USERS,
-				referenceId: 'reference-1',
-			}
-
-			store.dispatch('processMessage', { token: TOKEN, message: message1 })
-			expect(store.getters.messagesList(TOKEN)).toStrictEqual([message1])
-			expect(updateLastReadMessage).toHaveBeenCalledWith(TOKEN, message1.id)
 		})
 
 		test('replaces existing message', () => {
@@ -266,7 +236,7 @@ describe('messagesStore', () => {
 				id: 4,
 				token: TOKEN,
 				message: '👍',
-				messageType: MESSAGE.TYPE.SYSTEM,
+				messageType: 'system',
 				systemMessage: 'reaction',
 				parent: {
 					id: 2,
@@ -288,82 +258,35 @@ describe('messagesStore', () => {
 		})
 	})
 
-	describe('messages list', () => {
-		test('returns messages list', () => {
-			const message1 = {
-				id: 1,
-				token: TOKEN,
-			}
-			const message2 = {
-				id: 2,
-				token: 'token-2',
-			}
-			const message3 = {
-				id: 3,
-				token: TOKEN,
-			}
+	test('message list', () => {
+		const message1 = {
+			id: 1,
+			token: TOKEN,
+		}
+		const message2 = {
+			id: 2,
+			token: 'token-2',
+		}
+		const message3 = {
+			id: 3,
+			token: TOKEN,
+		}
 
-			store.dispatch('processMessage', { token: message1.token, message: message1 })
-			store.dispatch('processMessage', { token: message2.token, message: message2 })
-			store.dispatch('processMessage', { token: message3.token, message: message3 })
-			expect(store.getters.messagesList(TOKEN)[0]).toStrictEqual(message1)
-			expect(store.getters.messagesList(TOKEN)[1]).toStrictEqual(message3)
-			expect(store.getters.messagesList('token-2')[0]).toStrictEqual(message2)
+		store.dispatch('processMessage', { token: message1.token, message: message1 })
+		store.dispatch('processMessage', { token: message2.token, message: message2 })
+		store.dispatch('processMessage', { token: message3.token, message: message3 })
+		expect(store.getters.messagesList(TOKEN)[0]).toStrictEqual(message1)
+		expect(store.getters.messagesList(TOKEN)[1]).toStrictEqual(message3)
+		expect(store.getters.messagesList('token-2')[0]).toStrictEqual(message2)
 
-			// with messages getter
-			expect(store.getters.messagesList(TOKEN)).toStrictEqual([
-				message1,
-				message3,
-			])
-			expect(store.getters.messagesList('token-2')).toStrictEqual([
-				message2,
-			])
-		})
-
-		const testCases = [
-			// Default
-			[1, 200, 1, 200, 200, undefined],
-			[1, 400, 201, 400, 200, undefined],
-			// with lastReadMessage
-			[201, 600, 401, 600, 200, 200],
-			[1, 400, 101, 300, 200, 200],
-			[1, 400, 201, 400, 200, 300],
-			// Border values
-			[1, 400, 1, 101, 101, 1],
-			[1, 400, 301, 400, 100, 400],
-			[1, 400, 1, 199, 199, 99],
-			[1, 400, 1, 200, 200, 100],
-			[1, 400, 2, 201, 200, 101],
-			[1, 400, 202, 400, 199, 301],
-			[1, 400, 201, 400, 200, 300],
-			[1, 400, 200, 399, 200, 299],
-		]
-
-		it.each(testCases)(
-			'eases list from [%s - %s] to [%s - %s] (length: %s) with lastReadMessage %s',
-			(oldFirst, oldLast, newFirst, newLast, length, lastReadMessage) => {
-			// Arrange
-				conversationMock.mockReturnValue({ lastReadMessage })
-				for (let id = oldFirst; id <= oldLast; id++) {
-					store.dispatch('processMessage', { token: TOKEN, message: { token: TOKEN, id } })
-				}
-				store.dispatch('setFirstKnownMessageId', { token: TOKEN, id: oldFirst })
-				store.dispatch('setLastKnownMessageId', { token: TOKEN, id: oldLast })
-
-				// Act
-				store.dispatch('easeMessageList', { token: TOKEN })
-
-				// Assert
-				expect(store.getters.messagesList(TOKEN)).toHaveLength(length)
-				expect(store.getters.messagesList(TOKEN).at(0)).toStrictEqual({ token: TOKEN, id: newFirst })
-				expect(store.getters.messagesList(TOKEN).at(-1)).toStrictEqual({ token: TOKEN, id: newLast })
-				expect(store.getters.getFirstKnownMessageId(TOKEN)).toStrictEqual(newFirst)
-				expect(store.getters.getLastKnownMessageId(TOKEN)).toStrictEqual(newLast)
-				if (oldFirst < lastReadMessage && lastReadMessage < oldLast) {
-					expect(store.getters.message(TOKEN, lastReadMessage)).toBeDefined()
-				}
-			},
-		)
+		// with messages getter
+		expect(store.getters.messagesList(TOKEN)).toStrictEqual([
+			message1,
+			message3,
+		])
+		expect(store.getters.messagesList('token-2')).toStrictEqual([
+			message2,
+		])
 	})
 
 	describe('delete message', () => {
@@ -391,7 +314,7 @@ describe('messagesStore', () => {
 					id: 10,
 					token: TOKEN,
 					message: 'parent message deleted',
-					messageType: MESSAGE.TYPE.COMMENT_DELETED,
+					messageType: 'comment_deleted',
 				},
 			}
 			const response = generateOCSResponse({ payload })
@@ -406,7 +329,7 @@ describe('messagesStore', () => {
 				id: 10,
 				token: TOKEN,
 				message: 'parent message deleted',
-				messageType: MESSAGE.TYPE.COMMENT_DELETED,
+				messageType: 'comment_deleted',
 			}])
 		})
 
@@ -415,7 +338,7 @@ describe('messagesStore', () => {
 				id: 11,
 				token: TOKEN,
 				message: 'reply to hello',
-				parent: cloneDeep(message),
+				parent: cloneDeep(message)
 			}
 			store.dispatch('processMessage', { token: TOKEN, message: childMessage })
 
@@ -423,7 +346,7 @@ describe('messagesStore', () => {
 				id: 10,
 				token: TOKEN,
 				message: 'parent message deleted',
-				messageType: MESSAGE.TYPE.COMMENT_DELETED,
+				messageType: 'comment_deleted',
 			}
 			const payload = {
 				id: 12,
@@ -456,7 +379,7 @@ describe('messagesStore', () => {
 					id: 9,
 					token: TOKEN,
 					message: 'parent message deleted',
-					messageType: MESSAGE.TYPE.COMMENT_DELETED,
+					messageType: 'comment_deleted',
 				},
 			}
 			const response = generateOCSResponse({ payload })
@@ -475,7 +398,7 @@ describe('messagesStore', () => {
 			deleteMessage.mockRejectedValueOnce(error)
 
 			await store.dispatch('deleteMessage', { token: message.token, id: message.id, placeholder: 'placeholder-text' })
-				.catch((error) => {
+				.catch(error => {
 					expect(error.status).toBe(400)
 
 					expect(store.getters.messagesList(TOKEN)).toMatchObject([message])
@@ -493,7 +416,7 @@ describe('messagesStore', () => {
 				id: 10,
 				token: TOKEN,
 				message: 'placeholder-message',
-				messageType: MESSAGE.TYPE.COMMENT_DELETED,
+				messageType: 'comment_deleted',
 			}])
 		})
 	})
@@ -521,7 +444,7 @@ describe('messagesStore', () => {
 					id: 10,
 					token: TOKEN,
 					message: 'hello edited',
-					messageType: MESSAGE.TYPE.COMMENT,
+					messageType: 'comment',
 				},
 			}
 			const response = generateOCSResponse({ payload })
@@ -535,7 +458,7 @@ describe('messagesStore', () => {
 				id: 10,
 				token: TOKEN,
 				message: 'hello edited',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 			}])
 		})
 
@@ -544,14 +467,14 @@ describe('messagesStore', () => {
 				id: 11,
 				token: TOKEN,
 				message: 'reply to hello',
-				parent: cloneDeep(message),
+				parent: cloneDeep(message)
 			}
 			store.dispatch('processMessage', { token: TOKEN, message: childMessage })
 			const editedParent = {
 				id: 10,
 				token: TOKEN,
 				message: 'hello edited',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 			}
 			const payload = {
 				id: 12,
@@ -592,12 +515,12 @@ describe('messagesStore', () => {
 	})
 
 	describe('temporary messages', () => {
-		beforeEach(() => {
-			jest.useFakeTimers().setSystemTime(new Date('2020-01-01T20:00:00'))
-		})
+		let mockDate
 
-		afterEach(() => {
-			jest.useRealTimers()
+		beforeEach(() => {
+			mockDate = new Date('2020-01-01 20:00:00')
+			jest.spyOn(global, 'Date')
+				.mockImplementation(() => mockDate)
 		})
 
 		test('adds temporary message to the list', () => {
@@ -606,7 +529,7 @@ describe('messagesStore', () => {
 				id: 'temp-1577908800000',
 				timestamp: 0,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				message: 'original',
 			}
 
@@ -623,7 +546,7 @@ describe('messagesStore', () => {
 				id: 'temp-1577908800000',
 				timestamp: 0,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				message: 'original',
 			}
 
@@ -646,7 +569,7 @@ describe('messagesStore', () => {
 				id: 'temp-1577908800000',
 				timestamp: 0,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				message: 'original',
 			}
 
@@ -662,7 +585,7 @@ describe('messagesStore', () => {
 				id: 'temp-1577908800000',
 				timestamp: 0,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				message: 'original',
 				referenceId: 'reference-1',
 			}
@@ -788,7 +711,7 @@ describe('messagesStore', () => {
 				payload: {
 					unreadMessages: 0,
 					unreadMention: false,
-				},
+				}
 			})
 			updateLastReadMessage.mockResolvedValue(response)
 
@@ -816,7 +739,7 @@ describe('messagesStore', () => {
 				payload: {
 					unreadMessages: 0,
 					unreadMention: false,
-				},
+				}
 			})
 			updateLastReadMessage.mockResolvedValue(response)
 
@@ -865,30 +788,6 @@ describe('messagesStore', () => {
 		let addGuestNameAction
 		let cancelFunctionMock
 
-		const oldMessagesList = [{
-			id: 98,
-			token: TOKEN,
-			actorType: ATTENDEE.ACTOR_TYPE.USERS,
-		}, {
-			id: 99,
-			token: TOKEN,
-			actorType: ATTENDEE.ACTOR_TYPE.GUESTS,
-		}]
-		const originalMessagesList = [{
-			id: 100,
-			token: TOKEN,
-			actorType: ATTENDEE.ACTOR_TYPE.USERS,
-		}]
-		const newMessagesList = [{
-			id: 101,
-			token: TOKEN,
-			actorType: ATTENDEE.ACTOR_TYPE.USERS,
-		}, {
-			id: 102,
-			token: TOKEN,
-			actorType: ATTENDEE.ACTOR_TYPE.GUESTS,
-		}]
-
 		beforeEach(() => {
 			testStoreConfig = cloneDeep(messagesStore)
 			const guestNameStore = useGuestNameStore()
@@ -907,43 +806,31 @@ describe('messagesStore', () => {
 			})
 
 			store = new Vuex.Store(testStoreConfig)
-
-			for (const index in originalMessagesList) {
-				store.commit('addMessage', { token: TOKEN, message: originalMessagesList[index] })
-				if (index === '0') {
-					store.dispatch('setFirstKnownMessageId', { token: TOKEN, id: originalMessagesList[index].id })
-				}
-				if (index === `${originalMessagesList.length - 1}`) {
-					store.dispatch('setLastKnownMessageId', { token: TOKEN, id: originalMessagesList[index].id })
-				}
-			}
 		})
 
-		const testCasesOld = [
-			[true, CHAT.FETCH_OLD, [...oldMessagesList, originalMessagesList.at(0)].reverse(), 98, 100],
-			[false, CHAT.FETCH_OLD, [...oldMessagesList].reverse(), 98, 100],
-			[true, CHAT.FETCH_NEW, [originalMessagesList.at(-1), ...newMessagesList], 100, 102],
-			[false, CHAT.FETCH_NEW, newMessagesList, 100, 102],
-		]
-		test.each(testCasesOld)('fetches messages from server: including last known - %s, look into future - %s', async (includeLastKnown, lookIntoFuture, payload, firstKnown, lastKnown) => {
+		test('fetches messages from server including last known', async () => {
+			const messages = [{
+				id: 1,
+				token: TOKEN,
+				actorType: ATTENDEE.ACTOR_TYPE.USERS,
+			}, {
+				id: 2,
+				token: TOKEN,
+				actorType: ATTENDEE.ACTOR_TYPE.GUESTS,
+			}]
 			const response = generateOCSResponse({
 				headers: {
 					'x-chat-last-common-read': '123',
-					'x-chat-last-given': payload.at(-1).id.toString(),
+					'x-chat-last-given': '100',
 				},
-				payload,
+				payload: messages,
 			})
 			fetchMessages.mockResolvedValueOnce(response)
-			const expectedMessages = lookIntoFuture
-				? [originalMessagesList[0], ...newMessagesList]
-				: [...oldMessagesList, originalMessagesList[0]]
-			const expectedMessageFromGuest = expectedMessages.find((message) => message.actorType === ATTENDEE.ACTOR_TYPE.GUESTS)
 
 			await store.dispatch('fetchMessages', {
 				token: TOKEN,
 				lastKnownMessageId: 100,
-				includeLastKnown,
-				lookIntoFuture,
+				includeLastKnown: true,
 				requestOptions: {
 					dummyOption: true,
 				},
@@ -953,8 +840,7 @@ describe('messagesStore', () => {
 			expect(fetchMessages).toHaveBeenCalledWith({
 				token: TOKEN,
 				lastKnownMessageId: 100,
-				includeLastKnown,
-				lookIntoFuture,
+				includeLastKnown: true,
 				limit: CHAT.FETCH_LIMIT,
 			}, {
 				dummyOption: true,
@@ -963,11 +849,59 @@ describe('messagesStore', () => {
 			expect(updateLastCommonReadMessageAction)
 				.toHaveBeenCalledWith(expect.anything(), { token: TOKEN, lastCommonReadMessage: 123 })
 
-			expect(addGuestNameAction).toHaveBeenCalledWith(expectedMessageFromGuest, { noUpdate: true })
+			expect(addGuestNameAction).toHaveBeenCalledWith(messages[1], { noUpdate: true })
 
-			expect(store.getters.messagesList(TOKEN)).toStrictEqual(expectedMessages)
-			expect(store.getters.getFirstKnownMessageId(TOKEN)).toBe(firstKnown)
-			expect(store.getters.getLastKnownMessageId(TOKEN)).toBe(lastKnown)
+			expect(store.getters.messagesList(TOKEN)).toStrictEqual(messages)
+			expect(store.getters.getFirstKnownMessageId(TOKEN)).toBe(100)
+			expect(store.getters.getLastKnownMessageId(TOKEN)).toBe(2)
+		})
+
+		test('fetches messages from server excluding last known', async () => {
+			const messages = [{
+				id: 1,
+				token: TOKEN,
+				actorType: ATTENDEE.ACTOR_TYPE.USERS,
+			}, {
+				id: 2,
+				token: TOKEN,
+				actorType: ATTENDEE.ACTOR_TYPE.GUESTS,
+			}]
+			const response = generateOCSResponse({
+				headers: {
+					'x-chat-last-common-read': '123',
+					'x-chat-last-given': '100',
+				},
+				payload: messages,
+			})
+			fetchMessages.mockResolvedValueOnce(response)
+
+			await store.dispatch('fetchMessages', {
+				token: TOKEN,
+				lastKnownMessageId: 100,
+				includeLastKnown: false,
+				requestOptions: {
+					dummyOption: true,
+				},
+				minimumVisible: 0,
+			})
+
+			expect(fetchMessages).toHaveBeenCalledWith({
+				token: TOKEN,
+				lastKnownMessageId: 100,
+				includeLastKnown: false,
+				limit: CHAT.FETCH_LIMIT,
+			}, {
+				dummyOption: true,
+			})
+
+			expect(updateLastCommonReadMessageAction)
+				.toHaveBeenCalledWith(expect.anything(), { token: TOKEN, lastCommonReadMessage: 123 })
+
+			expect(addGuestNameAction).toHaveBeenCalledWith(messages[1], { noUpdate: true })
+
+			expect(store.getters.messagesList(TOKEN)).toStrictEqual(messages)
+			expect(store.getters.getFirstKnownMessageId(TOKEN)).toBe(100)
+			expect(store.getters.getLastKnownMessageId(TOKEN)).toBe(null)
 		})
 
 		test('cancels fetching messages', () => {
@@ -1132,7 +1066,6 @@ describe('messagesStore', () => {
 				token: TOKEN,
 				lastKnownMessageId: 3,
 				includeLastKnown: false,
-				lookIntoFuture: CHAT.FETCH_OLD,
 				limit: CHAT.FETCH_LIMIT,
 			}, undefined)
 
@@ -1221,14 +1154,14 @@ describe('messagesStore', () => {
 				},
 				payload: messages,
 			})
-			pollNewMessages.mockResolvedValueOnce(response)
+			lookForNewMessages.mockResolvedValueOnce(response)
 
 			// smaller number to make it update
 			conversationMock.mockReturnValue({
 				lastMessage: { id: 1 },
 			})
 
-			await store.dispatch('pollNewMessages', {
+			await store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
@@ -1237,7 +1170,7 @@ describe('messagesStore', () => {
 				},
 			})
 
-			expect(pollNewMessages).toHaveBeenCalledWith({
+			expect(lookForNewMessages).toHaveBeenCalledWith({
 				token: TOKEN,
 				lastKnownMessageId: 100,
 				limit: CHAT.FETCH_LIMIT,
@@ -1273,12 +1206,12 @@ describe('messagesStore', () => {
 			const response = generateOCSResponse({
 				payload: messages,
 			})
-			pollNewMessages.mockResolvedValueOnce(response)
+			lookForNewMessages.mockResolvedValueOnce(response)
 
 			// smaller number to make it update
 			conversationMock.mockReturnValue({ lastMessage: { id: 500 } })
 
-			await store.dispatch('pollNewMessages', {
+			await store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
@@ -1299,11 +1232,11 @@ describe('messagesStore', () => {
 			// Arrange: prepare cancelable request from previous call of the function
 			const cancelFunctionMock = jest.fn()
 			cancelFunctionMocks.push(cancelFunctionMock)
-			store.commit('setCancelPollNewMessages', { cancelFunction: cancelFunctionMock, requestId: 'request1' })
+			store.commit('setCancelLookForNewMessages', { cancelFunction: cancelFunctionMock, requestId: 'request1' })
 			console.warn = jest.fn()
 
 			// Act
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: null,
@@ -1311,11 +1244,11 @@ describe('messagesStore', () => {
 
 			// Assert
 			expect(cancelFunctionMocks[0]).toHaveBeenCalledWith('canceled')
-			expect(pollNewMessages).not.toHaveBeenCalled()
+			expect(lookForNewMessages).not.toHaveBeenCalled()
 		})
 
 		test('cancels look for new messages', async () => {
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
@@ -1323,19 +1256,19 @@ describe('messagesStore', () => {
 
 			expect(cancelFunctionMocks[0]).not.toHaveBeenCalled()
 
-			store.dispatch('cancelPollNewMessages', { requestId: 'request1' })
+			store.dispatch('cancelLookForNewMessages', { requestId: 'request1' })
 
 			expect(cancelFunctionMocks[0]).toHaveBeenCalledWith('canceled')
 		})
 
 		test('cancels look for new messages when called again', async () => {
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
 			}).catch(() => {})
 
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
@@ -1345,23 +1278,23 @@ describe('messagesStore', () => {
 		})
 
 		test('cancels look for new messages call individually', async () => {
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request1',
 				lastKnownMessageId: 100,
 			}).catch(() => {})
 
-			store.dispatch('pollNewMessages', {
+			store.dispatch('lookForNewMessages', {
 				token: TOKEN,
 				requestId: 'request2',
 				lastKnownMessageId: 100,
 			}).catch(() => {})
 
-			store.dispatch('cancelPollNewMessages', { requestId: 'request1' })
+			store.dispatch('cancelLookForNewMessages', { requestId: 'request1' })
 			expect(cancelFunctionMocks[0]).toHaveBeenCalledWith('canceled')
 			expect(cancelFunctionMocks[1]).not.toHaveBeenCalled()
 
-			store.dispatch('cancelPollNewMessages', { requestId: 'request2' })
+			store.dispatch('cancelLookForNewMessages', { requestId: 'request2' })
 			expect(cancelFunctionMocks[1]).toHaveBeenCalledWith('canceled')
 		})
 
@@ -1389,12 +1322,12 @@ describe('messagesStore', () => {
 					},
 					payload: messages,
 				})
-				pollNewMessages.mockResolvedValueOnce(response)
+				lookForNewMessages.mockResolvedValueOnce(response)
 
 				// smaller number to make it update
 				conversationMock.mockReturnValue(testConversation)
 
-				await store.dispatch('pollNewMessages', {
+				await store.dispatch('lookForNewMessages', {
 					token: TOKEN,
 					requestId: 'request1',
 					lastKnownMessageId: 100,
@@ -1637,8 +1570,6 @@ describe('messagesStore', () => {
 		let message1
 		let conversationMock
 		let getUserIdMock
-		let getActorIdMock
-		let getActorTypeMock
 		let updateLastCommonReadMessageAction
 		let updateConversationLastMessageAction
 		let cancelFunctionMocks
@@ -1652,14 +1583,10 @@ describe('messagesStore', () => {
 
 			conversationMock = jest.fn()
 			getUserIdMock = jest.fn()
-			getActorIdMock = jest.fn().mockReturnValue(() => 'actor-id-1')
-			getActorTypeMock = jest.fn().mockReturnValue(() => ATTENDEE.ACTOR_TYPE.USERS)
 			updateConversationLastMessageAction = jest.fn()
 			updateLastCommonReadMessageAction = jest.fn()
 			testStoreConfig.getters.conversation = jest.fn().mockReturnValue(conversationMock)
 			testStoreConfig.getters.getUserId = jest.fn().mockReturnValue(getUserIdMock)
-			testStoreConfig.getters.getActorId = getActorIdMock
-			testStoreConfig.getters.getActorType = getActorTypeMock
 			testStoreConfig.actions.updateConversationLastMessage = updateConversationLastMessageAction
 			testStoreConfig.actions.updateLastCommonReadMessage = updateLastCommonReadMessageAction
 			// mock this complex local action as we already tested it elsewhere
@@ -1699,23 +1626,17 @@ describe('messagesStore', () => {
 			})
 			getUserIdMock.mockReturnValue(() => 'current-user')
 
-			const baseMessage = {
-				actorId: 'actor-id-1',
-				actorType: ATTENDEE.ACTOR_TYPE.USERS,
+			const temporaryMessage = {
+				id: 'temp-123',
 				message: 'blah',
 				token: TOKEN,
-				referenceId: 'abc123',
-			}
-
-			const temporaryMessage = {
-				...baseMessage,
-				id: 'temp-123',
 				sendingFailure: '',
 			}
 
 			const messageResponse = {
-				...baseMessage,
 				id: 200,
+				token: TOKEN,
+				message: 'blah',
 			}
 
 			const response = generateOCSResponse({
@@ -1730,7 +1651,7 @@ describe('messagesStore', () => {
 				payload: {
 					unreadMessages: 0,
 					unreadMention: false,
-				},
+				}
 			})
 			updateLastReadMessage.mockResolvedValue(response2)
 			store.dispatch('postNewMessage', { token: TOKEN, temporaryMessage, options: { silent: false } }).catch(() => {
@@ -1809,7 +1730,9 @@ describe('messagesStore', () => {
 			console.error = jest.fn()
 
 			postNewMessage.mockRejectedValueOnce({ isAxiosError: true, response })
-			await expect(store.dispatch('postNewMessage', { token: TOKEN, temporaryMessage, options: { silent: false } })).rejects.toMatchObject({ response })
+			await expect(
+				store.dispatch('postNewMessage', { token: TOKEN, temporaryMessage, options: { silent: false } })
+			).rejects.toMatchObject({ response })
 
 			expect(store.getters.isSendingMessages).toBe(false)
 
@@ -1886,6 +1809,7 @@ describe('messagesStore', () => {
 
 			expect(cancelFunctionMocks[0]).not.toHaveBeenCalled()
 		})
+
 	})
 
 	describe('hasMoreMessagesToLoad', () => {
@@ -2050,6 +1974,7 @@ describe('messagesStore', () => {
 					referenceId: '',
 				},
 			)
+
 		})
 		test('forwards a message with mentions and remove the latter', () => {
 			// Arrange

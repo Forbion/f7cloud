@@ -8,13 +8,12 @@
 		<input v-model="modelProxy"
 			:value="value"
 			:aria-label="participantAriaLabel"
-			:disabled="isLocked"
 			type="checkbox"
 			class="selectable-participant__checkbox"
 			@keydown.enter.stop.prevent="handleEnter">
 		<!-- Participant's avatar -->
 		<AvatarWrapper :id="actorId"
-			:token="participant.roomToken ?? 'new'"
+			token="new"
 			:name="computedName"
 			:source="actorType"
 			disable-menu
@@ -37,11 +36,14 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import { computed, inject, ref } from 'vue'
+import { inject } from 'vue'
+
 import IconCheck from 'vue-material-design-icons/Check.vue'
+
+import { t } from '@nextcloud/l10n'
+
 import AvatarWrapper from '../AvatarWrapper/AvatarWrapper.vue'
-import { ATTENDEE } from '../../constants.ts'
+
 import { getPreloadedUserStatus, getStatusMessage } from '../../utils/userStatus.ts'
 
 export default {
@@ -74,20 +76,12 @@ export default {
 
 	emits: ['update:checked', 'click-participant'],
 
-	setup(props) {
+	setup() {
 		// Toggles the bulk selection state of this component
 		const isBulkSelection = inject('bulkParticipantsSelection', false)
 
-		// Defines list of locked participants (can not be removed manually
-		const lockedParticipants = inject('lockedParticipants', ref([]))
-
-		const isLocked = computed(() => lockedParticipants.value.some((item) => {
-			return item.id === props.participant.id && item.source === props.participant.source
-		}))
-
 		return {
 			isBulkSelection,
-			isLocked,
 		}
 	},
 
@@ -96,11 +90,7 @@ export default {
 			get() {
 				return this.checked
 			},
-
 			set(value) {
-				if (this.isLocked) {
-					return
-				}
 				this.isBulkSelection
 					? this.$emit('update:checked', value)
 					: this.$emit('click-participant', this.participant)
@@ -120,7 +110,7 @@ export default {
 		},
 
 		computedName() {
-			return this.participant.displayName || this.participant.label || t('spreed', 'Guest')
+			return this.participant.displayName || this.participant.label
 		},
 
 		preloadedUserStatus() {
@@ -128,9 +118,6 @@ export default {
 		},
 
 		participantStatus() {
-			if (this.actorType === ATTENDEE.ACTOR_TYPE.EMAILS) {
-				return this.participant.invitedActorId ?? ''
-			}
 			return this.participant.shareWithDisplayNameUnique
 				?? getStatusMessage(this.participant)
 		},
@@ -158,7 +145,7 @@ export default {
 				this.$emit('click-participant', this.participant)
 			}
 		},
-	},
+	}
 }
 </script>
 
@@ -208,7 +195,7 @@ export default {
 	&__checkbox {
 		position: absolute;
 		top: 0;
-		inset-inline-start: 0;
+		left: 0;
 		z-index: -1;
 		opacity: 0;
 	}
@@ -229,7 +216,7 @@ export default {
 
 	&__check-icon {
 		display: none;
-		margin-inline-start: auto;
+		margin-left: auto;
 		width: var(--default-clickable-area);
 		flex-shrink: 0;
 	}

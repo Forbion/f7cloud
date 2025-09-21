@@ -28,12 +28,15 @@
 </template>
 
 <script>
+import { toRefs, computed } from 'vue'
+
 import { t } from '@nextcloud/l10n'
-import { computed, toRefs } from 'vue'
-import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
 import Message from './Message/Message.vue'
+import AvatarWrapper from '../../AvatarWrapper/AvatarWrapper.vue'
+
 import { useMessageInfo } from '../../../composables/useMessageInfo.js'
-import { ATTENDEE, AVATAR } from '../../../constants.ts'
+import { ATTENDEE, AVATAR } from '../../../constants.js'
 import { useGuestNameStore } from '../../../stores/guestName.js'
 
 export default {
@@ -54,7 +57,6 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		/**
 		 * The messages object.
 		 */
@@ -86,7 +88,7 @@ export default {
 
 		const actorInfo = computed(() => {
 			return [actorDisplayNameWithFallback.value, remoteServer.value, lastEditor.value]
-				.filter((value) => value).join(' ')
+				.filter(value => value).join(' ')
 		})
 
 		return {
@@ -150,7 +152,7 @@ export default {
 
 	&__author {
 		max-width: $messages-text-max-width;
-		padding-inline-start: var(--default-grid-baseline);
+		padding-left: var(--default-grid-baseline);
 		color: var(--color-text-maxcontrast);
 		flex-shrink: 0;
 		white-space: nowrap;

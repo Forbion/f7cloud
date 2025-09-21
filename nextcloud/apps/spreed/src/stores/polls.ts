@@ -1,14 +1,3 @@
-import type {
-	ChatMessage,
-	createPollParams,
-	Poll,
-	PollDraft,
-	updatePollDraftParams,
-	votePollParams,
-} from '../types/index.ts'
-
-import { showError, showInfo, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 /**
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -16,24 +5,34 @@ import { t } from '@nextcloud/l10n'
 import debounce from 'debounce'
 import { defineStore } from 'pinia'
 import Vue from 'vue'
+
+import { showError, showInfo, showSuccess, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
 import {
 	createPoll,
 	createPollDraft,
-	deletePollDraft,
-	endPoll,
-	getPollData,
 	getPollDrafts,
+	getPollData,
 	submitVote,
-	updatePollDraft,
+	endPoll,
+	deletePollDraft,
 } from '../services/pollService.ts'
+import type {
+	ChatMessage,
+	createPollParams,
+	votePollParams,
+	Poll,
+	PollDraft,
+} from '../types'
 
 type submitVotePayload = { token: string, pollId: string } & Pick<votePollParams, 'optionIds'>
 type State = {
-	polls: Record<string, Record<string, Poll>>
-	drafts: Record<string, Record<string, PollDraft>>
-	debouncedFunctions: Record<string, Record<string, () => void>>
-	activePoll: null
-	pollToastsQueue: Record<string, ReturnType<typeof showInfo>>
+	polls: Record<string, Record<string, Poll>>,
+	drafts: Record<string, Record<string, PollDraft>>,
+	debouncedFunctions: Record<string, Record<string, () => void>>,
+	activePoll: null,
+	pollToastsQueue: Record<string, ReturnType<typeof showInfo>>,
 }
 export const usePollsStore = defineStore('polls', {
 	state: (): State => ({
@@ -51,10 +50,6 @@ export const usePollsStore = defineStore('polls', {
 
 		getDrafts: (state) => (token: string): PollDraft[] => {
 			return Object.values(Object(state.drafts[token]))
-		},
-
-		draftsLoaded: (state) => (token: string): boolean => {
-			return state.drafts[token] !== undefined
 		},
 
 		isNewPoll: (state) => (pollId: number) => {
@@ -145,19 +140,6 @@ export const usePollsStore = defineStore('polls', {
 		async createPollDraft({ token, form }: { token: string, form: createPollParams }) {
 			try {
 				const response = await createPollDraft({ token, ...form })
-				this.addPollDraft({ token, draft: response.data.ocs.data })
-
-				showSuccess(t('spreed', 'Poll draft has been saved'))
-				return response.data.ocs.data
-			} catch (error) {
-				showError(t('spreed', 'An error occurred while saving the draft'))
-				console.error(error)
-			}
-		},
-
-		async updatePollDraft({ token, pollId, form }: { token: string, pollId: number, form: updatePollDraftParams }) {
-			try {
-				const response = await updatePollDraft({ token, pollId, ...form })
 				this.addPollDraft({ token, draft: response.data.ocs.data })
 
 				showSuccess(t('spreed', 'Poll draft has been saved'))

@@ -4,29 +4,30 @@
 -->
 
 <script setup lang="ts">
-import type { ApiErrorResponse } from '../types/index.ts'
+import { computed, ref } from 'vue'
+
+import IconFileUpload from 'vue-material-design-icons/FileUpload.vue'
 
 import { showError, showSuccess } from '@nextcloud/dialogs'
-import { n, t } from '@nextcloud/l10n'
-import { computed, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
-import IconFileUpload from 'vue-material-design-icons/FileUpload.vue'
+import { t, n } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import { importEmails } from '../services/participantsService.js'
-
-const props = defineProps<{
-	token: string
-	container?: string
-}>()
-
-const emit = defineEmits<{
-	(event: 'close'): void
-}>()
 
 const loading = ref(false)
 const listImport = ref<HTMLInputElement | null>(null)
+
+const props = defineProps<{
+	token: string,
+	container?: string,
+}>()
+const emit = defineEmits<{
+	(event: 'close'): void,
+}>()
 
 const importedFile = ref<File | null>(null)
 const uploadResult = ref<{ error?: boolean, invalid?: number, message?: string, duplicates?: number, invites?: number } | null>(null)
@@ -36,10 +37,12 @@ const uploadResultCaption = computed(() => {
 		: { class: 'import-list__caption--success', label: t('spreed', 'Uploaded file is verified') }
 })
 
-const importListDescription = t('spreed', 'Content format is comma-separated values (CSV):<br/>- Header line is required and must match <samp>"name","email"</samp> or just <samp>"email"</samp><br/>- One entry per line (e.g. <samp>"John Doe","john@example.tld"</samp>)', undefined, undefined, {
-	escape: true,
-	sanitize: true,
-})
+const importListDescription = t('spreed', 'Content format is comma-separated values (CSV):<br/>- Header line is required and must match <samp>"name","email"</samp> or just <samp>"email"</samp><br/>- One entry per line (e.g. <samp>"John Doe","john@example.tld"</samp>)',
+	undefined,
+	undefined, {
+		escape: true,
+		sanitize: true
+	})
 
 /**
  * Call native input[type='file'] to import a file
@@ -77,7 +80,7 @@ async function testList(file: File) {
 		const response = await importEmails(props.token, file, true)
 		uploadResult.value = response.data.ocs.data
 	} catch (error) {
-		uploadResult.value = (error as ApiErrorResponse).response?.data?.ocs?.data ?? null
+		uploadResult.value = error?.response?.data?.ocs?.data
 	} finally {
 		loading.value = false
 	}

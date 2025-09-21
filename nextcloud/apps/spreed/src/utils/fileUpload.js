@@ -72,9 +72,7 @@ const findUniquePath = async function(client, userRoot, path, knownSuffix) {
 	const fileName = extractFileName(path)
 
 	// Loop until a unique path is found
-	let suffix = knownSuffix || getFileSuffix(path)
-	while (true) {
-		suffix++
+	for (let suffix = knownSuffix + 1 || getFileSuffix(path) + 1; true; suffix++) {
 		const uniquePath = fileName + ` (${suffix})` + fileExtension
 		if (await client.exists(userRoot + uniquePath) === false) {
 			return { uniquePath, suffix }
@@ -124,11 +122,11 @@ function separateDuplicateUploads(uploads) {
 }
 
 export {
-	extractFileName,
 	findUniquePath,
+	extractFileName,
 	getFileExtension,
-	getFileNamePrompt,
 	getFileSuffix,
+	getFileNamePrompt,
 	hasDuplicateUploadNames,
 	separateDuplicateUploads,
 }

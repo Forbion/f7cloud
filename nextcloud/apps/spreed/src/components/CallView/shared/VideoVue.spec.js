@@ -7,10 +7,18 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
+
 import VideoVue from './VideoVue.vue'
+
 import storeConfig from '../../../store/storeConfig.js'
 import EmitterMixin from '../../../utils/EmitterMixin.js'
 import CallParticipantModel from '../../../utils/webrtc/models/CallParticipantModel.js'
+
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+	observe: jest.fn(),
+	unobserve: jest.fn(),
+	disconnect: jest.fn(),
+}))
 
 describe('VideoVue.vue', () => {
 	let localVue
@@ -67,6 +75,7 @@ describe('VideoVue.vue', () => {
 		setActivePinia(createPinia())
 
 		testStoreConfig = cloneDeep(storeConfig)
+		// eslint-disable-next-line import/no-named-as-default-member
 		store = new Vuex.Store(testStoreConfig)
 
 		const webRtcMock = {

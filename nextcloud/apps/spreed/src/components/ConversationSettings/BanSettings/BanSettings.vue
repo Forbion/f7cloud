@@ -44,13 +44,17 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import AccountCancel from 'vue-material-design-icons/AccountCancel.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 import BannedItem from './BannedItem.vue'
+
 import { getConversationBans, unbanActor } from '../../../services/banService.ts'
 
 export default {
@@ -86,7 +90,7 @@ export default {
 			if (value) {
 				this.getList()
 			}
-		},
+		}
 	},
 
 	methods: {
@@ -101,8 +105,8 @@ export default {
 
 		async handleUnban(id) {
 			await unbanActor(this.token, id)
-			this.banList = this.banList.filter((ban) => ban.id !== id)
-		},
+			this.banList = this.banList.filter(ban => ban.id !== id)
+		}
 	},
 }
 </script>

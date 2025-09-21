@@ -2,11 +2,12 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { createPinia, setActivePinia } from 'pinia'
+import { setActivePinia, createPinia } from 'pinia'
+
 import {
+	getConversationBots,
 	disableBotForConversation,
 	enableBotForConversation,
-	getConversationBots,
 } from '../../services/botsService.ts'
 import { generateOCSResponse } from '../../test-helpers.js'
 import { useBotsStore } from '../bots.ts'

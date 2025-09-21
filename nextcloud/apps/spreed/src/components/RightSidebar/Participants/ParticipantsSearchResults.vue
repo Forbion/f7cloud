@@ -4,62 +4,60 @@
 -->
 
 <template>
-	<div class="participants-search-results" :class="{ scrollable: scrollable }">
+	<div class="participants-search-results" :class="{'scrollable': scrollable }">
 		<template v-if="addableUsers.length !== 0">
-			<NcAppNavigationCaption v-if="!onlyUsers" :name="t('spreed', 'Add users')" />
+			<NcAppNavigationCaption :name="t('spreed', 'Add users')" />
 			<ParticipantsList :items="addableUsers"
 				is-search-result
 				@click="handleClickParticipant" />
 		</template>
 
-		<template v-if="!onlyUsers">
-			<template v-if="addableGroups.length !== 0">
-				<NcAppNavigationCaption :name="t('spreed', 'Add groups')" />
-				<ParticipantsList :items="addableGroups"
-					is-search-result
-					@click="handleClickParticipant" />
-			</template>
-
-			<template v-if="addableEmails.length !== 0">
-				<NcAppNavigationCaption :name="t('spreed', 'Add emails')" />
-				<ParticipantsList :items="addableEmails"
-					is-search-result
-					@click="handleClickParticipant" />
-			</template>
-
-			<template v-if="addableCircles.length !== 0">
-				<NcAppNavigationCaption :name="t('spreed', 'Add teams')" />
-				<ParticipantsList :items="addableCircles"
-					is-search-result
-					@click="handleClickParticipant" />
-			</template>
-
-			<!-- integrations -->
-			<template v-if="integrations.length !== 0">
-				<NcAppNavigationCaption :name="t('spreed', 'Integrations')" />
-				<ul>
-					<NcButton v-for="(integration, index) in integrations"
-						:key="'integration' + index"
-						type="tertiary-no-background"
-						@click="runIntegration(integration)">
-						<!-- FIXME: dynamically change the material design icon -->
-						<template #icon>
-							<AccountPlus :size="20" />
-						</template>
-						{{ integration.label }}
-					</NcButton>
-				</ul>
-			</template>
-
-			<template v-if="addableRemotes.length !== 0">
-				<NcAppNavigationCaption :name="t('spreed', 'Add federated users')" />
-				<ParticipantsList :items="addableRemotes"
-					is-search-result
-					@click="handleClickParticipant" />
-			</template>
+		<template v-if="addableGroups.length !== 0">
+			<NcAppNavigationCaption :name="t('spreed', 'Add groups')" />
+			<ParticipantsList :items="addableGroups"
+				is-search-result
+				@click="handleClickParticipant" />
 		</template>
 
-		<NcAppNavigationCaption v-if="sourcesWithoutResults && !onlyUsers" :name="sourcesWithoutResultsList" />
+		<template v-if="addableEmails.length !== 0">
+			<NcAppNavigationCaption :name="t('spreed', 'Add emails')" />
+			<ParticipantsList :items="addableEmails"
+				is-search-result
+				@click="handleClickParticipant" />
+		</template>
+
+		<template v-if="addableCircles.length !== 0">
+			<NcAppNavigationCaption :name="t('spreed', 'Add teams')" />
+			<ParticipantsList :items="addableCircles"
+				is-search-result
+				@click="handleClickParticipant" />
+		</template>
+
+		<!-- integrations -->
+		<template v-if="integrations.length !== 0">
+			<NcAppNavigationCaption :name="t('spreed', 'Integrations')" />
+			<ul>
+				<NcButton v-for="(integration, index) in integrations"
+					:key="'integration' + index"
+					type="tertiary-no-background"
+					@click="runIntegration(integration)">
+					<!-- FIXME: dynamically change the material design icon -->
+					<template #icon>
+						<AccountPlus :size="20" />
+					</template>
+					{{ integration.label }}
+				</NcButton>
+			</ul>
+		</template>
+
+		<template v-if="addableRemotes.length !== 0">
+			<NcAppNavigationCaption :name="t('spreed', 'Add federated users')" />
+			<ParticipantsList :items="addableRemotes"
+				is-search-result
+				@click="handleClickParticipant" />
+		</template>
+
+		<NcAppNavigationCaption v-if="sourcesWithoutResults" :name="sourcesWithoutResultsList" />
 		<Hint v-if="contactsLoading" :hint="t('spreed', 'Searching …')" />
 		<Hint v-else-if="sourcesWithoutResults" :hint="t('spreed', 'No search results')" />
 
@@ -83,16 +81,20 @@
 </template>
 
 <script>
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import NcAppNavigationCaption from '@nextcloud/vue/components/NcAppNavigationCaption'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import AccountPlus from 'vue-material-design-icons/AccountPlus.vue'
 import AccountSearch from 'vue-material-design-icons/AccountSearch.vue'
-import Hint from '../../UIShared/Hint.vue'
+
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+
+import NcAppNavigationCaption from '@nextcloud/vue/dist/Components/NcAppNavigationCaption.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+
 import ParticipantsList from './ParticipantsList.vue'
-import { ATTENDEE } from '../../../constants.ts'
+import Hint from '../../UIShared/Hint.vue'
+
+import { ATTENDEE } from '../../../constants.js'
 import { useIntegrationsStore } from '../../../stores/integrations.js'
 
 const isCirclesEnabled = loadState('spreed', 'circles_enabled')
@@ -115,20 +117,10 @@ export default {
 			type: Array,
 			required: true,
 		},
-
 		contactsLoading: {
 			type: Boolean,
 			required: true,
 		},
-
-		/**
-		 * Token of current conversation (if provided).
-		 */
-		token: {
-			type: String,
-			default: '',
-		},
-
 		/**
 		 * Display no-results state instead of list.
 		 */
@@ -136,15 +128,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
-		/**
-		 * Display only results from internal users.
-		 */
-		onlyUsers: {
-			type: Boolean,
-			default: false,
-		},
-
 		/**
 		 * Display loading state instead of list.
 		 */
@@ -152,17 +135,14 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		scrollable: {
 			type: Boolean,
 			default: false,
 		},
-
 		showSearchHints: {
 			type: Boolean,
 			default: false,
 		},
-
 		searchText: {
 			type: String,
 			default: '',
@@ -186,11 +166,7 @@ export default {
 		},
 
 		sourcesWithoutResults() {
-			if (this.onlyUsers) {
-				return !this.addableUsers.length
-			} else {
-				return !this.addableUsers.length || !this.addableGroups.length || this.circlesWithoutResults
-			}
+			return !this.addableUsers.length || !this.addableGroups.length || this.circlesWithoutResults
 		},
 
 		integrations() {
@@ -226,22 +202,18 @@ export default {
 		},
 
 		addableUsers() {
-			return this.searchResults.filter((item) => item.source === ATTENDEE.ACTOR_TYPE.USERS)
-				.filter((user) => !this.participants.some((participant) => user.id === participant.userId))
+			return this.searchResults.filter(item => item.source === ATTENDEE.ACTOR_TYPE.USERS)
+				.filter(user => !this.participants.some(participant => user.id === participant.userId))
 		},
-
 		addableGroups() {
 			return this.searchResults.filter((item) => item.source === ATTENDEE.ACTOR_TYPE.GROUPS)
 		},
-
 		addableEmails() {
 			return this.searchResults.filter((item) => item.source === ATTENDEE.ACTOR_TYPE.EMAILS)
 		},
-
 		addableCircles() {
 			return this.searchResults.filter((item) => item.source === ATTENDEE.ACTOR_TYPE.CIRCLES)
 		},
-
 		addableRemotes() {
 			return this.searchResults.filter((item) => item.source === ATTENDEE.ACTOR_TYPE.REMOTES)
 				.map((item) => {
@@ -249,12 +221,12 @@ export default {
 				})
 				// TODO remove when Federation feature is ready
 				.concat(OC.debug
-					? this.addableUsers.map((user) => ({
-							...user,
-							id: user.id + '@' + window.location.host,
-							label: user.id + '@' + window.location.host,
-							source: ATTENDEE.ACTOR_TYPE.FEDERATED_USERS,
-						}))
+					? this.addableUsers.map(user => ({
+						...user,
+						id: user.id + '@' + window.location.host,
+						label: user.id + '@' + window.location.host,
+						source: ATTENDEE.ACTOR_TYPE.FEDERATED_USERS,
+					}))
 					: [])
 		},
 
@@ -262,7 +234,6 @@ export default {
 			return !this.contactsLoading && this.searchText === ''
 		},
 	},
-
 	methods: {
 		t,
 		handleClickParticipant(participant) {
@@ -294,10 +265,6 @@ export default {
 
 	&__hint {
 		margin: 20px auto 0;
-	}
-
-	:deep(.app-navigation-hint):first-child {
-		margin-top: var(--default-grid-baseline) !important;
 	}
 }
 

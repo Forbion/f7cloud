@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import Hex from 'crypto-js/enc-hex.js'
+import SHA256 from 'crypto-js/sha256.js'
+
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+
 import type {
 	ChatMessage,
 	clearHistoryResponse,
@@ -22,13 +28,7 @@ import type {
 	setReadMarkerResponse,
 	summarizeChatParams,
 	summarizeChatResponse,
-} from '../types/index.ts'
-
-import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
-import Hex from 'crypto-js/enc-hex.js'
-import SHA256 from 'crypto-js/sha256.js'
-import { CHAT } from '../constants.ts'
+} from '../types'
 
 type ReceiveMessagesPayload = Partial<receiveMessagesParams> & { token: string }
 type GetMessageContextPayload = getMessageContextParams & { token: string, messageId: number }
@@ -45,22 +45,15 @@ type EditMessagePayload = { token: string, messageId: number, updatedMessage: ed
  * @param data.token the conversation token;
  * @param data.lastKnownMessageId last known message id;
  * @param data.includeLastKnown whether to include the last known message in the response;
- * @param [data.lookIntoFuture=0] direction of message fetch
  * @param [data.limit=100] Number of messages to load
  * @param options options;
  */
-const fetchMessages = async function({
-	token,
-	lastKnownMessageId,
-	includeLastKnown,
-	lookIntoFuture = CHAT.FETCH_OLD,
-	limit = 100,
-}: ReceiveMessagesPayload, options?: object): receiveMessagesResponse {
+const fetchMessages = async function({ token, lastKnownMessageId, includeLastKnown, limit = 100 }: ReceiveMessagesPayload, options?: object): receiveMessagesResponse {
 	return axios.get(generateOcsUrl('apps/spreed/api/v1/chat/{token}', { token }, options), {
 		...options,
 		params: {
 			setReadMarker: 0,
-			lookIntoFuture,
+			lookIntoFuture: 0,
 			lastKnownMessageId,
 			limit,
 			includeLastKnown: includeLastKnown ? 1 : 0,
@@ -78,16 +71,12 @@ const fetchMessages = async function({
  * @param [data.limit=100] Number of messages to load
  * @param options options
  */
-const pollNewMessages = async ({
-	token,
-	lastKnownMessageId,
-	limit = 100,
-}: ReceiveMessagesPayload, options?: object): receiveMessagesResponse => {
+const lookForNewMessages = async ({ token, lastKnownMessageId, limit = 100 }: ReceiveMessagesPayload, options?: object): receiveMessagesResponse => {
 	return axios.get(generateOcsUrl('apps/spreed/api/v1/chat/{token}', { token }, options), {
 		...options,
 		params: {
 			setReadMarker: 0,
-			lookIntoFuture: CHAT.FETCH_NEW,
+			lookIntoFuture: 1,
 			lastKnownMessageId,
 			limit,
 			includeLastKnown: 0,
@@ -206,7 +195,7 @@ const postRichObjectToConversation = async function(token: string, { objectType,
  * @param lastReadMessage id of the last read message to set
  * @param options request options
  */
-const updateLastReadMessage = async function(token: string, lastReadMessage?: number | null, options?: object): setReadMarkerResponse {
+const updateLastReadMessage = async function(token: string, lastReadMessage?: number|null, options?: object): setReadMarkerResponse {
 	return axios.post(generateOcsUrl('apps/spreed/api/v1/chat/{token}/read', { token }, options), {
 		lastReadMessage,
 	} as setReadMarkerParams, options)
@@ -236,15 +225,15 @@ const summarizeChat = async function(token: string, fromMessageId: summarizeChat
 }
 
 export {
+	fetchMessages,
+	lookForNewMessages,
+	getMessageContext,
+	postNewMessage,
 	clearConversationHistory,
 	deleteMessage,
 	editMessage,
-	fetchMessages,
-	getMessageContext,
-	pollNewMessages,
-	postNewMessage,
 	postRichObjectToConversation,
+	updateLastReadMessage,
 	setConversationUnread,
 	summarizeChat,
-	updateLastReadMessage,
 }

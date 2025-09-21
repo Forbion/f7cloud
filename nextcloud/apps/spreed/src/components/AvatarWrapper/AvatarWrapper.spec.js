@@ -1,12 +1,16 @@
-import { t } from '@nextcloud/l10n'
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { shallowMount } from '@vue/test-utils'
-import NcAvatar from '@nextcloud/vue/components/NcAvatar'
+
+import { t } from '@nextcloud/l10n'
+
+import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
+
 import AvatarWrapper from './AvatarWrapper.vue'
-import { ATTENDEE, AVATAR } from '../../constants.ts'
+
+import { ATTENDEE, AVATAR } from '../../constants.js'
 
 describe('AvatarWrapper.vue', () => {
 	const USER_ID = 'user-id'
@@ -80,8 +84,8 @@ describe('AvatarWrapper.vue', () => {
 
 			expect(avatar.props('user')).toBe(USER_ID)
 			expect(avatar.props('displayName')).toBe(USER_NAME)
-			expect(avatar.props('hideStatus')).toBe(false)
-			expect(avatar.props('verboseStatus')).toBe(true)
+			expect(avatar.props('showUserStatus')).toBe(true)
+			expect(avatar.props('showUserStatusCompact')).toBe(false)
 			expect(avatar.props('preloadedUserStatus')).toBe(PRELOADED_USER_STATUS)
 			expect(avatar.props('size')).toBe(AVATAR.SIZE.DEFAULT)
 		})
@@ -90,7 +94,6 @@ describe('AvatarWrapper.vue', () => {
 	describe('render specific icons', () => {
 		const testCases = [
 			[null, ATTENDEE.CHANGELOG_BOT_ID, 'Talk updates', ATTENDEE.ACTOR_TYPE.BOTS, 'icon-changelog'],
-			[null, ATTENDEE.SAMPLE_BOT_ID, 'Nextcloud', ATTENDEE.ACTOR_TYPE.BOTS, 'icon-changelog'],
 			[null, 'federated_user/id', USER_NAME, ATTENDEE.ACTOR_TYPE.FEDERATED_USERS, 'icon-user'],
 			[null, 'guest/id', '', ATTENDEE.ACTOR_TYPE.GUESTS, 'icon-user'],
 			[null, 'guest/id', t('spreed', 'Guest'), ATTENDEE.ACTOR_TYPE.GUESTS, 'icon-user'],

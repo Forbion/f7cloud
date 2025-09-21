@@ -1,12 +1,14 @@
-import { loadState } from '@nextcloud/initial-state'
 /**
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { createPinia, setActivePinia } from 'pinia'
-import { PRIVACY } from '../../constants.ts'
+import { setActivePinia, createPinia } from 'pinia'
+
+import { loadState } from '@nextcloud/initial-state'
+
+import { PRIVACY } from '../../constants.js'
 import BrowserStorage from '../../services/BrowserStorage.js'
-import { setReadStatusPrivacy, setTypingStatusPrivacy } from '../../services/settingsService.ts'
+import { setReadStatusPrivacy, setTypingStatusPrivacy } from '../../services/settingsService.js'
 import { generateOCSResponse } from '../../test-helpers.js'
 import { useSettingsStore } from '../settings.js'
 
@@ -57,8 +59,6 @@ describe('settingsStore', () => {
 	})
 
 	describe('media settings dialog', () => {
-		// FIXME: BrowserStorage.getItem('cachedConversations') is always called whenever capabilitiesManager.ts is imported
-		const EXTRA_CALLS = 3
 		it('shows correct stored values for conversations', () => {
 			// Arrange
 			settingsStore.showMediaSettings['token-1'] = true
@@ -70,7 +70,10 @@ describe('settingsStore', () => {
 
 			// Assert
 			expect(results).toEqual([true, false])
-			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(EXTRA_CALLS)
+			// It's always called at least once : BrowserStorage.getItem('cachedConversations')
+			// Whenever capabilitiesManager.ts is imported
+			// +2
+			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(2)
 		})
 
 		it('shows correct values received from BrowserStorage', () => {
@@ -83,14 +86,15 @@ describe('settingsStore', () => {
 			// Act
 			const results = [settingsStore.getShowMediaSettings('token-1'),
 				settingsStore.getShowMediaSettings('token-2'),
-				settingsStore.getShowMediaSettings('token-3')]
+				settingsStore.getShowMediaSettings('token-3'),]
 
 			// Assert
 			expect(results).toEqual([true, true, false])
-			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(EXTRA_CALLS + 3)
-			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(EXTRA_CALLS + 1, 'showMediaSettings_token-1')
-			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(EXTRA_CALLS + 2, 'showMediaSettings_token-2')
-			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(EXTRA_CALLS + 3, 'showMediaSettings_token-3')
+			// It's always called at least once : BrowserStorage.getItem('cachedConversations') (+2)
+			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(5) // 2 + 3
+			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(3, 'showMediaSettings_token-1')
+			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(4, 'showMediaSettings_token-2')
+			expect(BrowserStorage.getItem).toHaveBeenNthCalledWith(5, 'showMediaSettings_token-3')
 		})
 
 		it('updates values correctly', async () => {
@@ -106,7 +110,8 @@ describe('settingsStore', () => {
 
 			// Assert
 			expect(results).toEqual([false, true])
-			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(EXTRA_CALLS)
+			// It's always called at least once : BrowserStorage.getItem('cachedConversations') (+2)
+			expect(BrowserStorage.getItem).toHaveBeenCalledTimes(2)
 			expect(BrowserStorage.setItem).toHaveBeenCalledTimes(2)
 			expect(BrowserStorage.setItem).toHaveBeenNthCalledWith(1, 'showMediaSettings_token-1', 'false')
 			expect(BrowserStorage.setItem).toHaveBeenNthCalledWith(2, 'showMediaSettings_token-2', 'true')

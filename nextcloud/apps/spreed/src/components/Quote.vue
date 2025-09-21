@@ -12,7 +12,7 @@ components.
 	<component :is="component.tag"
 		:to="component.link"
 		class="quote"
-		:class="{ 'quote-own-message': isOwnMessageQuoted }"
+		:class="{'quote-own-message': isOwnMessageQuoted}"
 		@click.native="handleQuoteClick">
 		<div class="quote__main">
 			<div v-if="message.id"
@@ -55,17 +55,22 @@ components.
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
 import { computed, toRefs } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
+
 import Close from 'vue-material-design-icons/Close.vue'
 import PencilIcon from 'vue-material-design-icons/Pencil.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
+
 import AvatarWrapper from './AvatarWrapper/AvatarWrapper.vue'
 import DefaultParameter from './MessagesList/MessagesGroup/Message/MessagePart/DefaultParameter.vue'
 import FilePreview from './MessagesList/MessagesGroup/Message/MessagePart/FilePreview.vue'
+
 import { useMessageInfo } from '../composables/useMessageInfo.js'
-import { ATTENDEE, AVATAR } from '../constants.ts'
+import { ATTENDEE, AVATAR } from '../constants.js'
 import { EventBus } from '../services/EventBus.ts'
 import { useChatExtrasStore } from '../stores/chatExtras.js'
 
@@ -87,13 +92,11 @@ export default {
 			type: Object,
 			required: true,
 		},
-
 		// Whether to show remove / cancel action
 		canCancel: {
 			type: Boolean,
 			default: false,
 		},
-
 		// Whether to show edit actions
 		editMessage: {
 			type: Boolean,
@@ -115,7 +118,7 @@ export default {
 
 		const actorInfo = computed(() => {
 			return [actorDisplayNameWithFallback.value, remoteServer.value, lastEditor.value]
-				.filter((value) => value).join(' ')
+				.filter(value => value).join(' ')
 		})
 
 		return {
@@ -242,9 +245,7 @@ export default {
 .quote {
 	position: relative;
 	margin: 4px 0;
-	padding-block: 6px;
-	padding-inline-end: 6px;
-	padding-inline-start: 24px;
+	padding: 6px 6px 6px 24px;
 	display: flex;
 	max-width: $messages-text-max-width;
 	border-radius: var(--border-radius-large);
@@ -256,7 +257,7 @@ export default {
 		content: ' ';
 		position: absolute;
 		top: 8px;
-		inset-inline-start: 8px;
+		left: 8px;
 		height: calc(100% - 16px);
 		width: 8px;
 		border-radius: var(--border-radius);
@@ -304,7 +305,7 @@ export default {
 	&__close {
 		position: absolute !important;
 		top: 4px;
-		inset-inline-end: 4px;
+		right: 4px;
 	}
 }
 

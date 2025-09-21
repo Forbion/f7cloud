@@ -49,17 +49,8 @@ const removeMessageReminder = async function(token, messageId) {
 	}))
 }
 
-/**
- * Fetches reminders list of all conversations
- *
- */
-const getUpcomingReminders = async function() {
-	return axios.get(generateOcsUrl('apps/spreed/api/v1/chat/upcoming-reminders'))
-}
-
 export {
 	getMessageReminder,
-	getUpcomingReminders,
-	removeMessageReminder,
 	setMessageReminder,
+	removeMessageReminder,
 }

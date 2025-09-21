@@ -240,23 +240,6 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
-    "/ocs/v2.php/cloud/user/apps": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get a list of enabled apps for the current user */
-        get: operations["users-get-enabled-apps"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/ocs/v2.php/cloud/users/{userId}/{collectionName}": {
         parameters: {
             query?: never;
@@ -527,10 +510,6 @@ export type components = {
             id: string;
             language: string;
             /** Format: int64 */
-            firstLoginTimestamp: number;
-            /** Format: int64 */
-            lastLoginTimestamp: number;
-            /** Format: int64 */
             lastLogin: number;
             locale: string;
             manager: string;
@@ -541,8 +520,6 @@ export type components = {
             phoneScope?: components["schemas"]["UserDetailsScope"];
             profile_enabled: string;
             profile_enabledScope?: components["schemas"]["UserDetailsScope"];
-            pronouns: string;
-            pronounsScope?: components["schemas"]["UserDetailsScope"];
             quota: components["schemas"]["UserDetailsQuota"];
             role: string;
             roleScope?: components["schemas"]["UserDetailsScope"];
@@ -1228,36 +1205,6 @@ export interface operations {
                         ocs: {
                             meta: components["schemas"]["OCSMeta"];
                             data: string[];
-                        };
-                    };
-                };
-            };
-        };
-    };
-    "users-get-enabled-apps": {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Required to be true for the API request to pass */
-                "OCS-APIRequest": boolean;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Enabled apps returned */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        ocs: {
-                            meta: components["schemas"]["OCSMeta"];
-                            data: {
-                                apps: string[];
-                            };
                         };
                     };
                 };

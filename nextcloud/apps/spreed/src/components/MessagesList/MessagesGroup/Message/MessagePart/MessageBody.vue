@@ -5,6 +5,8 @@
 
 <template>
 	<div ref="messageMain"
+		v-element-size="[onResize, { width: 0, height: 22.5 }]"
+		v-intersection-observer="onIntersectionObserver"
 		class="message-main">
 		<!-- System or deleted message body content -->
 		<div v-if="isSystemMessage || isDeletedMessage"
@@ -24,11 +26,7 @@
 
 			<!-- Additional controls -->
 			<CallButton v-if="showJoinCallButton" />
-			<ConversationActionsShortcut v-else-if="showConversationActionsShortcut"
-				:token="message.token"
-				:object-type="conversation.objectType"
-				:is-highlighted="isLastMessage" />
-			<Poll v-else-if="showResultsButton"
+			<Poll v-if="showResultsButton"
 				:token="message.token"
 				show-as-button
 				v-bind="message.messageParameters.poll" />
@@ -37,7 +35,7 @@
 		<!-- Normal message body content -->
 		<div v-else
 			class="message-main__text markdown-message"
-			:class="{ 'message-highlighted': isNewPollMessage }"
+			:class="{'message-highlighted': isNewPollMessage }"
 			@mouseover="handleMarkdownMouseOver"
 			@mouseleave="handleMarkdownMouseLeave">
 			<!-- Replied parent message -->
@@ -46,7 +44,7 @@
 			<!-- Message content / text -->
 			<NcRichText :text="renderedMessage"
 				:arguments="richParameters"
-				:class="{ 'single-emoji': isSingleEmoji }"
+				:class="{'single-emoji': isSingleEmoji}"
 				autolink
 				dir="auto"
 				:interactive="message.markdown && isEditable"
@@ -62,7 +60,7 @@
 				type="tertiary"
 				:aria-label="t('spreed', 'Copy code block')"
 				:title="t('spreed', 'Copy code block')"
-				:style="{ top: copyButtonOffset }"
+				:style="{top: copyButtonOffset}"
 				@click="copyCodeBlock">
 				<template #icon>
 					<ContentCopyIcon :size="16" />
@@ -78,7 +76,7 @@
 			<div v-if="message.sendingFailure"
 				:title="sendingErrorIconTitle"
 				class="message-status sending-failed"
-				:class="{ 'retry-option': sendingErrorCanRetry }"
+				:class="{'retry-option': sendingErrorCanRetry}"
 				:aria-label="sendingErrorIconTitle"
 				tabindex="0"
 				@mouseover="showReloadButton = true"
@@ -125,13 +123,10 @@
 </template>
 
 <script>
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import moment from '@nextcloud/moment'
+import { vIntersectionObserver as IntersectionObserver, vElementSize as ElementSize } from '@vueuse/components'
 import emojiRegex from 'emoji-regex'
-import { inject, toRefs } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
+import { toRefs } from 'vue'
+
 import AlertCircleIcon from 'vue-material-design-icons/AlertCircle.vue'
 import IconBellOff from 'vue-material-design-icons/BellOff.vue'
 import CancelIcon from 'vue-material-design-icons/Cancel.vue'
@@ -139,17 +134,23 @@ import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CheckAllIcon from 'vue-material-design-icons/CheckAll.vue'
 import ContentCopyIcon from 'vue-material-design-icons/ContentCopy.vue'
 import ReloadIcon from 'vue-material-design-icons/Reload.vue'
+
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
+
+import Poll from './Poll.vue'
 import Quote from '../../../../Quote.vue'
 import CallButton from '../../../../TopBar/CallButton.vue'
-import ConversationActionsShortcut from '../../../../UIShared/ConversationActionsShortcut.vue'
-import Poll from './Poll.vue'
+
 import { useIsInCall } from '../../../../../composables/useIsInCall.js'
 import { useMessageInfo } from '../../../../../composables/useMessageInfo.js'
-import { CONVERSATION, MESSAGE } from '../../../../../constants.ts'
-import { hasTalkFeature } from '../../../../../services/CapabilitiesManager.ts'
 import { EventBus } from '../../../../../services/EventBus.ts'
 import { usePollsStore } from '../../../../../stores/polls.ts'
-import { parseMentions, parseSpecialSymbols } from '../../../../../utils/textParse.ts'
+import { parseSpecialSymbols, parseMentions } from '../../../../../utils/textParse.ts'
 
 // Regular expression to check for Unicode emojis in message text
 const regex = emojiRegex()
@@ -166,7 +167,6 @@ export default {
 		NcRichText,
 		Poll,
 		Quote,
-		ConversationActionsShortcut,
 		// Icons
 		AlertCircleIcon,
 		IconBellOff,
@@ -177,22 +177,24 @@ export default {
 		ReloadIcon,
 	},
 
+	directives: {
+		IntersectionObserver,
+		ElementSize,
+	},
+
 	props: {
 		message: {
 			type: Object,
 			required: true,
 		},
-
 		richParameters: {
 			type: Object,
 			required: true,
 		},
-
 		isDeleting: {
 			type: Boolean,
 			default: false,
 		},
-
 		hasCall: {
 			type: Boolean,
 			default: false,
@@ -210,14 +212,12 @@ export default {
 			isEditable,
 			isFileShare,
 		} = useMessageInfo(message)
-		const isSidebar = inject('chatView:isSidebar', false)
 
 		return {
 			isInCall: useIsInCall(),
 			pollsStore: usePollsStore(),
 			isEditable,
 			isFileShare,
-			isSidebar,
 		}
 	},
 
@@ -227,6 +227,8 @@ export default {
 			showReloadButton: false,
 			currentCodeBlock: null,
 			copyButtonOffset: 0,
+			isVisible: false,
+			previousSize: { width: 0, height: 22.5 }, // default height of one-line message body without widgets
 		}
 	},
 
@@ -234,7 +236,7 @@ export default {
 		renderedMessage() {
 			if (this.isFileShare && this.message.message !== '{file}') {
 				// Add a new line after file to split content into different paragraphs
-				return '{file}\n\n' + this.message.message
+				return '{file}' + '\n\n' + this.message.message
 			} else {
 				return this.message.message
 			}
@@ -245,7 +247,7 @@ export default {
 		},
 
 		isDeletedMessage() {
-			return this.message.messageType === MESSAGE.TYPE.COMMENT_DELETED
+			return this.message.messageType === 'comment_deleted'
 		},
 
 		isNewPollMessage() {
@@ -254,36 +256,6 @@ export default {
 			}
 
 			return this.isInCall && this.pollsStore.isNewPoll(this.message.messageParameters.object.id)
-		},
-
-		isCallEndedMessage() {
-			return this.message.systemMessage === 'call_ended' || this.message.systemMessage === 'call_ended_everyone'
-		},
-
-		conversation() {
-			return this.$store.getters.conversation(this.message.token)
-		},
-
-		hasRetentionPeriod() {
-			return this.conversation.objectType === CONVERSATION.OBJECT_TYPE.EVENT
-				|| this.conversation.objectType === CONVERSATION.OBJECT_TYPE.PHONE_TEMPORARY
-				|| this.conversation.objectType === CONVERSATION.OBJECT_TYPE.INSTANT_MEETING
-		},
-
-		supportUnbindConversation() {
-			return hasTalkFeature(this.message.token, 'unbind-conversation')
-		},
-
-		showConversationActionsShortcut() {
-			return this.supportUnbindConversation
-				&& !this.isInCall && !this.isSidebar && this.$store.getters.isModeratorOrUser
-				&& this.hasRetentionPeriod
-				&& this.isCallEndedMessage
-				&& this.message.id > this.lastCallStartedMessageId
-		},
-
-		isLastMessage() {
-			return this.message.id === this.conversation.lastMessage?.id
 		},
 
 		isTemporary() {
@@ -302,12 +274,8 @@ export default {
 			return moment(this.isTemporary ? undefined : this.message.timestamp * 1000).format('LL')
 		},
 
-		lastCallStartedMessageId() {
-			return this.$store.getters.getLastCallStartedMessageId(this.message.token)
-		},
-
 		isLastCallStartedMessage() {
-			return this.message.systemMessage === 'call_started' && this.message.id === this.lastCallStartedMessageId
+			return this.message.systemMessage === 'call_started' && this.message.id === this.$store.getters.getLastCallStartedMessageId(this.message.token)
 		},
 
 		showJoinCallButton() {
@@ -390,7 +358,7 @@ export default {
 			if (!codeBlocks) {
 				return
 			}
-			const index = codeBlocks.findIndex((item) => item.contains(event.target))
+			const index = codeBlocks.findIndex(item => item.contains(event.target))
 			if (index !== -1) {
 				this.currentCodeBlock = index
 				const el = codeBlocks[index]
@@ -474,6 +442,29 @@ export default {
 				this.isEditing = value
 			}
 		},
+
+		onIntersectionObserver([{ isIntersecting }]) {
+			this.isVisible = isIntersecting
+		},
+
+		onResize({ width, height }) {
+			const oldWidth = this.previousSize?.width
+			const oldHeight = this.previousSize?.height
+			this.previousSize = { width, height }
+
+			if (!this.isVisible) {
+				return
+			}
+			if (oldWidth && oldWidth !== width) {
+				// Resizing messages list
+				return
+			}
+			if (height === 0) {
+				// component is unmounted
+				return
+			}
+			EventBus.emit('message-height-changed', { heightDiff: height - oldHeight })
+		},
 	},
 }
 </script>
@@ -529,7 +520,7 @@ export default {
 			.message-copy-code {
 				position: absolute;
 				top: 0;
-				inset-inline-end: calc(4px + var(--default-clickable-area));
+				right: calc(4px + var(--default-clickable-area));
 				margin-top: 4px;
 				background-color: var(--color-background-dark);
 			}
@@ -561,7 +552,7 @@ export default {
 			}
 
 			&:last-child {
-				margin-inline-end: var(--clickable-area-small, 24px);
+				margin-right: var(--clickable-area-small, 24px);
 			}
 		}
 	}
@@ -579,12 +570,8 @@ export default {
 	}
 }
 
-:deep(.rich-text--wrapper) {
-	direction: inherit;
-}
-
-// Always render code blocks LTR
-:deep(.rich-text--wrapper) pre {
+// Hardcode to prevent RTL affecting on user mentions
+:deep(.rich-text--component) {
 	direction: ltr;
 }
 

@@ -10,7 +10,7 @@
 			{{ t('spreed', 'Recording backend') }}
 		</h2>
 
-		<NcNoteCard v-if="!hasSignalingServers"
+		<NcNoteCard v-if="!showForm"
 			type="warning"
 			:text="t('spreed', 'Recording backend configuration is only possible with a High-performance backend.')" />
 
@@ -97,19 +97,24 @@
 </template>
 
 <script>
+import debounce from 'debounce'
+
+import Plus from 'vue-material-design-icons/Plus.vue'
+
 import { showSuccess } from '@nextcloud/dialogs'
 import { formatFileSize } from '@nextcloud/files'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import debounce from 'debounce'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcPasswordField from '@nextcloud/vue/components/NcPasswordField'
-import Plus from 'vue-material-design-icons/Plus.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import NcPasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
+
 import RecordingServer from '../../components/AdminSettings/RecordingServer.vue'
 import TransitionWrapper from '../UIShared/TransitionWrapper.vue'
-import { CONFIG } from '../../constants.ts'
+
+import { CONFIG } from '../../constants.js'
 import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 import { EventBus } from '../../services/EventBus.ts'
 
@@ -133,13 +138,6 @@ export default {
 		TransitionWrapper,
 	},
 
-	props: {
-		hasSignalingServers: {
-			type: Boolean,
-			required: true,
-		},
-	},
-
 	setup() {
 		return {
 			recordingConsentCapability,
@@ -154,6 +152,7 @@ export default {
 			uploadLimit: 0,
 			loading: false,
 			saved: false,
+			showForm: true,
 			recordingConsentSelected: loadState('spreed', 'recording_consent').toString(),
 			recordingTranscriptionEnabled: loadState('spreed', 'call_recording_transcription'),
 			recordingSummaryEnabled: loadState('spreed', 'call_recording_summary'),
@@ -165,7 +164,6 @@ export default {
 		showUploadLimitWarning() {
 			return this.uploadLimit !== 0 && this.uploadLimit < 512 * (1024 ** 2)
 		},
-
 		uploadLimitWarning() {
 			return t('spreed', 'The PHP settings "upload_max_filesize" or "post_max_size" only will allow to upload files up to {maxUpload}.', {
 				maxUpload: formatFileSize(this.uploadLimit, true, true),
@@ -180,10 +178,15 @@ export default {
 		this.servers = state.servers
 		this.secret = state.secret
 		this.uploadLimit = parseInt(state.uploadLimit, 10)
+
+		const signaling = loadState('spreed', 'signaling_servers')
+		this.updateSignalingServers(signaling.servers)
+		EventBus.on('signaling-servers-updated', this.updateSignalingServers)
 	},
 
 	beforeDestroy() {
 		this.debounceUpdateServers.clear?.()
+		EventBus.off('signaling-servers-updated', this.updateSignalingServers)
 	},
 
 	methods: {
@@ -203,7 +206,7 @@ export default {
 		async updateServers() {
 			this.loading = true
 
-			this.servers = this.servers.filter((server) => server.server.trim() !== '')
+			this.servers = this.servers.filter(server => server.server.trim() !== '')
 
 			OCP.AppConfig.setValue('spreed', 'recording_servers', JSON.stringify({
 				servers: this.servers,
@@ -246,13 +249,13 @@ export default {
 
 		getRecordingConsentDescription(value) {
 			switch (value) {
-				case CONFIG.RECORDING_CONSENT.OPTIONAL:
-					return t('spreed', 'Moderators will be allowed to enable consent on conversation level. The consent to be recorded will be required for each participant before joining every call in this conversation.')
-				case CONFIG.RECORDING_CONSENT.REQUIRED:
-					return t('spreed', 'The consent to be recorded will be required for each participant before joining every call.')
-				case CONFIG.RECORDING_CONSENT.OFF:
-				default:
-					return t('spreed', 'The consent to be recorded is not required.')
+			case CONFIG.RECORDING_CONSENT.OPTIONAL:
+				return t('spreed', 'Moderators will be allowed to enable consent on conversation level. The consent to be recorded will be required for each participant before joining every call in this conversation.')
+			case CONFIG.RECORDING_CONSENT.REQUIRED:
+				return t('spreed', 'The consent to be recorded will be required for each participant before joining every call.')
+			case CONFIG.RECORDING_CONSENT.OFF:
+			default:
+				return t('spreed', 'The consent to be recorded is not required.')
 			}
 		},
 
@@ -261,6 +264,10 @@ export default {
 			setTimeout(() => {
 				this.saved = false
 			}, 3000)
+		},
+
+		updateSignalingServers(servers) {
+			this.showForm = servers.length > 0
 		},
 	},
 }

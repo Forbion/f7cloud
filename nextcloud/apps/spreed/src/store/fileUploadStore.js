@@ -3,27 +3,29 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import Vue from 'vue'
+
 import { showError } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
 import { getUploader } from '@nextcloud/upload'
-import Vue from 'vue'
+
 import { useTemporaryMessage } from '../composables/useTemporaryMessage.ts'
-import { MESSAGE, SHARED_ITEM } from '../constants.ts'
+import { SHARED_ITEM } from '../constants.js'
 import { getDavClient } from '../services/DavClient.js'
 import { EventBus } from '../services/EventBus.ts'
 import {
 	getFileTemplates,
 	shareFile,
-} from '../services/filesSharingServices.ts'
-import { setAttachmentFolder } from '../services/settingsService.ts'
+} from '../services/filesSharingServices.js'
+import { setAttachmentFolder } from '../services/settingsService.js'
 import { useChatExtrasStore } from '../stores/chatExtras.js'
 import {
+	hasDuplicateUploadNames,
 	findUniquePath,
 	getFileExtension,
 	getFileNamePrompt,
-	hasDuplicateUploadNames,
 	separateDuplicateUploads,
 } from '../utils/fileUpload.js'
 import { parseUploadError } from '../utils/propfindErrorParse.ts'
@@ -125,7 +127,7 @@ const mutations = {
 			status: 'initialised',
 			totalSize: file.size,
 			temporaryMessage,
-		})
+		 })
 		if (localUrl) {
 			Vue.set(state.localUrls, temporaryMessage.referenceId, localUrl)
 		}
@@ -256,7 +258,7 @@ const actions = {
 				index,
 				file,
 				localUrl,
-				messageType: isVoiceMessage ? MESSAGE.TYPE.VOICE_MESSAGE : MESSAGE.TYPE.COMMENT,
+				messageType: isVoiceMessage ? 'voice-message' : 'comment',
 			})
 			console.debug('temporarymessage: ', temporaryMessage, 'uploadId', uploadId)
 			context.commit('addFileToBeUploaded', { file, temporaryMessage, localUrl, token })
@@ -354,7 +356,7 @@ const actions = {
 				knownPaths[promptPath] = suffix
 				context.commit('markFileAsPendingUpload', { uploadId, index, sharePath: uniquePath })
 			} catch (exception) {
-				console.error('Error while uploading file "%s": %s', fileName, exception.message)
+				console.error(`Error while uploading file "${fileName}":` + exception.message, fileName)
 				if (exception.response) {
 					const message = await parseUploadError(exception)
 					if (message) {
@@ -406,7 +408,7 @@ const actions = {
 			} catch (exception) {
 				let reason = 'failed-upload'
 				if (exception.response) {
-					console.error('Error while uploading file "%s": %s', fileName, exception.message)
+					console.error(`Error while uploading file "${fileName}":` + exception, fileName, exception.response.status)
 					if (exception.response.status === 507) {
 						reason = 'quota'
 						showError(t('spreed', 'Not enough free space to upload file "{fileName}"', { fileName }))
@@ -414,7 +416,7 @@ const actions = {
 						showError(t('spreed', 'Error while uploading file "{fileName}"', { fileName }))
 					}
 				} else {
-					console.error('Error while uploading file "%s": %s', fileName, exception.message)
+					console.error(`Error while uploading file "${fileName}":` + exception.message, fileName)
 					showError(t('spreed', 'Error while uploading file "{fileName}"', { fileName }))
 				}
 
@@ -441,63 +443,38 @@ const actions = {
 	 * @param {object|null} data.options The share options
 	 */
 	async shareFiles(context, { token, uploadId, lastIndex, caption, options }) {
-		const shares = context.getters.getShareableFiles(uploadId)
-		for await (const share of shares) {
+		const performShare = async (share) => {
 			if (!share) {
-				continue
+				return
 			}
 			const [index, shareableFile] = share
 			const { id, messageType, parent, referenceId } = shareableFile.temporaryMessage || {}
 
-			const talkMetaData = JSON.stringify(Object.assign(
-				messageType !== MESSAGE.TYPE.COMMENT ? { messageType } : {},
+			const metadata = JSON.stringify(Object.assign(
+				messageType !== 'comment' ? { messageType } : {},
 				caption && index === lastIndex ? { caption } : {},
 				options?.silent ? { silent: options.silent } : {},
 				parent ? { replyTo: parent.id } : {},
 			))
 
-			await context.dispatch('shareFile', { token, path: shareableFile.sharePath, index, uploadId, id, referenceId, talkMetaData })
-		}
-	},
-
-	/**
-	 * Shares the files to the conversation
-	 *
-	 * @param {object} context the wrapping object
-	 * @param {object} data the wrapping object
-	 * @param {string} data.token The conversation token
-	 * @param {string} data.path The file path from the user's root directory
-	 * @param {string} [data.index] The index of uploaded file
-	 * @param {string} [data.uploadId] The unique uploadId
-	 * @param {string} [data.id] Id of temporary message
-	 * @param {string} [data.referenceId] A reference id to recognize the message later
-	 * @param {string} [data.talkMetaData] The metadata JSON-encoded object
-	 */
-	async shareFile(context, { token, path, index, uploadId, id, referenceId, talkMetaData }) {
-		try {
-			if (uploadId) {
+			try {
 				context.dispatch('markFileAsSharing', { uploadId, index })
-			}
-
-			await shareFile({ path, shareWith: token, referenceId, talkMetaData })
-
-			if (uploadId) {
+				await shareFile(shareableFile.sharePath, token, referenceId, metadata)
 				context.dispatch('markFileAsShared', { uploadId, index })
-			}
-		} catch (error) {
-			console.error('Error while sharing file: ', error)
-
-			if (error?.response?.status === 403) {
-				showError(t('spreed', 'You are not allowed to share files'))
-			} else if (error?.response?.data?.ocs?.meta?.message) {
-				showError(error.response.data.ocs.meta.message)
-			} else {
-				showError(t('spreed', 'Error while sharing file'))
-			}
-
-			if (uploadId) {
+			} catch (error) {
+				if (error?.response?.status === 403) {
+					showError(t('spreed', 'You are not allowed to share files'))
+				} else {
+					showError(t('spreed', 'An error happened when trying to share your file'))
+				}
 				context.dispatch('markTemporaryMessageAsFailed', { token, id, uploadId, reason: 'failed-share' })
+				console.error('An error happened when trying to share your file: ', error)
 			}
+		}
+
+		const shares = context.getters.getShareableFiles(uploadId)
+		for (const share of shares) {
+			await performShare(share)
 		}
 	},
 

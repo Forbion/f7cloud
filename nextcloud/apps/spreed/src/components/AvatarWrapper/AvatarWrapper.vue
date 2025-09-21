@@ -10,7 +10,7 @@
 			{{ firstLetterOfGuestName }}
 		</div>
 		<div v-else-if="isBot" class="avatar bot">
-			>_
+			{{ '>_' }}
 		</div>
 		<img v-else-if="isFederatedUser && token"
 			:key="avatarUrl"
@@ -18,8 +18,7 @@
 			:width="size"
 			:height="size"
 			:alt="name"
-			class="avatar icon"
-			@error="failed = true">
+			class="avatar icon">
 		<NcAvatar v-else
 			:key="id + (isDarkTheme ? '-dark' : '-light')"
 			:user="id"
@@ -27,8 +26,8 @@
 			:menu-container="menuContainer"
 			:disable-tooltip="disableTooltip"
 			:disable-menu="disableMenu"
-			:hide-status="!showUserStatus"
-			:verbose-status="!showUserStatusCompact"
+			:show-user-status="showUserStatus"
+			:show-user-status-compact="showUserStatusCompact"
 			:preloaded-user-status="preloadedUserStatus"
 			:size="size" />
 		<!-- Override user status for federated users -->
@@ -46,13 +45,15 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import { useIsDarkTheme } from '@nextcloud/vue/composables/useIsDarkTheme'
-import { ref } from 'vue'
-import NcAvatar from '@nextcloud/vue/components/NcAvatar'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import WebIcon from 'vue-material-design-icons/Web.vue'
-import { ATTENDEE, AVATAR } from '../../constants.ts'
+
+import { t } from '@nextcloud/l10n'
+
+import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import { useIsDarkTheme } from '@nextcloud/vue/dist/Composables/useIsDarkTheme.js'
+
+import { ATTENDEE, AVATAR } from '../../constants.js'
 import { getUserProxyAvatarOcsUrl } from '../../services/avatarService.ts'
 
 export default {
@@ -70,72 +71,58 @@ export default {
 			type: String,
 			default: null,
 		},
-
 		name: {
 			type: String,
 			required: true,
 		},
-
 		id: {
 			type: String,
 			default: null,
 		},
-
 		source: {
 			type: String,
 			default: null,
 		},
-
 		size: {
 			type: Number,
 			default: AVATAR.SIZE.DEFAULT,
 		},
-
 		condensed: {
 			type: Boolean,
 			default: false,
 		},
-
 		condensedOverlap: {
 			type: Number,
 			default: 2,
 		},
-
 		offline: {
 			type: Boolean,
 			default: false,
 		},
-
 		highlighted: {
 			type: Boolean,
 			default: false,
 		},
-
 		disableTooltip: {
 			type: Boolean,
 			default: false,
 		},
-
 		disableMenu: {
 			type: Boolean,
 			default: false,
 		},
-
 		showUserStatus: {
 			type: Boolean,
 			default: false,
 		},
-
 		showUserStatusCompact: {
 			type: Boolean,
 			default: false,
 		},
-
 		preloadedUserStatus: {
 			type: Object,
 			default: undefined,
 		},
-
 		menuContainer: {
 			type: String,
 			default: undefined,
@@ -149,12 +136,8 @@ export default {
 
 	setup() {
 		const isDarkTheme = useIsDarkTheme()
-
-		const failed = ref(false)
-
 		return {
 			isDarkTheme,
-			failed,
 		}
 	},
 
@@ -165,29 +148,28 @@ export default {
 				return ''
 			}
 			switch (this.source) {
-				case ATTENDEE.ACTOR_TYPE.USERS:
-				case ATTENDEE.ACTOR_TYPE.BRIDGED:
-					return !this.failed ? '' : 'icon-user'
-				case ATTENDEE.ACTOR_TYPE.FEDERATED_USERS:
-					return (this.token && !this.failed) ? '' : 'icon-user'
-				case ATTENDEE.ACTOR_TYPE.EMAILS:
-					return this.token === 'new' ? 'icon-mail' : (this.hasCustomName ? '' : 'icon-user')
-				case ATTENDEE.ACTOR_TYPE.GUESTS:
-					return this.hasCustomName ? '' : 'icon-user'
-				case ATTENDEE.ACTOR_TYPE.DELETED_USERS:
-					return 'icon-user'
-				case ATTENDEE.ACTOR_TYPE.PHONES:
-					return 'icon-phone'
-				case ATTENDEE.ACTOR_TYPE.BOTS:
-					return [ATTENDEE.CHANGELOG_BOT_ID, ATTENDEE.SAMPLE_BOT_ID].includes(this.id) ? 'icon-changelog' : ''
-				case ATTENDEE.ACTOR_TYPE.CIRCLES:
-					return 'icon-team'
-				case ATTENDEE.ACTOR_TYPE.GROUPS:
-				default:
-					return 'icon-contacts'
+			case ATTENDEE.ACTOR_TYPE.USERS:
+			case ATTENDEE.ACTOR_TYPE.BRIDGED:
+				return ''
+			case ATTENDEE.ACTOR_TYPE.FEDERATED_USERS:
+				return this.token ? '' : 'icon-user'
+			case ATTENDEE.ACTOR_TYPE.EMAILS:
+				return this.token === 'new' ? 'icon-mail' : (this.hasCustomName ? '' : 'icon-user')
+			case ATTENDEE.ACTOR_TYPE.GUESTS:
+				return this.hasCustomName ? '' : 'icon-user'
+			case ATTENDEE.ACTOR_TYPE.DELETED_USERS:
+				return 'icon-user'
+			case ATTENDEE.ACTOR_TYPE.PHONES:
+				return 'icon-phone'
+			case ATTENDEE.ACTOR_TYPE.BOTS:
+				return this.id === ATTENDEE.CHANGELOG_BOT_ID ? 'icon-changelog' : ''
+			case ATTENDEE.ACTOR_TYPE.CIRCLES:
+				return 'icon-team'
+			case ATTENDEE.ACTOR_TYPE.GROUPS:
+			default:
+				return 'icon-contacts'
 			}
 		},
-
 		avatarClass() {
 			return {
 				'avatar-wrapper--dark': this.isDarkTheme,
@@ -196,42 +178,29 @@ export default {
 				'avatar-wrapper--highlighted': this.highlighted,
 			}
 		},
-
 		avatarStyle() {
 			return {
 				'--avatar-size': this.size + 'px',
 				'--condensed-overlap': this.condensedOverlap,
 			}
 		},
-
 		isFederatedUser() {
 			return this.source === ATTENDEE.ACTOR_TYPE.FEDERATED_USERS
 		},
-
 		isBot() {
-			return this.source === ATTENDEE.ACTOR_TYPE.BOTS && this.id !== ATTENDEE.CHANGELOG_BOT_ID && this.id !== ATTENDEE.SAMPLE_BOT_ID
+			return this.source === ATTENDEE.ACTOR_TYPE.BOTS && this.id !== ATTENDEE.CHANGELOG_BOT_ID
 		},
-
 		isGuestUser() {
 			return [ATTENDEE.ACTOR_TYPE.GUESTS, ATTENDEE.ACTOR_TYPE.EMAILS].includes(this.source)
 		},
-
 		hasCustomName() {
 			return this.name?.trim() && this.name !== t('spreed', 'Guest')
 		},
-
 		firstLetterOfGuestName() {
 			return this.name?.trim()?.toUpperCase()?.charAt(0) ?? '?'
 		},
-
 		avatarUrl() {
 			return getUserProxyAvatarOcsUrl(this.token, this.id, this.isDarkTheme, this.size > AVATAR.SIZE.MEDIUM ? 512 : 64)
-		},
-	},
-
-	watch: {
-		avatarUrl() {
-			this.failed = false
 		},
 	},
 
@@ -249,22 +218,20 @@ export default {
 	border-radius: var(--avatar-size);
 
 	&--dark .avatar {
-		background-color: #3B3B3B !important;
+		background-color: #70B62B !important;
 	}
 
 	.avatar {
 		position: sticky;
 		top: 0;
-		display: block;
 		width: var(--avatar-size);
 		height: var(--avatar-size);
 		max-height: var(--avatar-size);
 		max-width: var(--avatar-size);
 		line-height: var(--avatar-size);
 		font-size: calc(var(--avatar-size) / 2);
-		overflow: hidden;
 		border-radius: 50%;
-		background-color: var(--color-text-maxcontrast-default);
+		background-color: #70B62B;
 
 		&.icon {
 			background-size: calc(var(--avatar-size) / 2);
@@ -274,23 +241,26 @@ export default {
 		}
 
 		&.bot {
-			padding-inline-start: 5px;
-			background-color: var(--color-background-darker);
+			padding-left: 5px;
+			//background-color: var(--color-background-darker);
+			background-color: #70B62B !important;
 		}
 
 		&.guest {
 			color: #ffffff;
+			background-color: #70B62B !important;
 			padding: 0;
 			display: block;
 			text-align: center;
-			margin-inline: auto;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 
 	&--condensed {
 		width: unset;
 		height: unset;
-		margin-inline-start: calc(var(--condensed-overlap) * -1px);
+		margin-left: calc(var(--condensed-overlap) * -1px);
 		display: flex;
 
 		& > .icon,
@@ -314,7 +284,7 @@ export default {
 
 	&__user-status {
 		position: absolute;
-		inset-inline-end: -4px;
+		right: -4px;
 		bottom: -4px;
 		height: 18px;
 		width: 18px;
@@ -327,7 +297,7 @@ export default {
 .loading-avatar {
 	position: absolute;
 	top: 0;
-	inset-inline-start: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 }

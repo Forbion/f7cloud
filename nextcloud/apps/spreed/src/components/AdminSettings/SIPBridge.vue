@@ -7,7 +7,7 @@
 	<div id="sip-bridge" class="sip-bridge section">
 		<h2>{{ t('spreed', 'SIP configuration') }}</h2>
 
-		<NcNoteCard v-if="!hasSignalingServers"
+		<NcNoteCard v-if="!showForm"
 			type="warning"
 			:text="t('spreed', 'SIP configuration is only possible with a High-performance backend.')" />
 
@@ -20,49 +20,6 @@
 			<NcNoteCard v-if="!dialOutSupported"
 				type="warning"
 				:text="t('spreed', 'Signaling server needs to be updated to supported SIP Dial-out feature.')" />
-
-			<template v-if="dialOutEnabled">
-				<NcCheckboxRadioSwitch
-					v-model="dialOutAnonymous"
-					type="switch"
-					:disabled="loading">
-					{{ t('spreed', 'Do not show SIP Dial-out caller number') }}
-				</NcCheckboxRadioSwitch>
-				<p class="settings-hint">
-					{{ t('spreed', 'Anonymous number should appear as "unknown" or "withheld number" to call recipient') }}
-				</p>
-			</template>
-
-			<template v-if="dialOutEnabled && !dialOutAnonymous">
-				<label for="sip-dialout-number" class="form__label additional-top-margin">
-					{{ t('spreed', 'Dial-out number') }}
-				</label>
-				<NcTextField
-					id="sip-dialout-number"
-					v-model="dialOutNumber"
-					class="form"
-					name="sip-dialout-number"
-					:disabled="loading"
-					placeholder="+49123456789"
-					label-outside />
-				<p class="settings-hint additional-top-margin">
-					{{ t('spreed', 'E164 formatted number used as a fallback caller number for outgoing calls') }}
-				</p>
-
-				<label for="sip-dialout-prefix" class="form__label additional-top-margin">
-					{{ t('spreed', 'Dial-out prefix') }}
-				</label>
-				<NcTextField
-					id="sip-dialout-prefix"
-					v-model="dialOutPrefix"
-					class="form"
-					name="sip-dialout-prefix"
-					:disabled="loading"
-					label-outside />
-				<p class="settings-hint additional-top-margin">
-					{{ t('spreed', 'Prefix to configured user number for outgoing calls (default is `+`)') }}
-				</p>
-			</template>
 
 			<NcSelect v-model="sipGroups"
 				input-id="sip-group-enabled"
@@ -122,21 +79,23 @@
 </template>
 
 <script>
+import debounce from 'debounce'
+
 import axios from '@nextcloud/axios'
 import { showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
-import debounce from 'debounce'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcPasswordField from '@nextcloud/vue/components/NcPasswordField'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import NcTextArea from '@nextcloud/vue/components/NcTextArea'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import NcPasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcTextArea from '@nextcloud/vue/dist/Components/NcTextArea.js'
+
 import { EventBus } from '../../services/EventBus.ts'
-import { setSIPSettings } from '../../services/settingsService.ts'
+import { setSIPSettings } from '../../services/settingsService.js'
 import { getWelcomeMessage } from '../../services/signalingService.js'
 
 export default {
@@ -148,29 +107,19 @@ export default {
 		NcNoteCard,
 		NcSelect,
 		NcTextArea,
-		NcTextField,
 		NcPasswordField,
-	},
-
-	props: {
-		hasSignalingServers: {
-			type: Boolean,
-			required: true,
-		},
 	},
 
 	data() {
 		return {
 			loading: false,
 			loadingGroups: false,
+			showForm: true,
 			groups: [],
 			sipGroups: [],
 			dialInInfo: '',
 			sharedSecret: '',
 			dialOutEnabled: false,
-			dialOutAnonymous: false,
-			dialOutNumber: '',
-			dialOutPrefix: '',
 			currentSetup: {},
 			dialOutSupported: false,
 			debounceSearchGroup: () => {},
@@ -180,13 +129,10 @@ export default {
 	computed: {
 		isEdited() {
 			return this.currentSetup.sharedSecret !== this.sharedSecret
-				|| this.currentSetup.dialInInfo !== this.dialInInfo
-				|| this.currentSetup.dialOutEnabled !== this.dialOutEnabled
-				|| this.currentSetup.dialOutAnonymous !== this.dialOutAnonymous
-				|| this.currentSetup.dialOutNumber !== this.dialOutNumber
-				|| this.currentSetup.dialOutPrefix !== this.dialOutPrefix
-				|| this.currentSetup.sipGroups !== this.sipGroups.map((group) => group.id).join('_')
-		},
+					|| this.currentSetup.dialInInfo !== this.dialInInfo
+					|| this.currentSetup.dialOutEnabled !== this.dialOutEnabled
+					|| this.currentSetup.sipGroups !== this.sipGroups.map(group => group.id).join('_')
+		}
 	},
 
 	mounted() {
@@ -198,18 +144,21 @@ export default {
 		this.sipGroups = this.groups
 		this.dialInInfo = loadState('spreed', 'sip_bridge_dialin_info')
 		this.dialOutEnabled = loadState('spreed', 'sip_bridge_dialout')
-		this.dialOutAnonymous = loadState('spreed', 'sip_bridge_dialout_anonymous')
-		this.dialOutNumber = loadState('spreed', 'sip_bridge_dialout_number')
-		this.dialOutPrefix = loadState('spreed', 'sip_bridge_dialout_prefix')
 		this.sharedSecret = loadState('spreed', 'sip_bridge_shared_secret')
 		this.debounceSearchGroup('')
 		this.loading = false
 		this.saveCurrentSetup()
+
+		const signaling = loadState('spreed', 'signaling_servers')
+		this.updateSignalingServers(signaling.servers)
+		EventBus.on('signaling-servers-updated', this.updateSignalingServers)
+
 		this.isDialoutSupported()
 	},
 
 	beforeDestroy() {
 		this.debounceSearchGroup.clear?.()
+		EventBus.off('signaling-servers-updated', this.updateSignalingServers)
 	},
 
 	methods: {
@@ -237,38 +186,21 @@ export default {
 				sharedSecret: this.sharedSecret,
 				dialInInfo: this.dialInInfo,
 				dialOutEnabled: this.dialOutEnabled,
-				dialOutAnonymous: this.dialOutAnonymous,
-				dialOutNumber: this.dialOutNumber,
-				dialOutPrefix: this.dialOutPrefix,
-				sipGroups: this.sipGroups.map((group) => group.id).join('_'),
+				sipGroups: this.sipGroups.map(group => group.id).join('_')
 			}
-			EventBus.emit('sip-settings-updated', this.currentSetup)
 		},
 
 		async saveSIPSettings() {
 			this.loading = true
 			this.saveLabel = t('spreed', 'Saving …')
 
-			const sipGroups = this.sipGroups.map((group) => {
+			const groups = this.sipGroups.map(group => {
 				return group.id
 			})
 
-			await setSIPSettings({
-				sipGroups,
-				sharedSecret: this.sharedSecret,
-				dialInInfo: this.dialInInfo,
-			})
+			await setSIPSettings(groups, this.sharedSecret, this.dialInInfo)
 			if (this.currentSetup.dialOutEnabled !== this.dialOutEnabled) {
 				await OCP.AppConfig.setValue('spreed', 'sip_dialout', this.dialOutEnabled ? 'yes' : 'no')
-			}
-			if (this.currentSetup.dialOutAnonymous !== this.dialOutAnonymous) {
-				await OCP.AppConfig.setValue('spreed', 'sip_bridge_dialout_anonymous', this.dialOutAnonymous)
-			}
-			if (this.currentSetup.dialOutNumber !== this.dialOutNumber) {
-				await OCP.AppConfig.setValue('spreed', 'sip_bridge_dialout_number', this.dialOutNumber)
-			}
-			if (this.currentSetup.dialOutPrefix !== this.dialOutPrefix) {
-				await OCP.AppConfig.setValue('spreed', 'sip_bridge_dialout_prefix', this.dialOutPrefix)
 			}
 
 			this.loading = false
@@ -291,6 +223,10 @@ export default {
 					this.dialOutSupported = false
 				}
 			}
+		},
+
+		updateSignalingServers(servers) {
+			this.showForm = servers.length > 0
 		},
 	},
 }

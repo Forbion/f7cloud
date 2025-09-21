@@ -15,11 +15,9 @@
 				trailing-button-icon="close"
 				class="selector__search"
 				:label="t('spreed', 'Search conversations or users')"
-				:show-trailing-button="searchText !== ''"
+				:show-trailing-button="searchText !==''"
 				@trailing-button-click="clearText">
-				<template #icon>
-					<Magnify :size="16" />
-				</template>
+				<Magnify :size="16" />
 			</NcTextField>
 
 			<!-- Conversations list-->
@@ -48,17 +46,22 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
 import { provide, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
 import Magnify from 'vue-material-design-icons/Magnify.vue'
 import MessageOutline from 'vue-material-design-icons/MessageOutline.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import ConversationsSearchListVirtual from './LeftSidebar/ConversationsList/ConversationsSearchListVirtual.vue'
-import { CONVERSATION } from '../constants.ts'
-import { fetchConversations, searchListedConversations } from '../services/conversationsService.ts'
+
+import { CONVERSATION } from '../constants.js'
+import { searchListedConversations, fetchConversations } from '../services/conversationsService.js'
 
 export default {
 	name: 'RoomSelector',
@@ -140,12 +143,13 @@ export default {
 
 	computed: {
 		availableRooms() {
-			return this.rooms.filter((room) => room.type !== CONVERSATION.TYPE.CHANGELOG
+			return this.rooms.filter(room => room.type !== CONVERSATION.TYPE.CHANGELOG
 				&& room.objectType !== CONVERSATION.OBJECT_TYPE.FILE
 				&& room.objectType !== CONVERSATION.OBJECT_TYPE.VIDEO_VERIFICATION
 				&& (!this.currentRoom || this.currentRoom !== room.token)
 				&& (!this.showPostableOnly || room.readOnly === CONVERSATION.STATE.READ_WRITE)
-				&& (!this.searchText || room.displayName.toLowerCase().includes(this.searchText.toLowerCase())))
+				&& (!this.searchText || room.displayName.toLowerCase().includes(this.searchText.toLowerCase()))
+			)
 		},
 
 		noMatchFoundTitle() {
@@ -173,16 +177,14 @@ export default {
 		t,
 		async fetchRooms() {
 			const response = this.listOpenConversations
-				? await searchListedConversations('')
-				: await fetchConversations({
-						includeStatus: 1,
-					})
+				? await searchListedConversations({ searchText: '' }, {})
+				: await fetchConversations({})
 
 			this.rooms = response.data.ocs.data.sort(this.sortConversations)
 				// Federated conversations do not support:
 				// - open conversations
 				// - 3rd app integrations (e.g. Deck / Maps)
-				.filter((conversation) => this.allowFederation || !conversation.remoteServer)
+				.filter(conversation => this.allowFederation || !conversation.remoteServer)
 			this.loading = false
 		},
 
@@ -222,6 +224,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* FIXME: remove after https://github.com/nextcloud-libraries/nextcloud-vue/pull/4959 is released */
+/* Styles to be applied outside of Talk (Deck plugin, e.t.c) */
+:deep(.modal-wrapper *) {
+	box-sizing: border-box;
+}
+
 :deep(.modal-wrapper .modal-container) {
 	height: 700px;
 }
@@ -253,7 +261,7 @@ export default {
 
 	&__action {
 		flex-shrink: 0;
-		margin-inline-start: auto;
+		margin-left: auto;
 	}
 }
 </style>

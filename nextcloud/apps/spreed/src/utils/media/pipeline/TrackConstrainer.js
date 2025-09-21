@@ -26,6 +26,7 @@ import TrackSinkSource from './TrackSinkSource.js'
  *        ------------------
  */
 export default class TrackConstrainer extends TrackSinkSource {
+
 	constructor() {
 		super()
 
@@ -50,4 +51,5 @@ export default class TrackConstrainer extends TrackSinkSource {
 	_handleInputTrackEnabled(trackId, enabled) {
 		this._setOutputTrackEnabled('default', enabled)
 	}
+
 }

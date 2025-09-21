@@ -31,7 +31,8 @@
 				<NewConversationContactsPage v-if="page === 1"
 					class="new-group-conversation__content"
 					:selected-participants.sync="selectedParticipants"
-					:can-moderate-sip-dial-out="canModerateSipDialOut" />
+					:can-moderate-sip-dial-out="canModerateSipDialOut"
+					:conversation-name="conversationName" />
 			</div>
 
 			<!-- Navigation: different buttons with different actions and
@@ -84,18 +85,18 @@
 				</template>
 
 				<template #action>
+					<NcButton v-if="(error || isPublic) && !isLoading"
+						ref="closeButton"
+						type="tertiary"
+						@click="closeModal">
+						{{ t('spreed', 'Close') }}
+					</NcButton>
 					<NcButton v-if="!error && success && isPublic"
 						id="copy-link"
 						ref="copyLink"
 						type="secondary"
 						@click="onClickCopyLink">
-						{{ t('spreed', 'Copy link') }}
-					</NcButton>
-					<NcButton v-if="!error && success && isPublic && newConversation.hasPassword"
-						id="copy-password"
-						type="secondary"
-						@click="onClickCopyPassword">
-						{{ t('spreed', 'Copy password') }}
+						{{ t('spreed', 'Copy conversation link') }}
 					</NcButton>
 				</template>
 			</NcEmptyContent>
@@ -104,21 +105,26 @@
 </template>
 
 <script>
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 import { provide, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcModal from '@nextcloud/vue/components/NcModal'
+
 import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import Check from 'vue-material-design-icons/Check.vue'
-import LoadingComponent from '../LoadingComponent.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+
 import NewConversationContactsPage from './NewConversationContactsPage.vue'
 import NewConversationSetupPage from './NewConversationSetupPage.vue'
+import LoadingComponent from '../LoadingComponent.vue'
+
 import { useId } from '../../composables/useId.ts'
 import { useIsInCall } from '../../composables/useIsInCall.js'
-import { CONVERSATION } from '../../constants.ts'
-import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
+import { CONVERSATION } from '../../constants.js'
+import { setConversationPassword } from '../../services/conversationsService.js'
+import { addParticipant } from '../../services/participantsService.js'
 import { copyConversationLinkToClipboard } from '../../utils/handleUrl.ts'
 
 const NEW_CONVERSATION = {
@@ -129,7 +135,7 @@ const NEW_CONVERSATION = {
 	type: CONVERSATION.TYPE.GROUP,
 	isDummyConversation: true,
 }
-const maxDescriptionLength = getTalkConfig('local', 'conversations', 'description-length') || 500
+
 export default {
 	name: 'NewConversationDialog',
 
@@ -151,14 +157,10 @@ export default {
 		},
 	},
 
-	expose: ['showModalForItem', 'showModal'],
-
 	setup() {
 		const isInCall = useIsInCall()
 		const selectedParticipants = ref([])
 		provide('selectedParticipants', selectedParticipants)
-		const lockedParticipants = ref([])
-		provide('lockedParticipants', lockedParticipants)
 
 		// Add a visual bulk selection state for SelectableParticipant component
 		provide('bulkParticipantsSelection', true)
@@ -169,7 +171,6 @@ export default {
 		return {
 			isInCall,
 			selectedParticipants,
-			lockedParticipants,
 			dialogHeaderPrepId,
 			dialogHeaderResId,
 		}
@@ -183,7 +184,6 @@ export default {
 			isLoading: true,
 			success: false,
 			error: false,
-			errorReason: '',
 			password: '',
 			listable: CONVERSATION.LISTABLE.NONE,
 			isAvatarEdited: false,
@@ -204,7 +204,7 @@ export default {
 		disabled() {
 			return this.conversationName === '' || (this.newConversation.hasPassword && (this.password === '' || !this.isPasswordValid))
 				|| this.conversationName.length > CONVERSATION.MAX_NAME_LENGTH
-				|| this.newConversation.description.length > maxDescriptionLength
+				|| this.newConversation.description.length > CONVERSATION.MAX_DESCRIPTION_LENGTH
 		},
 
 		isFilled() {
@@ -216,27 +216,35 @@ export default {
 			if (this.isLoading) {
 				return t('spreed', 'Creating the conversation …')
 			} else if (this.error) {
-				if (this.errorReason === 'password_required') {
-					return t('spreed', 'Error: A password is required to create the conversation.')
-				}
 				return t('spreed', 'Error while creating the conversation')
 			} else if (this.success && this.isPublic) {
 				return t('spreed', 'All set, the conversation "{conversationName}" was created.', { conversationName: this.conversationName })
 			}
 			return ''
-		},
+		}
 	},
 
 	watch: {
 		success(value) {
-			if (!value || !this.isPublic) {
+			if (!value) {
 				return
 			}
 			this.$nextTick(() => {
 				this.$refs.copyLink.$el.focus()
 			})
 		},
+
+		error(value) {
+			if (!value) {
+				return
+			}
+			this.$nextTick(() => {
+				this.$refs.closeButton.$el.focus()
+			})
+		},
 	},
+
+	expose: ['showModalForItem', 'showModal'],
 
 	methods: {
 		t,
@@ -253,12 +261,10 @@ export default {
 				// Preload the conversation name from group selection
 				this.newConversation.displayName = item.label
 				this.selectedParticipants.push(item)
-				this.lockedParticipants.push(item)
 			}
 
 			this.showModal()
 		},
-
 		/**
 		 * Reinitialise the component to it's initial state. This is necessary
 		 * because once the component is mounted its data would persist even if
@@ -275,7 +281,6 @@ export default {
 			this.listable = CONVERSATION.LISTABLE.NONE
 			this.isAvatarEdited = false
 			this.selectedParticipants = []
-			this.lockedParticipants = []
 		},
 
 		switchToPage(value) {
@@ -290,33 +295,45 @@ export default {
 			this.page = 2
 
 			try {
-				const avatar = {}
-				if (this.isAvatarEdited) {
-					if (this.$refs.setupPage.$refs.conversationAvatar.emojiAvatar) {
-						avatar.emoji = this.$refs.setupPage.$refs.conversationAvatar.emojiAvatar
-						avatar.color = this.$refs.setupPage.$refs.conversationAvatar.backgroundColor
-							? this.$refs.setupPage.$refs.conversationAvatar.backgroundColor.slice(1)
-							: null
-					} else {
-						avatar.file = await this.$refs.setupPage.$refs.conversationAvatar.getPictureFormData()
-					}
+				this.newConversation.token = await this.$store.dispatch('createGroupConversation', {
+					conversationName: this.conversationName,
+					isPublic: this.isPublic,
+				})
+
+				// Gather all secondary requests to run in parallel
+				const promises = []
+
+				if (this.isPublic && this.password && this.newConversation.hasPassword) {
+					promises.push(setConversationPassword(this.newConversation.token, this.password))
 				}
 
-				const conversation = await this.$store.dispatch('createGroupConversation', {
-					roomName: this.conversationName,
-					roomType: this.isPublic ? CONVERSATION.TYPE.PUBLIC : CONVERSATION.TYPE.GROUP,
-					password: this.password,
-					description: this.newConversation.description,
-					listable: this.listable,
-					participants: this.selectedParticipants,
-					avatar,
-				})
-				this.newConversation.token = conversation.token
+				if (this.isAvatarEdited) {
+					promises.push(this.$refs.setupPage.$refs.conversationAvatar.saveAvatar())
+				}
+
+				if (this.newConversation.description) {
+					promises.push(this.$store.dispatch('setConversationDescription', {
+						token: this.newConversation.token,
+						description: this.newConversation.description,
+					}))
+				}
+
+				if (this.listable !== CONVERSATION.LISTABLE.NONE) {
+					promises.push(this.$store.dispatch('setListable', {
+						token: this.newConversation.token,
+						listable: this.listable,
+					}))
+				}
+
+				for (const participant of this.selectedParticipants) {
+					promises.push(addParticipant(this.newConversation.token, participant.id, participant.source))
+				}
+
+				await Promise.all(promises)
 			} catch (exception) {
 				console.error('Error creating new conversation: ', exception)
 				this.isLoading = false
 				this.error = true
-				this.errorReason = exception.message
 				// Stop the execution of the method on exceptions.
 				return
 			}
@@ -327,7 +344,7 @@ export default {
 			if (!this.isInCall) {
 				// Push the newly created conversation's route.
 				this.$router.push({ name: 'conversation', params: { token: this.newConversation.token } })
-					.catch((err) => console.debug(`Error while pushing the new conversation's route: ${err}`))
+					.catch(err => console.debug(`Error while pushing the new conversation's route: ${err}`))
 
 				// Get complete participant list in advance
 				this.$store.dispatch('fetchParticipants', { token: this.newConversation.token })
@@ -348,15 +365,6 @@ export default {
 
 		onClickCopyLink() {
 			copyConversationLinkToClipboard(this.newConversation.token)
-		},
-
-		async onClickCopyPassword() {
-			try {
-				await navigator.clipboard.writeText(this.password)
-				showSuccess(t('spreed', 'Password copied to clipboard'))
-			} catch (error) {
-				showError(t('spreed', 'Password could not be copied'))
-			}
 		},
 
 		setIsPasswordValid(value) {
@@ -398,7 +406,7 @@ export default {
 	}
 
 	&__button {
-		margin-inline-start: auto;
+		margin-left: auto;
 	}
 
 	:deep(.modal-wrapper) {

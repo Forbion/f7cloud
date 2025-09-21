@@ -30,8 +30,10 @@
 <script>
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import { CALL, CONFIG, CONVERSATION } from '../../constants.ts'
+
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
+import { CALL, CONFIG, CONVERSATION } from '../../constants.js'
 import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
 
 export default {
@@ -107,3 +109,6 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

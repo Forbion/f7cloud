@@ -5,18 +5,19 @@
 
 import axios from '@nextcloud/axios'
 import {
-	showWarning,
+	showWarning
 } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
 import {
 	generateOcsUrl,
 } from '@nextcloud/router'
-import { PARTICIPANT } from '../constants.ts'
+
+import { PARTICIPANT } from '../constants.js'
 import {
 	signalingJoinConversation,
 	signalingLeaveConversation,
 	signalingSetTyping,
-} from '../utils/webrtc/index.js'
+} from '../utils/webrtc'
 
 const PERMISSIONS = PARTICIPANT.PERMISSIONS
 
@@ -35,12 +36,16 @@ const joinConversation = async ({ token, forceJoin = false }, options) => {
 	}, options)
 
 	if (response.headers.get('X-Nextcloud-Bruteforce-Throttled')) {
-		console.error('Remote address is bruteforce throttled: '
+		console.error(
+			'Remote address is bruteforce throttled: '
 			+ response.headers.get('X-Nextcloud-Bruteforce-Throttled')
-			+ ' (Request ID: ' + response.headers.get('X-Request-ID') + ')')
+			+ ' (Request ID: ' + response.headers.get('X-Request-ID') + ')'
+		)
 		const throttleMs = parseInt(response.headers.get('X-Nextcloud-Bruteforce-Throttled'), 10)
 		if (throttleMs > 5000) {
-			showWarning(t('spreed', 'Your requests are throttled at the moment due to brute force protection'))
+			showWarning(
+				t('spreed', 'Your requests are throttled at the moment due to brute force protection')
+			)
 		}
 	}
 
@@ -166,7 +171,7 @@ const resendInvitations = async (token, attendeeId = null) => {
  * @param {string} token conversation token
  * @param {File} file file to upload
  * @param {boolean} testRun whether to perform a verification only
- * @return {import('../types/index.ts').importEmailsResponse}
+ * @return {import('../types').importEmailsResponse}
  */
 const importEmails = async (token, file, testRun = false) => {
 	let data = {
@@ -182,8 +187,8 @@ const importEmails = async (token, file, testRun = false) => {
 
 	return axios.post(generateOcsUrl('apps/spreed/api/v4/room/{token}/import-emails', { token }), data, {
 		headers: {
-			'Content-Type': 'multipart/form-data',
-		},
+			'Content-Type': 'multipart/form-data'
+		}
 	})
 }
 
@@ -195,9 +200,8 @@ const importEmails = async (token, file, testRun = false) => {
  * @param {number} state Session state;
  */
 const setSessionState = async (token, state) => {
-	return axios.put(
-		generateOcsUrl('apps/spreed/api/v4/room/{token}/participants/state', { token }),
-		{ state },
+	return axios.put(generateOcsUrl('apps/spreed/api/v4/room/{token}/participants/state', { token }),
+		{ state }
 	)
 }
 
@@ -250,14 +254,12 @@ const removeAllPermissionsFromParticipant = async (token, attendeeId) => {
  * 'PUBLISH_AUDIO', 'PUBLISH_VIDEO', 'PUBLISH_SCREEN'.
  */
 const setPermissions = async (token, attendeeId, method = 'set', permission) => {
-	await axios.put(
-		generateOcsUrl('apps/spreed/api/v4/room/{token}/attendees/permissions', { token }),
+	await axios.put(generateOcsUrl('apps/spreed/api/v4/room/{token}/attendees/permissions', { token }),
 		{
 			attendeeId,
 			method,
 			permissions: permission,
-		},
-	)
+		})
 }
 
 /**
@@ -270,22 +272,22 @@ const setTyping = (typing) => {
 }
 
 export {
-	addParticipant,
-	demoteFromModerator,
-	fetchParticipants,
-	grantAllPermissionsToParticipant,
-	importEmails,
 	joinConversation,
+	rejoinConversation,
 	leaveConversation,
 	leaveConversationSync,
-	promoteToModerator,
-	rejoinConversation,
-	removeAllPermissionsFromParticipant,
-	removeAttendeeFromConversation,
+	addParticipant,
 	removeCurrentUserFromConversation,
+	removeAttendeeFromConversation,
+	promoteToModerator,
+	demoteFromModerator,
+	fetchParticipants,
+	setGuestUserName,
+	importEmails,
 	resendInvitations,
 	sendCallNotification,
-	setGuestUserName,
+	grantAllPermissionsToParticipant,
+	removeAllPermissionsFromParticipant,
 	setPermissions,
 	setSessionState,
 	setTyping,

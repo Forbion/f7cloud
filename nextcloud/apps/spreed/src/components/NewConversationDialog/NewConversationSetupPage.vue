@@ -46,7 +46,7 @@
 		<div class="new-group-conversation__wrapper">
 			<NcCheckboxRadioSwitch v-model="hasPassword"
 				type="switch"
-				:disabled="!isPublic || forcePasswordProtection">
+				:disabled="!isPublic">
 				<span class="checkbox__label">{{ t('spreed', 'Password protection') }}</span>
 			</NcCheckboxRadioSwitch>
 			<NcPasswordField v-if="hasPassword"
@@ -64,19 +64,20 @@
 
 <script>
 import { t } from '@nextcloud/l10n'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcPasswordField from '@nextcloud/vue/components/NcPasswordField'
-import NcTextArea from '@nextcloud/vue/components/NcTextArea'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcPasswordField from '@nextcloud/vue/dist/Components/NcPasswordField.js'
+import NcTextArea from '@nextcloud/vue/dist/Components/NcTextArea.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import ConversationAvatarEditor from '../ConversationSettings/ConversationAvatarEditor.vue'
 import ListableSettings from '../ConversationSettings/ListableSettings.vue'
-import { CONVERSATION } from '../../constants.ts'
-import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
-import generatePassword from '../../utils/generatePassword.ts'
+
+import { CONVERSATION } from '../../constants.js'
+import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 
 const supportsAvatar = hasTalkFeature('local', 'avatar')
-const forcePasswordProtection = getTalkConfig('local', 'conversations', 'force-passwords')
-const maxDescriptionLength = getTalkConfig('local', 'conversations', 'description-length') || 500
+
 export default {
 
 	name: 'NewConversationSetupPage',
@@ -95,25 +96,20 @@ export default {
 			type: Object,
 			required: true,
 		},
-
 		password: {
 			type: String,
 			required: true,
 		},
-
 		listable: {
 			type: Number,
 			required: true,
-		},
+		}
 	},
 
 	emits: ['update:newConversation', 'update:password', 'update:listable', 'avatar-edited', 'handle-enter', 'is-password-valid'],
 
 	setup() {
-		return {
-			supportsAvatar,
-			forcePasswordProtection,
-		}
+		return { supportsAvatar }
 	},
 
 	computed: {
@@ -121,7 +117,6 @@ export default {
 			get() {
 				return this.newConversation.displayName
 			},
-
 			set(displayName) {
 				this.updateNewConversation({ displayName })
 			},
@@ -131,7 +126,6 @@ export default {
 			get() {
 				return this.newConversation.description
 			},
-
 			set(description) {
 				this.updateNewConversation({ description })
 			},
@@ -145,24 +139,19 @@ export default {
 		},
 
 		descriptionErrorLabel() {
-			if (this.conversationDescription.length <= maxDescriptionLength) {
+			if (this.conversationDescription.length <= CONVERSATION.MAX_DESCRIPTION_LENGTH) {
 				return
 			}
-			return t('spreed', 'Maximum length exceeded ({maxlength} characters)', { maxlength: maxDescriptionLength })
+			return t('spreed', 'Maximum length exceeded ({maxlength} characters)', { maxlength: CONVERSATION.MAX_DESCRIPTION_LENGTH })
 		},
 
 		isPublic: {
 			get() {
 				return this.newConversation.type === CONVERSATION.TYPE.PUBLIC
 			},
-
-			async set(value) {
+			set(value) {
 				if (value) {
-					this.updateNewConversation({ type: CONVERSATION.TYPE.PUBLIC, hasPassword: this.forcePasswordProtection ?? false })
-					if (this.forcePasswordProtection) {
-						// Make it easier to users by generating a password
-						this.$emit('update:password', await generatePassword())
-					}
+					this.updateNewConversation({ type: CONVERSATION.TYPE.PUBLIC })
 				} else {
 					this.updateNewConversation({ type: CONVERSATION.TYPE.GROUP, hasPassword: false })
 				}
@@ -173,7 +162,6 @@ export default {
 			get() {
 				return this.newConversation.hasPassword
 			},
-
 			set(value) {
 				this.updateNewConversation({ hasPassword: value })
 				if (!value) {
@@ -186,7 +174,6 @@ export default {
 			get() {
 				return this.password
 			},
-
 			set(value) {
 				this.$emit('update:password', value)
 			},
@@ -196,7 +183,6 @@ export default {
 			get() {
 				return this.listable
 			},
-
 			set(value) {
 				this.$emit('update:listable', value)
 			},

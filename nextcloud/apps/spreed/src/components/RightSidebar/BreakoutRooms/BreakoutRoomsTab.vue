@@ -32,13 +32,17 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import DotsCircle from 'vue-material-design-icons/DotsCircle.vue'
-import Participant from '../Participants/Participant.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+
 import BreakoutRoomItem from './BreakoutRoomItem.vue'
 import BreakoutRoomsActions from './BreakoutRoomsActions.vue'
-import { CONVERSATION, PARTICIPANT } from '../../../constants.ts'
+import Participant from '../Participants/Participant.vue'
+
+import { CONVERSATION, PARTICIPANT } from '../../../constants.js'
 import { useBreakoutRoomsStore } from '../../../stores/breakoutRooms.ts'
 
 export default {
@@ -175,5 +179,11 @@ export default {
 
 :deep(.app-navigation-entry__title) {
 	font-weight: bold !important;
+}
+
+// TODO: upstream collapse icon position fix
+:deep(.icon-collapse) {
+	position: absolute !important;
+	left: 0;
 }
 </style>

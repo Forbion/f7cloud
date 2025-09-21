@@ -6,12 +6,10 @@
 <template>
 	<ul :class="'placeholder-list placeholder-list--' + type">
 		<li v-for="(item, index) in placeholderData" :key="index" class="placeholder-item">
-			<div v-if="type !== 'event-cards'"
-				class="placeholder-item__avatar"
-				:style="{ '--avatar-size': item.avatarSize }">
+			<div class="placeholder-item__avatar" :style="{ '--avatar-size': item.avatarSize }">
 				<div class="placeholder-item__avatar-circle" />
 			</div>
-			<div class="placeholder-item__content" :style="{ '--last-line-width': item.width }">
+			<div class="placeholder-item__content" :style="{'--last-line-width': item.width}">
 				<div v-for="idx in item.amount" :key="idx" class="placeholder-item__content-line" />
 			</div>
 			<div v-if="type === 'messages'" class="placeholder-item__info" />
@@ -20,7 +18,7 @@
 </template>
 
 <script>
-import { AVATAR } from '../../constants.ts'
+import { AVATAR } from '../../constants.js'
 
 export default {
 	name: 'LoadingPlaceholder',
@@ -30,10 +28,9 @@ export default {
 			type: String,
 			required: true,
 			validator(value) {
-				return ['conversations', 'messages', 'participants', 'event-cards'].includes(value)
+				return ['conversations', 'messages', 'participants'].includes(value)
 			},
 		},
-
 		count: {
 			type: Number,
 			default: 5,
@@ -46,12 +43,8 @@ export default {
 			for (let i = 0; i < this.count; i++) {
 				// set up amount of lines in skeleton and generate random widths for last line
 				data.push({
-					amount: this.type === 'messages'
-						? 4
-						: this.type === 'conversations' ? 2 : 1,
-					width: this.type === 'participants'
-						? '60%'
-						: this.type === 'event-cards' ? '100%' : (Math.floor(Math.random() * 40) + 30) + '%',
+					amount: this.type === 'messages' ? 4 : this.type === 'conversations' ? 2 : 1,
+					width: this.type === 'participants' ? '60%' : (Math.floor(Math.random() * 40) + 30) + '%',
 					avatarSize: (this.type === 'messages' ? AVATAR.SIZE.SMALL : AVATAR.SIZE.DEFAULT) + 'px',
 				})
 			}
@@ -76,7 +69,6 @@ export default {
 
 	&__avatar {
 		flex-shrink: 0;
-
 		&-circle {
 			height: var(--avatar-size);
 			width: var(--avatar-size);
@@ -119,8 +111,7 @@ export default {
 	margin: auto;
 
 	.placeholder-item {
-		padding-inline-end: 8px;
-
+		padding-right: 8px;
 		&__avatar {
 			width: 48px;
 			padding: 20px 8px 0;
@@ -143,8 +134,7 @@ export default {
 		&__info {
 			width: 100px;
 			height: 15px;
-			margin-block: var(--default-clickable-area) 0;
-			margin-inline: 8px var(--default-clickable-area);
+			margin: var(--default-clickable-area) var(--default-clickable-area) 0 8px;
 			animation-delay: 0.8s;
 		}
 	}
@@ -153,7 +143,7 @@ export default {
 // Participants placeholder ruleset
 .placeholder-list--participants {
 	.placeholder-item {
-		--padding: calc(var(--default-grid-baseline) * 2);
+		--padding : calc(var(--default-grid-baseline) * 2);
 		gap: calc(var(--default-grid-baseline) * 2);
 		padding: calc(var(--padding) * 3 / 2) var(--padding) var(--padding);
 		height: 59px;
@@ -161,27 +151,6 @@ export default {
 
 		&__avatar {
 			margin: auto;
-		}
-	}
-}
-
-// Event cards placeholder ruleset
-.placeholder-list--event-cards {
-	display: flex;
-	gap: calc(var(--default-grid-baseline) * 2);
-	flex-wrap: nowrap;
-	overflow: hidden;
-
-	.placeholder-item {
-		&__content {
-			width: 300px;
-
-			&-line {
-				margin: 0;
-				height: 250px;
-				background-color: var(--color-placeholder-light);
-				border-radius: var(--border-radius-large);
-			}
 		}
 	}
 }

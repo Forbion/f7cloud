@@ -133,7 +133,7 @@ export default {
 
 .volume-indicator {
 	position: absolute;
-	inset-inline-start: 0;
+	left: 0;
 
 	width: 100%;
 	height: 100%;

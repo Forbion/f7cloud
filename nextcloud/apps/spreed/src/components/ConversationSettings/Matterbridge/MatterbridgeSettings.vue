@@ -67,7 +67,7 @@
 			<ul>
 				<BridgePart v-for="(part, i) in parts"
 					:key="part.type + i"
-					:num="i + 1"
+					:num="i+1"
 					:part="part"
 					:type="matterbridgeTypes[part.type]"
 					:editing="part.editing"
@@ -81,22 +81,26 @@
 </template>
 
 <script>
-import { showSuccess } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import NcTextArea from '@nextcloud/vue/components/NcTextArea'
 import Message from 'vue-material-design-icons/Message.vue'
 import Plus from 'vue-material-design-icons/Plus.vue'
+
+import { showSuccess } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcTextArea from '@nextcloud/vue/dist/Components/NcTextArea.js'
+
 import BridgePart from './BridgePart.vue'
+
+import { matterbridgeTypes } from './matterbridgeTypes.ts'
 import {
 	editBridge,
 	getBridge,
 	getBridgeProcessState,
 } from '../../../services/matterbridgeService.js'
-import { matterbridgeTypes } from './matterbridgeTypes.ts'
 
 export default {
 	name: 'MatterbridgeSettings',
@@ -176,7 +180,6 @@ export default {
 			clearInterval(this.stateLoop)
 			this.stateLoop = setInterval(() => this.getBridgeProcessState(token), 60000)
 		},
-
 		clickAddPart(event) {
 			const typeKey = event.type
 			const type = this.matterbridgeTypes[typeKey]
@@ -189,31 +192,26 @@ export default {
 			}
 			this.parts.unshift(newPart)
 		},
-
 		onDelete(i) {
 			this.parts.splice(i, 1)
 			this.save()
 		},
-
 		onEditClicked(i) {
 			this.parts[i].editing = !this.parts[i].editing
 			if (!this.parts[i].editing) {
 				this.save()
 			}
 		},
-
 		onEnabled(checked) {
 			this.enabled = checked
 			this.save()
 		},
-
 		save() {
 			if (this.parts.length === 0) {
 				this.enabled = false
 			}
 			this.editBridge(this.token, this.enabled, this.parts)
 		},
-
 		async getBridge(token) {
 			this.loading = true
 			try {
@@ -228,10 +226,9 @@ export default {
 			}
 			this.loading = false
 		},
-
 		async editBridge() {
 			this.loading = true
-			this.parts.forEach((part) => {
+			this.parts.forEach(part => {
 				part.editing = false
 			})
 			try {
@@ -244,7 +241,6 @@ export default {
 			}
 			this.loading = false
 		},
-
 		async getBridgeProcessState(token) {
 			try {
 				const result = await getBridgeProcessState(token)
@@ -254,7 +250,6 @@ export default {
 				console.error(exception)
 			}
 		},
-
 		showLogContent() {
 			this.getBridgeProcessState(this.token)
 			this.logModal = true
@@ -267,7 +262,7 @@ export default {
 .icon-multiselect-service {
 	width: 16px !important;
 	height: 16px !important;
-	margin-inline-end: 10px;
+	margin-right: 10px;
 	filter: var(--background-invert-if-dark);
 }
 
@@ -320,6 +315,18 @@ export default {
 
 	.basic-settings {
 		margin-bottom: calc(4 * var(--default-grid-baseline));
+
+		.action {
+			list-style: none;
+		}
+		.save-changes {
+			width: 100%;
+			text-align: left;
+
+			.icon-checkmark {
+				margin: 0 10px 0 2px;
+			}
+		}
 		.icon {
 			display: inline-flex;
 			justify-content: center;
@@ -336,6 +343,15 @@ export default {
 			display: flex;
 			height: var(--default-clickable-area);
 			margin-top: 5px;
+
+			label {
+				flex-grow: 1;
+				margin-top: auto;
+				margin-bottom: auto;
+				&::before {
+					margin: 0 10px 0 15px;
+				}
+			}
 		}
 	}
 

@@ -7,10 +7,12 @@ import flushPromises from 'flush-promises' // TODO fix after migration to @vue/t
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex, { Store } from 'vuex'
-import NcButton from '@nextcloud/vue/components/NcButton'
+
 import Check from 'vue-material-design-icons/Check.vue'
 import CheckAll from 'vue-material-design-icons/CheckAll.vue'
-import Quote from '../../../Quote.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import Message from './Message.vue'
 import MessageButtonsBar from './MessageButtonsBar/MessageButtonsBar.vue'
 import DeckCard from './MessagePart/DeckCard.vue'
@@ -19,8 +21,10 @@ import FilePreview from './MessagePart/FilePreview.vue'
 import Location from './MessagePart/Location.vue'
 import Mention from './MessagePart/Mention.vue'
 import MessageBody from './MessagePart/MessageBody.vue'
+import Quote from '../../../Quote.vue'
+
 import * as useIsInCallModule from '../../../../composables/useIsInCall.js'
-import { ATTENDEE, CONVERSATION, MESSAGE, PARTICIPANT } from '../../../../constants.ts'
+import { CONVERSATION, ATTENDEE, PARTICIPANT } from '../../../../constants.js'
 import { EventBus } from '../../../../services/EventBus.ts'
 import storeConfig from '../../../../store/storeConfig.js'
 
@@ -89,9 +93,9 @@ describe('Message.vue', () => {
 				timestamp: new Date('2020-05-07 09:23:00').getTime() / 1000,
 				token: TOKEN,
 				systemMessage: '',
-				messageType: MESSAGE.TYPE.COMMENT,
+				messageType: 'comment',
 				reactions: [],
-			},
+			}
 		}
 	})
 
@@ -240,7 +244,7 @@ describe('Message.vue', () => {
 		})
 
 		test('renders deleted system message', () => {
-			messageProps.message.systemMessage = 'message_deleted'
+			messageProps.message.systemMessage = 'comment_deleted'
 			messageProps.message.message = 'message deleted'
 			conversationProps.hasCall = true
 
@@ -366,7 +370,7 @@ describe('Message.vue', () => {
 							component: Mention,
 							props: mentions['mention-call1'],
 						},
-					},
+					}
 				)
 			})
 
@@ -384,8 +388,7 @@ describe('Message.vue', () => {
 				}
 				renderRichObject(
 					'{file}',
-					params,
-					{
+					params, {
 						actor: {
 							component: Mention,
 							props: params.actor,
@@ -394,7 +397,7 @@ describe('Message.vue', () => {
 							component: FilePreview,
 							props: { file: params.file },
 						},
-					},
+					}
 				)
 			})
 
@@ -413,8 +416,7 @@ describe('Message.vue', () => {
 				}
 				const messageEl = renderRichObject(
 					caption,
-					params,
-					{
+					params, {
 						actor: {
 							component: Mention,
 							props: params.actor,
@@ -423,10 +425,10 @@ describe('Message.vue', () => {
 							component: FilePreview,
 							props: { file: params.file },
 						},
-					},
+					}
 				)
 
-				expect(messageEl.props('text')).toBe('{file}\n\n' + caption)
+				expect(messageEl.props('text')).toBe('{file}' + '\n\n' + caption)
 			})
 
 			test('renders deck cards', () => {
@@ -443,8 +445,7 @@ describe('Message.vue', () => {
 				}
 				renderRichObject(
 					'{deck-card}',
-					params,
-					{
+					params, {
 						actor: {
 							component: Mention,
 							props: params.actor,
@@ -453,7 +454,7 @@ describe('Message.vue', () => {
 							component: DeckCard,
 							props: params['deck-card'],
 						},
-					},
+					}
 				)
 			})
 
@@ -466,13 +467,12 @@ describe('Message.vue', () => {
 				}
 				renderRichObject(
 					'{geo-location}',
-					params,
-					{
+					params, {
 						'geo-location': {
 							component: Location,
 							props: params['geo-location'],
 						},
-					},
+					}
 				)
 			})
 
@@ -490,8 +490,7 @@ describe('Message.vue', () => {
 				}
 				renderRichObject(
 					'{unknown}',
-					params,
-					{
+					params, {
 						actor: {
 							component: Mention,
 							props: params.actor,
@@ -500,7 +499,7 @@ describe('Message.vue', () => {
 							component: DefaultParameter,
 							props: params.unknown,
 						},
-					},
+					}
 				)
 			})
 		})
@@ -566,6 +565,7 @@ describe('Message.vue', () => {
 	})
 
 	describe('actions', () => {
+
 		beforeEach(() => {
 			store = new Store(testStoreConfig)
 		})
@@ -605,7 +605,7 @@ describe('Message.vue', () => {
 		})
 
 		test('does not render actions for deleted messages', async () => {
-			messageProps.message.messageType = MESSAGE.TYPE.COMMENT_DELETED
+			messageProps.message.messageType = 'comment_deleted'
 
 			const wrapper = shallowMount(Message, {
 				localVue,
@@ -658,7 +658,9 @@ describe('Message.vue', () => {
 			store = new Store(testStoreConfig)
 
 			// need to mock the date to be within 6h
-			jest.useFakeTimers().setSystemTime(new Date('2020-05-07T10:00:00'))
+			const mockDate = new Date('2020-05-07 10:00:00')
+			jest.spyOn(global.Date, 'now')
+				.mockImplementation(() => mockDate)
 
 			const wrapper = shallowMount(Message, {
 				localVue,
@@ -692,8 +694,6 @@ describe('Message.vue', () => {
 
 			expect(wrapper.vm.isDeleting).toBe(false)
 			expect(wrapper.find('.icon-loading-small').exists()).toBe(false)
-
-			jest.useRealTimers()
 		})
 	})
 

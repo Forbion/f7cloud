@@ -5,7 +5,7 @@
 
 <template>
 	<div class="wrapper"
-		:class="{ 'wrapper--big': isBig }"
+		:class="{'wrapper--big': isBig}"
 		@mouseover.stop="mouseover = true"
 		@mouseleave.stop="mouseover = false">
 		<TransitionWrapper name="fade">
@@ -63,7 +63,7 @@
 					:title="t('spreed', 'Show screen')"
 					:aria-label="t('spreed', 'Show screen')"
 					class="screenSharingIndicator"
-					:class="{ 'screen-visible': sharedData.screenVisible }"
+					:class="{'screen-visible': sharedData.screenVisible}"
 					type="tertiary-no-background"
 					@click.stop="switchToScreen">
 					<template #icon>
@@ -89,9 +89,6 @@
 </template>
 
 <script>
-import { emit } from '@nextcloud/event-bus'
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
 import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import HandBackLeft from 'vue-material-design-icons/HandBackLeft.vue'
 import Microphone from 'vue-material-design-icons/Microphone.vue'
@@ -99,9 +96,16 @@ import MicrophoneOff from 'vue-material-design-icons/MicrophoneOff.vue'
 import Monitor from 'vue-material-design-icons/Monitor.vue'
 import VideoIcon from 'vue-material-design-icons/Video.vue'
 import VideoOff from 'vue-material-design-icons/VideoOff.vue'
+
+import { emit } from '@nextcloud/event-bus'
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
-import { PARTICIPANT } from '../../../constants.ts'
-import { useCallViewStore } from '../../../stores/callView.ts'
+
+import { PARTICIPANT } from '../../../constants.js'
+import { useCallViewStore } from '../../../stores/callView.js'
 import { ConnectionState } from '../../../utils/webrtc/models/CallParticipantModel.js'
 
 export default {
@@ -126,54 +130,44 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		isSidebar: {
 			type: Boolean,
 			default: false,
 		},
-
 		hasShadow: {
 			type: Boolean,
 			default: false,
 		},
-
 		isBig: {
 			type: Boolean,
 			default: false,
 		},
-
 		participantName: {
 			type: String,
 			default: '',
 		},
-
 		showVideoOverlay: {
 			type: Boolean,
 			default: true,
 		},
-
 		model: {
 			type: Object,
 			required: true,
 		},
-
 		sharedData: {
 			type: Object,
 			required: true,
 		},
-
 		// True if the bottom bar is used in the screen component
 		isScreen: {
 			type: Boolean,
 			default: false,
 		},
-
 		// The current promoted participant
 		isPromoted: {
 			type: Boolean,
 			default: false,
 		},
-
 		// Is the current selected participant
 		isSelected: {
 			type: Boolean,
@@ -204,7 +198,6 @@ export default {
 		showRaiseHandIndicator() {
 			return !this.connectionStateFailedNoRestart && this.model.attributes.raisedHand.state
 		},
-
 		showStopFollowingButton() {
 			return this.isBig && this.callViewStore.selectedVideoPeerId !== null
 		},
@@ -213,15 +206,12 @@ export default {
 		showAudioIndicator() {
 			return !this.connectionStateFailedNoRestart && !this.isAudioButtonHidden
 		},
-
 		isAudioButtonHidden() {
 			return this.model.attributes.audioAvailable && !this.canFullModerate
 		},
-
 		isAudioButtonDisabled() {
 			return !this.model.attributes.audioAvailable || !this.canFullModerate
 		},
-
 		audioButtonTitle() {
 			return this.model.attributes.audioAvailable
 				? t('spreed', 'Mute')
@@ -232,15 +222,12 @@ export default {
 		showVideoIndicator() {
 			return !this.connectionStateFailedNoRestart && this.model.attributes.videoAvailable
 		},
-
 		isRemoteVideoEnabled() {
 			return this.sharedData.remoteVideoBlocker?.isVideoEnabled()
 		},
-
 		isRemoteVideoBlocked() {
 			return this.sharedData.remoteVideoBlocker && !this.sharedData.remoteVideoBlocker.isVideoEnabled()
 		},
-
 		videoButtonTitle() {
 			return this.isRemoteVideoEnabled
 				? t('spreed', 'Disable video')
@@ -256,7 +243,6 @@ export default {
 		isCurrentlyActive() {
 			return this.isSelected || this.model.attributes.speaking
 		},
-
 		showParticipantName() {
 			return !this.model.attributes.videoAvailable || this.isRemoteVideoBlocked
 				|| this.showVideoOverlay || this.isPromoted || this.isCurrentlyActive
@@ -269,7 +255,6 @@ export default {
 					? PARTICIPANT.TYPE.USER
 					: PARTICIPANT.TYPE.GUEST)
 		},
-
 		canFullModerate() {
 			return this.participantType === PARTICIPANT.TYPE.OWNER || this.participantType === PARTICIPANT.TYPE.MODERATOR
 		},
@@ -281,7 +266,7 @@ export default {
 				return
 			}
 			this.$emit('bottom-bar-hover', value)
-		},
+		}
 	},
 
 	methods: {
@@ -333,7 +318,7 @@ export default {
 		}
 
 		& .participant-name {
-			margin-inline-end: 0;
+			margin-right: 0;
 		}
 	}
 }
@@ -361,8 +346,7 @@ export default {
 
 .participant-name {
 	color: white;
-	margin-block: 0px;
-	margin-inline: 8px auto;
+	margin: 0 auto 0 8px;
 	position: relative;
 	white-space: nowrap;
 	overflow: hidden;

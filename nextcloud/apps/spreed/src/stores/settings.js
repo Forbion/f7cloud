@@ -3,19 +3,20 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { loadState } from '@nextcloud/initial-state'
 import { defineStore } from 'pinia'
 import Vue from 'vue'
-import { PRIVACY } from '../constants.ts'
+
+import { loadState } from '@nextcloud/initial-state'
+
+import { PRIVACY } from '../constants.js'
 import BrowserStorage from '../services/BrowserStorage.js'
 import { getTalkConfig } from '../services/CapabilitiesManager.ts'
 import {
-	setBlurVirtualBackground,
-	setConversationsListStyle,
 	setReadStatusPrivacy,
-	setStartWithoutMedia,
 	setTypingStatusPrivacy,
-} from '../services/settingsService.ts'
+	setStartWithoutMedia,
+	setBlurVirtualBackground,
+} from '../services/settingsService.js'
 
 /**
  * @typedef {string} Token
@@ -41,7 +42,6 @@ export const useSettingsStore = defineStore('settings', {
 		showMediaSettings: {},
 		startWithoutMedia: getTalkConfig('local', 'call', 'start-without-media'),
 		blurVirtualBackgroundEnabled: getTalkConfig('local', 'call', 'blur-virtual-background'),
-		conversationsListStyle: getTalkConfig('local', 'conversations', 'list-style'),
 	}),
 
 	getters: {
@@ -57,20 +57,20 @@ export const useSettingsStore = defineStore('settings', {
 			const storedValue = BrowserStorage.getItem('showMediaSettings_' + token)
 
 			switch (storedValue) {
-				case 'true': {
-					Vue.set(state.showMediaSettings, token, true)
-					return true
-				}
-				case 'false': {
-					Vue.set(state.showMediaSettings, token, false)
-					return false
-				}
-				case null:
-				default: {
-					BrowserStorage.setItem('showMediaSettings_' + token, 'true')
-					Vue.set(state.showMediaSettings, token, true)
-					return true
-				}
+			case 'true': {
+				Vue.set(state.showMediaSettings, token, true)
+				return true
+			}
+			case 'false': {
+				Vue.set(state.showMediaSettings, token, false)
+				return false
+			}
+			case null:
+			default: {
+				BrowserStorage.setItem('showMediaSettings_' + token, 'true')
+				Vue.set(state.showMediaSettings, token, true)
+				return true
+			}
 			}
 		},
 	},
@@ -113,11 +113,6 @@ export const useSettingsStore = defineStore('settings', {
 		async setStartWithoutMedia(value) {
 			await setStartWithoutMedia(value)
 			this.startWithoutMedia = value
-		},
-
-		async setConversationsListStyle(value) {
-			await setConversationsListStyle(value)
-			this.conversationsListStyle = value
 		},
 	},
 })

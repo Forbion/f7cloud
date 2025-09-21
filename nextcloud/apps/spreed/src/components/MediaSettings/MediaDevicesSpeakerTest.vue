@@ -19,9 +19,12 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
 import IconVolumeHigh from 'vue-material-design-icons/VolumeHigh.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import { useSoundsStore } from '../../stores/sounds.js'
 
 export default {
@@ -35,7 +38,7 @@ export default {
 
 	setup() {
 		return {
-			soundsStore: useSoundsStore(),
+			soundsStore: useSoundsStore()
 		}
 	},
 
@@ -52,14 +55,14 @@ export default {
 		},
 
 		equalizerBars() {
-			return Array.from(Array(4).keys()).map((item) => ({
+			return Array.from(Array(4).keys()).map(item => ({
 				key: item,
 				style: {
 					height: Math.random() * 100 + '%',
 					animationDelay: Math.random() * -2 + 's',
 				},
 			}))
-		},
+		}
 	},
 
 	beforeDestroy() {
@@ -81,8 +84,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use 'sass:math';
-
 .media-devices-checker {
 	display: flex;
 	gap: var(--default-grid-baseline);
@@ -97,7 +98,7 @@ export default {
 	}
 
 	.equalizer {
-		margin-inline-start: 8px;
+		margin-left: 8px;
 		height: var(--default-clickable-area);
 		display: flex;
 		align-items: center;
@@ -116,7 +117,7 @@ export default {
 
 @keyframes equalizer {
 	@for $i from 0 through 15 {
-		#{4 * $i}% { height: math.random(70) + 20%; }
+		#{4*$i}% { height: random(70) + 20%; }
 	}
 }
 </style>

@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
 import { defineStore } from 'pinia'
 import Vue from 'vue'
+
+import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
 import { talkBroadcastChannel } from '../services/talkBroadcastChannel.js'
-import { messagePleaseReload } from '../utils/talkDesktopUtils.ts'
 
 /**
  * @typedef {object} State
@@ -30,7 +31,6 @@ export const useTalkHashStore = defineStore('talkHash', {
 		isNextcloudTalkHashDirty: false,
 		isNextcloudTalkProxyHashDirty: {},
 		maintenanceWarningToast: null,
-		proxyHashDirtyToast: null,
 	}),
 
 	actions: {
@@ -57,20 +57,6 @@ export const useTalkHashStore = defineStore('talkHash', {
 		setTalkProxyHashDirty(token) {
 			console.debug('X-Nextcloud-Talk-Proxy-Hash marked dirty: ', token)
 			Vue.set(this.isNextcloudTalkProxyHashDirty, token, true)
-		},
-
-		/**
-		 * Clear the current Talk Federation dirty hash marker (as it is irrelevant after reload or leaving)
-		 *
-		 * @param {string} token federated conversation token
-		 */
-		resetTalkProxyHashDirty(token) {
-			Vue.delete(this.isNextcloudTalkProxyHashDirty, token)
-
-			if (this.proxyHashDirtyToast) {
-				this.proxyHashDirtyToast.hideToast()
-				this.proxyHashDirtyToast = null
-			}
 		},
 
 		/**
@@ -101,8 +87,8 @@ export const useTalkHashStore = defineStore('talkHash', {
 		checkMaintenanceMode(response) {
 			if (response?.status === 503 && !this.maintenanceWarningToast) {
 				this.maintenanceWarningToast = showError(
-					t('spreed', 'Nextcloud is in maintenance mode.') + '\n' + messagePleaseReload,
-					{ timeout: TOAST_PERMANENT_TIMEOUT },
+					t('spreed', 'Nextcloud is in maintenance mode, please reload the page'),
+					{ timeout: TOAST_PERMANENT_TIMEOUT }
 				)
 			}
 		},
@@ -117,14 +103,5 @@ export const useTalkHashStore = defineStore('talkHash', {
 				this.maintenanceWarningToast = null
 			}
 		},
-
-		/**
-		 * Show a toast message when Talk Federation requires rejoining
-		 */
-		showTalkProxyHashDirtyToast() {
-			this.proxyHashDirtyToast = showError(t('spreed', 'Nextcloud Talk Federation was updated.') + '\n' + messagePleaseReload, {
-				timeout: TOAST_PERMANENT_TIMEOUT,
-			})
-		},
-	},
+	}
 })

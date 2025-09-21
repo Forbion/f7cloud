@@ -54,9 +54,7 @@ export default function attachmediastream(stream, el, options) {
 		}
 	}
 
-	if (opts.autoplay) {
-		element.autoplay = 'autoplay'
-	}
+	if (opts.autoplay) element.autoplay = 'autoplay'
 	element.muted = !!opts.muted
 	if (!opts.audio) {
 		['', 'moz', 'webkit', 'o', 'ms'].forEach(function(prefix) {

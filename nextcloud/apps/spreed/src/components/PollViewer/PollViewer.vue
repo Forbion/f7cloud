@@ -116,25 +116,30 @@
 </template>
 
 <script>
-import { n, t } from '@nextcloud/l10n'
 import { computed, ref } from 'vue'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActionLink from '@nextcloud/vue/components/NcActionLink'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcModal from '@nextcloud/vue/components/NcModal'
-import NcProgressBar from '@nextcloud/vue/components/NcProgressBar'
+
 import IconCheck from 'vue-material-design-icons/Check.vue'
 import IconFileDownload from 'vue-material-design-icons/FileDownload.vue'
 import IconFileEdit from 'vue-material-design-icons/FileEdit.vue'
 import IconFileLock from 'vue-material-design-icons/FileLock.vue'
 import IconPoll from 'vue-material-design-icons/Poll.vue'
+
+import { t, n } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+import NcProgressBar from '@nextcloud/vue/dist/Components/NcProgressBar.js'
+
 import PollVotersDetails from './PollVotersDetails.vue'
+
 import { useId } from '../../composables/useId.ts'
 import { useIsInCall } from '../../composables/useIsInCall.js'
-import { POLL } from '../../constants.ts'
+import { POLL } from '../../constants.js'
 import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 import { EventBus } from '../../services/EventBus.ts'
 import { usePollsStore } from '../../stores/polls.ts'
@@ -227,7 +232,6 @@ export default {
 			get() {
 				return this.voteToSubmit
 			},
-
 			set(value) {
 				this.voteToSubmit = Array.isArray(value) ? value : [value]
 			},
@@ -272,7 +276,7 @@ export default {
 		},
 
 		votePercentage() {
-			const votes = Object.keys(Object(this.poll?.options)).map((index) => this.poll?.votes['option-' + index] ?? 0)
+			const votes = Object.keys(Object(this.poll?.options)).map(index => this.poll?.votes['option-' + index] ?? 0)
 			return calculateVotePercentage(votes, this.poll.numVoters)
 		},
 	},
@@ -330,7 +334,7 @@ export default {
 
 		setVoteData() {
 			this.voteToSubmit = this.selfHasVoted
-				? this.poll?.votedSelf.map((el) => el.toString())
+				? this.poll?.votedSelf.map(el => el.toString())
 				: []
 		},
 
@@ -353,7 +357,7 @@ export default {
 				await this.pollsStore.submitVote({
 					token: this.token,
 					pollId: this.id,
-					optionIds: this.voteToSubmit.map((element) => +element),
+					optionIds: this.voteToSubmit.map(element => +element),
 				})
 				this.modalPage = 'results'
 			} catch (error) {
@@ -389,7 +393,7 @@ export default {
 		},
 
 		getFilteredDetails(index) {
-			return (this.poll?.details || []).filter((item) => item.optionId === index)
+			return (this.poll?.details || []).filter(item => item.optionId === index)
 		},
 	},
 }
@@ -481,7 +485,7 @@ export default {
 
 		.percentage {
 			white-space: nowrap;
-			margin-inline-start: 16px;
+			margin-left: 16px;
 		}
 	}
 }

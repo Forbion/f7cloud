@@ -15,7 +15,7 @@
 				<template v-for="type in sharedItemsOrder">
 					<NcButton v-if="sharedItems[type]"
 						:key="type"
-						:class="{ active: activeTab === type }"
+						:class="{'active' : activeTab === type}"
 						type="tertiary"
 						@click="handleTabClick(type)">
 						{{ sharedItemTitle[type] || sharedItemTitle.default }}
@@ -34,12 +34,15 @@
 
 <script>
 import debounce from 'debounce'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcModal from '@nextcloud/vue/components/NcModal'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+
 import SharedItems from './SharedItems.vue'
+
+import { sharedItemsOrder, sharedItemTitle } from './sharedItemsConstants.js'
 import { useId } from '../../../composables/useId.ts'
 import { useSharedItemsStore } from '../../../stores/sharedItems.js'
-import { sharedItemsOrder, sharedItemTitle } from './sharedItemsConstants.js'
 
 export default {
 	name: 'SharedItemsBrowser',

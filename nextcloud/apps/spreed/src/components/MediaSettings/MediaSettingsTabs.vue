@@ -4,45 +4,37 @@
 -->
 
 <script setup lang="ts">
-import type { Component, CSSProperties } from 'vue'
-
-import { isRTL } from '@nextcloud/l10n'
 import { computed, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
+import type { Component } from 'vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import TransitionExpand from './TransitionExpand.vue'
 
 type TabDefinition = {
-	id: string
-	label: string
-	icon: Component
+	id: string,
+	label: string,
+	icon: Component,
 }
 
 const props = defineProps<{
-	tabs: TabDefinition[]
-	active?: string
+    tabs: TabDefinition[],
+    active?: string,
 }>()
 
 const emit = defineEmits<{
-	(event: 'update:active', value?: string): void
+    (event: 'update:active', value?: string): void
 }>()
 
 /** Whether the tab panel is open */
 const isOpen = ref(!!props.active)
-
-const isRTLDirection = isRTL()
 
 // A11y ReferenceIDs
 const randomId = Math.random().toString(36).substring(7)
 const getRefId = (scope: 'tab' | 'panel', key: string) => `tab-${randomId}-${scope}-${key}`
 
 /** Index of the active tab for the transition effect */
-const activeIndex = computed(() => props.tabs.findIndex((tab) => tab.id === props.active))
-/** Inline styles to shift tabs */
-const tabStyles = computed<CSSProperties | undefined>(() => {
-	return activeIndex.value !== -1
-		? { transform: `translateX(${(isRTLDirection ? 1 : -1) * activeIndex.value * 100}%)` }
-		: undefined
-})
+const activeIndex = computed(() => props.tabs.findIndex(tab => tab.id === props.active))
 
 /**
  * Whether the tab is active
@@ -116,7 +108,7 @@ function handleTabsAfterClosed() {
 					:inert="!isActive(tab.id)"
 					:aria-hidden="!isActive(tab.id)"
 					:aria-labelledby="getRefId('tab', tab.id)"
-					:style="tabStyles">
+					:style="activeIndex !== -1 ? `transform: translateX(${-activeIndex * 100}%)` : ''">
 					<slot :name="`tab-panel:${tab.id}`" />
 				</div>
 			</div>

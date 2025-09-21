@@ -39,13 +39,17 @@
 </template>
 
 <script>
+import escapeHtml from 'escape-html'
+
+import Pencil from 'vue-material-design-icons/Pencil.vue'
+
 import { getGuestNickname } from '@nextcloud/auth'
 import { t } from '@nextcloud/l10n'
 import { generateUrl } from '@nextcloud/router'
-import escapeHtml from 'escape-html'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
-import Pencil from 'vue-material-design-icons/Pencil.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import { useGuestNameStore } from '../stores/guestName.js'
 
 export default {
@@ -74,17 +78,14 @@ export default {
 		actorDisplayName() {
 			return this.$store.getters.getDisplayName() || t('spreed', 'Guest')
 		},
-
 		displayNameLabel() {
 			return t('spreed', 'Display name: {name}', {
 				name: `<strong>${escapeHtml(this.actorDisplayName)}</strong>`,
 			}, undefined, { escape: false })
 		},
-
 		actorId() {
 			return this.$store.getters.getActorId()
 		},
-
 		token() {
 			return this.$store.getters.getToken()
 		},
@@ -98,7 +99,6 @@ export default {
 				this.delayHandleUserNameFromBrowserStorage = false
 			}
 		},
-
 		// Update the input field text
 		actorDisplayName(newName) {
 			this.guestUserName = newName

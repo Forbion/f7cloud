@@ -42,7 +42,7 @@
 				type="tertiary"
 				@click="goBack">
 				<template #icon>
-					<IconArrowLeft class="bidirectional-icon" :size="20" />
+					<ArrowLeft :size="20" />
 				</template>
 				{{ t('spreed', 'Back') }}
 			</NcButton>
@@ -74,7 +74,7 @@
 		</div>
 		<NcDialog v-if="showDialog"
 			:open.sync="showDialog"
-			:name="t('spreed', 'Delete breakout rooms')"
+			:name="t('spreed','Delete breakout rooms')"
 			:message="dialogMessage"
 			container=".participants-editor">
 			<template #actions>
@@ -90,19 +90,24 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
 import { provide } from 'vue'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import IconArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
+
+import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
 import Delete from 'vue-material-design-icons/Delete.vue'
 import DotsCircle from 'vue-material-design-icons/DotsCircle.vue'
 import Reload from 'vue-material-design-icons/Reload.vue'
-import BreakoutRoomItem from '../RightSidebar/BreakoutRooms/BreakoutRoomItem.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+
 import SelectableParticipant from './SelectableParticipant.vue'
-import { ATTENDEE, CONVERSATION, PARTICIPANT } from '../../constants.ts'
+import BreakoutRoomItem from '../RightSidebar/BreakoutRooms/BreakoutRoomItem.vue'
+
+import { ATTENDEE, CONVERSATION, PARTICIPANT } from '../../constants.js'
 import { useBreakoutRoomsStore } from '../../stores/breakoutRooms.ts'
 
 export default {
@@ -116,7 +121,7 @@ export default {
 		BreakoutRoomItem,
 		SelectableParticipant,
 		NcButton,
-		IconArrowLeft,
+		ArrowLeft,
 		Delete,
 		NcDialog,
 	},
@@ -159,10 +164,10 @@ export default {
 
 	computed: {
 		participants() {
-			return this.$store.getters.participantsList(this.token).filter((participant) => {
+			return this.$store.getters.participantsList(this.token).filter(participant => {
 				return (participant.participantType === PARTICIPANT.TYPE.USER
-					|| participant.participantType === PARTICIPANT.TYPE.GUEST)
-				&& participant.actorType === ATTENDEE.ACTOR_TYPE.USERS
+						|| participant.participantType === PARTICIPANT.TYPE.GUEST)
+					&& participant.actorType === ATTENDEE.ACTOR_TYPE.USERS
 			})
 		},
 
@@ -176,7 +181,7 @@ export default {
 			}
 			// Flatten assignments array
 			const assignedParticipants = this.assignments.flat()
-			return this.participants.filter((participant) => {
+			return this.participants.filter(participant => {
 				return !assignedParticipants.includes(participant.attendeeId)
 			})
 		},
@@ -242,13 +247,13 @@ export default {
 		 */
 		initialiseAssignments(forceReset) {
 			if (this.isReorganizingAttendees && !forceReset) {
-				this.assignments = this.breakoutRooms.map((room) => {
+				this.assignments = this.breakoutRooms.map(room => {
 					const participantInBreakoutRoomActorIdList = this.$store.getters.participantsList(room.token)
-						.map((participant) => participant.actorId)
+						.map(participant => participant.actorId)
 
-					return this.participants.filter((participant) => {
+					return this.participants.filter(participant => {
 						return participantInBreakoutRoomActorIdList.includes(participant.actorId)
-					}).map((participant) => participant.attendeeId)
+					}).map(participant => participant.attendeeId)
 				})
 			} else {
 				this.assignments = Array.from(Array(this.isReorganizingAttendees
@@ -258,19 +263,19 @@ export default {
 		},
 
 		assignAttendees(roomIndex) {
-			this.selectedParticipants.forEach((attendeeId) => {
-				if (this.unassignedParticipants.find((participant) => participant.attendeeId === attendeeId)) {
+			this.selectedParticipants.forEach(attendeeId => {
+				if (this.unassignedParticipants.find(participant => participant.attendeeId === attendeeId)) {
 					this.assignments[roomIndex].push(attendeeId)
 					return
 				}
 
-				const assignedRoomIndex = this.assignments.findIndex((room) => room.includes(attendeeId))
+				const assignedRoomIndex = this.assignments.findIndex(room => room.includes(attendeeId))
 
 				if (assignedRoomIndex === roomIndex) {
 					return
 				}
 
-				this.assignments[assignedRoomIndex].splice(this.assignments[assignedRoomIndex].findIndex((id) => id === attendeeId), 1)
+				this.assignments[assignedRoomIndex].splice(this.assignments[assignedRoomIndex].findIndex(id => id === attendeeId), 1)
 				this.assignments[roomIndex].push(attendeeId)
 			})
 
@@ -299,7 +304,7 @@ export default {
 		createAttendeeMap() {
 			const attendeeMap = {}
 			this.assignments.forEach((room, index) => {
-				room.forEach((attendeeId) => {
+				room.forEach(attendeeId => {
 					attendeeMap[attendeeId] = index
 				})
 			})
@@ -361,13 +366,18 @@ export default {
 	}
 }
 
-// Warning dialog when deleting breakout rooms
+// TODO: upstream collapse icon position fix
+:deep(.icon-collapse) {
+	position: absolute !important;
+	left: 0;
+}
+
 :deep(.dialog) {
 	padding-block: 0px 8px;
 	padding-inline: 12px 8px;
 }
 
 .delete {
-	margin-inline-end: auto;
+	margin-right: auto;
 }
 </style>

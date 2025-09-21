@@ -4,9 +4,11 @@
  * SPDX-License-Identifier: MIT
  */
 import util from 'util'
+
 import adapter from 'webrtc-adapter'
 import webrtcSupport from 'webrtcsupport'
 import WildEmitter from 'wildemitter'
+
 import { isSafari } from '../../browserCheck.ts'
 
 /**
@@ -63,14 +65,14 @@ function Peer(options) {
 	this.pc.addEventListener('iceconnectionstatechange', this.emit.bind(this, 'iceConnectionStateChange'))
 	this.pc.addEventListener('iceconnectionstatechange', function() {
 		if (!options.receiverOnly && self.pc.iceConnectionState !== 'new') {
-			self._processPendingReplaceTracks().then((finished) => {
+			self._processPendingReplaceTracks().then(finished => {
 				if (finished === false || self._initialStreamSetup) {
 					return
 				}
 
 				// Ensure that initially disabled tracks are stopped after
 				// establishing a connection.
-				self.pc.getSenders().forEach((sender) => {
+				self.pc.getSenders().forEach(sender => {
 					if (sender.track) {
 						// The stream is not known, but it is only used when the
 						// track is added, so it can be ignored here.
@@ -85,14 +87,14 @@ function Peer(options) {
 		}
 
 		switch (self.pc.iceConnectionState) {
-			case 'failed':
+		case 'failed':
 			// currently, in chrome only the initiator goes to failed
 			// so we need to signal this to the peer
-				if (self.pc.localDescription.type === 'offer') {
-					self.parent.emit('iceFailed', self)
-					self.send('connectivityError')
-				}
-				break
+			if (self.pc.localDescription.type === 'offer') {
+				self.parent.emit('iceFailed', self)
+				self.send('connectivityError')
+			}
+			break
 		}
 	})
 	this.pc.addEventListener('connectionstatechange', function() {
@@ -467,7 +469,7 @@ Peer.prototype._blockRemoteVideoIfNeeded = function() {
 
 	this._remoteVideoBlocked = undefined
 
-	this.pc.getTransceivers().forEach((transceiver) => {
+	this.pc.getTransceivers().forEach(transceiver => {
 		if (transceiver.mid === 'video' && !transceiver.stopped) {
 			if (this._remoteVideoShouldBeBlocked) {
 				transceiver.direction = 'inactive'
@@ -775,7 +777,7 @@ Peer.prototype._replaceTrack = async function(newTrack, oldTrack, stream) {
 	// is used to be on the safe side.
 	const replaceTrackPromises = []
 
-	this.pc.getSenders().forEach((sender) => {
+	this.pc.getSenders().forEach(sender => {
 		if (sender.track !== oldTrack && sender.trackDisabled !== oldTrack) {
 			return
 		}
@@ -800,7 +802,7 @@ Peer.prototype._replaceTrack = async function(newTrack, oldTrack, stream) {
 		} else if (!sender.kind && sender.trackDisabled) {
 			sender.kind = sender.trackDisabled.kind
 		} else if (!sender.kind) {
-			this.pc.getTransceivers().forEach((transceiver) => {
+			this.pc.getTransceivers().forEach(transceiver => {
 				if (transceiver.sender === sender) {
 					sender.kind = this._getTransceiverKind(transceiver)
 				}
@@ -846,7 +848,7 @@ Peer.prototype._replaceTrack = async function(newTrack, oldTrack, stream) {
 
 		const replaceTrackPromise = sender.replaceTrack(newTrack)
 
-		replaceTrackPromise.catch((error) => {
+		replaceTrackPromise.catch(error => {
 			sender.trackDisabled = oldTrackDisabled
 
 			if (error.name === 'InvalidModificationError') {
@@ -872,8 +874,8 @@ Peer.prototype._replaceTrack = async function(newTrack, oldTrack, stream) {
 }
 
 Peer.prototype.handleSentTrackEnabledChanged = function(track, stream) {
-	const sender = this.pc.getSenders().find((sender) => sender.track === track)
-	const stoppedSender = this.pc.getSenders().find((sender) => sender.trackDisabled === track)
+	const sender = this.pc.getSenders().find(sender => sender.track === track)
+	const stoppedSender = this.pc.getSenders().find(sender => sender.trackDisabled === track)
 
 	if (track.enabled && stoppedSender) {
 		this.handleSentTrackReplacedBound(track, track, stream)
@@ -916,7 +918,7 @@ Peer.prototype.setRemoteVideoBlocked = function(remoteVideoBlocked) {
 	// participant is sending a null video track (either because there is a
 	// camera but the video is disabled or because the camera was removed during
 	// the call), so a renegotiation could be needed also in that case.
-	this.pc.getTransceivers().forEach((transceiver) => {
+	this.pc.getTransceivers().forEach(transceiver => {
 		if (transceiver.mid === 'video' && !transceiver.stopped) {
 			if (remoteVideoBlocked) {
 				transceiver.direction = 'inactive'

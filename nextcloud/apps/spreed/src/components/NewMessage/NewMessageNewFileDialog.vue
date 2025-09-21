@@ -37,7 +37,7 @@
 
 		<template #actions>
 			<NcButton type="primary"
-				:disabled="loading || !!newFileError"
+				:disabled="loading"
 				@click="handleCreateNewFile">
 				<template v-if="loading" #icon>
 					<NcLoadingIcon />
@@ -50,15 +50,17 @@
 
 <script>
 import { showError } from '@nextcloud/dialogs'
-import { validateFilename } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import NewMessageTemplatePreview from './NewMessageTemplatePreview.vue'
+
 import { useViewer } from '../../composables/useViewer.js'
-import { createNewFile } from '../../services/filesSharingServices.ts'
+import { createNewFile, shareFile } from '../../services/filesSharingServices.js'
 
 export default {
 	name: 'NewMessageNewFileDialog',
@@ -124,7 +126,7 @@ export default {
 		},
 
 		selectedTemplate() {
-			return this.templates.find((template) => template.fileid === this.checked)
+			return this.templates.find(template => template.fileid === this.checked)
 		},
 
 		style() {
@@ -154,17 +156,6 @@ export default {
 				this.newFileTitle = value.label + value.extension
 			},
 		},
-
-		newFileTitle(value) {
-			try {
-				validateFilename(value)
-				this.newFileError = ''
-			} catch (e) {
-				console.error(e)
-				this.newFileError = e.message
-			}
-		},
-
 		selectedTemplate: {
 			deep: true,
 			handler(value) {
@@ -198,11 +189,13 @@ export default {
 
 			let fileData
 			try {
-				const response = await createNewFile({
-					filePath,
-					templatePath: this.selectedTemplate.fileid === -1 ? undefined : this.selectedTemplate?.filename,
-					templateType: this.selectedTemplate.fileid === -1 ? undefined : this.selectedTemplate?.templateType,
-				})
+				const response = this.selectedTemplate.fileid === -1
+					? await createNewFile(filePath)
+					: await createNewFile(
+						filePath,
+						this.selectedTemplate?.filename,
+						this.selectedTemplate?.templateType,
+					)
 				fileData = response.data.ocs.data
 			} catch (error) {
 				console.error('Error while creating file', error)
@@ -216,8 +209,7 @@ export default {
 				return
 			}
 
-			await this.$store.dispatch('shareFile', { token: this.token, path: filePath })
-
+			await shareFile(filePath, this.token, '', '')
 			this.loading = false
 
 			this.openViewer(filePath, [fileData], fileData)

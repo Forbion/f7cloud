@@ -4,7 +4,7 @@
 -->
 
 <template>
-	<NcModal no-close
+	<NcModal :can-close="false"
 		:close-on-click-outside="false"
 		:label-id="dialogHeaderId"
 		size="small">
@@ -52,14 +52,19 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+
+import Check from 'vue-material-design-icons/CheckBold.vue'
+
 import { t } from '@nextcloud/l10n'
 import { generateUrl } from '@nextcloud/router'
-import { ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcModal from '@nextcloud/vue/components/NcModal'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
-import Check from 'vue-material-design-icons/CheckBold.vue'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+
 import ConversationIcon from './ConversationIcon.vue'
+
 import { useId } from '../composables/useId.ts'
 import { useGuestNameStore } from '../stores/guestName.js'
 

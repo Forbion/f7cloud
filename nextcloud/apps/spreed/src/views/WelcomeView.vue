@@ -3,75 +3,113 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
-<script lang="ts" setup>
-import { showError } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import { computed, ref, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router/composables'
-import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import TalkDashboard from '../components/Dashboard/TalkDashboard.vue'
-import EmptyView from '../components/EmptyView.vue'
-import IconTalk from '../../img/app-dark.svg?raw'
-import { useStore } from '../composables/useStore.js'
-import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
-
-const supportsTalkDashboard = hasTalkFeature('local', 'dashboard-event-rooms')
-
-const store = useStore()
-const router = useRouter()
-const route = useRoute()
-
-const isCreatingConversationForCallUser = ref(false)
-const callUser = computed(() => route.query.callUser as string)
-
-const text = computed(() => {
-	if (isCreatingConversationForCallUser.value) {
-		return {
-			name: t('spreed', 'Creating and joining a conversation with "{userid}"', { userid: callUser.value ?? '' }),
-			description: '',
-		}
-	}
-
-	return {
-		name: t('spreed', 'Join a conversation or start a new one'),
-		description: t('spreed', 'Say hi to your friends and colleagues!'),
-	}
-})
-
-watchEffect(async () => {
-	if (callUser.value) {
-		try {
-			// Try to find an existing conversation
-			const conversation = store.getters.getConversationForUser(callUser.value)
-			if (conversation) {
-				router.push({ name: 'conversation', params: { token: conversation.token } })
-				return
-			}
-
-			// Create a new one-to-one conversation
-			isCreatingConversationForCallUser.value = true
-			const newConversation = await store.dispatch('createOneToOneConversation', callUser.value)
-			router.push({ name: 'conversation', params: { token: newConversation.token } })
-		} catch (error) {
-			showError(t('spreed', 'Error while joining the conversation'))
-			console.error(error)
-			router.push({ name: 'notfound' })
-		}
-
-		isCreatingConversationForCallUser.value = false
-	}
-})
-</script>
-
 <template>
-	<TalkDashboard v-if="supportsTalkDashboard" />
-	<EmptyView v-else
-		:name="text.name"
+	<EmptyView :name="text.name"
 		:description="text.description">
 		<template #icon>
-			<NcLoadingIcon v-if="isCreatingConversationForCallUser" />
+			<NcLoadingIcon v-if="callUser" />
 			<NcIconSvgWrapper v-else :svg="IconTalk" />
 		</template>
 	</EmptyView>
 </template>
+
+<script>
+import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+
+import NcIconSvgWrapper from '@nextcloud/vue/dist/Components/NcIconSvgWrapper.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
+import EmptyView from '../components/EmptyView.vue'
+
+import IconTalk from '../../img/app-dark.svg?raw'
+
+export default {
+	name: 'WelcomeView',
+
+	components: {
+		EmptyView,
+		NcIconSvgWrapper,
+		NcLoadingIcon,
+	},
+
+	setup() {
+		return {
+			IconTalk,
+		}
+	},
+
+	data() {
+		return {
+			isCreatingConversationForCallUser: false,
+		}
+	},
+
+	computed: {
+		callUser() {
+			return this.$route.query.callUser
+		},
+
+		text() {
+			if (this.isCreatingConversationForCallUser) {
+				return {
+					name: t('spreed', 'Creating and joining a conversation with "{userid}"', { userid: this.callUser }),
+					description: '',
+				}
+			}
+
+			if (this.callUser) {
+				return {
+					name: t('spreed', 'Joining a conversation with "{userid}"', { userid: this.callUser }),
+					description: '',
+				}
+			}
+
+			return {
+				name: t('spreed', 'Join a conversation or start a new one'),
+				description: t('spreed', 'Say hi to your friends and colleagues!'),
+			}
+		}
+	},
+
+	watch: {
+		callUser: {
+			immediate: true,
+			handler() {
+				if (this.callUser) {
+					this.createAndJoinConversationForCallUser()
+				}
+			}
+		}
+	},
+
+	methods: {
+		t,
+		async createAndJoinConversationForCallUser() {
+			// Try to find an existing conversation
+			const conversation = this.$store.getters.getConversationForUser(this.callUser)
+			if (conversation) {
+				this.$router.push({
+					name: 'conversation',
+					params: { token: conversation.token },
+				})
+				return
+			}
+
+			// Create a new one-to-one conversation
+			this.isCreatingConversationForCallUser = true
+			try {
+				const newConversation = await this.$store.dispatch('createOneToOneConversation', this.callUser)
+				this.$router.push({
+					name: 'conversation',
+					params: { token: newConversation.token },
+				})
+			} catch (error) {
+				showError(t('spreed', 'Error while joining the conversation'))
+				console.error(error)
+				this.$router.push({ name: 'notfound' })
+			}
+		},
+	}
+}
+</script>

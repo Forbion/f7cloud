@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { showError, showSuccess } from '@nextcloud/dialogs'
+
 import {
-	copyConversationLinkToClipboard,
 	generateAbsoluteUrl,
 	generateFullConversationLink,
+	copyConversationLinkToClipboard,
 } from '../handleUrl.ts'
 
 jest.mock('@nextcloud/dialogs', () => ({
@@ -16,14 +17,19 @@ jest.mock('@nextcloud/dialogs', () => ({
 
 describe('handleUrl', () => {
 	describe('generateAbsoluteUrl', () => {
-		it('should generate absolute url', () => {
-			const output = generateAbsoluteUrl('/path/{foo}', { foo: 'bar' })
-			expect(output).toBe('http://localhost/nc-webroot/path/bar')
+		it('should generate url with IS_DESKTOP=false correctly', () => {
+			const output = generateAbsoluteUrl('/path')
+			expect(output).toBe('http://localhost/nc-webroot/path')
 		})
 
-		it('should generate absolute url with specified base', () => {
-			const output = generateAbsoluteUrl('/path/{foo}', { foo: 'bar' }, { baseURL: 'https://external.ltd/root' })
-			expect(output).toBe('https://external.ltd/root/path/bar')
+		it('should generate url with IS_DESKTOP=true correctly', () => {
+			const originalIsDesktop = global.IS_DESKTOP
+			global.IS_DESKTOP = true
+
+			const output = generateAbsoluteUrl('/path')
+			expect(output).toBe('/nc-webroot/path')
+
+			global.IS_DESKTOP = originalIsDesktop
 		})
 	})
 

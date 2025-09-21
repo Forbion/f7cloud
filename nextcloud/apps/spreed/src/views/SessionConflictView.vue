@@ -2,11 +2,6 @@
   - SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
-<script setup lang="ts">
-import { t } from '@nextcloud/l10n'
-import IconInformationOutline from 'vue-material-design-icons/InformationOutline.vue'
-import EmptyView from '../components/EmptyView.vue'
-</script>
 
 <template>
 	<EmptyView :name="t('spreed', 'Duplicate session')"
@@ -17,3 +12,11 @@ import EmptyView from '../components/EmptyView.vue'
 		</template>
 	</EmptyView>
 </template>
+
+<script setup lang="ts">
+import IconInformationOutline from 'vue-material-design-icons/InformationOutline.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import EmptyView from '../components/EmptyView.vue'
+</script>

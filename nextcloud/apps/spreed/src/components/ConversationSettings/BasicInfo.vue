@@ -5,12 +5,10 @@
 
 <template>
 	<Fragment>
-		<!-- eslint-disable-next-line vue/no-v-html -->
-		<p v-if="canFullModerate && isEventConversation" class="app-settings-section__hint" v-html="calendarHint" />
 		<h4 class="app-settings-section__subtitle">
 			{{ t('spreed', 'Name') }}
 		</h4>
-		<EditableTextField :editable="canFullModerate && !isEventConversation"
+		<EditableTextField :editable="canFullModerate"
 			:initial-text="conversationName"
 			:editing="isEditingName"
 			:loading="isNameLoading"
@@ -23,13 +21,13 @@
 			<h4 class="app-settings-section__subtitle">
 				{{ t('spreed', 'Description') }}
 			</h4>
-			<EditableTextField :editable="canFullModerate && !isEventConversation"
+			<EditableTextField :editable="canFullModerate"
 				:initial-text="description"
 				:editing="isEditingDescription"
 				:loading="isDescriptionLoading"
 				:edit-button-aria-label="t('spreed', 'Edit conversation description')"
 				:placeholder="t('spreed', 'Enter a description for this conversation')"
-				:max-length="maxDescriptionLength"
+				:max-length="CONVERSATION.MAX_DESCRIPTION_LENGTH"
 				multiline
 				use-markdown
 				@submit-text="handleUpdateDescription"
@@ -46,17 +44,18 @@
 </template>
 
 <script>
+import { Fragment } from 'vue-frag'
+
 import { showError } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import { generateUrl } from '@nextcloud/router'
-import { Fragment } from 'vue-frag'
-import EditableTextField from '../UIShared/EditableTextField.vue'
+
 import ConversationAvatarEditor from './ConversationAvatarEditor.vue'
-import { CONVERSATION } from '../../constants.ts'
-import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
+import EditableTextField from '../UIShared/EditableTextField.vue'
+
+import { CONVERSATION } from '../../constants.js'
+import { hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 
 const supportsAvatar = hasTalkFeature('local', 'avatar')
-const maxDescriptionLength = getTalkConfig('local', 'conversations', 'description-length') || 500
 
 export default {
 	name: 'BasicInfo',
@@ -83,7 +82,6 @@ export default {
 		return {
 			supportsAvatar,
 			CONVERSATION,
-			maxDescriptionLength,
 		}
 	},
 
@@ -112,16 +110,6 @@ export default {
 
 		token() {
 			return this.conversation.token
-		},
-
-		calendarHint() {
-			return t('spreed', 'You can change the title and the description in {linkstart}Calendar ↗{linkend}.')
-				.replace('{linkstart}', `<a target="_blank" rel="noreferrer nofollow" class="external" href="${generateUrl('apps/calendar')}">`)
-				.replace('{linkend}', '</a>')
-		},
-
-		isEventConversation() {
-			return this.conversation.objectType === CONVERSATION.OBJECT_TYPE.EVENT
 		},
 	},
 
@@ -167,3 +155,7 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

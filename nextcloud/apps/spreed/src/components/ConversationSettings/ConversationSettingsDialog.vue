@@ -8,8 +8,7 @@
 		:aria-label="t('spreed', 'Conversation settings')"
 		:name="t('spreed', 'Conversation settings')"
 		:open.sync="showSettings"
-		show-navigation
-		@update:open="handleUpdateOpen">
+		show-navigation>
 		<NcAppSettingsSection id="basic-info"
 			:name="t('spreed', 'Basic Info')">
 			<BasicInfo :conversation="conversation"
@@ -47,7 +46,7 @@
 			<!-- Meeting: lobby and sip -->
 			<NcAppSettingsSection v-if="canFullModerate && !isNoteToSelf"
 				id="meeting"
-				:name="meetingHeader">
+				:name="t('spreed', 'Meeting')">
 				<LobbySettings :token="token" />
 				<SipSettings v-if="canUserEnableSIP" />
 			</NcAppSettingsSection>
@@ -110,9 +109,11 @@
 import { subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
-import NcAppSettingsSection from '@nextcloud/vue/components/NcAppSettingsSection'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+
+import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
+import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
 import BanSettings from './BanSettings/BanSettings.vue'
 import BasicInfo from './BasicInfo.vue'
 import BotsSettings from './BotsSettings.vue'
@@ -129,7 +130,8 @@ import MentionsSettings from './MentionsSettings.vue'
 import NotificationsSettings from './NotificationsSettings.vue'
 import RecordingConsentSettings from './RecordingConsentSettings.vue'
 import SipSettings from './SipSettings.vue'
-import { CALL, CONFIG, CONVERSATION, PARTICIPANT } from '../../constants.ts'
+
+import { CALL, CONFIG, PARTICIPANT, CONVERSATION } from '../../constants.js'
 import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 import { useSettingsStore } from '../../stores/settings.js'
 
@@ -162,11 +164,9 @@ export default {
 
 	setup() {
 		const settingsStore = useSettingsStore()
-		const meetingHeader = t('spreed', 'Meeting') // TRANSLATORS: Section header for meeting-related settings; also a static name fallback for instant meeting conversation
 		return {
 			supportsArchive,
 			settingsStore,
-			meetingHeader,
 		}
 	},
 
@@ -234,7 +234,7 @@ export default {
 		canFullModerate() {
 			return this.selfIsOwnerOrModerator
 				&& (this.conversation.type === CONVERSATION.TYPE.GROUP
-					|| this.conversation.type === CONVERSATION.TYPE.PUBLIC)
+				|| this.conversation.type === CONVERSATION.TYPE.PUBLIC)
 		},
 
 		canDeleteConversation() {
@@ -267,7 +267,7 @@ export default {
 
 		recordingConsentRequired() {
 			return this.conversation.recordingConsent === CALL.RECORDING_CONSENT.ENABLED
-		},
+		}
 	},
 
 	beforeMount() {
@@ -292,12 +292,6 @@ export default {
 			this.$store.dispatch('updateConversationSettingsToken', '')
 		},
 
-		handleUpdateOpen(value) {
-			if (!value) {
-				this.$store.dispatch('updateConversationSettingsToken', '')
-			}
-		},
-
 		setShowMediaSettings(newValue) {
 			this.settingsStore.setShowMediaSettings(this.token, newValue)
 		},
@@ -310,6 +304,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:deep(button.icon) {
+	height: 32px;
+	width: 32px;
+	display: inline-block;
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
+:deep(.modal-container) {
+	display: flex !important;
+}
+
 :deep(.app-settings-section__hint) {
 	color: var(--color-text-maxcontrast);
 	padding: 8px 0;
@@ -322,7 +328,11 @@ export default {
 	margin: calc(var(--default-grid-baseline) * 4) 0 var(--default-grid-baseline) 0;
 }
 
-:deep(.app-settings-subsection:not(:first-child)) {
+:deep(.app-settings-subsection) {
 	margin-top: 25px;
+
+	&:first-child {
+		margin-top: 0;
+	}
 }
 </style>

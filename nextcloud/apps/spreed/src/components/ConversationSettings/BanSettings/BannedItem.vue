@@ -28,7 +28,8 @@
 <script>
 import { t } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
-import NcButton from '@nextcloud/vue/components/NcButton'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 
 export default {
 	name: 'BannedItem',

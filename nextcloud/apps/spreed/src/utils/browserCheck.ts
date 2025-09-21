@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { UAParser } from 'ua-parser-js';
+
 import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs'
 import { t } from '@nextcloud/l10n'
-import { UAParser } from 'ua-parser-js'
 
 const parser = new UAParser()
 const browser = parser.getBrowser()
@@ -15,14 +16,14 @@ const os = parser.getOS()
  * Per-OS flags
  */
 
-export const isMac = os.name === 'macOS'
+export const isMac = os.name === 'Mac OS'
 
 /**
  * Per-browser flags and a major version
  */
 
-export const isFirefox = browser.name === 'Firefox' || browser.name === 'Mobile Firefox'
-export const isChrome = browser.name === 'Chrome' || browser.name === 'Chromium' || browser.name === 'Mobile Chrome'
+export const isFirefox = browser.name === 'Firefox'
+export const isChrome = browser.name === 'Chrome' || browser.name === 'Chromium'
 export const isOpera = browser.name === 'Opera'
 export const isSafari = browser.name === 'Safari' || browser.name === 'Mobile Safari'
 export const isEdge = browser.name === 'Edge'
@@ -30,7 +31,7 @@ export const isBrave = browser.name === 'Brave'
 export const isIE = browser.name === 'IE' || browser.name === 'IEMobile'
 export const isYandex = browser.name === 'Yandex'
 
-export const majorVersion = browser.major ? parseInt(browser.major, 10) : 0
+export const majorVersion = browser.version ? parseInt(browser.version.split('.')[0], 10) : 0
 
 /**
  * Is the browser Chromium-based

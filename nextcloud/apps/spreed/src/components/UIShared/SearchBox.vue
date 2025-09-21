@@ -17,16 +17,16 @@
 		@blur="handleBlur"
 		@trailing-button-click="abortSearch"
 		@keydown.esc="abortSearch">
-		<template #icon>
-			<IconMagnify :size="16" />
-		</template>
+		<IconMagnify :size="16" />
 	</NcTextField>
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
 import IconMagnify from 'vue-material-design-icons/Magnify.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 export default {
 	name: 'SearchBox',
@@ -34,7 +34,6 @@ export default {
 		IconMagnify,
 		NcTextField,
 	},
-
 	props: {
 		/**
 		 * The placeholder for the input field
@@ -43,7 +42,6 @@ export default {
 			type: String,
 			default: t('spreed', 'Search …'),
 		},
-
 		/**
 		 * The value of the input field.
 		 */
@@ -51,7 +49,6 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		/**
 		 * If true, this component displays an 'x' button to abort the search
 		 */
@@ -59,12 +56,11 @@ export default {
 			type: Boolean,
 			required: true,
 		},
-
 		/**
 		 * Conversations list reference for handling click trigger
 		 */
 		listRef: {
-			type: Array,
+			type: Object,
 			default: null,
 		},
 
@@ -77,19 +73,18 @@ export default {
 		},
 	},
 
-	emits: ['update:value', 'update:is-focused', 'input', 'abort-search', 'blur', 'focus'],
-
 	expose: ['focus'],
+
+	emits: ['update:value', 'update:is-focused', 'input', 'abort-search', 'blur', 'focus'],
 
 	computed: {
 		modelValue: {
 			get() {
 				return this.value
 			},
-
 			set(value) {
 				this.updateValue(value)
-			},
+			}
 		},
 
 		isSearching() {
@@ -168,11 +163,11 @@ export default {
 			}
 
 			// Blur triggered by clicking on a conversation item
-			if (this.listRef?.length && this.listRef.some((list) => list?.$el?.contains(event.relatedTarget))) {
+			if (this.listRef && this.listRef.$el.contains(event.relatedTarget)) {
 				return
 			}
 
-			// Blur in other cases
+			 // Blur in other cases
 			this.$emit('blur', event)
 			if (!this.isSearching) {
 				this.$emit('update:is-focused', false)
@@ -185,7 +180,7 @@ export default {
 			} else {
 				this.getTrailingButton()?.setAttribute('tabindex', '-1')
 			}
-		},
+		}
 
 	},
 }

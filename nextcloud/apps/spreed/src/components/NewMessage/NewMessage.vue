@@ -20,17 +20,49 @@
 
 		<form class="new-message-form"
 			@submit.prevent>
-			<!-- Attachments menu -->
-			<NewMessageAttachments v-if="showAttachmentsMenu"
-				:token="token"
-				:disabled="disabled"
-				:can-upload-files="canUploadFiles"
-				:can-share-files="canShareFiles"
-				:can-create-poll="canCreatePoll"
-				@open-file-upload="openFileUploadWindow"
-				@handle-file-share="showFilePicker = true"
-				@update-new-file-dialog="updateNewFileDialog" />
 
+      <!-- Silent chat -->
+      <NcActions v-if="showSilentToggle"
+                 force-menu
+                 :primary="silentChat">
+        <template #icon>
+          <BellOffIcon v-if="silentChat" :size="16" />
+        </template>
+        <NcActionButton close-after-click
+                        :model-value="silentChat"
+                        :name="silentSendLabel"
+                        @click="toggleSilentChat">
+          {{ silentSendInfo }}
+          <template #icon>
+            <BellOffIcon :size="16" />
+          </template>
+        </NcActionButton>
+      </NcActions>
+
+      <!-- new massage emoji picker -->
+      <div class="new-message-form__emoji-picker">
+        <NcEmojiPicker v-if="!disabled"
+                       :close-on-select="false"
+                       @select="addEmoji">
+          <NcButton :disabled="disabled"
+                    type="tertiary"
+                    :aria-label="t('spreed', 'Add emoji')"
+                    :aria-haspopup="true">
+            <template #icon>
+              <EmoticonOutline :size="16" />
+            </template>
+          </NcButton>
+        </NcEmojiPicker>
+        <!-- Disabled emoji picker placeholder button -->
+        <NcButton v-else
+                  type="tertiary"
+                  :aria-label="t('spreed', 'Add emoji')"
+                  :disabled="true">
+          <template #icon>
+            <EmoticonOutline :size="16" />
+          </template>
+        </NcButton>
+      </div>
 			<!-- Input area -->
 			<div class="new-message-form__input">
 				<NewMessageAbsenceInfo v-if="!dialog && userAbsence"
@@ -39,30 +71,7 @@
 
 				<NewMessageChatSummary v-if="!dialog && showChatSummary" />
 
-				<div class="new-message-form__emoji-picker">
-					<NcEmojiPicker v-if="!disabled"
-						:close-on-select="false"
-						:set-return-focus="getContenteditable"
-						@select="addEmoji">
-						<NcButton :disabled="disabled"
-							type="tertiary"
-							:aria-label="t('spreed', 'Add emoji')"
-							:aria-haspopup="true">
-							<template #icon>
-								<EmoticonOutline :size="16" />
-							</template>
-						</NcButton>
-					</NcEmojiPicker>
-					<!-- Disabled emoji picker placeholder button -->
-					<NcButton v-else
-						type="tertiary"
-						:aria-label="t('spreed', 'Add emoji')"
-						:disabled="true">
-						<template #icon>
-							<EmoticonOutline :size="16" />
-						</template>
-					</NcButton>
-				</div>
+
 				<div v-if="parentMessage || messageToEdit" class="new-message-form__quote">
 					<Quote :message="messageToEdit ?? parentMessage"
 						:can-cancel="!!parentMessage"
@@ -71,7 +80,7 @@
 				<!-- mention editing hint -->
 				<NcNoteCard v-if="showMentionEditHint"
 					type="warning"
-					:text="t('spreed', 'Adding a mention will only notify users who did not read the message.')" />
+					:text="t('spreed','Adding a mention will only notify users who did not read the message.')" />
 				<NcRichContenteditable ref="richContenteditable"
 					:key="container"
 					v-model="text"
@@ -81,34 +90,15 @@
 					:menu-container="containerElement"
 					:placeholder="placeholderText"
 					:aria-label="placeholderText"
-					:dir="text ? 'auto' : undefined"
+					dir="auto"
 					@keydown.esc="handleInputEsc"
 					@keydown.ctrl.up="handleEditLastMessage"
 					@keydown.meta.up="handleEditLastMessage"
 					@input="handleTyping"
 					@paste="handlePastedFiles"
-					@focus="restoreSelectionRange"
-					@blur="preserveSelectionRange"
 					@submit="handleSubmit" />
 			</div>
 
-			<!-- Silent chat -->
-			<NcActions v-if="showSilentToggle"
-				force-menu
-				:primary="silentChat">
-				<template #icon>
-					<BellOffIcon v-if="silentChat" :size="16" />
-				</template>
-				<NcActionButton close-after-click
-					:model-value="silentChat"
-					:name="silentSendLabel"
-					@click="toggleSilentChat">
-					{{ silentSendInfo }}
-					<template #icon>
-						<BellOffIcon :size="16" />
-					</template>
-				</NcActionButton>
-			</NcActions>
 
 			<!-- Audio recorder -->
 			<NewMessageAudioRecorder v-if="showAudioRecorder"
@@ -148,11 +138,35 @@
 					:aria-label="sendMessageLabel"
 					@click="handleSubmit">
 					<template #icon>
-						<SendIcon class="bidirectional-icon" :size="16" />
+						<SendIcon :size="16" />
 					</template>
 				</NcButton>
 			</template>
+
+
+      <!-- Attachments menu -->
+      <NewMessageAttachments v-if="showAttachmentsMenu"
+                             :token="token"
+                             :disabled="disabled"
+                             :can-upload-files="canUploadFiles"
+                             :can-share-files="canShareFiles"
+                             :can-create-poll="canCreatePoll"
+                             @open-file-upload="openFileUploadWindow"
+                             @handle-file-share="showFilePicker = true"
+                             @toggle-poll-editor="togglePollEditor"
+                             @update-new-file-dialog="updateNewFileDialog" />
 		</form>
+
+		<!-- Poll creation dialog -->
+		<NewMessagePollEditor v-if="showPollEditor"
+			ref="pollEditor"
+			:token="token"
+			@close="togglePollEditor" />
+
+		<PollDraftHandler v-if="canCreatePollDrafts && showPollDraftHandler"
+			:token="token"
+			:show-create-button="!showPollEditor"
+			@close="togglePollDraftHandler" />
 
 		<!-- New file creation dialog -->
 		<NewMessageNewFileDialog v-if="showNewFileDialog !== -1"
@@ -169,43 +183,48 @@
 </template>
 
 <script>
-import { showError, showWarning } from '@nextcloud/dialogs'
-import { FilePickerVue } from '@nextcloud/dialogs/filepicker.js'
-import { t } from '@nextcloud/l10n'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import debounce from 'debounce'
-import { nextTick, toRefs } from 'vue'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmojiPicker from '@nextcloud/vue/components/NcEmojiPicker'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcRichContenteditable from '@nextcloud/vue/components/NcRichContenteditable'
+import { toRefs, ref } from 'vue'
+
 import BellOffIcon from 'vue-material-design-icons/BellOff.vue'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import EmoticonOutline from 'vue-material-design-icons/EmoticonOutline.vue'
 import SendIcon from 'vue-material-design-icons/Send.vue'
-import Quote from '../Quote.vue'
+
+import { showError, showWarning } from '@nextcloud/dialogs'
+import { FilePickerVue } from '@nextcloud/dialogs/filepicker.js'
+import { t } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmojiPicker from '@nextcloud/vue/dist/Components/NcEmojiPicker.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import NcRichContenteditable from '@nextcloud/vue/dist/Components/NcRichContenteditable.js'
+import { useHotKey } from '@nextcloud/vue/dist/Composables/useHotKey.js'
+
 import NewMessageAbsenceInfo from './NewMessageAbsenceInfo.vue'
 import NewMessageAttachments from './NewMessageAttachments.vue'
 import NewMessageAudioRecorder from './NewMessageAudioRecorder.vue'
 import NewMessageChatSummary from './NewMessageChatSummary.vue'
 import NewMessageNewFileDialog from './NewMessageNewFileDialog.vue'
+import NewMessagePollEditor from './NewMessagePollEditor.vue'
 import NewMessageTypingIndicator from './NewMessageTypingIndicator.vue'
+import PollDraftHandler from '../PollViewer/PollDraftHandler.vue'
+import Quote from '../Quote.vue'
+
 import { useChatMentions } from '../../composables/useChatMentions.ts'
 import { useTemporaryMessage } from '../../composables/useTemporaryMessage.ts'
-import { CONVERSATION, PARTICIPANT, PRIVACY } from '../../constants.ts'
+import { CONVERSATION, PARTICIPANT, PRIVACY } from '../../constants.js'
 import BrowserStorage from '../../services/BrowserStorage.js'
 import { getTalkConfig, hasTalkFeature } from '../../services/CapabilitiesManager.ts'
 import { EventBus } from '../../services/EventBus.ts'
-import { shareFile } from '../../services/filesSharingServices.ts'
+import { shareFile } from '../../services/filesSharingServices.js'
 import { useChatExtrasStore } from '../../stores/chatExtras.js'
-import { useGroupwareStore } from '../../stores/groupware.ts'
 import { useSettingsStore } from '../../stores/settings.js'
 import { fetchClipboardContent } from '../../utils/clipboard.js'
-import { ONE_DAY_IN_MS } from '../../utils/formattedTime.ts'
-import { getCurrentSelectionRange, insertTextInElement, selectRange } from '../../utils/selectionRange.ts'
 import { parseSpecialSymbols } from '../../utils/textParse.ts'
 
 export default {
@@ -224,6 +243,8 @@ export default {
 		NewMessageAudioRecorder,
 		NewMessageChatSummary,
 		NewMessageNewFileDialog,
+		NewMessagePollEditor,
+		PollDraftHandler,
 		NewMessageTypingIndicator,
 		Quote,
 		// Icons
@@ -296,7 +317,6 @@ export default {
 		const { createTemporaryMessage } = useTemporaryMessage()
 		return {
 			chatExtrasStore: useChatExtrasStore(),
-			groupwareStore: useGroupwareStore(),
 			settingsStore: useSettingsStore(),
 			supportTypingStatus,
 			autoComplete,
@@ -311,13 +331,14 @@ export default {
 			silentChat: false,
 			// True when the audio recorder component is recording
 			isRecordingAudio: false,
+			showPollEditor: false,
+			showPollDraftHandler: false,
 			showNewFileDialog: -1,
 			showFilePicker: false,
 			clipboardTimeStamp: null,
 			typingInterval: null,
 			wasTypingWithinInterval: false,
-			debouncedUpdateChatInput: debounce(this.updateChatInput, 200),
-			preservedSelectionRange: null,
+			debouncedUpdateChatInput: debounce(this.updateChatInput, 200)
 		}
 	},
 
@@ -397,6 +418,10 @@ export default {
 				&& this.conversation.type !== CONVERSATION.TYPE.NOTE_TO_SELF
 		},
 
+		canCreatePollDrafts() {
+			return hasTalkFeature(this.token, 'talk-polls-drafts') && this.$store.getters.isModerator
+		},
+
 		currentConversationIsJoined() {
 			return this.$store.getters.currentConversationIsJoined
 		},
@@ -449,12 +474,12 @@ export default {
 			return [{
 				label: t('spreed', 'Choose'),
 				callback: (nodes) => this.handleFileShare(nodes),
-				type: 'primary',
+				type: 'primary'
 			}]
 		},
 
 		userAbsence() {
-			return this.groupwareStore.absence[this.token]
+			return this.chatExtrasStore.absence[this.token]
 		},
 
 		showChatSummary() {
@@ -480,7 +505,7 @@ export default {
 
 		canEditMessage() {
 			return hasTalkFeature(this.token, 'edit-messages')
-		},
+		}
 	},
 
 	watch: {
@@ -547,7 +572,7 @@ export default {
 				this.clearTypingInterval()
 				this.checkAbsenceStatus()
 				this.clearSilentState()
-			},
+			}
 		},
 	},
 
@@ -561,6 +586,8 @@ export default {
 		EventBus.on('upload-discard', this.handleUploadSideEffects)
 		EventBus.on('retry-message', this.handleRetryMessage)
 		EventBus.on('smart-picker-open', this.handleOpenTributeMenu)
+		EventBus.on('poll-editor-open', this.fillPollEditorFromDraft)
+		EventBus.on('poll-drafts-open', this.togglePollDraftHandler)
 
 		if (!this.$store.getters.areFileTemplatesInitialised) {
 			this.$store.dispatch('getFileTemplates')
@@ -573,15 +600,12 @@ export default {
 		EventBus.off('upload-discard', this.handleUploadSideEffects)
 		EventBus.off('retry-message', this.handleRetryMessage)
 		EventBus.off('smart-picker-open', this.handleOpenTributeMenu)
+		EventBus.off('poll-editor-open', this.fillPollEditorFromDraft)
+		EventBus.off('poll-drafts-open', this.togglePollDraftHandler)
 	},
 
 	methods: {
 		t,
-
-		getContenteditable() {
-			return this.$refs.richContenteditable.$refs.contenteditable
-		},
-
 		handleTyping() {
 			// Enable signal sending, only if indicator for this input is on
 			if (!this.showTypingStatus) {
@@ -624,7 +648,7 @@ export default {
 				this.chatExtrasStore.setChatEditInput({
 					token: this.token,
 					text,
-					parameters: this.messageToEdit.messageParameters,
+					parameters: this.messageToEdit.messageParameters
 				})
 			} else if (text && text !== this.chatInput) {
 				this.chatExtrasStore.setChatInput({ token: this.token, text })
@@ -735,7 +759,7 @@ export default {
 		},
 
 		sleep(ms) {
-			return new Promise((resolve) => setTimeout(resolve, ms))
+			return new Promise(resolve => setTimeout(resolve, ms))
 		},
 
 		handleRetryMessage(id) {
@@ -764,7 +788,7 @@ export default {
 					throw new Error(t('files', 'Invalid path selected'))
 				}
 				this.focusInput()
-				this.$store.dispatch('shareFile', { token: this.token, path })
+				return shareFile(path, this.token)
 			})
 		},
 
@@ -837,23 +861,54 @@ export default {
 			this.$store.dispatch('initialiseUpload', { files, token: this.token, uploadId, rename, isVoiceMessage })
 		},
 
-		preserveSelectionRange() {
-			this.preservedSelectionRange = getCurrentSelectionRange(this.getContenteditable())
-		},
-
-		restoreSelectionRange() {
-			selectRange(this.preservedSelectionRange, this.getContenteditable())
-			this.preservedSelectionRange = null
-		},
-
 		/**
-		 * Add selected emoji to the cursor position
-		 * @param {string} emoji - Selected emoji
+		 * Add selected emoji to text input area
+		 *
+		 * The emoji will be added at the current caret position, and any text
+		 * currently selected will be replaced by the emoji. If the input area
+		 * does not have the focus there will be no caret or selection; in that
+		 * case the emoji will be added at the end.
+		 *
+		 * @param {string} emoji Emoji object
 		 */
 		addEmoji(emoji) {
-			insertTextInElement(emoji, this.getContenteditable(), this.preservedSelectionRange)
-			// FIXME: add a method to NcRichContenteditable to handle manual update
-			this.$refs.richContenteditable.updateValue(this.getContenteditable().innerHTML)
+			// FIXME: remove after issue is resolved: https://github.com/nextcloud/nextcloud-vue/issues/3264
+			const temp = document.createElement('textarea')
+
+			const selection = document.getSelection()
+
+			const contentEditable = this.$refs.richContenteditable.$refs.contenteditable
+
+			// There is no select, or current selection does not start in the
+			// content editable element, so just append the emoji at the end.
+			if (!contentEditable.isSameNode(selection.anchorNode) && !contentEditable.contains(selection.anchorNode)) {
+				// Browsers add a "<br>" element as soon as some rich text is
+				// written in a content editable div (for example, if a new line
+				// is added the div content will be "<br><br>"), so the emoji
+				// has to be added before the last "<br>" (if any).
+				if (this.text.endsWith('<br>')) {
+					temp.innerHTML = this.text.slice(0, this.text.lastIndexOf('<br>')) + emoji + '<br>'
+				} else {
+					temp.innerHTML = this.text + emoji
+				}
+				this.text = temp.value
+				return
+			}
+
+			// Although due to legacy reasons the API allows several ranges the
+			// specification requires the selection to always have a single range.
+			// https://developer.mozilla.org/en-US/docs/Web/API/Selection#Multiple_ranges_in_a_selection
+			const range = selection.getRangeAt(0)
+
+			// Deleting the contents also collapses the range to the start.
+			range.deleteContents()
+
+			const emojiTextNode = document.createTextNode(emoji)
+			range.insertNode(emojiTextNode)
+
+			this.text = contentEditable.innerHTML
+
+			range.setStartAfter(emojiTextNode)
 		},
 
 		handleAudioFile(payload) {
@@ -864,13 +919,31 @@ export default {
 			this.isRecordingAudio = payload
 		},
 
-		async focusInput() {
+		togglePollEditor() {
+			this.showPollEditor = !this.showPollEditor
+		},
+
+		fillPollEditorFromDraft(id) {
+			const isPollEditorOpened = this.showPollEditor
+			this.showPollEditor = true
+			this.$nextTick(() => {
+				this.$refs.pollEditor?.fillPollEditorFromDraft(id, isPollEditorOpened)
+				// Wait for editor to be mounted and filled before unmounting drafts dialog
+				this.togglePollDraftHandler()
+			})
+		},
+
+		togglePollDraftHandler() {
+			this.showPollDraftHandler = !this.showPollDraftHandler
+		},
+
+		focusInput() {
 			if (this.isMobileDevice) {
 				return
 			}
-			await nextTick()
-			this.$refs.richContenteditable.focus()
-			this.restoreSelectionRange()
+			this.$nextTick().then(() => {
+				this.$refs.richContenteditable.focus()
+			})
 		},
 
 		blurInput() {
@@ -892,11 +965,11 @@ export default {
 			}
 
 			// last message within 24 hours
-			const lastMessageByCurrentUser = this.$store.getters.messagesList(this.token).findLast((message) => {
+			const lastMessageByCurrentUser = this.$store.getters.messagesList(this.token).findLast(message => {
 				return message.actorId === this.$store.getters.getUserId()
 					&& message.actorType === this.$store.getters.getActorType()
 					&& !message.isTemporary && !message.systemMessage
-					&& (Date.now() - message.timestamp * 1000 < ONE_DAY_IN_MS)
+					&& (moment(message.timestamp * 1000).add(1, 'd')) > moment()
 			})
 
 			if (!lastMessageByCurrentUser) {
@@ -920,13 +993,13 @@ export default {
 			// TODO replace with status message id 'vacationing'
 			if (this.conversation.status === 'dnd') {
 				// Fetch actual absence status from server
-				await this.groupwareStore.getUserAbsence({
+				await this.chatExtrasStore.getUserAbsence({
 					token: this.token,
 					userId: this.conversation.name,
 				})
 			} else {
 				// Remove stored absence status
-				this.groupwareStore.removeUserAbsence(this.token)
+				this.chatExtrasStore.removeUserAbsence(this.token)
 			}
 		},
 
@@ -948,7 +1021,7 @@ export default {
 			if ((this.text === '' || this.text === '\n') && this.silentChat && !this.upload) {
 				this.toggleSilentChat()
 			}
-		},
+		}
 	},
 }
 </script>
@@ -964,6 +1037,7 @@ export default {
 .new-message-form {
 	--emoji-button-size: calc(var(--default-clickable-area) - var(--border-width-input-focused, 2px) * 2);
 	--emoji-button-radius: calc(var(--border-radius-element, calc(var(--button-size) / 2)) - var(--border-width-input-focused, 2px));
+
 	align-items: flex-end;
 	display: flex;
 	gap: var(--default-grid-baseline);
@@ -974,7 +1048,7 @@ export default {
 	&__emoji-picker {
 		position: absolute;
 		bottom: var(--border-width-input-focused, 2px);
-		inset-inline-start: var(--border-width-input-focused, 2px);
+		left: var(--border-width-input-focused, 2px);
 		z-index: 1;
 
 		:deep(.button-vue) {
@@ -1030,4 +1104,8 @@ export default {
 	}
 }
 
+// Hardcode to prevent RTL affecting on user mentions
+:deep(.mention-bubble) {
+	direction: ltr;
+}
 </style>

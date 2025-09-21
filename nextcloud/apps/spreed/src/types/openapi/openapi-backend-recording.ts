@@ -57,10 +57,7 @@ export type components = {
                     /** Format: int64 */
                     "recording-consent": number;
                     "supported-reactions": string[];
-                    /** @description List of file names relative to the spreed/img/backgrounds/ web path, e.g. `2_home.jpg` */
                     "predefined-backgrounds": string[];
-                    /** @description List of file paths relative to the server web root with leading slash, e.g. `/apps/spreed/img/backgrounds/2_home.jpg` */
-                    "predefined-backgrounds-v2": string[];
                     "can-upload-background": boolean;
                     "sip-enabled": boolean;
                     "sip-dialout-enabled": boolean;
@@ -69,7 +66,6 @@ export type components = {
                     /** Format: int64 */
                     "max-duration": number;
                     "blur-virtual-background": boolean;
-                    "end-to-end-encryption": boolean;
                 };
                 chat: {
                     /** Format: int64 */
@@ -77,7 +73,6 @@ export type components = {
                     /** Format: int64 */
                     "read-privacy": number;
                     "has-translation-providers": boolean;
-                    "has-translation-task-providers": boolean;
                     /** Format: int64 */
                     "typing-privacy": number;
                     /** Format: int64 */
@@ -85,17 +80,6 @@ export type components = {
                 };
                 conversations: {
                     "can-create": boolean;
-                    "force-passwords": boolean;
-                    /** @enum {string} */
-                    "list-style": "two-lines" | "compact";
-                    /** Format: int64 */
-                    "description-length": number;
-                    /** Format: int64 */
-                    "retention-event": number;
-                    /** Format: int64 */
-                    "retention-phone": number;
-                    /** Format: int64 */
-                    "retention-instant-meetings": number;
                 };
                 federation: {
                     enabled: boolean;
@@ -112,10 +96,6 @@ export type components = {
                     "session-ping-limit": number;
                     "hello-v2-token-key"?: string;
                 };
-                experiments: {
-                    /** Format: int64 */
-                    enabled: number;
-                };
             };
             "config-local": {
                 [key: string]: string[];
@@ -130,8 +110,8 @@ export type components = {
             itemsperpage?: string;
         };
         PublicCapabilities: {
-            spreed?: components["schemas"]["Capabilities"];
-        };
+            spreed: components["schemas"]["Capabilities"];
+        } | unknown[];
     };
     responses: never;
     parameters: never;

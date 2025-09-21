@@ -5,44 +5,11 @@
 import { parseMentions, parseSpecialSymbols } from '../textParse.ts'
 
 jest.mock('@nextcloud/router', () => ({
-	getBaseUrl: jest.fn().mockReturnValue('https://server2.com'),
+	getBaseUrl: jest.fn().mockReturnValue('server2.com')
 }))
 
 describe('textParse', () => {
 	describe('parseMentions', () => {
-		it('replaces mentions correctly if mention-id is available', () => {
-			const input = 'test {mention-call1} test {mention-user1} test {mention-group1} test {mention-federated-user1}'
-			const output = 'test @"all" test @"alice" test @"group/talk" test @"federated_user/alice@server2.com"'
-			const parameters = {
-				'mention-call1': {
-					id: 'room-id',
-					name: 'Room Display Name',
-					type: 'call',
-					'mention-id': 'all',
-				},
-				'mention-user1': {
-					id: 'alice',
-					name: 'Just Alice',
-					type: 'user',
-					'mention-id': 'alice',
-				},
-				'mention-group1': {
-					id: 'talk',
-					name: 'Talk Group',
-					type: 'user-group',
-					'mention-id': 'group/talk',
-				},
-				'mention-federated-user1': {
-					id: 'alice',
-					name: 'Feder Alice',
-					type: 'user',
-					server: 'https://server2.com',
-					'mention-id': 'federated_user/alice@server2.com',
-				},
-			}
-			expect(parseMentions(input, parameters)).toBe(output)
-		})
-
 		it('replaces {mention-call} correctly', () => {
 			const input = 'test {mention-call1}'
 			const output = 'test @all'
@@ -71,7 +38,7 @@ describe('textParse', () => {
 
 		it('replaces {mention-user} correctly', () => {
 			const input = 'test {mention-user1} test {mention-user2}'
-			const output = 'test @"alice" test @"alice space@mail.com"'
+			const output = 'test @alice test @"alice space@mail.com"'
 			const parameters = {
 				'mention-user1': {
 					id: 'alice',
@@ -82,7 +49,7 @@ describe('textParse', () => {
 					id: 'alice space@mail.com',
 					name: 'Out of space Alice',
 					type: 'user',
-				},
+				}
 			}
 			expect(parseMentions(input, parameters)).toBe(output)
 		})
@@ -100,61 +67,7 @@ describe('textParse', () => {
 					id: 'space talk',
 					name: 'Out of space Talk Group',
 					type: 'user-group',
-				},
-			}
-			expect(parseMentions(input, parameters)).toBe(output)
-		})
-
-		it('replaces {mention-team} correctly', () => {
-			const input = 'test {mention-team1} test {mention-team2}'
-			const output = 'test @"team/talk" test @"team/space talk"'
-			const parameters = {
-				'mention-team1': {
-					id: 'talk',
-					name: 'Talk Group',
-					type: 'circle',
-				},
-				'mention-team2': {
-					id: 'space talk',
-					name: 'Out of space Talk Group',
-					type: 'team',
-				},
-			}
-			expect(parseMentions(input, parameters)).toBe(output)
-		})
-
-		it('replaces {mention-guest} correctly', () => {
-			const input = 'test {mention-guest1} test {mention-guest2}'
-			const output = 'test @"guest/abcd" test @"guest/efgh"'
-			const parameters = {
-				'mention-guest1': {
-					id: 'guest/abcd',
-					name: 'Guest A',
-					type: 'guest',
-				},
-				'mention-guest2': {
-					id: 'guest/efgh',
-					name: 'Guest E',
-					type: 'guest',
-				},
-			}
-			expect(parseMentions(input, parameters)).toBe(output)
-		})
-
-		it('replaces {mention-email} correctly', () => {
-			const input = 'test {mention-email1} test {mention-email2}'
-			const output = 'test @"email/abcd" test @"email/efgh"'
-			const parameters = {
-				'mention-email1': {
-					id: 'abcd',
-					name: 'Email Guest A',
-					type: 'email',
-				},
-				'mention-email2': {
-					id: 'efgh',
-					name: 'Email Guest E',
-					type: 'email',
-				},
+				}
 			}
 			expect(parseMentions(input, parameters)).toBe(output)
 		})
@@ -166,9 +79,9 @@ describe('textParse', () => {
 				'mention-federated-user1': {
 					id: 'alice',
 					name: 'Feder Alice',
-					type: 'federated_user',
-					server: 'https://server3.com',
-				},
+					type: 'user',
+					server: 'server3.com'
+				}
 			}
 			expect(parseMentions(input, parameters)).toBe(output)
 		})
@@ -181,7 +94,7 @@ describe('textParse', () => {
 					id: 'alice',
 					name: 'Feder Alice',
 					type: 'user',
-				},
+				}
 			}
 			expect(parseMentions(input, parameters)).toBe(output)
 		})

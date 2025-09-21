@@ -4,7 +4,7 @@
 -->
 
 <template>
-	<div ref="gridWrapper" class="grid-main-wrapper" :class="{ 'is-grid': !isStripe, transparent: isLessThanTwoVideos }">
+	<div class="grid-main-wrapper" :class="{'is-grid': !isStripe, 'transparent': isLessThanTwoVideos}">
 		<NcButton v-if="isStripe && !isRecording"
 			class="stripe--collapse"
 			type="tertiary-no-background"
@@ -12,10 +12,10 @@
 			:aria-label="stripeButtonTitle"
 			@click="handleClickStripeCollapse">
 			<template #icon>
-				<IconChevronDown v-if="stripeOpen"
+				<ChevronDown v-if="stripeOpen"
 					fill-color="#ffffff"
 					:size="20" />
-				<IconChevronUp v-else
+				<ChevronUp v-else
 					fill-color="#ffffff"
 					:size="20" />
 			</template>
@@ -29,14 +29,13 @@
 						:aria-label="t('spreed', 'Previous page of videos')"
 						@click="handleClickPrevious">
 						<template #icon>
-							<IconChevronLeft class="bidirectional-icon"
-								fill-color="#ffffff"
+							<ChevronLeft fill-color="#ffffff"
 								:size="20" />
 						</template>
 					</NcButton>
 					<div ref="grid"
 						class="grid"
-						:class="{ stripe: isStripe }"
+						:class="{stripe: isStripe}"
 						:style="gridStyle"
 						@mousemove="handleMovement"
 						@wheel="debounceHandleWheelEvent"
@@ -45,7 +44,7 @@
 							<EmptyCallView v-if="videos.length === 0 && !isStripe" class="video" :is-grid="true" />
 							<template v-for="callParticipantModel in displayedVideos">
 								<VideoVue :key="callParticipantModel.attributes.peerId"
-									:class="{ video: !isStripe }"
+									:class="{'video': !isStripe}"
 									:show-video-overlay="showVideoOverlay"
 									:token="token"
 									:model="callParticipantModel"
@@ -63,13 +62,13 @@
 							<div v-for="key in displayedVideos"
 								:key="key"
 								class="dev-mode-video video"
-								:class="{ 'dev-mode-screenshot': screenshotMode }">
+								:class="{'dev-mode-screenshot': screenshotMode}">
 								<img :alt="placeholderName(key)" :src="placeholderImage(key)">
 								<VideoBottomBar :has-shadow="false"
 									:model="placeholderModel(key)"
 									:shared-data="placeholderSharedData(key)"
 									:token="token"
-									:participant-name="placeholderName(key, !screenshotMode)" />
+									:participant-name="placeholderName(key)" />
 							</div>
 							<h1 v-if="!screenshotMode" class="dev-mode__title">
 								Dev mode on ;-)
@@ -91,8 +90,7 @@
 						:aria-label="t('spreed', 'Next page of videos')"
 						@click="handleClickNext">
 						<template #icon>
-							<IconChevronRight class="bidirectional-icon"
-								fill-color="#ffffff"
+							<ChevronRight fill-color="#ffffff"
 								:size="20" />
 						</template>
 					</NcButton>
@@ -113,21 +111,14 @@
 						aria-label="Toggle screenshot mode"
 						@click="screenshotMode = !screenshotMode">
 						<template #icon>
-							<IconChevronLeft v-if="!screenshotMode"
-								class="bidirectional-icon"
-								fill-color="#00FF41"
-								:size="20" />
+							<ChevronLeft v-if="!screenshotMode" fill-color="#00FF41" :size="20" />
 						</template>
 					</NcButton>
 					<div v-if="!screenshotMode" class="dev-mode__data">
 						<span>GRID INFO</span>
-						<button @click="disableDevMode">
+						<NcButton small @click="disableDevMode">
 							Disable
-						</button>
-						<span>Debug info</span>
-						<button @click="gridDebugInformation">
-							Log
-						</button>
+						</NcButton>
 						<span>Videos (total):</span><span>{{ videosCount }}</span>
 						<span>Displayed videos:</span><span>{{ displayedVideos.length }}</span>
 						<span>Max per page:</span><span>~{{ videosCap }}</span>
@@ -141,6 +132,7 @@
 						<span>Dummies:</span><input v-model.number="dummies" type="number">
 						<span>Stripe mode:</span><input v-model="devStripe" type="checkbox">
 						<span>Screenshot mode:</span><input v-model="screenshotMode" type="checkbox">
+
 					</div>
 				</template>
 			</div>
@@ -149,30 +141,34 @@
 </template>
 
 <script>
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
 import debounce from 'debounce'
 import { inject, ref } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import IconChevronDown from 'vue-material-design-icons/ChevronDown.vue'
-import IconChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
-import IconChevronRight from 'vue-material-design-icons/ChevronRight.vue'
-import IconChevronUp from 'vue-material-design-icons/ChevronUp.vue'
+
+import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
+
+import { subscribe, unsubscribe } from '@nextcloud/event-bus'
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+
 import TransitionWrapper from '../../UIShared/TransitionWrapper.vue'
 import EmptyCallView from '../shared/EmptyCallView.vue'
 import LocalVideo from '../shared/LocalVideo.vue'
 import VideoBottomBar from '../shared/VideoBottomBar.vue'
 import VideoVue from '../shared/VideoVue.vue'
-import { ATTENDEE, PARTICIPANT } from '../../../constants.ts'
-import { useCallViewStore } from '../../../stores/callView.ts'
+
 import { placeholderImage, placeholderModel, placeholderName, placeholderSharedData } from './gridPlaceholders.ts'
+import { PARTICIPANT, ATTENDEE } from '../../../constants.js'
+import { useCallViewStore } from '../../../stores/callView.js'
+import { useSidebarStore } from '../../../stores/sidebar.js'
 
 // Max number of videos per page. `0`, the default value, means no cap
 const videosCap = parseInt(loadState('spreed', 'grid_videos_limit'), 10) || 0
 const videosCapEnforced = loadState('spreed', 'grid_videos_limit_enforced') || false
-
-// Align with var(--grid-gap) in CallView
-const GRID_GAP = 8
 
 export default {
 	name: 'Grid',
@@ -184,10 +180,10 @@ export default {
 		NcButton,
 		TransitionWrapper,
 		VideoBottomBar,
-		IconChevronDown,
-		IconChevronLeft,
-		IconChevronRight,
-		IconChevronUp,
+		ChevronRight,
+		ChevronLeft,
+		ChevronUp,
+		ChevronDown,
 	},
 
 	props: {
@@ -198,7 +194,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		/**
 		 * To be set to true when the grid is in the promoted view.
 		 */
@@ -206,47 +201,38 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		isSidebar: {
 			type: Boolean,
 			default: false,
 		},
-
 		isRecording: {
 			type: Boolean,
 			default: false,
 		},
-
 		callParticipantModels: {
 			type: Array,
 			required: true,
 		},
-
 		localMediaModel: {
 			type: Object,
 			required: true,
 		},
-
 		localCallParticipantModel: {
 			type: Object,
 			required: true,
 		},
-
 		token: {
 			type: String,
 			required: true,
 		},
-
 		sharedDatas: {
 			type: Object,
 			required: true,
 		},
-
 		isLocalVideoSelectable: {
 			type: Boolean,
 			default: false,
 		},
-
 		screens: {
 			type: Array,
 			default: () => [],
@@ -269,6 +255,7 @@ export default {
 			videosCap,
 			videosCapEnforced,
 			callViewStore: useCallViewStore(),
+			sidebarStore: useSidebarStore(),
 		}
 	},
 
@@ -286,7 +273,6 @@ export default {
 			showVideoOverlay: true,
 			// Timer for the videos bottom bar
 			showVideoOverlayTimer: null,
-			resizeObserver: null,
 			debounceMakeGrid: () => {},
 			debounceHandleWheelEvent: () => {},
 			tempPromotedModels: [],
@@ -324,13 +310,11 @@ export default {
 
 			return this.videos.length
 		},
-
 		videoWidth() {
-			return (this.gridWidth - GRID_GAP * (this.columns - 1)) / this.columns
+			return this.gridWidth / this.columns
 		},
-
 		videoHeight() {
-			return (this.gridHeight - GRID_GAP * (this.rows - 1)) / this.rows
+			return this.gridHeight / this.rows
 		},
 
 		// Array of videos that are being displayed in the grid at any given
@@ -384,7 +368,6 @@ export default {
 		minWidth() {
 			return (this.isStripe || this.isSidebar) ? 200 : 320
 		},
-
 		/**
 		 * Minimum height of the video components
 		 */
@@ -411,10 +394,10 @@ export default {
 
 		// Max number of columns possible
 		columnsMax() {
-			// Max amount of columns that fits on screen, including gaps (--grid-gap, 8px)
-			const calculatedApproxColumnsMax = Math.floor((this.gridWidth - GRID_GAP * (this.columns - 1)) / this.dpiAwareMinWidth)
+			// Max amount of columns that fits on screen, including gaps and paddings (8px)
+			const calculatedApproxColumnsMax = Math.floor((this.gridWidth - 8 * this.columns) / this.dpiAwareMinWidth)
 			// Max amount of columns that fits on screen (with one more gap, as if we try to fit one more column)
-			const calculatedHypotheticalColumnsMax = Math.floor((this.gridWidth - GRID_GAP * this.columns) / this.dpiAwareMinWidth)
+			const calculatedHypotheticalColumnsMax = Math.floor((this.gridWidth - 8 * (this.columns + 1)) / this.dpiAwareMinWidth)
 			// If we about to change current columns amount, check if one more column could fit the screen
 			// This helps to avoid flickering, when resize within 8px from minimal gridWidth for current amount of columns
 			const calculatedColumnsMax = calculatedApproxColumnsMax === this.columns ? calculatedApproxColumnsMax : calculatedHypotheticalColumnsMax
@@ -424,11 +407,11 @@ export default {
 
 		// Max number of rows possible
 		rowsMax() {
-			if (Math.floor((this.gridHeight - GRID_GAP * (this.rows - 1)) / this.dpiAwareMinHeight) < 1) {
+			if (Math.floor(this.gridHeight / this.dpiAwareMinHeight) < 1) {
 				// Return at least 1 row
 				return 1
 			} else {
-				return Math.floor((this.gridHeight - GRID_GAP * (this.rows - 1)) / this.dpiAwareMinHeight)
+				return Math.floor(this.gridHeight / this.dpiAwareMinHeight)
 			}
 		},
 
@@ -462,6 +445,11 @@ export default {
 			}
 		},
 
+		// TODO: rebuild the grid to have optimal for last page
+		// isLastPage() {
+		// return !this.hasNextPage
+		// },
+
 		// Computed css to reactively style the grid
 		gridStyle() {
 			let columns = this.columns
@@ -483,6 +471,10 @@ export default {
 		// Check if there's an overflow of videos (videos that don't fit in the grid)
 		hasVideoOverflow() {
 			return this.videosCount > this.slots
+		},
+
+		sidebarStatus() {
+			return this.sidebarStore.show
 		},
 
 		wrapperStyle() {
@@ -513,6 +505,10 @@ export default {
 				return this.videos
 			}
 
+			if (!this.participantsInitialised) {
+				return []
+			}
+
 			const objectMap = {
 				modelsWithScreenshare: [],
 				modelsTempPromoted: [],
@@ -521,7 +517,7 @@ export default {
 				modelsWithNoPermissions: [],
 			}
 			const screensSet = new Set(this.screens)
-			const tempPromotedModelsSet = new Set(this.tempPromotedModels.map((model) => model.attributes.nextcloudSessionId))
+			const tempPromotedModelsSet = new Set(this.tempPromotedModels.map(model => model.attributes.nextcloudSessionId))
 			const videoTilesMap = new Map()
 			const audioTilesMap = new Map()
 
@@ -532,7 +528,7 @@ export default {
 					objectMap.modelsTempPromoted.push(model)
 				} else if (this.isModelWithVideo(model)) {
 					videoTilesMap.set(model.attributes.nextcloudSessionId, model)
-				} else if (this.participantsInitialised && this.isModelWithAudio(model)) {
+				} else if (this.isModelWithAudio(model)) {
 					audioTilesMap.set(model.attributes.nextcloudSessionId, model)
 				} else {
 					objectMap.modelsWithNoPermissions.push(model)
@@ -550,18 +546,17 @@ export default {
 		},
 
 		speakers() {
-			return this.callParticipantModels.filter((model) => model.attributes.speaking)
+			return this.callParticipantModels.filter(model => model.attributes.speaking)
 		},
 
 		speakersWithAudioOff() {
-			return this.tempPromotedModels.filter((model) => !model.attributes.audioAvailable)
+			return this.tempPromotedModels.filter(model => !model.attributes.audioAvailable)
 		},
 
 		devStripe: {
 			get() {
 				return this.isStripe
 			},
-
 			set(value) {
 				this.callViewStore.setCallViewMode({ token: this.token, isGrid: !value, clearLast: false })
 			},
@@ -573,7 +568,22 @@ export default {
 		'videos.length'() {
 			this.makeGrid()
 		},
-
+		// TODO: rebuild the grid to have optimal for last page
+		// Exception for when navigating in and away from the last page of the
+		// grid
+		/**
+		isLastPage(newValue, oldValue) {
+			 if (this.hasPagination) {
+				 // If navigating into last page, make grid for last page
+				if (newValue && this.currentPage !== 0) {
+					this.makeGridForLastPage()
+				} else if (!newValue) {
+				// TODO: make a proper grid for when navigating away from last page
+					this.makeGrid()
+				}
+			 }
+		 },
+		 */
 		isStripe() {
 			this.rebuildGrid()
 
@@ -586,6 +596,11 @@ export default {
 			this.rebuildGrid()
 		},
 
+		sidebarStatus() {
+			// Handle the resize after the sidebar animation has completed
+			setTimeout(this.handleResize, 500)
+		},
+
 		numberOfPages() {
 			if (this.currentPage >= this.numberOfPages) {
 				this.currentPage = Math.max(0, this.numberOfPages - 1)
@@ -593,14 +608,14 @@ export default {
 		},
 
 		speakers(models) {
-			models.forEach((model) => {
+			models.forEach(model => {
 				this.promoteSpeaker(model)
 				clearTimeout(this.unpromoteSpeakerTimer[model.attributes.nextcloudSessionId])
 			})
 		},
 
 		speakersWithAudioOff(newModels, oldModels) {
-			newModels.forEach((speaker) => {
+			newModels.forEach(speaker => {
 				if (oldModels.includes(speaker)) {
 					return
 				}
@@ -611,37 +626,30 @@ export default {
 		},
 	},
 
+	// bind event handlers to the `handleResize` method
 	mounted() {
 		this.debounceMakeGrid = debounce(this.makeGrid, 200)
 		this.debounceHandleWheelEvent = debounce(this.handleWheelEvent, 50)
-		this.resizeObserver = new ResizeObserver(this.debounceMakeGrid)
-		this.resizeObserver.observe(this.$refs.gridWrapper)
+		window.addEventListener('resize', this.handleResize)
+		subscribe('navigation-toggled', this.handleResize)
 		this.makeGrid()
 
-		if (OC.debug) {
-			OCA.Talk.gridDebugInformation = this.gridDebugInformation
-			OCA.Talk.gridDevModeEnable = this.enableDevMode
-		}
+		window.OCA.Talk.gridDebugInformation = this.gridDebugInformation
 	},
-
 	beforeDestroy() {
 		this.debounceMakeGrid.clear?.()
 		this.debounceHandleWheelEvent.clear?.()
+		window.OCA.Talk.gridDebugInformation = () => console.debug('Not in a call')
 
-		if (this.resizeObserver) {
-			this.resizeObserver.disconnect()
-		}
-
-		if (OC.debug) {
-			OCA.Talk.gridDebugInformation = undefined
-			OCA.Talk.gridDevModeEnable = undefined
-		}
+		window.removeEventListener('resize', this.handleResize)
+		unsubscribe('navigation-toggled', this.handleResize)
 	},
 
 	methods: {
 		t,
 		gridDebugInformation() {
-			console.info('Grid debug information', {
+			console.debug('Grid debug information')
+			console.debug({
 				minWidth: this.minWidth,
 				minHeight: this.minHeight,
 				videosCap: this.videosCap,
@@ -681,26 +689,22 @@ export default {
 		placeholderModel,
 		placeholderSharedData,
 
-		enableDevMode() {
-			this.screenshotMode = false
-			this.devMode = true
-		},
-
 		disableDevMode() {
 			this.screenshotMode = false
 			this.devMode = false
 		},
-
-		// Find the right size if the grid in rows and columns (we already know the size in px).
-		makeGrid() {
+		// whenever the document is resized, re-set the 'clientWidth' variable
+		handleResize(event) {
 			// TODO: properly handle resizes when not on first page:
 			// currently if the user is not on the 'first page', upon resize the
 			// current position in the videos array is lost (first element
 			// in the grid goes back to be first video)
-			// TODO: rebuild the grid to have optimal for last page:
-			// Exception for when navigating in and away from the last page of the grid
-			// The last grid page is very likely not to have the same number of elements
-			// as the previous pages so the grid needs to be tweaked accordingly
+			this.debounceMakeGrid()
+		},
+
+		// Find the right size if the grid in rows and columns (we already know
+		// the size in px).
+		makeGrid() {
 			if (!this.$refs.grid) {
 				return
 			}
@@ -760,12 +764,12 @@ export default {
 				const previousRows = currentRows
 
 				// Current video dimensions
-				const videoWidth = (this.gridWidth - GRID_GAP * (currentColumns - 1)) / currentColumns
-				const videoHeight = (this.gridHeight - GRID_GAP * (currentRows - 1)) / currentRows
+				const videoWidth = this.gridWidth / currentColumns
+				const videoHeight = this.gridHeight / currentRows
 
 				// Hypothetical width/height with one column/row less than current
-				const videoWidthWithOneColumnLess = (this.gridWidth - GRID_GAP * (currentColumns - 2)) / (currentColumns - 1)
-				const videoHeightWithOneRowLess = (this.gridHeight - GRID_GAP * (currentRows - 2)) / (currentRows - 1)
+				const videoWidthWithOneColumnLess = this.gridWidth / (currentColumns - 1)
+				const videoHeightWithOneRowLess = this.gridHeight / (currentRows - 1)
 
 				// Hypothetical aspect ratio with one column/row less than current
 				const aspectRatioWithOneColumnLess = videoWidthWithOneColumnLess / videoHeight
@@ -816,6 +820,17 @@ export default {
 			this.rows = currentRows
 		},
 
+		// The last grid page is very likely not to have the same number of
+		// elements as the previous pages so the grid needs to be tweaked
+		// accordingly
+		// makeGridForLastPage() {
+		// this.columns = this.columnsMax
+		// this.rows = this.rowsMax
+		// // The displayed videos for the last page have already been set
+		// // in `handleClickNext`
+		// this.shrinkGrid(this.displayedVideos.length)
+		// },
+
 		handleWheelEvent(event) {
 			if (this.gridWidth <= 0) {
 				return
@@ -832,7 +847,6 @@ export default {
 			this.currentPage++
 			console.debug('handleclicknext, ', 'currentPage ', this.currentPage, 'slots ', this.slot, 'videos.length ', this.videos.length)
 		},
-
 		handleClickPrevious() {
 			this.currentPage--
 			console.debug('handleclickprevious, ', 'currentPage ', this.currentPage, 'slots ', this.slots, 'videos.length ', this.videos.length)
@@ -846,7 +860,6 @@ export default {
 			// TODO: debounce this
 			this.setTimerForUiControls()
 		},
-
 		setTimerForUiControls() {
 			if (this.showVideoOverlayTimer !== null) {
 				clearTimeout(this.showVideoOverlayTimer)
@@ -897,7 +910,7 @@ export default {
 			const id = model.attributes.nextcloudSessionId
 
 			// if model is already in the first page, do nothing
-			if (this.orderedVideos.slice(0, this.slots).find((video) => video.attributes.nextcloudSessionId === id)) {
+			if (this.orderedVideos.slice(0, this.slots).find(video => video.attributes.nextcloudSessionId === id)) {
 				return
 			}
 
@@ -925,7 +938,7 @@ export default {
 			const orderedTiles = []
 			const rest = []
 			// Get the ordered tiles
-			orderMask.forEach((id) => {
+			orderMask.forEach(id => {
 				if (tilesMap.has(id)) {
 					orderedTiles.push(tilesMap.get(id))
 				}
@@ -965,7 +978,7 @@ export default {
 	display: flex;
 	position: relative;
 	bottom: 0;
-	inset-inline-start: 0;
+	left: 0;
 }
 
 .grid {
@@ -999,6 +1012,7 @@ export default {
 		outline: 1px solid #00FF41;
 		color: #00FF41;
 	}
+
 	position: relative;
 
 	img {
@@ -1015,10 +1029,9 @@ export default {
 
 .dev-mode__title {
 	position: absolute;
-	/* stylelint-disable-next-line csstools/use-logical */
 	left: var(--default-clickable-area);
 	color: #00FF41;
-	z-index: 1;
+	z-index: 100;
 	line-height: 120px;
 	font-weight: 900;
 	font-size: 100px !important;
@@ -1028,17 +1041,14 @@ export default {
 
 .dev-mode__toggle {
 	position: fixed !important;
-	/* stylelint-disable-next-line csstools/use-logical */
 	left: 20px;
 	top: calc(2 * var(--header-height));
 }
 
 .dev-mode__data {
-	direction: ltr;
 	font-family: monospace;
 	position: fixed;
 	color: #00FF41;
-	/* stylelint-disable-next-line csstools/use-logical */
 	left: 20px;
 	top: calc(2 * var(--header-height) + 40px);
 	padding: 5px;
@@ -1048,7 +1058,7 @@ export default {
 	grid-template-columns: 165px 75px;
 	align-items: center;
 	justify-content: flex-start;
-	z-index: 2;
+	z-index: 1;
 
 	& span {
 		text-overflow: ellipsis;
@@ -1073,11 +1083,11 @@ export default {
 		top: calc(50% - var(--default-clickable-area) / 2);
 
 		&__previous {
-			inset-inline-start: calc(var(--default-grid-baseline) * 2);
+			left: calc(var(--default-grid-baseline) * 2);
 		}
 
 		&__next {
-			inset-inline-end: calc(var(--default-grid-baseline) * 2);
+			right: calc(var(--default-grid-baseline) * 2);
 		}
 	}
 
@@ -1086,11 +1096,11 @@ export default {
 		top: calc(var(--navigation-position) + var(--grid-gap));
 
 		&__previous {
-			inset-inline-start: var(--navigation-position);
+			left: var(--navigation-position);
 		}
 
 		&__next {
-			inset-inline-end: calc(var(--navigation-position) + var(--grid-gap));
+			right: calc(var(--navigation-position) + var(--grid-gap));
 		}
 	}
 }
@@ -1098,7 +1108,7 @@ export default {
 .stripe--collapse {
 	position: absolute !important;
 	top: calc(-1 * (var(--default-clickable-area) + var(--navigation-position) / 2));
-	inset-inline-end: calc(var(--navigation-position) / 2) ;
+	right: calc(var(--navigation-position) / 2) ;
 }
 
 .stripe--collapse,

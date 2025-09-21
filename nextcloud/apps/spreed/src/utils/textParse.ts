@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { ChatMessage, Mention } from '../types/index.ts'
-
 import { getBaseUrl } from '@nextcloud/router'
-import { decodeHTML } from 'entities'
-import { MENTION } from '../constants.ts'
+
+import { MENTION } from '../constants.js'
+import type { ChatMessage, Mention } from '../types'
 
 /**
  * Parse message text to return proper formatting for mentions
@@ -16,35 +15,28 @@ import { MENTION } from '../constants.ts'
  * @param parameters The parameters that contain the mentions
  */
 function parseMentions(text: string, parameters: ChatMessage['messageParameters']): string {
-	for (const key of Object.keys(Object(parameters)).filter((key) => key.startsWith('mention'))) {
+	for (const key of Object.keys(Object(parameters)).filter(key => key.startsWith('mention'))) {
 		const value: Mention = parameters[key] as Mention
 		let mention = ''
 
-		if (value['mention-id']) {
-			mention = `@"${value['mention-id']}"`
-		} else if (key.startsWith('mention-call') && value.type === MENTION.TYPE.CALL) {
+		if (key.startsWith('mention-call') && value.type === MENTION.TYPE.CALL) {
 			mention = '@all'
 		} else if (key.startsWith('mention-federated-user')
 			&& [MENTION.TYPE.USER, MENTION.TYPE.FEDERATED_USER].includes(value.type)) {
-			mention = `@"federated_user/${value.id}@${(value?.server ?? getBaseUrl()).replace('https://', '')}"`
+			const server = (value?.server ?? getBaseUrl()).replace('https://', '')
+			mention = `@"federated_user/${value.id}@${server}"`
 		} else if (key.startsWith('mention-group')
 			&& [MENTION.TYPE.USERGROUP, MENTION.TYPE.GROUP].includes(value.type)) {
 			mention = `@"group/${value.id}"`
-		} else if (key.startsWith('mention-team')
-			&& [MENTION.TYPE.CIRCLE, MENTION.TYPE.TEAM].includes(value.type)) {
-			mention = `@"team/${value.id}"`
 		} else if (key.startsWith('mention-guest') && value.type === MENTION.TYPE.GUEST) {
-			// id and mention-id are both prefixed with "guest/"
 			mention = `@"${value.id}"`
 		} else if (key.startsWith('mention-email') && value.type === MENTION.TYPE.EMAIL) {
 			mention = `@"email/${value.id}"`
 		} else if (key.startsWith('mention-user') && value.type === MENTION.TYPE.USER) {
-			mention = `@"${value.id}"`
+			mention = value.id.includes(' ') ? `@"${value.id}"` : `@${value.id}`
 		}
 
 		if (mention) {
-			// It's server-side value, we can skip the security check
-			// nosemgrep
 			text = text.replace(new RegExp(`{${key}}`, 'g'), mention)
 		}
 	}
@@ -58,12 +50,16 @@ function parseMentions(text: string, parameters: ChatMessage['messageParameters'
  * @param text The string to parse
  */
 function parseSpecialSymbols(text: string): string {
-	return decodeHTML(text) // decode HTML entities
+	const temp = document.createElement('textarea')
+	temp.innerHTML = text.replace(/&/gmi, '&amp;')
+	text = temp.value.replace(/&amp;/gmi, '&').replace(/&lt;/gmi, '<')
+		.replace(/&gt;/gmi, '>').replace(/&sect;/gmi, '§')
 		.replace(/^\s+|\s+$/g, '') // remove trailing and leading whitespaces
 		.replace(/\r\n|\n|\r/gm, '\n') // remove line breaks
+	return text
 }
 
 export {
-	parseMentions,
 	parseSpecialSymbols,
+	parseMentions,
 }

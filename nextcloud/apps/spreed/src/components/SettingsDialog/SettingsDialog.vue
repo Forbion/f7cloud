@@ -56,19 +56,6 @@
 					@close="showFilePicker = false" />
 			</div>
 		</NcAppSettingsSection>
-		<NcAppSettingsSection v-if="!isGuest && supportConversationsListStyle"
-			id="talk_appearance"
-			:name="t('spreed', 'Appearance')"
-			class="app-settings-section">
-			<NcCheckboxRadioSwitch id="conversations_list_style"
-				:model-value="conversationsListStyle"
-				:disabled="appearanceLoading"
-				type="switch"
-				class="checkbox"
-				@update:modelValue="toggleConversationsListStyle">
-				{{ t('spreed', 'Show conversations list in compact mode') }}
-			</NcCheckboxRadioSwitch>
-		</NcAppSettingsSection>
 		<NcAppSettingsSection v-if="!isGuest"
 			id="privacy"
 			:name="t('spreed', 'Privacy')"
@@ -203,49 +190,39 @@
 						{{ t('spreed', 'Raise or lower hand') }}
 					</dd>
 				</div>
-				<div>
-					<dt><kbd>{{ t('spreed', 'Mouse wheel') }}</kbd></dt>
-					<dd class="shortcut-description">
-						{{ t('spreed', 'Zoom-in / zoom-out a screen share') }}
-					</dd>
-				</div>
 			</dl>
 		</NcAppSettingsSection>
-
-		<!-- Information about current version used. Talk Desktop has this in 'About' window -->
-		<p
-			v-if="!IS_DESKTOP"
-			class="app-settings-section__version">
-			{{ t('spreed', 'Talk version: {version}', { version: talkVersion }) }}
-		</p>
 	</NcAppSettingsDialog>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { FilePickerVue } from '@nextcloud/dialogs/filepicker.js'
 import { emit, subscribe, unsubscribe } from '@nextcloud/event-bus'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { generateUrl } from '@nextcloud/router'
-import { ref } from 'vue'
-import NcAppSettingsDialog from '@nextcloud/vue/components/NcAppSettingsDialog'
-import NcAppSettingsSection from '@nextcloud/vue/components/NcAppSettingsSection'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+
+import NcAppSettingsDialog from '@nextcloud/vue/dist/Components/NcAppSettingsDialog.js'
+import NcAppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+
 import MediaDevicesPreview from './MediaDevicesPreview.vue'
-import { CONVERSATION, PRIVACY } from '../../constants.ts'
+
+import { PRIVACY } from '../../constants.js'
 import BrowserStorage from '../../services/BrowserStorage.js'
-import { getTalkConfig, getTalkVersion } from '../../services/CapabilitiesManager.ts'
+import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
 import { useCustomSettings } from '../../services/SettingsAPI.ts'
-import { setUserConfig } from '../../services/settingsService.ts'
+import { setUserConfig } from '../../services/settingsService.js'
 import { useSettingsStore } from '../../stores/settings.js'
 import { useSoundsStore } from '../../stores/sounds.js'
 import { isMac } from '../../utils/browserCheck.ts'
 import { satisfyVersion } from '../../utils/satisfyVersion.ts'
 
 const serverVersion = loadState('core', 'config', {}).version ?? '29.0.0.0'
-const talkVersion = getTalkVersion()
 const serverSupportsBackgroundBlurred = satisfyVersion(serverVersion, '29.0.4.0')
 
 const isBackgroundBlurredState = serverSupportsBackgroundBlurred
@@ -253,8 +230,6 @@ const isBackgroundBlurredState = serverSupportsBackgroundBlurred
 	: BrowserStorage.getItem('background-blurred') // 'true', 'false', null
 const supportTypingStatus = getTalkConfig('local', 'chat', 'typing-privacy') !== undefined
 const supportStartWithoutMedia = getTalkConfig('local', 'call', 'start-without-media') !== undefined
-const supportConversationsListStyle = getTalkConfig('local', 'conversations', 'list-style') !== undefined
-
 export default {
 	name: 'SettingsDialog',
 
@@ -275,8 +250,6 @@ export default {
 		const CmdOrCtrl = isMac ? 'Cmd' : 'Ctrl'
 
 		return {
-			IS_DESKTOP,
-			talkVersion,
 			CmdOrCtrl,
 			settingsStore,
 			soundsStore,
@@ -285,7 +258,6 @@ export default {
 			serverSupportsBackgroundBlurred,
 			customSettingsSections,
 			supportStartWithoutMedia,
-			supportConversationsListStyle,
 		}
 	},
 
@@ -294,7 +266,6 @@ export default {
 			showSettings: false,
 			showFilePicker: false,
 			attachmentFolderLoading: true,
-			appearanceLoading: false,
 			privacyLoading: false,
 			playSoundsLoading: false,
 			mediaLoading: false,
@@ -330,10 +301,6 @@ export default {
 			return this.settingsStore.startWithoutMedia
 		},
 
-		conversationsListStyle() {
-			return this.settingsStore.conversationsListStyle !== CONVERSATION.LIST_STYLE.TWO_LINES
-		},
-
 		settingsUrl() {
 			return generateUrl('/settings/user/notifications')
 		},
@@ -350,7 +317,7 @@ export default {
 			return [{
 				label: t('spreed', 'Choose'),
 				callback: (nodes) => this.selectAttachmentFolder(nodes),
-				type: 'primary',
+				type: 'primary'
 			}]
 		},
 	},
@@ -400,7 +367,9 @@ export default {
 		async toggleReadStatusPrivacy() {
 			this.privacyLoading = true
 			try {
-				await this.settingsStore.updateReadStatusPrivacy(this.readStatusPrivacyIsPublic ? PRIVACY.PRIVATE : PRIVACY.PUBLIC)
+				await this.settingsStore.updateReadStatusPrivacy(
+					this.readStatusPrivacyIsPublic ? PRIVACY.PRIVATE : PRIVACY.PUBLIC
+				)
 				showSuccess(t('spreed', 'Your privacy setting has been saved'))
 			} catch (exception) {
 				showError(t('spreed', 'Error while setting read status privacy'))
@@ -411,23 +380,14 @@ export default {
 		async toggleTypingStatusPrivacy() {
 			this.privacyLoading = true
 			try {
-				await this.settingsStore.updateTypingStatusPrivacy(this.typingStatusPrivacyIsPublic ? PRIVACY.PRIVATE : PRIVACY.PUBLIC)
+				await this.settingsStore.updateTypingStatusPrivacy(
+					this.typingStatusPrivacyIsPublic ? PRIVACY.PRIVATE : PRIVACY.PUBLIC
+				)
 				showSuccess(t('spreed', 'Your privacy setting has been saved'))
 			} catch (exception) {
 				showError(t('spreed', 'Error while setting typing status privacy'))
 			}
 			this.privacyLoading = false
-		},
-
-		async toggleConversationsListStyle(value) {
-			this.appearanceLoading = true
-			try {
-				await this.settingsStore.setConversationsListStyle(value ? CONVERSATION.LIST_STYLE.COMPACT : CONVERSATION.LIST_STYLE.TWO_LINES)
-				showSuccess(t('spreed', 'Your personal setting has been saved'))
-			} catch (exception) {
-				showError(t('spreed', 'Error while setting personal setting'))
-			}
-			this.appearanceLoading = false
 		},
 
 		/**
@@ -496,12 +456,6 @@ export default {
 	&__hint {
 		color: var(--color-text-maxcontrast);
 		padding: 8px 0;
-	}
-
-	&__version {
-		margin-block-end: calc(2 * var(--default-grid-baseline));
-		text-align: center;
-		color: var(--color-text-maxcontrast);
 	}
 
 	&__wrapper {

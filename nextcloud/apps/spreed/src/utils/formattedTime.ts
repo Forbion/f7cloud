@@ -2,19 +2,7 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { n, t } from '@nextcloud/l10n'
-
-const ONE_HOUR_IN_MS = 3600000
-const ONE_DAY_IN_MS = 86400000
-
-/**
- * Converts the given time to UNIX timestamp
- *
- * @param time given time in ms or Date object
- */
-function convertToUnix(time: number | Date): number {
-	return Math.floor(+time / 1000)
-}
+import { t, n } from '@nextcloud/l10n'
 
 /**
  * Calculates the stopwatch string given the time (ms)
@@ -27,16 +15,15 @@ function formattedTime(time: number, condensed: boolean = false): string {
 		return condensed ? '--:--' : '-- : --'
 	}
 
-	const timeInSec = convertToUnix(time)
-	const seconds = timeInSec % 60
-	const minutes = Math.floor(timeInSec / 60) % 60
-	const hours = Math.floor(timeInSec / 3600) % 24
+	const seconds = Math.floor((time / 1000) % 60)
+	const minutes = Math.floor((time / (1000 * 60)) % 60)
+	const hours = Math.floor((time / (1000 * 60 * 60)) % 24)
 
 	return [
 		hours,
 		minutes.toString().padStart(2, '0'),
 		seconds.toString().padStart(2, '0'),
-	].filter((num) => !!num).join(condensed ? ':' : ' : ')
+	].filter(num => !!num).join(condensed ? ':' : ' : ')
 }
 
 /**
@@ -46,13 +33,8 @@ function formattedTime(time: number, condensed: boolean = false): string {
  */
 function futureRelativeTime(time: number): string {
 	const diff = time - Date.now()
-	// If the time is in the past, return an empty string
-	if (diff <= 0) {
-		return ''
-	}
-
-	const hours = Math.floor(diff / ONE_HOUR_IN_MS)
-	const minutes = Math.ceil((diff - hours * ONE_HOUR_IN_MS) / (60 * 1000))
+	const hours = Math.floor(diff / (60 * 60 * 1000))
+	const minutes = Math.floor((diff - hours * 60 * 60 * 1000) / (60 * 1000))
 	if (hours >= 1) {
 		if (minutes === 0) {
 			// TRANSLATORS: hint for the time when the meeting starts (only hours)
@@ -71,9 +53,6 @@ function futureRelativeTime(time: number): string {
 }
 
 export {
-	convertToUnix,
 	formattedTime,
 	futureRelativeTime,
-	ONE_DAY_IN_MS,
-	ONE_HOUR_IN_MS,
 }

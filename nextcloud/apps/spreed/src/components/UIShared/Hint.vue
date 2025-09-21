@@ -30,6 +30,6 @@ export default {
 		box-shadow: none !important;
 		user-select: none;
 		pointer-events: none;
-		padding-inline-start: 10px;
+		padding-left: 10px;
 	}
 </style>

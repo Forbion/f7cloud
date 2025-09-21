@@ -44,7 +44,6 @@
 		<NcButton v-if="showControls"
 			size="small"
 			:title="t('spreed', 'Show all reactions')"
-			:aria-label="t('spreed', 'Show all reactions')"
 			@click="showAllReactions = true">
 			<HeartOutlineIcon :size="15" />
 		</NcButton>
@@ -76,16 +75,20 @@
 </template>
 
 <script>
-import { showError } from '@nextcloud/dialogs'
-import { n, t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmojiPicker from '@nextcloud/vue/components/NcEmojiPicker'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcPopover from '@nextcloud/vue/components/NcPopover'
 import EmoticonPlusOutline from 'vue-material-design-icons/EmoticonPlusOutline.vue'
 import HeartOutlineIcon from 'vue-material-design-icons/HeartOutline.vue'
+
+import { showError } from '@nextcloud/dialogs'
+import { t, n } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmojiPicker from '@nextcloud/vue/dist/Components/NcEmojiPicker.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcPopover from '@nextcloud/vue/dist/Components/NcPopover.js'
+
 import ReactionsList from './ReactionsList.vue'
-import { ATTENDEE } from '../../../../../constants.ts'
+
+import { ATTENDEE } from '../../../../../constants.js'
 import { useGuestNameStore } from '../../../../../stores/guestName.js'
 import { useReactionsStore } from '../../../../../stores/reactions.js'
 import { getDisplayNameWithFallback } from '../../../../../utils/getDisplayName.ts'
@@ -108,7 +111,6 @@ export default {
 			type: String,
 			required: true,
 		},
-
 		/**
 		 * Whether the current user can react to the message.
 		 */
@@ -116,7 +118,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-
 		/**
 		 * The message id.
 		 */
@@ -139,7 +140,7 @@ export default {
 		return {
 			guestNameStore,
 			reactionsStore,
-		}
+		 }
 	},
 
 	data() {
@@ -180,11 +181,13 @@ export default {
 		 * Compare the plain reactions with the simplified detailed reactions.
 		 */
 		hasOutdatedDetails() {
-			const detailedReactionsSimplified = Object.fromEntries(Object.entries(this.detailedReactions)
-				.sort() // Plain reactions come sorted
-				.map(([key, value]) => [key, value.length]))
+			const detailedReactionsSimplified = Object.fromEntries(
+				Object.entries(this.detailedReactions)
+					.sort() // Plain reactions come sorted
+					.map(([key, value]) => [key, value.length])
+			)
 			return this.hasReactionsLoaded
-				&& JSON.stringify(this.plainReactions) !== JSON.stringify(detailedReactionsSimplified)
+					&& JSON.stringify(this.plainReactions) !== JSON.stringify(detailedReactionsSimplified)
 		},
 	},
 
@@ -270,14 +273,14 @@ export default {
 			}
 			return n('spreed', 'and %n other participant', 'and %n other participants', this.reactionsCount(reaction) - 3)
 		},
-	},
+	}
 }
 </script>
-
 <style lang="scss" scoped>
 .reactions-wrapper {
 	--minimal-button-width: 48px;
 	--font-family-emoji: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Segoe UI', 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'EmojiOne Color', 'Android Emoji';
+
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--default-grid-baseline);

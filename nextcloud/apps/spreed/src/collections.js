@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { getCSPNonce } from '@nextcloud/auth'
 import { t } from '@nextcloud/l10n'
+
 import { requestRoomSelection } from './utils/requestRoomSelection.js'
 
-__webpack_nonce__ = getCSPNonce()
+// eslint-disable-next-line
+__webpack_nonce__ = btoa(OC.requestToken)
 // eslint-disable-next-line
 __webpack_public_path__ = OC.linkTo('spreed', 'js/')
 

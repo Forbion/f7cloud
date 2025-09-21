@@ -4,16 +4,7 @@
  */
 
 import Axios from '@nextcloud/axios'
-import { PARTICIPANT, PRIVACY, VIRTUAL_BACKGROUND } from '../../constants.ts'
-import BrowserStorage from '../../services/BrowserStorage.js'
-import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
-import { fetchSignalingSettings } from '../../services/signalingService.js'
-import store from '../../store/index.js'
-import { isSafari } from '../browserCheck.ts'
-import CancelableRequest from '../cancelableRequest.js'
-import Encryption from '../e2ee/encryption.js'
-import Signaling from '../signaling.js'
-import SignalingTypingHandler from '../SignalingTypingHandler.js'
+
 import CallAnalyzer from './analyzers/CallAnalyzer.js'
 import CallParticipantsAudioPlayer from './CallParticipantsAudioPlayer.js'
 import MediaDevicesManager from './MediaDevicesManager.js'
@@ -21,11 +12,19 @@ import CallParticipantCollection from './models/CallParticipantCollection.js'
 import LocalCallParticipantModel from './models/LocalCallParticipantModel.js'
 import LocalMediaModel from './models/LocalMediaModel.js'
 import SentVideoQualityThrottler from './SentVideoQualityThrottler.js'
-import SpeakingStatusHandler from './SpeakingStatusHandler.js'
-import initWebRtc from './webrtc.js'
-
 import './shims/MediaStream.js'
 import './shims/MediaStreamTrack.js'
+import SpeakingStatusHandler from './SpeakingStatusHandler.js'
+import initWebRtc from './webrtc.js'
+import { PARTICIPANT, PRIVACY, VIRTUAL_BACKGROUND } from '../../constants.js'
+import BrowserStorage from '../../services/BrowserStorage.js'
+import { getTalkConfig } from '../../services/CapabilitiesManager.ts'
+import { fetchSignalingSettings } from '../../services/signalingService.js'
+import store from '../../store'
+import { isSafari } from '../browserCheck.ts'
+import CancelableRequest from '../cancelableRequest.js'
+import Signaling from '../signaling.js'
+import SignalingTypingHandler from '../SignalingTypingHandler.js'
 
 let webRtc = null
 const callParticipantCollection = new CallParticipantCollection()
@@ -45,8 +44,6 @@ const signalingTypingHandler = enableTypingIndicators ? new SignalingTypingHandl
 let cancelFetchSignalingSettings = null
 let signaling = null
 let tokensInSignaling = {}
-/** @type {Encryption} */
-let encryption = null
 
 /**
  * @param {string} token The token of the conversation to get the signaling settings for
@@ -115,10 +112,6 @@ async function connectSignaling(token) {
 		}
 		signaling.disconnect()
 		signaling = null
-		if (encryption) {
-			encryption.close()
-			encryption = null
-		}
 
 		tokensInSignaling = {}
 	}
@@ -132,26 +125,6 @@ async function connectSignaling(token) {
 		})
 
 		signalingTypingHandler?.setSignaling(signaling)
-
-		if (encryption) {
-			encryption.close()
-			encryption = null
-		}
-
-		if (Encryption.isEnabled()) {
-			let supported
-			try {
-				supported = await Encryption.isSupported()
-			} catch (e) {
-				console.error('Encryption is not supported', e)
-			}
-			if (supported) {
-				encryption = new Encryption(signaling)
-				if (webRtc) {
-					encryption.setWebRtc(webRtc)
-				}
-			}
-		}
 	} else {
 		signaling.setSettings(settings)
 	}
@@ -168,10 +141,9 @@ let failedToStartCall = null
  * @param {object} configuration Media to connect with
  * @param {boolean} silent Whether the call should trigger a notifications and
  * sound for other participants or not
- * @param {boolean} recordingConsent Whether the participant gave their consent to be recorded
- * @param {Array<string>} silentFor List of participants that should not receive a notification about the call
+ * @param {boolean} recordingConsent Whether the participant gave his consent to be recorded
  */
-function startCall(signaling, configuration, silent, recordingConsent, silentFor) {
+function startCall(signaling, configuration, silent, recordingConsent) {
 	let flags = PARTICIPANT.CALL_FLAG.IN_CALL
 	if (configuration) {
 		if (configuration.audio) {
@@ -182,9 +154,9 @@ function startCall(signaling, configuration, silent, recordingConsent, silentFor
 		}
 	}
 
-	signaling.joinCall(pendingJoinCallToken, flags, silent, recordingConsent, silentFor).then(() => {
+	signaling.joinCall(pendingJoinCallToken, flags, silent, recordingConsent).then(() => {
 		startedCall(flags)
-	}).catch((error) => {
+	}).catch(error => {
 		signalingLeaveCall(pendingJoinCallToken)
 		failedToStartCall(error)
 	})
@@ -199,13 +171,10 @@ function setupWebRtc() {
 	}
 
 	webRtc = initWebRtc(signaling, callParticipantCollection, localCallParticipantModel)
-	if (encryption) {
-		encryption.setWebRtc(webRtc)
-	}
 	localCallParticipantModel.setWebRtc(webRtc)
 	localMediaModel.setWebRtc(webRtc)
 
-	signaling.on('sessionId', (sessionId) => {
+	signaling.on('sessionId', sessionId => {
 		localCallParticipantModel.setPeerId(sessionId)
 	})
 }
@@ -231,12 +200,11 @@ async function signalingJoinConversation(token, sessionId) {
  * @param {number} flags Bitwise combination of PARTICIPANT.CALL_FLAG
  * @param {boolean} silent Whether the call should trigger a notifications and
  * sound for other participants or not
- * @param {boolean} recordingConsent Whether the participant gave their consent to be recorded
- * @param {Array<string>} silentFor List of participants that should not receive a notification about the call
+ * @param {boolean} recordingConsent Whether the participant gave his consent to be recorded
  * @return {Promise<void>} Resolved with the actual flags based on the
  *          available media
  */
-async function signalingJoinCall(token, flags, silent, recordingConsent, silentFor) {
+async function signalingJoinCall(token, flags, silent, recordingConsent) {
 	if (tokensInSignaling[token]) {
 		pendingJoinCallToken = token
 
@@ -298,13 +266,13 @@ async function signalingJoinCall(token, flags, silent, recordingConsent, silentF
 				webRtc.off('localMediaStarted', startCallOnceLocalMediaStarted)
 				webRtc.off('localMediaError', startCallOnceLocalMediaError)
 
-				startCall(_signaling, configuration, silent, recordingConsent, silentFor)
+				startCall(_signaling, configuration, silent, recordingConsent)
 			}
 			const startCallOnceLocalMediaError = () => {
 				webRtc.off('localMediaStarted', startCallOnceLocalMediaStarted)
 				webRtc.off('localMediaError', startCallOnceLocalMediaError)
 
-				startCall(_signaling, null, silent, recordingConsent, silentFor)
+				startCall(_signaling, null, silent, recordingConsent)
 			}
 
 			// ".once" can not be used, as both handlers need to be removed when
@@ -514,19 +482,21 @@ function signalingSetTyping(typing) {
 }
 
 export {
-	callAnalyzer,
 	callParticipantCollection,
-	callParticipantsAudioPlayer,
 	localCallParticipantModel,
 	localMediaModel,
+
 	mediaDevicesManager,
+
+	callAnalyzer,
+
 	signalingGetSettingsForRecording,
+	signalingJoinConversation,
 	signalingJoinCall,
 	signalingJoinCallForRecording,
-	signalingJoinConversation,
-	signalingKill,
 	signalingLeaveCall,
 	signalingLeaveConversation,
+	signalingKill,
 	signalingSendCallMessage,
 	signalingSetTyping,
 }

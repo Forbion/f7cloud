@@ -5,9 +5,10 @@
  */
 
 import { computed } from 'vue'
-import { ATTENDEE, PARTICIPANT } from '../constants.ts'
-import { isDoNotDisturb } from '../utils/userStatus.ts'
+
 import { useStore } from './useStore.js'
+import { ATTENDEE, PARTICIPANT } from '../constants.js'
+import { isDoNotDisturb } from '../utils/userStatus.ts'
 
 const MODERATOR_TYPES = [PARTICIPANT.TYPE.OWNER, PARTICIPANT.TYPE.MODERATOR, PARTICIPANT.TYPE.GUEST_MODERATOR]
 

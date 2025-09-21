@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+
 import type {
 	closePollResponse,
 	createPollDraftResponse,
@@ -11,17 +14,11 @@ import type {
 	deletePollDraftResponse,
 	getPollDraftsResponse,
 	getPollResponse,
-	updatePollDraftParams,
-	updatePollDraftResponse,
 	votePollParams,
 	votePollResponse,
-} from '../types/index.ts'
-
-import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
+} from '../types'
 
 type createPollPayload = { token: string } & createPollParams
-type updatePollDraftPayload = { token: string, pollId: number } & updatePollDraftParams
 
 /**
  * @param payload The payload
@@ -57,24 +54,6 @@ const createPollDraft = async ({ token, question, options, resultMode, maxVotes 
 		maxVotes,
 		draft: true,
 	} as createPollParams)
-}
-
-/**
- * @param payload The payload
- * @param payload.token The conversation token
- * @param payload.pollId The id of poll draft
- * @param payload.question The question of the poll
- * @param payload.options The options participants can vote for
- * @param payload.resultMode Result mode of the poll (0 - always visible | 1 - hidden until the poll is closed)
- * @param payload.maxVotes Maximum amount of options a user can vote for (0 - unlimited | 1 - single answer)
- */
-const updatePollDraft = async ({ token, pollId, question, options, resultMode, maxVotes }: updatePollDraftPayload): updatePollDraftResponse => {
-	return axios.post(generateOcsUrl('apps/spreed/api/v1/poll/{token}/draft/{pollId}', { token, pollId }), {
-		question,
-		options,
-		resultMode,
-		maxVotes,
-	} as updatePollDraftParams)
 }
 
 /**
@@ -121,10 +100,9 @@ const deletePollDraft = async (token: string, pollId: string): deletePollDraftRe
 export {
 	createPoll,
 	createPollDraft,
-	deletePollDraft,
-	endPoll,
-	getPollData,
 	getPollDrafts,
+	getPollData,
 	submitVote,
-	updatePollDraft,
+	endPoll,
+	deletePollDraft,
 }

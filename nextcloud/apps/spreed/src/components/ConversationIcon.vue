@@ -5,8 +5,8 @@
 
 <template>
 	<div class="conversation-icon"
-		:style="{ '--icon-size': `${size}px` }"
-		:class="[themeClass, { offline: offline }]">
+		:style="{'--icon-size': `${size}px`}"
+		:class="[themeClass, {'offline': offline}]">
 		<template v-if="!isOneToOne">
 			<div v-if="iconClass"
 				class="avatar icon"
@@ -38,33 +38,36 @@
 			:disable-menu="disableMenu"
 			:display-name="item.displayName"
 			:preloaded-user-status="preloadedUserStatus"
-			:hide-status="hideUserStatus"
-			:verbose-status="showUserOnlineStatus"
+			:show-user-status="!hideUserStatus"
+			:show-user-status-compact="!showUserOnlineStatus"
 			class="conversation-icon__avatar" />
 		<div v-if="showCall" class="overlap-icon">
-			<IconVideo :size="20" fill-color="#E9322D" />
+			<IconVideo :size="20" :fill-color="'#E9322D'" />
 			<span class="hidden-visually">{{ t('spreed', 'Call in progress') }}</span>
 		</div>
 		<div v-else-if="showFavorite" class="overlap-icon">
-			<IconStar :size="20" fill-color="#FFCC00" />
+			<IconStar :size="20" :fill-color="'#FFCC00'" />
 			<span class="hidden-visually">{{ t('spreed', 'Favorite') }}</span>
 		</div>
 	</div>
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import { useIsDarkTheme } from '@nextcloud/vue/composables/useIsDarkTheme'
 import { ref } from 'vue'
-import NcAvatar from '@nextcloud/vue/components/NcAvatar'
+
 import IconLink from 'vue-material-design-icons/Link.vue'
 import IconStar from 'vue-material-design-icons/Star.vue'
 import IconVideo from 'vue-material-design-icons/Video.vue'
 import IconWeb from 'vue-material-design-icons/Web.vue'
-import { AVATAR, CONVERSATION } from '../constants.ts'
+
+import { t } from '@nextcloud/l10n'
+
+import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
+import { useIsDarkTheme } from '@nextcloud/vue/dist/Composables/useIsDarkTheme.js'
+
+import { AVATAR, CONVERSATION } from '../constants.js'
 import { getConversationAvatarOcsUrl } from '../services/avatarService.ts'
 import { hasTalkFeature } from '../services/CapabilitiesManager.ts'
-import { getFallbackIconClass } from '../utils/conversation.ts'
 import { getPreloadedUserStatus } from '../utils/userStatus.ts'
 
 const supportsAvatar = hasTalkFeature('local', 'avatar')
@@ -170,7 +173,52 @@ export default {
 		},
 
 		iconClass() {
-			return getFallbackIconClass(this.item, this.failed)
+			if (this.item.isDummyConversation) {
+				// Prevent a 404 when trying to load an avatar before the conversation data is actually loaded
+				return this.item.type === CONVERSATION.TYPE.PUBLIC ? 'icon-public' : 'icon-contacts'
+			}
+
+			if (!supportsAvatar || this.failed) {
+				if (this.item.objectType === CONVERSATION.OBJECT_TYPE.FILE
+					|| this.item.type === CONVERSATION.TYPE.NOTE_TO_SELF) {
+					return 'icon-file'
+				} else if (this.item.objectType === CONVERSATION.OBJECT_TYPE.VIDEO_VERIFICATION) {
+					return 'icon-password'
+				} else if (this.item.objectType === CONVERSATION.OBJECT_TYPE.EMAIL) {
+					return 'icon-mail'
+				} else if (this.item.objectType === CONVERSATION.OBJECT_TYPE.PHONE) {
+					return 'icon-phone'
+				} else if (this.item.objectType === CONVERSATION.OBJECT_TYPE.CIRCLES) {
+					return 'icon-team'
+				} else if (this.item.type === CONVERSATION.TYPE.CHANGELOG) {
+					return 'icon-changelog'
+				} else if (this.item.type === CONVERSATION.TYPE.ONE_TO_ONE_FORMER) {
+					return 'icon-user'
+				} else if (this.item.type === CONVERSATION.TYPE.GROUP) {
+					return 'icon-contacts'
+				} else if (this.item.type === CONVERSATION.TYPE.PUBLIC) {
+					return 'icon-public'
+				}
+				return undefined
+			}
+
+			if (this.item.token) {
+				// Existing conversations use the /avatar endpoint… Always!
+				return undefined
+			}
+
+			if (this.item.objectType === CONVERSATION.OBJECT_TYPE.CIRCLES) {
+				// Team icon for group conversation suggestions
+				return 'icon-team'
+			}
+
+			if (this.item.type === CONVERSATION.TYPE.GROUP) {
+				// Group icon for group conversation suggestions
+				return 'icon-contacts'
+			}
+
+			// Fall-through for other conversation suggestions to user-avatar handling
+			return undefined
 		},
 
 		themeClass() {
@@ -234,7 +282,7 @@ export default {
 
 	&__type {
 		position: absolute;
-		inset-inline-end: -2px;
+		right: -2px;
 		bottom: -2px;
 		display: flex;
 		align-content: center;
@@ -250,7 +298,7 @@ export default {
 	.overlap-icon {
 		position: absolute;
 		top: 0;
-		inset-inline-start: calc(var(--icon-size) - 12px);
+		left: calc(var(--icon-size) - 12px);
 		line-height: 100%;
 		display: inline-block;
 		vertical-align: middle;

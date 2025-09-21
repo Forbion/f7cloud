@@ -7,7 +7,7 @@
 	<NcPopover class="poll-voters-details" trigger="hover">
 		<template #trigger>
 			<NcButton type="tertiary-no-background"
-				:aria-label="t('spreed', 'Voted participants')"
+				:aria-label="t('spreed','Voted participants')"
 				class="poll-voters-details__button">
 				<template #icon>
 					<AvatarWrapper v-for="(item, index) in details.slice(0, 8)"
@@ -43,10 +43,13 @@
 
 <script>
 import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcPopover from '@nextcloud/vue/components/NcPopover'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcPopover from '@nextcloud/vue/dist/Components/NcPopover.js'
+
 import AvatarWrapper from '../AvatarWrapper/AvatarWrapper.vue'
-import { AVATAR } from '../../constants.ts'
+
+import { AVATAR } from '../../constants.js'
 import { getDisplayNameWithFallback } from '../../utils/getDisplayName.ts'
 
 export default {
@@ -88,7 +91,7 @@ export default {
 
 .poll-voters-details {
 	max-width: 30%;
-	margin-inline-end: 8px;
+	margin-right: 8px;
 
 	& &__button,
 	&__button :deep(.button-vue__icon) {
@@ -109,8 +112,8 @@ export default {
 	}
 
 	&__display-name {
-		margin-inline-start: 4px;
-	}
+			margin-left: 4px;
+		}
 
 	&__list-item {
 		display: flex;

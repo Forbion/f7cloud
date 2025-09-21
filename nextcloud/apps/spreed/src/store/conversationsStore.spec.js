@@ -1,4 +1,3 @@
-import { emit } from '@nextcloud/event-bus'
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -8,36 +7,39 @@ import flushPromises from 'flush-promises'
 import { cloneDeep } from 'lodash'
 import { createPinia, setActivePinia } from 'pinia'
 import Vuex from 'vuex'
+
+import { emit } from '@nextcloud/event-bus'
+
+import storeConfig from './storeConfig.js'
 import {
-	ATTENDEE,
 	CONVERSATION,
-	PARTICIPANT,
 	WEBINAR,
-} from '../constants.ts'
+	PARTICIPANT,
+	ATTENDEE,
+} from '../constants.js'
 import BrowserStorage from '../services/BrowserStorage.js'
 import {
+	makeConversationPublic,
+	makeConversationPrivate,
 	addToFavorites,
-	changeListable,
+	removeFromFavorites,
 	changeLobbyState,
 	changeReadOnlyState,
-	createConversation,
-	deleteConversation,
-	fetchConversation,
-	fetchConversations,
-	makeConversationPrivate,
-	makeConversationPublic,
-	removeFromFavorites,
-	setCallPermissions,
-	setConversationDescription,
+	changeListable,
+	createOneToOneConversation,
 	setConversationName,
-	setConversationPermissions,
+	setConversationDescription,
 	setNotificationLevel,
 	setSIPEnabled,
-} from '../services/conversationsService.ts'
-import { setConversationUnread, updateLastReadMessage } from '../services/messagesService.ts'
+	fetchConversation,
+	fetchConversations,
+	deleteConversation,
+	setConversationPermissions,
+	setCallPermissions,
+} from '../services/conversationsService.js'
+import { updateLastReadMessage, setConversationUnread } from '../services/messagesService.ts'
 import { useTalkHashStore } from '../stores/talkHash.js'
 import { generateOCSErrorResponse, generateOCSResponse } from '../test-helpers.js'
-import storeConfig from './storeConfig.js'
 
 jest.mock('../services/conversationsService', () => ({
 	makeConversationPublic: jest.fn(),
@@ -47,8 +49,7 @@ jest.mock('../services/conversationsService', () => ({
 	changeLobbyState: jest.fn(),
 	changeReadOnlyState: jest.fn(),
 	changeListable: jest.fn(),
-	createLegacyConversation: jest.fn(),
-	createConversation: jest.fn(),
+	createOneToOneConversation: jest.fn(),
 	setConversationName: jest.fn(),
 	setConversationDescription: jest.fn(),
 	setNotificationLevel: jest.fn(),
@@ -104,7 +105,6 @@ describe('conversationsStore', () => {
 			attendeeId: 'attendee-id-1',
 			actorType: ATTENDEE.ACTOR_TYPE.USERS,
 			actorId: 'actor-id',
-			permissions: PARTICIPANT.PERMISSIONS.CUSTOM,
 			defaultPermissions: PARTICIPANT.PERMISSIONS.CUSTOM,
 			callPermissions: PARTICIPANT.PERMISSIONS.CUSTOM,
 			lastMessage: { ...previousLastMessage },
@@ -160,7 +160,6 @@ describe('conversationsStore', () => {
 					inCall: PARTICIPANT.CALL_FLAG.DISCONNECTED,
 					lastPing: 600,
 					participantType: PARTICIPANT.TYPE.USER,
-					permissions: PARTICIPANT.PERMISSIONS.CUSTOM,
 					sessionIds: [
 						'session-id-1',
 					],
@@ -193,7 +192,6 @@ describe('conversationsStore', () => {
 					inCall: PARTICIPANT.CALL_FLAG.DISCONNECTED,
 					lastPing: 600,
 					participantType: PARTICIPANT.TYPE.USER,
-					permissions: PARTICIPANT.PERMISSIONS.CUSTOM,
 					sessionIds: [
 						'session-id-1',
 					],
@@ -233,7 +231,9 @@ describe('conversationsStore', () => {
 				},
 			]
 
-			BrowserStorage.getItem.mockReturnValueOnce('[{"token":"one_token","attendeeId":"attendee-id-1","lastActivity":1675209600},{"token":"another_token","attendeeId":"attendee-id-2","lastActivity":1672531200}]')
+			BrowserStorage.getItem.mockReturnValueOnce(
+				'[{"token":"one_token","attendeeId":"attendee-id-1","lastActivity":1675209600},{"token":"another_token","attendeeId":"attendee-id-2","lastActivity":1672531200}]'
+			)
 
 			await store.dispatch('restoreConversations')
 
@@ -286,7 +286,7 @@ describe('conversationsStore', () => {
 
 			await store.dispatch('fetchConversations', {})
 
-			expect(fetchConversations).toHaveBeenCalledWith({ modifiedSince: 0, includeStatus: 1, includeLastMessage: 1 })
+			expect(fetchConversations).toHaveBeenCalledWith({})
 			expect(store.getters.conversationsList).toStrictEqual(testConversations)
 		})
 
@@ -335,7 +335,7 @@ describe('conversationsStore', () => {
 
 			await store.dispatch('fetchConversations', { })
 
-			expect(fetchConversations).toHaveBeenCalledWith({ modifiedSince: 0, includeStatus: 1, includeLastMessage: 1 })
+			expect(fetchConversations).toHaveBeenCalledWith({ })
 			// conversationsList is actual to the response
 			expect(store.getters.conversationsList).toEqual([newConversation, oldConversation])
 			// Only old conversation with new activity should be actually replaced with new objects
@@ -531,7 +531,7 @@ describe('conversationsStore', () => {
 			expect(store.state.conversationsStore.conversations[oldConversations[1].token]).toStrictEqual(newConversations[1])
 		})
 
-		test('fetches all conversations and remove deleted conversations if without modifiedSince', async () => {
+		test('fetches all conversations and remove deleted conversations if without modiviedSince', async () => {
 			const testConversations = [
 				{
 					token: 'one_token',
@@ -555,7 +555,7 @@ describe('conversationsStore', () => {
 			store.dispatch('fetchConversations', { })
 			await flushPromises()
 
-			expect(fetchConversations).toHaveBeenCalledWith({ modifiedSince: 0, includeStatus: 1, includeLastMessage: 1 })
+			expect(fetchConversations).toHaveBeenCalledWith({})
 			expect(store.getters.conversationsList).toStrictEqual(testConversations)
 		})
 
@@ -596,7 +596,7 @@ describe('conversationsStore', () => {
 
 			await store.dispatch('fetchConversations', { modifiedSince })
 
-			expect(fetchConversations).toHaveBeenCalledWith({ modifiedSince, includeStatus: 1, includeLastMessage: 1 })
+			expect(fetchConversations).toHaveBeenCalledWith({ params: { modifiedSince } })
 			// conversations are actual to the response
 			expect(store.state.conversationsStore.conversations).toEqual({
 				[newConversation1.token]: newConversation1,
@@ -650,7 +650,7 @@ describe('conversationsStore', () => {
 				allowGuests: true,
 			})
 
-			expect(makeConversationPublic).toHaveBeenCalledWith(testToken, undefined)
+			expect(makeConversationPublic).toHaveBeenCalledWith(testToken)
 
 			const changedConversation = store.getters.conversation(testToken)
 			expect(changedConversation.type).toEqual(CONVERSATION.TYPE.PUBLIC)
@@ -715,14 +715,7 @@ describe('conversationsStore', () => {
 
 			store.dispatch('addConversation', testConversation)
 
-			const response = generateOCSResponse({
-				payload: {
-					...testConversation,
-					lobbyState: WEBINAR.LOBBY.NON_MODERATORS,
-					lobbyTimer: 0,
-				},
-			})
-			changeLobbyState.mockResolvedValue(response)
+			changeLobbyState.mockResolvedValue()
 
 			await store.dispatch('toggleLobby', {
 				token: testToken,
@@ -740,14 +733,7 @@ describe('conversationsStore', () => {
 
 			store.dispatch('addConversation', testConversation)
 
-			const response = generateOCSResponse({
-				payload: {
-					...testConversation,
-					lobbyState: WEBINAR.LOBBY.NONE,
-					lobbyTimer: 0,
-				},
-			})
-			changeLobbyState.mockResolvedValue(response)
+			changeLobbyState.mockResolvedValue()
 
 			await store.dispatch('toggleLobby', {
 				token: testToken,
@@ -856,14 +842,7 @@ describe('conversationsStore', () => {
 
 			store.dispatch('addConversation', testConversation)
 
-			const response = generateOCSResponse({
-				payload: {
-					...testConversation,
-					lobbyState: WEBINAR.LOBBY.NON_MODERATORS,
-					lobbyTimer: 2300400,
-				},
-			})
-			changeLobbyState.mockResolvedValue(response)
+			changeLobbyState.mockResolvedValue()
 
 			await store.dispatch('setLobbyTimer', {
 				token: testToken,
@@ -948,7 +927,7 @@ describe('conversationsStore', () => {
 					...testConversation,
 					unreadMessages: 0,
 					unreadMention: false,
-				},
+				}
 			})
 			updateLastReadMessage.mockResolvedValue(response)
 
@@ -998,7 +977,9 @@ describe('conversationsStore', () => {
 
 		test('updates last activity', () => {
 			const mockDate = new Date('2020-01-01')
-			jest.useFakeTimers().setSystemTime(mockDate)
+
+			jest.spyOn(global, 'Date')
+				.mockImplementation(() => mockDate)
 
 			testConversation.lastActivity = 1200300
 
@@ -1226,14 +1207,11 @@ describe('conversationsStore', () => {
 			}
 
 			const response = generateOCSResponse({ payload: newConversation })
-			createConversation.mockResolvedValueOnce(response)
+			createOneToOneConversation.mockResolvedValueOnce(response)
 
 			await store.dispatch('createOneToOneConversation', 'target-actor-id')
 
-			expect(createConversation).toHaveBeenCalledWith({
-				roomType: CONVERSATION.TYPE.ONE_TO_ONE,
-				participants: { users: ['target-actor-id'] },
-			})
+			expect(createOneToOneConversation).toHaveBeenCalledWith('target-actor-id')
 
 			const addedConversation = store.getters.conversation('new-token')
 			expect(addedConversation).toStrictEqual(newConversation)

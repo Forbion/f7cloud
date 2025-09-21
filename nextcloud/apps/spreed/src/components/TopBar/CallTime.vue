@@ -60,14 +60,17 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcPopover from '@nextcloud/vue/components/NcPopover'
 import IconRecordCircle from 'vue-material-design-icons/RecordCircle.vue'
 import IconStop from 'vue-material-design-icons/Stop.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcPopover from '@nextcloud/vue/dist/Components/NcPopover.js'
+
 import { useDocumentVisibility } from '../../composables/useDocumentVisibility.ts'
-import { CALL } from '../../constants.ts'
+import { CALL } from '../../constants.js'
 import { formattedTime } from '../../utils/formattedTime.ts'
 
 const ONE_HOUR_MS = 60 * 60 * 1000
@@ -198,6 +201,7 @@ export default {
 		},
 
 		showCallDurationHint() {
+
 			this.showPopover = true
 			this.isCallDurationHintShown = true
 
@@ -222,12 +226,10 @@ export default {
 .solid {
 	margin: 0;
 }
-
 .call-duration-hint {
 	display: flex;
 	padding: calc(var(--default-grid-baseline) * 2);
 }
-
 .call-time {
 	display: flex;
 	justify-content: center;

@@ -37,11 +37,13 @@
 </template>
 
 <script>
-import { t } from '@nextcloud/l10n'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
 import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import Delete from 'vue-material-design-icons/Delete.vue'
+
+import { t } from '@nextcloud/l10n'
+
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 
 export default {
 	name: 'StunServer',
@@ -59,13 +61,11 @@ export default {
 			default: '',
 			required: true,
 		},
-
 		index: {
 			type: Number,
 			default: -1,
 			required: true,
 		},
-
 		loading: {
 			type: Boolean,
 			default: false,
@@ -79,10 +79,9 @@ export default {
 			get() {
 				return this.server
 			},
-
 			set(value) {
 				this.$emit('update:server', value)
-			},
+			}
 		},
 
 		isValidServer() {

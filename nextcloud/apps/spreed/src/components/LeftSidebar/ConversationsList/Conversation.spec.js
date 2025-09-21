@@ -1,22 +1,27 @@
-import { showError, showSuccess } from '@nextcloud/dialogs'
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
+import { createLocalVue, shallowMount, mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises' // TODO fix after migration to @vue/test-utils v2.0.0
 import { cloneDeep } from 'lodash'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcListItem from '@nextcloud/vue/components/NcListItem'
+
+import { showSuccess, showError } from '@nextcloud/dialogs'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js'
+
 import Conversation from './Conversation.vue'
+
 import router from '../../../__mocks__/router.js'
-import { ATTENDEE, CONVERSATION, PARTICIPANT } from '../../../constants.ts'
+import { CONVERSATION, PARTICIPANT, ATTENDEE } from '../../../constants.js'
 import { leaveConversation } from '../../../services/participantsService.js'
 import storeConfig from '../../../store/storeConfig.js'
 import { findNcButton } from '../../../test-helpers.js'
+import { getMessageIcon } from '../../../utils/getMessageIcon.ts'
 
 jest.mock('@nextcloud/dialogs', () => ({
 	showSuccess: jest.fn(),
@@ -62,7 +67,6 @@ describe('Conversation.vue', () => {
 			displayName: 'conversation one',
 			isFavorite: false,
 			isArchived: false,
-			isSensitive: false,
 			lastMessage: {
 				actorId: 'user-id-alice',
 				actorDisplayName: 'Alice Wonderland',
@@ -111,18 +115,20 @@ describe('Conversation.vue', () => {
 		 * @param {boolean} isSearchResult Whether or not the item is a search result (has no … menu)
 		 */
 		function testConversationLabel(item, expectedText, isSearchResult = false) {
-			const wrapper = shallowMount(Conversation, {
+			const wrapper = mount(Conversation, {
 				localVue,
 				store,
+				stubs: {
+					RouterLink: RouterLinkStub,
+				},
 				propsData: {
 					isSearchResult,
 					item,
 				},
 			})
 
-			const el = wrapper.find('.conversation__subname')
-			expect(el.text()).toMatch(expectedText)
-			return wrapper
+			const el = wrapper.findComponent({ name: 'NcListItem' })
+			expect(el.vm.$slots.subname[0].data.domProps.innerHTML).toBe(expectedText)
 		}
 
 		test('display joining conversation message when not joined yet', () => {
@@ -131,24 +137,24 @@ describe('Conversation.vue', () => {
 		})
 
 		test('displays nothing when there is no last chat message', () => {
-			delete item.lastMessage
+			item.lastMessage = {}
 			testConversationLabel(item, 'No messages')
 		})
 
 		describe('author name', () => {
 			test('displays last chat message with shortened author name', () => {
-				testConversationLabel(item, /^Alice:\s+hello$/)
+				testConversationLabel(item, 'Alice: hello')
 			})
 
 			test('displays last chat message with author name if no space in name', () => {
 				item.lastMessage.actorDisplayName = 'Bob'
-				testConversationLabel(item, /^Bob:\s+hello$/)
+				testConversationLabel(item, 'Bob: hello')
 			})
 
 			test('displays own last chat message with "You" as author', () => {
 				item.lastMessage.actorId = 'actor-id-1'
 
-				testConversationLabel(item, /^You:\s+hello$/)
+				testConversationLabel(item, 'You: hello')
 			})
 
 			test('displays last system message without author', () => {
@@ -167,7 +173,7 @@ describe('Conversation.vue', () => {
 				item.type = CONVERSATION.TYPE.ONE_TO_ONE
 				item.lastMessage.actorId = 'actor-id-1'
 
-				testConversationLabel(item, /^You:\s+hello$/)
+				testConversationLabel(item, 'You: hello')
 			})
 
 			test('displays last guest message with default author when none set', () => {
@@ -175,7 +181,7 @@ describe('Conversation.vue', () => {
 				item.lastMessage.actorDisplayName = ''
 				item.lastMessage.actorType = ATTENDEE.ACTOR_TYPE.GUESTS
 
-				testConversationLabel(item, /^Guest:\s+hello$/)
+				testConversationLabel(item, 'Guest: hello')
 			})
 
 			test('displays description for search results', () => {
@@ -193,24 +199,8 @@ describe('Conversation.vue', () => {
 					name: 'filename.jpg',
 				},
 			}
-			const wrapper = testConversationLabel(item, /^Alice:\s+filename.jpg$/)
-			expect(wrapper.findComponent({ name: 'FileIcon' }).exists()).toBeTruthy()
-		})
-
-		test('hides subname for sensitive conversations', () => {
-			item.isSensitive = true
-
-			const wrapper = shallowMount(Conversation, {
-				localVue,
-				store,
-				propsData: {
-					isSearchResult: false,
-					item,
-				},
-			})
-
-			const el = wrapper.find('.conversation__subname')
-			expect(el.exists()).toBe(false)
+			const svgTemplate = getMessageIcon(item.lastMessage)
+			testConversationLabel(item, 'Alice: ' + svgTemplate + ' filename.jpg')
 		})
 	})
 
@@ -334,7 +324,7 @@ describe('Conversation.vue', () => {
 		 */
 		function findNcActionButton(wrapper, text) {
 			const actionButtons = wrapper.findAllComponents(NcActionButton)
-			const items = actionButtons.filter((actionButton) => {
+			const items = actionButtons.filter(actionButton => {
 				return actionButton.text() === text
 			})
 			if (!items.exists()) {

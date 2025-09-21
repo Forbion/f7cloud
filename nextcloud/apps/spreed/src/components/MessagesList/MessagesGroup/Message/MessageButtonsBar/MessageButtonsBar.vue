@@ -121,10 +121,7 @@
 							</template>
 							{{ t('spreed', 'Go to file') }}
 						</NcActionLink>
-						<NcActionLink v-if="!hideDownloadOption"
-							:href="linkToFileDownload"
-							:download="messageFile.name"
-							close-after-click>
+						<NcActionLink :href="linkToFileDownload" :download="messageFile.name">
 							<template #icon>
 								<IconDownload :size="20" />
 							</template>
@@ -180,7 +177,7 @@
 					<NcActionButton :aria-label="t('spreed', 'Back')"
 						@click.stop="submenu = null">
 						<template #icon>
-							<IconArrowLeft class="bidirectional-icon" />
+							<ArrowLeft />
 						</template>
 						{{ t('spreed', 'Back') }}
 					</NcActionButton>
@@ -233,7 +230,7 @@
 				:aria-label="t('spreed', 'Close reactions menu')"
 				@click="closeReactionsMenu">
 				<template #icon>
-					<IconArrowLeft class="bidirectional-icon" :size="20" />
+					<ArrowLeft :size="20" />
 				</template>
 			</NcButton>
 			<NcButton v-for="emoji in frequentlyUsedEmojis"
@@ -263,24 +260,12 @@
 </template>
 
 <script>
-import { getCurrentUser } from '@nextcloud/auth'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import moment from '@nextcloud/moment'
-import { emojiSearch } from '@nextcloud/vue/functions/emoji'
 import { vOnClickOutside as ClickOutside } from '@vueuse/components'
 import { toRefs } from 'vue'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActionInput from '@nextcloud/vue/components/NcActionInput'
-import NcActionLink from '@nextcloud/vue/components/NcActionLink'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
-import NcActionText from '@nextcloud/vue/components/NcActionText'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcEmojiPicker from '@nextcloud/vue/components/NcEmojiPicker'
+
 import AccountIcon from 'vue-material-design-icons/Account.vue'
 import AlarmIcon from 'vue-material-design-icons/Alarm.vue'
-import IconArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
+import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
 import IconBellOff from 'vue-material-design-icons/BellOff.vue'
 import CalendarClock from 'vue-material-design-icons/CalendarClock.vue'
 import Check from 'vue-material-design-icons/Check.vue'
@@ -301,14 +286,29 @@ import Plus from 'vue-material-design-icons/Plus.vue'
 import Reply from 'vue-material-design-icons/Reply.vue'
 import Share from 'vue-material-design-icons/Share.vue'
 import Translate from 'vue-material-design-icons/Translate.vue'
+
+import { getCurrentUser } from '@nextcloud/auth'
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
+import moment from '@nextcloud/moment'
+
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
+import NcActionLink from '@nextcloud/vue/dist/Components/NcActionLink.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
+import NcActionText from '@nextcloud/vue/dist/Components/NcActionText.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcEmojiPicker from '@nextcloud/vue/dist/Components/NcEmojiPicker.js'
+import { emojiSearch } from '@nextcloud/vue/dist/Functions/emoji.js'
+
 import { useMessageInfo } from '../../../../../composables/useMessageInfo.js'
-import { ATTENDEE, CONVERSATION, MESSAGE, PARTICIPANT } from '../../../../../constants.ts'
+import { CONVERSATION, ATTENDEE, PARTICIPANT } from '../../../../../constants.js'
 import { hasTalkFeature } from '../../../../../services/CapabilitiesManager.ts'
 import { getMessageReminder, removeMessageReminder, setMessageReminder } from '../../../../../services/remindersService.js'
 import { useIntegrationsStore } from '../../../../../stores/integrations.js'
 import { useReactionsStore } from '../../../../../stores/reactions.js'
 import { generatePublicShareDownloadUrl, generateUserFileUrl } from '../../../../../utils/davUtils.ts'
-import { convertToUnix } from '../../../../../utils/formattedTime.ts'
 import { copyConversationLinkToClipboard } from '../../../../../utils/handleUrl.ts'
 import { parseMentions } from '../../../../../utils/textParse.ts'
 
@@ -327,7 +327,7 @@ export default {
 		// Icons
 		AccountIcon,
 		AlarmIcon,
-		IconArrowLeft,
+		ArrowLeft,
 		IconBellOff,
 		CalendarClock,
 		CloseCircleOutline,
@@ -371,17 +371,14 @@ export default {
 			type: Boolean,
 			required: true,
 		},
-
 		isEmojiPickerOpen: {
 			type: Boolean,
 			required: true,
 		},
-
 		isReactionsMenuOpen: {
 			type: Boolean,
 			required: true,
 		},
-
 		isForwarderOpen: {
 			type: Boolean,
 			required: true,
@@ -415,7 +412,6 @@ export default {
 			isCurrentUserOwnMessage,
 			isFileShare,
 			isFileShareWithoutCaption,
-			hideDownloadOption,
 			isConversationReadOnly,
 			isConversationModifiable,
 		} = useMessageInfo(message)
@@ -429,7 +425,6 @@ export default {
 			isCurrentUserOwnMessage,
 			isFileShare,
 			isFileShareWithoutCaption,
-			hideDownloadOption,
 			isDeleteable,
 			isConversationReadOnly,
 			isConversationModifiable,
@@ -441,7 +436,7 @@ export default {
 			frequentlyUsedEmojis: [],
 			submenu: null,
 			currentReminder: null,
-			customReminderTimestamp: new Date().setHours(new Date().getHours() + 2, 0, 0, 0),
+			customReminderTimestamp: moment().add(2, 'hours').minute(0).second(0).valueOf(),
 		}
 	},
 
@@ -464,7 +459,7 @@ export default {
 		},
 
 		messageFile() {
-			const firstFileKey = (Object.keys(this.message.messageParameters).find((key) => key.startsWith('file')))
+			const firstFileKey = (Object.keys(this.message.messageParameters).find(key => key.startsWith('file')))
 			return this.message.messageParameters[firstFileKey]
 		},
 
@@ -479,11 +474,11 @@ export default {
 		},
 
 		isDeletedMessage() {
-			return this.message.messageType === MESSAGE.TYPE.COMMENT_DELETED
+			return this.message.messageType === 'comment_deleted'
 		},
 
 		isPollMessage() {
-			return this.message.messageType === MESSAGE.TYPE.COMMENT
+			return this.message.messageType === 'comment'
 				&& this.message.messageParameters?.object?.type === 'talk-poll'
 		},
 
@@ -510,7 +505,6 @@ export default {
 			get() {
 				return new Date(this.customReminderTimestamp)
 			},
-
 			set(value) {
 				if (value !== null) {
 					this.customReminderTimestamp = value.valueOf()
@@ -519,63 +513,52 @@ export default {
 		},
 
 		reminderOptions() {
-			const currentDate = new Date()
-			const currentDayOfWeek = currentDate.getDay()
-
-			const nextDay = new Date()
-			nextDay.setDate(currentDate.getDate() + 1)
-
-			const nextSaturday = new Date()
-			nextSaturday.setDate(currentDate.getDate() + ((6 + 7 - currentDayOfWeek) % 7 || 7))
-
-			const nextMonday = new Date()
-			nextMonday.setDate(currentDate.getDate() + ((1 + 7 - currentDayOfWeek) % 7 || 7))
+			const currentDateTime = moment()
 
 			// Same day 18:00 PM (hidden if after 17:00 PM now)
-			const laterTodayTime = (currentDate.getHours() < 17)
-				? new Date().setHours(18, 0, 0, 0)
+			const laterTodayTime = (currentDateTime.hour() < 17)
+				? moment().hour(18)
 				: null
 
 			// Tomorrow 08:00 AM
-			const tomorrowTime = nextDay.setHours(8, 0, 0, 0)
+			const tomorrowTime = moment().add(1, 'days').hour(8)
 
 			// Saturday 08:00 AM (hidden if Friday, Saturday or Sunday now)
-			const thisWeekendTime = (![0, 5, 6].includes(currentDayOfWeek))
-				? nextSaturday.setHours(8, 0, 0, 0)
+			const thisWeekendTime = (currentDateTime.day() > 0 && currentDateTime.day() < 5)
+				? moment().day(6).hour(8)
 				: null
 
 			// Next Monday 08:00 AM (hidden if Sunday now)
-			// TODO: use getFirstDay from nextcloud/l10n
-			const nextWeekTime = (currentDayOfWeek !== 0)
-				? nextMonday.setHours(8, 0, 0, 0)
+			const nextWeekTime = (currentDateTime.day() !== 0)
+				? moment().add(1, 'weeks').day(1).hour(8)
 				: null
 
 			return [
 				{
 					key: 'laterToday',
-					timestamp: laterTodayTime,
-					label: t('spreed', 'Later today – {timeLocale}', { timeLocale: moment(laterTodayTime).format('LT') }),
+					timestamp: this.getTimestamp(laterTodayTime),
+					label: t('spreed', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('LT') }),
 					ariaLabel: t('spreed', 'Set reminder for later today'),
 				},
 				{
 					key: 'tomorrow',
-					timestamp: tomorrowTime,
-					label: t('spreed', 'Tomorrow – {timeLocale}', { timeLocale: moment(tomorrowTime).format('ddd LT') }),
+					timestamp: this.getTimestamp(tomorrowTime),
+					label: t('spreed', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd LT') }),
 					ariaLabel: t('spreed', 'Set reminder for tomorrow'),
 				},
 				{
 					key: 'thisWeekend',
-					timestamp: thisWeekendTime,
-					label: t('spreed', 'This weekend – {timeLocale}', { timeLocale: moment(thisWeekendTime).format('ddd LT') }),
+					timestamp: this.getTimestamp(thisWeekendTime),
+					label: t('spreed', 'This weekend – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
 					ariaLabel: t('spreed', 'Set reminder for this weekend'),
 				},
 				{
 					key: 'nextWeek',
-					timestamp: nextWeekTime,
-					label: t('spreed', 'Next week – {timeLocale}', { timeLocale: moment(nextWeekTime).format('ddd LT') }),
+					timestamp: this.getTimestamp(nextWeekTime),
+					label: t('spreed', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd LT') }),
 					ariaLabel: t('spreed', 'Set reminder for next week'),
 				},
-			].filter((option) => option.timestamp !== null)
+			].filter(option => option.timestamp !== null)
 		},
 
 		clearReminderLabel() {
@@ -593,7 +576,7 @@ export default {
 
 		canReply() {
 			return this.message.isReplyable && !this.isConversationReadOnly && (this.conversation.permissions & PARTICIPANT.PERMISSIONS.CHAT) !== 0
-		},
+		}
 	},
 
 	watch: {
@@ -613,7 +596,7 @@ export default {
 		async handlePrivateReply() {
 			// open the 1:1 conversation
 			const conversation = await this.$store.dispatch('createOneToOneConversation', this.message.actorId)
-			this.$router.push({ name: 'conversation', params: { token: conversation.token } }).catch((err) => console.debug(`Error while pushing the new conversation's route: ${err}`))
+			this.$router.push({ name: 'conversation', params: { token: conversation.token } }).catch(err => console.debug(`Error while pushing the new conversation's route: ${err}`))
 		},
 
 		async handleCopyMessageText() {
@@ -692,7 +675,7 @@ export default {
 		async forwardToNote() {
 			try {
 				await this.$store.dispatch('forwardMessage', {
-					messageToBeForwarded: this.$store.getters.message(this.message.token, this.message.id),
+					messageToBeForwarded: this.$store.getters.message(this.message.token, this.message.id)
 				})
 				showSuccess(t('spreed', 'Message forwarded to "Note to self"'))
 			} catch (error) {
@@ -708,7 +691,7 @@ export default {
 		// Making sure that the click is outside the MessageButtonsBar
 		handleClickOutside(event) {
 			// check if click is inside the emoji picker
-			if (event.composedPath().some((element) => element.classList?.contains('v-popper__popper--shown'))) {
+			if (event.composedPath().some(element => element.classList?.contains('v-popper__popper--shown'))) {
 				return
 			}
 
@@ -723,7 +706,11 @@ export default {
 		},
 
 		updateFrequentlyUsedEmojis() {
-			this.frequentlyUsedEmojis = emojiSearch('', 5).map((emoji) => emoji.native)
+			this.frequentlyUsedEmojis = emojiSearch('', 5).map(emoji => emoji.native)
+		},
+
+		getTimestamp(momentObject) {
+			return momentObject?.minute(0).second(0).millisecond(0).valueOf() || null
 		},
 
 		async getReminder() {
@@ -747,7 +734,7 @@ export default {
 
 		async setReminder(timestamp) {
 			try {
-				await setMessageReminder(this.message.token, this.message.id, convertToUnix(timestamp))
+				await setMessageReminder(this.message.token, this.message.id, timestamp / 1000)
 				showSuccess(t('spreed', 'A reminder was successfully set at {datetime}', {
 					datetime: moment(timestamp).format('LLL'),
 				}))

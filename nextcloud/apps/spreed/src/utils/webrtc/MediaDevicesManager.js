@@ -4,6 +4,7 @@
  */
 
 import { t } from '@nextcloud/l10n'
+
 import BrowserStorage from '../../services/BrowserStorage.js'
 import {
 	getFirstAvailableMediaDevice,
@@ -38,8 +39,8 @@ const LOCAL_STORAGE_NULL_DEVICE_ID = 'local-storage-null-device-id'
  * - fallbackLabel: a generated label if the actual label is empty
  *
  * Note that the list may not contain some kind of devices due to browser
- * limitations (for example, currently Firefox does not list all "audiooutput"
- * devices, but only input-output pairs, like headsets).
+ * limitations (for example, currently Firefox does not list "audiooutput"
+ * devices).
  *
  * In some browsers if persistent media permissions have not been granted and a
  * MediaStream is not active the list may contain at most one device of each
@@ -55,9 +56,6 @@ const LOCAL_STORAGE_NULL_DEVICE_ID = 'local-storage-null-device-id'
  * "set('videoInputId', value)" to ensure that change events are triggered.
  * However, note that change events are not triggered when the devices are
  * modified.
- *
- * "attributes.audioOutputId" define the devices that will be used
- * when calling "AudioElement.setSinkId()".
  *
  * The selected devices will be automatically cleared if they are no longer
  * available, and they will be restored once they are again available
@@ -75,26 +73,8 @@ export default function MediaDevicesManager() {
 		devices: [],
 
 		audioInputId: undefined,
-		audioOutputId: undefined,
 		videoInputId: undefined,
 	}
-
-	/**
-	 * Returns whether selecting of audio output device is supported or not.
-	 *
-	 * Note that there are some browser limitations:
-	 * Chrome:
-	 * - supports AudioContext#setSinkId, but does not work with participant nodes (experimental feature, do not consider atm)
-	 * Firefox:
-	 * - does not list all "audiooutput" devices: https://bugzilla.mozilla.org/show_bug.cgi?id=1868750
-	 * - does not support AudioContext#setSinkId (experimental feature, do not consider atm)
-	 * - supports navigator.mediaDevices.selectAudioOutput() (experimental feature, do not consider atm)
-	 * Safari:
-	 * - does not support audio output selection: https://bugs.webkit.org/show_bug.cgi?id=216641
-	 * - does not support AudioContext#setSinkId
-	 * @return {boolean} true if supported, false otherwise.
-	 */
-	this.isAudioOutputSelectSupported = !!(new Audio().setSinkId)
 
 	this._enabledCount = 0
 
@@ -102,9 +82,6 @@ export default function MediaDevicesManager() {
 
 	const audioInputPreferences = BrowserStorage.getItem('audioInputPreferences')
 	this._preferenceAudioInputList = audioInputPreferences !== null ? JSON.parse(audioInputPreferences) : []
-
-	const audioOutputPreferences = BrowserStorage.getItem('audioOutputPreferences')
-	this._preferenceAudioOutputList = audioOutputPreferences !== null ? JSON.parse(audioOutputPreferences) : []
 
 	const videoInputPreferences = BrowserStorage.getItem('videoInputPreferences')
 	this._preferenceVideoInputList = videoInputPreferences !== null ? JSON.parse(videoInputPreferences) : []
@@ -117,9 +94,6 @@ export default function MediaDevicesManager() {
 
 	if (BrowserStorage.getItem('audioInputId') === LOCAL_STORAGE_NULL_DEVICE_ID) {
 		this.attributes.audioInputId = null
-	}
-	if (BrowserStorage.getItem('audioOutputId') === LOCAL_STORAGE_NULL_DEVICE_ID) {
-		this.attributes.audioOutputId = null
 	}
 	if (BrowserStorage.getItem('videoInputId') === LOCAL_STORAGE_NULL_DEVICE_ID) {
 		this.attributes.videoInputId = null
@@ -142,7 +116,7 @@ MediaDevicesManager.prototype = {
 	},
 
 	_storeDeviceId(key, value) {
-		if (!['audioInputId', 'audioOutputId', 'videoInputId'].includes(key)) {
+		if (key !== 'audioInputId' && key !== 'videoInputId') {
 			return
 		}
 
@@ -197,25 +171,23 @@ MediaDevicesManager.prototype = {
 	},
 
 	_updateDevices() {
-		this._pendingEnumerateDevicesPromise = navigator.mediaDevices.enumerateDevices().then((devices) => {
+		this._pendingEnumerateDevicesPromise = navigator.mediaDevices.enumerateDevices().then(devices => {
 			const previousAudioInputId = this.attributes.audioInputId
-			const previousAudioOutputId = this.attributes.audioOutputId
 			const previousVideoInputId = this.attributes.videoInputId
 			const previousFirstAvailableAudioInputId = getFirstAvailableMediaDevice(this.attributes.devices, this._preferenceAudioInputList)
-			const previousFirstAvailableAudioOutputId = getFirstAvailableMediaDevice(this.attributes.devices, this._preferenceAudioOutputList)
 			const previousFirstAvailableVideoInputId = getFirstAvailableMediaDevice(this.attributes.devices, this._preferenceVideoInputList)
 
-			const removedDevices = this.attributes.devices.filter((oldDevice) => !devices.find((device) => oldDevice.deviceId === device.deviceId && oldDevice.kind === device.kind))
-			const updatedDevices = devices.filter((device) => this.attributes.devices.find((oldDevice) => device.deviceId === oldDevice.deviceId && device.kind === oldDevice.kind))
-			const addedDevices = devices.filter((device) => !this.attributes.devices.find((oldDevice) => device.deviceId === oldDevice.deviceId && device.kind === oldDevice.kind))
+			const removedDevices = this.attributes.devices.filter(oldDevice => !devices.find(device => oldDevice.deviceId === device.deviceId && oldDevice.kind === device.kind))
+			const updatedDevices = devices.filter(device => this.attributes.devices.find(oldDevice => device.deviceId === oldDevice.deviceId && device.kind === oldDevice.kind))
+			const addedDevices = devices.filter(device => !this.attributes.devices.find(oldDevice => device.deviceId === oldDevice.deviceId && device.kind === oldDevice.kind))
 
-			removedDevices.forEach((removedDevice) => {
+			removedDevices.forEach(removedDevice => {
 				this._removeDevice(removedDevice)
 			})
-			updatedDevices.forEach((updatedDevice) => {
+			updatedDevices.forEach(updatedDevice => {
 				this._updateDevice(updatedDevice)
 			})
-			addedDevices.forEach((addedDevice) => {
+			addedDevices.forEach(addedDevice => {
 				this._addDevice(addedDevice)
 			})
 
@@ -231,29 +203,22 @@ MediaDevicesManager.prototype = {
 			// returned, which will not be registered in the preference list.
 			let deviceIdChanged = false
 			if (this.attributes.audioInputId === undefined || this.attributes.audioInputId === previousFirstAvailableAudioInputId) {
-				this.attributes.audioInputId = getFirstAvailableMediaDevice(devices, this._preferenceAudioInputList) || devices.find((device) => device.kind === 'audioinput')?.deviceId
-				deviceIdChanged = true
-			}
-			if (this.attributes.audioOutputId === undefined || this.attributes.audioOutputId === previousFirstAvailableAudioOutputId) {
-				this.attributes.audioOutputId = getFirstAvailableMediaDevice(devices, this._preferenceAudioOutputList) || devices.find((device) => device.kind === 'audiooutput')?.deviceId
+				this.attributes.audioInputId = getFirstAvailableMediaDevice(devices, this._preferenceAudioInputList) || devices.find(device => device.kind === 'audioinput')?.deviceId
 				deviceIdChanged = true
 			}
 			if (this.attributes.videoInputId === undefined || this.attributes.videoInputId === previousFirstAvailableVideoInputId) {
-				this.attributes.videoInputId = getFirstAvailableMediaDevice(devices, this._preferenceVideoInputList) || devices.find((device) => device.kind === 'videoinput')?.deviceId
+				this.attributes.videoInputId = getFirstAvailableMediaDevice(devices, this._preferenceVideoInputList) || devices.find(device => device.kind === 'videoinput')?.deviceId
 				deviceIdChanged = true
 			}
 
 			if (deviceIdChanged) {
-				console.debug(listMediaDevices(this.attributes, this._preferenceAudioInputList, this._preferenceAudioOutputList, this._preferenceVideoInputList))
+				console.debug(listMediaDevices(this.attributes, this._preferenceAudioInputList, this._preferenceVideoInputList))
 			}
 
 			// Trigger change events after all the devices are processed to
 			// prevent change events for intermediate states.
 			if (previousAudioInputId !== this.attributes.audioInputId) {
 				this._trigger('change:audioInputId', [this.attributes.audioInputId])
-			}
-			if (previousAudioOutputId !== this.attributes.audioOutputId) {
-				this._trigger('change:audioOutputId', [this.attributes.audioOutputId])
 			}
 			if (previousVideoInputId !== this.attributes.videoInputId) {
 				this._trigger('change:videoInputId', [this.attributes.videoInputId])
@@ -268,20 +233,15 @@ MediaDevicesManager.prototype = {
 	},
 
 	_populatePreferences(devices) {
-		const { newAudioInputList, newAudioOutputList, newVideoInputList } = populateMediaDevicesPreferences(
+		const { newAudioInputList, newVideoInputList } = populateMediaDevicesPreferences(
 			devices,
 			this._preferenceAudioInputList,
-			this._preferenceAudioOutputList,
 			this._preferenceVideoInputList,
 		)
 
 		if (newAudioInputList) {
 			this._preferenceAudioInputList = newAudioInputList
 			BrowserStorage.setItem('audioInputPreferences', JSON.stringify(this._preferenceAudioInputList))
-		}
-		if (newAudioOutputList) {
-			this._preferenceAudioOutputList = newAudioOutputList
-			BrowserStorage.setItem('audioOutputPreferences', JSON.stringify(this._preferenceAudioOutputList))
 		}
 		if (newVideoInputList) {
 			this._preferenceVideoInputList = newVideoInputList
@@ -295,7 +255,7 @@ MediaDevicesManager.prototype = {
 				kind,
 				devices: this.attributes.devices,
 				inputList: this._preferenceAudioInputList,
-				inputId: this.attributes.audioInputId,
+				inputId: this.attributes.audioInputId
 			})
 
 			if (newAudioInputList) {
@@ -305,27 +265,12 @@ MediaDevicesManager.prototype = {
 			if (!BrowserStorage.getItem('audioInputDevicePreferred')) {
 				BrowserStorage.setItem('audioInputDevicePreferred', true)
 			}
-		} else if (kind === 'audiooutput') {
-			const newAudioOutputList = promoteMediaDevice({
-				kind,
-				devices: this.attributes.devices,
-				inputList: this._preferenceAudioOutputList,
-				inputId: this.attributes.audioOutputId,
-			})
-
-			if (newAudioOutputList) {
-				this._preferenceAudioOutputList = newAudioOutputList
-				BrowserStorage.setItem('audioOutputPreferences', JSON.stringify(newAudioOutputList))
-			}
-			if (!BrowserStorage.getItem('audioOutputDevicePreferred')) {
-				BrowserStorage.setItem('audioOutputDevicePreferred', true)
-			}
 		} else if (kind === 'videoinput') {
 			const newVideoInputList = promoteMediaDevice({
 				kind,
 				devices: this.attributes.devices,
 				inputList: this._preferenceVideoInputList,
-				inputId: this.attributes.videoInputId,
+				inputId: this.attributes.videoInputId
 			})
 
 			if (newVideoInputList) {
@@ -336,6 +281,7 @@ MediaDevicesManager.prototype = {
 				BrowserStorage.setItem('videoInputDevicePreferred', true)
 			}
 		}
+
 	},
 
 	/**
@@ -344,18 +290,12 @@ MediaDevicesManager.prototype = {
 	 */
 	listDevices() {
 		if (this.attributes.devices.length) {
-			console.info(listMediaDevices(this.attributes, this._preferenceAudioInputList, this._preferenceAudioOutputList, this._preferenceVideoInputList))
+			console.info(listMediaDevices(this.attributes, this._preferenceAudioInputList, this._preferenceVideoInputList))
 		} else {
-			navigator.mediaDevices.enumerateDevices().then((devices) => {
+			navigator.mediaDevices.enumerateDevices().then(devices => {
 				console.info(listMediaDevices(
-					{
-						devices,
-						audioInputId: this.attributes.audioInputId,
-						audioOutputId: this.attributes.audioOutputId,
-						videoInputId: this.attributes.videoInputId,
-					},
+					{ devices, audioInputId: this.attributes.audioInputId, videoInputId: this.attributes.videoInputId },
 					this._preferenceAudioInputList,
-					this._preferenceAudioOutputList,
 					this._preferenceVideoInputList,
 				))
 			})
@@ -363,21 +303,19 @@ MediaDevicesManager.prototype = {
 	},
 
 	_removeDevice(removedDevice) {
-		const removedDeviceIndex = this.attributes.devices.findIndex((oldDevice) => oldDevice.deviceId === removedDevice.deviceId && oldDevice.kind === removedDevice.kind)
+		const removedDeviceIndex = this.attributes.devices.findIndex(oldDevice => oldDevice.deviceId === removedDevice.deviceId && oldDevice.kind === removedDevice.kind)
 		if (removedDeviceIndex >= 0) {
 			this.attributes.devices.splice(removedDeviceIndex, 1)
 		}
 		if (removedDevice.kind === 'audioinput' && removedDevice.deviceId === this.attributes.audioInputId) {
 			this.attributes.audioInputId = undefined
-		} else if (removedDevice.kind === 'audiooutput' && removedDevice.deviceId === this.attributes.audioOutputId) {
-			this.attributes.audioOutputId = undefined
 		} else if (removedDevice.kind === 'videoinput' && removedDevice.deviceId === this.attributes.videoInputId) {
 			this.attributes.videoInputId = undefined
 		}
 	},
 
 	_updateDevice(updatedDevice) {
-		const oldDevice = this.attributes.devices.find((oldDevice) => oldDevice.deviceId === updatedDevice.deviceId && oldDevice.kind === updatedDevice.kind)
+		const oldDevice = this.attributes.devices.find(oldDevice => oldDevice.deviceId === updatedDevice.deviceId && oldDevice.kind === updatedDevice.kind)
 
 		// Only update the label if it has a value, as it may have been
 		// removed if there is currently no active stream.
@@ -412,11 +350,11 @@ MediaDevicesManager.prototype = {
 			if (addedDevice.deviceId === 'default' || addedDevice.deviceId === '') {
 				addedDevice.fallbackLabel = t('spreed', 'Default')
 			} else if (addedDevice.kind === 'audioinput') {
-				addedDevice.fallbackLabel = t('spreed', 'Microphone {number}', { number: Object.values(this._knownDevices).filter((device) => device.kind === 'audioinput' && device.deviceId !== '').length + 1 })
+				addedDevice.fallbackLabel = t('spreed', 'Microphone {number}', { number: Object.values(this._knownDevices).filter(device => device.kind === 'audioinput' && device.deviceId !== '').length + 1 })
 			} else if (addedDevice.kind === 'videoinput') {
-				addedDevice.fallbackLabel = t('spreed', 'Camera {number}', { number: Object.values(this._knownDevices).filter((device) => device.kind === 'videoinput' && device.deviceId !== '').length + 1 })
+				addedDevice.fallbackLabel = t('spreed', 'Camera {number}', { number: Object.values(this._knownDevices).filter(device => device.kind === 'videoinput' && device.deviceId !== '').length + 1 })
 			} else if (addedDevice.kind === 'audiooutput') {
-				addedDevice.fallbackLabel = t('spreed', 'Speaker {number}', { number: Object.values(this._knownDevices).filter((device) => device.kind === 'audioutput' && device.deviceId !== '').length + 1 })
+				addedDevice.fallbackLabel = t('spreed', 'Speaker {number}', { number: Object.values(this._knownDevices).filter(device => device.kind === 'audioutput' && device.deviceId !== '').length + 1 })
 			}
 		}
 
@@ -484,7 +422,7 @@ MediaDevicesManager.prototype = {
 
 		this._stopIncompatibleTracks(constraints)
 
-		return navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+		return navigator.mediaDevices.getUserMedia(constraints).then(stream => {
 			this._registerStream(stream)
 
 			// In Firefox the dialog to grant media permissions allows the user
@@ -498,7 +436,7 @@ MediaDevicesManager.prototype = {
 			this._updateDevices()
 
 			return stream
-		}).catch((error) => {
+		}).catch(error => {
 			// The list of devices is also updated in case of failure, as even
 			// if getting the stream failed the permissions may have been
 			// permanently granted.
@@ -509,7 +447,7 @@ MediaDevicesManager.prototype = {
 	},
 
 	_stopIncompatibleTracks(constraints) {
-		this._tracks.forEach((track) => {
+		this._tracks.forEach(track => {
 			if (constraints.audio && constraints.audio.deviceId && track.kind === 'audio') {
 				const constraintsAudioDeviceId = constraints.audio.deviceId.exact || constraints.audio.deviceId.ideal || constraints.audio.deviceId
 				const settings = track.getSettings()
@@ -529,7 +467,7 @@ MediaDevicesManager.prototype = {
 	},
 
 	_registerStream(stream) {
-		stream.getTracks().forEach((track) => {
+		stream.getTracks().forEach(track => {
 			this._registerTrack(track)
 		})
 	},
@@ -544,7 +482,7 @@ MediaDevicesManager.prototype = {
 			}
 		})
 
-		track.addEventListener('cloned', (event) => {
+		track.addEventListener('cloned', event => {
 			this._registerTrack(event.detail)
 		})
 	},
