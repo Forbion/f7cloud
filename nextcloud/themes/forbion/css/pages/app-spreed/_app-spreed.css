@@ -61,7 +61,6 @@ body ul.vs__dropdown-menu {
     /*}*/
 }
 
-/* Состояние без активного звонка */
 .app-talk:not(.in-call) {
     .account-multiple-icon:after {
         background-image: url('/themes/forbion/images/users.svg') !important;
@@ -72,10 +71,10 @@ body ul.vs__dropdown-menu {
     }
 }
 
-/* Состояние во время звонка */
 .app-talk.in-call {
     #call-container {
         border-radius: 16px;
+        position: relative;
     }
 
     .account-multiple-icon:after {
@@ -96,12 +95,46 @@ body .app-talk{
 
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
-    --color-primary-element-light-hover: #ffffff !important;
+    --color-primary-element-light-hover: rgba(128, 128, 128, 0.1) !important;
 
-    --color-background-hover: #ffffff !important;
+    --color-background-hover: rgba(128, 128, 128, 0.1) !important;
     --sidebar-pad: 0px;
     --vs-border-width: 1px solid #E6E6E6;
 
+    &.in-call {
+        & #app-sidebar-vue {
+            margin-top: 50px;
+            height: calc(100% - 50px);
+        }
+    }
+
+    & #app-sidebar-vue {
+        margin-left: 8px;
+        border-radius: 8px;
+
+        & .app-sidebar-tabs__nav {
+
+            justify-content: space-between;
+            padding: 0 10%;
+
+            & .checkbox-radio-switch {
+
+                max-width: 160px !important;
+
+                & .checkbox-content__icon {
+                    margin-bottom: 8px;
+                }
+            }
+        }
+
+        & .app-sidebar__tab {
+            margin-top: 20px;
+        }
+
+        & .search-form {
+            margin-bottom: 20px;
+        }
+    }
 
     & .button-vue:focus-visible {
         outline: 1px solid #E6E6E6!important;
@@ -152,6 +185,11 @@ body .app-talk{
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+    }
+    & #call-container .material-design-icon.account-multiple-icon:after,
+    & .empty-call-view .material-design-icon.account-multiple-icon:after {
+        width: 40px;
+        height: 40px;
     }
     & .material-design-icon.account-multiple-icon > svg {
         display: none;
@@ -396,27 +434,73 @@ body .app-talk{
     height: 1px;
     overflow: hidden;
 }
-.app-talk:not(.in-call) .app-content{
+.app-talk .app-content{
     padding-left: 8px;
 }
-.app-talk:not(.in-call) .app-content .chatView .scroller{
+.app-talk:not(.in-call) .app-navigation.app-navigation--close+.app-content {
+    padding-left: 0;
+}
+.app-talk:not(.in-call) .top-bar {
+    gap: 8px;
+}
+.app-talk:not(.in-call) .chatView .scroller{
     right: -30px;
     width: calc(100% - 30px);
+}
+.app-talk.in-call .chatView {
+    margin: 50px 0 0 8px !important;
+    background: #FFFFFF;
+    max-width: 500px;
+    height: calc(100% - 50px);
+}
+.app-talk.in-call .app-navigation.app-navigation--close {
+
+    &+.app-content {
+        padding-left: 0;
+
+        & .top-bar.top-bar--in-call {
+            left: 0 !important;
+        }
+    }
+
+    & .app-navigation-toggle-wrapper {
+        left: 307px;
+    }
+}
+.app-talk.in-call .app-sidebar-header__info {
+    padding: 10px 35px 10px 20px;
+}
+.app-talk .chatView .wrapper--system {
+    padding-left: 0 !important;
 }
 #body-public .app-talk .app-sidebar__toggle {
     inset-block-start: calc(var(--app-sidebar-padding) ) !important;
     inset-inline-end: calc(var(--app-sidebar-padding) + var(--sidebar-pad)) !important;
 }
 #body-public .app-talk.in-call .top-bar.top-bar--in-call {
-    padding-top: 0 !important;
-    right: 0 !important;
+    padding-top: unset !important;
+    margin-left: 8px !important;
+    top: -22px !important;
+    right: unset !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: calc(100% - 216px) !important;
+}
+#body-public .app-talk.in-call .footer-bar {
+    bottom: 0 !important;
+}
+.app-talk .user-bubble__content.user-bubble__content--primary {
+    padding: 6px;
+    height: auto !important;
+    line-height: normal !important;
+    color: #FFFFFF;
 }
 #body-public .app-talk:not(.in-call) .top-bar {
     top: 4px !important;
 }
 #body-user .app-talk:not(.in-call) .app-sidebar__toggle {
     inset-block-start: calc(var(--app-sidebar-padding) + 20px) !important;
-    inset-inline-end: calc(var(--app-sidebar-padding) + 20px + var(--sidebar-pad)) !important;
+    inset-inline-end: calc(var(--app-sidebar-padding) + 32px + var(--sidebar-pad)) !important;
 }
 .app-talk:not(.in-call) .app-sidebar__toggle .material-design-icon__svg > path {
     fill: #808080;
@@ -427,24 +511,27 @@ body .app-talk{
 .app-talk:not(.in-call) .app-navigation-toggle-wrapper .material-design-icon__svg > path {
     fill: #808080;
 }
-.app-talk:not(.in-call) .app-navigation {
+.app-talk:not(.in-call) .app-navigation.app-navigation--close .app-navigation-toggle-wrapper {
+    left: 300px;
+}
+.app-talk .app-navigation {
     background-color: unset !important;
 }
 .app-talk .app-navigation:not(.app-navigation--close) {
     width: 246px !important;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__list {
+.app-talk .app-navigation .app-navigation__list {
     background: var(--color-main-background-blur);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__list .list-item-content__actions{
+.app-talk.app-navigation .app-navigation__list .list-item-content__actions{
     /*height: 20px;*/
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__list .list-item__anchor{
+.app-talk .app-navigation .app-navigation__list .list-item__anchor{
     margin-left: 8px;
 }
-.app-talk:not(.in-call) .app-navigation .left-sidebar__settings-button-container {
+.app-talk .app-navigation .left-sidebar__settings-button-container {
     background: var(--color-main-background-blur);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -453,25 +540,25 @@ body .app-talk{
         justify-content: flex-start !important;
     }
 }
-.app-talk:not(.in-call) .app-navigation__search {
+.app-talk .app-navigation__search {
     margin-bottom: 8px;
     border-radius: 8px !important;
 }
-.app-talk:not(.in-call) .app-navigation__search .action-item__menutoggle {
+.app-talk .app-navigation__search .action-item__menutoggle {
     padding: 10px !important;
     width: 40px !important;
 }
-.app-talk:not(.in-call) .conversations-search{
+.app-talk .conversations-search{
     width: calc(100% - 33px) !important;
     padding: 10px !important;
     background-color:  var(--color-main-background-blur) !important;
     border-radius: 8px;
 
 }
-.app-talk:not(.in-call) .conversations-search--expanded{
+.app-talk .conversations-search--expanded{
     /*width: calc(100% + 33px) !important;*/
 }
-.app-talk:not(.in-call) .chatView {
+.app-talk .chatView {
     background-color: var(--color-main-background-blur);
     border-radius: 8px !important;
     margin-top: 8px !important;
@@ -527,10 +614,10 @@ body .app-talk{
 /*.app-talk .conversation-icon .avatar.icon {*/
 /*    display: none !important;*/
 /*}*/
-.app-talk:not(.in-call) .button-vue--vue-secondary {
+.app-talk .button-vue--vue-secondary {
     background-color: unset !important;
 }
-.app-talk:not(.in-call) .new-conversation .filters {
+.app-talk .new-conversation .filters {
     height: unset;
     width: unset;
     left: unset;
@@ -543,7 +630,7 @@ body .app-talk{
     border-radius: 8px !important;
     transition: none;
 }
-.app-talk:not(.in-call) .new-conversation .actions {
+.app-talk .new-conversation .actions {
     height: unset;
     width: unset;
     left: unset;
@@ -562,13 +649,27 @@ body .app-talk{
     inset-inline-end: calc(-30px - var(--app-navigation-padding)) !important;
     margin-inline-end: calc(-1 * var(--default-clickable-area) - 40px) !important;
 }
-.app-talk.in-call .app-navigation-toggle-wrapper {
-    display: none;
+.app-talk.in-call .app-navigation .app-navigation-toggle-wrapper {
+    top: 0;
+    left: 318px;
+    transition: .3s;
+}
+.app-talk.in-call .app-navigation-toggle-wrapper button {
+    background-color: unset !important;
+}
+.app-talk .app-navigation-toggle {
+    background-color: #FFFFFF !important;
 }
 
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper {
     flex: unset;
-
+}
+#content-vue.app-talk.in-call .top-bar .top-bar__wrapper .action-item.action-item--default-popover {
+    transition: opacity .3s;
+    border-radius: 8px;
+}
+#content-vue.app-talk.in-call .top-bar .top-bar__wrapper .action-item.action-item--default-popover:hover {
+    opacity: .75;
 }
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper #call_button.button-vue--vue-primary:after {
     /*content: '';*/
@@ -595,7 +696,36 @@ body .app-talk{
 #content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary  {
     /*padding: 7px 45px 8px 6px !important;*/
     /*padding: 6px 8px 6px 8px !important;*/
-    padding: 3px 8px 3px 8px !important;
+    padding: 3px 25px 3px 18px !important;
+}
+#content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary .button-vue__wrapper {
+    flex-direction: row-reverse;
+}
+#content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary .button-vue__wrapper .button-vue__icon {
+    position: relative;
+}
+#content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary .button-vue__wrapper .button-vue__icon .phone-icon svg {
+    display: none;
+}
+#content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary .button-vue__wrapper .button-vue__icon .phone-icon:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    background-image: url("/themes/forbion/images/spreed/phone-btn.svg");
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#content-vue.app-talk:not(.in-call) .top-bar .top-bar__wrapper .button-vue--vue-primary .button-vue__wrapper .button-vue__icon .phone-icon:before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: 17px;
+    width: 2px;
+    height: calc(100% + 6px);
+    background: #FFFFFF;
 }
 .app-navigation--close .top-bar-outer {
     width: calc(100%) !important;
@@ -652,7 +782,7 @@ body .app-talk{
     min-height: 40px !important;
 }
 .app-talk:not(.in-call) .top-bar--authorised .conversation-icon {
-    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 8px) !important;
+    margin-left: calc(var(--default-clickable-area) + var(--default-grid-baseline) + 14px) !important;
 }
 .app-talk.in-call .top-bar--authorised .conversation-icon {
     margin-left: 4px;
@@ -665,12 +795,11 @@ body .app-talk{
 }
 
 
-/*chatView*/
-.app-talk:not(.in-call) .chatView .new-message-form {
+.app-talk .chatView .new-message-form {
     align-items: center;
 }
 
-.app-talk:not(.in-call) .chatView .new-message-form__input .rich-contenteditable {
+.app-talk .chatView .new-message-form__input .rich-contenteditable {
     width: calc(100% - 4px) !important;
     left: 4px;
 }
@@ -681,7 +810,7 @@ body .app-talk{
     left: unset !important;
 
 }
-.app-talk:not(.in-call) .chatView .new-message-form__input .new-message-form__emoji-picker {
+.app-talk .chatView .new-message-form__input .new-message-form__emoji-picker {
 
     /*top: calc(50% - 10px) !important;*/
     left: -10px !important;
@@ -692,7 +821,7 @@ body .app-talk{
         --button-size: 36px !important;
     }
 }
-.app-talk:not(.in-call) .chatView .new-message-form__input .rich-contenteditable__input {
+.app-talk .chatView .new-message-form__input .rich-contenteditable__input {
     --contenteditable-block-offset: 5px !important;
     min-height: 36px;
     /*height: 36px !important;*/
@@ -708,14 +837,13 @@ body .app-talk{
     border: 1px solid #E0E0E0 !important;
 }
 
-/*Правый сайдбар*/
 .app-talk:not(.in-call) .app-sidebar {
     border-radius: 8px !important;
     box-shadow: 0px 13px 17.1px 0px rgba(0, 0, 0, 0.08);
 }
 .app-talk:not(.in-call) .app-sidebar-tabs .app-sidebar-tabs__nav {
     justify-content: space-between !important;
-    padding: 0 20px !important;
+    padding: 0 10% !important;
     margin: unset;
     border-bottom: 2px solid #E6E6E6 !important;
 
@@ -812,41 +940,25 @@ body .app-talk{
     height: 10px;
 }
 
-.app-talk:not(.in-call) .app-navigation .app-navigation__content .app-navigation__search .new-conversation .input-field__main-wrapper {
+.app-talk .app-navigation .app-navigation__content .app-navigation__search .new-conversation .input-field__main-wrapper {
     display: flex;
     align-items: center;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__content .app-navigation__search .new-conversation .input-field__main-wrapper .input-field__icon {
+.app-talk .app-navigation .app-navigation__content .app-navigation__search .new-conversation .input-field__main-wrapper .input-field__icon {
     display: none;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__content .input-field__main-wrapper .input-field__input {
-    padding-inline: 10px;
+.app-talk .app-navigation .app-navigation__content .input-field__main-wrapper .input-field__input {
+    padding: 5px 35px 3px 10px !important;
+    height: auto !important;
     border: 1px solid #E6E6E6;
     font-size: 12px;
-    padding-top: 3px;
     line-height: 20px;
     font-weight: 500;
-    padding-block: unset !important;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__content .input-field__main-wrapper .input-field__input:hover {
-    padding-inline: 10px;
-    border: 1px solid #E6E6E6;
-    font-size: 12px;
-    padding-top: 3px;
-    line-height: 20px;
-    font-weight: 500;
-    padding-block: unset !important;
+.app-talk .app-navigation .app-navigation__content .input-field__main-wrapper .input-field__trailing-button {
+    right: 10px;
 }
-.app-talk:not(.in-call) .app-navigation .app-navigation__content .input-field__main-wrapper .input-field__input:active {
-    padding-inline: 10px;
-    border: 1px solid #E6E6E6;
-    font-size: 12px;
-    padding-top: 3px;
-    line-height: 20px;
-    font-weight: 500;
-    padding-block: unset !important;
-}
-/*Dialog modal*/
+    /*Dialog modal*/
 
 .app-talk:not(.in-call) .dialog__modal .modal-wrapper .modal-container {
     padding-top: 48px !important;
@@ -876,7 +988,7 @@ body .app-talk{
 .app-talk:not(.in-call) + .dialog__modal {
     --color-primary-element: #70B62B !important;
     --color-primary-element-hover: #6faf2e !important;
-    --color-primary-element-light-hover: #ffffff !important;
+    --color-primary-element-light-hover: rgba(128, 128, 128, 0.1) !important;
     --default-clickable-area: 20px;
 
     & .modal-container {
@@ -925,7 +1037,6 @@ body .app-talk{
 }
 
 
-/* Стили для .modal-mask */
 .app-talk:not(.in-call) ~ .modal-mask,
 .app-talk:not(.in-call) + .modal-mask {
     width: 100% !important;
@@ -973,7 +1084,7 @@ body .app-talk{
     & .modal-wrapper .modal-container {
         --color-primary-element: #70B62B !important;
         --color-primary-element-hover: #6faf2e !important;
-        --color-primary-element-light-hover: #ffffff !important;
+        --color-primary-element-light-hover: rgba(128, 128, 128, 0.1) !important;
         --color-primary-element-light: #70B62B !important;
         --default-clickable-area: 20px;
         --color-primary-element-light-text: #000;
@@ -1020,7 +1131,11 @@ body .app-talk{
         pointer-events: none;
     }
     & #call_button.button-vue--vue-primary  {
-        padding: 7px 45px 8px 6px !important;
+        padding: 7px 61px 8px 3px !important;
+
+        & svg {
+            display: none;
+        }
     }
     & .button-vue--vue-primary  {
         padding: 7px !important;
@@ -1039,7 +1154,6 @@ body .app-talk{
     }
 }
 
-/* Стили для выпадающих списков */
 .app-talk:not(.in-call) ~ .vs__dropdown-menu,
 .app-talk:not(.in-call) + .vs__dropdown-menu {
     padding: unset !important;
@@ -1063,7 +1177,7 @@ body .app-talk{
     }
 
     /*padding: unset !important;*/
-    --color-background-hover: #ffffff !important;
+    --color-background-hover: rgba(128, 128, 128, 0.1) !important;
     & .material-design-icon.upload-icon:after {
         content: '';
         background-image: url('/themes/forbion/images/upload-black.svg');
@@ -1172,27 +1286,348 @@ body .app-talk{
     }
 }
 
-/*Звонок*/
 
+.app-talk.in-call .new-conversation {
+    margin: 0;
+}
 .app-talk.in-call .top-bar-outer {
     /*width: 60% !important;*/
     max-width: 350px !important;
     height: 35px !important;
     background-color: transparent !important;
+    padding-left: 34px;
+    padding-bottom: 3px;
+}
+.app-talk.in-call .top-bar__wrapper .action-item,
+.app-talk.in-call .top-bar__wrapper .action-item .action-item__menutoggle {
+    background-color: unset !important;
+}
+.app-talk.in-call .top-bar__wrapper .action-item.action-item--default-popover svg {
+    color: #808080;
+}
+.app-talk.in-call .app-sidebar__toggle {
+    display: none;
+}
+.app-talk.in-call .top-bar__wrapper > * {
+    display: none;
 
+    &.top-bar-menu > *:not(.action-item--default-popover) {
+        display: none;
+    }
+
+    &.call-time,
+    &.top-bar-menu,
+    &.test {
+        display: block;
+    }
+
+    &.call-time {
+        button {
+            background-color: unset !important;
+
+            .button-vue__text {
+                margin-left: 6px;
+            }
+        }
+    }
 }
 .app-talk.in-call .top-bar.top-bar--in-call {
     /*padding-top: 8px !important;*/
+    padding-right: 15px;
+    position: absolute;
+    top: 0;
+    background: #FFFFFF;
+    border-radius: 8px;
+    margin: 25px 25px 15px;
+    left: 314px;
+    height: 40px;
+    min-height: unset;
+    max-width: calc(100% - 258px);
+}
+.app-talk.in-call .app-navigation:not(.app-navigation--close)+.app-content .top-bar.top-bar--in-call {
+    max-width: calc(100% - 572px);
+}
+.app-talk.in-call #videos {
+    margin-top: -2px;
+    height: calc(100% - 112px);
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+.app-talk.in-call #videos .video-background {
+    background-color: unset !important;
+}
+.app-talk.in-call #videos .video-background:after {
+    display: none;
+}
+.app-talk.in-call #videos .avatar-container,
+.app-talk.in-call #videos .video {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.app-talk.in-call #videos .participant-name {
+    margin-left: 0;
+    padding: 10px 14px;
+    color: #000000;
+    font-size: 20px;
+    line-height: 20px;
+    background: #F0F1F4;
+    border-radius: 16px;
+    filter: unset;
+}
+.app-talk.in-call #videos .video-container-grid .wrapper {
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+.app-talk.in-call #videos .video-container-grid .transition-group.media-indicators {
+    display: none;
+}
+.app-talk.in-call #videos .avatar-container .username {
+    margin-top: 20px;
+    padding: 10px 14px;
+    color: #000000;
+    font-size: 20px;
+    line-height: 20px;
+    background: #F0F1F4;
+    border-radius: 16px;
+}
+.app-talk.in-call .empty-call-view {
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+}
+.app-talk.in-call .empty-call-view * {
+    color: #000000;
+}
+.app-talk.in-call .empty-call-view .button-vue {
+    margin-top: 20px;
+    & .button-vue__text {
+        color: #FFFFFF;
+    }
+}
+.app-talk.in-call .empty-call-view h2 {
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+.app-talk.in-call .main-view {
+    background: unset;
+    position: static;
+}
+.app-talk.in-call #call-container {
+    background: unset;
+}
+.app-talk.in-call .top-bar__wrapper {
+    padding-bottom: 1px;
+}
+.app-talk.in-call .top-bar__wrapper .button-vue__text {
+    color: #808080;
+}
+.app-talk.in-call .top-bar__wrapper .material-design-icon svg {
+    color: #000000;
+}
+.app-talk.in-call .top-bar__wrapper .action-item--default-popover .button-vue__text {
+    color: #FFFFFF;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover {
+    background-color: #B62B2B !important;
+    border-radius: 8px;
+    position: absolute;
+    right: -208px;
+    top: 0px;
+    padding: 0 16px 0 15px;
+    overflow: unset;
+    transition: opacity .3s;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover:hover {
+    opacity: .75;
+}
+.app-talk.in-call .top-bar__wrapper > .test #call_button {
+    background-color: #B62B2B !important;
+    border-radius: 8px;
+    position: absolute;
+    right: -208px;
+    top: 0px;
+    padding: 0 26px 0 21px;
+    overflow: unset;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover .button-vue,
+.app-talk.in-call .top-bar__wrapper > .test #call_button {
+    background: unset;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover .button-vue__wrapper,
+.app-talk.in-call .top-bar__wrapper > .test #call_button .button-vue__wrapper {
+    flex-direction: row-reverse;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover .button-vue__wrapper .button-vue__icon .material-design-icon:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/spreed/phone-red-btn.svg");
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+.app-talk.in-call .top-bar__wrapper > .test #call_button .button-vue__wrapper .button-vue__icon .material-design-icon:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("/themes/forbion/images/spreed/phone-red-btn.svg");
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover .button-vue__wrapper .button-vue__icon .material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: 27px;
+    width: 2px;
+    height: calc(100% + 6px);
+    background: #FFFFFF;
+}
+.app-talk.in-call .top-bar__wrapper > .test #call_button .button-vue__wrapper .button-vue__icon .material-design-icon:before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: 36px;
+    width: 2px;
+    height: calc(100% + 6px);
+    background: #FFFFFF;
+}
+.app-talk.in-call .top-bar__wrapper > .test .action-item--default-popover .button-vue__wrapper .button-vue__icon .material-design-icon svg,
+.app-talk.in-call .top-bar__wrapper > .test #call_button .button-vue__wrapper .button-vue__icon .material-design-icon svg {
+    display: none;
+}
+.app-talk:not(.in-call) .footer-bar {
+    display: none;
+}
+.app-talk.in-call .footer-bar {
+    display: flex;
+    position: absolute;
+    width: calc(100% - 558px);
+    left: 25px;
+    bottom: 15px;
+    z-index: 2;
+}
+.app-talk.in-call .footer-bar.sidebar--opened {
+    width: calc(100% - 1066px);
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper > * {
+    gap: unset;
+    &:not(:last-child) {
+        margin-right: 12px;
+    }
+    & .network-connection-state {
+        display: none;
+    }
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .button-vue,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .action-item {
+    transition: background-color .3s;
+    border-radius: 8px;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .button-vue,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .action-item {
+    background-color: unset !important;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .button-vue:hover {
+    background-color: rgba(128, 128, 128, 0.3) !important;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .buttons-bar,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .top-bar-menu {
+    & > *:not(:last-child) {
+        margin-right: 12px;
+    }
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .button-vue .button-vue__text {
+    color: #808080;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .button-vue svg {
+    color: #808080;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test .action-item,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test .action-item .v-popper,
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test .action-item .v-popper .button-vue {
+    width: 30px;
+    height: 30px;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .material-design-icon.monitor-share-icon svg {
+    display: none;
+}
+
+.app-talk.in-call .footer-bar .footer-bar__wrapper .material-design-icon.monitor-share-icon:after {
+    background-image: url("/themes/forbion/images/spreed/monitor-share-icon.svg") !important;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.footer-bar .footer-bar__wrapper .test .action-item .v-popper .button-vue {
+    background-color: #B62B2B !important;
+    transition: opacity .3s;
+}
+.footer-bar .footer-bar__wrapper .test .action-item .v-popper .button-vue:hover {
+    opacity: .75;
+}
+.footer-bar .footer-bar__wrapper .test .action-item .v-popper .button-vue svg {
+    display: none;
+}
+.footer-bar .footer-bar__wrapper .test .action-item .v-popper .button-vue .material-design-icon:after {
+    background-image: url("/themes/forbion/images/spreed/phone-red-btn.svg") !important;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1.1);
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test .button-vue {
+    padding: 0;
+    min-height: unset;
+    min-width: unset;
+}
+.app-talk.in-call .footer-bar .footer-bar__wrapper .test .button-vue .button-vue__text {
+    display: none;
 }
 .app-talk.in-call .top-bar.top-bar--in-call .conversation-header__text {
-    color: #E0E0E0;
+    color: #000000;
+}
+.app-talk.in-call #call-container #videos .stripe--collapse {
+    background-color: #000000 !important;
+    opacity: .7 !important;
+}
+.app-talk.in-call #call-container #videos .stripe--collapse:hover {
+    opacity: .4 !important;
 }
 .app-talk.in-call .app-sidebar__toggle {
     --sidebar-pad: 0px !important;
     /*inset-block-start: calc(var(--app-sidebar-padding) + 47px) !important;*/
     /*inset-inline-end: 26px !important;*/
     inset-block-start: calc(var(--app-sidebar-padding) + 26px) !important;
-    inset-inline-end: calc(var(--app-sidebar-padding) + 25px + var(--sidebar-pad)) !important;
+    inset-inline-end: calc(var(--app-sidebar-padding) + 535px + var(--sidebar-pad)) !important;
 }
 .app-talk.in-call .app-sidebar__toggle .material-design-icon__svg > path {
     fill: #808080;
@@ -1206,14 +1641,15 @@ body .app-talk{
 .app-talk:not(.in-call) .overlap-icon {
     top: 4px !important;
     left: 5px !important;
+    display: none !important;
 }
 .app-talk.in-call .overlap-icon {
     /*top: -2px !important;*/
     /*left: 15px !important;*/
     top: 4px !important;
     left: 5px !important;
+    display: none !important;
 }
-/* Стили для .modal-mask */
 .app-talk ~ .modal-mask,
 .app-talk + .modal-mask {
 
@@ -1350,7 +1786,7 @@ body .app-talk{
     & .modal-wrapper .modal-container {
         --color-primary-element: #70B62B !important;
         --color-primary-element-hover: #6faf2e !important;
-        --color-primary-element-light-hover: #ffffff !important;
+        --color-primary-element-light-hover: rgba(128, 128, 128, 0.1) !important;
         --color-primary-element-light: #70B62B !important;
         --default-clickable-area: 20px;
         --color-primary-element-light-text: #000;
@@ -1384,7 +1820,7 @@ body .app-talk{
         pointer-events: none;
     }
     & #call_button.button-vue--vue-primary  {
-        padding: 7px 45px 8px 6px !important;
+        padding: 7px 61px 8px 2px !important;
         color: #FFFFFF !important;
     }
     & .button-vue--vue-primary  {
@@ -1417,4 +1853,8 @@ body .app-talk{
 
 .modal-mask #settings-section_performance {
     display: none;
+}
+
+.wrapper--big .bottom-bar:hover {
+    background: unset !important;
 }
