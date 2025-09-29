@@ -53,7 +53,7 @@ $nonceManager = \OC::$server->get(\OC\Security\CSP\ContentSecurityPolicyNonceMan
 
     <?php
     $cssMapping = [
-        '/apps/mail' => '/themes/forbion/css/pages/app-mail/_app-mail.css',
+//        '/apps/mail' => '/themes/forbion/css/pages/app-mail/_app-mail.css',
         '/apps/files' => '/themes/forbion/css/pages/app-files/_app-files.css',
         '/apps/calendar' => '/themes/forbion/css/pages/app-calendar/_app-calendar.css',
         '/apps/contacts' => '/themes/forbion/css/pages/app-contacts/_app-contacts.css',
@@ -111,6 +111,14 @@ $headerStyle = (isset($_GET['iframe']) && $_GET['iframe'] === 'true') ? 'style="
                             <img src="/themes/forbion/images/menu/mail.svg" alt="mail">
                         </span>
                         <span class="app-menu-entry__label">Почта</span>
+                    </a>
+                </li>
+                <li class="app-menu-entry">
+                    <a href="/apps/mail/" class="app-menu-entry__link">
+                        <span class="app-menu-entry__icon">
+                            <img src="/themes/forbion/images/menu/mail.svg" alt="mail">
+                        </span>
+                        <span class="app-menu-entry__label">Почта2</span>
                     </a>
                 </li>
                 <li class="app-menu-entry">

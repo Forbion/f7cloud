@@ -39,6 +39,7 @@ return array(
     'OCA\\Onlyoffice\\FileVersions' => $baseDir . '/lib/FileVersions.php',
     'OCA\\Onlyoffice\\Hooks' => $baseDir . '/lib/Hooks.php',
     'OCA\\Onlyoffice\\KeyManager' => $baseDir . '/lib/KeyManager.php',
+    'OCA\\Onlyoffice\\Listeners\\ContentSecurityPolicyListener' => $baseDir . '/lib/Listeners/ContentSecurityPolicyListener.php',
     'OCA\\Onlyoffice\\Listeners\\CreateFromTemplateListener' => $baseDir . '/lib/Listeners/CreateFromTemplateListener.php',
     'OCA\\Onlyoffice\\Listeners\\DirectEditorListener' => $baseDir . '/lib/Listeners/DirectEditorListener.php',
     'OCA\\Onlyoffice\\Listeners\\FileSharingListener' => $baseDir . '/lib/Listeners/FileSharingListener.php',

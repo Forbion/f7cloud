@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "搜尋聯絡人…",
     "Unselect {number}" : "取消選取 {number}",
     "Add to {group}" : "新增至 {group]",
+    "Add members to {group}" : "添加成員至 {group}",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "請注意，您只能將可寫通訊錄中的聯絡人添加到聯絡人群組。來自唯讀通訊錄的聯絡人，例如系統通訊錄，無法添加。",
     "Remove {type}" : "移除 {type}",
     "Add to group" : "新增至群組",
-    "Invite members to team" : "邀請成員加入團隊",
+    "Add members to group" : "添加成員至群組",
     "Search {types}" : "搜尋 {types}",
     "Add guest" : "添加訪客",
     "Search for people to add" : "搜索要添加的人",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "成員清單僅有此團隊的成員可見",
     "You currently have no access to the member list" : "您目前無權存取會員清單",
     "Add to {circle}" : "添加到 {circle}",
+    "Invite members to {circle}" : "邀請成員至 {circle}",
     "Pending" : "待定的",
     "Select chart …" : "選擇圖表 ...",
     "Chart" : "圖表",
@@ -330,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "團隊中出現錯誤。請檢查主控台以取得更多詳細資訊。",
     "Unable to create team {circleName}" : "無法建立團隊 {circleName}",
     "Unable to delete team {circleId}" : "無法刪除團隊 {circleId}",
-    "Unable to delete contact" : "無法刪除聯絡人"
+    "Unable to delete contact" : "無法刪除聯絡人",
+    "Invite members to team" : "邀請成員加入團隊"
 },
 "nplurals=1; plural=0;");

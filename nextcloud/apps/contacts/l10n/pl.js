@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "Wyszukiwanie kontaktów…",
     "Unselect {number}" : "Odznacz {number}",
     "Add to {group}" : "Dodaj do {group}",
+    "Add members to {group}" : "Dodaj członków do {group}",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Pamiętaj, że do grup kontaktów można dodawać tylko kontakty z edytowalnych książek adresowych. Kontakty z książek tylko do odczytu, takich jak systemowa książka adresowa, nie mogą być dodawane.",
     "Remove {type}" : "Usuń {type}",
     "Add to group" : "Dodaj do grupy",
-    "Invite members to team" : "Zaproś członków do zespołu",
+    "Add members to group" : "Dodaj członków do grupy",
     "Search {types}" : "Szukaj {types}",
     "Add guest" : "Dodaj gościa",
     "Search for people to add" : "Szukaj osoby do dodania",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "Lista członków jest widoczna tylko dla członków tego zespołu",
     "You currently have no access to the member list" : "Obecnie nie masz dostępu do listy członków",
     "Add to {circle}" : "Dodaj do {circle}",
+    "Invite members to {circle}" : "Zaproś członków do {circle}",
     "Pending" : "Oczekuje",
     "Select chart …" : "Wybierz wykres…",
     "Chart" : "Wykres",
@@ -330,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Wystąpił błąd w zespole(-łach). Sprawdź konsolę po więcej informacji.",
     "Unable to create team {circleName}" : "Nie można utworzyć zespołu {circleName}",
     "Unable to delete team {circleId}" : "Nie można usunąć zespołu {circleId}",
-    "Unable to delete contact" : "Nie można usunąć kontaktu"
+    "Unable to delete contact" : "Nie można usunąć kontaktu",
+    "Invite members to team" : "Zaproś członków do zespołu"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

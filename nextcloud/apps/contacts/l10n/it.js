@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "Cerca contatti...",
     "Unselect {number}" : "Deseleziona {number}",
     "Add to {group}" : "Aggiungi a {group}",
+    "Add members to {group}" : "Aggiungi membri a {group}",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Si prega di notare che è possibile aggiungere contatti ai gruppi di contatti solo da rubriche con accesso in scrittura. Non è possibile aggiungere contatti da rubriche di sola lettura, come la rubrica di sistema.",
     "Remove {type}" : "Rimuovi {type}",
     "Add to group" : "Aggiungi a gruppo",
-    "Invite members to team" : "Invita i membri a unirsi al team",
+    "Add members to group" : "Aggiungi membri al gruppo",
     "Search {types}" : "Cerca {types}",
     "Add guest" : "Aggiungi ospite",
     "Search for people to add" : "Cerca persone da aggiungere",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "L'elenco dei membri è visibile solo ai membri di questo team",
     "You currently have no access to the member list" : "Al momento non hai accesso all'elenco dei membri",
     "Add to {circle}" : "Aggiungi a {circle}",
+    "Invite members to {circle}" : "Invita membri a {circle}",
     "Pending" : "In attesa",
     "Select chart …" : "Seleziona grafico...",
     "Chart" : "Grafico",
@@ -211,6 +213,7 @@ OC.L10N.register(
     "Personal dates" : "Date personali",
     "Add property of this type" : "Aggiungi proprietà di questo tipo",
     "Member" : "Membro",
+    "This is a read-only group managed by administrators. Group members can only view this group." : "Questo è un gruppo di sola lettura gestito dagli amministratori. I membri del gruppo possono solo visualizzarlo.",
     "Unable to create the contact." : "Impossibile creare il contatto.",
     "Contact not found" : "Contatto non trovato",
     "Group {group} not found" : "Gruppo {group} non trovato",
@@ -329,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Si è verificato un errore nel team(s). Controlla la console per maggiori dettagli.",
     "Unable to create team {circleName}" : "Impossibile creare il team {circleName}",
     "Unable to delete team {circleId}" : "Impossibile eliminare il team\n{circleId}",
-    "Unable to delete contact" : "Impossibile eliminare il contatto"
+    "Unable to delete contact" : "Impossibile eliminare il contatto",
+    "Invite members to team" : "Invita i membri a unirsi al team"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

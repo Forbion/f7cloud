@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "Kontakte suchen…",
     "Unselect {number}" : "{number} abwählen",
     "Add to {group}" : "Zur Gruppe {group} hinzufügen",
+    "Add members to {group}" : "Mitglieder zu {group} hinzufügen",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Bitte beachten Sie, dass Sie nur Kontakte aus beschreibbaren Adressbüchern zu Kontaktgruppen hinzufügen können. Kontakte aus schreibgeschützten Adressbüchern, wie z. B. dem Systemadressbuch, können nicht hinzugefügt werden.",
     "Remove {type}" : "Entferne {type}",
     "Add to group" : "Zur Gruppe hinzufügen",
-    "Invite members to team" : "Mitglieder in das Team einladen",
+    "Add members to group" : "Mitglieder der Gruppe hinzufügen",
     "Search {types}" : "Suche {types}",
     "Add guest" : "Gast hinzufügen",
     "Search for people to add" : "Nach Personen zum Hinzufügen suchen",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "Die Mitgliederliste ist nur für Mitglieder dieses Teams sichtbar",
     "You currently have no access to the member list" : "Sie haben aktuell keinen Zugriff auf die Mitgliederliste",
     "Add to {circle}" : "Zu {circle} hinzufügen",
+    "Invite members to {circle}" : "Mitglieder einladen zu {circle}",
     "Pending" : "Ausstehend",
     "Select chart …" : "Diagramm auswählen …",
     "Chart" : "Diagramm",
@@ -330,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Es ist ein Fehler in Team(s) aufgetreten. Bitte die Konsole für weitere Einzelheiten prüfen.",
     "Unable to create team {circleName}" : "Fehler beim Erstellen des Teams {circleName}",
     "Unable to delete team {circleId}" : "Fehler beim Löschen des Teams {circleId}",
-    "Unable to delete contact" : "Kontakt konnte nicht gelöscht werden"
+    "Unable to delete contact" : "Kontakt konnte nicht gelöscht werden",
+    "Invite members to team" : "Mitglieder in das Team einladen"
 },
 "nplurals=2; plural=(n != 1);");

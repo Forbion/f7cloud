@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "Pesquisar contatos …",
     "Unselect {number}" : "Desselecionar {number}",
     "Add to {group}" : "Adicionar a {group}",
+    "Add members to {group}" : "Adicionar membros a {group}",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Observe que só é possível adicionar contatos de catálogos de endereços graváveis a grupos de contatos. Os contatos de catálogos de endereços somente leitura, como o catálogo de endereços do sistema, não podem ser adicionados.",
     "Remove {type}" : "Excluir {type}",
     "Add to group" : "Adicionar ao grupo",
-    "Invite members to team" : "Convidar membros para a equipe",
+    "Add members to group" : "Adicionar membros ao grupo",
     "Search {types}" : "Pesquisar {types}",
     "Add guest" : "Adicionar convidado",
     "Search for people to add" : "Pesquisar pessoas para adicionar",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "A lista de membros só é visível para membros desta equipe",
     "You currently have no access to the member list" : "No momento, você não tem acesso à lista de membros",
     "Add to {circle}" : "Adicionar a {circle}",
+    "Invite members to {circle}" : "Convidar membros para {circle}",
     "Pending" : "Pendente",
     "Select chart …" : "Selecione gráfico …",
     "Chart" : "Gráfico",
@@ -330,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Ocorreu um erro na(s) equipe(s). Verifique o console para mais detalhes.",
     "Unable to create team {circleName}" : "Não foi possível criar a equipe {circleName}",
     "Unable to delete team {circleId}" : "Não foi possível excluir a equipe {circleId}",
-    "Unable to delete contact" : "Não foi possível excluir o contato"
+    "Unable to delete contact" : "Não foi possível excluir o contato",
+    "Invite members to team" : "Convidar membros para a equipe"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

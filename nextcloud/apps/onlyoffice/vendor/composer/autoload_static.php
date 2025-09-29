@@ -62,6 +62,7 @@ class ComposerStaticInit0db47ad6cdfcba8fc59f15efa19fda35
         'OCA\\Onlyoffice\\FileVersions' => __DIR__ . '/../..' . '/lib/FileVersions.php',
         'OCA\\Onlyoffice\\Hooks' => __DIR__ . '/../..' . '/lib/Hooks.php',
         'OCA\\Onlyoffice\\KeyManager' => __DIR__ . '/../..' . '/lib/KeyManager.php',
+        'OCA\\Onlyoffice\\Listeners\\ContentSecurityPolicyListener' => __DIR__ . '/../..' . '/lib/Listeners/ContentSecurityPolicyListener.php',
         'OCA\\Onlyoffice\\Listeners\\CreateFromTemplateListener' => __DIR__ . '/../..' . '/lib/Listeners/CreateFromTemplateListener.php',
         'OCA\\Onlyoffice\\Listeners\\DirectEditorListener' => __DIR__ . '/../..' . '/lib/Listeners/DirectEditorListener.php',
         'OCA\\Onlyoffice\\Listeners\\FileSharingListener' => __DIR__ . '/../..' . '/lib/Listeners/FileSharingListener.php',

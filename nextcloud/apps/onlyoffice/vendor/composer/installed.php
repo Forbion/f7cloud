@@ -3,7 +3,7 @@
         'name' => 'onlyoffice/onlyoffice-nextcloud',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '147d377ee1ed0249ddd9ebf5db3e26685a27603e',
+        'reference' => 'cc43e67566c46204adb1f62197e39d50ae605a71',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'onlyoffice/onlyoffice-nextcloud' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '147d377ee1ed0249ddd9ebf5db3e26685a27603e',
+            'reference' => 'cc43e67566c46204adb1f62197e39d50ae605a71',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

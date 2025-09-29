@@ -166,10 +166,11 @@ OC.L10N.register(
     "Search contacts …" : "Buscar contactos…",
     "Unselect {number}" : "Deseleccionar {number}",
     "Add to {group}" : "Engadir a {group}",
+    "Add members to {group}" : "Engadir membros a {group}",
     "Please note that you can only add contacts from writable address books to contact groups. Contacts from read-only address books, such as the system address book, cannot be added." : "Teña en conta que só pode engadir contactos de cadernos de enderezos editábeis a grupos de contactos. Non é posíbel engadir contactos de cadernos de enderezos de só lectura, como o caderno de enderezos do sistema.",
     "Remove {type}" : "Retirar {type}",
     "Add to group" : "Engadir ao grupo",
-    "Invite members to team" : "Convidar aos membros ao equipo",
+    "Add members to group" : "Engadir membros ao grupo",
     "Search {types}" : "Buscar {types}",
     "Add guest" : "Engadir convidados",
     "Search for people to add" : "Buscar persoas para engadir",
@@ -200,6 +201,7 @@ OC.L10N.register(
     "The list of members is only visible to members of this team" : "A lista de membros só é visíbel para os membros deste equipo",
     "You currently have no access to the member list" : "Agora non ten acceso á lista de membros",
     "Add to {circle}" : "Engadir a {circle}",
+    "Invite members to {circle}" : "Convidar a membros a {circle}",
     "Pending" : "Pendentes",
     "Select chart …" : "Seleccionar o gráfico…",
     "Chart" : "Gráfico",
@@ -330,6 +332,7 @@ OC.L10N.register(
     "An error has occurred in team(s). Check the console for more details." : "Produciuse un erro no(s) equipo(s). Consulta a consola para obter máis detalles.",
     "Unable to create team {circleName}" : "Non é posíbel crear o equipo {circleName}",
     "Unable to delete team {circleId}" : "Non é posíbel eliminar o equipo {circleId}",
-    "Unable to delete contact" : "Non é posíbel eliminar o contacto"
+    "Unable to delete contact" : "Non é posíbel eliminar o contacto",
+    "Invite members to team" : "Convidar aos membros ao equipo"
 },
 "nplurals=2; plural=(n != 1);");
