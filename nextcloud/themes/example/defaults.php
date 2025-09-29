@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
@@ -88,8 +87,8 @@ class OC_Theme {
 	 * @return string long footer
 	 */
 	public function getLongFooter(): string {
-		$footer = '© ' . date('Y') . ' <a href="' . $this->getBaseUrl() . '" target="_blank">' . $this->getEntity() . '</a>'
-			. '<br/>' . $this->getSlogan();
+		$footer = '© ' . date('Y') . ' <a href="' . $this->getBaseUrl() . '" target="_blank">' . $this->getEntity() . '</a>' .
+			'<br/>' . $this->getSlogan();
 
 		return $footer;
 	}
