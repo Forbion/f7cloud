@@ -2,6 +2,7 @@
 
 use OCA\User_LDAP\Configuration;
 use OCA\User_LDAP\Helper;
+use OCP\Server;
 
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
@@ -13,7 +14,7 @@ use OCA\User_LDAP\Helper;
 \OC_JSON::checkAppEnabled('user_ldap');
 \OC_JSON::callCheck();
 
-$helper = new Helper(\OC::$server->getConfig(), \OC::$server->getDatabaseConnection());
+$helper = Server::get(Helper::class);
 $serverConnections = $helper->getServerConfigurationPrefixes();
 sort($serverConnections);
 $lk = array_pop($serverConnections);

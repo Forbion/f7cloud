@@ -16,6 +16,7 @@ class RemoteService {
 	public function __construct(
 		private AppConfig $appConfig,
 		private IClientService $clientService,
+		private CapabilitiesService $capabilitiesService,
 		private LoggerInterface $logger,
 	) {
 	}
@@ -71,7 +72,7 @@ class RemoteService {
 	 * @param resource $stream
 	 * @return resource|string
 	 */
-	public function convertTo(string $filename, $stream, string $format) {
+	public function convertTo(string $filename, $stream, string $format, ?array $conversionOptions = []) {
 		$client = $this->clientService->newClient();
 		$options = RemoteOptionsService::getDefaultOptions();
 		// FIXME: can be removed once https://github.com/CollaboraOnline/online/issues/6983 is fixed upstream
@@ -81,13 +82,129 @@ class RemoteService {
 			$options['verify'] = false;
 		}
 
-		$options['multipart'] = [['name' => $filename, 'contents' => $stream]];
+		$options['multipart'] = [
+			array_merge([
+				'name' => $filename,
+				'filename' => $filename,
+				'contents' => $stream
+			], $conversionOptions),
+		];
 
 		try {
 			$response = $client->post($this->appConfig->getCollaboraUrlInternal() . '/cool/convert-to/' . $format, $options);
-			return $response->getBody();
+			$body = $response->getBody();
+
+			if (is_null($body)) {
+				throw new \Exception('Empty response from Collabora server');
+			}
+
+			return $body;
 		} catch (\Exception $e) {
 			$this->logger->error('Failed to convert preview: ' . $e->getMessage(), ['exception' => $e]);
+			throw $e;
+		}
+	}
+
+	/**
+	 * @param string $filename
+	 * @param resource $stream
+	 * @return array
+	 */
+	public function extractDocumentStructure(string $filename, $stream, string $filter): array {
+		if (!$this->capabilitiesService->hasFormFilling()) {
+			return [];
+		}
+
+		$collaboraUrl = $this->appConfig->getCollaboraUrlInternal();
+		$client = $this->clientService->newClient();
+
+		$options = RemoteOptionsService::getDefaultOptions();
+		$options['expect'] = false;
+
+		if ($this->appConfig->getDisableCertificateValidation()) {
+			$options['verify'] = false;
+		}
+
+		$options['query'] = ['filter' => $filter];
+		$options['multipart'] = [
+			[
+				'name' => 'data',
+				'filename' => $filename,
+				'contents' => $stream,
+				'headers' => [ 'Content-Type' => 'multipart/form-data' ],
+			],
+		];
+
+		try {
+			$response = $client->post(
+				$collaboraUrl . '/cool/extract-document-structure',
+				$options
+			);
+
+			return json_decode($response->getBody(), true)['DocStructure'] ?? [];
+		} catch (\Exception $e) {
+			$this->logger->error($e->getMessage());
+			return [];
+		}
+	}
+
+	/**
+	 * @param string $filename
+	 * @param resource $stream
+	 * @return string|resource
+	 */
+	public function transformDocumentStructure(string $filename, $stream, array $values, ?string $format = null) {
+		if (!$this->capabilitiesService->hasFormFilling()) {
+			throw new \RuntimeException('Form filling not supported by the Collabora server');
+		}
+
+		$collaboraUrl = $this->appConfig->getCollaboraUrlInternal();
+		$client = $this->clientService->newClient();
+
+		$options = RemoteOptionsService::getDefaultOptions();
+		$options['expect'] = false;
+
+		if ($this->appConfig->getDisableCertificateValidation()) {
+			$options['verify'] = false;
+		}
+
+		$data = [
+			'name' => 'data',
+			'filename' => $filename,
+			'contents' => $stream,
+			'headers' => [ 'Content-Type' => 'multipart/form-data' ],
+		];
+
+		$transform = [
+			'name' => 'transform',
+			'contents' => '{"Transforms": ' . json_encode($values) . '}',
+			'headers' => [ 'Content-Type' => 'application/json' ],
+		];
+
+		$options['multipart'] = [$data, $transform];
+
+		if ($format !== null) {
+			$options['multipart'][] = [
+				'name' => 'format',
+				'contents' => $format,
+			];
+		}
+
+		try {
+			$response = $client->post(
+				$collaboraUrl . '/cool/transform-document-structure',
+				$options
+			);
+
+			$body = $response->getBody();
+
+			if (is_null($body)) {
+				throw new \Exception('Empty response from Collabora server');
+			}
+
+			return $body;
+		} catch (\Exception $e) {
+			$this->logger->error($e->getMessage());
 			throw $e;
 		}
 	}

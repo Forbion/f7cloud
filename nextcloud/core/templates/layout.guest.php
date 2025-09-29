@@ -19,7 +19,6 @@
 p($theme->getTitle());
 ?>
 		</title>
-
 		<meta name="csp-nonce" nonce="<?php p($_['cspNonce']); /* Do not pass into "content" to prevent exfiltration */ ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0<?php if (isset($_['viewport_maximum_scale'])) {
 			p(', maximum-scale=' . $_['viewport_maximum_scale']);
@@ -34,46 +33,28 @@ p($theme->getTitle());
 		<link rel="manifest" href="<?php print_unescaped(image_path('core', 'manifest.json')); ?>" crossorigin="use-credentials">
 		<?php emit_css_loading_tags($_); ?>
 		<?php emit_script_loading_tags($_); ?>
-        <?php
-            if (isset($_['headers'])) {
-            $_['headers'] = preg_replace(
-            '/<meta[^>]*(property|name)=["\'](og:|twitter:)(title|description|image)["\'][^>]*>/i',
-            '',
-            $_['headers']
-            );
-            }
-        ?>
-        <?php print_unescaped($_['headers']); ?>
-
-        <meta name="description" content="облачное рабочее место">
-        <meta property="og:title" content="Forbion F7">
-        <meta property="og:description" content="облачное рабочее место">
-        <meta property="og:image" content="https://prod-general.f7cloud.ru/themes/forbion/favicon.png">
-        <meta property="og:favicon" content="https://prod-general.f7cloud.ru/themes/forbion/favicon.png">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="<?= (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>">
-        
-        <link rel="stylesheet" href="/themes/forbion/css/app.css">
-        <?php if (strpos($_SERVER['REQUEST_URI'], '/login') !== false) { ?><link rel="stylesheet" href="/themes/forbion/css/pages/page-login/_page-login.css"><?php } ?>
-    </head>
-	<body id="<?php p($_['bodyid']);?>">
+		<?php print_unescaped($_['headers']); ?>
+	</head>
+	<body id="<?php p($_['bodyid']);?>" <?php foreach ($_['enabledThemes'] as $themeId) {
+		p("data-theme-$themeId ");
+	}?> data-themes="<?php p(join(',', $_['enabledThemes'])) ?>">
 		<?php include 'layout.noscript.warning.php'; ?>
 		<?php include 'layout.initial-state.php'; ?>
 		<div class="wrapper">
 			<div class="v-align">
 				<?php if ($_['bodyid'] === 'body-login'): ?>
 					<header>
-						<div id="header">
+						<div id="header" class="header-guest">
 							<div class="logo"></div>
 						</div>
 					</header>
 				<?php endif; ?>
-				<main>
+				<div>
 					<h1 class="hidden-visually">
 						<?php p($theme->getName()); ?>
 					</h1>
 					<?php print_unescaped($_['content']); ?>
-				</main>
+				</div>
 			</div>
 		</div>
 		<?php

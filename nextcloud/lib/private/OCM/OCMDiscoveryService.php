@@ -13,6 +13,7 @@ use GuzzleHttp\Exception\ConnectException;
 use JsonException;
 use NCU\Security\Signature\Exceptions\IdentityNotFoundException;
 use NCU\Security\Signature\Exceptions\SignatoryException;
+use OC\Core\AppInfo\ConfigLexicon;
 use OC\OCM\Model\OCMProvider;
 use OCP\AppFramework\Http;
 use OCP\EventDispatcher\IEventDispatcher;
@@ -24,8 +25,8 @@ use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\OCM\Events\ResourceTypeRegisterEvent;
 use OCP\OCM\Exceptions\OCMProviderException;
+use OCP\OCM\ICapabilityAwareOCMProvider;
 use OCP\OCM\IOCMDiscoveryService;
-use OCP\OCM\IOCMProvider;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,8 +36,8 @@ class OCMDiscoveryService implements IOCMDiscoveryService {
 	private ICache $cache;
 	public const API_VERSION = '1.1.0';
 
-	private ?IOCMProvider $localProvider = null;
-	/** @var array<string, IOCMProvider> */
+	private ?ICapabilityAwareOCMProvider $localProvider = null;
+	/** @var array<string, ICapabilityAwareOCMProvider> */
 	private array $remoteProviders = [];
 
 	public function __construct(
@@ -56,10 +57,10 @@ class OCMDiscoveryService implements IOCMDiscoveryService {
 	 * @param string $remote
 	 * @param bool $skipCache
 	 *
-	 * @return IOCMProvider
+	 * @return ICapabilityAwareOCMProvider
 	 * @throws OCMProviderException
 	 */
-	public function discover(string $remote, bool $skipCache = false): IOCMProvider {
+	public function discover(string $remote, bool $skipCache = false): ICapabilityAwareOCMProvider {
 		$remote = rtrim($remote, '/');
 		if (!str_starts_with($remote, 'http://') && !str_starts_with($remote, 'https://')) {
 			// if scheme not specified, we test both;
@@ -127,14 +128,17 @@ class OCMDiscoveryService implements IOCMDiscoveryService {
 	}
 
 	/**
-	 * @return IOCMProvider
+	 * @return ICapabilityAwareOCMProvider
 	 */
-	public function getLocalOCMProvider(bool $fullDetails = true): IOCMProvider {
+	public function getLocalOCMProvider(bool $fullDetails = true): ICapabilityAwareOCMProvider {
 		if ($this->localProvider !== null) {
 			return $this->localProvider;
 		}
 
-		$provider = new OCMProvider();
+		$provider = new OCMProvider('Nextcloud ' . $this->config->getSystemValue('version'));
+		if (!$this->appConfig->getValueBool('core', ConfigLexicon::OCM_DISCOVERY_ENABLED)) {
+			return $provider;
+		}
 
 		$url = $this->urlGenerator->linkToRouteAbsolute('cloud_federation_api.requesthandlercontroller.addShare');
 		$pos = strrpos($url, '/');
@@ -146,6 +150,13 @@ class OCMDiscoveryService implements IOCMDiscoveryService {
 		$provider->setEnabled(true);
 		$provider->setApiVersion(self::API_VERSION);
 		$provider->setEndPoint(substr($url, 0, $pos));
+		$provider->setCapabilities(['/invite-accepted', '/notifications', '/shares']);
+
+		// The inviteAcceptDialog is available from the contacts app, if this config value is set
+		$inviteAcceptDialog = $this->appConfig->getValueString('core', ConfigLexicon::OCM_INVITE_ACCEPT_DIALOG);
+		if ($inviteAcceptDialog !== '') {
+			$provider->setInviteAcceptDialog($this->urlGenerator->linkToRouteAbsolute($inviteAcceptDialog));
+		}
 
 		$resource = $provider->createNewResourceType();
 		$resource->setName('file')

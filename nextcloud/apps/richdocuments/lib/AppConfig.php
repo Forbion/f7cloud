@@ -8,6 +8,7 @@ namespace OCA\Richdocuments;
 use OCA\Richdocuments\AppInfo\Application;
 use OCA\Richdocuments\Service\FederationService;
 use OCP\App\IAppManager;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\GlobalScale\IConfig as GlobalScaleConfig;
 use OCP\IConfig;
 
@@ -38,6 +39,7 @@ class AppConfig {
 		'watermark_allTagsList' => [],
 		'watermark_linkTagsList' => [],
 		'token_ttl' => 36000, // 10 hours
+		'doc_format' => 'ooxml',
 	];
 
 	public const WATERMARK_APP_NAMESPACE = 'files';
@@ -55,6 +57,7 @@ class AppConfig {
 
 	public function __construct(
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private IAppManager $appManager,
 		private GlobalScaleConfig $globalScaleConfig,
 	) {
@@ -238,6 +241,10 @@ class AppConfig {
 		}, $trustedNextcloudDomains));
 
 		return array_map(fn ($url) => $this->domainOnly($url), array_merge($trustedNextcloudDomains, $trustedCollaboraDomains));
+	}
+
+	public function isPreviewGenerationEnabled(): bool {
+		return $this->appConfig->getAppValueBool('preview_generation', true);
 	}
 
 	private function getGSDomains(): array {

@@ -11,6 +11,9 @@ use OC\App\CompareVersion;
 use OCA\Calendar\Service\Appointments\AppointmentConfigService;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Calendar\Resource\IManager as IResourceManager;
+use OCP\Calendar\Room\IManager as IRoomManager;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use function in_array;
 
@@ -21,9 +24,12 @@ class CalendarInitialStateService {
 		private IInitialState $initialStateService,
 		private IAppManager $appManager,
 		private IConfig $config,
+		private IAppConfig $appConfig,
 		private AppointmentConfigService $appointmentConfigService,
 		private CompareVersion $compareVersion,
 		private ?string $userId,
+		private IResourceManager $resourceManager,
+		private IRoomManager $roomManager,
 	) {
 	}
 
@@ -37,6 +43,7 @@ class CalendarInitialStateService {
 		$defaultSlotDuration = $this->config->getAppValue($this->appName, 'slotDuration', '00:30:00');
 		$defaultDefaultReminder = $this->config->getAppValue($this->appName, 'defaultReminder', 'none');
 		$defaultShowTasks = $this->config->getAppValue($this->appName, 'showTasks', 'yes');
+		$defaultTasksSidebar = $this->config->getAppValue($this->appName, 'tasksSidebar', 'yes');
 
 		$appVersion = $this->config->getAppValue($this->appName, 'installed_version', '');
 		$eventLimit = $this->config->getUserValue($this->userId, $this->appName, 'eventLimit', $defaultEventLimit) === 'yes';
@@ -50,6 +57,7 @@ class CalendarInitialStateService {
 		$slotDuration = $this->config->getUserValue($this->userId, $this->appName, 'slotDuration', $defaultSlotDuration);
 		$defaultReminder = $this->config->getUserValue($this->userId, $this->appName, 'defaultReminder', $defaultDefaultReminder);
 		$showTasks = $this->config->getUserValue($this->userId, $this->appName, 'showTasks', $defaultShowTasks) === 'yes';
+		$tasksSidebar = $this->config->getUserValue($this->userId, $this->appName, 'tasksSidebar', $defaultTasksSidebar) === 'yes';
 		$hideEventExport = $this->config->getAppValue($this->appName, 'hideEventExport', 'no') === 'yes';
 		$disableAppointments = $this->config->getAppValue($this->appName, 'disableAppointments', 'no') === 'yes';
 		$forceEventAlarmType = $this->config->getAppValue($this->appName, 'forceEventAlarmType', '');
@@ -69,6 +77,15 @@ class CalendarInitialStateService {
 		// if circles is not installed, we use 0.0.0
 		$isCircleVersionCompatible = $this->compareVersion->isCompatible($circleVersion ? $circleVersion : '0.0.0', '22');
 
+		$calendarFederationEnabled = $this->appConfig->getValueBool(
+			'dav',
+			'enableCalendarFederation',
+			true,
+		);
+
+		$enableResourceBooking = !empty($this->resourceManager->getBackends())
+			|| !empty($this->roomManager->getBackends());
+
 		$this->initialStateService->provideInitialState('app_version', $appVersion);
 		$this->initialStateService->provideInitialState('event_limit', $eventLimit);
 		$this->initialStateService->provideInitialState('first_run', $firstRun);
@@ -83,6 +100,7 @@ class CalendarInitialStateService {
 		$this->initialStateService->provideInitialState('slot_duration', $slotDuration);
 		$this->initialStateService->provideInitialState('default_reminder', $defaultReminder);
 		$this->initialStateService->provideInitialState('show_tasks', $showTasks);
+		$this->initialStateService->provideInitialState('tasks_sidebar', $tasksSidebar);
 		$this->initialStateService->provideInitialState('tasks_enabled', $tasksEnabled);
 		$this->initialStateService->provideInitialState('hide_event_export', $hideEventExport);
 		$this->initialStateService->provideInitialState('force_event_alarm_type', $forceEventAlarmType);
@@ -94,6 +112,14 @@ class CalendarInitialStateService {
 		$this->initialStateService->provideInitialState('show_resources', $showResources);
 		$this->initialStateService->provideInitialState('isCirclesEnabled', $isCirclesEnabled && $isCircleVersionCompatible);
 		$this->initialStateService->provideInitialState('publicCalendars', $publicCalendars);
+		$this->initialStateService->provideInitialState(
+			'calendar_federation_enabled',
+			$calendarFederationEnabled,
+		);
+		$this->initialStateService->provideInitialState(
+			'resource_booking_enabled',
+			$enableResourceBooking,
+		);
 	}
 
 	/**

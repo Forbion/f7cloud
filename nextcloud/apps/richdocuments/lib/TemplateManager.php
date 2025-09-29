@@ -30,21 +30,25 @@ class TemplateManager {
 	/** Accepted templates mime types */
 	public const MIMES_DOCUMENTS = [
 		'application/vnd.oasis.opendocument.text-template',
+		'application/vnd.oasis.opendocument.text',
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
 		'application/msword'
 	];
 	public const MIMES_SHEETS = [
 		'application/vnd.oasis.opendocument.spreadsheet-template',
+		'application/vnd.oasis.opendocument.spreadsheet',
 		'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
 		'application/vnd.ms-excel'
 	];
 	public const MIMES_PRESENTATIONS = [
 		'application/vnd.oasis.opendocument.presentation-template',
+		'application/vnd.oasis.opendocument.presentation',
 		'application/vnd.openxmlformats-officedocument.presentationml.template',
 		'application/vnd.ms-powerpoint'
 	];
 	public const MIMES_DRAWINGS = [
 		'application/vnd.oasis.opendocument.graphics-template',
+		'application/vnd.oasis.opendocument.graphics',
 	];
 
 	/** @var array Template mime types match */
@@ -413,7 +417,7 @@ class TemplateManager {
 	 * @return array
 	 */
 	public function formatNodeReturn(File $template) {
-		$ooxml = $this->config->getAppValue(Application::APPNAME, 'doc_format', '') === 'ooxml';
+		$ooxml = $this->config->getAppValue(Application::APPNAME, 'doc_format', 'ooxml') === 'ooxml';
 		$documentType = $this->flipTypes()[$template->getMimeType()];
 		return [
 			'id' => $template->getId(),
@@ -442,7 +446,7 @@ class TemplateManager {
 	}
 
 	public function formatEmpty(File $template) {
-		$ooxml = $this->config->getAppValue(Application::APPNAME, 'doc_format', '') === 'ooxml';
+		$ooxml = $this->config->getAppValue(Application::APPNAME, 'doc_format', 'ooxml') === 'ooxml';
 		$documentType = $this->flipTypes()[$template->getMimeType()];
 		return [
 			'id' => $template->getId(),
@@ -465,6 +469,21 @@ class TemplateManager {
 		}
 
 		return true;
+	}
+
+	public function getAITemplate(?string $templateName = 'security'): string {
+		$emptyAITemplates = __DIR__ . '/../emptyTemplates/ai/';
+		$fullTemplatePath = $emptyAITemplates . $templateName . '.odp';
+
+		if (file_exists($fullTemplatePath)) {
+			$emptyFileContent = file_get_contents($fullTemplatePath);
+
+			if ($emptyFileContent !== false) {
+				return $emptyFileContent;
+			}
+		}
+
+		return '';
 	}
 
 	/**
