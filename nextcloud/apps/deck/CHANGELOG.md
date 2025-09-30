@@ -5,48 +5,34 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-# 1.15.2
+## 1.16.0
+### Added
+- feat: update default content @luka-nextcloud [#6740](https://github.com/nextcloud/deck/pull/6740)
+- feat: add board import and export @luka-nextcloud [#6872](https://github.com/nextcloud/deck/pull/6872)
+- feat: use outline icons @luka-nextcloud [#7114](https://github.com/nextcloud/deck/pull/7114)
+- Add OCC commands for global calendar feature opt-in and opt-out in Deck @Fledermaus-20 [#7080](https://github.com/nextcloud/deck/pull/7080)
+- [stable32] Migrate delete icon to Material Symbol outline variant @backportbot [#7211](https://github.com/nextcloud/deck/pull/7211)
+- Chore(deps): Bump @nextcloud/vue from 8.27.0 to 8.31.0 @luka-nextcloud [#7271](https://github.com/nextcloud/deck/pull/7271)
+
 ### Fixed
-* [stable31] fix: update DeleteCron to remove deleted lists by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7029
-* [stable31] fix: not show Share with a Deck card for unauthorized users by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7061
-* [stable31] fix: unstable cypress test by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7063
-* [stable31] fix: add retry and show warning on description saving error by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7091
-* [stable31] fix: styling for new stack input field by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7113
-* [stable31] fix:allow foreign label deletion by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7130
-* [stable31] fix: acl check when delete, update board acl by @backportbot[bot] in https://github.com/nextcloud/deck/pull/7132
+- CSV export fixes @gidan80 [#6800](https://github.com/nextcloud/deck/pull/6800)
+- [stable32] fix: Fix colors from due dates and done @backportbot [#7239](https://github.com/nextcloud/deck/pull/7239)
+- [stable32] fix(darkmode): Fix activity icon colors @backportbot [#7241](https://github.com/nextcloud/deck/pull/7241)
+- [stable32] fix: redirect to cleaner URL if RewriteBase is enabled @backportbot [#7268](https://github.com/nextcloud/deck/pull/7268)
+- [stable32] fix: missing push notifications @backportbot [#7270](https://github.com/nextcloud/deck/pull/7270)
+- [stable32] fix: use text cursor for card title on dashboard @backportbot [#7273](https://github.com/nextcloud/deck/pull/7273)
+- [stable32] fix: parse arguments to CardService.reorder correctly to int @backportbot [#7276](https://github.com/nextcloud/deck/pull/7276)
 
-### Improvements
-* [stable31] perf: don't enrich cards when finding calendar entries by @backportbot[bot] in https://github.com/nextcloud/deck/pull/6959
-
-## 1.15.1
-### Fixed
-* [stable31] fix: Properly show attachment extension by @backportbot in https://github.com/nextcloud/deck/pull/6701
-* [stable31] Clear selected stack when selected board changed by @backportbot in https://github.com/nextcloud/deck/pull/6915
-* [stable31] fix: Use strings as rich object ids by @backportbot in https://github.com/nextcloud/deck/pull/6951
-* [stable31] fix: Limit label actions to labels of the cards board by @backportbot in https://github.com/nextcloud/deck/pull/6954
-* [stable31] fix: only delete assignments on unshared board by @grnd-alt in https://github.com/nextcloud/deck/pull/6934
-
-### Improvements
-* [stable31] perf: Skip doing a query just to check if a board is deleted by @backportbot in https://github.com/nextcloud/deck/pull/6894
-
-## 1.15.0
-### Fixed
- - Fix: Adapt URLs generated in the backend to new routes #6743
- - Fix npm audit #6719
- - Fix: skip exporting a deleted card #6723
-
-## 1.15.0-beta.2
+## 1.16.0-beta.1
 
 ### Added
+- feat: update default content @luka-nextcloud [#6740](https://github.com/nextcloud/deck/pull/6740)
+- feat: add board import and export @luka-nextcloud [#6872](https://github.com/nextcloud/deck/pull/6872)
+- feat: use outline icons @luka-nextcloud [#7114](https://github.com/nextcloud/deck/pull/7114)
+- Add OCC commands for global calendar feature opt-in and opt-out in Deck @Fledermaus-20 [#7080](https://github.com/nextcloud/deck/pull/7080)
 
-- feat: Implement reference resolving for cards that have a link in the title @juliusknorr [#6286](https://github.com/nextcloud/deck/pull/6286)
-
-### Other
-
-- Remove old project from README @edent [#6658](https://github.com/nextcloud/deck/pull/6658)
-- devcontainer(image): Fix package path @niclasheinz [#6653](https://github.com/nextcloud/deck/pull/6653)
-- remove deprecated nextcloud-vue-collections @grnd-alt [#6664](https://github.com/nextcloud/deck/pull/6664)
-- fix: set cypress ci server version to stable31 @grnd-alt [#6705](https://github.com/nextcloud/deck/pull/6705)
+### Fixed
+- CSV export fixes @gidan80 [#6800](https://github.com/nextcloud/deck/pull/6800)
 
 ## 1.15.0-beta.1
 ### Fixed

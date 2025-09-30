@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c
+class ComposerStaticInita802f567c811977afdf6203368ae43e9
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -14,10 +14,6 @@ class ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c
         'J' => 
         array (
             'JsonSchema\\' => 11,
-        ),
-        'I' => 
-        array (
-            'Icecave\\Repr\\' => 13,
         ),
     );
 
@@ -30,44 +26,10 @@ class ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
-        'Icecave\\Repr\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/icecave/repr/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'I' => 
-        array (
-            'Icecave\\Parity' => 
-            array (
-                0 => __DIR__ . '/..' . '/icecave/parity/src',
-            ),
-        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Icecave\\Parity\\AbstractExtendedComparable' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AbstractExtendedComparable.php',
-        'Icecave\\Parity\\AnyComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/AnyComparableInterface.php',
-        'Icecave\\Parity\\Comparator\\ComparatorInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ComparatorInterface.php',
-        'Icecave\\Parity\\Comparator\\DeepComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/DeepComparator.php',
-        'Icecave\\Parity\\Comparator\\ObjectIdentityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ObjectIdentityComparator.php',
-        'Icecave\\Parity\\Comparator\\ParityComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/ParityComparator.php',
-        'Icecave\\Parity\\Comparator\\PhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/PhpComparator.php',
-        'Icecave\\Parity\\Comparator\\StrictPhpComparator' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Comparator/StrictPhpComparator.php',
-        'Icecave\\Parity\\Exception\\NotComparableException' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Exception/NotComparableException.php',
-        'Icecave\\Parity\\ExtendedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableInterface.php',
-        'Icecave\\Parity\\ExtendedComparableTrait' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/ExtendedComparableTrait.php',
-        'Icecave\\Parity\\PackageInfo' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/PackageInfo.php',
-        'Icecave\\Parity\\Parity' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/Parity.php',
-        'Icecave\\Parity\\RestrictedComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/RestrictedComparableInterface.php',
-        'Icecave\\Parity\\SelfComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SelfComparableInterface.php',
-        'Icecave\\Parity\\SubClassComparableInterface' => __DIR__ . '/..' . '/icecave/parity/src/Icecave/Parity/SubClassComparableInterface.php',
-        'Icecave\\Repr\\Generator' => __DIR__ . '/..' . '/icecave/repr/src/Generator.php',
-        'Icecave\\Repr\\PackageInfo' => __DIR__ . '/..' . '/icecave/repr/src/PackageInfo.php',
-        'Icecave\\Repr\\Repr' => __DIR__ . '/..' . '/icecave/repr/src/Repr.php',
-        'Icecave\\Repr\\RepresentableInterface' => __DIR__ . '/..' . '/icecave/repr/src/RepresentableInterface.php',
         'JsonSchema\\ConstraintError' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/ConstraintError.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
@@ -104,6 +66,10 @@ class ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c
         'JsonSchema\\Rfc3339' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Rfc3339.php',
         'JsonSchema\\SchemaStorage' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/SchemaStorage.php',
         'JsonSchema\\SchemaStorageInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/SchemaStorageInterface.php',
+        'JsonSchema\\Tool\\DeepComparer' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Tool/DeepComparer.php',
+        'JsonSchema\\Tool\\DeepCopy' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Tool/DeepCopy.php',
+        'JsonSchema\\Tool\\Validator\\RelativeReferenceValidator' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Tool/Validator/RelativeReferenceValidator.php',
+        'JsonSchema\\Tool\\Validator\\UriValidator' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Tool/Validator/UriValidator.php',
         'JsonSchema\\UriResolverInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/UriResolverInterface.php',
         'JsonSchema\\UriRetrieverInterface' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/UriRetrieverInterface.php',
         'JsonSchema\\Uri\\Retrievers\\AbstractRetriever' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Uri/Retrievers/AbstractRetriever.php',
@@ -124,10 +90,9 @@ class ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc89537a172cee5c19093b4ea0cb5365c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita802f567c811977afdf6203368ae43e9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita802f567c811977afdf6203368ae43e9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita802f567c811977afdf6203368ae43e9::$classMap;
 
         }, null, ClassLoader::class);
     }

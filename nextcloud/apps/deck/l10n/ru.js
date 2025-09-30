@@ -107,6 +107,7 @@ OC.L10N.register(
     "Action needed" : "Требуется действие",
     "Later" : "Позже",
     "copy" : "Копировать",
+    "Custom lists - click to rename!" : "Пользовательские списки — нажмите, чтобы переименовать!",
     "To Do" : "Задачи",
     "In Progress" : "Выполянется",
     "Done" : "Выполненные",
@@ -274,6 +275,7 @@ OC.L10N.register(
     "{count} comments, {unread} unread" : "{count} комментариев, {unread} непрочитано",
     "Todo items" : "Элементы списка задач",
     "Edit card title" : "Изменить заголовок карточки",
+    "Open link" : "Открыть ссылку",
     "Card deleted" : "Карточка удалена",
     "Edit title" : "Редактировать заголовок",
     "Assign to me" : "Назначить себе",
@@ -343,9 +345,6 @@ OC.L10N.register(
     "Export as CSV" : "Экспортировать в файл CSV",
     "Export" : "Экспорт",
     "Loading filtered view" : "Выполняется отбор",
-    "Today" : "Сегодня",
-    "Tomorrow" : "Завтра",
-    "No due" : "Без назначенной даты",
     "Search for {searchQuery} in all boards" : "Искать {searchQuery} на всех досках",
     "No results found" : "Результаты отсутствуют",
     "Deck board {name}\n* Last modified on {lastMod}" : "Доска «{name}»\n* Последнее изменение: {lastMod}",
@@ -385,6 +384,9 @@ OC.L10N.register(
     "Example Task 3" : "Пример задачи 3",
     "Example Task 2" : "Пример задачи 2",
     "Example Task 1" : "Пример задачи 1",
-    "Move card to another board" : "Переместить карточку на другую доску"
+    "Move card to another board" : "Переместить карточку на другую доску",
+    "Today" : "Сегодня",
+    "Tomorrow" : "Завтра",
+    "No due" : "Без назначенной даты"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

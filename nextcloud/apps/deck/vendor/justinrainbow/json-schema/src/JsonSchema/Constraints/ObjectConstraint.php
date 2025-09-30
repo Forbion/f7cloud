@@ -1,43 +1,40 @@
 <?php
 
-/*
- * This file is part of the JsonSchema package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace JsonSchema\Constraints;
 
 use JsonSchema\ConstraintError;
 use JsonSchema\Entity\JsonPointer;
 
-/**
- * The ObjectConstraint Constraints, validates an object against a given schema
- *
- * @author Robert Schönthal <seroscho@googlemail.com>
- * @author Bruno Prieto Reis <bruno.p.reis@gmail.com>
- */
 class ObjectConstraint extends Constraint
 {
     /**
-     * @var array List of properties to which a default value has been applied
+     * @var list<string> List of properties to which a default value has been applied
      */
-    protected $appliedDefaults = array();
+    protected $appliedDefaults = [];
 
     /**
      * {@inheritdoc}
+     *
+     * @param list<string> $appliedDefaults
      */
-    public function check(&$element, $schema = null, JsonPointer $path = null, $properties = null,
-        $additionalProp = null, $patternProperties = null, $appliedDefaults = array())
-    {
+    public function check(
+        &$element,
+        $schema = null,
+        ?JsonPointer $path = null,
+        $properties = null,
+        $additionalProp = null,
+        $patternProperties = null,
+        $appliedDefaults = []
+    ): void {
         if ($element instanceof UndefinedConstraint) {
             return;
         }
 
         $this->appliedDefaults = $appliedDefaults;
 
-        $matches = array();
+        $matches = [];
         if ($patternProperties) {
             // validate the element pattern properties
             $matches = $this->validatePatternProperties($element, $path, $patternProperties);
@@ -52,15 +49,15 @@ class ObjectConstraint extends Constraint
         $this->validateElement($element, $matches, $schema, $path, $properties, $additionalProp);
     }
 
-    public function validatePatternProperties($element, JsonPointer $path = null, $patternProperties)
+    public function validatePatternProperties($element, ?JsonPointer $path, $patternProperties)
     {
-        $matches = array();
+        $matches = [];
         foreach ($patternProperties as $pregex => $schema) {
             $fullRegex = self::jsonPatternToPhpRegex($pregex);
 
             // Validate the pattern before using it to test for matches
             if (@preg_match($fullRegex, '') === false) {
-                $this->addError(ConstraintError::PREGEX_INVALID(), $path, array('pregex' => $pregex));
+                $this->addError(ConstraintError::PREGEX_INVALID(), $path, ['pregex' => $pregex]);
                 continue;
             }
             foreach ($element as $i => $value) {
@@ -84,7 +81,7 @@ class ObjectConstraint extends Constraint
      * @param \StdClass        $properties     Properties
      * @param mixed            $additionalProp Additional properties
      */
-    public function validateElement($element, $matches, $schema = null, JsonPointer $path = null,
+    public function validateElement($element, $matches, $schema = null, ?JsonPointer $path = null,
         $properties = null, $additionalProp = null)
     {
         $this->validateMinMaxConstraint($element, $schema, $path);
@@ -94,7 +91,7 @@ class ObjectConstraint extends Constraint
 
             // no additional properties allowed
             if (!in_array($i, $matches) && $additionalProp === false && $this->inlineSchemaProperty !== $i && !$definition) {
-                $this->addError(ConstraintError::ADDITIONAL_PROPERTIES(), $path, array('property' => $i));
+                $this->addError(ConstraintError::ADDITIONAL_PROPERTIES(), $path, ['property' => $i]);
             }
 
             // additional properties defined
@@ -109,10 +106,10 @@ class ObjectConstraint extends Constraint
             // property requires presence of another
             $require = $this->getProperty($definition, 'requires');
             if ($require && !$this->getProperty($element, $require)) {
-                $this->addError(ConstraintError::REQUIRES(), $path, array(
+                $this->addError(ConstraintError::REQUIRES(), $path, [
                     'property' => $i,
                     'requiredProperty' => $require
-                ));
+                ]);
             }
 
             $property = $this->getProperty($element, $i, $this->factory->createInstanceFor('undefined'));
@@ -129,7 +126,7 @@ class ObjectConstraint extends Constraint
      * @param \stdClass        $properties Property definitions
      * @param JsonPointer|null $path       Path?
      */
-    public function validateProperties(&$element, $properties = null, JsonPointer $path = null)
+    public function validateProperties(&$element, $properties = null, ?JsonPointer $path = null)
     {
         $undefinedConstraint = $this->factory->createInstanceFor('undefined');
 
@@ -157,7 +154,7 @@ class ObjectConstraint extends Constraint
     {
         if (is_array($element) && (isset($element[$property]) || array_key_exists($property, $element)) /*$this->checkMode == self::CHECK_MODE_TYPE_CAST*/) {
             return $element[$property];
-        } elseif (is_object($element) && property_exists($element, $property)) {
+        } elseif (is_object($element) && property_exists($element, (string) $property)) {
             return $element->$property;
         }
 
@@ -171,18 +168,22 @@ class ObjectConstraint extends Constraint
      * @param \stdClass        $objectDefinition ObjectConstraint definition
      * @param JsonPointer|null $path             Path to test?
      */
-    protected function validateMinMaxConstraint($element, $objectDefinition, JsonPointer $path = null)
+    protected function validateMinMaxConstraint($element, $objectDefinition, ?JsonPointer $path = null)
     {
+        if (!$this->getTypeCheck()::isObject($element)) {
+            return;
+        }
+
         // Verify minimum number of properties
-        if (isset($objectDefinition->minProperties) && !is_object($objectDefinition->minProperties)) {
-            if ($this->getTypeCheck()->propertyCount($element) < $objectDefinition->minProperties) {
-                $this->addError(ConstraintError::PROPERTIES_MIN(), $path, array('minProperties' => $objectDefinition->minProperties));
+        if (isset($objectDefinition->minProperties) && is_int($objectDefinition->minProperties)) {
+            if ($this->getTypeCheck()->propertyCount($element) < max(0, $objectDefinition->minProperties)) {
+                $this->addError(ConstraintError::PROPERTIES_MIN(), $path, ['minProperties' => $objectDefinition->minProperties]);
             }
         }
         // Verify maximum number of properties
-        if (isset($objectDefinition->maxProperties) && !is_object($objectDefinition->maxProperties)) {
-            if ($this->getTypeCheck()->propertyCount($element) > $objectDefinition->maxProperties) {
-                $this->addError(ConstraintError::PROPERTIES_MAX(), $path, array('maxProperties' => $objectDefinition->maxProperties));
+        if (isset($objectDefinition->maxProperties) && is_int($objectDefinition->maxProperties)) {
+            if ($this->getTypeCheck()->propertyCount($element) > max(0, $objectDefinition->maxProperties)) {
+                $this->addError(ConstraintError::PROPERTIES_MAX(), $path, ['maxProperties' => $objectDefinition->maxProperties]);
             }
         }
     }

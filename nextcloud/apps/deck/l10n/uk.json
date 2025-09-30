@@ -86,7 +86,7 @@
     "Cards due tomorrow" : "Картки на завтра",
     "Upcoming cards" : "Очікують на виконання",
     "Load more" : "Більше",
-    "Welcome to Nextcloud Deck!" : "Ласкаво просимо до колоди Nextcloud!",
+    "Welcome to Nextcloud Deck!" : "Ласкаво просимо до Колоди для Nextcloud!",
     "The card \"%s\" on \"%s\" has been assigned to you by %s." : "Картка \"%s\" на \"%s\" була призначена вам %s.",
     "{user} has assigned the card {deck-card} on {deck-board} to you." : "{user} призначив вам карту {deck-card} на {deck-board}.",
     "The card \"%s\" on \"%s\" has reached its due date." : "Термін дії картки \"%s\" на \"%s\" закінчився.",
@@ -95,7 +95,7 @@
     "{user} has mentioned you in a comment on {deck-card}." : "{user} згадав вас у коментарі до {deck-card}.",
     "The board \"%s\" has been shared with you by %s." : "Дошку \"%s\" з вами поділився %s.",
     "{user} has shared {deck-board} with you." : "{user} поділився з вами {deck-board}.",
-    "Deck board" : "Дошка Deck",
+    "Deck board" : "Дошка колоди",
     "Owned by %1$s" : "Належить %1$s",
     "Deck boards, cards and comments" : "Дошки колод, карти та коментарі",
     "From %1$s, in %2$s/%3$s, owned by %4$s" : "З %1$s, в %2$s/%3$s, у власності %4$s",
@@ -325,7 +325,7 @@
     "All boards" : "Усі дошки",
     "Archived boards" : "Архівні дошки",
     "Shared with you" : "Вам надано доступ",
-    "Deck settings" : "Налаштування колоди",
+    "Deck settings" : "Налаштування",
     "Use bigger card view" : "Режим перегляду зі збільшеними картками",
     "Show card ID badge" : "Покажіть бейдж з ідентифікаційною карткою",
     "Show boards in calendar/tasks" : "Показувати дошки в календарі та завданнях",
@@ -371,9 +371,7 @@
     "Note: Only the JSON format is supported for importing back into the Deck app." : "Примітка: Для імпорту в додаток Deck підтримується лише формат JSON.",
     "Export" : "Експортувати",
     "Loading filtered view" : "Завантаження відфільтрованого перегляду",
-    "Today" : "Сьогодні",
-    "Tomorrow" : "Завтра",
-    "No due" : "Без призначеної дати",
+    "Search for {searchQuery} in other boards" : "Шукати {searchQuery} на інших дошках",
     "Search for {searchQuery} in all boards" : "Шукати {searchQuery} на всіх дошках оголошень",
     "No results found" : "Не знайдено жодного результату",
     "Deck board {name}\n* Last modified on {lastMod}" : "Колода {name}\n* Востаннє змінено на {lastMod}",
@@ -414,6 +412,9 @@
     "Example Task 3" : "Приклад завдання 3",
     "Example Task 2" : "Приклад завдання 2",
     "Example Task 1" : "Приклад завдання 1",
-    "Move card to another board" : "Перемістити картку до іншої дошки"
+    "Move card to another board" : "Перемістити картку до іншої дошки",
+    "Today" : "Сьогодні",
+    "Tomorrow" : "Завтра",
+    "No due" : "Без призначеної дати"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

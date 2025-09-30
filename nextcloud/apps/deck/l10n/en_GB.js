@@ -128,8 +128,8 @@ OC.L10N.register(
     "Card not found" : "Card not found",
     "Path is already shared with this card" : "Path is already shared with this card",
     "Invalid date, date format must be YYYY-MM-DD" : "Invalid date, date format must be YYYY-MM-DD",
-    "Personal planning and team project organization" : "Personal planning and team project organization",
-    "Deck is a kanban style organization tool aimed at personal planning and project organization for teams integrated with Nextcloud.\n\n\n- 📥 Add your tasks to cards and put them in order\n- 📄 Write down additional notes in Markdown\n- 🔖 Assign labels for even better organization\n- 👥 Share with your team, friends or family\n- 📎 Attach files and embed them in your Markdown description\n- 💬 Discuss with your team using comments\n- ⚡ Keep track of changes in the activity stream\n- 🚀 Get your project organized" : "Deck is a kanban style organization tool aimed at personal planning and project organization for teams integrated with Nextcloud.\n\n\n- 📥 Add your tasks to cards and put them in order\n- 📄 Write down additional notes in Markdown\n- 🔖 Assign labels for even better organization\n- 👥 Share with your team, friends or family\n- 📎 Attach files and embed them in your Markdown description\n- 💬 Discuss with your team using comments\n- ⚡ Keep track of changes in the activity stream\n- 🚀 Get your project organized",
+    "Personal planning and team project organization" : "Personal planning and team project organisation",
+    "Deck is a kanban style organization tool aimed at personal planning and project organization for teams integrated with Nextcloud.\n\n\n- 📥 Add your tasks to cards and put them in order\n- 📄 Write down additional notes in Markdown\n- 🔖 Assign labels for even better organization\n- 👥 Share with your team, friends or family\n- 📎 Attach files and embed them in your Markdown description\n- 💬 Discuss with your team using comments\n- ⚡ Keep track of changes in the activity stream\n- 🚀 Get your project organized" : "Deck is a kanban style organisation tool aimed at personal planning and project organisation for teams integrated with Nextcloud.\n\n\n- 📥 Add your tasks to cards and put them in order\n- 📄 Write down additional notes in Markdown\n- 🔖 Assign labels for even better organisation\n- 👥 Share with your team, friends or family\n- 📎 Attach files and embed them in your Markdown description\n- 💬 Discuss with your team using comments\n- ⚡ Keep track of changes in the activity stream\n- 🚀 Get your project organised",
     "Add board" : "Add board",
     "Card details" : "Card details",
     "Select the board to link to a project" : "Select the board to link to a project",
@@ -373,9 +373,7 @@ OC.L10N.register(
     "Note: Only the JSON format is supported for importing back into the Deck app." : "Note: Only the JSON format is supported for importing back into the Deck app.",
     "Export" : "Export",
     "Loading filtered view" : "Loading filtered view",
-    "Today" : "Today",
-    "Tomorrow" : "Tomorrow",
-    "No due" : "No due",
+    "Search for {searchQuery} in other boards" : "Search for {searchQuery} in other boards",
     "Search for {searchQuery} in all boards" : "Search for {searchQuery} in all boards",
     "No results found" : "No results found",
     "Deck board {name}\n* Last modified on {lastMod}" : "Deck board {name}\n* Last modified on {lastMod}",
@@ -416,6 +414,9 @@ OC.L10N.register(
     "Example Task 3" : "Example Task 3",
     "Example Task 2" : "Example Task 2",
     "Example Task 1" : "Example Task 1",
-    "Move card to another board" : "Move card to another board"
+    "Move card to another board" : "Move card to another board",
+    "Today" : "Today",
+    "Tomorrow" : "Tomorrow",
+    "No due" : "No due"
 },
 "nplurals=2; plural=(n != 1);");

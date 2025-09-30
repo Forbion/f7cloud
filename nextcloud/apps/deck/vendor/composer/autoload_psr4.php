@@ -8,5 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'MabeEnum\\' => array($vendorDir . '/marc-mabe/php-enum/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
-    'Icecave\\Repr\\' => array($vendorDir . '/icecave/repr/src'),
 );
