@@ -1958,8 +1958,8 @@ body .app-files {
     }
 
 }
-.app-files ~ .modal-mask,
-.app-files + .modal-mask {
+.app-files ~ .modal-mask:not(.viewer),
+.app-files + .modal-mask:not(.viewer) {
     --color-primary-element: #70B62B !important;
     --color-primary-element-text: #ffffff !important;
     & .modal-container {
