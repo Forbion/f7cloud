@@ -1,7 +1,0 @@
-{
-    "plugin": {
-        "suggestions": true,
-        "ignoreSystemAddressbook": false,
-        "calendar": true
-    }
-}
